@@ -29,6 +29,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -513,9 +515,6 @@
     <Compile Include="Models\VisitDurationsmonthly.cs" />
     <Compile Include="Models\Visitshopsmonthly.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repostiory\PartialHeaderMenu\IPartialHeader.cs" />
     <Compile Include="Repostiory\PartialHeaderMenu\PartialHeader.cs" />
@@ -1048,22 +1047,9 @@
     <Content Include="assests\pluggins\Transfer\icon_font\css\icon_font.css" />
     <Content Include="assests\pluggins\Transfer\icon_font\font\iconfont.svg" />
     <Content Include="assests\pluggins\Transfer\jquery.transfer.js" />
-    <Content Include="bin\Aspose.Pdf.Kit.dll" />
-    <Content Include="bin\BusinessLogicLayer.dll" />
-    <Content Include="bin\DataAccessLayer.dll" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityLayer.dll" />
-    <Content Include="bin\FTSEntityframework.dll" />
-    <Content Include="bin\Ionic.Zip.dll" />
-    <Content Include="bin\Microsoft.QualityTools.Testing.Fakes.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\UtilityLayer.dll" />
     <Content Include="Commonfolder\csodw3lypxalionmv1jtyttu_11984_cropped5060759795648489386.jpg.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Models\ShopAddress.asmx" />
-    <Content Include="obj\Debug\MyShopProject.csproj.FileListAbsolute.txt" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1717,8 +1703,6 @@
     <Content Include="Areas\MYSHOP\Views\ShopOrderRating\Rendergrid.cshtml" />
     <Content Include="Areas\MYSHOP\Views\PJPDetailsList\GetPJPDetailsImportLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\TargetAchievementAnalytics.cshtml" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\MyShopProject.csprojResolveAssemblyReference.cache" />
     <Fakes Include="Fakes\Microsoft.AspNet.Identity.Core.fakes" />
     <Content Include="Areas\MYSHOP\Views\SearchingInputs\_AreaPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\SearchingInputs\_CityPartial.cshtml" />
@@ -1936,19 +1920,16 @@
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformance\PartialTerritorySalesInchargeWisePerformance.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TeamVisitChannelHierarchy\TeamVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TeamVisitChannelHierarchy\TeamVisitChannelHierarchyGridViewCallback.cshtml" />
-
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardAttendanceTVH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewTeamH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewDetailsTeamVisitH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewSalesmanDetailTeamH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardStateComboboxTVH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardBranchComboboxTVH.cshtml" />
-
     <Content Include="Areas\MYSHOP\Views\DSVisitChannelHierarchy\DSVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DSVisitChannelHierarchy\_PartialGridDSVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\TerritorySalesInchargeWisePerformanceAnaly.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\PartialTerritorySalesInchargeWisePerformanceAnaly.cshtml" />
-
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3033,7 +3014,6 @@
     <Folder Include="Areas\MYSHOP\Views\InvoiceDelivaryregister\" />
     <Folder Include="Areas\MYSHOP\Views\MasterPopulate\" />
     <Folder Include="Areas\MYSHOP\Views\PartialMapRoute\" />
-    <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Temporary\" />
     <Folder Include="Views\AttedancewisePerformance\" />
   </ItemGroup>
