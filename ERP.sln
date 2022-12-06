@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP", "ERP.UI\ERP.csproj", "{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,13 +24,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreezeERPAPI", "BreezeERPAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAPI", "ShopAPI\ShopAPI.csproj", "{E80420D8-44AE-4336-84D0-8499A550AFFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop", "MyShop\MyShop.csproj", "{3AC4B33B-476A-4A03-8939-11B65B82A7E0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTSEntityframework", "FTSEntityframework\FTSEntityframework.csproj", "{33549260-CC03-41F9-B519-3707ABC219A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShopProject", "MyShopProject\MyShopProject.csproj", "{227AA681-ED62-4841-A858-48839794576A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MISApplication", "MISApplication\MISApplication.csproj", "{1FEAD7C6-5793-4F07-8588-52BB529E5149}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reports", "Reports\Reports.csproj", "{2954AEFF-5FF7-4AE0-9540-2A44F0DA2D4F}"
 EndProject
@@ -68,10 +64,6 @@ Global
 		{E80420D8-44AE-4336-84D0-8499A550AFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E80420D8-44AE-4336-84D0-8499A550AFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E80420D8-44AE-4336-84D0-8499A550AFFB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AC4B33B-476A-4A03-8939-11B65B82A7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AC4B33B-476A-4A03-8939-11B65B82A7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AC4B33B-476A-4A03-8939-11B65B82A7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AC4B33B-476A-4A03-8939-11B65B82A7E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33549260-CC03-41F9-B519-3707ABC219A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33549260-CC03-41F9-B519-3707ABC219A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33549260-CC03-41F9-B519-3707ABC219A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,10 +72,6 @@ Global
 		{227AA681-ED62-4841-A858-48839794576A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{227AA681-ED62-4841-A858-48839794576A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{227AA681-ED62-4841-A858-48839794576A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FEAD7C6-5793-4F07-8588-52BB529E5149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FEAD7C6-5793-4F07-8588-52BB529E5149}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FEAD7C6-5793-4F07-8588-52BB529E5149}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FEAD7C6-5793-4F07-8588-52BB529E5149}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2954AEFF-5FF7-4AE0-9540-2A44F0DA2D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2954AEFF-5FF7-4AE0-9540-2A44F0DA2D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2954AEFF-5FF7-4AE0-9540-2A44F0DA2D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,5 +79,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D2999A2-03D5-46A2-AC65-A1C9DAE9A636}
 	EndGlobalSection
 EndGlobal

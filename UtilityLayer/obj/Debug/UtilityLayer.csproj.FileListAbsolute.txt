@@ -1,0 +1,2 @@
+E:\PROJECTS\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.AssemblyReference.cache
+E:\PROJECTS\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.CoreCompileInputs.cache
