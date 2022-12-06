@@ -29,6 +29,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -513,9 +515,6 @@
     <Compile Include="Models\VisitDurationsmonthly.cs" />
     <Compile Include="Models\Visitshopsmonthly.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repostiory\PartialHeaderMenu\IPartialHeader.cs" />
     <Compile Include="Repostiory\PartialHeaderMenu\PartialHeader.cs" />
@@ -1718,7 +1717,6 @@
     <Content Include="Areas\MYSHOP\Views\PJPDetailsList\GetPJPDetailsImportLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\TargetAchievementAnalytics.cshtml" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\MyShopProject.csprojResolveAssemblyReference.cache" />
     <Fakes Include="Fakes\Microsoft.AspNet.Identity.Core.fakes" />
     <Content Include="Areas\MYSHOP\Views\SearchingInputs\_AreaPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\SearchingInputs\_CityPartial.cshtml" />
@@ -1936,19 +1934,16 @@
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformance\PartialTerritorySalesInchargeWisePerformance.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TeamVisitChannelHierarchy\TeamVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TeamVisitChannelHierarchy\TeamVisitChannelHierarchyGridViewCallback.cshtml" />
-
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardAttendanceTVH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewTeamH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewDetailsTeamVisitH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardGridViewSalesmanDetailTeamH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardStateComboboxTVH.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardBranchComboboxTVH.cshtml" />
-
     <Content Include="Areas\MYSHOP\Views\DSVisitChannelHierarchy\DSVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DSVisitChannelHierarchy\_PartialGridDSVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\TerritorySalesInchargeWisePerformanceAnaly.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\PartialTerritorySalesInchargeWisePerformanceAnaly.cshtml" />
-
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
