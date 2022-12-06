@@ -1,0 +1,2 @@
+E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.AssemblyReference.cache
+E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.CoreCompileInputs.cache
