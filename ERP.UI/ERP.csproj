@@ -1210,7 +1210,6 @@
     <Content Include="assests\fonts\font-awesome\css\font-awesome.css" />
     <Content Include="assests\fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="assests\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="assests\fonts\font-awesome\HELP-US-OUT.txt" />
     <Content Include="assests\images\1.png" />
     <Content Include="assests\images\10.png" />
     <Content Include="assests\images\11.png" />
@@ -1624,7 +1623,6 @@
     <Content Include="ckeditor\lang\zh-cn.js" />
     <Content Include="ckeditor\lang\zh.js" />
     <Content Include="ckeditor\lang\_languages.js" />
-    <Content Include="ckeditor\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
@@ -1686,7 +1684,6 @@
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
     <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
-    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\a11yhelp\lang\cs.js" />
     <Content Include="ckeditor\plugins\a11yhelp\lang\cy.js" />
     <Content Include="ckeditor\plugins\a11yhelp\lang\da.js" />
@@ -1713,7 +1710,6 @@
     <Content Include="ckeditor\plugins\a11yhelp\lang\ug.js" />
     <Content Include="ckeditor\plugins\a11yhelp\lang\vi.js" />
     <Content Include="ckeditor\plugins\a11yhelp\lang\zh-cn.js" />
-    <Content Include="ckeditor\plugins\a11yhelp\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
@@ -1753,7 +1749,6 @@
     <Content Include="ckeditor\plugins\devtools\lang\uk.js" />
     <Content Include="ckeditor\plugins\devtools\lang\vi.js" />
     <Content Include="ckeditor\plugins\devtools\lang\zh-cn.js" />
-    <Content Include="ckeditor\plugins\devtools\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\devtools\plugin.js" />
     <Content Include="ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="ckeditor\plugins\div\dialogs\div.js" />
@@ -1820,7 +1815,6 @@
     <Content Include="ckeditor\plugins\placeholder\lang\uk.js" />
     <Content Include="ckeditor\plugins\placeholder\lang\vi.js" />
     <Content Include="ckeditor\plugins\placeholder\lang\zh-cn.js" />
-    <Content Include="ckeditor\plugins\placeholder\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\placeholder\placeholder.gif" />
     <Content Include="ckeditor\plugins\placeholder\plugin.js" />
     <Content Include="ckeditor\plugins\preview\preview.html" />
@@ -1934,7 +1928,6 @@
     <Content Include="ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
     <Content Include="ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
     <Content Include="ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
-    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="ckeditor\plugins\specialchar\lang\cs.js" />
     <Content Include="ckeditor\plugins\specialchar\lang\cy.js" />
@@ -1959,7 +1952,6 @@
     <Content Include="ckeditor\plugins\specialchar\lang\tr.js" />
     <Content Include="ckeditor\plugins\specialchar\lang\ug.js" />
     <Content Include="ckeditor\plugins\specialchar\lang\zh-cn.js" />
-    <Content Include="ckeditor\plugins\specialchar\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\stylesheetparser\plugin.js" />
     <Content Include="ckeditor\plugins\styles\styles\default.js" />
     <Content Include="ckeditor\plugins\tableresize\plugin.js" />
@@ -2001,7 +1993,6 @@
     <Content Include="ckeditor\plugins\uicolor\lang\uk.js" />
     <Content Include="ckeditor\plugins\uicolor\lang\vi.js" />
     <Content Include="ckeditor\plugins\uicolor\lang\zh-cn.js" />
-    <Content Include="ckeditor\plugins\uicolor\lang\_translationstatus.txt" />
     <Content Include="ckeditor\plugins\uicolor\plugin.js" />
     <Content Include="ckeditor\plugins\uicolor\uicolor.gif" />
     <Content Include="ckeditor\plugins\uicolor\yui\assets\hue_bg.png" />
@@ -2060,7 +2051,6 @@
     <Content Include="ckeditor\samples\old\xhtmlstyle.html" />
     <Content Include="ckeditor\samples\toolbarconfigurator\css\fontello.css" />
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
-    <Content Include="ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
     <Content Include="ckeditor\samples\toolbarconfigurator\index.html" />
     <Content Include="ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
     <Content Include="ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
@@ -2184,7 +2174,6 @@
     <Content Include="font-awesome\css\font-awesome.css" />
     <Content Include="font-awesome\css\font-awesome.min.css" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="font-awesome\HELP-US-OUT.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="htmlf\index.html" />
@@ -2253,7 +2242,6 @@
     <Content Include="OMS\CentralData\JSScript\jquery-1.3.2.js" />
     <Content Include="OMS\CentralData\JSScript\jquery-1.3.2.min.js" />
     <Content Include="OMS\CentralData\JSScript\jquery-1.7.2.min.js" />
-    <Content Include="OMS\CentralData\Readme.txt" />
     <Content Include="OMS\css\AjaxStyle.css" />
     <Content Include="OMS\css\demos.css" />
     <Content Include="OMS\css\dhtmlgoodies_calendar.css" />

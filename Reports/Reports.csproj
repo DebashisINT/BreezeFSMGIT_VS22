@@ -27,6 +27,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -234,7 +236,6 @@
     <Content Include="assests\fonts\font-awesome\css\font-awesome.css" />
     <Content Include="assests\fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="assests\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="assests\fonts\font-awesome\HELP-US-OUT.txt" />
     <Content Include="assests\images\1.png" />
     <Content Include="assests\images\10.png" />
     <Content Include="assests\images\11.png" />
