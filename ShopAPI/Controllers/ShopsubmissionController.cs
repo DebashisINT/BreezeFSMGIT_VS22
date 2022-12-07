@@ -19,8 +19,11 @@ namespace ShopAPI.Controllers
         public delegate void del(ShopsubmissionInput model, List<ShopsubmissionModel> omedl2);
         string uploadtext = "~/CommonFolder/Log/RevisitLog.txt";
         string svisitlog = "";
-        String logprint = System.Configuration.ConfigurationSettings.AppSettings["Logprint"];
-        
+        //Rev Debashis : Mantis:0025493
+        //String logprint = System.Configuration.ConfigurationSettings.AppSettings["Logprint"];
+        String logprint = System.Configuration.ConfigurationManager.AppSettings["Logprint"];
+        //End of Rev Debashis : Mantis:0025493
+
         [HttpPost]
         public HttpResponseMessage ShopVisited(ShopsubmissionInput model)
         {
@@ -41,8 +44,10 @@ namespace ShopAPI.Controllers
                 }
                 else
                 {
-
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    //End of Rev Debashis : Mantis:0025493
+                    //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                    //End of Rev Debashis : Mantis:0025493
                     string sessionId = "";
                     List<ShopsubmissionModel> omedl2 = new List<ShopsubmissionModel>();
                     foreach (var s2 in model.shop_list)
@@ -189,7 +194,10 @@ namespace ShopAPI.Controllers
         {
             // String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
 
-            String folderLocation = System.Configuration.ConfigurationSettings.AppSettings["ShopSubmitXMLURL"];
+            //Rev Debashis : Mantis:0025493
+            //String folderLocation = System.Configuration.ConfigurationSettings.AppSettings["ShopSubmitXMLURL"];
+            String folderLocation = System.Configuration.ConfigurationManager.AppSettings["ShopSubmitXMLURL"];
+            //End of Rev Debashis : Mantis:0025493
 
             //string sessionId = "";
 
@@ -198,16 +206,24 @@ namespace ShopAPI.Controllers
             DataTable dt = new DataTable();
             try
             {
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis : Mantis:0025493
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis : Mantis:0025493
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcmd.CommandTimeout = 60;
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_ApiShop_Activitysubmit", sqlcon);
                 //sqlcmd = new SqlCommand("Sp_ApiShop_Activitysubmit", sqlcon);
-                sqlcmd.Parameters.Add("@session_token", model.session_token);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                //Rev Debashis : Mantis:0025493
+                //sqlcmd.Parameters.Add("@session_token", model.session_token);
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                sqlcmd.Parameters.AddWithValue("session_token", model.session_token.ToString());
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id.ToString());
+                sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+                //End of Rev Debashis : Mantis:0025493
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -298,7 +314,10 @@ namespace ShopAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    //Rev Debashis : Mantis:0025493
+                    //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                    //End of Rev Debashis : Mantis:0025493
                     List<MeetingVisitList> omedl2 = new List<MeetingVisitList>();
                     foreach (var s2 in model.meeting_list)
                     {
@@ -323,15 +342,24 @@ namespace ShopAPI.Controllers
 
                     string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    //Rev Debashis : Mantis:0025493
+                    //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    //End of Rev Debashis : Mantis:0025493
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcmd.CommandTimeout = 60;
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("Proc_ApiMetting_Activitysubmit", sqlcon);
-                    sqlcmd.Parameters.Add("@session_token", model.session_token);
-                    sqlcmd.Parameters.Add("@user_id", model.user_id);
-                    sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    //Rev Debashis : Mantis:0025493
+                    //sqlcmd.Parameters.Add("@session_token", model.session_token);
+                    //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                    //sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
+                    sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+                    //End of Rev Debashis : Mantis:0025493
+
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);
@@ -376,7 +404,10 @@ namespace ShopAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    //Rev Debashis : Mantis:0025493
+                    //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                    //End of Rev Debashis : Mantis:0025493
                     List<OrderNotTakenList> omedl2 = new List<OrderNotTakenList>();
                     foreach (var s2 in model.ordernottaken_list)
                     {
@@ -391,15 +422,24 @@ namespace ShopAPI.Controllers
 
                     string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    //Rev Debashis : Mantis:0025493
+                    //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    //End of Rev Debashis : Mantis:0025493
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcmd.CommandTimeout = 60;
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("Proc_ApiShop_OrderNotTakenReason", sqlcon);
-                    sqlcmd.Parameters.Add("@session_token", model.session_token);
-                    sqlcmd.Parameters.Add("@user_id", model.user_id);
-                    sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    //Rev Debashis : Mantis:0025493
+                    //sqlcmd.Parameters.Add("@session_token", model.session_token);
+                    //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                    //sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
+                    sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+                    //End of Rev Debashis : Mantis:0025493
+
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);
@@ -448,7 +488,10 @@ namespace ShopAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    //Rev Debashis : Mantis:0025493
+                    //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                    //End of Rev Debashis : Mantis:0025493
                     string sessionId = "";
 
                     foreach (var s2 in model.shop_list)
@@ -513,15 +556,24 @@ namespace ShopAPI.Controllers
                     string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
                     String dates = DateTime.Now.ToString("ddMMyyyyhhmmssffffff");
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    //Rev Debashis : Mantis:0025493
+                    //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    //End of Rev Debashis : Mantis:0025493
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcmd.CommandTimeout = 60;
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("PRC_APIITCSHOPSUBMITACTIVITY", sqlcon);
-                    sqlcmd.Parameters.Add("@session_token", model.session_token);
-                    sqlcmd.Parameters.Add("@user_id", model.user_id);
-                    sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    //Rev Debashis : Mantis:0025493
+                    //sqlcmd.Parameters.Add("@session_token", model.session_token);
+                    //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                    //sqlcmd.Parameters.Add("@JsonXML", JsonXML);
+                    sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
+                    sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+                    //End of Rev Debashis : Mantis:0025493
+
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);

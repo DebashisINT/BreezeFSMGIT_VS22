@@ -16,8 +16,10 @@ namespace ShopAPI.Models
         public string category { get; set; }
 
         public string watt { get; set; }
+        //Rev Debashis Row:773
+        public decimal product_mrp_show { get; set; }
+        //End of Rev Debashis Row:773
 
-   
     }
     public class ProductclassInput
     {
