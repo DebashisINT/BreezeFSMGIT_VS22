@@ -574,7 +574,6 @@
     <Content Include="assests\fonts\font-awesome\css\font-awesome.css" />
     <Content Include="assests\fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="assests\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="assests\fonts\font-awesome\HELP-US-OUT.txt" />
     <Content Include="assests\fonts\icon_navs.svg" />
     <Content Include="assests\fonts\pignose.calendar.svg" />
     <Content Include="assests\images\1.png" />
@@ -1059,7 +1058,6 @@
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\UtilityLayer.dll" />
-    <Content Include="Commonfolder\csodw3lypxalionmv1jtyttu_11984_cropped5060759795648489386.jpg.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Models\ShopAddress.asmx" />
     <Content Include="obj\Debug\MyShopProject.csproj.FileListAbsolute.txt" />
@@ -1196,7 +1194,6 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
@@ -1345,7 +1342,6 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
-    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
@@ -1404,7 +1400,6 @@
     <Content Include="Scripts\ckeditor\samples\old\xhtmlstyle.html" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
-    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\index.html" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
@@ -2943,7 +2938,6 @@
     <Content Include="Scripts\Datatable\datatables.net\License.txt" />
     <Content Include="Scripts\GenericJScript.js" />
     <Content Include="Scripts\globalize.js" />
-    <Content Include="Scripts\jAlert-master\auto-compile-pre-commit-hook.txt" />
     <Content Include="Scripts\jAlert-master\dist\jAlert-functions.min.js" />
     <Content Include="Scripts\jAlert-master\dist\jAlert.css" />
     <Content Include="Scripts\jAlert-master\dist\jAlert.min.js" />
