@@ -22,9 +22,6 @@ namespace ShopAPI.Controllers
         {
             ProductlistOutput omodel = new ProductlistOutput();
             List<Productclass> oview = new List<Productclass>();
-          
-
-
 
             if (!ModelState.IsValid)
             {
@@ -34,23 +31,33 @@ namespace ShopAPI.Controllers
             }
             else
             {
-
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
-                String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
+                //Rev Debashis Row:773
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                String weburl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+                //End of Rev Debashis Row:773
                 string sessionId = "";
 
                 List<Locationupdate> omedl2 = new List<Locationupdate>();
 
                 DataSet ds = new DataSet();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_Productlist", sqlcon);
+                //Rev Debashis Row:773
                 //sqlcmd.Parameters.Add("@session_token", model.session_token);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@last_updated_date", model.last_update_date);
-           
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@last_updated_date", model.last_update_date);
+                sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@last_updated_date", model.last_update_date);
+                //End of Rev Debashis Row:773
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -93,17 +100,26 @@ namespace ShopAPI.Controllers
             }
             else
             {
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis Row:773
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis Row:773
 
                 DataSet ds = new DataSet();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_APIPRODUCTRATE", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@shop_id", model.shop_id);
-
+                //Rev Debashis Row:773
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@shop_id", model.shop_id);
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@shop_id", model.shop_id);
+                //End of Rev Debashis Row:773
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -142,15 +158,24 @@ namespace ShopAPI.Controllers
             }
             else
             {
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis Row:773
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis Row:773
 
                 DataSet ds = new DataSet();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_APIOfflineProductRate", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //Rev Debashis Row:773
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                //End of Rev Debashis Row:773
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -190,13 +215,21 @@ namespace ShopAPI.Controllers
             else
             {
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_Itemlist", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@Action", "ProductList");
+                //Rev Debashis Row:773
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@Action", "ProductList");
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@Action", "ProductList");
+                //End of Rev Debashis Row:773
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -233,13 +266,21 @@ namespace ShopAPI.Controllers
             else
             {
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_Itemlist", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@Action", "PrimaryApplication");
+                //Rev Debashis Row:773
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@Action", "PrimaryApplication");
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@Action", "PrimaryApplication");
+                //End of Rev Debashis Row:773
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -276,13 +317,21 @@ namespace ShopAPI.Controllers
             else
             {
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis Row:773
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis Row:773
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_Itemlist", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@Action", "SecondaryApplication");
+                //Rev Debashis Row:773
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                //sqlcmd.Parameters.Add("@Action", "SecondaryApplication");
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@Action", "SecondaryApplication");
+                //End of Rev Debashis Row:773
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);

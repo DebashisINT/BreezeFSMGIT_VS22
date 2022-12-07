@@ -28,19 +28,28 @@ namespace ShopAPI.Controllers
             }
             else
             {
-
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis : Row:772
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis : Row:772
                 string sessionId = "";
 
                 List<Locationupdate> omedl2 = new List<Locationupdate>();
 
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis : Row:772
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis : Row:772
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("proc_FTS_Configuration", sqlcon);
-                sqlcmd.Parameters.Add("@Action", "GlobalCheck");
+                //Rev Debashis : Row:772
+                //sqlcmd.Parameters.Add("@Action", "GlobalCheck");
+                sqlcmd.Parameters.AddWithValue("@Action", "GlobalCheck");
+                //End of Rev Debashis : Row:772
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -78,20 +87,30 @@ namespace ShopAPI.Controllers
             }
             else
             {
-
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis : Row:772
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis : Row:772
                 string sessionId = "";
 
                 List<Locationupdate> omedl2 = new List<Locationupdate>();
 
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis : Row:772
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis : Row:772
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("proc_FTS_Configuration", sqlcon);
-                sqlcmd.Parameters.Add("@Action", "UserCheck");
-                sqlcmd.Parameters.Add("@UserID", model.user_id);
+                //End of Rev Debashis : Row:772
+                //sqlcmd.Parameters.Add("@Action", "UserCheck");
+                //sqlcmd.Parameters.Add("@UserID", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@Action", "UserCheck");
+                sqlcmd.Parameters.AddWithValue("@UserID", model.user_id);
+                //End of Rev Debashis : Row:772
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -129,16 +148,25 @@ namespace ShopAPI.Controllers
             }
             else
             {
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis : Row:772
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis : Row:772
 
                 DataSet ds = new DataSet();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis : Row:772
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis : Row:772
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_API_MEETINGTYPE", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-               
+                //Rev Debashis : Row:772
+                //sqlcmd.Parameters.Add("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                //End of Rev Debashis : Row:772
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(ds);
@@ -177,17 +205,28 @@ namespace ShopAPI.Controllers
                 Encryption epasswrd = new Encryption();
                 string Encryptpass = epasswrd.Encrypt(model.password);
 
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                //Rev Debashis : Row:772
+                //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                //End of Rev Debashis : Row:772
                 string sessionId = "";
 
                 DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                //Rev Debashis : Row:772
+                //String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                //End of Rev Debashis : Row:772
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_APIBeforeLoginSettings", sqlcon);
-                sqlcmd.Parameters.Add("@userName",model.user_name);
-                sqlcmd.Parameters.Add("@password", Encryptpass);
+                //Rev Debashis : Row:772
+                //sqlcmd.Parameters.Add("@userName",model.user_name);
+                //sqlcmd.Parameters.Add("@password", Encryptpass);
+                sqlcmd.Parameters.AddWithValue("@userName", model.user_name);
+                sqlcmd.Parameters.AddWithValue("@password", Encryptpass);
+                //End of Rev Debashis : Row:772
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);

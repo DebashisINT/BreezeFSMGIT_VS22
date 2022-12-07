@@ -164,6 +164,8 @@ namespace ShopAPI.Models
         public bool IsShowNewOrderCart { get; set; }
         public bool IsmanualInOutTimeRequired { get; set; }
         public string surveytext { get; set; }
+        public bool IsDiscountInOrder { get; set; }
+        public bool IsViewMRPInOrder { get; set; }
         //End of Rev Debashis
     }
 
