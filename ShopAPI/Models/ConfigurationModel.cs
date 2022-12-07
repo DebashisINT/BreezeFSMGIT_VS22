@@ -166,7 +166,7 @@ namespace ShopAPI.Models
         public string surveytext { get; set; }
         public bool IsDiscountInOrder { get; set; }
         public bool IsViewMRPInOrder { get; set; }
-        //End of Rev Debashis
+        //End of Rev Debashis 
     }
 
     public class ConfigurationModelInput

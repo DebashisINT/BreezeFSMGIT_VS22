@@ -314,7 +314,7 @@ namespace ShopAPI.Controllers
                 }
                 else
                 {
-                    //Rev Debashis : Mantis:0025493
+                    //Rev Debashis : Mantis:0025493 
                     //String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
                     String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
                     //End of Rev Debashis : Mantis:0025493

@@ -37,7 +37,7 @@ namespace ShopAPI.Controllers
                 String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
                 String weburl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
                 //End of Rev Debashis Row:773
-                string sessionId = "";
+                string sessionId = ""; 
 
                 List<Locationupdate> omedl2 = new List<Locationupdate>();
 
@@ -50,11 +50,10 @@ namespace ShopAPI.Controllers
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_Productlist", sqlcon);
-                //Rev Debashis Row:773
                 //sqlcmd.Parameters.Add("@session_token", model.session_token);
+                //Rev Debashis Row:773                
                 //sqlcmd.Parameters.Add("@user_id", model.user_id);
                 //sqlcmd.Parameters.Add("@last_updated_date", model.last_update_date);
-                sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
                 sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
                 sqlcmd.Parameters.AddWithValue("@last_updated_date", model.last_update_date);
                 //End of Rev Debashis Row:773
