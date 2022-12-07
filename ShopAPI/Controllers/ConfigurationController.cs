@@ -17,7 +17,6 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public HttpResponseMessage fetch()
         {
-
             ConfigurationModel odata = new ConfigurationModel();
 
             if (!ModelState.IsValid)
