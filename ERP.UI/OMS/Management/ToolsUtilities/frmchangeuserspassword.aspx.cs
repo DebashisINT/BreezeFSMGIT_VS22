@@ -41,22 +41,13 @@ namespace ERP.OMS.Management.ToolsUtilities
                 {
                      Encryptpass_New = epasswrd.Encrypt(TxtNewPassword.Text.Trim());
                 }
-              
-                // Mantis Issue 25382
-                //if (Request.QueryString["uid"] != null)
-                if (HttpContext.Current.Session["userid"] != null)
-                    // End of Mantis Issue 25382
+
+                if (Request.QueryString["uid"] != null)
                 {
-                    // Mantis Issue 25382
-                    //string[] strisactive = oDBEngine.GetFieldValue1("tbl_master_user", "user_status", " user_id='" + Convert.ToString(Request.QueryString["uid"]) + "'",1);
-                    string[] strisactive = oDBEngine.GetFieldValue1("tbl_master_user", "user_status", " user_id='" + Convert.ToString(HttpContext.Current.Session["userid"]) + "'", 1);
-                    // End of Mantis Issue 25382
+                    string[] strisactive = oDBEngine.GetFieldValue1("tbl_master_user", "user_status", " user_id='" + Convert.ToString(Request.QueryString["uid"]) + "'", 1);
                     if (strisactive[0] == "0")
                     {
-                        // Mantis Issue 25382
-                        //oDBEngine.SetFieldValue("tbl_master_user", "user_password='" + Encryptpass_New + "'", " user_id='" + Convert.ToString(Request.QueryString["uid"]) + "'");
-                        oDBEngine.SetFieldValue("tbl_master_user", "user_password='" + Encryptpass_New + "'", " user_id='" + Convert.ToString(HttpContext.Current.Session["userid"]) + "'");
-                        // End of Mantis Issue 25382
+                        oDBEngine.SetFieldValue("tbl_master_user", "user_password='" + Encryptpass_New + "'", " user_id='" + Convert.ToString(Request.QueryString["uid"]) + "'");
 
                         Session.Remove("ChangePassOfUserid");
 
