@@ -37,7 +37,6 @@ E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraReports.v15.1.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraReports.v15.1.Web.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraScheduler.v15.1.Core.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\EntityLayer.dll
-E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\FTSEntityframework.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\UtilityLayer.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Aspose.Pdf.Kit.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Ionic.Zip.dll
