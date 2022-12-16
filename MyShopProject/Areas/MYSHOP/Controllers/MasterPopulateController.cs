@@ -128,8 +128,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
 
 
-
-                DataTable dtemp = lstuser.Getemplist(state, desig, model.userId, dept);
+                // Mantis Issue 25504
+                //DataTable dtemp = lstuser.Getemplist(state, desig, model.userId, dept);
+                DataTable dtemp = lstuser.Getemplist(state, desig, Convert.ToString(Session["userid"]), dept);
+                // End of Mantis Issue 25504
 
 
                 DataView view = new DataView(dtemp);
