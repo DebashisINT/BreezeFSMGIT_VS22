@@ -1776,10 +1776,16 @@
     li#tbsalesman + .tooltip {
         left: -50px !important;
     }
-
-    #cmbStateTV + .btn-group > button, #cmbBranchTV + .btn-group > button {
+    /*Rev Pallab*/
+    /*#cmbStateTV + .btn-group > button, #cmbBranchTV + .btn-group > button {
         border-radius: 50px;
         overflow: hidden;
         border: none;
-    }
+    }*/
+#cmbStateTV + .btn-group > button, #cmbBranchTV + .btn-group > button, #cmbStateTVH + .btn-group > button, #cmbBranchTVH + .btn-group > button {
+    border-radius: 50px;
+    overflow: hidden;
+    border: none;
+}
+/*Rev End Pallab*/
 

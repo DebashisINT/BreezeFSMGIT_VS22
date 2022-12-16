@@ -605,8 +605,11 @@ ul{
     width:400px !important;
 }
 .morethan14 {
-    column-count:3;
-    width:750px !important;
+    column-count: 3;
+    /*Rev Pallab*/
+    /* width: 750px !important;*/
+    width: 790px !important;
+    /*Rev End Pallab*/
 }
 /*flex*/
 
