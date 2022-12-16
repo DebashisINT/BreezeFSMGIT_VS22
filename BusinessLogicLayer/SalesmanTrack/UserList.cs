@@ -176,6 +176,9 @@ namespace SalesmanTrack
             //rev Pratik
             //proc.AddPara("@UserId", userId);
             //rev Pratik
+            // Mantis Issue 25504
+            proc.AddPara("@UserId", userId);
+            // End of Mantis Issue 25504
             proc.AddPara("@DeptId", DeptId);
             ds = proc.GetTable();
             return ds;
