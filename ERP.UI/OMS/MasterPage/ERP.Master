@@ -428,26 +428,30 @@
                  var classes = ['gogreen', 'mblue', 'Cpink', 'delta', 'alphaE', 'ramGr', 'ieCle', 'samsoon', 'regxs'];
 
                  if (!$(elem).children("ul").length) {
+                     /*rev Pallab 25528 */
                      /*var pMainModule = $(elem).closest('ul.dropdown-menu.firstSub').parent('li').addClass('theItem').children('a').text();*/
                      var pMainModule = $(elem).closest('ul.submenu-fl.firstSub').parent('li').addClass('theItem').children('a').text();
-
+                     /*rev end Pallab 25528*/
                      var arrTick = "";
                      if (pMainModule != "") {
                          arrTick = ">"
                      } else {
                          arrTick = ""
                      }
-
+                     /*rev Pallab 25528 */
                      /*var pText = $(elem).closest('ul.dropdown-menu').parent('li').addClass('theItem').children('a').text();*/
                      var pText = $(elem).closest('ul.submenu-fl').parent('li').addClass('theItem').children('a').text();
+                     /*rev end Pallab 25528*/
                      var e = $(elem).clone();
                      var s = $(elem).clone();
                      var index = Math.floor(Math.random() * classes.length);
                      var className = classes[index];
                      var itemText = $(e).find('a').text();
                      var itemText2 = $(s).find('a').text();
+                     /*rev Pallab 25528 */
                      /*var finalItem = $(e).addClass(className).find('a').html('<span class="ss"> ' + pMainModule + arrTick + pText + '</span><span class="texts"> ' + itemText + '</span>');*/
                      var finalItem = $(e).find('a').addClass(className).html('<span class="ss"> ' + pMainModule + arrTick + pText + '</span><span class="texts"> ' + itemText + '</span>');
+                     /*rev end Pallab 25528*/
                      var finalItem2 = $(s).addClass(className).find('a').html('<span class="texts"> ' + itemText + '</span>')
                      //$(e).addClass(className);
                      $('#clonedMenus').append(finalItem);
