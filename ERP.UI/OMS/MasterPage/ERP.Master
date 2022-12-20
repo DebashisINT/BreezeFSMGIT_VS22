@@ -539,6 +539,11 @@
                 <li class="relative">
                     <div class="searcherInput"><input type="text" onkeyup="myMenuFilter()" id="searchOnMenu" autocomplete="off" /><span class="iconZR"><i class="fa fa-search" style="cursor:pointer"></i></span></div>
                     <div class="resulter">
+                        <%--rev Pallab 25528--%>
+                        <div class="search-heading">Search in Menus
+                        <div class="search-heading-underline"></div>
+                        </div>
+                        <%--rev end Pallab 25528--%>
                         <ul id="clonedMenus"></ul>
                     </div>
                 </li>
