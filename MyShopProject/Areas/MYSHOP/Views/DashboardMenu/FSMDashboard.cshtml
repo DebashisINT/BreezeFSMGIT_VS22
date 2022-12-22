@@ -1688,7 +1688,7 @@
         $('#collapseTwo').addClass('in');
         Type = "Attendance";
         FilterName = "AT_WORK";
-        stateid = stateidsTV.join(',');// cmbState.GetValue();
+        stateid = stateidsTVH.join(',');// cmbState.GetValue();
 
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
@@ -1708,7 +1708,7 @@
         $('#collapseTwo').addClass('in');
         Type = "Attendance";
         FilterName = "ON_LEAVE";
-        stateid = stateidsTV.join(',');// cmbState.GetValue();
+        stateid = stateidsTVH.join(',');// cmbState.GetValue();
 
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
@@ -1731,7 +1731,7 @@
         $('#collapseTwo').addClass('in');
         Type = "Attendance";
         FilterName = "NOT_LOGIN";
-        stateid = stateidsTV.join(',');//cmbState.GetValue();
+        stateid = stateidsTVH.join(',');//cmbState.GetValue();
 
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
@@ -2184,7 +2184,7 @@
             // Mantis Issue 25468
         } else if (getTabDetail == "Team Visit - Hierarchy") {
             $(".mainAreaTAb .tab-pane, .tabItemsLI li").removeClass("active");
-            $(".tab-pane#teamVisit, #tbteamVisit").addClass("active");
+            $(".tab-pane#teamVisitH, #tbteamVisitH").addClass("active");
             $(".tab-pane#profile").addClass("hide");
             // End of Mantis Issue 25468
         } else {
