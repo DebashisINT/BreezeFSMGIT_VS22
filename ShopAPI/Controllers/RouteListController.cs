@@ -216,8 +216,16 @@ namespace ShopAPI.Controllers
                         oview.status = "200";
                         oview.message = "List populated.";
                         //Rev Debashis Row: 781
-                        oview.JointVisitSelectedUserName = Convert.ToString(dt.Tables[4].Rows[0]["JointVisitSelectedUserName"]);
-                        oview.JointVisit_Employee_Code = Convert.ToString(dt.Tables[4].Rows[0]["JointVisit_Employee_Code"]);
+                        if (dt.Tables[4].Rows.Count != 0)
+                        {
+                            oview.JointVisitSelectedUserName = Convert.ToString(dt.Tables[4].Rows[0]["JointVisitSelectedUserName"]);
+                            oview.JointVisit_Employee_Code = Convert.ToString(dt.Tables[4].Rows[0]["JointVisit_Employee_Code"]);
+                        }
+                        else
+                        {
+                            oview.JointVisitSelectedUserName = "";
+                            oview.JointVisit_Employee_Code = "";
+                        }
                         //End of Rev Debashis Row: 781
                     }
                     else
