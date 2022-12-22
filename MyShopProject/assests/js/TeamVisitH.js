@@ -270,6 +270,7 @@ function ShowTeamVisitHData() {
 
     WindowSize = $(window).width();
 
+    $(".teamVisitH-tb-hand").hide();
     // Mantis Issue 25455
     //$("#lblAtWorkTVH").html("<img src='/assests/images/Spinner.gif' />");
     //$("#lblOnLeaveTVH").html("<img src='/assests/images/Spinner.gif' />");
@@ -382,6 +383,7 @@ function ShowTeamVisitHData() {
 
     WindowSize = $(window).width();
 
+    $(".teamVisitH-tb-hand").hide();
     // Mantis Issue 25455
     //$("#lblAtWorkTVH").html("<img src='/assests/images/Spinner.gif' />");
     //$("#lblOnLeaveTVH").html("<img src='/assests/images/Spinner.gif' />");
@@ -743,7 +745,7 @@ function reloadBoxDataTVH(branchidsTVH) {
     // End of Mantis Issue 24729
     $.ajax({
         type: "POST",
-        url: "/DashboardMenu/GetDashboardDataVisitH",
+        url: "/DashboardMenu/GetDashboardDataVisit",
         data: JSON.stringify(obj),
         async: true,
         contentType: "application/json; charset=utf-8",

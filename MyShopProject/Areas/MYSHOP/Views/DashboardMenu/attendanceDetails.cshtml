@@ -506,6 +506,7 @@
                         }
                     }
                 });
+        $(".attendance-tb-hand").hide();
     }
 @*End of Mantis Issue 25455*@
 </script>
@@ -669,28 +670,33 @@
     }
 
     .colorBox {
-    background: #4f4e94;
-    color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    min-height:80px;
+        /*background: #4f4e94;*/
+        background: linear-gradient(150deg, rgb(79 78 148) 0%, rgb(140 139 221) 100%) !important;
+        color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 80px;
     }
 
-    .colorBox.c1 {
-    background: #309b60;
-    }
+        .colorBox.c1 {
+            /*background: #309b60;*/
+            background: linear-gradient(150deg, #309b60 0%, rgb(108 203 150) 100%) !important;
+        }
 
-    .colorBox.c2 {
-    background: #3798c5;
-    }
+        .colorBox.c2 {
+            /*background: #3798c5;*/
+            background: linear-gradient(150deg, #2187b7 0%, rgb(105 187 225) 100%) !important;
+        }
 
-    .colorBox.c3 {
-    background: #e68929;
-    }
+        .colorBox.c3 {
+            /*background: #e68929;*/
+            background: linear-gradient(150deg, #cb7114 0%, rgb(245 183 118) 100%) !important;
+        }
 
-    .colorBox.c4 {
-    background: #882626;
-    }
+        .colorBox.c4 {
+            /*background: #882626;*/
+            background: linear-gradient(150deg, #882626 0%, rgb(227 112 112) 100%) !important;
+        }
 
     .infoWrp {
     padding: 12px 15px;
@@ -719,11 +725,18 @@
     }
 
     .fltd {
-    position: absolute;
-    right: 20px;
-    top: 9px;
-    font-size: 37px !important;
-    color: rgba(0, 0, 0, 0.54);
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        font-size: 22px !important;
+        color: rgb(255 255 255);
+        padding: 10px;
+        border-radius: 50px;
+        background: #ffffff45;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 30px;
     }
 
     .box-holder {
