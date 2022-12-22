@@ -62,7 +62,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 Widgheading clearfix">
-                @if (Model.Where(x => x.DetailsName == "Total Employees").Count() > 0 || Model.Where(x => x.DetailsName == "At Work").Count() > 0 || Model.Where(x => x.DetailsName == "On Leave").Count() > 0 || Model.Where(x => x.DetailsName == "Not Logged In").Count() > 0)
+                @if (Model.Where(x => x.DetailsName == "Total Employees for Team Visit - Hierarchy").Count() > 0 || Model.Where(x => x.DetailsName == "At Work for Team Visit - Hierarchy").Count() > 0 || Model.Where(x => x.DetailsName == "On Leave for Team Visit - Hierarchy").Count() > 0 || Model.Where(x => x.DetailsName == "Not Logged In for Team Visit - Hierarchy").Count() > 0)
                 {
                     @*<span>Employee Attendance Summary/*Add to check*/</span>*@
                 }
@@ -151,7 +151,7 @@
         <div class="row">
             <div class="clearfix mb-5">
                 <div class="d-flex justify-content-center mainDashBoxes newStyleMN">
-                    @if (Model.Where(x => x.DetailsName == "Total Employees for Team Visit").Count() > 0)
+                    @if (Model.Where(x => x.DetailsName == "Total Employees for Team Visit - Hierarchy").Count() > 0)
                     {
                         <div class="flex-itm scr " data-scroll="accordion">
                             <div class="widgBox c2" id="a4" onclick="OnTotalClickTeamVisitH(this);">
@@ -169,7 +169,7 @@
                         </div>
                     }
 
-                    @if (Model.Where(x => x.DetailsName == "At Work for Team Visit").Count() > 0)
+                    @if (Model.Where(x => x.DetailsName == "At Work for Team Visit - Hierarchy").Count() > 0)
                     {
                         <div class="flex-itm scr " data-scroll="accordion">
                             <div class="widgBox c3" id="" onclick="AtWorkClickTeamVisitH(this);">
@@ -186,7 +186,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Where(x => x.DetailsName == "On Leave for Team Visit").Count() > 0)
+                    @if (Model.Where(x => x.DetailsName == "On Leave for Team Visit - Hierarchy").Count() > 0)
                     {
                         <div class="flex-itm scr " data-scroll="accordion">
                             <div class="widgBox c5" id="" onclick="OnLeaveClickTeamVisitH(this);">
@@ -203,7 +203,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Where(x => x.DetailsName == "Not Logged In for Team Visit").Count() > 0)
+                    @if (Model.Where(x => x.DetailsName == "Not Logged In for Team Visit - Hierarchy").Count() > 0)
                     {
                         <div class="flex-itm scr ">
                             <div class="widgBox c4" id="" onclick="NotLoggedInClickTeamVisitH(this);">
