@@ -321,9 +321,6 @@
     var statefilterid = "";
     var EMPCODE = "";
     var WindowSize = 0;
-    // Mantis Issue 25455
-    var branchid = "";
-    // End of Mantis Issue 25455
 
     function GSOnStartCallback(s, e) {
         e.customArgs["Type"] = Type;
@@ -2197,7 +2194,7 @@
 <style>
     .multiselect-container.dropdown-menu > li > a {
         text-align: left !important;
-        padding: 5px 0 !important;
+        padding: 2px 0 !important;
     }
 </style>
 <script src="~/assests/js/Leavelist.js"></script>
@@ -2317,6 +2314,52 @@
     .float-right
     {
         float: right;
+    }
+
+    #summary-show-btn img
+    {
+        width: 30px;
+    }
+
+    .hands:before {
+        /*content: "👇";*/
+        content: url('/assests/images/click-hand.png');
+        font-size: 30px;
+        /*transform: rotate(180deg);*/
+        right: 25px;
+        top: 45px;
+        animation: up-down 1s infinite;
+        position: absolute;
+    }
+    /*.details-btn .hands:before, .details-btn .hands:after {
+        content: "👇";
+        font-size: 40px;
+        opacity: 0;
+        transition: 0.4s ease-in-out;
+    }*/
+    /*.details-btn .hands:before {
+        transform: rotate(-60deg);
+        left: -45px;
+        top: -10px;
+    }
+    .details-btn .hands:after {
+        transform: rotate(170deg);
+        right: 30px;
+        top: 30px;
+    }*/
+    /*.details-btn:hover .hands:before {
+        opacity: 1;
+        left: -35px;
+    }
+    .details-btn:hover .hands:after {
+        opacity: 1;
+        top: 20px;
+    }*/
+
+    @@keyframes up-down {
+      50% {
+        margin-top: -10px;
+      }
     }
 </style>
 <!--Leave list end-->
@@ -2560,11 +2603,16 @@
                         <div role="tabpanel" class="tab-pane" id="FieldVisit">
                             @*rev Mantis Issue 25455*@
                             <div class="row">
-                                <div class="col-md-12 text-right clearfix py-0">
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
                                     <table class="float-right">
                                         <tr>
 
-                                            <td><button type="button" class="btn btn-success" onclick="ShowFieldVisitData()">Show</button></td>
+                                            <td>
+                                                <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">
+                                                    <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                    <div class="hands fieldvisit-tb-hand"></div>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2605,7 +2653,7 @@
                                 </div>
                                 <div class="row " id="gridsummaryFV">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget hide noShaded mtop20" id="dashDetails2FV">
+                                        <div class="boxWidget hide noShaded mt-2" id="dashDetails2FV">
                                             <div class="" id="">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" id="headingOneFV">
@@ -2631,7 +2679,7 @@
                                 </div>
                                 <div class="row hide" id="gridthirdlevelFV">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget  noShaded mtop20" id="dashDetails3FV">
+                                        <div class="boxWidget  noShaded mt-2" id="dashDetails3FV">
                                             <div class="" id="accordion" role="tablist" aria-multiselectable="true">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" id="">
@@ -2696,7 +2744,7 @@
                                 {
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="boxWidget noShaded mtop20">
+                                            <div class="boxWidget noShaded mt-2">
                                                 <div class="panel-heading" role="tab" id="">
 
                                                     <h4 class="Widgheading relative" aria-expanded="true" aria-controls="collapseTwo">
@@ -2721,11 +2769,17 @@
                         <div role="tabpanel" class="tab-pane active" id="profile">
                             @*rev Mantis Issue 25455*@
                             <div class="row">
-                                <div class="col-md-12 text-right clearfix py-0">
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
                                     <table class="float-right">
                                         <tr>
-                                            
-                                            <td><button type="button" class="btn btn-success" onclick="ShowVisitData()">Show</button></td>
+
+                                            @*<td><button type="button" class="btn btn-success" onclick="ShowVisitData()">Show</button></td>*@
+                                            <td>
+                                                <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">
+                                                    <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                    <div class="hands visit-tb-hand"></div>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2766,7 +2820,7 @@
                                 </div>
                                 <div class="row " id="gridsummary">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget hide noShaded mtop20" id="dashDetails2">
+                                        <div class="boxWidget hide noShaded mt-2" id="dashDetails2">
                                             <div class="" id="accordion">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" id="headingOne">
@@ -2793,7 +2847,7 @@
 
                                 <div class="row hide" id="gridthirdlevel">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget  noShaded mtop20" id="dashDetails3">
+                                        <div class="boxWidget  noShaded mt-2" id="dashDetails3">
                                             <div class="" id="accordion" role="tablist" aria-multiselectable="true">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" id="headingOne">
@@ -2862,7 +2916,7 @@
                                 {
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="boxWidget noShaded mtop20">
+                                            <div class="boxWidget noShaded mt-2">
                                                 <div class="panel-heading" role="tab" id="headingOne">
 
                                                     <h4 class="Widgheading relative" aria-expanded="true" aria-controls="collapseTwo">
@@ -2886,11 +2940,17 @@
                         <div role="tabpanel" class="tab-pane " id="teamVisit">
                             @*rev Mantis Issue 25455*@
                             <div class="row">
-                                <div class="col-md-12 text-right clearfix py-0">
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
                                     <table class="float-right">
                                         <tr>
 
-                                            <td><button type="button" class="btn btn-success" onclick="ShowTeamVisitData()">Show</button></td>
+                                            @*<td><button type="button" class="btn btn-success" onclick="ShowTeamVisitData()">Show</button></td>*@
+                                            <td>
+                                                <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">
+                                                    <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                    <div class="hands teamvisit-tb-hand"></div>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2936,7 +2996,7 @@
                                 <!---->
                                 <div class="row " id="gridsummaryTeam">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget hide noShaded mtop20" id="dashDetails2Team">
+                                        <div class="boxWidget hide noShaded mt-2" id="dashDetails2Team">
                                             <div class="" id="accordionTeam">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" id="headingOneTeam">
@@ -2965,7 +3025,7 @@
                                 <!--Third level Team-->
                                 <div class="row hide" id="gridthirdlevelTeam">
                                     <div class=" col-md-12">
-                                        <div class="boxWidget  noShaded mtop20" id="dashDetails3Team">
+                                        <div class="boxWidget  noShaded mt-2" id="dashDetails3Team">
                                             <div class=""  role="tablist" aria-multiselectable="true">
                                                 <div class="">
                                                     <div class="panel-heading" role="tab" >
@@ -3020,11 +3080,17 @@
                         {
                             <div role="tabpanel" class="tab-pane " id="teamVisitH">
                                 <div class="row">
-                                    <div class="col-md-12 text-right clearfix py-0">
+                                    <div class="col-md-12 text-right clearfix py-0 marg-b-50">
                                         <table class="float-right">
                                             <tr>
 
-                                                <td><button type="button" class="btn btn-success" onclick="ShowTeamVisitHData()">Show</button></td>
+                                                @*<td><button type="button" class="btn btn-success" onclick="ShowTeamVisitHData()">Show</button></td>*@
+                                                <td>
+                                                    <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitHData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">
+                                                        <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                        <div class="hands teamVisitH-tb-hand"></div>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -3152,11 +3218,17 @@
                         <div role="tabpanel" class="tab-pane" id="attendanceTB">
                            @*rev Mantis Issue 25455*@
                             <div class="row">
-                                <div class="col-md-12 text-right clearfix py-0 mb-4">
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
                                     <table class="float-right">
                                         <tr>
 
-                                            <td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>
+                                            @*<td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>*@
+                                            <td>
+                                                <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">
+                                                    <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                    <div class="hands attendance-tb-hand"></div>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -3186,7 +3258,7 @@
                         
                         <div role="tabpanel" class="tab-pane" id="leaveList">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 px-5">
                                     <div class="row">
                                         <table class="eqpadtbl mb-2">
                                             <tr>
@@ -3232,7 +3304,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form_main">
+                                <div class="form_main px-4">
                                     <div class="clear"></div>
                                     <div id="refreshgrid">
                                     </div>
@@ -3827,7 +3899,7 @@
 
         WindowSize = $(window).width();
 
-
+        $(".visit-tb-hand").hide();
         $("#lblAtWork").html("<img src='/assests/images/Spinner.gif' />");
         $("#lblOnLeave").html("<img src='/assests/images/Spinner.gif' />");
         $("#lblNotLoggedIn").html("<img src='/assests/images/Spinner.gif' />");
