@@ -222,6 +222,9 @@ namespace ShopAPI.Controllers
                 //sqlcmd.Parameters.Add("@JsonXML", JsonXML);
                 sqlcmd.Parameters.AddWithValue("session_token", model.session_token.ToString());
                 sqlcmd.Parameters.AddWithValue("@user_id", model.user_id.ToString());
+                //Rev Debashis : Mantis:0025529 & Row:779
+                sqlcmd.Parameters.AddWithValue("@isnewShop", model.isnewShop);
+                //End of Rev Debashis : Mantis:0025529 & Row:779
                 sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
                 //End of Rev Debashis : Mantis:0025493
                 sqlcmd.CommandType = CommandType.StoredProcedure;

@@ -37,6 +37,9 @@ namespace ShopAPI.Models
         public String Branch { get; set; }
         public String Designation { get; set; }
         //End of Rev Debashis
+        //Rev Debashis Row: 780
+        public String Employee_Code { get; set; }
+        //End of Rev Debashis Row: 780
     }
 
     public class UseHierarchyShopInput
