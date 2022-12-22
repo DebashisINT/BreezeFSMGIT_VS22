@@ -10,7 +10,9 @@ namespace ShopAPI.Models
     {
         public string session_token { get; set; }
         public string user_id { get; set; }
-
+        //Rev Debashis : Mantis:0025529 & Row:779
+        public int isnewShop { get; set; }
+        //End of Rev Debashis : Mantis:0025529 & Row:779
 
         public List<ShopsubmissionModel> shop_list { get; set; }
     }
