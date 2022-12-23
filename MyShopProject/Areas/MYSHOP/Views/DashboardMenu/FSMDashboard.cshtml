@@ -1312,8 +1312,12 @@
         e.customArgs["statefilterid"] = statefilterid;
         e.customArgs["WindowSize"] = WindowSize;
         // Mantis Issue 24765
-        e.customArgs["BranchId"] = branchid;
-        e.customArgs["BranchIdTV"] = branchid;
+        // Mantis Issue 25468
+        //e.customArgs["BranchId"] = branchid;
+        //e.customArgs["BranchIdTV"] = branchid;
+        e.customArgs["BranchId"] = branchids;
+        e.customArgs["BranchIdTV"] = branchids;
+        // End of Mantis Issue 25468
         // End of Mantis Issue 24765
     }
 
