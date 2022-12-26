@@ -1304,6 +1304,34 @@
         /*Rev End Pallab*/
     }
 
+@media only screen and (max-width: 1505px) and (min-width: 1455px) {
+
+    .tabs-style-shape nav li a span {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 1454px) and (min-width: 1380px) {
+
+    .tabs-style-shape nav li a span {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 1379px) and (min-width: 1300px) {
+
+    .tabs-style-shape nav li a span {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1299px) and (min-width: 1240px) {
+
+    .tabs-style-shape nav li a span {
+        font-size: 11px;
+    }
+}
+
     .tabs-style-shape nav li a:hover span {
         background-color: #2CC185;
     }
