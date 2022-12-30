@@ -987,17 +987,6 @@
       <Column Name="REMARKS" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.V_GROUPBEATLIST" Member="V_GROUPBEATLISTs">
-    <Type Name="V_GROUPBEATLIST">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Beat_Code" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="Beat_Name" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="Created_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Created_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Updated_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Updated_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tbl_master_user" Member="tbl_master_users">
     <Type Name="tbl_master_user">
       <Column Name="user_id" Type="System.Decimal" DbType="Decimal(10,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -2471,6 +2460,18 @@
       <Column Name="TOTNOOFHALFDAYS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TOTLEAVEDAYS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TOTALABSENT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.V_GROUPBEATLIST" Member="V_GROUPBEATLISTs">
+    <Type Name="V_GROUPBEATLIST">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Beat_Code" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Beat_Name" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Created_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Created_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Updated_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Updated_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CODE_TYPE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.FTSEMPLOYEEPERFORMANCE_REPORT" Member="FTSEMPLOYEEPERFORMANCE_REPORTs">
