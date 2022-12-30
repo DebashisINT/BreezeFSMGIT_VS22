@@ -816,11 +816,39 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
             });
 
+            //Rev Debashis Mantis: 0025524
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "BEATNAME";
+                x.Caption = "Beat";
+                x.VisibleIndex = 22;
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='BEATNAME'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                        //x.Width = 0;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 120;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 120;
+                }
+            });
+            //End of Rev Debashis Mantis: 0025524
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "ENTITYCODE";
                 x.Caption = "Code";
-                x.VisibleIndex = 22;
+                x.VisibleIndex = 23;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
@@ -844,7 +872,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "SHOP_CLUSTER";
                 x.Caption = "Cluster";
-                x.VisibleIndex = 23;
+                x.VisibleIndex = 24;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_CLUSTER'");
@@ -868,7 +896,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "SHOP_TYPE";
                 x.Caption = "Type";
-                x.VisibleIndex = 24;
+                x.VisibleIndex = 25;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_TYPE'");
@@ -891,7 +919,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "SHOPADDR_CONTACT";
                 x.Caption = "Retailer Address & Mobile no.";
-                x.VisibleIndex = 25;
+                x.VisibleIndex = 26;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOPADDR_CONTACT'");
@@ -914,7 +942,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "PPADDR_CONTACT";
                 x.Caption = "PP Address & Mobile no.";
-                x.VisibleIndex = 26;
+                x.VisibleIndex = 27;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='PPADDR_CONTACT'");
@@ -937,7 +965,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "DDADDR_CONTACT";
                 x.Caption = "DD Address & Mobile no.";
-                x.VisibleIndex = 27;
+                x.VisibleIndex = 28;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='DDADDR_CONTACT'");
@@ -962,7 +990,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "ALT_MOBILENO1";
                 x.Caption = "Alternate Phone No.";
-                x.VisibleIndex = 28;
+                x.VisibleIndex = 29;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ALT_MOBILENO1'");
@@ -985,7 +1013,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "SHOP_OWNER_EMAIL2";
                 x.Caption = "Alternate Email ID";
-                x.VisibleIndex = 29;
+                x.VisibleIndex = 30;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_OWNER_EMAIL2'");
@@ -1009,7 +1037,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "MEETING_ADDRESS";
                 x.Caption = "Meeting Address";
-                x.VisibleIndex = 30;
+                x.VisibleIndex = 31;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='MEETING_ADDRESS'");
@@ -1032,7 +1060,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "MEETINGREMARKS";
                 x.Caption = "Meeting Remarks";
-                x.VisibleIndex = 31;
+                x.VisibleIndex = 32;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='MEETINGREMARKS'");
@@ -1055,7 +1083,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "VISITREMARKS";
                 x.Caption = "Feedback";
-                x.VisibleIndex = 32;
+                x.VisibleIndex = 33;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='VISITREMARKS'");
@@ -1078,7 +1106,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "TOTAL_VISIT";
                 x.Caption = "Visit Count";
-                x.VisibleIndex = 33;
+                x.VisibleIndex = 34;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='TOTAL_VISIT'");
@@ -1103,7 +1131,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "RE_VISITED";
                 x.Caption = "Re Visit";
-                x.VisibleIndex = 34;
+                x.VisibleIndex = 35;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='RE_VISITED'");
@@ -1127,7 +1155,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "NEWSHOP_VISITED";
                 x.Caption = "New Visit";
-                x.VisibleIndex = 35;
+                x.VisibleIndex = 36;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='NEWSHOP_VISITED'");
@@ -1151,7 +1179,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "TOTMETTING";
                 x.Caption = "Meeting";
-                x.VisibleIndex = 36;
+                x.VisibleIndex = 37;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='TOTMETTING'");
@@ -1174,7 +1202,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "SPENT_DURATION";
                 x.Caption = "Duration Spend";
-                x.VisibleIndex = 37;
+                x.VisibleIndex = 38;
                 if (ViewBag.RetentionColumn != null)
                 {
                     System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SPENT_DURATION'");
@@ -1197,7 +1225,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "DISTANCE_TRAVELLED";
                 x.Caption = "Travelled(KM)";
-                x.VisibleIndex = 38;
+                x.VisibleIndex = 39;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)
                 {
@@ -1221,7 +1249,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "TOTAL_ORDER_BOOKED_VALUE";
                 x.Caption = "Sale Value";
-                x.VisibleIndex = 39;
+                x.VisibleIndex = 40;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)
                 {
@@ -1247,7 +1275,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "TOTAL_COLLECTION";
                 x.Caption = "Collection value";
-                x.VisibleIndex = 40;
+                x.VisibleIndex = 41;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)
                 {

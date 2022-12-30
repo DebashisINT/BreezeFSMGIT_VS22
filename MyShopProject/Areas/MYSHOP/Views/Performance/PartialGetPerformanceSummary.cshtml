@@ -618,11 +618,39 @@
         }
     });
 
+    //Rev Debashis Mantis: 0025524
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "BEATNAME";
+        x.Caption = "Beat";
+        x.VisibleIndex = 22;
+        if (ViewBag.RetentionColumn != null)
+        {
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='BEATNAME'");
+            if (row != null && row.Length > 0)  /// Check now
+            {
+                x.Visible = false;
+                //x.Width = 0;
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 120;
+            }
+        }
+        else
+        {
+            x.Visible = true;
+            x.Width = 120;
+        }
+    });
+    //End of Rev Debashis Mantis: 0025524
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "ENTITYCODE";
         x.Caption = "Code";
-        x.VisibleIndex = 22;
+        x.VisibleIndex = 23;
         //x.Width = 120;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
@@ -651,7 +679,7 @@
     {
         x.FieldName = "SHOP_CLUSTER";
         x.Caption = "Cluster";
-        x.VisibleIndex = 23;
+        x.VisibleIndex = 24;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_CLUSTER'");
@@ -678,7 +706,7 @@
     {
         x.FieldName = "SHOP_TYPE";
         x.Caption = "Type";
-        x.VisibleIndex = 24;
+        x.VisibleIndex = 25;
         //x.Width = 100;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
@@ -707,7 +735,7 @@
     {
         x.FieldName = "SHOPADDR_CONTACT";
         x.Caption = "Retailer Address & Mobile no.";
-        x.VisibleIndex = 25;
+        x.VisibleIndex = 26;
         //x.Width = 200;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
@@ -735,7 +763,7 @@
     {
         x.FieldName = "PPADDR_CONTACT";
         x.Caption = "PP Address & Mobile no.";
-        x.VisibleIndex = 26;
+        x.VisibleIndex = 27;
         //x.Width = 200;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
@@ -762,7 +790,7 @@
 {
     x.FieldName = "DDADDR_CONTACT";
     x.Caption = "DD Address & Mobile no.";
-    x.VisibleIndex = 27;
+    x.VisibleIndex = 28;
     //x.Width = 200;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     if (ViewBag.RetentionColumn != null)
@@ -791,7 +819,7 @@
     {
         x.FieldName = "ALT_MOBILENO1";
         x.Caption = "Alternate Phone No.";
-        x.VisibleIndex = 28;
+        x.VisibleIndex = 29;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ALT_MOBILENO1'");
@@ -816,7 +844,7 @@
     {
         x.FieldName = "SHOP_OWNER_EMAIL2";
         x.Caption = "Alternate Email ID";
-        x.VisibleIndex = 29;
+        x.VisibleIndex = 30;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_OWNER_EMAIL2'");
@@ -842,7 +870,7 @@
 {
     x.FieldName = "MEETING_ADDRESS";
     x.Caption = "Meeting Address";
-    x.VisibleIndex = 30;
+    x.VisibleIndex = 31;
     //x.Width = 200;
     if (ViewBag.RetentionColumn != null)
     {
@@ -869,7 +897,7 @@
 {
     x.FieldName = "MEETINGREMARKS";
     x.Caption = "Meeting Remarks";
-    x.VisibleIndex = 31;
+    x.VisibleIndex = 32;
     //x.Width = 200;
     if (ViewBag.RetentionColumn != null)
     {
@@ -896,7 +924,7 @@
 {
     x.FieldName = "VISITREMARKS";
     x.Caption = "Feedback";
-    x.VisibleIndex = 32;
+    x.VisibleIndex = 33;
     //x.Width = 200;
     if (ViewBag.RetentionColumn != null)
     {
@@ -923,7 +951,7 @@
 {
     x.FieldName = "TOTAL_VISIT";
     x.Caption = "Visit Count";
-    x.VisibleIndex = 33;
+    x.VisibleIndex = 34;
     //x.Width = 70;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -954,7 +982,7 @@
 {
     x.FieldName = "RE_VISITED";
     x.Caption = "Re Visit";
-    x.VisibleIndex = 34;
+    x.VisibleIndex = 35;
     //x.Width = 60;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -984,7 +1012,7 @@
 {
     x.FieldName = "NEWSHOP_VISITED";
     x.Caption = "New Visit";
-    x.VisibleIndex = 35;
+    x.VisibleIndex = 36;
     //x.Width = 60;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -1014,7 +1042,7 @@
 {
     x.FieldName = "TOTMETTING";
     x.Caption = "Meeting";
-    x.VisibleIndex = 36;
+    x.VisibleIndex = 37;
     //x.Width = 60;
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -1043,7 +1071,7 @@
 {
     x.FieldName = "SPENT_DURATION";
     x.Caption = "Duration Spend";
-    x.VisibleIndex = 37;
+    x.VisibleIndex = 38;
     //x.Width = 100;
     if (ViewBag.RetentionColumn != null)
     {
@@ -1070,7 +1098,7 @@
 {
     x.FieldName = "DISTANCE_TRAVELLED";
     x.Caption = "Travelled(KM)";
-    x.VisibleIndex = 38;
+    x.VisibleIndex = 39;
     //x.Width = 100;
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -1099,7 +1127,7 @@
 {
     x.FieldName = "TOTAL_ORDER_BOOKED_VALUE";
     x.Caption = "Sale value";
-    x.VisibleIndex = 39;
+    x.VisibleIndex = 40;
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
@@ -1126,7 +1154,7 @@
 {
     x.FieldName = "TOTAL_COLLECTION";
     x.Caption = "Collection value";
-    x.VisibleIndex = 40;
+    x.VisibleIndex = 41;
     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
