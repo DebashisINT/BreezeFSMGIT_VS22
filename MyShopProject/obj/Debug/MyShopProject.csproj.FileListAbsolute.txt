@@ -219,3 +219,7 @@ E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\ru\DevExpress.XtraTreeList.v15.1
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.CopyComplete
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.dll
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.pdb
+E:\GIT\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.AssemblyReference.cache
+E:\GIT\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.CoreCompileInputs.cache
+E:\GIT\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.dll
+E:\GIT\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.pdb

@@ -808,8 +808,9 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<V_GROUPBEATLIST>();
-      }
+			}
 		}
+		
 		public System.Data.Linq.Table<FTSEMPLOYEEPERFORMANCE_REPORT> FTSEMPLOYEEPERFORMANCE_REPORTs
 		{
 			get
@@ -41247,9 +41248,123 @@ namespace MyShop.Models
 				if ((this._ID != value))
 				{
 					this._ID = value;
-        }
+				}
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Code", DbType="VarChar(500)")]
+		public string Beat_Code
+		{
+			get
+			{
+				return this._Beat_Code;
+			}
+			set
+			{
+				if ((this._Beat_Code != value))
+				{
+					this._Beat_Code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Name", DbType="VarChar(500)")]
+		public string Beat_Name
+		{
+			get
+			{
+				return this._Beat_Name;
+			}
+			set
+			{
+				if ((this._Beat_Name != value))
+				{
+					this._Beat_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_By", DbType="VarChar(50)")]
+		public string Created_By
+		{
+			get
+			{
+				return this._Created_By;
+			}
+			set
+			{
+				if ((this._Created_By != value))
+				{
+					this._Created_By = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_On", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Created_On
+		{
+			get
+			{
+				return this._Created_On;
+			}
+			set
+			{
+				if ((this._Created_On != value))
+				{
+					this._Created_On = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_By", DbType="VarChar(50)")]
+		public string Updated_By
+		{
+			get
+			{
+				return this._Updated_By;
+			}
+			set
+			{
+				if ((this._Updated_By != value))
+				{
+					this._Updated_By = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_On", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Updated_On
+		{
+			get
+			{
+				return this._Updated_On;
+			}
+			set
+			{
+				if ((this._Updated_On != value))
+				{
+					this._Updated_On = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODE_TYPE", DbType="VarChar(10)")]
+		public string CODE_TYPE
+		{
+			get
+			{
+				return this._CODE_TYPE;
+			}
+			set
+			{
+				if ((this._CODE_TYPE != value))
+				{
+					this._CODE_TYPE = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSEMPLOYEEPERFORMANCE_REPORT")]
 	public partial class FTSEMPLOYEEPERFORMANCE_REPORT
 	{
@@ -41992,21 +42107,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Code", DbType="VarChar(500)")]
-		public string Beat_Code
-		{
-			get
-			{
-				return this._Beat_Code;
-			}
-			set
-			{
-				if ((this._Beat_Code != value))
-				{
-					this._Beat_Code = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NEWSHOP_VISITED", DbType="Int")]
 		public System.Nullable<int> NEWSHOP_VISITED
 		{
@@ -42023,21 +42123,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Name", DbType="VarChar(500)")]
-		public string Beat_Name
-		{
-			get
-			{
-				return this._Beat_Name;
-			}
-			set
-			{
-				if ((this._Beat_Name != value))
-				{
-					this._Beat_Name = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RE_VISITED", DbType="Int")]
 		public System.Nullable<int> RE_VISITED
 		{
@@ -42054,21 +42139,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_By", DbType="VarChar(50)")]
-		public string Created_By
-		{
-			get
-			{
-				return this._Created_By;
-			}
-			set
-			{
-				if ((this._Created_By != value))
-				{
-					this._Created_By = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTMETTING", DbType="Int")]
 		public System.Nullable<int> TOTMETTING
 		{
@@ -42085,21 +42155,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_On", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Created_On
-		{
-			get
-			{
-				return this._Created_On;
-			}
-			set
-			{
-				if ((this._Created_On != value))
-				{
-					this._Created_On = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPENT_DURATION", DbType="NVarChar(50)")]
 		public string SPENT_DURATION
 		{
@@ -42116,21 +42171,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_By", DbType="VarChar(50)")]
-		public string Updated_By
-		{
-			get
-			{
-				return this._Updated_By;
-			}
-			set
-			{
-				if ((this._Updated_By != value))
-				{
-					this._Updated_By = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTANCE_TRAVELLED", DbType="Decimal(38,2)")]
 		public System.Nullable<decimal> DISTANCE_TRAVELLED
 		{
@@ -42147,21 +42187,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_On", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Updated_On
-		{
-			get
-			{
-				return this._Updated_On;
-			}
-			set
-			{
-				if ((this._Updated_On != value))
-				{
-					this._Updated_On = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_ORDER_BOOKED_VALUE", DbType="Decimal(38,2)")]
 		public System.Nullable<decimal> TOTAL_ORDER_BOOKED_VALUE
 		{
@@ -42178,21 +42203,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODE_TYPE", DbType="VarChar(10)")]
-		public string CODE_TYPE
-		{
-			get
-			{
-				return this._CODE_TYPE;
-			}
-			set
-			{
-				if ((this._CODE_TYPE != value))
-				{
-					this._CODE_TYPE = value;
-        }
-			}
-		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_COLLECTION", DbType="Decimal(38,2)")]
 		public System.Nullable<decimal> TOTAL_COLLECTION
 		{
