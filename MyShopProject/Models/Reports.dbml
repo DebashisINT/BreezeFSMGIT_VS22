@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FSM_ITC" Class="ReportsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=3.7.30.86,1480\SQLEXPRESS;Initial Catalog=FSM_ITC;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSM_ITCConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=3.7.30.86,1480\SQLEXPRES;Initial Catalog=FSM_ITC;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSM_ITCConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.FTSDASHBOARD_REPORT" Member="FTSDASHBOARD_REPORTs">
     <Type Name="FTSDASHBOARD_REPORT">
       <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -985,17 +985,6 @@
       <Column Name="LOGEDOUT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="ACTIVITYCNT" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="REMARKS" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.V_GROUPBEATLIST" Member="V_GROUPBEATLISTs">
-    <Type Name="V_GROUPBEATLIST">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Beat_Code" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="Beat_Name" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="Created_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Created_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Updated_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Updated_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.tbl_master_user" Member="tbl_master_users">
@@ -2521,6 +2510,18 @@
       <Column Name="TOTNOOFHALFDAYS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TOTLEAVEDAYS" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TOTALABSENT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.V_GROUPBEATLIST" Member="V_GROUPBEATLISTs">
+    <Type Name="V_GROUPBEATLIST">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Beat_Code" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Beat_Name" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Created_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Created_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Updated_By" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Updated_On" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CODE_TYPE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

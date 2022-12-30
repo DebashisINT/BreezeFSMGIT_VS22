@@ -7,6 +7,9 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+// Mantis Issue 25536, 25535, 25542, 25543, 25544
+using UtilityLayer;
+// End of Mantis Issue 25536, 25535, 25542, 25543, 25544
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -16,7 +19,22 @@ namespace MyShop.Areas.MYSHOP.Controllers
         // GET: /MYSHOP/Beat/
         public ActionResult Index()
         {
-            return View();
+            // Mantis Issue 25536, 25535, 25542, 25543, 25544
+            BeatModel Dtls = new BeatModel();
+            DataSet ds = GroupBeat.Obj.GetListDataDetails();
+
+            List<AreaList> AreaLst = new List<AreaList>();
+            AreaLst = APIHelperMethods.ToModelList<AreaList>(ds.Tables[0]);
+            Dtls.AreaList = AreaLst;
+            Dtls.Area = 0;
+
+            List<RouteList> RouteLst = new List<RouteList>();
+            RouteLst = APIHelperMethods.ToModelList<RouteList>(ds.Tables[1]);
+            Dtls.RouteList = RouteLst;
+            Dtls.Route = 0;
+            // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+
+            return View(Dtls);
         }
 
         public PartialViewResult PartialGrid()
@@ -24,11 +42,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return PartialView(GetList());
         }
 
-        public JsonResult SaveGroupBeat(string code, string name, string id)
+        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [area and route added]
+        public JsonResult SaveGroupBeat(string code, string name, string id, int area, int route)
         {
             int output = 0;
             string Userid = Convert.ToString(Session["userid"]);
-            output = GroupBeat.Obj.SaveBeat(code, name, Userid, id);
+            output = GroupBeat.Obj.SaveBeat(code, name, Userid, area, route, id);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
@@ -40,14 +59,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditGroupBeat(string id)
+        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ type added ]
+        public JsonResult EditGroupBeat(string id, string type)
         {
             DataTable output = new DataTable();
-            output = GroupBeat.Obj.EditBeat(id);
+            output = GroupBeat.Obj.EditBeat(id, type);  // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ type added ]
 
             if (output.Rows.Count > 0)
             {
-                return Json(new { code = Convert.ToString(output.Rows[0]["CODE"]), name = Convert.ToString(output.Rows[0]["NAME"]) }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = Convert.ToString(output.Rows[0]["CODE"]), name = Convert.ToString(output.Rows[0]["NAME"]), area = Convert.ToString(output.Rows[0]["AREA_CODE"]), route= Convert.ToString(output.Rows[0]["ROUTE_CODE"]) }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -55,6 +75,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
 
         }
+
+        //Mantis Issue 25536, 25535, 25542, 25543, 25544
+        public JsonResult SaveArea(string code, string name, string id)
+        {
+            int output = 0;
+            string Userid = Convert.ToString(Session["userid"]);
+            output = GroupBeat.Obj.SaveArea(code, name, Userid, id);
+            return Json(output, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SaveRoute(string code, string name, int area, string id)
+        {
+            int output = 0;
+            string Userid = Convert.ToString(Session["userid"]);
+            output = GroupBeat.Obj.SaveRoute(code, name, area, Userid, id);
+            return Json(output, JsonRequestBehavior.AllowGet);
+        }
+        // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
 
         public IEnumerable GetList()
         {
@@ -97,10 +136,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(Selected);
         }
 
-        public JsonResult Delete(string ID)
+        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ type added]
+        public JsonResult Delete(string ID, string type)
         {
             int output = 0;
-            output = GroupBeat.Obj.Delete(ID);
+            output = GroupBeat.Obj.Delete(ID, type);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 

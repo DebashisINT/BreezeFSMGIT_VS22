@@ -397,6 +397,7 @@
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\ActivityReportModel.cs" />
     <Compile Include="Models\AddPartyDetailsModel.cs" />
+    <Compile Include="Models\BeatModel.cs" />
     <Compile Include="Models\BreakageTrackingRegisterModel.cs" />
     <Compile Include="Models\ChemistActivityModel.cs" />
     <Compile Include="Models\ChemistStockistDetailsModel.cs" />
