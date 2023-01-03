@@ -9,6 +9,8 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+
     <script type="text/javascript" src="/assests/js/jquery.min.js"></script>
 
     <link rel="stylesheet" href="/assests/bootstrap/css/bootstrap.min.css" />
@@ -467,7 +469,10 @@
             overflow: hidden;
             position: relative;
             text-align: center;
-            background: #333 url('/assests/images/NLogin/LoginDark_bg.png') no-repeat top left;
+            /*Rev Pallab*/
+            /*background: #333 url('/assests/images/NLogin/LoginDark_bg.png') no-repeat top left;*/
+            background: url('/assests/images/NLogin/LoginDark_bg2.jpg') no-repeat top left;
+            /*Rev end Pallab*/
             background-size:cover
         }
         .formArea {
@@ -508,30 +513,44 @@
         .formArea {
             padding: 35px 50px;
             box-sizing: border-box;
-            background: #ebebeb;
+            /*Rev Pallab*/
+            /*background: #ebebeb;*/
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*Rev end Pallab*/
         }
         .formBox {
             margin-top: 20px;
             font-family: poppins !important;
         } 
         .formBox .form-group label {
-            font-family: poppins;
+            /*font-family: poppins;*/
+            font-family: 'Open Sans', sans-serif;
+            color: #686868;
         }
         .formBox .form-group {
             position:relative
         }
         .inputIcons {
-            max-width: 14px;
+            /*max-width: 14px;
             position: absolute;
             left: 15px;
-            top: 38px;
+            top: 38px;*/
+                max-width: 20px;
+                position: absolute;
+                left: 10px;
+                top: 37px;
         }
         .formBox .form-group input {
             border:none;
             background:#fff !important;
             border-radius:4px;
             min-height:43px;
-            padding-left:40px
+            padding-left:40px;
+            border: 1px solid #dddddd;
+            font-family: 'Open Sans', sans-serif;
         }
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
@@ -539,24 +558,41 @@
         input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 30px white inset !important;
         }
+        .formBox .form-group input:focus {
+            border: 1px solid #e54a55;
+        }
         .loginbtn{
-            background:#6834d4;
-            color:#fff;
-            padding:10px 15px;
-            margin-top:10px
+           /* background:#6834d4;*/
+            background: #e54a55;
+            color: #fff;
+            padding: 10px 15px;
+            margin-top: 20px;
+            transition: all .3s;
+            font-family: 'Open Sans', sans-serif;
         }
             .loginbtn:hover {
                 box-shadow: 0px 5px 5px rgba(0,0,0,0.22);
                 color: #fff;
-                background: #5927C1;
+                background: #c7333d;
+            }
+            .loginbtn:focus{
+                color: #fff;
+                outline: none;
             }
         .ftFooter {
             font-size:12px;
-            margin-top:20px
+            margin-top: 20px;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            color: #4a4a4a;
         }
         .mlogos {
             width:180px;
-            margin-left:-8px
+            /*margin-left:-8px*/
+            margin-left: 0;
+            position: absolute;
+            right: 10px;
+            top: 10px;
         }
     </style> 
     <style type="text/css">
@@ -817,6 +853,9 @@
             margin-top: 15px;
             width: 300px;
             height: 135px;
+            margin-left:auto;
+            margin-right: auto;
+            margin-bottom: 10px;
             /*overflow: hidden;*/
         }
 
@@ -825,6 +864,11 @@
                 box-shadow: 1px 1px 10px #11111160;
                 width: 100%;
             }
+
+            .left-top-image {
+            max-width: 68%;
+            margin-top: 4%;
+        }
     </style>
     
 </head>
@@ -834,7 +878,7 @@
     <div class="mainLogin">
          <div class="flexArea">
              <div class="contentArea">
-                 <div class="tagLine"><h3>Field Sales Management</h3><h1 class="emp">Make Your Field Agents FUTURE READY!</h1><h4>Simple, Intuitive and Easy to use</h4></div>
+                 <%--<div class="tagLine"><h3>Field Sales Management</h3><h1 class="emp">Make Your Field Agents FUTURE READY!</h1><h4>Simple, Intuitive and Easy to use</h4></div>
                  <div class="xoptions">
                      <ul>
                          <li><img src="/assests/images/NLogin/checked.png" /> Live Tracking</li>
@@ -845,25 +889,27 @@
                  <div>
                      <img src="/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
                      <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>
-                 </div>
-                 
+                 </div>--%>
+                 <img src="/assests/images/NLogin/left-top-image.png" class="left-top-image" />
              </div>
             
              <div class="formArea">
                 
                       <div><asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red"></asp:Label></div>
                      <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
+                 <div class="login-part">
                     <div class="event-img">
                          <img src="/assests/images/event-banner.jpg" />
                      </div>
-                     <div style="margin: 25px 0 5px 0; font-size: 18px; color: #3737bb; font-weight: 600; font-family: poppins; ">Login to your Account</div>
-                     <p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>
+                     <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
+                     <%--<p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>--%>
                     <form action="" method="post" runat="server" novalidate="novalidate">
                     <input id="rurl" name="rurl" runat="server" type="hidden" value="" />
                      <div class="formBox">
                          <div class="form-group">
                              <label for="username">Username</label>
-                             <img src="/assests/images/NLogin/user.png" class="inputIcons" />
+                             <%--<img src="/assests/images/NLogin/user.png" class="inputIcons" />--%>
+                             <img src="/assests/images/NLogin/user-2.png" class="inputIcons" />
                             <asp:TextBox ID="txtUserName" CssClass="form-control" runat="server" placeholder="Type your username" TabIndex="1"></asp:TextBox>
                          </div>
                          <div style="text-align: left">
@@ -877,7 +923,8 @@
                         </div>
                          <div class="form-group">
                              <label for="password">Password</label>
-                             <img src="/assests/images/NLogin/password.png" class="inputIcons" />
+                             <%--<img src="/assests/images/NLogin/password.png" class="inputIcons" />--%>
+                              <img src="/assests/images/NLogin/password-2.png" class="inputIcons" />
                             <asp:TextBox ID="txtPassword" CssClass="form-control" placeholder="Type your password" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox>
                              <span class="passWordView"><i class="fa fa-eye-slash"></i></span>
                          </div>
@@ -890,7 +937,7 @@
                                     ForeColor="Red" ValidationGroup="login" Display="Dynamic">
                                 </asp:RequiredFieldValidator></span>
                         </div>
-                         <div style="font-size:12px">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
+                         <div style="font-size:12px; font-family: 'Open Sans', sans-serif; color: #4a4a4a; text-align: center;">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
                          <asp:Button ID="Submit1" ValidationGroup="login" runat="server" CssClass="btn btn-block loginbtn" Text="Submit" OnClick="Login_User" TabIndex="3" />
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
@@ -902,6 +949,7 @@
                          </div>
                      </div>
                     </form>
+                     </div>
                 </div>
          </div>
      </div>
