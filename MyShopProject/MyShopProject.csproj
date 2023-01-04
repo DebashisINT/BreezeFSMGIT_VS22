@@ -1944,6 +1944,9 @@
     <Content Include="Areas\MYSHOP\Views\DSVisitChannelHierarchy\_PartialGridDSVisitChannelHierarchy.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\TerritorySalesInchargeWisePerformanceAnaly.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TerritorySalesInchargeWisePerformanceAnaly\PartialTerritorySalesInchargeWisePerformanceAnaly.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopList_ForAreaRouteBeat.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\_ShopReassignManualLogView_AreaRouteBeat.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopUserManualLog_AreaRouteBeat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

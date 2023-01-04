@@ -81,6 +81,10 @@ namespace MyShop.Models
         // Mantis Issue 25431
         public string Beat { get; set; }
         // End of Mantis Issue 25431
+        // Mantis Issue 25545
+        public string Area { get; set; }
+        public string Route { get; set; }
+        // End of Mantis Issue 25545
     }
 
     public class ReAssignShop
