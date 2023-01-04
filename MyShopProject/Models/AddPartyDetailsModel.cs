@@ -132,6 +132,14 @@ namespace MyShop.Models
         public List<GroupBeatAssign> InactiveGroupBeatidList { get; set; }
         //End of Mantis Issue 25133
 
+        // Mantis Issue 25545
+        public string AreaRouteBeatUserid { get; set; }
+        public List<Usersshopassign> AreaRouteBeatUseridList { get; set; }
+
+        public string AreaRouteBeatReassignedUserid { get; set; }
+        public List<Usersshopassign> AreaRouteBeatReassignedUseridList { get; set; }
+        public string OldAreaRouteBeatId { get; set; }
+        // End of Mantis Issue 25545
     }
 
     public class PPList

@@ -43,11 +43,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
         }
 
         // Mantis Issue 25536, 25535, 25542, 25543, 25544 [area and route added]
-        public JsonResult SaveGroupBeat(string code, string name, string id, int area, int route)
+        public JsonResult SaveGroupBeat(string code, string name, string id, int route)
         {
             int output = 0;
             string Userid = Convert.ToString(Session["userid"]);
-            output = GroupBeat.Obj.SaveBeat(code, name, Userid, area, route, id);
+            output = GroupBeat.Obj.SaveBeat(code, name, Userid, route, id);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 

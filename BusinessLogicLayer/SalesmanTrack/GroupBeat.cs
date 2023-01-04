@@ -28,7 +28,7 @@ namespace BusinessLogicLayer.SalesmanTrack
         }
 
         // Mantis Issue 25536, 25535, 25542, 25543, 25544 [area and route added]
-        public int SaveBeat(string code, string name, string user, int area, int route, string ID = "0")
+        public int SaveBeat(string code, string name, string user, int route, string ID = "0")
         {
             ProcedureExecute proc;
             int rtrnvalue = 0;
@@ -44,7 +44,6 @@ namespace BusinessLogicLayer.SalesmanTrack
                     proc.AddVarcharPara("@BEAT_CODE", 100, code);
                     proc.AddVarcharPara("@BEAT_NAME", 100, name);
                     proc.AddVarcharPara("@USER_ID", 100, user);
-                    proc.AddIntegerPara("@AREA_CODE", area);
                     proc.AddIntegerPara("@ROUTE_CODE", route);
                     proc.AddVarcharPara("@RETURN_VALUE", 50, "", QueryParameterDirection.Output);
                     int i = proc.RunActionQuery();

@@ -68,10 +68,10 @@
             jAlert("Enter name to proceed.");
             return false;
         }
-        else if ($("#ddlAreaB").val() == "0") {
-            jAlert("Select area to proceed.");
-            return false;
-        }
+        //else if ($("#ddlAreaB").val() == "0") {
+        //    jAlert("Select area to proceed.");
+        //    return false;
+        //}
         else if ($("#ddlRoute").val() == "0") {
             jAlert("Select route to proceed.");
             return false;
@@ -80,7 +80,7 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("SaveGroupBeat", "Beat")",
-                data: { code: $("#txtCode").val(), name: $("#txtName").val(), id: id, area: $("#ddlAreaB").val(), route: $("#ddlRoute").val()  },
+                data: { code: $("#txtCode").val(), name: $("#txtName").val(), id: id, route: $("#ddlRoute").val()  },
                 success: function (response) {
                     if (parseInt(response) > 0) {
                         //jAlert('Saved successfully.');
@@ -375,10 +375,10 @@
                             </div>
 
                             @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
-                            <label>Area <span class="red">*</span></label>
+                            @*<label>Area <span class="red">*</span></label>
                             <div>
                                 @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlAreaB", @class = "form-control" })
-                            </div>
+                            </div>*@
 
                             <label>Route <span class="red">*</span></label>
                             <div>
