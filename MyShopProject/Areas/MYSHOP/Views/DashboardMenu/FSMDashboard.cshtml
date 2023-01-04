@@ -321,6 +321,9 @@
     var statefilterid = "";
     var EMPCODE = "";
     var WindowSize = 0;
+    // mantis issue 25567
+    var branchid = "";
+    // End of mantis issue 25567
 
     function GSOnStartCallback(s, e) {
         e.customArgs["Type"] = Type;
@@ -1313,10 +1316,12 @@
         e.customArgs["WindowSize"] = WindowSize;
         // Mantis Issue 24765
         // Mantis Issue 25468
-        //e.customArgs["BranchId"] = branchid;
-        //e.customArgs["BranchIdTV"] = branchid;
-        e.customArgs["BranchId"] = branchids;
-        e.customArgs["BranchIdTV"] = branchids;
+        // mantis issue 25567
+        e.customArgs["BranchId"] = branchid;
+        e.customArgs["BranchIdTV"] = branchid;
+        //e.customArgs["BranchId"] = branchids;
+        //e.customArgs["BranchIdTV"] = branchids;
+        // End of mantis issue 25567
         // End of Mantis Issue 25468
         // End of Mantis Issue 24765
     }
@@ -1426,7 +1431,7 @@
         Type = "Attendance";
         FilterName = "EMP";
         stateid = stateids.join(',');// cmbState.GetValue();
-
+        
         //$("#gridHeadedtext").text("Employee Attendance Summary - Total Employees");
         //gridsummarydashboard.Refresh();
         //gridsummarydashboard.Refresh();
