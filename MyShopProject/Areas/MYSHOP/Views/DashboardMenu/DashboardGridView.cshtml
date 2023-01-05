@@ -10,9 +10,9 @@
 
        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
        settings.Settings.HorizontalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
-      settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
-    //settings.Settings.VerticalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
-   //settings.Settings.VerticalScrollableHeight = 110;
+       settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+       //settings.Settings.VerticalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
+       //settings.Settings.VerticalScrollableHeight = 110;
        settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
        settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
        //settings.SettingsSearchPanel.Visible = true;
@@ -91,6 +91,7 @@
                            {
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
                            }
+                           
                            else if (ColumnWidth == 6)
                            {
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(16.66);
@@ -103,6 +104,12 @@
                            {
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
                            }
+                           //rev Pallab: grid width showing wrong when after tab click
+                           else if (ColumnWidth == 7)
+                           {
+                               x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                           }
+                           //rev end Pallab
                            else
                            {
                                //x.Width = System.Web.UI.WebControls.Unit.Pixel(200);

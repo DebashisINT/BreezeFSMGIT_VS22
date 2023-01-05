@@ -260,17 +260,18 @@
         }
 
         .fts{
-            padding:60px 0;
-            text-align:center
+            padding:50px 0 60px;
+            text-align:center;
+            background: #e7eaff;
         }
         .fts img {
-            width:80px;
-            margin-bottom:25px;
-            margin-top:20px
+            width:50px;
+            /*margin-bottom:25px;
+            margin-top:20px*/
         }
         .fts h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 40px;
+            font-size: 35px;
             line-height: normal;
             font-weight: 700;
             letter-spacing: -1px;
@@ -279,7 +280,7 @@
         }
             .fts h2 span {
                 font-family: 'Open Sans', sans-serif;
-                font-size: 30px;
+                font-size: 25px;
                 line-height: 45px;
                 font-weight: 600;
                 color: rgba(39,32,99,1);
@@ -291,11 +292,16 @@
             font-family: 'Open Sans', sans-serif;
             font-weight: 600;
             color: rgba(39,32,99,1);
-            font-size: 21px;
-            line-height: 30px;
+            font-size: 18px;
+            line-height: 25px;
             margin-bottom: 15px;
             letter-spacing: -.08rem;
             padding: 0 0.5rem;
+            margin-top: 15px;
+        }
+        .login-about-box p
+        {
+            color: #4a4a4a;
         }
     </style>
     
@@ -635,9 +641,9 @@
             display: inline-block;
             padding: 5px 15px;
         }
-        .spaceColumn{
+        /*.spaceColumn{
             padding: 60px 0;
-        }
+        }*/
         @media only screen and (max-width: 762px){
             .textSection {
                 display:none
@@ -817,21 +823,32 @@
         }
         .mkHd {
             font-family: 'Montserrat', sans-serif;
-            font-size: 30px;
+            font-size: 32px;
             line-height: normal;
             font-weight: 700;
             letter-spacing: -1px;
-            color: rgba(255,91,103,1);
+            /*color: rgba(255,91,103,1);*/
+            color: #fff;
             margin-bottom:1.5rem;
         }
         .mkHs {
             font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            color: #565656;
+            font-size: 22px;
+            color: #ffffff;
             margin-bottom:3rem;
         }
         .mkBoxes h5, .mkBoxes p {
-            font-family:Poppins;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .mkBoxes h5
+        {
+            font-size: 18px;
+            color: #fff;
+        }
+        .mkBoxes p 
+        {
+                font-size: 15px;
+                color: #ddd;
         }
         .passWordView {
             position: absolute;
@@ -869,6 +886,53 @@
             max-width: 68%;
             margin-top: 4%;
         }
+            .login-about-box
+            {
+                padding: 15px 15px 15px;
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 1px 1px 15px #0000001c;
+            }
+            .icon-img
+            {
+                width: 80px;
+                height: 80px;
+                border-radius: 50px;
+                background: #d7e4ff;
+                margin: auto;
+                text-align: center;
+                line-height: 80px;
+            }
+
+            .app-section
+            {
+                padding: 60px 0;
+                max-width: 100%;
+                padding: 0 15px;
+                background: #08638d !important;
+            }
+
+            .mobile-image-part
+            {
+                background: url(/assests/images/NLogin/mobile-app-mockup.jpg) top center;
+                min-height: 680px;
+                background-size:cover;
+                background-repeat:no-repeat;
+            }
+
+            .mb-5
+            {
+                margin-bottom: 30px;
+            }
+
+            .right-text-part
+            {
+                padding: 50px 120px 50px 50px;
+            }
+
+            .right-text-part h5{
+                margin-bottom: 5px;
+            }
     </style>
     
 </head>
@@ -962,57 +1026,64 @@
              <div class="row spaceColumn">
                  
                  <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
-                     <img src="/assests/images/NLogin/007-destination.png" />
-                     <div class="hdn">Geo-Tracking & Route  <br /> Optimization</div>
-                     <div>System will intelligently capture geolocation at attendance, and will be allowed if it falls in Distribution or first visit location.</div>
+                     <div class="login-about-box">
+                        <div class="icon-img"><img src="/assests/images/NLogin/007-destination.png" /></div>
+                        <div class="hdn">Geo-Tracking & Route  <br /> Optimization</div>
+                        <p>System will intelligently capture geolocation at attendance, and will be allowed if it falls in Distribution or first visit location.</p>
+                     </div>
                  </div>
                  <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="7s">
-                     <img src="/assests/images/NLogin/004-user-interface.png" />
-                     <div class="hdn">IMEI/OTP based  <br /> authentication</div>
-                     <div>Each user will be locked with this phone IMEI and will not be able to login on another device without admin action.</div>
+                     <div class="login-about-box">
+                        <div class="icon-img"><img src="/assests/images/NLogin/004-user-interface.png" /></div>
+                        <div class="hdn">IMEI/OTP based  <br /> authentication</div>
+                        <p>Each user will be locked with this phone IMEI and will not be able to login on another device without admin action.</p>
+                     </div>
                  </div>
                  <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="9s">
-                     <img src="/assests/images/NLogin/001-dashboard.png" />
-                     <div class="hdn">Intuitive Dashboard & <br /> Auto-Reporting</div>
-                     <div>A single dashboard to manage all your team members with real time updates and notifications for updates and voilations.</div>
+                     <div class="login-about-box">
+                         <div class="icon-img"><img src="/assests/images/NLogin/001-dashboard.png" /></div>
+                         <div class="hdn">Intuitive Dashboard & <br /> Auto-Reporting</div>
+                         <p>A single dashboard to manage all your team members with real time updates and notifications for updates and voilations.</p>
+                     </div>
                  </div>
              </div>
          </div>
      </div>
-    <div>
-        <div class="container">
+    <div class="app-section">
+        <%--<div class="container">--%>
             <div class="row">
-                <div class="col-md-6"> 
-                    <img src="/assests/images/NLogin/loginPh.png" class="responsiveImg" />
+                <div class="col-md-6 mobile-image-part"> 
+                   <%-- <img src="/assests/images/NLogin/loginPh.png" class="responsiveImg" />--%>
+                    <%--<img src="/assests/images/NLogin/mobile-app-mockup.jpg" class="responsiveImg image-fluid" />--%>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 right-text-part">
                     <h2 class="mkHd"> Make Your Field Agents FUTURE READY!</h2>
                     <h4 class="mkHs">Accelerate Sales. Escalate Revenue.</h4>
 
                     <div class="row mkBoxes">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 mb-5">
                             <h5>Smart Route Management</h5>
                             <p>Stop worrying about planning .Automated route suggestion as per locations to be visited. Time saved is revenue earned.</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 mb-5">
                             <h5>One-Click OrderManagement</h5>
                             <p>Hassle-free order creation through a single click. Eliminates onsite visits for order acquisition & saves time real time.</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 mb-5">
                             <h5>Automated Reporting</h5>
                             <p>Automatically generate reports periodically to know what is going on and take decisions real time.</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 mb-5">
                             <h5>Travel Reimbursement Management</h5>
                             <p>No more hassles of having multiple portals for filling reimbursements. Single interface for all kinds of updates with status tracking.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <%--</div>--%>
     </div>
     <div>
-        <div class="container text-center" style="padding:80px 0">
+        <div class="container text-center" style="padding:50px 0">
             <h3 style="font-family: 'opcen', Montserrat, sans-serif !important;font-size:26px">Log in to Start Your Digital Journey with Breeze .</h3>
             <div style="height:30px"></div>
             <a href="#" class="cta" id="toLogin">

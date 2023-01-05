@@ -1332,13 +1332,13 @@
     }
 }
 
-    .tabs-style-shape nav li a:hover span {
-        background-color: #2CC185;
-    }
+.tabs-style-shape nav li a:hover span {
+    background-color: #241cad;
+}
 
-    .tabs-style-shape nav li a:hover svg {
-        fill: #2CC185;
-    }
+.tabs-style-shape nav li a:hover svg {
+    fill: #241cad;
+}
 
     .tabs-style-shape nav li a:active, .tabs-style-shape nav li a:focus, .tabs-style-shape nav li a:hover {
         text-decoration: none;
@@ -1827,114 +1827,142 @@
     }
 
 .newStyleMN .widgBox .icon {
-    top: -32px !important;
-    left: 28px !important;
-    border-radius: 50px !important;
+    top: 2px !important;
+    left: 2px !important;
+    border-radius: 12px 0 0 12px !important;
 }
 
-.newStyleMN .widgBox
-{
-    padding-top: 40px !important;
+.newStyleMN .widgBox:hover .icon {
+    top: 0px !important;
+    left: 0px !important;
+}
+
+.newStyleMN .widgBox.active:hover .icon {
+    top: 2px !important;
+    left: 2px !important;
+}
+
+.newStyleMN .widgBox {
+    padding-left: 60px !important;
+    padding-top: 5px !important;
+    padding-bottom: 8px !important;
+    border: 2px solid #fff;
 }
 
     .newStyleMN .widgBox.c2 {
         /*background: #e8f5ff;*/
         background: rgb(13,7,69);
         /*background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%);*/
-        background: linear-gradient(150deg, rgb(13 7 69 / 20%) 0%, rgb(133 123 223 / 20%) 100%);
+        background: linear-gradient(150deg, rgb(124 110 8 / 90%) 0%, rgb(211 191 58) 100%);
     }
 
-    .widgBox.active.c2 {
-        background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;
+.widgBox.active.c2 {
+    /*background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;*/
+    background: #083b68 !important;
+    box-shadow: 1px 1px 15px #2068b2c4;
+}
+    .widgBox.active.c2 .icon {
+        /*background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;*/
+        background: #072442 !important;
+        color: #fff !important;
+        border-color: #fff !important;
     }
-        .widgBox.active.c2 .icon {
-            background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;
-            color: #fff !important;
-            border-color: #fff !important;
-        }
 
 .newStyleMN .widgBox.c2 .icon {
-    border: 1px solid #140e4f;
-    box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);
+    /*border: 1px solid #140e4f;*/
+    /*box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);*/
+    box-shadow: none;
     /*color: #171052;*/
     color: #fff;
     /*background: #ffffff;*/
-    background: rgba(13,7,69,1);
+    background: rgb(255 255 255 / 80%);
 }
 
 .newStyleMN .widgBox.c3 {
     /*background: #e9ffe9;*/
     background: rgb(241,96,114);
     /*background: linear-gradient(150deg, rgb(219 68 87) 0%, rgb(255 169 180) 100%);*/
-    background: linear-gradient(150deg, rgb(6 157 115 / 20%) 0%, rgb(45 211 165 / 20%) 100%);
+    background: linear-gradient(150deg, rgb(5 129 94 / 90%) 0%, rgb(45 223 174 / 90%) 100%);
 }
-            .widgBox.active.c3 {
-                /*background: linear-gradient(150deg, rgb(189 37 56) 0%, rgb(255 169 180) 100%) !important;*/
-                background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;
-            }
+.widgBox.active.c3 {
+    /*background: linear-gradient(150deg, rgb(189 37 56) 0%, rgb(255 169 180) 100%) !important;*/
+    /*background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;*/
+    background: #083b68 !important;
+    box-shadow: 1px 1px 15px #2068b2c4;
+}
 
-                .widgBox.active.c3 .icon {
-                    background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;
-                    color: #fff !important;
-                    border-color: #fff !important;
-                }
+    .widgBox.active.c3 .icon {
+        /*background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;*/
+        background: #072442 !important;
+        color: #fff !important;
+        border-color: #fff !important;
+    }
 .newStyleMN .widgBox.c3 .icon {
-    border: 1px solid #069d73;
-    box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);
+    /*border: 1px solid #069d73;*/
+    /*box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);*/
+    box-shadow: none;
     /*color: #de4c5e;*/
     color: #fff;
     /*background: #ffffff;*/
-    background: rgb(6 157 115);
+    background: rgb(255 255 255 / 80%);
 }
 
 .newStyleMN .widgBox.c4 {
     /*background: #fff0e2;*/
     background: rgb(241,39,17);
     /*background: linear-gradient(150deg, rgb(13 153 195) 0%, rgb(154 224 245) 100%);*/
-    background: linear-gradient(150deg, rgb(167 14 33 / 20%) 0%, rgb(249 71 93 / 20%) 100%);
+    background: linear-gradient(150deg, rgb(199 5 29 / 90%) 0%, rgb(251 95 114 / 90%) 100%);
 }
-        .widgBox.active.c4 {
-            background: linear-gradient(150deg, rgb(167 14 33) 0%, rgb(249 71 93) 100%) !important;
-        }
+.widgBox.active.c4 {
+    /*background: linear-gradient(150deg, rgb(167 14 33) 0%, rgb(249 71 93) 100%) !important;*/
+    background: #083b68 !important;
+    box-shadow: 1px 1px 15px #2068b2c4;
+}
 
-            .widgBox.active.c4 .icon {
-                background: linear-gradient(150deg, rgb(167 14 33) 0%, rgb(249 71 93) 100%) !important;
-                color: #fff !important;
-                border-color: #fff !important;
-            }
-            .newStyleMN .widgBox.c4 .icon {
-                border: 1px solid #a70e21;
-                box-shadow: 0px 0px 14px rgb(0 0 0 / 25%);
-                /*color: #189fc7;*/
-                color: #fff;
-                /*background: #ffffff;*/
-                background: rgb(167 14 33);
-            }
+    .widgBox.active.c4 .icon {
+        /*background: linear-gradient(150deg, rgb(167 14 33) 0%, rgb(249 71 93) 100%) !important;*/
+        background: #072442 !important;
+        color: #fff !important;
+        border-color: #fff !important;
+    }
+.newStyleMN .widgBox.c4 .icon {
+    /*border: 1px solid #a70e21;*/
+    /*box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);*/
+    box-shadow: none;
+    /*color: #189fc7;*/
+    color: #fff;
+    /*background: #ffffff;*/
+    background: rgb(255 255 255 / 80%);
+}
 
 .newStyleMN .widgBox.c5 {
     /*background: #ffe8f2;*/
     background: rgb(47,128,255);
     /*background: linear-gradient(150deg, rgb(30 107 227) 0%, rgb(155 190 245) 100%);*/
     /*background: linear-gradient(150deg, rgb(203 128 17) 0%, rgb(245 194 118) 100%);*/
-    background: linear-gradient(150deg, rgb(95 124 6 / 20%) 0%, rgb(95 124 6 / 20%) 100%);
+    background: linear-gradient(150deg, rgb(46 100 6 / 90%) 0%, rgb(106 189 46) 100%);
 }
-            .widgBox.active.c5 {
-                /* background: linear-gradient(150deg, rgb(203 128 17) 0%, rgb(245 194 118) 100%) !important;*/
-                background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;
-            }
+.widgBox.active.c5 {
+    /* background: linear-gradient(150deg, rgb(203 128 17) 0%, rgb(245 194 118) 100%) !important;*/
+    /*background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;*/
+    background: #083b68 !important;
+    box-shadow: 1px 1px 15px #2068b2c4;
+}
 
-                .widgBox.active.c5 .icon {
-                    background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;
-                    color: #fff !important;
-                    border-color: #fff !important;
-                }
+    .widgBox.active.c5 .icon {
+        /*background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;*/
+        background: #072442 !important;
+        color: #fff !important;
+        border-color: #fff !important;
+    }
 .newStyleMN .widgBox.c5 .icon {
-    border: 1px solid #5f7c06;
-    box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);
+    /*border: 1px solid #5f7c06;*/
+    /*box-shadow: 0px 0px 14px rgb(0 0 0 / 22%);*/
+    box-shadow: none;
     /*color: #d99632;*/
     color: #fff;
     /*background: #ffffff;*/
-    background: rgb(95 124 6);
+    background: rgb(255 255 255 / 80%);
 }
 
 .marg-b-50
@@ -1958,6 +1986,18 @@
 .dxeButtonEditButton_PlasticBlue {
     background: #094e8c !important;
 }
+
+#lblTotal img, #lblAtWork img, #lblOnLeave img, #lblNotLoggedIn img,
+#lblTotalFV img, #lblAtWorkFV img, #lblOnLeaveFV img, #lblNotLoggedInFV img,
+#EMPTV img, #EAWTV img, #EOLTV img, #NLITV img,
+#EMPTVH img, #EAWTVH img, #EOLTVH img, #NLITVH img
+{
+    width: 40px !important;
+}
+
+/*.dxgvTable_PlasticBlue .dxgvHEC, .dxgvTable_PlasticBlue .dxgvHEC {
+    display: none !important;
+}*/
 
 
     
