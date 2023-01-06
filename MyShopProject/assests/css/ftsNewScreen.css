@@ -1,4 +1,7 @@
 
+/*Rev Number     DATE             VERSION       DEVELOPER         CHANGES*/
+/*1.0            06-01-2023       2.0.37        pallab            Dashboard grid title hyperlink sign issue fix*/
+
 @font-face {
     font-family: ProximaNova;
     font-weight: 300;
@@ -479,14 +482,14 @@ ul{
     transform: translateY(19px);
     display: inline-block;
 }
-.mapShowlist{
-   float: right;
-   text-align:right;
-   font-size: 14px;
-   /*rev Pallab 25455 */
-   /*margin-top: -107px;*/
-   margin-top: -220px;
-   /*rev end Pallab 25455 */
+.mapShowlist {
+    float: right;
+    text-align: right;
+    font-size: 14px;
+    /*rev Pallab 25455 */
+    /*margin-top: -107px;*/
+    margin-top: -135px;
+    /*rev end Pallab 25455 */
     margin-bottom: 0;
     margin-right: -10px;
 }
@@ -644,7 +647,9 @@ ul{
         border-radius: 50%;
         background: #cfcfcf;
         line-height: 39px;
+        /*rev 1.0*/
         cursor: pointer;
+        /*rev end 1.0*/
     }
 .btn-excel:hover {
     box-shadow: 0 5px 5px rgba(0,0,0,0.12);

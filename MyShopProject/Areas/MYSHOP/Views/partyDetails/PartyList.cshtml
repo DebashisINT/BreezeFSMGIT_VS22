@@ -1,4 +1,8 @@
-﻿@using MyShop.Models;
+﻿
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                06-01-2023        2.0.37           pallab              button overlapping issue fix *@
+
+@using MyShop.Models;
 @model MyShop.Models.AddPartyDetailsModel
 @{
     ViewBag.Title = "PartyList";
@@ -2225,10 +2229,11 @@
     #myImportModal .modal-body {
         border-radius: 0 0 20px 20px;
     }
-    .btn
-    {
+    /*rev 1.0*/
+    .btn {
         margin-bottom: 15px;
     }
+    /*rev end 1.0*/
 </style>
 
 <script>

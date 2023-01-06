@@ -1,5 +1,8 @@
 ﻿@model System.Data.DataTable
 
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                06-01-2023        2.0.37           pallab              grid width issue fix*@
+
 @Html.DevExpress().GridView(
    settings =>
    {
@@ -94,10 +97,10 @@
 
                            else if (ColumnWidth == 6)
                            {
-                               //rev Pallab: grid width showing wrong when after tab click
+                               //rev 1.0
                                //x.Width = System.Web.UI.WebControls.Unit.Percentage(16.66);
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-                               //rev end Pallab
+                               //rev end 1.0
                            }
                            else if (ColumnWidth == 5)
                            {
@@ -107,12 +110,12 @@
                            {
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
                            }
-                           //rev Pallab: grid width showing wrong when after tab click
+                           //rev 1.0
                            else if (ColumnWidth == 7)
                            {
                                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
                            }
-                           //rev end Pallab
+                           //rev end 1.0
                            else
                            {
                                //x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
