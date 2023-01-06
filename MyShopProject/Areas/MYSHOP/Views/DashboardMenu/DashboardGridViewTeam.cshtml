@@ -89,7 +89,10 @@
                            visibleindex = visibleindex + 1;
                            if (ColumnWidth == 10)
                            {
-                               x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+                               //rev Pallab: grid width showing wrong when after tab click
+                               //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+                               x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                               //rev end Pallab
                            }
                            else if (ColumnWidth == 6)
                            {

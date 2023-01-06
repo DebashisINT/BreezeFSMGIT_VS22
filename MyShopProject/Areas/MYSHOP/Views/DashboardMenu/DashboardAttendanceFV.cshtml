@@ -166,7 +166,7 @@
     </div>
     <div class="">
         <div class="row">
-            <div class="clearfix mb-5">
+            <div class="clearfix mb-3">
                 <div class="d-flex justify-content-center mainDashBoxes newStyleMN">
                     @if (Model.Where(x => x.DetailsName == "Total Employees for Field Visit").Count() > 0)
                     {
@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblTotalFV">0</div>
+                                    <div class="Numb" id="lblTotalFV">***</div>
                                     <div class="flex-grow-1 txt">Employee Strength</div>
                                     <div class="dtday">As of Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblAtWorkFV">0</div>
+                                    <div class="Numb" id="lblAtWorkFV">***</div>
                                     <div class="flex-grow-1 txt">Employees At Work</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -226,7 +226,7 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblOnLeaveFV">0</div>
+                                    <div class="Numb" id="lblOnLeaveFV">***</div>
                                     <div class="flex-grow-1 txt">Employees On Leave</div>
                                     <div class="dtday"> Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -248,7 +248,7 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblNotLoggedInFV">0</div>
+                                    <div class="Numb" id="lblNotLoggedInFV">***</div>
                                     <div class="flex-grow-1 txt">Not Logged In</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -260,6 +260,29 @@
             </div>
         </div>
     </div>
+    //rev Pallab: show button position change
+    @*rev Mantis Issue 25455*@
+    <div class="row">
+        <div class="col-md-12 text-right clearfix py-0 pl-50">
+            <table class="float-left">
+                <tr>
+
+                    <td>
+                        @*<span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">*@
+                            @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
+                            <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;">
+                                <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data
+                                @*<div class="hands fieldvisit-tb-hand"></div>*@
+                            </button>
+                        @*</span>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @*rev end Mantis Issue 25455*@
+    //rev end Pallab
+
     <script>
         $(document).ready(function () {
             $('.scr').on('click', function (e) {

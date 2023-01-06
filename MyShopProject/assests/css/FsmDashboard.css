@@ -540,9 +540,9 @@
         background: rgba(0,0,0,0.5);
     }
 
-    #accordion .Widgheading {
+  /*  #accordion .Widgheading {
         cursor: pointer;
-    }
+    }*/
 
     .Widgheading > a, .Widgheading > a:focus, .Widgheading > a:active {
         color: #777;
@@ -1801,7 +1801,7 @@
     }
 
     .panel-heading {
-        padding: 0 15px;
+        padding: 0 25px !important;
     }
 
     .breadCumb {
@@ -1970,18 +1970,46 @@
     margin-bottom: 30px;
 }
 
-.details-btn {
-    background-color: #71a8eb;
-    width: 55px;
-    height: 55px;
-    border-radius: 50% !important;
+.btn.details-btn {
+    /*background-color: #71a8eb;*/
+    background-color: #164f92;
+    /*width: 55px;
+    height: 55px;*/
+    /*border-radius: 50% !important;*/
+    border-radius: 8px !important;
     /* padding: 0; */
     text-align: center;
     /* display: block;*/
+    color: #fff;
+    -webkit-animation: pulse 1s;
+    animation: pulse-afct 1s;
+    box-shadow: 0 0 0 20px transparent;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
 }
-    .details-btn:hover {
-        background-color: #113b6a;
+
+@-webkit-keyframes pulse-afct {
+    0% {
+        box-shadow: 0 0 0 0 #164f929e;
     }
+}
+
+@keyframes pulse-afct {
+    0% {
+        box-shadow: 0 0 0 0 #164f929e;
+    }
+}
+.pl-50
+{
+    padding-left: 40px !important;
+}
+.btn.details-btn:hover {
+    background-color: #164f92;
+    color: #fff !important;
+}
+.btn.details-btn:focus {
+    color: #fff !important;
+}
 
 .dxeButtonEditButton_PlasticBlue {
     background: #094e8c !important;

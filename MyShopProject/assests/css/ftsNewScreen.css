@@ -644,6 +644,7 @@ ul{
         border-radius: 50%;
         background: #cfcfcf;
         line-height: 39px;
+        cursor: pointer;
     }
 .btn-excel:hover {
     box-shadow: 0 5px 5px rgba(0,0,0,0.12);

@@ -2,19 +2,21 @@
 
 @if (Model != null)
 {
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,800;1,900&display=swap" rel="stylesheet">
     <style>
         .mapShowlist li .tootip {
             font-family: 'Poppins', sans-serif !important;
         }
+
         .newStyleMN .widgBox .icon {
             position: absolute;
             left: -32px;
             top: 28px;
             border-radius: 6px;
         }
+
         .newStyleMN .widgBox .txt {
             width: 100% !important;
             max-width: 100% !important;
@@ -26,9 +28,11 @@
             margin-bottom: 4px;
             color: #fff;
         }
+
         .dtday {
             font-size: 13px;
         }
+
         .newStyleMN .widgBox .Numb {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 500;
@@ -38,17 +42,21 @@
             text-align: left;
             margin-bottom: 5px;
         }
+
         .newStyleMN .widgBox.active .Numb {
             color: #fff;
-        }.newStyleMN .widgBox {
+        }
+
+        .newStyleMN .widgBox {
             border-radius: 15px;
             padding: 15px;
             padding-bottom: 15px;
-            
         }
+
         .newStyleMN .lspacer {
-            padding-left:5px
+            padding-left: 5px
         }
+
         .flex-itm.scr:not(:last-child) .widgBox {
             margin-right: 30px;
         }
@@ -65,25 +73,25 @@
                         @Html.Action("DashboardStateCombobox")
                     </li>
                     @*Mantis Issue 24729*@
-                    <li class="relative" >
-                       
-                            @Html.Action("DashboardBranchCombobox")
-                        
+                    <li class="relative">
+
+                        @Html.Action("DashboardBranchCombobox")
+
 
 
                     </li>
                     @*EnMantis Issue 24729*@
                     @if (Model.Where(x => x.DetailsName == "View Party").Count() > 0)
                     {
-                    <li title="Click to get route details of Employees with Map " id="step7">
-                        <div class="pointer hoverMenu rut" onclick="ShowViewParty();">
-                            <span class="text ">
-                                View Party
-                                <span class="arrr"></span>
-                            </span>
-                            <span class="lni lni-user "></span>
-                        </div>
-                    </li>
+                        <li title="Click to get route details of Employees with Map " id="step7">
+                            <div class="pointer hoverMenu rut" onclick="ShowViewParty();">
+                                <span class="text ">
+                                    View Party
+                                    <span class="arrr"></span>
+                                </span>
+                                <span class="lni lni-user "></span>
+                            </div>
+                        </li>
                     }
                     @if (Model.Where(x => x.DetailsName == "View Route").Count() > 0)
                     {
@@ -162,7 +170,7 @@
     </div>
     <div class="">
         <div class="row">
-            <div class="clearfix mb-4">
+            <div class="clearfix mb-3">
                 <div class="d-flex justify-content-center mainDashBoxes newStyleMN">
                     @if (Model.Where(x => x.DetailsName == "Total Employees").Count() > 0)
                     {
@@ -173,11 +181,11 @@
                                         @*<span class="lnr lnr-users"></span>*@
                                         <img src="/assests/images/employees.png" />
                                     </div>
-                                    
+
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblTotal">0</div>
+                                    <div class="Numb" id="lblTotal">***</div>
                                     <div class="flex-grow-1 txt">Employee Strength</div>
                                     <div class="dtday">As of Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -195,11 +203,11 @@
                                         @*<span class="lnr lnr-briefcase"></span>*@
                                         <img src="/assests/images/at-work.png" />
                                     </div>
-                                    
+
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblAtWork">0</div>
+                                    <div class="Numb" id="lblAtWork">***</div>
                                     <div class="flex-grow-1 txt">Employees At Work</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -218,11 +226,11 @@
                                         @*<span class="lnr lnr-calendar-full"></span>*@
                                         <img src="/assests/images/on-leave.png" />
                                     </div>
-                                    
+
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblOnLeave">0</div>
+                                    <div class="Numb" id="lblOnLeave">***</div>
                                     <div class="flex-grow-1 txt">Employees On Leave</div>
                                     <div class="dtday"> Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -240,11 +248,11 @@
                                         @*<span class="lnr lnr-power-switch transNotLogged"></span>*@
                                         <img src="/assests/images/not-loggedin.png" />
                                     </div>
-                                    
+
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
-                                    <div class="Numb" id="lblNotLoggedIn">0</div>
+                                    <div class="Numb" id="lblNotLoggedIn">***</div>
                                     <div class="flex-grow-1 txt">Not Logged In</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -256,6 +264,29 @@
             </div>
         </div>
     </div>
+    //rev Pallab: show button position change
+    @*rev Mantis Issue 25455*@
+    <div class="row">
+        <div class="col-md-12 text-right clearfix py-0 pl-50">
+            <table class="float-left">
+                <tr>
+
+                    @*<td><button type="button" class="btn btn-success" onclick="ShowVisitData()">Show</button></td>*@
+                    <td>
+                        @*<span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">*@
+                            @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-custom-class="tooltip-custom" data-original-title="Click to Show Dashboard Summary">*@
+                            <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowVisitData()" style=" line-height: 20px;" title="">
+                                <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data
+                                @*<div class="hands visit-tb-hand"></div>*@
+                            </button>
+                        @*</span>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @*rev end Mantis Issue 25455*@
+    //rev end Pallab
     <script>
         $(document).ready(function () {
             $('.scr').on('click', function (e) {
