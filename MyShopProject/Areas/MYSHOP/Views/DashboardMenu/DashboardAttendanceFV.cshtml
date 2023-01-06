@@ -1,5 +1,8 @@
 ﻿@model List<MyShop.Models.DashboardSettingMapped>
 
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                06-01-2023        2.0.37           pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
+
 @if (Model != null)
 {
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -181,7 +184,10 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
+                                    @*rev 1.0*@
+                                    @*<div class="Numb" id="lblTotalFV">0</div>*@
                                     <div class="Numb" id="lblTotalFV">***</div>
+                                    @*rev end 1.0*@
                                     <div class="flex-grow-1 txt">Employee Strength</div>
                                     <div class="dtday">As of Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -203,7 +209,10 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
+                                    @*rev 1.0*@
+                                    @*<div class="Numb" id="lblAtWorkFV">0</div>*@
                                     <div class="Numb" id="lblAtWorkFV">***</div>
+                                    @*rev end 1.0*@
                                     <div class="flex-grow-1 txt">Employees At Work</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -226,7 +235,10 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
+                                    @*rev 1.0*@
+                                    @*<div class="Numb" id="lblOnLeaveFV">0</div>*@
                                     <div class="Numb" id="lblOnLeaveFV">***</div>
+                                    @*rev end 1.0*@
                                     <div class="flex-grow-1 txt">Employees On Leave</div>
                                     <div class="dtday"> Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -248,7 +260,10 @@
                                 </div>
                                 <div class="lspacer">
                                     @*Mantis Issue 25455 [value 0 added] *@
+                                    @*rev 1.0*@
+                                    @*<div class="Numb" id="lblNotLoggedInFV">0</div>*@
                                     <div class="Numb" id="lblNotLoggedInFV">***</div>
+                                    @*rev end 1.0*@
                                     <div class="flex-grow-1 txt">Not Logged In</div>
                                     <div class="dtday">Today</div>
                                     <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
@@ -260,7 +275,7 @@
             </div>
         </div>
     </div>
-    //rev Pallab: show button position change
+    //rev 1.0
     @*rev Mantis Issue 25455*@
     <div class="row">
         <div class="col-md-12 text-right clearfix py-0 pl-50">
@@ -269,11 +284,11 @@
 
                     <td>
                         @*<span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">*@
-                            @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
-                            <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;">
-                                <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data
-                                @*<div class="hands fieldvisit-tb-hand"></div>*@
-                            </button>
+                        @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
+                        <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;">
+                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data
+                            @*<div class="hands fieldvisit-tb-hand"></div>*@
+                        </button>
                         @*</span>*@
                     </td>
                 </tr>
@@ -281,7 +296,7 @@
         </div>
     </div>
     @*rev end Mantis Issue 25455*@
-    //rev end Pallab
+    //rev end 1.0
 
     <script>
         $(document).ready(function () {

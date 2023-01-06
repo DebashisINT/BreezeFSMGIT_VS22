@@ -1,8 +1,12 @@
 ﻿
-    /* set the size of the datepicker search control for Order Date*/
-    #ui-datepicker-div {
-        font-size: 11px;
-    }
+/*Rev Number     DATE             VERSION       DEVELOPER         CHANGES*/ 
+/*1.0            06-01-2023       2.0.37        pallab            grid width issue fix*/
+/*2.0            06-01-2023       2.0.37        pallab            Dashboard grid title hyperlink sign issue fix*/
+
+/* set the size of the datepicker search control for Order Date*/
+#ui-datepicker-div {
+    font-size: 11px;
+}
 
     /* set the size of the autocomplete search control*/
     .ui-menu-item {
@@ -539,10 +543,11 @@
         width: 100%;
         background: rgba(0,0,0,0.5);
     }
-
+    /*rev 2.0*/
   /*  #accordion .Widgheading {
         cursor: pointer;
     }*/
+/*rev 2.0*/
 
     .Widgheading > a, .Widgheading > a:focus, .Widgheading > a:active {
         color: #777;
@@ -1969,7 +1974,7 @@
 {
     margin-bottom: 30px;
 }
-
+/*rev 1.0*/
 .btn.details-btn {
     /*background-color: #71a8eb;*/
     background-color: #164f92;
@@ -2010,6 +2015,8 @@
 .btn.details-btn:focus {
     color: #fff !important;
 }
+
+/*rev end 1.0*/
 
 .dxeButtonEditButton_PlasticBlue {
     background: #094e8c !important;
