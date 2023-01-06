@@ -13,11 +13,11 @@
 
 <script type="text/javascript">
     $(function () {
-     
+
         $('#userID').on('change', function () {
             var usr = $(this).val();
             var dateObj = new Date();
-            var month = dateObj.getUTCMonth() + 1; 
+            var month = dateObj.getUTCMonth() + 1;
             var day = dateObj.getUTCDate();
             var year = dateObj.getUTCFullYear();
             //console.log(month+ ',' + year)
@@ -25,7 +25,7 @@
 
         });
         $(".calendar").pignoseCalendar({
-            
+
         });
 
         $('#tbsP').click(function () {
@@ -92,7 +92,7 @@
                 }
             });
 
-            
+
             // Monthly attendance
             var mnthUrl = '@Url.Action("GetMonthlyAttendance", "DashboardMenu")';
             $.ajax({
@@ -222,7 +222,7 @@
                        { 'data': 'Supervisor' },
                        { 'data': 'Contact' },
                        { 'data': 'Att_Date' },
-                       { 'data': 'att_Given' } 
+                       { 'data': 'att_Given' }
                     ],
 
                     error: function (error) {
@@ -333,9 +333,9 @@
                     $('#inStatus').css({'background': '#e89923'});
                     $('.smSad').removeClass('hide');
                 }else{
-    
+
                 }
-                 
+
                 if(msg[0].LOGIN_TIME != ''){
                     $('#LOGIN_TIME_td').removeClass('hide');
                 }else {
@@ -627,7 +627,7 @@
                     $('#lateTble').DataTable().destroy();
                     $("#LateToday").modal('show');
                     $('#lateTble').DataTable({
-                        
+
                         //scrollX: true,
                         //fixedColumns: {
                         //    rightColumns: 2
@@ -656,18 +656,18 @@
 <style>
 
     ul.nopad {
-    list-style-type: none;
-    padding: 0;
+        list-style-type: none;
+        padding: 0;
     }
 
-    ul.nopad > li {
-    display: inline-block;
-    min-width: 18.4%;
-    }
+        ul.nopad > li {
+            display: inline-block;
+            min-width: 18.4%;
+        }
 
-    ul.nopad > li:not(:last-child) {
-    margin-right: 1%;
-    }
+            ul.nopad > li:not(:last-child) {
+                margin-right: 1%;
+            }
 
     .colorBox {
         /*background: #4f4e94;*/
@@ -699,30 +699,30 @@
         }
 
     .infoWrp {
-    padding: 12px 15px;
-    position: relative;
+        padding: 12px 15px;
+        position: relative;
     }
 
-    .infoWrp > .nums {
-    font-size: 34px;
-    font-weight: 600;
-    }
+        .infoWrp > .nums {
+            font-size: 34px;
+            font-weight: 600;
+        }
 
-    .infoWrp > .txts {
-    font-size: 80%;
-    }
+        .infoWrp > .txts {
+            font-size: 80%;
+        }
 
     .mrLinks {
-    /*cursor: pointer;*/
-    background: rgba(0, 0, 0, 0.34);
-    padding: 5px 10px;
-    font-size: 80%;
+        /*cursor: pointer;*/
+        background: rgba(0, 0, 0, 0.34);
+        padding: 5px 10px;
+        font-size: 80%;
     }
 
-    .mrLinks > .fa {
-    float: right;
-    margin-top: 4px;
-    }
+        .mrLinks > .fa {
+            float: right;
+            margin-top: 4px;
+        }
 
     .fltd {
         position: absolute;
@@ -740,125 +740,141 @@
     }
 
     .box-holder {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    border-top: 4px solid rgb(13, 105, 67);
-    background:#fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        border-top: 4px solid rgb(13, 105, 67);
+        background: #fff;
     }
 
-    .box-holder .hdd-rp {
-    font-size: 15px;
-    font-weight: 600;
-    padding: 8px 15px;
-    }
+        .box-holder .hdd-rp {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 15px;
+        }
 
-    .box-holder .bxd-cont {
-    padding: 15px;
-    }
+        .box-holder .bxd-cont {
+            padding: 15px;
+        }
 
     .table {
-    width: 100%;
+        width: 100%;
     }
 
-    .table .thead-light th {
-    color: #495057;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-    }
+        .table .thead-light th {
+            color: #495057;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
 
     .badge {
-    font-weight: 500;
-    font-size: 12px;
+        font-weight: 500;
+        font-size: 12px;
     }
 
     .badge-warning {
-    color: #212529;
-    background-color: #ffc107;
+        color: #212529;
+        background-color: #ffc107;
     }
 
     .badge-success {
-    color: #fff;
-    background-color: #28a745;
+        color: #fff;
+        background-color: #28a745;
     }
 
     .badge-danger {
-    color: #fff;
-    background-color: #dc3545;
+        color: #fff;
+        background-color: #dc3545;
     }
 
     #chartdiv {
-    width: 100%;
-    height: 450px;
+        width: 100%;
+        height: 450px;
     }
 
     .mTop10 {
-    margin-top: 10px;
+        margin-top: 10px;
     }
 
     .pignose-calendar {
-    width: 100%;
-    max-width: 100% !important;
+        width: 100%;
+        max-width: 100% !important;
     }
 
-    .pignose-calendar .pignose-calendar-top,
-    .pignose-calendar {
-    box-shadow: none !important;
-    }
+        .pignose-calendar .pignose-calendar-top,
+        .pignose-calendar {
+            box-shadow: none !important;
+        }
 </style>
 <style>
-    .modal-title{
-        color:#fff
-    } #getTotalA, #getAbsentToday, #getOnTimeToday, #getLateToday {
+    .modal-title {
+        color: #fff
+    }
+
+    #getTotalA, #getAbsentToday, #getOnTimeToday, #getLateToday {
         cursor: pointer;
-    } 
+    }
+
     .font-normal {
         font-size: 14px !important;
     }
-    .pignose-calendar{
-        width:100% !important
+
+    .pignose-calendar {
+        width: 100% !important
     }
-    .pignose-calendar .pignose-calendar-body {
-        padding: 0.3em;
-    }
-    .pignose-calendar .pignose-calendar-header{
-        margin-top:0;
-    }
-    .pignose-calendar .pignose-calendar-top {
-        padding: 0.5em 0;
-    }
-    .pignose-calendar .pignose-calendar-top .pignose-calendar-top-date {
-        padding: 0.5em 0;
-    }
-    .pignose-calendar .pignose-calendar-top .pignose-calendar-top-month, .pignose-calendar .pignose-calendar-top .pignose-calendar-top-year{
-        display:inline-block;
-    }
+
+        .pignose-calendar .pignose-calendar-body {
+            padding: 0.3em;
+        }
+
+        .pignose-calendar .pignose-calendar-header {
+            margin-top: 0;
+        }
+
+        .pignose-calendar .pignose-calendar-top {
+            padding: 0.5em 0;
+        }
+
+            .pignose-calendar .pignose-calendar-top .pignose-calendar-top-date {
+                padding: 0.5em 0;
+            }
+
+            .pignose-calendar .pignose-calendar-top .pignose-calendar-top-month, .pignose-calendar .pignose-calendar-top .pignose-calendar-top-year {
+                display: inline-block;
+            }
+
     .sltemp {
         padding: 5px 10px 0 15px;
         /* margin-top: 5px; */
         max-width: 150px;
     }
+
     .lagendInfo {
         font-size: 14px;
         margin: 10px 0;
-    } 
-    .lagendInfo .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 15px;
-        display: inline-block;
-        margin-right: 7px;
     }
-    .lagendInfo .dot.Present {
-        background: #50c36e;
-    }
-    .lagendInfo .dot.Leave {
-        background: #757272;
-    }
-     .separt {
+
+        .lagendInfo .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-right: 7px;
+        }
+
+            .lagendInfo .dot.Present {
+                background: #50c36e;
+            }
+
+            .lagendInfo .dot.Leave {
+                background: #757272;
+            }
+
+    .separt {
         width: 20px;
         text-align: center;
         display: inline-block;
     }
+
     .lagendInfo .dot.Absent {
         background: #da3131;
     }
@@ -872,16 +888,19 @@
         border-bottom: 1px solid #1f32b5;
         padding: 10px 12px;
     }
+
     .tableStyle > tbody > tr > td, .dataTables_info, .pagination a {
         font-size: 14px;
     }
+
     #chartdiv .amcharts-amexport-menu {
         margin-top: -22px;
     }
 
-    #subChartTble>tbody>tr>td {
-        white-space:nowrap
+    #subChartTble > tbody > tr > td {
+        white-space: nowrap
     }
+
     .calBackdrop {
         position: fixed;
         top: 0;
@@ -890,9 +909,10 @@
         background: #333;
         left: 0;
         opacity: 0.5;
-        z-index:9998;
-        display:none;
+        z-index: 9998;
+        display: none;
     }
+
     .calPopup {
         position: fixed;
         top: 50%;
@@ -905,26 +925,29 @@
         display: none;
         box-shadow: 0 5px 5px rgba(0,0,0,0.15), 7px 5px 5px rgba(0,0,0,0.05);
     }
-    .calPopup.in, .calBackdrop.in {
-        display:block;
-    }
-    .calPopup .closbtn {
-        cursor:pointer;
-        font-size: 13px;
-        /* padding: 10px; */
-        position: absolute;
-        right: 9px;
-        top: 6px;
-    }
-    .calPopup .closbtn:hover {
-        color:red;
-    }
+
+        .calPopup.in, .calBackdrop.in {
+            display: block;
+        }
+
+        .calPopup .closbtn {
+            cursor: pointer;
+            font-size: 13px;
+            /* padding: 10px; */
+            position: absolute;
+            right: 9px;
+            top: 6px;
+        }
+
+            .calPopup .closbtn:hover {
+                color: red;
+            }
 </style>
 
 <div class="row">
     <div class="col-md-12">
         <ul class="nopad">
-            <li >
+            <li>
                 <div class="colorBox" id="getTotalA" title="Click here to get detail report" data-toggle="tooltip">
                     <div class="infoWrp">
                         <i class="fa fa-users fltd" aria-hidden="true"></i>
@@ -938,7 +961,7 @@
                 </div>
             </li>
             <li>
-                <div class="colorBox c1" >
+                <div class="colorBox c1">
                     <div class="infoWrp">
                         <i class="fa fa-pie-chart fltd" aria-hidden="true"></i>
                         <div class="nums"><span id="TOTAL_ONTIME_PERCENTAGE">0</span> <span style="font-size: 20px;">%</span></div>
@@ -993,17 +1016,40 @@
         </ul>
     </div>
 </div>
+
+@*rev Mantis Issue 25455*@
 <div class="row">
-    
-    
+    <div class="col-md-12 text-right clearfix py-0 mt-3 mb-3">
+        <table class="float-left">
+            <tr>
+
+                @*<td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>*@
+                <td>
+                    <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">
+                        @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
+                        <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;">
+                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;" /> click here to show data
+                            @*<div class="hands attendance-tb-hand"></div>*@
+                        </button>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+@*rev end Mantis Issue 25455*@
+
+<div class="row">
+
+
     <div class="col-md-5">
         <div class="box-holder mTop10">
-            
+
             <div class="clearfix">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="hdd-rp" style="margin-top: 5px;">
-                            Calendar 
+                            Calendar
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -1017,15 +1063,15 @@
                                 </td>
                             </tr>
                         </table>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
             <div class="bxd-cont">
                 <div class="calendar"></div>
                 <div class="lagendInfo">
-                    <span><span class="dot Present" ></span>Present</span> <i class="separt">|</i> <span><span class="dot Absent"></span>Absent</span><i class="separt">|</i> <span><span class="dot Leave"></span>On Leave</span>
+                    <span><span class="dot Present"></span>Present</span> <i class="separt">|</i> <span><span class="dot Absent"></span>Absent</span><i class="separt">|</i> <span><span class="dot Leave"></span>On Leave</span>
                 </div>
             </div>
         </div>
@@ -1082,8 +1128,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 </div>
 
 
@@ -1112,7 +1158,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-               
+
             </div>
         </div>
     </div>
@@ -1154,9 +1200,9 @@
 	                        c43.92,35.52,99.84,56.72,160.72,56.72c141.36,0,256-114.56,256-256c0-60.88-21.2-116.8-56.72-160.72
 	                        C474.8,103.68,512,175.52,512,256z" />
                         <g>
-                                                <path style="fill:#3E4347;" d="M332.432,384.8c0,7.472-5.968,13.328-13.328,13.328H192.912c-7.36,0-13.328-5.872-13.328-13.328
+                        <path style="fill:#3E4347;" d="M332.432,384.8c0,7.472-5.968,13.328-13.328,13.328H192.912c-7.36,0-13.328-5.872-13.328-13.328
 		                        c0-7.36,5.968-13.328,13.328-13.328h126.192C326.448,371.472,332.432,377.44,332.432,384.8z" />
-                                                <path style="fill:#3E4347;" d="M111.808,261.68c6.256-3.68,24.768,16.16,53.84,17.248c30.096,1.12,47.584-20.928,53.84-17.248
+                        <path style="fill:#3E4347;" d="M111.808,261.68c6.256-3.68,24.768,16.16,53.84,17.248c30.096,1.12,47.584-20.928,53.84-17.248
 		                        c7.792,2.672-2.832,53.552-53.84,53.744C114.656,315.232,104.016,264.352,111.808,261.68z" />
                         </g>
                         <path style="fill:#E9B02C;" d="M99.808,239.312c-5.808-0.928-9.776-6.4-8.832-12.224c0.944-5.808,6.32-9.792,12.224-8.832
