@@ -1,5 +1,12 @@
 <%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_frmContactMain" CodeBehind="frmContactMain.aspx.cs" %>
 
+<%--Revision History --%>
+<%--
+   1.0     v2.0.36     Sanchita    10/01/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" then 
+                                                   data in portal shall be populated based on Hierarchy Only. Refer: 25504
+--%>
+<%--End of Revision History--%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         
@@ -397,8 +404,9 @@
             </tr>
             <tr>
                 <td class="pt-4">
+                    <%--Rev 1.0 [DataSourceID="EmployeeDataSource" removed]  --%>
                     <dxe:ASPxGridView ID="EmployeeGrid" runat="server" KeyFieldName="cnt_Id" AutoGenerateColumns="False" OnDataBound="EmployeeGrid_DataBound"
-                        DataSourceID="EmployeeDataSource" Width="100%" ClientInstanceName="grid" OnCustomJSProperties="EmployeeGrid_CustomJSProperties"
+                        Width="100%" ClientInstanceName="grid" OnCustomJSProperties="EmployeeGrid_CustomJSProperties"
                         OnCustomCallback="EmployeeGrid_CustomCallback" OnHtmlRowCreated="EmployeeGrid_HtmlRowCreated"  SettingsBehavior-AllowFocusedRow="true">
                        
                         <clientsideevents endcallback="function(s,e) { ShowError(s.cpInsertError);
