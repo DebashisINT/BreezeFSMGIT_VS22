@@ -1,7 +1,9 @@
 
+/*=============================================== Revision History ================================================*/
 /*Rev Number     DATE             VERSION       DEVELOPER         CHANGES*/
-/*1.0            06-01-2023       2.0.37        pallab            Dashboard grid title hyperlink sign issue fix*/
-
+/*1.0            06-01-2023       2.0.37        Pallab            Dashboard grid title hyperlink sign issue fix */
+/*2.0            10-01-2023       2.0.37        Pallab            "Export to" button color-profile change */
+/*=============================================== Revision History ================================================*/
 @font-face {
     font-family: ProximaNova;
     font-weight: 300;
@@ -1442,6 +1444,11 @@ table.dxgvTable_PlasticBlue > tbody >tr.dxgvFooter_PlasticBlue{
 {
     line-height: 22px;
 }
+/*Rev 2.0*/
+.btn-primary {
+    background-color: #094e8c;
+}
+/*Rev end 2.0*/
 
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
     .widgBox {
