@@ -1,4 +1,7 @@
-﻿using ShopAPI.Models;
+﻿#region======================================Revision History=========================================================
+//1.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 786
+#endregion===================================End of Revision History==================================================
+using ShopAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -81,8 +84,12 @@ namespace ShopAPI.Controllers
                             updated_by = s2.updated_by,
                             updated_on = s2.updated_on,
                             agency_name = s2.agency_name,
-                            approximate_1st_billing_value = s2.approximate_1st_billing_value
+                            approximate_1st_billing_value = s2.approximate_1st_billing_value,
                             //End of Rev Debashis
+                            //Rev 1.0 Row:786
+                            multi_contact_name= s2.multi_contact_name,
+                            multi_contact_number= s2.multi_contact_number
+                            //End of Rev 1.0 Row:786
                         });
 
 

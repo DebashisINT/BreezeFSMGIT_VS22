@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#region======================================Revision History=========================================================
+//1.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 788
+#endregion===================================End of Revision History==================================================
+using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -337,6 +340,10 @@ namespace ShopAPI.Models
     {
         public string feedback { get; set; }
         public string date_time { get; set; }
+        //Rev 1.0 Row:788
+        public string multi_contact_name { get; set; }
+        public string multi_contact_number { get; set; }
+        //End of Rev 1.0 Row:788
     }
     //End of Rev Debashis Row: 675
     //Rev Debashis Row: 745
