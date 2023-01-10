@@ -30,6 +30,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -294,6 +296,7 @@
     <Compile Include="Controllers\ShopAssignmentController.cs" />
     <Compile Include="Controllers\ShopAttendanceController.cs" />
     <Compile Include="Controllers\ShoplistController.cs" />
+    <Compile Include="Controllers\ShopMultipleContactMapController.cs" />
     <Compile Include="Controllers\ShopRegisterPortalController.cs" />
     <Compile Include="Controllers\ShopRegistrationController.cs" />
     <Compile Include="Controllers\ShopsubmissionController.cs" />
@@ -412,6 +415,7 @@
     <Compile Include="Models\RubyLeadImageModel.cs" />
     <Compile Include="Models\SalesQuotationModel.cs" />
     <Compile Include="Models\ShopdaywiseModel.cs" />
+    <Compile Include="Models\ShopMultipleContactMapModel.cs" />
     <Compile Include="Models\Shopslist.cs" />
     <Compile Include="Models\ShopsubmissionModel.cs" />
     <Compile Include="Models\ShopUpdation.cs" />
