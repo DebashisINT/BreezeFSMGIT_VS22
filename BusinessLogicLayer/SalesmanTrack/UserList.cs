@@ -1,4 +1,9 @@
-﻿using DataAccessLayer;
+﻿/****************************************************************************************************************************
+*   1.0     v2.0.36     Sanchita    10/01/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" then 
+*                                                   data in portal shall be populated based on Hierarchy Only. Refer: 25504
+*********************************************************************************************************************************/
+
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -176,9 +181,9 @@ namespace SalesmanTrack
             //rev Pratik
             //proc.AddPara("@UserId", userId);
             //rev Pratik
-            // Mantis Issue 25504
+            // Rev 1.0
             proc.AddPara("@UserId", userId);
-            // End of Mantis Issue 25504
+            // End of Rev 1.0
             proc.AddPara("@DeptId", DeptId);
             ds = proc.GetTable();
             return ds;
