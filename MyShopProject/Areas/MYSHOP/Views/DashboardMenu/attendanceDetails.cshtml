@@ -1,6 +1,9 @@
-﻿
+﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
+@*1.0                06-01-2023        2.0.37           Pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
+@*2.0                11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
+@*3.0                11-01-2023        2.0.37           Pallab              "Monthly Attendance Summary" chart bar color change and month active color change *@
+@*====================================================== Revision History ===========================================================*@
 
 <link href="~/assests/css/pignose.calendar.min.css" rel="stylesheet" />
 <link href="~/assests/css/custom/PMSStyles.css" rel="stylesheet" />
@@ -451,6 +454,9 @@
                         columnSeries.name = "Attendance";
                         columnSeries.dataFields.valueY = "EMP_COUNT";
                         columnSeries.dataFields.categoryX = "MONTH";
+                        /*Rev 3.0*/
+                        columnSeries.fill = am4core.color("#175295");
+                        /*Rev end 3.0*/
 
                         columnSeries.columns.template.tooltipText =
                           "[#fff font-size: 15px]{name} in {categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]";
@@ -674,36 +680,58 @@
 
     .colorBox {
         /*background: #4f4e94;*/
-        background: linear-gradient(150deg, rgb(79 78 148) 0%, rgb(140 139 221) 100%) !important;
+        /*Rev 2.0*/
+        /*background: linear-gradient(150deg, rgb(79 78 148) 0%, rgb(140 139 221) 100%) !important;*/
+        background: linear-gradient(150deg, rgb(124 110 8 / 90%) 0%, rgb(211 191 58 / 90%) 100%) !important;
+        /*Rev end 2.0*/
         color: #fff;
         border-radius: 8px;
         overflow: hidden;
         min-height: 80px;
+        /*Rev 2.0*/
+        border: 2px solid #fff;
+        box-shadow: 0px 5px 20px rgb(0 0 0 / 23%);
+        /*Rev end 2.0*/
     }
 
         .colorBox.c1 {
             /*background: #309b60;*/
-            background: linear-gradient(150deg, #309b60 0%, rgb(108 203 150) 100%) !important;
+            /*Rev 2.0*/
+            /*background: linear-gradient(150deg, #309b60 0%, rgb(108 203 150) 100%) !important;*/
+            background: linear-gradient(150deg, rgb(5 129 94 / 90%) 0%, rgb(45 223 174 / 90%) 100%) !important;
+            /*Rev end 2.0*/
         }
 
         .colorBox.c2 {
             /*background: #3798c5;*/
-            background: linear-gradient(150deg, #2187b7 0%, rgb(105 187 225) 100%) !important;
+            /*Rev 2.0*/
+            /*background: linear-gradient(150deg, #2187b7 0%, rgb(105 187 225) 100%) !important;*/
+            background: linear-gradient(150deg, rgb(46 100 6 / 90%) 0%, rgb(106 189 46 / 90%) 100%) !important;
+            /*Rev end 2.0*/
         }
 
         .colorBox.c3 {
             /*background: #e68929;*/
-            background: linear-gradient(150deg, #cb7114 0%, rgb(245 183 118) 100%) !important;
+            /*Rev 2.0*/
+            /*background: linear-gradient(150deg, #cb7114 0%, rgb(245 183 118) 100%) !important;*/
+            background: linear-gradient(150deg, rgb(104 11 189 / 90%) 0%, rgb(168 99 231 / 90%) 100%) !important;
+            /*Rev end 2.0*/
         }
 
         .colorBox.c4 {
             /*background: #882626;*/
-            background: linear-gradient(150deg, #882626 0%, rgb(227 112 112) 100%) !important;
+            /*Rev 2.0*/
+            /*background: linear-gradient(150deg, #882626 0%, rgb(227 112 112) 100%) !important;*/
+            background: linear-gradient(150deg, rgb(199 5 29 / 90%) 0%, rgb(251 95 114 / 90%) 100%) !important;
+            /*Rev end 2.0*/
         }
 
     .infoWrp {
         padding: 12px 15px;
         position: relative;
+        /*Rev 2.0*/
+        padding-left: 60px;
+        /*Rev end 2.0*/
     }
 
         .infoWrp > .nums {
@@ -717,8 +745,10 @@
 
     .mrLinks {
         /*cursor: pointer;*/
-        background: rgba(0, 0, 0, 0.34);
-        padding: 5px 10px;
+        /*Rev 2.0*/
+        /*background: rgba(0, 0, 0, 0.34);
+        padding: 5px 10px;*/
+        /*Rev end 2.0*/
         font-size: 80%;
     }
 
@@ -726,21 +756,35 @@
             float: right;
             margin-top: 4px;
         }
-
+    /*Rev 2.0*/
     .fltd {
-        position: absolute;
+        /*position: absolute;
         right: 16px;
-        top: 16px;
+        top: 16px;*/
         font-size: 22px !important;
         color: rgb(255 255 255);
-        padding: 10px;
-        border-radius: 50px;
-        background: #ffffff45;
-        width: 50px;
-        height: 50px;
+        /*padding: 10px;*/
+        /*border-radius: 50px;
+        background: #ffffff45;*/
+        /*width: 50px;
+        height: 50px;*/
         text-align: center;
-        line-height: 30px;
+        /*line-height: 30px;*/
     }
+
+    .icon-box-left {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 50px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgb(255 255 255 / 70%);
+    }
+
+    /*Rev end 2.0*/
 
     .box-holder {
         border: 1px solid #ccc;
@@ -945,6 +989,11 @@
             .calPopup .closbtn:hover {
                 color: red;
             }
+    /*Rev 3.0*/
+    .pignose-calendar .pignose-calendar-unit.pignose-calendar-unit-active a {
+        background-color: #175295;
+    }
+    /*Rev end 3.0*/
 </style>
 
 <div class="row">
@@ -953,7 +1002,12 @@
             <li>
                 <div class="colorBox" id="getTotalA" title="Click here to get detail report" data-toggle="tooltip">
                     <div class="infoWrp">
-                        <i class="fa fa-users fltd" aria-hidden="true"></i>
+                        @*rev 2.0: 'icon-box-left' div add and icon change*@
+                        <div class="icon-box-left">
+                            @*<i class="fa fa-users fltd" aria-hidden="true"></i>*@
+                            <img src="/assests/images/employees.png" />
+                        </div>
+                        @*rev end 2.0*@
                         <div class="nums" id="Total_Emp">0</div>
                         <div class="txts">Total Employees</div>
                     </div>
@@ -966,7 +1020,12 @@
             <li>
                 <div class="colorBox c1">
                     <div class="infoWrp">
-                        <i class="fa fa-pie-chart fltd" aria-hidden="true"></i>
+                        @*rev 2.0: 'icon-box-left' div add and icon change*@
+                        <div class="icon-box-left">
+                            @*<i class="fa fa-pie-chart fltd" aria-hidden="true"></i>*@
+                            <img src="/assests/images/percentage.png" />
+                        </div>
+                        @*rev end 2.0*@
                         <div class="nums"><span id="TOTAL_ONTIME_PERCENTAGE">0</span> <span style="font-size: 20px;">%</span></div>
                         <div class="txts">On Time Percentage</div>
                     </div>
@@ -979,7 +1038,12 @@
             <li>
                 <div class="colorBox c2" id="getOnTimeToday" title="Click here to get detail report" data-toggle="tooltip">
                     <div class="infoWrp">
-                        <i class="fa fa-clock-o fltd" aria-hidden="true"></i>
+                        @*rev 2.0: 'icon-box-left' div add and icon change*@
+                        <div class="icon-box-left">
+                            @*<i class="fa fa-clock-o fltd" aria-hidden="true"></i>*@
+                            <img src="/assests/images/on-time.png" />
+                        </div>
+                        @*rev end 2.0*@
                         <div class="nums" id="TOTAL_ONTIME">0</div>
                         <div class="txts">On Time Today</div>
                     </div>
@@ -992,8 +1056,12 @@
             <li>
                 <div class="colorBox c3" id="getLateToday" title="Click here to get detail report" data-toggle="tooltip">
                     <div class="infoWrp">
-                        <i class="fa fa-exclamation-circle fltd"
-                           aria-hidden="true"></i>
+                        @*rev 2.0: 'icon-box-left' div add and icon change*@
+                        <div class="icon-box-left">
+                            @*<i class="fa fa-exclamation-circle fltd" aria-hidden="true"></i>*@
+                            <img src="/assests/images/late-ent.png" />
+                        </div>
+                        @*rev end 2.0*@
                         <div class="nums" id="TOTAL_LATETODAY">0</div>
                         <div class="txts">Late Today</div>
                     </div>
@@ -1006,7 +1074,12 @@
             <li>
                 <div class="colorBox c4" id="getAbsentToday" title="Click here to get detail report" data-toggle="tooltip">
                     <div class="infoWrp">
-                        <i class="fa fa-user-times fltd" aria-hidden="true"></i>
+                        @*rev 2.0: 'icon-box-left' div add and icon change*@
+                        <div class="icon-box-left">
+                            @*<i class="fa fa-user-times fltd" aria-hidden="true"></i>*@
+                            <img src="/assests/images/absent.png" />
+                        </div>
+                        @*rev end 2.0*@
                         <div class="nums" id="TOTAL_ABSENT">0</div>
                         <div class="txts">Absent Today</div>
                     </div>

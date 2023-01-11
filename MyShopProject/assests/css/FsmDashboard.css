@@ -1,7 +1,8 @@
-﻿
+﻿/*====================================================== Revision History ===========================================================*/
 /*Rev Number     DATE             VERSION       DEVELOPER         CHANGES*/ 
-/*1.0            06-01-2023       2.0.37        pallab            grid width issue fix*/
-/*2.0            06-01-2023       2.0.37        pallab            Dashboard grid title hyperlink sign issue fix*/
+/*1.0            06-01-2023       2.0.37        Pallab            grid width issue fix*/
+/*2.0            06-01-2023       2.0.37        Pallab            Dashboard grid title hyperlink sign issue fix*/
+/*====================================================== Revision History ===========================================================*/
 
 /* set the size of the datepicker search control for Order Date*/
 #ui-datepicker-div {
@@ -1327,6 +1328,10 @@
 
     .tabs-style-shape nav li a span {
         font-size: 12px;
+    }
+    .newStyleMN .widgBox .txt
+    {
+        font-size: 12px !important;
     }
 }
 
