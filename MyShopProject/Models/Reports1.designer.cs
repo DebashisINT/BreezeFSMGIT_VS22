@@ -78,7 +78,7 @@ namespace MyShop.Models
     #endregion
 		
 		public ReportsDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString2"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString3"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -816,6 +816,14 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<FTSEMPLOYEEPERFORMANCE_REPORT>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FTS_MapUserList> FTS_MapUserLists
+		{
+			get
+			{
+				return this.GetTable<FTS_MapUserList>();
 			}
 		}
 	}
@@ -42215,6 +42223,105 @@ namespace MyShop.Models
 				if ((this._TOTAL_COLLECTION != value))
 				{
 					this._TOTAL_COLLECTION = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTS_MapUserList")]
+	public partial class FTS_MapUserList
+	{
+		
+		private System.Nullable<long> _userid;
+		
+		private System.Nullable<long> _seq;
+		
+		private decimal _user_id;
+		
+		private string _user_name;
+		
+		private string _user_loginId;
+		
+		public FTS_MapUserList()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="BigInt")]
+		public System.Nullable<long> userid
+		{
+			get
+			{
+				return this._userid;
+			}
+			set
+			{
+				if ((this._userid != value))
+				{
+					this._userid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seq", DbType="BigInt")]
+		public System.Nullable<long> seq
+		{
+			get
+			{
+				return this._seq;
+			}
+			set
+			{
+				if ((this._seq != value))
+				{
+					this._seq = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Decimal(10,0) NOT NULL")]
+		public decimal user_id
+		{
+			get
+			{
+				return this._user_id;
+			}
+			set
+			{
+				if ((this._user_id != value))
+				{
+					this._user_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string user_name
+		{
+			get
+			{
+				return this._user_name;
+			}
+			set
+			{
+				if ((this._user_name != value))
+				{
+					this._user_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_loginId", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string user_loginId
+		{
+			get
+			{
+				return this._user_loginId;
+			}
+			set
+			{
+				if ((this._user_loginId != value))
+				{
+					this._user_loginId = value;
 				}
 			}
 		}
