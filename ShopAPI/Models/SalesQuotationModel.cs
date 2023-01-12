@@ -2,6 +2,7 @@
 //1.0   V2.0.32     Debashis    01/09/2022      Some new parameters have been added.Row: 732 to 735
 //2.0   V2.0.35     Debashis    14/10/2022      A new parameter has been added.Row: 747
 //3.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 790 to 791
+//4.0   V2.0.37     Debashis    12/01/2023      Some new parameters have been added.Row: 792 to 793
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -246,6 +247,13 @@ namespace ShopAPI.Models
         public string salesman_phone_no { get; set; }
         public string Remarks { get; set; }
         public string document_number { get; set; }
+        //Rev 4.0 Row:792
+        public string sel_quotation_pdf_template { get; set; }
+        public string quotation_contact_person { get; set; }
+        public string quotation_contact_number { get; set; }
+        public string quotation_contact_email { get; set; }
+        public string quotation_contact_doa { get; set; }
+        //End of Rev 4.0 Row:792
         public List<DocumentNoQuotationProductDetailsList> quotation_product_details_list { get; set; }
     }
 
@@ -253,6 +261,9 @@ namespace ShopAPI.Models
     {
         public long product_id { get; set; }
         public string product_name { get; set; }
+        //Rev 4.0 Row:792
+        public string product_des { get; set; }
+        //End of Rev 4.0 Row:792
         public string color_id { get; set; }
         public string color_name { get; set; }
         public decimal rate_sqft { get; set; }
@@ -285,6 +296,13 @@ namespace ShopAPI.Models
         public string Remarks { get; set; }
         public string document_number { get; set; }
         public string quotation_status { get; set; }
+        //Rev 4.0 Row:793
+        public string sel_quotation_pdf_template { get; set; }
+        public string quotation_contact_person { get; set; }
+        public string quotation_contact_number { get; set; }
+        public string quotation_contact_email { get; set; }
+        public string quotation_contact_doa { get; set; }
+        //End of Rev 4.0 Row:793
         public List<DocumentNoProductListSaveInput> product_list { get; set; }
     }
 

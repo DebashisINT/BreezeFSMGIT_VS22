@@ -2,6 +2,7 @@
 //1.0   V2.0.32     Debashis    01/09/2022      Some new parameters have been added.Row: 732 to 737
 //2.0   V2.0.35     Debashis    14/10/2022      A new parameter has been added.Row: 747
 //3.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 790 to 791
+//4.0   V2.0.37     Debashis    12/01/2023      Some new parameters have been added.Row: 792 to 793
 #endregion===================================End of Revision History==================================================
 using Newtonsoft.Json;
 using ShopAPI.Models;
@@ -454,6 +455,13 @@ namespace ShopAPI.Controllers
                         omodel.salesman_phone_no = Convert.ToString(dt.Rows[0]["salesman_phone_no"]);
                         omodel.Remarks = Convert.ToString(dt.Rows[0]["Remarks"]);
                         omodel.document_number = Convert.ToString(dt.Rows[0]["document_number"]);
+                        //Rev 4.0 Row:792
+                        omodel.sel_quotation_pdf_template = Convert.ToString(dt.Rows[0]["sel_quotation_pdf_template"]);
+                        omodel.quotation_contact_person = Convert.ToString(dt.Rows[0]["quotation_contact_person"]);
+                        omodel.quotation_contact_number = Convert.ToString(dt.Rows[0]["quotation_contact_number"]);
+                        omodel.quotation_contact_email = Convert.ToString(dt.Rows[0]["quotation_contact_email"]);
+                        omodel.quotation_contact_doa = Convert.ToString(dt.Rows[0]["quotation_contact_doa"]);
+                        //End of Rev 4.0 Row:792
                         omodel.quotation_product_details_list = QLview;
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
@@ -529,6 +537,13 @@ namespace ShopAPI.Controllers
                     sqlcmd.Parameters.AddWithValue("@REMARKS", model.Remarks);
                     sqlcmd.Parameters.AddWithValue("@DOCUMENT_NUMBER", model.document_number);
                     sqlcmd.Parameters.AddWithValue("@QUOTATION_STATUS", model.quotation_status);
+                    //Rev 4.0 Row:793
+                    sqlcmd.Parameters.AddWithValue("@SEL_QUOTATION_PDF_TEMPLATE", model.sel_quotation_pdf_template);
+                    sqlcmd.Parameters.AddWithValue("@QUOTATION_CONTACT_PERSON", model.quotation_contact_person);
+                    sqlcmd.Parameters.AddWithValue("@QUOTATION_CONTACT_NUMBER", model.quotation_contact_number);
+                    sqlcmd.Parameters.AddWithValue("@QUOTATION_CONTACT_EMAIL", model.quotation_contact_email);
+                    sqlcmd.Parameters.AddWithValue("@QUOTATION_CONTACT_DOA", model.quotation_contact_doa);
+                    //End of Rev 4.0 Row:793
                     sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
