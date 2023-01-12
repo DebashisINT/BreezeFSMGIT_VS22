@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer.SalesmanTrack;
+﻿/***************************************************************************************************************
+1.0  v2 .0.36  1.0  12/01/2023     Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" 
+                                        then data in portal shall be populated based on Hierarchy Only. Refer: 25504
+***********************************************************************************************************/
+using BusinessLogicLayer.SalesmanTrack;
 using MyShop.Models;
 using System;
 using System.Collections;
@@ -10,6 +14,9 @@ using System.Web.Mvc;
 // Mantis Issue 25536, 25535, 25542, 25543, 25544
 using UtilityLayer;
 // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+// Rev 1.0
+using DataAccessLayer;
+// End of Rev 1.0
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -107,6 +114,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public PartialViewResult PartialUserGrid(string id)
         {
+            // Rev 1.0
+            DataSet ds = new DataSet();
+            ProcedureExecute proc = new ProcedureExecute("PRC_GROUPBEAT");
+            proc.AddPara("@ACTION", "GETMAPUSERLISTDATA");
+            proc.AddPara("@USER_ID", Convert.ToString(Session["userid"]));
+            ds = proc.GetDataSet();
+            // End of Rev 1.0
 
             return PartialView(GetUserList());
         }
@@ -115,8 +129,16 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             string connectionString = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"]);
             ReportsDataContext dc = new ReportsDataContext(connectionString);
-            var q = from d in dc.tbl_master_users
+            // Rev 1.0
+            //var q = from d in dc.tbl_master_users
+            //        select d;
+
+            int userid = Convert.ToInt32(Session["userid"]);
+
+            var q = from d in dc.FTS_MapUserLists where d.userid == userid
+                    orderby d.user_id
                     select d;
+            // End of Rev 1.0
             return q;
 
         }
