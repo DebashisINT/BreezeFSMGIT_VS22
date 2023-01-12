@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FSM_ITC" Class="ReportsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=3.7.30.86,1480\SQLEXPRES;Initial Catalog=FSM_ITC;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSM_ITCConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=3.7.30.86,1480\SQLEXPRESS;Initial Catalog=FSM_ITC;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSM_ITCConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.FTSDASHBOARD_REPORT" Member="FTSDASHBOARD_REPORTs">
     <Type Name="FTSDASHBOARD_REPORT">
       <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -2523,6 +2523,15 @@
       <Column Name="DISTANCE_TRAVELLED" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
       <Column Name="TOTAL_ORDER_BOOKED_VALUE" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
       <Column Name="TOTAL_COLLECTION" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FTS_MapUserList" Member="FTS_MapUserLists">
+    <Type Name="FTS_MapUserList">
+      <Column Name="userid" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="seq" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Decimal" DbType="Decimal(10,0) NOT NULL" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="user_loginId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
