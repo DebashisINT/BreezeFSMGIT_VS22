@@ -1,6 +1,8 @@
-﻿
+﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           pallab              button overlapping issue fix *@
+@*1.0                06-01-2023        2.0.37           Pallab              button overlapping issue fix *@
+@*2.0                13-01-2023        2.0.37           Pallab              show and export button break issue fix *@
+@*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
 @model MyShop.Models.AddPartyDetailsModel
@@ -2662,11 +2664,18 @@
                         }).GetHtml()
                         </div>
                     </div>
-                    <div class="col-md-2" style="padding-top: 13px;">
+                    @*Rev 2.0*@
+                    @*<div class="col-md-2" style="padding-top: 13px;">*@
+                    <div class="col-md-4" style="padding-top: 20px;">
+                        @*Rev end 2.0*@
                         <span>&nbsp;</span>
                         <input type="checkbox" id="chkIsAssignDate" /> Re-assigned Date
                     </div>
-                    <div class="col-md-2" style="padding-top: 13px;">
+                    <div class="clear"></div>
+                    @*Rev 2.0*@
+                    @*<div class="col-md-2" style="padding-top: 13px;">*@
+                    <div class="col-md-12" style="padding-top: 13px;">
+                        @*Rev end 2.0*@
                         <span></span>
                         <div>
                             <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
