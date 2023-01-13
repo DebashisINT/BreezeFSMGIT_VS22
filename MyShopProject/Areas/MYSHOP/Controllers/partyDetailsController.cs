@@ -4,6 +4,7 @@ using DataAccessLayer;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
+using DevExpress.XtraSpreadsheet.Forms;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Models;
@@ -2469,7 +2470,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 DataTable dt = obj.ShopReAssignUser_ForAreaRouteBeat(Convert.ToString(Session["userid"]), data.OldUser, data.NewUser, ShopCodes);
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    TempData["ReAssignShopUserLog"] = dt;
+                    TempData["ReAssignShopUserManualLog_AreaRouteBeat"] = dt;
                     TempData.Keep();
                     output_msg = "Update Succesfully.";
                 }
@@ -2559,7 +2560,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             TempData.Keep();
             return PartialView(list);
         }
-
+        
         public ActionResult ExportReAssignManualLogList_AreaRouteBeat(int type)
         {
             ViewData["ReAssignShopUserManualLog_AreaRouteBeat"] = TempData["ReAssignShopUserManualLog_AreaRouteBeat"];
