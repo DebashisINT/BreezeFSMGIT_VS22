@@ -1,4 +1,9 @@
-﻿using DataAccessLayer;
+﻿//********************************************************************************************************************
+// 1.0      v2 .0.38    Sanchita    13/01/2023  DD Type should be shown based on the Type_ID & Parent_ID mapping as
+//                                  per tbl_shoptypeDetails table. Refer: 25578
+
+// ********************************************************************************************************************
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,8 +61,17 @@ namespace MyShop.Models
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
 
                 // Mantis Issue 24450,24451 [column "Shop_Owner_Contact" added ]
-                DataTable Shop = oDBEngine.GetDataTable("select top(10)Shop_Code,Entity_Location,Replace(Shop_Name,'''','&#39;') as Shop_Name,EntityCode,Shop_Owner_Contact from tbl_Master_shop where (type=4 and Shop_Name like '%" + SearchKey + "%' and dealer_id='" + ddType + "') or  (type=4 and EntityCode like '%" + SearchKey + "%' and dealer_id='" + ddType + "') or (type=4 and Shop_Owner_Contact like '%" + SearchKey + "%' and dealer_id='" + ddType + "')");
-               
+                // Rev 1.0
+                //DataTable Shop = oDBEngine.GetDataTable("select top(10)Shop_Code,Entity_Location,Replace(Shop_Name,'''','&#39;') as Shop_Name,EntityCode,Shop_Owner_Contact from tbl_Master_shop where (type=4 and Shop_Name like '%" + SearchKey + "%' and dealer_id='" + ddType + "') or  (type=4 and EntityCode like '%" + SearchKey + "%' and dealer_id='" + ddType + "') or (type=4 and Shop_Owner_Contact like '%" + SearchKey + "%' and dealer_id='" + ddType + "')");
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_FTSInsertUpdateNewParty");
+                proc.AddPara("@ACTION", "GetDDShop");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                proc.AddPara("@dealer_id", ddType);
+                DataTable Shop = proc.GetTable();
+                // End of Rev 1.0
+
                 // Mantis Issue 24450,24451 ["Shop_Owner_Contact" added ]
                 listShop = (from DataRow dr in Shop.Rows
                             select new PPModel()

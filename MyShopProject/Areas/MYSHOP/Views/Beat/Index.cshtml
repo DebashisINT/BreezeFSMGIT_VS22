@@ -1,4 +1,8 @@
-﻿@using MyShop.Models;
+﻿@*/*********************************************************************************************************************
+    1.0   v2.0.38    Sanchita    13/01/2023  Add Area, Add Route, Add Beat button required in the Beat/Group master module
+                                             Refer: 25535
+*********************************************************************************************************************/*@
+@using MyShop.Models;
 @model MyShop.Models.BeatModel
 @{
     ViewBag.Title = "Group/Beat";
@@ -13,6 +17,11 @@
         $("#txtName").val('');
         $("#ddlAreaB").val('0');
         $("#ddlRoute").val('0');
+        // Rev 1.0
+        $("#dvlblBeatCode").hide();
+        $("#dvtxtBeatCode").show();
+        $("#dvtxtLblBeatCode").show();
+        // End of Rev 1.0
         $("#beatModal").modal('show')
     }
 
@@ -37,12 +46,24 @@
                     if (CODE_TYPE == "AREA") {
                         $("#txtAreaCode").val(response.code)
                         $("#txtAreaName").val(response.name)
+                        // Rev 1.0
+                        $("#dvlblAreaCode").show();
+                        $("#dvtxtAreaCode").hide();
+                        $("#dvtxtLblAreaCode").hide();
+                        $("#lblAreaCode").html(response.code);
+                        // End of Rev 1.0
                         $("#areaModal").modal('show')
                     }
                     else if (CODE_TYPE == "ROUTE") {
                         $("#txtRouteCode").val(response.code)
                         $("#txtRouteName").val(response.name)
                         $("#ddlArea").val(response.area);
+                        // Rev 1.0
+                        $("#dvlblRouteCode").show();
+                        $("#dvtxtRouteCode").hide();
+                        $("#dvtxtLblRouteCode").hide();
+                        $("#lblRouteCode").html(response.code);
+                        // End of Rev 1.0
                         $("#routeModal").modal('show')
                     }
                     else if (CODE_TYPE == "BEAT") {
@@ -50,6 +71,12 @@
                         $("#txtName").val(response.name)
                         $("#ddlAreaB").val(response.area);
                         $("#ddlRoute").val(response.route);
+                        // Rev 1.0
+                        $("#dvlblBeatCode").show();
+                        $("#dvtxtBeatCode").hide();
+                        $("#dvtxtLblBeatCode").hide();
+                        $("#lblBeatCode").html(response.code);
+                        // End of Rev 1.0
                         $("#beatModal").modal('show')
                     }
                     // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
@@ -105,6 +132,11 @@
         $("#hdnID").val('0');
         $("#txtAreaCode").val('');
         $("#txtAreaName").val('');
+        // Rev 1.0
+        $("#dvlblAreaCode").hide();
+        $("#dvtxtAreaCode").show();
+        $("#dvtxtLblAreaCode").show();
+        // End of Rev 1.0
         $("#areaModal").modal('show')
     }
 
@@ -113,6 +145,11 @@
         $("#txtRouteCode").val('');
         $("#txtRouteName").val('');
         $("#ddlArea").val('0');
+        // Rev 1.0
+        $("#dvlblRouteCode").hide();
+        $("#dvtxtRouteCode").show();
+        $("#dvtxtLblRouteCode").show();
+        // End of Rev 1.0
         $("#routeModal").modal('show')
 
         @*$.ajax({
@@ -365,8 +402,14 @@
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            <div><label>Code <span class="red">*</span></label></div>
-                            <div>
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblBeatCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblBeatCode"> </label>
+                            </div>
+                            <div id="dvtxtLblBeatCode">
+                                <label>Code <span class="red">*</span></label>
+                            </div>
+                            <div id="dvtxtBeatCode">
                                 <input type="text" id="txtCode" maxlength="100" class="form-control" />
                             </div>
                             <div><label>Name <span class="red">*</span></label></div>
@@ -376,9 +419,9 @@
 
                             @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                             @*<label>Area <span class="red">*</span></label>
-                            <div>
-                                @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlAreaB", @class = "form-control" })
-                            </div>*@
+                                <div>
+                                    @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlAreaB", @class = "form-control" })
+                                </div>*@
 
                             <label>Route <span class="red">*</span></label>
                             <div>
@@ -416,8 +459,12 @@
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            <div><label>Code <span class="red">*</span></label></div>
-                            <div>
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblAreaCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblAreaCode"> </label>
+                            </div>
+                            <div id="dvtxtLblAreaCode"><label>Code <span class="red">*</span></label></div>
+                            <div id="dvtxtAreaCode">
                                 <input type="text" id="txtAreaCode" maxlength="100" class="form-control" />
                             </div>
                             <div><label>Name <span class="red">*</span></label></div>
@@ -454,8 +501,12 @@
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            <div><label>Code <span class="red">*</span></label></div>
-                            <div>
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblRouteCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblRouteCode"> </label>
+                            </div>
+                            <div id="dvtxtLblRouteCode"><label>Code <span class="red">*</span></label></div>
+                            <div id="dvtxtRouteCode">
                                 <input type="text" id="txtRouteCode" maxlength="100" class="form-control" />
                             </div>
                             <div><label>Name <span class="red">*</span></label></div>
