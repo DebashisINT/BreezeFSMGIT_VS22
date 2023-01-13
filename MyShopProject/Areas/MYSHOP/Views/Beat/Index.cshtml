@@ -1,13 +1,9 @@
 ﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                13-01-2023        2.0.37           Pallab              User map popup table overlap issue fix *@
+@*1.0                13-01-2023        2.0.38           Sanchita            Add Area, Add Route, Add Beat button required in the Beat/Group master module Refer: 25535 *@
+@*2.0                13-01-2023        2.0.38           Pallab              User map popup table overlap issue fix *@
 @*====================================================== Revision History ===========================================================*@
 
-=======
-﻿@*/*********************************************************************************************************************
-    1.0   v2.0.38    Sanchita    13/01/2023  Add Area, Add Route, Add Beat button required in the Beat/Group master module
-                                             Refer: 25535
-*********************************************************************************************************************/*@
 @using MyShop.Models;
 @model MyShop.Models.BeatModel
 @{
@@ -360,12 +356,12 @@
     .dxgvLoadingPanel_PlasticBlue {
         left: 42% !important;
     }
-    /*Rev 1.0*/
+    /*Rev 2.0*/
     #gridUserList {
         width: 100% !important;
         max-width: 100% !important;
     }
-    /*Rev end 1.0*/
+    /*Rev end 2.0*/
 </style>
 
 <div class="breadCumb">
@@ -548,10 +544,10 @@
 @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
 
 <div id="usermapModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
-    @*Rev 1.0*@
+    @*Rev 2.0*@
     @*<div class="modal-dialog" style="width: 750px;">*@
     <div class="modal-dialog" style="width: 780px;">
-        @*Rev end 1.0*@
+        @*Rev end 2.0*@
 
         <!-- Modal content-->
         <div class="modal-content">
