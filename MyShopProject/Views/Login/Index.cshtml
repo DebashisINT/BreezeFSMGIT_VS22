@@ -1,4 +1,9 @@
-﻿@model MyShop.Models.LoginModel
+﻿@*====================================================== Revision History ===========================================================
+Rev Number         DATE              VERSION          DEVELOPER           CHANGES
+1.0                14-01-2023        2.0.38           Pallab              Design change if we provide wrong password: fix
+====================================================== Revision History ===========================================================*@
+
+@model MyShop.Models.LoginModel
 
 
 @{
@@ -496,6 +501,9 @@
             align-items: center;
             justify-content: center;
             /*Rev end Pallab*/
+            /*Rev 1.0*/
+            flex-direction: column;
+            /*Rev end 1.0*/
         }
 
         .formBox {
@@ -814,108 +822,108 @@
 <body>
     @using (Html.BeginForm("SubmitForm", "Login", FormMethod.Post, new { @id = "fromsalesman" }))
     {
-      <section class="mainLogin">
-         <div class="flexArea">
-             <div class="contentArea">
-                 @*<div class="tagLine"><h3>Designed to fulfill your</h3><h1 class="emp">Business Requirements</h1><h4>Simple, Intuitive and Easy to use</h4></div>
-                        <div class="xoptions">
-                            <ul>
-                                <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
-                                <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
-                                <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
-                            </ul>
-                        </div>
-                        <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
-                   <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
-                 <img src="~/assests/images/NLogin/left-top-image.png" class="left-top-image" />
-             </div>
-             <div class="formArea">
-                 <form action="" method="post" runat="server" novalidate="novalidate">
-                     <input id="rurl" name="rurl" runat="server" type="hidden" value="" />
-                     <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
-                     <div class="login-part">
-                         <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
-                         @*<p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>*@
-                         <div class="formBox">
-                             <div class="form-group">
-                                 <label for="username">Username</label>
-                                 @*<img src="/assests/images/NLogin/user.png" class="inputIcons" />*@
-                                 <img src="/assests/images/NLogin/user-2.png" class="inputIcons" />
-                                 <asp:TextBox ID="txtUserName" CssClass="form-control " runat="server" placeholder=" User Name" TabIndex="1"></asp:TextBox>
-                                 @Html.TextBoxFor(m => m.username, new { @class = "form-control " })
-
+        <section class="mainLogin">
+            <div class="flexArea">
+                <div class="contentArea">
+                    @*<div class="tagLine"><h3>Designed to fulfill your</h3><h1 class="emp">Business Requirements</h1><h4>Simple, Intuitive and Easy to use</h4></div>
+                             <div class="xoptions">
+                                 <ul>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
+                                 </ul>
                              </div>
-                             <div class="form-group">
-                                 <label for="password">Password</label>
-                                 @*<img src="/assests/images/NLogin/password.png" class="inputIcons" />*@
-                                 <img src="/assests/images/NLogin/password-2.png" class="inputIcons" />
-                                 @Html.TextBoxFor(m => m.password, new { @class = "form-control " })
-                             </div>
-                             <div style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #4a4a4a; text-align: center; ">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
-                             <input type="submit" value="Sign in" class="btn btn-block loginbtn" />
-
-                             <div class="ftFooter">
-                                 © Copyright 2023 Indus Net Technologies.<br />
-                                 [BreezeERP Version <span id="lblVersion">2.0.29]</span>
-                             </div>
-                         </div>
-                     </div>
-                     </form>
+                             <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
+                        <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
+                    <img src="~/assests/images/NLogin/left-top-image.png" class="left-top-image" />
                 </div>
-         </div>
-     </section>
-     <section class="fts">
-             <div class="container">
-                 <h2 class="">
-                     Automate Processes. Manage Teams. <br>Acquire Leads. Close Sales.
-                     <span>All-in-One Platform</span>
-                 </h2>
-             <div class="row">
-                 <div class="col-md-12">
+                <div class="formArea">
+                    <form action="" method="post" runat="server" novalidate="novalidate">
+                        <input id="rurl" name="rurl" runat="server" type="hidden" value="" />
+                        <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
+                        <div class="login-part">
+                            <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
+                            @*<p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>*@
+                            <div class="formBox">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    @*<img src="/assests/images/NLogin/user.png" class="inputIcons" />*@
+                                    <img src="/assests/images/NLogin/user-2.png" class="inputIcons" />
+                                    <asp:TextBox ID="txtUserName" CssClass="form-control " runat="server" placeholder=" User Name" TabIndex="1"></asp:TextBox>
+                                    @Html.TextBoxFor(m => m.username, new { @class = "form-control " })
 
-                 </div>
-                 <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
-                     <img src="~/assests/images/NLogin/007-destination.png" />
-                     <div class="hdn">Geo-Tracking & Route  <br /> Optimization</div>
-                     <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
-                 </div>
-                 <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="7s">
-                     <img src="~/assests/images/NLogin/004-user-interface.png" />
-                     <div class="hdn">IMEI/OTP based  <br /> authentication</div>
-                     <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
-                 </div>
-                 <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="9s">
-                     <img src="~/assests/images/NLogin/001-dashboard.png" />
-                     <div class="hdn">Intuitive Dashboard & <br /> Auto-Reporting</div>
-                     <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
-                 </div>
-             </div>
-         </div>
-     </section>
-        <section>
-        <div class="container text-center" style="padding:80px 0">
-            <h3 style="font-family: 'opcen', Montserrat, sans-serif !important;font-size:26px">Log in to Start Your Digital Journey with Breeze .</h3>
-            <div style="height:30px"></div>
-            <a href="#" class="cta" id="toLogin">
-              <span>Login Now</span>
-              <svg width="13px" height="10px" viewBox="0 0 13 10">
-                <path d="M1,5 L11,5"></path>
-                <polyline points="8 1 12 5 8 9"></polyline>
-              </svg>
-            </a>
-            <div></div>
-            <div class="socialArea">
-                 <div class="effect egeon">
-                    <div class="buttons">
-                      <a href="#" class="fb" title="Join us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                      <a href="#" class="g-plus" title="Join us on Google+"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                      <a href="#" class="in" title="Join us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    @*<img src="/assests/images/NLogin/password.png" class="inputIcons" />*@
+                                    <img src="/assests/images/NLogin/password-2.png" class="inputIcons" />
+                                    @Html.TextBoxFor(m => m.password, new { @class = "form-control " })
+                                </div>
+                                <div style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #4a4a4a; text-align: center; ">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
+                                <input type="submit" value="Sign in" class="btn btn-block loginbtn" />
+
+                                <div class="ftFooter">
+                                    © Copyright 2023 Indus Net Technologies.<br />
+                                    [BreezeERP Version <span id="lblVersion">2.0.29]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            
-        </div>
-    </section>
+        </section>
+        <section class="fts">
+            <div class="container">
+                <h2 class="">
+                    Automate Processes. Manage Teams. <br>Acquire Leads. Close Sales.
+                    <span>All-in-One Platform</span>
+                </h2>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
+                        <img src="~/assests/images/NLogin/007-destination.png" />
+                        <div class="hdn">Geo-Tracking & Route  <br /> Optimization</div>
+                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
+                    </div>
+                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="7s">
+                        <img src="~/assests/images/NLogin/004-user-interface.png" />
+                        <div class="hdn">IMEI/OTP based  <br /> authentication</div>
+                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
+                    </div>
+                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="9s">
+                        <img src="~/assests/images/NLogin/001-dashboard.png" />
+                        <div class="hdn">Intuitive Dashboard & <br /> Auto-Reporting</div>
+                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container text-center" style="padding:80px 0">
+                <h3 style="font-family: 'opcen', Montserrat, sans-serif !important;font-size:26px">Log in to Start Your Digital Journey with Breeze .</h3>
+                <div style="height:30px"></div>
+                <a href="#" class="cta" id="toLogin">
+                    <span>Login Now</span>
+                    <svg width="13px" height="10px" viewBox="0 0 13 10">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                </a>
+                <div></div>
+                <div class="socialArea">
+                    <div class="effect egeon">
+                        <div class="buttons">
+                            <a href="#" class="fb" title="Join us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#" class="g-plus" title="Join us on Google+"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <a href="#" class="in" title="Join us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <div class="hide">
             <div class="backColor"></div>
             <div class="bgImage">
@@ -931,7 +939,7 @@
 
                     </div>
                     <div class="loginArea">
-                        
+
                     </div>
                 </div>
             </div>

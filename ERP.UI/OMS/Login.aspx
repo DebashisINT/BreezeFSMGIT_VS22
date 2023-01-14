@@ -1,4 +1,9 @@
 ﻿
+<%--====================================================== Revision History ===========================================================
+Rev Number         DATE              VERSION          DEVELOPER           CHANGES
+1.0                14-01-2023        2.0.38           Pallab              Design change if we provide wrong password: fix 
+====================================================== Revision History ===========================================================--%>
+
 <%@ Page Language="C#" AutoEventWireup="true" Inherits="pLogin"
     EnableEventValidation="false" CodeBehind="Login.aspx.cs" %>
 
@@ -526,6 +531,9 @@
             align-items: center;
             justify-content: center;
             /*Rev end Pallab*/
+            /*Rev 1.0*/
+            flex-direction: column;
+            /*Rev end 1.0*/
         }
         .formBox {
             margin-top: 20px;
