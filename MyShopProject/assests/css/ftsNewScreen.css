@@ -745,7 +745,7 @@ ul{
 .btn-sm, .btn-xs {
     /*Rev 3.0*/
     /*padding: 7px 10px;*/
-    padding: 5px 12px;
+    padding: 5px 10px;
     font-size: 14px;
     line-height: 1.428571429;
     /*Rev end 3.0*/
@@ -1260,9 +1260,11 @@ select:not(.btn) {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-#btnFilter
-{
-    padding: 4px 12px;
+#btnFilter {
+    /*Rev 3.0*/
+    /*padding: 4px 12px;*/
+    padding: 6px 12px;
+    /*Rev end 3.0*/
 }
 
 
@@ -1483,5 +1485,6 @@ table.dxgvTable_PlasticBlue > tbody >tr.dxgvFooter_PlasticBlue{
 /*Rev 3.0*/
 .btn-success {
     background-color: #32b35d;
+    padding: 6px 10px;
 }
 /*Rev end 3.0*/
