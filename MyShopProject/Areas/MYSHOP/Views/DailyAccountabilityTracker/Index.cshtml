@@ -57,7 +57,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 13px;
+        bottom: 8px;
         right: 20px;
         z-index: 0;
         cursor: pointer;
@@ -166,6 +166,13 @@
 
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
+        
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
     }
 
     #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
@@ -301,6 +308,27 @@
         }
     .pad-md-18 {
         padding-top: 24px !important;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
     }
 </style>
 @*Rev end 1.0*@

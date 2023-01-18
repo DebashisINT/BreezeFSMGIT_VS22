@@ -417,7 +417,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 13px;
+        bottom: 7px;
         right: 20px;
         z-index: 0;
         cursor: pointer;
@@ -526,6 +526,13 @@
 
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
+        
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
 
     #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
@@ -659,6 +666,22 @@
             font-family: 'Poppins', sans-serif !important;
             font-size: 12px;
         }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img , 
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
     /*Rev end 1.0*/
 </style>
 
@@ -777,6 +800,9 @@
                     <span id="MandatoryFromDate" style="display: none" class="validclass">
                         <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
                     </span>
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </div>
             </div>
             <div class="col-md-4 col-lg-2">
@@ -800,6 +826,9 @@
                     <span id="MandatoryToDate" style="display: none" class="validclass">
                         <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
                     </span>
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </div>
             </div>
             <div class="col-md-4 col-lg-2">

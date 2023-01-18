@@ -709,6 +709,13 @@
 
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
+        
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
 
     #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
@@ -722,6 +729,22 @@
         padding: 0 10px;
         margin-top: 15px;
         border-radius: 8px;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
     }
     /*Rev end 1.0*/
 
@@ -768,6 +791,9 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                        @*Rev 1.0*@
+                        <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                        @*Rev end 1.0*@
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -785,6 +811,9 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                        @*Rev 1.0*@
+                        <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                        @*Rev end 1.0*@
                     </div>
                 </div>
                 <div class="col-md-4 btnPadding">

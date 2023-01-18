@@ -516,7 +516,10 @@
 </style>
 <style>
     .leaflet-top, .leaflet-bottom {
-        z-index: 5 !important;
+        /*Rev 1.0*/
+        /*z-index: 5 !important;*/
+        z-index: 0 !important;
+        /*Rev end 1.0*/
     }
 
     .ClasicStyle {
@@ -2424,8 +2427,8 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 13px;
-        right: 20px;
+        bottom: 9px;
+        right: 25px;
         z-index: 0;
         cursor: pointer;
     }
@@ -2534,6 +2537,12 @@
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
         height: 34px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
     }
 
     #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
@@ -2673,6 +2682,31 @@
         padding: 4px 4px 6px 10px;
     }
 
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    .leaflet-control {
+        z-index: 0;
+    }
+
     /*Rev end 1.0*/
 </style>
 
@@ -2736,7 +2770,9 @@
             <table class="pdtable mb-4">
 
                 <tr>
-                    <td>
+                    @*Rev 1.0: "for-cust-icon" class add *@
+                    <td class="for-cust-icon">
+                        @*Rev end 1.0*@
                         <div>Select Date</div>
                         <div>
                             @Html.DevExpress().DateEdit(Settings =>
@@ -2749,6 +2785,9 @@
                                     Settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     Settings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </td>
                     <td>
@@ -2756,9 +2795,9 @@
                         @*Rev 1.0*@
                         @*<div id="divState">*@
                         <div id="divState" class="h-branch-select">
-                        @*Rev end 1.0*@
+                            @*Rev end 1.0*@
 
-                    </div>
+                        </div>
                     </td>
                     <td style="padding-top: 21px;">
                         <button class="btn btn-success" id="btnFilter" onclick="filter()">Show</button>
