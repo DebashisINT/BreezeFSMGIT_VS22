@@ -436,7 +436,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 13px;
+        bottom: 8px;
         right: 20px;
         z-index: 0;
         cursor: pointer;
@@ -547,11 +547,17 @@
         border-radius: 5px;
     }
 
-    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
-        background: #165092;
-        vertical-align: middle;
-        font-weight: 500;
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
+
+        #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+            background: #165092;
+            vertical-align: middle;
+            font-weight: 500;
+        }
 
     /*#refreshgrid {
         background: #e5e5e5;
@@ -678,6 +684,26 @@
             font-family: 'Poppins', sans-serif !important;
             font-size: 12px;
         }
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
     /*Rev end 1.0*/
 </style>
 
@@ -706,8 +732,10 @@
                     @Html.Action("GetEmpList", "MasterPopulate")
                 </td>
 
-
-                <td style="width:150px;">
+                @*Rev 1.0*@
+                @*<td style="width:150px;">*@
+                <td style="width:150px;" class="for-cust-icon">
+                    @*Rev end 1.0*@
                     <label>From Date </label>
                     @Html.DevExpress().DateEditFor(x => x.FromDate,
                                 deSettings =>
@@ -721,9 +749,15 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </td>
 
-                <td style="width:150px;">
+                @*Rev 1.0*@
+                @*<td style="width:150px;">*@
+                <td style="width:150px;" class="for-cust-icon">
+                    @*Rev end 1.0*@
                     <label>To Date </label>
                     @Html.DevExpress().DateEditFor(x => x.ToDate,
                                 deSettings =>
@@ -736,23 +770,26 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </td>
                 @*Rev 1.0*@
                 @*<td style="padding-top: 20px; width: 220px;">*@
                 <td style="padding-top: 24px; width: 220px;">
-                @*Rev end 1.0*@
-                <button type="button" id="btnshow" class="btn btn-success btn-sm btnwidth">Show</button>
+                    @*Rev end 1.0*@
+                    <button type="button" id="btnshow" class="btn btn-success btn-sm btnwidth">Show</button>
 
-                <select name="ddlAppIds" class="btn btn-sm btn-sm btn-primary" id="ddlAppIds">
-                    <option value="0">Export to</option>
-                    <option value="1">PDF</option>
-                    <option value="2">XLSX</option>
-                    <option value="3">XLS</option>
-                    <option value="4">RTF</option>
-                    <option value="5">CSV</option>
+                    <select name="ddlAppIds" class="btn btn-sm btn-sm btn-primary" id="ddlAppIds">
+                        <option value="0">Export to</option>
+                        <option value="1">PDF</option>
+                        <option value="2">XLSX</option>
+                        <option value="3">XLS</option>
+                        <option value="4">RTF</option>
+                        <option value="5">CSV</option>
 
-                </select>
-            </td>
+                    </select>
+                </td>
             </tr>
             <tr></tr>
         </table>

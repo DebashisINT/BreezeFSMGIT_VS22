@@ -490,7 +490,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 13px;
+        bottom: 8px;
         right: 20px;
         z-index: 0;
         cursor: pointer;
@@ -599,6 +599,13 @@
 
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
+        
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
 
     #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
@@ -732,6 +739,28 @@
             font-family: 'Poppins', sans-serif !important;
             font-size: 12px;
         }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon
+    {
+        position:relative;
+        z-index: 1;
+    }
     /*Rev end 1.0*/
 </style>
 
@@ -766,7 +795,7 @@
 
                 @*Rev 1.0*@
                 @*<td style="width:160px;">*@
-                <td style="width:150px;">
+                <td style="width:150px;" class="for-cust-icon">
                     @*Rev end 1.0*@
                     <label>From Date </label>
                     @Html.DevExpress().DateEditFor(x => x.FromDate,
@@ -781,10 +810,13 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </td>
                 @*Rev 1.0*@
                 @*<td style="width:160px;">*@
-                <td style="width:150px;">
+                <td style="width:150px;" class="for-cust-icon">
                     @*Rev end 1.0*@
                     <label>To Date </label>
                     @Html.DevExpress().DateEditFor(x => x.ToDate,
@@ -798,6 +830,9 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
+                    @*Rev 1.0*@
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    @*Rev end 1.0*@
                 </td>
                 @*Rev Debashis Mantis: 0025104*@
                 <td id="dtdesg2" style="width: 220px; padding-top: 23px;">
