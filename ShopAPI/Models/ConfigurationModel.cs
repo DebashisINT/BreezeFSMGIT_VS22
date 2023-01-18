@@ -1,4 +1,7 @@
-﻿using System;
+﻿#region======================================Revision History=========================================================
+//1.0   V2.0.32     Debashis    17/01/2023      A new parameter has been added.Row: 797
+#endregion===================================End of Revision History==================================================
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -171,6 +174,9 @@ namespace ShopAPI.Models
         public bool IsShowDesignationInTeam { get; set; }
         public bool IsAllowZeroRateOrder { get; set; }
         //End of Rev Debashis
+        //Rev 1.0 Row:797
+        public bool IsBeatAvailable { get; set; }
+        //End of Rev 1.0 Row:797
     }
 
     public class ConfigurationModelInput
