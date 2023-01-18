@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 10/01/2023
-//Purpose: Add mutiple contact for a Shop.Refer: Row:783 to 785
+//Purpose: Add mutiple contact for a Shop.Refer: Row:783 to 785 and 799 to 801
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -44,31 +44,37 @@ namespace ShopAPI.Controllers
                             contact_number1 = s2.contact_number1,
                             contact_email1 = s2.contact_email1,
                             contact_doa1 = s2.contact_doa1,
+                            contact_dob1= s2.contact_dob1,
                             contact_serial2 = s2.contact_serial2,
                             contact_name2 = s2.contact_name2,
                             contact_number2 = s2.contact_number2,
                             contact_email2 = s2.contact_email2,
                             contact_doa2 = s2.contact_doa2,
+                            contact_dob2= s2.contact_dob2,
                             contact_serial3 = s2.contact_serial3,
                             contact_name3 = s2.contact_name3,
                             contact_number3 = s2.contact_number3,
                             contact_email3 = s2.contact_email3,
                             contact_doa3 = s2.contact_doa3,
+                            contact_dob3= s2.contact_dob3,
                             contact_serial4 = s2.contact_serial4,
                             contact_name4 = s2.contact_name4,
                             contact_number4 = s2.contact_number4,
                             contact_email4 = s2.contact_email4,
                             contact_doa4 = s2.contact_doa4,
+                            contact_dob4= s2.contact_dob4,
                             contact_serial5 = s2.contact_serial5,
                             contact_name5 = s2.contact_name5,
                             contact_number5 = s2.contact_number5,
                             contact_email5 = s2.contact_email5,
                             contact_doa5 = s2.contact_doa5,
+                            contact_dob5= s2.contact_dob5,
                             contact_serial6 = s2.contact_serial6,
                             contact_name6 = s2.contact_name6,
                             contact_number6 = s2.contact_number6,
                             contact_email6 = s2.contact_email6,
-                            contact_doa6 = s2.contact_doa6
+                            contact_doa6 = s2.contact_doa6,
+                            contact_dob6= s2.contact_dob6
                         });
                     }
 
@@ -141,31 +147,37 @@ namespace ShopAPI.Controllers
                             contact_number1 = s2.contact_number1,
                             contact_email1 = s2.contact_email1,
                             contact_doa1 = s2.contact_doa1,
+                            contact_dob1= s2.contact_dob1,
                             contact_serial2 = s2.contact_serial2,
                             contact_name2 = s2.contact_name2,
                             contact_number2 = s2.contact_number2,
                             contact_email2 = s2.contact_email2,
                             contact_doa2 = s2.contact_doa2,
+                            contact_dob2= s2.contact_dob2,
                             contact_serial3 = s2.contact_serial3,
                             contact_name3 = s2.contact_name3,
                             contact_number3 = s2.contact_number3,
                             contact_email3 = s2.contact_email3,
                             contact_doa3 = s2.contact_doa3,
+                            contact_dob3= s2.contact_dob3,
                             contact_serial4 = s2.contact_serial4,
                             contact_name4 = s2.contact_name4,
                             contact_number4 = s2.contact_number4,
                             contact_email4 = s2.contact_email4,
                             contact_doa4 = s2.contact_doa4,
+                            contact_dob4= s2.contact_dob4,
                             contact_serial5 = s2.contact_serial5,
                             contact_name5 = s2.contact_name5,
                             contact_number5 = s2.contact_number5,
                             contact_email5 = s2.contact_email5,
                             contact_doa5 = s2.contact_doa5,
+                            contact_dob5= s2.contact_dob5,
                             contact_serial6 = s2.contact_serial6,
                             contact_name6 = s2.contact_name6,
                             contact_number6 = s2.contact_number6,
                             contact_email6 = s2.contact_email6,
-                            contact_doa6 = s2.contact_doa6
+                            contact_doa6 = s2.contact_doa6,
+                            contact_dob6= s2.contact_dob6
                         });
                     }
 

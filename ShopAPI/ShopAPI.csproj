@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AppInfoController.cs" />
     <Compile Include="Controllers\APPLogFilesDetectionController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\AreaRouteBeatRelationInfoController.cs" />
     <Compile Include="Controllers\AttachDocumnetController.cs" />
     <Compile Include="Controllers\AttachmentDocumentTypeController.cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
@@ -341,6 +342,7 @@
     <Compile Include="Models\APPLogFilesDetectionModel.cs" />
     <Compile Include="Models\ApplyReimbursementModel.cs" />
     <Compile Include="Models\AreaModel.cs" />
+    <Compile Include="Models\AreaRouteBeatRelationInfoModel.cs" />
     <Compile Include="Models\Assigntoshop.cs" />
     <Compile Include="Models\AttachmentDocumentTypeModel.cs" />
     <Compile Include="Models\Attendancemanage.cs" />
