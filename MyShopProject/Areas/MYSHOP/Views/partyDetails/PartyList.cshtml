@@ -1,7 +1,8 @@
 ﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           Pallab              button overlapping issue fix *@
-@*2.0                13-01-2023        2.0.37           Pallab              show and export button break issue fix *@
+@*1.0                06-01-2023        2.0.38           Pallab              button overlapping issue fix *@
+@*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
+@*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1022,6 +1023,9 @@
         }
 
         $("#lblTypes").html($("#ddlshoptypesr :selected").text() + " Type ");
+        /*Rev 3.0*/
+        $("#lblTypes_second").html($("#ddlshoptypesr :selected").text() + " Type ");
+        /*Rev end 3.0*/
 
         if (shoptype != "0") {
             $.ajax({
@@ -2168,7 +2172,10 @@
     }
 
     .pmsModal.w70 .modal-dialog {
-        width: 70%;
+        /*Rev 3.0*/
+        /*width: 70%;*/
+        width: 76%;
+        /*Rev end 3.0*/
     }
 
     #myModal label {
@@ -2236,6 +2243,128 @@
         margin-bottom: 15px;
     }
     /*rev end 1.0*/
+
+    /*Rev 3.0*/
+    .dxeButtonEdit_PlasticBlue {
+        min-height: 30px;
+        border-radius: 4px;
+        border: 1px solid #cdcdcd;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    #myModal label {
+        margin-top: 8px;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .General-part {
+        padding-bottom: 20px;
+        background: #fff4eb;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9b0909;*/
+        border-bottom: 1px solid #9b090991;
+    }
+
+    .party-info {
+        padding-bottom: 20px;
+        background: #ebfff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #33974c;*/
+        border-bottom: 1px solid #33974c91;
+    }
+
+    .contact-info {
+        padding-bottom: 20px;
+        background: #f8ebff;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #7e3ea1;*/
+        border-bottom: 1px solid #7e3ea191;
+    }
+
+    .account-info {
+        padding-bottom: 20px;
+        background: #fffff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /* border-left: 5px solid #2d84b3; */
+        border-bottom: 1px solid #c3b66391;
+    }
+
+    .other-info {
+        padding-bottom: 20px;
+        background: #fff3f3;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9eb329;*/
+        border-bottom: 1px solid #ef2a2a91;
+    }
+
+    .pmsModal .modal-body {
+        padding-top: 0;
+        padding-right: 15px;
+        padding-left: 15px;
+        padding-bottom: 0;
+    }
+
+    .General-part h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #8c0909;
+        padding-left: 8px;
+    }
+
+    .party-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #33974c;
+        padding-left: 8px;
+    }
+
+    .contact-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #7e3ea1;
+        padding-left: 8px;
+    }
+
+    .account-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #bfaa15;
+        padding-left: 8px;
+    }
+
+    .other-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #e54949;
+        padding-left: 8px;
+    }
+
+    .col-md-3, .col-md-6, .col-md-4 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        padding: 3px 5px;
+    }
+
+    .red {
+        font-size: 12px;
+    }
+
+
+    /*Rev end 3.0*/
 </style>
 
 <script>
@@ -2713,464 +2842,636 @@
             <div class="modal-body inputShrink">
                 <div class="row">
 
-                    <div class="col-md-3">
-                        <label>Country <span class="red">*</span></label>
-                        <div>
-                            @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>State <span class="red">*</span></label>
-                        <div id="statediv">
-                            @Html.DropDownListFor(m => m.State, new SelectList(Model.StateList, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>District <span class="red">*</span></label>
-                        <div id="Citydiv">
-                            <select class="form-control">
-                                <option>Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Area </label>
-                        <div id="Areadiv">
-                            <select class="form-control">
-                                <option>Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    @*Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Cluster <span class="red">*</span></label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Cluster, new { @class = "form-control", @id = "txtcluster" })
-                        </div>
-                    </div>
-                    @*End of Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Type <span class="red">*</span></label>
-                        <div>
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @Html.DropDownListFor(m => m.type, new SelectList(Model.ShpTypeList, "ID", "Name", Model.Shoptype), new { @id = "ddlshoptypesr", @class = "form-control", @onchange = "ShopTypeChange();" })
-                        </div>
-                    </div>
-                    <div class="col-md-3 hide" id="divddType">
-                        <label id="lblTypes">Type </label>
-                        <div id="ShopTypes">
-                            <select class="form-control" id="ddlShopTypes">
-                                <option>Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3" id="DivAssignTo">
-                        <label>Assigned To PP</label>
-                        <div>
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @*@Html.DropDownListFor(m => m.AssignedTo, new SelectList(Model.PPCodeList, "Shop_Code", "Shop_Name", Model.PPCode), new { @id = "ddlPPList", @class = "form-control" })*@
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "PPTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){PPButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){PP_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            <input type="hidden" id="txtContact_hidden">
-                            <input type="hidden" id="ShopCode" value="@Model.PPCode">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 hide" id="divddShopType">
-                        <label id="lblTypes">DD Type </label>
-                        <div id="ddShopType">
-                            <select class="form-control" id="ddlddShopType">
-                                <option>Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3" id="DivAssignToDD">
-                        <label>Assigned To DD</label>
-                        <div>
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "DDTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){DDButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){DD_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            <input type="hidden" id="txtDDContact_hidden">
-                            <input type="hidden" id="DDShopCode" value="@Model.DDCode">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 hide" id="DivAssignToRetailer">
-                        <label>Assigned To Retailer</label>
-                        <div>
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "RetailerTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedToRetaile;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){RetailerButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Retailer_KeyDown(s,e);}";
-                            }).GetHtml()
-
-                            <input type="hidden" id="txtContact_hidden">
-                            <input type="hidden" id="RetailerShopCode" value="@Model.Retaile">
-                        </div>
-                    </div>
-
-                    <div class="clear"></div>
-                    <div class="col-md-3">
-                        <label>Party Name <span class="red">*</span></label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Party_Name, new { @class = "form-control", @id = "txtPartyName" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Party Code <span class="red">*</span>&nbsp;   <span id="SpnlastEntityCode" class="red"></span></label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Party_Code, new { @class = "form-control", @id = "txtPartyCode", @MaxLength = "10" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Owner <span class="red">*</span></label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.owner_name, new { @class = "form-control", @id = "txtOwner" })
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>DOB </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @*@Html.TextBoxFor(m => m.dobstr, new { @class = "form-control", @id = "txtDOB" })*@
-                            @Html.DevExpress().DateEditFor(x => x.dobstr,
-                                    deSettings =>
-                                    {
-                                        deSettings.Name = "txtDOB";
-                                        deSettings.Date = DateTime.Now;
-                                        deSettings.Properties.UseMaskBehavior = true;
-                                        deSettings.Properties.EditFormat = EditFormat.Custom;
-                                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                    }).GetHtml()
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="col-md-6">
-                        <label>Address <span class="red">*</span></label>
-                        <div>
-                            @*<textarea rows="4" class="form-control"></textarea>*@
-                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Pin Code <span class="red">*</span></label>
-                                <div>
-                                    @*<input type="text" class="form-control" />*@
-                                    @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
-                                </div>
+                    @*Rev 3.0*@
+                    <div class="General-part">
+                        <h3 class="add-party-popup-section-title col-md-12">General</h3>
+                        <div class="col-md-3">
+                            <label>Country <span class="red">*</span></label>
+                            <div>
+                                @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
                             </div>
-
-                            <div class="col-md-6">
-                                <label>Anniversary </label>
-                                <div>
-                                    @*<input type="text" class="form-control" />*@
-                                    @*@Html.TextBoxFor(m => m.date_aniversarystr, new { @class = "form-control", @id = "txtAnniversary" })*@
-                                    @Html.DevExpress().DateEditFor(x => x.date_aniversarystr,
-                                    deSettings =>
-                                    {
-                                        deSettings.Name = "txtAnniversary";
-                                        deSettings.Date = DateTime.Now;
-                                        deSettings.Properties.UseMaskBehavior = true;
-                                        deSettings.Properties.EditFormat = EditFormat.Custom;
-                                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                    }).GetHtml()
-                                </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>State <span class="red">*</span></label>
+                            <div id="statediv">
+                                @Html.DropDownListFor(m => m.State, new SelectList(Model.StateList, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
                             </div>
-                            <div class="clear"></div>
                         </div>
-                    </div>
-                    <div class="clear"></div>
+                        <div class="col-md-3">
+                            <label>District <span class="red">*</span></label>
+                            <div id="Citydiv">
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Area </label>
+                            <div id="Areadiv">
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        @*Mantis Issue 24571*@
 
-                    <div class="col-md-3">
-                        <label>Contact <span class="red">*</span></label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.owner_contact_no, new { @class = "form-control numbersOnly", @id = "txtContact", @MaxLength = "10" })
+                        @*End of Mantis Issue 24571*@
+                        <div class="col-md-3">
+                            <label>Type <span class="red">*</span></label>
+                            <div>
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @Html.DropDownListFor(m => m.type, new SelectList(Model.ShpTypeList, "ID", "Name", Model.Shoptype), new { @id = "ddlshoptypesr", @class = "form-control", @onchange = "ShopTypeChange();" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Alternate Contact </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
+                        @*Rev 3.0*@
+                        <div class="col-md-3" id="DivAssignTo">
+                            <label>Assigned To PP</label>
+                            <div>
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @*@Html.DropDownListFor(m => m.AssignedTo, new SelectList(Model.PPCodeList, "Shop_Code", "Shop_Name", Model.PPCode), new { @id = "ddlPPList", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "PPTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){PPButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){PP_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                <input type="hidden" id="txtContact_hidden">
+                                <input type="hidden" id="ShopCode" value="@Model.PPCode">
+                            </div>
                         </div>
+                        @*Rev end 3.0*@
+
+
+
+                        <div class="col-md-3 hide" id="divddShopType">
+                            <label id="lblTypes">DD Type </label>
+                            <div id="ddShopType">
+                                <select class="form-control" id="ddlddShopType">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" id="DivAssignToDD">
+                            <label>Assigned To DD</label>
+                            <div>
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "DDTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){DDButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){DD_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                <input type="hidden" id="txtDDContact_hidden">
+                                <input type="hidden" id="DDShopCode" value="@Model.DDCode">
+                            </div>
+                        </div>
+                        @*Rev 3.0*@
+                        <div class="col-md-3 hide" id="divddType">
+                            @*Rev 3.0: id changed*@
+                            @*<label id="lblTypes">Type </label>*@
+                            <label id="lblTypes_second">Type </label>
+                            @*Rev end 3.0*@
+                            <div id="ShopTypes">
+                                <select class="form-control" id="ddlShopTypes">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 hide" id="DivAssignToRetailer">
+                            <label>Assigned To Retailer</label>
+                            <div>
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "RetailerTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedToRetaile;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){RetailerButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Retailer_KeyDown(s,e);}";
+                                }).GetHtml()
+
+                                <input type="hidden" id="txtContact_hidden">
+                                <input type="hidden" id="RetailerShopCode" value="@Model.Retaile">
+                            </div>
+                        </div>
+                        @*Rev end 3.0*@
+                        <div class="clear"></div>
                     </div>
+
+
+                    <div class="party-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Party Info</h3>
+
+                        <div class="col-md-3">
+                            <label>Party Code <span class="red">*</span>&nbsp;   <span id="SpnlastEntityCode" class="red"></span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Party_Code, new { @class = "form-control", @id = "txtPartyCode", @MaxLength = "10" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Party Name <span class="red">*</span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Party_Name, new { @class = "form-control", @id = "txtPartyName" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Address <span class="red">*</span></label>
+                            <div>
+                                @*<textarea rows="4" class="form-control"></textarea>*@
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Pin Code <span class="red">*</span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Status <span class="red">*</span></label>
+                            <div>
+                                <select class="form-control" id="ddlStatus">
+                                    <option value="Select">Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                                @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Party Status </label>
+                            <div id="Citydiv">
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Entity Category </label>
+                            <div>
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 hide" id="divEntityType">
+                            <label>Entity Type</label>
+                            <div id="EntityTypediv">
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Group/Beat </label>
+                            <div id="Citydiv">
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <label>Cluster <span class="red">*</span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Cluster, new { @class = "form-control", @id = "txtcluster" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <label>Party Location Lat </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Party Location Long</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>GSTIN </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Assign to User <span class="red">*</span></label>
+                            <div>
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "UserTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Old Assigned User</label>
+                            <div>
+                                @*<select class="form-control">
+                        <option>Select</option>
+                    </select>*@
+                                @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
+
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "OldUserTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Add Photo</label>
+                            <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                            <span class="red">
+                                Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                            </span>
+                            @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+
+
+                    <div class="contact-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
+
+                        <div class="col-md-3">
+                            <label>Owner <span class="red">*</span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.owner_name, new { @class = "form-control", @id = "txtOwner" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Contact <span class="red">*</span></label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.owner_contact_no, new { @class = "form-control numbersOnly", @id = "txtContact", @MaxLength = "10" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Alternate Contact </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
+                            </div>
+                        </div>
+                        @*Mantis Issue 24571*@
+                        <div class="col-md-3">
+                            <label>Alternate Contact 1 </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Alt_MobileNo1, new { @class = "form-control numbersOnly", @id = "txtAlternateContact1", @MaxLength = "10" })
+                            </div>
+                        </div>
+                        @*End of Mantis Issue 24571*@
+
+                        @*End of Mantis Issue 24571*@
+                        <div class="col-md-3">
+                            <label>Email </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
+                            </div>
+                        </div>
+                        @*Mantis Issue 24571*@
+
+                        <div class="col-md-3">
+                            <label>Alternate Email </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Shop_Owner_Email2, new { @class = "form-control", @id = "txtAltEmail" })
+                            </div>
+                        </div>
+                        @*End of Mantis Issue 24571*@
+
+                        <div class="col-md-3">
+                            <label>DOB </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @*@Html.TextBoxFor(m => m.dobstr, new { @class = "form-control", @id = "txtDOB" })*@
+                                @Html.DevExpress().DateEditFor(x => x.dobstr,
+                                        deSettings =>
+                                        {
+                                            deSettings.Name = "txtDOB";
+                                            deSettings.Date = DateTime.Now;
+                                            deSettings.Properties.UseMaskBehavior = true;
+                                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                        }).GetHtml()
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Anniversary </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @*@Html.TextBoxFor(m => m.date_aniversarystr, new { @class = "form-control", @id = "txtAnniversary" })*@
+                                @Html.DevExpress().DateEditFor(x => x.date_aniversarystr,
+                                deSettings =>
+                                {
+                                    deSettings.Name = "txtAnniversary";
+                                    deSettings.Date = DateTime.Now;
+                                    deSettings.Properties.UseMaskBehavior = true;
+                                    deSettings.Properties.EditFormat = EditFormat.Custom;
+                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                }).GetHtml()
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Owner Aadhaar </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Owner_Adhar, new { @class = "form-control numbersOnly", @id = "txtOwnerAdhar", @MaxLength = "16" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Owner PAN <span class="infoQ" data-toggle="modal" data-target="#PanModel"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                            <div class="relative">
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Owner_PAN, new { @class = "form-control", @id = "txtOwnerPAN", @MaxLength = "10" })
+                                <span class="sample">Sample: AAAAA9999A</span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Trade License </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Trade_Licence_Number, new { @class = "form-control", @id = "txttradelicence" })
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+
+
+                    <div class="account-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Account Info</h3>
+                        <div class="col-md-3">
+                            <label>Account Holder </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.AccountHolder, new { @class = "form-control", @id = "txtAccountHolder", @MaxLength = "200" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Account No </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control numbersOnly", @id = "txtAccountNo", @MaxLength = "15" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Bank Name </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @id = "txtBankName", @MaxLength = "100" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>IFSC Code </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @id = "txtIFSCCode", @MaxLength = "11" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>UPI ID </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.UPIID, new { @class = "form-control", @id = "txtUPIID", @MaxLength = "100" })
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+
+                    <div class="other-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Other Info</h3>
+                        <div class="col-md-6">
+                            <label>Location </label>
+                            <div>
+                                @*<textarea rows="4" class="form-control"></textarea>*@
+                                @Html.TextAreaFor(m => m.Location, new { @class = "form-control", @id = "txtLocation" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Remarks (if any)</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+
+                    @*Rev end 3.0*@
+
+                    
+
+
+
+
+
+                    <!--<div class="col-md-3">
+    <label>Status <span class="red">*</span></label>
+    <div>
+        <select class="form-control" id="ddlStatus">
+            <option value="Select">Select</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+        </select>-->
+                    @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
+                    <!--</div>
+    </div>-->
+                    <div class="clear"></div>
+                    <!--<div class="col-md-3">
+    <label>Entity Category </label>
+    <div>-->
+                    @*<select class="form-control">
+            <option>Select</option>
+        </select>*@
+                    <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
+        </div>
+    </div>-->
                     @*Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Alternate Contact 1 </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Alt_MobileNo1, new { @class = "form-control numbersOnly", @id = "txtAlternateContact1", @MaxLength = "10" })
-                        </div>
-                    </div>
+                    <!--<div class="col-md-3">
+    <label>GSTIN </label>
+    <div>-->
+                    @*<input type="text" class="form-control" />*@
+                    <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
+        </div>
+    </div>-->
+
+                    <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     @*End of Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Email </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
-                        </div>
-                    </div>
-                    @*Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Alternate Email </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Shop_Owner_Email2, new { @class = "form-control", @id = "txtAltEmail" })
-                        </div>
-                    </div>
-                    @*End of Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Status <span class="red">*</span></label>
-                        <div>
-                            <select class="form-control" id="ddlStatus">
-                                <option value="Select">Select</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
-                        </div>
-                    </div>
+
+
+
+
+                    <!--<div class="col-md-3">
+    <label>Assign to User <span class="red">*</span></label>
+    <div>-->
+                    @*<select class="form-control">
+            <option>Select</option>
+        </select>*@
+                    @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
+                    @*@Html.DevExpress().ButtonEdit(
+        settings =>
+        {
+            settings.Name = "UserTxt";
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.Text = Model.AssignedTo;
+            settings.ReadOnly = true;
+            settings.Properties.Buttons.Add("...");
+            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+        }).GetHtml()*@
+
+                    @*<input type="hidden" id="txtContact_hidden">*@
+                    <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+        </div>
+    </div>-->
+                    <!--<div class="col-md-3">
+    <label>Party Location Lat </label>
+    <div>-->
+                    @*<input type="text" class="form-control" />*@
+                    <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label>Party Location Long</label>
+        <div>-->
+                    @*<input type="text" class="form-control" />*@
+                    <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+        </div>
+    </div>-->
                     <div class="clear"></div>
-                    <div class="col-md-3">
-                        <label>Entity Category </label>
-                        <div>
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Owner PAN <span class="infoQ" data-toggle="modal" data-target="#PanModel"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
-                        <div class="relative">
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Owner_PAN, new { @class = "form-control", @id = "txtOwnerPAN", @MaxLength = "10" })
-                            <span class="sample">Sample: AAAAA9999A</span>
 
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>Owner Aadhaar </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Owner_Adhar, new { @class = "form-control numbersOnly", @id = "txtOwnerAdhar", @MaxLength = "16" })
-                        </div>
-                    </div>
-                    @*Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>GSTIN </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-                        </div>
-                    </div>
+                    <!--<div class="col-md-3">
+    <label>Party Status </label>
+    <div id="Citydiv">-->
+                    @*<select class="form-control">
+            <option>Select</option>
+        </select>*@
+                    <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
+        </div>
+    </div>-->
+                    <!--<div class="col-md-3">
+    <label>Group/Beat </label>
+    <div id="Citydiv">-->
+                    @*<select class="form-control">
+            <option>Select</option>
+        </select>*@
+                    <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
+        </div>
+    </div>-->
 
                     <div class="clear"></div>
-                    <div class="col-md-3">
-                        <label>Trade License </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Trade_Licence_Number, new { @class = "form-control", @id = "txttradelicence" })
-                        </div>
-                    </div>
-                    @*End of Mantis Issue 24571*@
-                    <div class="col-md-3">
-                        <label>Remarks (if any)</label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
-                        </div>
-                    </div>
 
-                    <div class="col-md-3">
-                        <label>Assign to User <span class="red">*</span></label>
-                        <div>
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "UserTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
 
-                            }).GetHtml()
 
-                            @*<input type="hidden" id="txtContact_hidden">*@
-                            <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Old Assigned User</label>
-                        <div>
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
-
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "OldUserTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            @*<input type="hidden" id="txtContact_hidden">*@
-                            <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>Party Location Lat </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Party Location Long</label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="col-md-3 hide" id="divEntityType">
-                        <label>Entity Type</label>
-                        <div id="EntityTypediv">
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Party Status </label>
-                        <div id="Citydiv">
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Group/Beat </label>
-                        <div id="Citydiv">
-                            @*<select class="form-control">
-                                    <option>Select</option>
-                                </select>*@
-                            @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Account Holder </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.AccountHolder, new { @class = "form-control", @id = "txtAccountHolder", @MaxLength = "200" })
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="col-md-3">
-                        <label>Bank Name </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @id = "txtBankName", @MaxLength = "100" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Account No </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control numbersOnly", @id = "txtAccountNo", @MaxLength = "15" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>IFSC Code </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @id = "txtIFSCCode", @MaxLength = "11" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>UPI ID </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.UPIID, new { @class = "form-control", @id = "txtUPIID", @MaxLength = "100" })
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="col-md-6">
-                        <label>Location </label>
-                        <div>
-                            @*<textarea rows="4" class="form-control"></textarea>*@
-                            @Html.TextAreaFor(m => m.Location, new { @class = "form-control", @id = "txtLocation" })
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Add Photo</label>
-                        <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-                        <span class="red">
-                            Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-                        </span>
-                        @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
-                    </div>
+                    <!--<div class="col-md-4">
+    <label>Add Photo</label>
+    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+    <span class="red">
+        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+    </span>-->
+                    @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
+                    <!--</div>-->
                 </div>
             </div>
             <div class="modal-footer">
