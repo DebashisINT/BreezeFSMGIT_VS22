@@ -1,31 +1,26 @@
-﻿@model Models.SalesSummaryReport
+﻿@*======================================Revision History=========================================================================
+1.0   V2.0.38     Debashis    20/01/2023      Revisit Contact information is required in the Performance Summary report.
+                                              Refer: 0025586
+===================================End of Revision History=====================================================================*@
+@model Models.SalesSummaryReport
 
 @{
     ViewBag.Title = "Performance Summary";
     /// Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-
-
 <script type="text/javascript" src="~/Scripts/globalize.js"></script>
 <script src="~/Scripts/cultures/globalize.cultures.js"></script>
-
-
 <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
 <link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
 <link href="~/Content/media.css" rel="stylesheet" />
-
 <link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />
 <script src="~/assests/pluggins/choosen/choosen.min.js"></script>
 <script src="~/Scripts/SearchMultiPopup.js"></script>
 
-
 <style>
     #StateGridLookup_CC {
-        width:100%;
+        width: 100%;
     }
 </style>
 <script>
@@ -43,8 +38,6 @@
         lookup.GetGridView().Refresh();
         var lookup = ASPxClientControl.GetControlCollection().GetByName("StateGridLookup");
         lookup.GetGridView().Refresh();
-
-
 
         $('#txtfromDate').daterangepicker({
             singleDatePicker: true,
@@ -75,10 +68,6 @@
 
             }
         });
-
-
-
-
 
         $('body').on('click', '#btnshow', function () {
             GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeId").val());
@@ -156,13 +145,7 @@
                     }
                 }
             }
-
-         
-           
-
         });
-
-
 
         $('#ddlAppIds').on('change', function () {
             if ($("#ddlAppIds option:selected").index() > 0) {
@@ -172,12 +155,8 @@
                 $('#ddlAppIds').prop("selectedIndex", 0);
                 var url = '@Url.Action("ExporPerformanceList", "Performance", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
-
-
             }
         });
-
-
     })
 
     function StateStartCallback(s, e) {
@@ -197,6 +176,14 @@
         e.customArgs["desgid"] = desigId;
         e.customArgs["empcode"] = empId;
         e.customArgs["is_pageload"] = is_pageload;
+        //Rev 1.0 Mantis:0025586
+        if ($('#IsRevisitContactDetails').prop('checked')) {
+            e.customArgs["IsRevisitContactDetails"] = 1;
+        }
+        else {
+            e.customArgs["IsRevisitContactDetails"] = 0;
+        }
+        //End of Rev 1.0 Mantis:0025586
 
         // alert(e.customArgs["StateId"]);
 
@@ -216,8 +203,6 @@
         } finally {
             console.log(StateId);
         }
-
-
     }
 
     var desigId = [];
@@ -292,8 +277,6 @@
     #tblshoplist tbody > tr > th, #tblshoplist tfoot > tr > th, #tblshoplist thead > tr > td, #tblshoplist tbody > tr > td, #tblshoplist tfoot > tr > td {
         padding: 1px 5px !important;
     }
-
-
 
     .scrooler {
         width: 100%;
@@ -549,8 +532,6 @@
                                     </div>
                                 </td>
 
-
-
                                 <td class="w150">
                                     <label>State </label>
                                     <div>
@@ -563,10 +544,7 @@
                                 <td class="w150">
                                     <label>Designation</label>
                                     <div>
-
                                         @Html.Action("GetDesigList", "SalesReportSummary")
-
-
                                     </div>
                                 </td>
                                 <td class="w150">
@@ -589,7 +567,13 @@
 
                                     </div>
                                 </td>
-
+                                @*Rev 1.0 Mantis:0025586*@
+                                <td class="w10 inputSpacer" style="padding-top: 21px; width: 230px;">
+                                    <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
+                                </td>
+                                @*End of Rev 1.0 Mantis:0025586*@
+                            </tr>
+                            <tr>
                                 <td style="padding-top: 22px;width:170px;">
                                     <label></label>
                                     <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
@@ -636,8 +620,8 @@
             <div class="row">
                 <div id="refreshgridsalessummary">
                     @{
-                Html.RenderAction("GetSalesParformanceList", "Performance", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, is_pageload = "0" });
-    // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
+                        Html.RenderAction("GetSalesParformanceList", "Performance", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, is_pageload = "0", IsRevisitContactDetails=Model.IsRevisitContactDetails });
+                        // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
 
                     }
                     @*change for design*@
@@ -647,36 +631,36 @@
     </div>
 </div>
 
-        <!--Employee Modal -->
-        <div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Employee Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
-                        <div id="EmployeeTable">
-                            <table border='1' width="100%">
+<!--Employee Modal -->
+<div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Employee Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                <div id="EmployeeTable">
+                    <table border='1' width="100%">
 
-                                <tr class="HeaderStyle" style="font-size:small">
-                                    <th>Select</th>
-                                    <th class="hide">id</th>
-                                    <th>Employee Name</th>
-                                    <th>Employee Code</th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
-                        <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-                        @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
-                    </div>
+                        <tr class="HeaderStyle" style="font-size:small">
+                            <th>Select</th>
+                            <th class="hide">id</th>
+                            <th>Employee Name</th>
+                            <th>Employee Code</th>
+                        </tr>
+                    </table>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
+                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
+            </div>
         </div>
-        <asp:HiddenField ID="hdnEmployeeId" runat="server" />
-        <!--Employee Modal -->
+    </div>
+</div>
+<asp:HiddenField ID="hdnEmployeeId" runat="server" />
+<!--Employee Modal -->

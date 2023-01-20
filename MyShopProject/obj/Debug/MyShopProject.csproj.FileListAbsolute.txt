@@ -52,8 +52,6 @@ E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraTreeList.v15.1.dl
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\BusinessLogicLayer.pdb
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DataAccessLayer.pdb
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\EntityLayer.pdb
-E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\FTSEntityframework.pdb
-E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\FTSEntityframework.dll.config
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\UtilityLayer.pdb
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.Dashboard.v15.1.Core.xml
 E:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.Dashboard.v15.1.Web.xml

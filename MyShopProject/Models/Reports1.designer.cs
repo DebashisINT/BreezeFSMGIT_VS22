@@ -78,7 +78,7 @@ namespace MyShop.Models
     #endregion
 		
 		public ReportsDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString3"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString2"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -811,19 +811,19 @@ namespace MyShop.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<FTSEMPLOYEEPERFORMANCE_REPORT> FTSEMPLOYEEPERFORMANCE_REPORTs
-		{
-			get
-			{
-				return this.GetTable<FTSEMPLOYEEPERFORMANCE_REPORT>();
-			}
-		}
-		
 		public System.Data.Linq.Table<FTS_MapUserList> FTS_MapUserLists
 		{
 			get
 			{
 				return this.GetTable<FTS_MapUserList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FTSEMPLOYEEPERFORMANCE_REPORT> FTSEMPLOYEEPERFORMANCE_REPORTs
+		{
+			get
+			{
+				return this.GetTable<FTSEMPLOYEEPERFORMANCE_REPORT>();
 			}
 		}
 	}
@@ -41373,6 +41373,105 @@ namespace MyShop.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTS_MapUserList")]
+	public partial class FTS_MapUserList
+	{
+		
+		private System.Nullable<long> _userid;
+		
+		private System.Nullable<long> _seq;
+		
+		private decimal _user_id;
+		
+		private string _user_name;
+		
+		private string _user_loginId;
+		
+		public FTS_MapUserList()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="BigInt")]
+		public System.Nullable<long> userid
+		{
+			get
+			{
+				return this._userid;
+			}
+			set
+			{
+				if ((this._userid != value))
+				{
+					this._userid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seq", DbType="BigInt")]
+		public System.Nullable<long> seq
+		{
+			get
+			{
+				return this._seq;
+			}
+			set
+			{
+				if ((this._seq != value))
+				{
+					this._seq = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Decimal(10,0) NOT NULL")]
+		public decimal user_id
+		{
+			get
+			{
+				return this._user_id;
+			}
+			set
+			{
+				if ((this._user_id != value))
+				{
+					this._user_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string user_name
+		{
+			get
+			{
+				return this._user_name;
+			}
+			set
+			{
+				if ((this._user_name != value))
+				{
+					this._user_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_loginId", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string user_loginId
+		{
+			get
+			{
+				return this._user_loginId;
+			}
+			set
+			{
+				if ((this._user_loginId != value))
+				{
+					this._user_loginId = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSEMPLOYEEPERFORMANCE_REPORT")]
 	public partial class FTSEMPLOYEEPERFORMANCE_REPORT
 	{
@@ -41450,6 +41549,10 @@ namespace MyShop.Models
 		private string _SHOP_OWNER_EMAIL2;
 		
 		private string _VISITREMARKS;
+		
+		private string _MULTI_CONTACT_NAME;
+		
+		private string _MULTI_CONTACT_NUMBER;
 		
 		private string _MEETINGREMARKS;
 		
@@ -42067,6 +42170,38 @@ namespace MyShop.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MULTI_CONTACT_NAME", DbType="NVarChar(300)")]
+		public string MULTI_CONTACT_NAME
+		{
+			get
+			{
+				return this._MULTI_CONTACT_NAME;
+			}
+			set
+			{
+				if ((this._MULTI_CONTACT_NAME != value))
+				{
+					this._MULTI_CONTACT_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MULTI_CONTACT_NUMBER", DbType="NVarChar(100)")]
+		public string MULTI_CONTACT_NUMBER
+		{
+			get
+			{
+				return this._MULTI_CONTACT_NUMBER;
+			}
+			set
+			{
+				if ((this._MULTI_CONTACT_NUMBER != value))
+				{
+					this._MULTI_CONTACT_NUMBER = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MEETINGREMARKS", DbType="NVarChar(1000)")]
 		public string MEETINGREMARKS
 		{
@@ -42223,105 +42358,6 @@ namespace MyShop.Models
 				if ((this._TOTAL_COLLECTION != value))
 				{
 					this._TOTAL_COLLECTION = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTS_MapUserList")]
-	public partial class FTS_MapUserList
-	{
-		
-		private System.Nullable<long> _userid;
-		
-		private System.Nullable<long> _seq;
-		
-		private decimal _user_id;
-		
-		private string _user_name;
-		
-		private string _user_loginId;
-		
-		public FTS_MapUserList()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="BigInt")]
-		public System.Nullable<long> userid
-		{
-			get
-			{
-				return this._userid;
-			}
-			set
-			{
-				if ((this._userid != value))
-				{
-					this._userid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_seq", DbType="BigInt")]
-		public System.Nullable<long> seq
-		{
-			get
-			{
-				return this._seq;
-			}
-			set
-			{
-				if ((this._seq != value))
-				{
-					this._seq = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Decimal(10,0) NOT NULL")]
-		public decimal user_id
-		{
-			get
-			{
-				return this._user_id;
-			}
-			set
-			{
-				if ((this._user_id != value))
-				{
-					this._user_id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					this._user_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_loginId", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string user_loginId
-		{
-			get
-			{
-				return this._user_loginId;
-			}
-			set
-			{
-				if ((this._user_loginId != value))
-				{
-					this._user_loginId = value;
 				}
 			}
 		}
