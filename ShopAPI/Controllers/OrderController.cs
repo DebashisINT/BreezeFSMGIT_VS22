@@ -431,7 +431,7 @@ namespace ShopAPI.Controllers
                                             //Extra Output for EuroBond
                                             //Rev 1.0 Row: 806
                                             order_mrp = Convert.ToDecimal(ds.Tables[2].Rows[j]["order_mrp"]),
-                                            order_discount = Convert.ToDecimal(ds.Tables[2].Rows[j]["order_mrp"])
+                                            order_discount = Convert.ToDecimal(ds.Tables[2].Rows[j]["order_discount"])
                                             //End of Rev 1.0 Row: 806
                                         });
                                     }
