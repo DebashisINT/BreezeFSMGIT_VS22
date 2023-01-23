@@ -1,20 +1,16 @@
-﻿@*====================================================== Revision History ===========================================================*@
+﻿@*====================================================== Revision History =================================================================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                13-01-2023        2.0.37           Pallab              25576: Report page design modification *@
-@*====================================================== Revision History ===========================================================*@
+@*2.0                23-01-2023        2.0.38           Debashis            Multiple contact information to be displayed in the Shops report.Refer: 0025585*@
+@*====================================================== Revision History =================================================================================================*@
 
 @model Models.CounterClass
-
-
 
 @{
     ViewBag.Title = "Shop";
 
     var purl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
 }
-
-
-
 
 <style>
     #mask {
@@ -175,8 +171,6 @@
     var Ispageload = "0";
 
     $(function () {
-
-
         var lookup = ASPxClientControl.GetControlCollection().GetByName("StateGridLookup");
         lookup.GetGridView().Refresh();
 
@@ -365,11 +359,17 @@
     }
 
     function OnStartCallback(s, e) {
-
-
         e.customArgs["StateId"] = StateId;
         e.customArgs["TypeID"] = typeId;
         e.customArgs["Ispageload"] = Ispageload;
+        //Rev 2.0 Mantis:0025585
+        if ($('#IsRevisitContactDetails').prop('checked')) {
+            e.customArgs["IsRevisitContactDetails"] = 1;
+        }
+        else {
+            e.customArgs["IsRevisitContactDetails"] = 0;
+        }
+        //End of Rev 2.0 Mantis:0025585
     }
 
 
@@ -660,18 +660,10 @@
     <div class="form_main backBox p-3">
 
         <table class="pull-left tblspace smblock mb-3">
-
             <tr>
-
-
                 <td class="w1" id="dtstate">State : </td>
-
                 <td id="dtdesg2" style="width:200px;">
-
-
                     @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
-
-
                 </td>
 
                 <td class="w1" id="dtstate">Shop Types : </td>
@@ -696,8 +688,14 @@
                             </li>
                         }
                     </ul>
-
                 </td>
+            </tr>
+            <tr>
+                @*Rev 2.0 Mantis:0025585*@
+                <td class="w10 inputSpacer" style="padding-top: 21px; width: 250px;">
+                    <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
+                </td>
+                @*End of Rev 2.0 Mantis:0025585*@
                 <td style="padding-top:1px">
                     <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
                     <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
@@ -709,7 +707,6 @@
                         <option value="5">CSV</option>
                     </select>
                 </td>
-
             </tr>
 
             <tr></tr>
