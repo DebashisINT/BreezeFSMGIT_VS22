@@ -1,6 +1,7 @@
 ﻿@*======================================Revision History=========================================================================
 1.0   V2.0.38     Debashis    20/01/2023      Revisit Contact information is required in the Performance Summary report.
                                               Refer: 0025586
+2.0   V2.0.38     Pallab      23/01/2023      After Checked "Contact Name" and "Contact Number" column width issue fix
 ===================================End of Revision History=====================================================================*@
 @Html.DevExpress().GridView(settings =>
 {
@@ -11,7 +12,10 @@
 
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
-    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    //Rev 2.0
+    //settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Disabled;
+    //Rev end 2.0
     settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
     settings.SettingsSearchPanel.Visible = true;
     settings.Settings.ShowFilterRow = true;
