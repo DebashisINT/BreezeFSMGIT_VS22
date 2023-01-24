@@ -1,7 +1,8 @@
 ﻿@*====================================================== Revision History =================================================================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                13-01-2023        2.0.37           Pallab              25576: Report page design modification *@
+@*1.0                13-01-2023        2.0.38           Pallab              25576: Report page design modification *@
 @*2.0                23-01-2023        2.0.38           Debashis            Multiple contact information to be displayed in the Shops report.Refer: 0025585*@
+@*3.0                24-01-2023        2.0.38           Pallab              Multiple contact information checkbox width issue fix*@
 @*====================================================== Revision History =================================================================================================*@
 
 @model Models.CounterClass
@@ -650,7 +651,24 @@
     #dtstate {
         padding-right: 8px;
     }
+
+
     /*Rev end 1.0*/
+
+    /*Rev 3.0*/
+    .tblspace {
+        width: 100%;
+    }
+
+    .w1 {
+        width: 80px;
+    }
+
+    .w2 {
+        width: 120px;
+    }
+
+    /*Rev end 3.0*/
 </style>
 
 <div class="breadCumb">
@@ -659,6 +677,7 @@
 <div class="container">
     <div class="form_main backBox p-3">
 
+
         <table class="pull-left tblspace smblock mb-3">
             <tr>
                 <td class="w1" id="dtstate">State : </td>
@@ -666,7 +685,7 @@
                     @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
                 </td>
 
-                <td class="w1" id="dtstate">Shop Types : </td>
+                <td class="w2" id="dtstate">Shop Types : </td>
 
                 <td id="ddlshotype">
                     <ul class="list-inline" style="@*padding-top:13px*@ padding-top:13px;">
@@ -690,27 +709,54 @@
                     </ul>
                 </td>
             </tr>
+
             <tr>
+                @*Rev 3.0 : replace into div*@
                 @*Rev 2.0 Mantis:0025585*@
-                <td class="w10 inputSpacer" style="padding-top: 21px; width: 250px;">
-                    <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
-                </td>
+                @*<td class="w10 inputSpacer" style="padding-top: 21px; width: 250px;">
+                        <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
+                    </td>*@
                 @*End of Rev 2.0 Mantis:0025585*@
-                <td style="padding-top:1px">
-                    <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
-                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                        <option value="0">Export to</option>
-                        <option value="1">PDF</option>
-                        <option value="2">XLSX</option>
-                        <option value="3">XLS</option>
-                        <option value="4">RTF</option>
-                        <option value="5">CSV</option>
-                    </select>
-                </td>
+                @*<td style="padding-top:1px">
+                        <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
+                        <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                            <option value="0">Export to</option>
+                            <option value="1">PDF</option>
+                            <option value="2">XLSX</option>
+                            <option value="3">XLS</option>
+                            <option value="4">RTF</option>
+                            <option value="5">CSV</option>
+                        </select>
+                    </td>*@
+                @*Rev end 3.0*@
             </tr>
 
             <tr></tr>
         </table>
+        @*Rev 3.0 : replace into div*@
+        <div class="row pt-4">
+            @*Rev 2.0 Mantis:0025585*@
+            <div class="col-md-3 pt-2">
+                @*<input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">
+                    <span class="">Show Multiple Contact Details</span>*@
+                <input class="styled-checkbox" type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">
+                <label for="">Show Multiple Contact Details</label>
+            </div>
+            @*End of Rev 2.0 Mantis:0025585*@
+            <div class="col-md-3">
+                <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
+                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                    <option value="0">Export to</option>
+                    <option value="1">PDF</option>
+                    <option value="2">XLSX</option>
+                    <option value="3">XLS</option>
+                    <option value="4">RTF</option>
+                    <option value="5">CSV</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+        </div>
+        @*Rev end 3.0*@
 
         <br />
 
