@@ -3,6 +3,7 @@
 @*1.0                06-01-2023        2.0.38           Pallab              button overlapping issue fix *@
 @*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
+@*4.0                25-01-2023        2.0.38           Pallab              party list module all popup design issue fix *@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -2155,20 +2156,30 @@
 
 <style>
     .pmsModal .modal-header {
-        background: #298ecc !important;
+        background: #094e8c !important;
         background-image: none !important;
         padding: 11px 20px;
         border: none;
-        border-radius: 20px 20px 0 0;
+        border-radius: 5px 5px 0 0;
         color: #fff;
+        border-radius: 10px 10px 0 0;
     }
 
     .pmsModal .modal-content {
         border: none;
+        border-radius: 10px;
     }
 
     .pmsModal .modal-header .modal-title {
         font-size: 14px;
+    }
+
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
     }
 
     .pmsModal.w70 .modal-dialog {
@@ -2309,10 +2320,16 @@
     }
 
     .pmsModal .modal-body {
-        padding-top: 0;
+        /*Rev 4.0*/
+        /*padding-top: 0;*/
+        padding-top: 15px;
+        /*Rev end 4.0*/
         padding-right: 15px;
         padding-left: 15px;
-        padding-bottom: 0;
+        /*Rev 4.0*/
+        /*padding-bottom: 0;*/
+        padding-bottom: 15px;
+        /*Rev end 4.0*/
     }
 
     .General-part h3 {
@@ -2365,6 +2382,63 @@
 
 
     /*Rev end 3.0*/
+    /*Rev 4.0*/
+    #EmployeeTable table tr th,
+    #PPModel table tr th,
+    .dynamicPopupTbl > tbody > tr > td input {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .w-50 {
+        width: 50% !important
+    }
+
+    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
+        left: 20px !important;
+    }
+
+    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
+        margin-top: 15px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 7px;
+        right: 19px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    /*Rev end 4.0*/
 </style>
 
 <script>
@@ -2759,8 +2833,10 @@
                             }).GetHtml()
                         </div>
                     </div>
-
-                    <div class="col-md-2">
+                    @*Rev 4.0*@
+                    @*<div class="col-md-2">*@
+                    <div class="col-md-2 for-cust-icon">
+                        @*Rev end 4.0*@
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -2774,10 +2850,15 @@
                             deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                             deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                         }).GetHtml()
-
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    @*Rev 4.0*@
+                    @*<div class="col-md-2">*@
+                    <div class="col-md-2 for-cust-icon">
+                        @*Rev end 4.0*@
                         <span>To Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -2791,6 +2872,9 @@
                             deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                             deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                         }).GetHtml()
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </div>
                     @*Rev 2.0*@
@@ -2881,8 +2965,8 @@
                             <label>Type <span class="red">*</span></label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.type, new SelectList(Model.ShpTypeList, "ID", "Name", Model.Shoptype), new { @id = "ddlshoptypesr", @class = "form-control", @onchange = "ShopTypeChange();" })
                             </div>
                         </div>
@@ -2891,8 +2975,8 @@
                             <label>Assigned To PP</label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.AssignedTo, new SelectList(Model.PPCodeList, "Shop_Code", "Shop_Name", Model.PPCode), new { @id = "ddlPPList", @class = "form-control" })*@
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
@@ -3026,8 +3110,8 @@
                             <label>Party Status </label>
                             <div id="Citydiv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
                             </div>
                         </div>
@@ -3036,8 +3120,8 @@
                             <label>Entity Category </label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
                             </div>
                         </div>
@@ -3046,8 +3130,8 @@
                             <label>Entity Type</label>
                             <div id="EntityTypediv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
                             </div>
                         </div>
@@ -3056,8 +3140,8 @@
                             <label>Group/Beat </label>
                             <div id="Citydiv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
                             </div>
                         </div>
@@ -3098,8 +3182,8 @@
                             <label>Assign to User <span class="red">*</span></label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
@@ -3123,8 +3207,8 @@
                             <label>Old Assigned User</label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
 
                                 @Html.DevExpress().ButtonEdit(
@@ -3344,41 +3428,41 @@
 
                     @*Rev end 3.0*@
 
-                    
+
 
 
 
 
 
                     <!--<div class="col-md-3">
-    <label>Status <span class="red">*</span></label>
-    <div>
-        <select class="form-control" id="ddlStatus">
-            <option value="Select">Select</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
-        </select>-->
+                    <label>Status <span class="red">*</span></label>
+                    <div>
+                        <select class="form-control" id="ddlStatus">
+                            <option value="Select">Select</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>-->
                     @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
                     <!--</div>
-    </div>-->
+                    </div>-->
                     <div class="clear"></div>
                     <!--<div class="col-md-3">
-    <label>Entity Category </label>
-    <div>-->
+                    <label>Entity Category </label>
+                    <div>-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     @*Mantis Issue 24571*@
                     <!--<div class="col-md-3">
-    <label>GSTIN </label>
-    <div>-->
+                    <label>GSTIN </label>
+                    <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
 
                     <div class="clear"></div>
 
@@ -3402,74 +3486,74 @@
 
 
                     <!--<div class="col-md-3">
-    <label>Assign to User <span class="red">*</span></label>
-    <div>-->
+                    <label>Assign to User <span class="red">*</span></label>
+                    <div>-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
                     @*@Html.DevExpress().ButtonEdit(
-        settings =>
-        {
-            settings.Name = "UserTxt";
-            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-            settings.Text = Model.AssignedTo;
-            settings.ReadOnly = true;
-            settings.Properties.Buttons.Add("...");
-            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+                        settings =>
+                        {
+                            settings.Name = "UserTxt";
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            settings.Text = Model.AssignedTo;
+                            settings.ReadOnly = true;
+                            settings.Properties.Buttons.Add("...");
+                            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
 
-        }).GetHtml()*@
+                        }).GetHtml()*@
 
                     @*<input type="hidden" id="txtContact_hidden">*@
                     <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <!--<div class="col-md-3">
-    <label>Party Location Lat </label>
-    <div>-->
+                    <label>Party Location Lat </label>
+                    <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-        </div>
-    </div>
-    <div class="col-md-3">
-        <label>Party Location Long</label>
-        <div>-->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Party Location Long</label>
+                        <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <div class="clear"></div>
 
                     <!--<div class="col-md-3">
-    <label>Party Status </label>
-    <div id="Citydiv">-->
+                    <label>Party Status </label>
+                    <div id="Citydiv">-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <!--<div class="col-md-3">
-    <label>Group/Beat </label>
-    <div id="Citydiv">-->
+                    <label>Group/Beat </label>
+                    <div id="Citydiv">-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
 
                     <div class="clear"></div>
 
 
 
                     <!--<div class="col-md-4">
-    <label>Add Photo</label>
-    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-    <span class="red">
-        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-    </span>-->
+                    <label>Add Photo</label>
+                    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                    <span class="red">
+                        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                    </span>-->
                     @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
                     <!--</div>-->
                 </div>
@@ -3490,7 +3574,9 @@
 @*End of Mantis Issue 24603*@
 <!--PP List-->
 <div class="modal fade pmsModal w70" id="PPModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3499,7 +3585,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                <input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
+                @*Rev 4.0*@
+                @*<input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />*@
+                <input class="form-control mb-3" type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
+                @*Rev end 4.0*@
                 <div id="PPTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -3716,7 +3805,9 @@
 @*End of Mantis Issue 25133*@
 <!--DD List-->
 <div class="modal fade pmsModal w70" id="DDModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3725,7 +3816,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                <input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
+                @*Rev 4.0*@
+                @*<input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />*@
+                <input class="form-control mb-3" type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
+                @*Rev end 4.0*@
                 <div id="DDTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -3995,7 +4089,10 @@
 <!--Retailer List-->
 <!--User List-->
 <div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4004,7 +4101,8 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*<input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="UserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4027,7 +4125,10 @@
 <!--User List-->
 <!--Old User List-->
 <div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4036,7 +4137,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 4.0*@
+                @*<input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 4.0*@
                 <div id="OldUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4067,7 +4171,8 @@
                 <h4 class="modal-title">Employee Search</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                @*<input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />*@
+                <input type="text" class="form-control mb-3" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
                 <div id="EmployeeTable">
                     <table border='1' width="100%">
 
@@ -4092,7 +4197,10 @@
 <!--Employee Modal -->
 <!--New Assign User List-->
 <div class="modal fade pmsModal w70" id="NewAssignUserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4101,7 +4209,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 4.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 4.0*@
                 <div id="NewAssignUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4125,7 +4236,10 @@
 <!--Mantis Issue 25133-->
 <!--New Assign Group Beat List-->
 <div class="modal fade pmsModal w70" id="NewAssignGroupBeatSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4134,7 +4248,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 4.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 4.0*@
                 <div id="NewAssignGroupBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4237,7 +4354,10 @@
     </div>
 </div>
 <div class="modal fade pmsModal w70" id="NewAssignUserAreaRouteBeatSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 4.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 4.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4246,7 +4366,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 4.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 4.0*@
                 <div id="NewAssignUserAreaRouteBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
