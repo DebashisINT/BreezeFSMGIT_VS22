@@ -1,5 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //1.0   V2.0.32     Debashis    17/01/2023      A new parameter has been added.Row: 797
+//2.0   V2.0.38     Debashis    25/01/2023      A new parameter has been added.Row: 808
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -177,6 +178,9 @@ namespace ShopAPI.Models
         //Rev 1.0 Row:797
         public bool IsBeatAvailable { get; set; }
         //End of Rev 1.0 Row:797
+        //Rev 2.0 Row:808
+        public bool isExpenseFeatureAvailable { get; set; }
+        //End of Rev 2.0 Row:808
     }
 
     public class ConfigurationModelInput
