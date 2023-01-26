@@ -3,6 +3,7 @@
 @*1.0                06-01-2023        2.0.38           Pallab              button overlapping issue fix *@
 @*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
+@*@4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1637,6 +1638,153 @@
         pcModalImportLogViewMode_AreaRouteBeat.Show();
     }
     // End of Mantis Issue 25545
+    // Rev 4.0
+    function DownloadTemplate() {
+        $("#myDownloadTemplateModal").modal('show');
+       // var url = '@Url.Action("DownloadTemplate", "partyDetails")'
+       // window.location.href = url;
+    }
+
+    function BulkModifyPopOpen() {
+        $("#myBulkModifyModal").modal('show');
+    }
+
+    function BulkModifyParty() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod_BulkModify").val();
+        if ($('#fileprod_BulkModify').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod_BulkModify").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("BulkModifyParty", "partyDetails")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportModal").toggle();
+                        $("#myImportModal").modal('hide');
+                        GridShow();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("BulkModifyLog", "partyDetails")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateBulkModifyLog.Show();
+                                    gridBulkModifyLog.Refresh();
+                                    gridBulkModifyLog.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+
+    function DownloadBulkModifyTempateFormat() {
+        if ($("#ddlState_BulkModify").val() == "0") {
+            jAlert("Please select State.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlState_BulkModify").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        var stateid = $("#ddlState_BulkModify").val();
+        var url = '@Url.Action("DownloadBulkModifyTempate", "partyDetails", new { StateId = "_type_" })'
+        window.location.href = url.replace("_type_", stateid);
+
+    }
+
+    function BulkModifyPartyLogPopOpen() {
+        var d = new Date();
+
+        dtLogFrom_BulkModify.SetValue(d);
+        dtLogTo_BulkModify.SetValue(d);
+
+        pcModalBulkModifyViewMode.Show();
+    }
+
+    function BulkModifyUserLog() {
+        var url = '/partyDetails/BulkModifyUserLog/';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ 'Fromdt': dtLogFrom_BulkModify.GetText(), 'ToDate': dtLogTo_BulkModify.GetText() }),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "True") {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("BulkModifyLog", "partyDetails")",
+                        success: function (response) {
+                            if (response) {
+                                $("#ReAssignedModal_AreaRouteBeat").modal('hide');
+                                pcModalTemplateBulkModifyLog.Show();
+                                gridBulkModifyLog.Refresh();
+                                gridBulkModifyLog.Refresh();
+                            }
+                        }
+                    });
+                }
+                else {
+                    jAlert(response);
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function ExportBulkModifyLogGrid() {
+        var url = '@Url.Action("ExportBulkModifyLogGrid", "partyDetails", new { type = "_type_" })'
+        window.location.href = url.replace("_type_", 3);
+    }
+    // End of Rev 4.0
 </script>
 
 <script>
@@ -2733,6 +2881,17 @@
                             Re-assigned Area/Route/Beat Log
                         </button>
                         @*End of Mantis Issue 25545*@
+                        @*Rev 4.0*@
+                        <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
+                            Download Template
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="BulkModifyPopOpen();">
+                            Bulk Modify
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="BulkModifyPartyLogPopOpen();">
+                            View Log
+                        </button>
+                        @*End of Rev 4.0*@
                     </div>
                     <div class="clear"></div>
                     <div class="col-md-2" style="margin-bottom: 16px;">
@@ -2881,8 +3040,8 @@
                             <label>Type <span class="red">*</span></label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.type, new SelectList(Model.ShpTypeList, "ID", "Name", Model.Shoptype), new { @id = "ddlshoptypesr", @class = "form-control", @onchange = "ShopTypeChange();" })
                             </div>
                         </div>
@@ -2891,8 +3050,8 @@
                             <label>Assigned To PP</label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.AssignedTo, new SelectList(Model.PPCodeList, "Shop_Code", "Shop_Name", Model.PPCode), new { @id = "ddlPPList", @class = "form-control" })*@
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
@@ -3026,8 +3185,8 @@
                             <label>Party Status </label>
                             <div id="Citydiv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
                             </div>
                         </div>
@@ -3036,8 +3195,8 @@
                             <label>Entity Category </label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
                             </div>
                         </div>
@@ -3046,8 +3205,8 @@
                             <label>Entity Type</label>
                             <div id="EntityTypediv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
                             </div>
                         </div>
@@ -3056,8 +3215,8 @@
                             <label>Group/Beat </label>
                             <div id="Citydiv">
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
                             </div>
                         </div>
@@ -3098,8 +3257,8 @@
                             <label>Assign to User <span class="red">*</span></label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
@@ -3123,8 +3282,8 @@
                             <label>Old Assigned User</label>
                             <div>
                                 @*<select class="form-control">
-                        <option>Select</option>
-                    </select>*@
+                                        <option>Select</option>
+                                    </select>*@
                                 @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
 
                                 @Html.DevExpress().ButtonEdit(
@@ -3344,41 +3503,41 @@
 
                     @*Rev end 3.0*@
 
-                    
+
 
 
 
 
 
                     <!--<div class="col-md-3">
-    <label>Status <span class="red">*</span></label>
-    <div>
-        <select class="form-control" id="ddlStatus">
-            <option value="Select">Select</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
-        </select>-->
+                    <label>Status <span class="red">*</span></label>
+                    <div>
+                        <select class="form-control" id="ddlStatus">
+                            <option value="Select">Select</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>-->
                     @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
                     <!--</div>
-    </div>-->
+                    </div>-->
                     <div class="clear"></div>
                     <!--<div class="col-md-3">
-    <label>Entity Category </label>
-    <div>-->
+                    <label>Entity Category </label>
+                    <div>-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     @*Mantis Issue 24571*@
                     <!--<div class="col-md-3">
-    <label>GSTIN </label>
-    <div>-->
+                    <label>GSTIN </label>
+                    <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
 
                     <div class="clear"></div>
 
@@ -3402,74 +3561,74 @@
 
 
                     <!--<div class="col-md-3">
-    <label>Assign to User <span class="red">*</span></label>
-    <div>-->
+                    <label>Assign to User <span class="red">*</span></label>
+                    <div>-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
                     @*@Html.DevExpress().ButtonEdit(
-        settings =>
-        {
-            settings.Name = "UserTxt";
-            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-            settings.Text = Model.AssignedTo;
-            settings.ReadOnly = true;
-            settings.Properties.Buttons.Add("...");
-            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+                        settings =>
+                        {
+                            settings.Name = "UserTxt";
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            settings.Text = Model.AssignedTo;
+                            settings.ReadOnly = true;
+                            settings.Properties.Buttons.Add("...");
+                            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
 
-        }).GetHtml()*@
+                        }).GetHtml()*@
 
                     @*<input type="hidden" id="txtContact_hidden">*@
                     <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <!--<div class="col-md-3">
-    <label>Party Location Lat </label>
-    <div>-->
+                    <label>Party Location Lat </label>
+                    <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-        </div>
-    </div>
-    <div class="col-md-3">
-        <label>Party Location Long</label>
-        <div>-->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Party Location Long</label>
+                        <div>-->
                     @*<input type="text" class="form-control" />*@
                     <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <div class="clear"></div>
 
                     <!--<div class="col-md-3">
-    <label>Party Status </label>
-    <div id="Citydiv">-->
+                    <label>Party Status </label>
+                    <div id="Citydiv">-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
                     <!--<div class="col-md-3">
-    <label>Group/Beat </label>
-    <div id="Citydiv">-->
+                    <label>Group/Beat </label>
+                    <div id="Citydiv">-->
                     @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
+                            <option>Select</option>
+                        </select>*@
                     <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-        </div>
-    </div>-->
+                        </div>
+                    </div>-->
 
                     <div class="clear"></div>
 
 
 
                     <!--<div class="col-md-4">
-    <label>Add Photo</label>
-    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-    <span class="red">
-        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-    </span>-->
+                    <label>Add Photo</label>
+                    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                    <span class="red">
+                        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                    </span>-->
                     @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
                     <!--</div>-->
                 </div>
@@ -3582,6 +3741,74 @@
 
     </div>
 </div>
+
+@*Rev 4.0*@
+<div id="myDownloadTemplateModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Download Template For Bulk Modify</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select State <span class="red">*</span></label>
+                                    <div id="statediv">
+                                        @Html.DropDownListFor(m => m.State_BulkModify, new SelectList(Model.StateList_BulkModify, "StateID_BulkModify", "StateName_BulkModify", Model.StateID_BulkModify), new { @id = "ddlState_BulkModify", @class = "form-control" })
+                                    </div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Download Template" onclick="return DownloadBulkModifyTempateFormat();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myBulkModifyModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Bulk Modify Template For Parties</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Bulk Modify</label>
+                                    <div><input type="file" id="fileprod_BulkModify" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Modify" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*End of Rev 4.0*@
 
 @Html.DevExpress().PopupControl(
         settings =>
@@ -4319,3 +4546,55 @@
         }).GetHtml()
 
 @*End of Mantis Issue 25545*@
+@*Rev 4.0*@
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalBulkModifyViewMode";
+        settings.Width = 300;
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Bulk Modify Party Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("_BulkModifyManualLogView");
+        });
+
+        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalTemplateBulkModifyLog";
+        settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                //settings.Height = 220;
+                                //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Bulk Modify Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
+        ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
+        });
+
+        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+    }).GetHtml()
+@*End of Rev 4.0*@

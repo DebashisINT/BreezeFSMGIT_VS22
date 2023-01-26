@@ -1,10 +1,15 @@
-﻿using BusinessLogicLayer;
+﻿/*************************************************************************************************************
+Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
+*****************************************************************************************************************/
+using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
+using ClosedXML.Excel;
 using DataAccessLayer;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using DevExpress.XtraSpreadsheet.Forms;
+//using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Models;
@@ -20,12 +25,17 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using UtilityLayer;
+// Rev 1.0
+using Excel = Microsoft.Office.Interop.Excel;
+// End of Rev 1.0
+
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -90,6 +100,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     AreaRouteBeatReassignedUser = APIHelperMethods.ToModelList<Usersshopassign>(ds.Tables[15]);
                     // End of Mantis Issue 25545
 
+                    // Rev 1.0
+                    List<StateList_BulkModify> StateLst_BulkModify = new List<StateList_BulkModify>();
+                    StateLst_BulkModify = APIHelperMethods.ToModelList<StateList_BulkModify>(ds.Tables[16]);
+                    // End of Rev 1.0
+
                     Dtls.shop_lat = "0";
                     Dtls.shop_long = "0";
                     Dtls.ShpTypeList = shoplst;
@@ -118,6 +133,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     Dtls.AreaRouteBeatUseridList = AreaRouteBeatUser;
                     Dtls.AreaRouteBeatReassignedUseridList = AreaRouteBeatReassignedUser;
                     // End of Mantis Issue 25545
+                    // Rev 1.0
+                    Dtls.StateList_BulkModify = StateLst_BulkModify;
+                    // End of Rev 1.0
 
                 }
                 // Mantis Issue 24603
@@ -1139,6 +1157,449 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             return value;
         }
+
+        // Rev 1.0
+        
+        public ActionResult DownloadBulkModifyTempate(string StateId)
+        {
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
+            proc.AddPara("@STATE", StateId);
+            proc.AddPara("@ACTION", "FetchDataStatewise");
+            proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
+            dt = proc.GetTable();
+
+            //using (XLWorkbook wb = new XLWorkbook())
+            //{
+            //    wb.Worksheets.Add(dt);
+
+            //    Response.Clear();
+            //    Response.Buffer = true;
+            //    Response.Charset = "";
+            //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            //    Response.AddHeader("content-disposition", "attachment;filename=BulkImportTemplate.xlsx");
+            //    using (MemoryStream MyMemoryStream = new MemoryStream())
+            //    {
+            //        wb.SaveAs(MyMemoryStream);
+            //        MyMemoryStream.WriteTo(Response.OutputStream);
+            //        Response.Flush();
+            //        Response.End();
+            //    }
+            //}
+
+            int i = 0;
+            int j = 0;
+            string sql = null;
+            string data = null;
+            Excel.Application xlApp;
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+            xlApp = new Excel.Application();
+            xlApp.Visible = false;
+            //xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(Missing.Value));
+            xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(1));
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.ActiveSheet;
+            xlWorkSheet.Name = "List";
+
+            xlWorkSheet.Cells[1, 1] = "Shop_Code*";
+            xlWorkSheet.Cells[1, 2] = "Shop_Name";
+            xlWorkSheet.Cells[1, 3] = "Shop_Type";
+            xlWorkSheet.Cells[1, 4] = "Shop_Owner_Contact";
+            xlWorkSheet.Cells[1, 5] = "State";
+            xlWorkSheet.Cells[1, 6] = "Entitycode";
+            xlWorkSheet.Cells[1, 7] = "Retailer";
+            xlWorkSheet.Cells[1, 8] = "Party_Status";
+
+            xlWorkSheet.get_Range("A1", "H1").Font.Bold = true;
+            xlWorkSheet.get_Range("A1", "H1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+            for (i = 0; i <= dt.Rows.Count - 1; i++)
+            {
+                var newj = 0;
+                for (j = 0; j <= dt.Columns.Count - 1; j++)
+                {
+                    data = dt.Rows[i].ItemArray[j].ToString();
+                    xlWorkSheet.Cells[i + 2, newj + 1] = data;
+                    newj++;
+                }
+            }
+
+            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string authorsFile = "BulkImportTemplate.xlsx";
+
+            if (System.IO.File.Exists(Path.Combine(rootFolder, authorsFile)))
+            {
+                // If file found, delete it    
+                System.IO.File.Delete(Path.Combine(rootFolder, authorsFile));
+            }
+
+            xlWorkBook.SaveAs("BulkImportTemplate.xlsx");
+            
+            xlWorkBook.Close(true);
+            xlApp.Quit();
+
+            releaseObject(xlWorkSheet);
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
+
+            string FileName = "BulkImportTemplate.xlsx";
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "image/jpeg";
+            response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
+            response.TransmitFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/BulkImportTemplate.xlsx");
+            response.Flush();
+            response.End();
+
+            return null;
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch
+            {
+                obj = null;
+                //MessageBox.Show("Exception Occured while releasing object " + ex.ToString());  
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+        public ActionResult BulkModifyParty()
+        {
+           
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        String extension = Path.GetExtension(fname);
+                        fname = DateTime.Now.Ticks.ToString() + extension;
+                        fname = Path.Combine(Server.MapPath("~/Temporary/"), fname);
+                        file.SaveAs(fname);
+                        BulkModify_To_Grid(fname, extension, file);
+                    }
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+
+        public Int32 BulkModify_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        {
+            Boolean Success = false;
+            Int32 HasLog = 0;
+
+            if (file.FileName.Trim() != "")
+            {
+                if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
+                {
+                    DataTable dt = new DataTable();
+                    string conString = string.Empty;
+                    conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    conString = string.Format(conString, FilePath);
+                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    {
+                        excel_con.Open();
+                        string sheet1 = "List$"; //ī;
+
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                        {
+                            oda.Fill(dt);
+                        }
+                        excel_con.Close();
+                    }
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        DataTable dtExcelData = new DataTable();
+                        dtExcelData.Columns.Add("Shop_Code", typeof(string));
+                        dtExcelData.Columns.Add("Retailer", typeof(string));
+                        dtExcelData.Columns.Add("Party_Status", typeof(string));
+                        
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (Convert.ToString(row["Shop_Code*"]) != "")
+                            {
+                                dtExcelData.Rows.Add(Convert.ToString(row["Shop_Code*"]), Convert.ToString(row["Retailer"]), Convert.ToString(row["Party_Status"]));
+                            }
+
+                        }
+                        try
+                        {
+                            //TempData["BulkModifyPartyLog"] = dtExcelData;
+                            //TempData.Keep();
+
+                            DataTable dtCmb = new DataTable();
+                            ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
+                            proc.AddPara("@IMPORT_TABLE", dtExcelData);
+                            proc.AddPara("@ACTION", "BulkUpdate");
+                            proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
+                            dtCmb = proc.GetTable();
+
+                            TempData["BulkModifyPartyLog"] = dtCmb;
+                            TempData.Keep();
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                }
+            }
+            return HasLog;
+        }
+
+        [HttpPost]
+        public JsonResult BulkModifyUserLog(string Fromdt, String ToDate)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                string datfrmat = Fromdt.Split('-')[2] + '-' + Fromdt.Split('-')[1] + '-' + Fromdt.Split('-')[0];
+                string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
+                DataTable dt = obj.BulkModifyPartyLog(datfrmat, dattoat);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TempData["BulkModifyPartyLog"] = dt;
+                    TempData.Keep();
+                    output_msg = "True";
+                }
+                else
+                {
+                    output_msg = "Log not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult BulkModifyLog()
+        {
+            List<BulkModifyPartyLog> list = new List<BulkModifyPartyLog>();
+            DataTable dt = new DataTable();
+            try
+            {
+                if (TempData["BulkModifyPartyLog"] != null)
+                {
+                    dt = (DataTable)TempData["BulkModifyPartyLog"];
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        BulkModifyPartyLog data = null;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            data = new BulkModifyPartyLog();
+                            data.Shop_Code = Convert.ToString(row["Shop_Code"]);
+                            data.Shop_Name = Convert.ToString(row["Shop_Name"]);
+                            data.Shop_Type = Convert.ToString(row["Shop_Type"]);
+                            data.Shop_Owner_Contact = Convert.ToString(row["Shop_Owner_Contact"]);
+                            data.State = Convert.ToString(row["State"]);
+                            data.Entitycode = Convert.ToString(row["Entitycode"]);
+                            data.Retailer = Convert.ToString(row["Retailer"]);
+                            data.Party_Status = Convert.ToString(row["Party_Status"]);
+
+                            data.Status = Convert.ToString(row["Status"]);
+                            data.Reason = Convert.ToString(row["Reason"]);
+                            data.UpdateOn = Convert.ToString(row["UpdateOn"]);
+                            data.UpdatedBy = Convert.ToString(row["UpdatedBy"]);
+
+                            list.Add(data);
+                        }
+                    }
+                    TempData["BulkModifyPartyLog"] = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            TempData.Keep();
+            return PartialView(list);
+        }
+
+        public ActionResult ExportBulkModifyLogGrid(int type)
+        {
+            ViewData["BulkModifyPartyLog"] = TempData["BulkModifyPartyLog"];
+
+            TempData.Keep();
+
+            if (ViewData["BulkModifyPartyLog"] != null)
+            {
+                switch (type)
+                {
+                    case 1:
+                        return GridViewExtension.ExportToPdf(GetBulkModifyLogGrid(ViewData["BulkModifyPartyLog"]), ViewData["BulkModifyPartyLog"]);
+                    //break;
+                    case 2:
+                        return GridViewExtension.ExportToXlsx(GetBulkModifyLogGrid(ViewData["BulkModifyPartyLog"]), ViewData["BulkModifyPartyLog"]);
+                    //break;
+                    case 3:
+                        return GridViewExtension.ExportToXlsx(GetBulkModifyLogGrid(ViewData["BulkModifyPartyLog"]), ViewData["BulkModifyPartyLog"]);
+                    //break;
+                    case 4:
+                        return GridViewExtension.ExportToRtf(GetBulkModifyLogGrid(ViewData["BulkModifyPartyLog"]), ViewData["BulkModifyPartyLog"]);
+                    //break;
+                    case 5:
+                        return GridViewExtension.ExportToCsv(GetBulkModifyLogGrid(ViewData["BulkModifyPartyLog"]), ViewData["BulkModifyPartyLog"]);
+                    default:
+                        break;
+                }
+            }
+            return null;
+        }
+
+        private GridViewSettings GetBulkModifyLogGrid(object datatable)
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "BulkModifyLog";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "Bulk Modify Party Log";
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Code";
+                x.Caption = "Shop Code";
+                x.VisibleIndex = 1;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Name";
+                x.Caption = "Shop Name";
+                x.VisibleIndex = 2;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Type";
+                x.Caption = "Shop Type";
+                x.VisibleIndex = 3;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Owner_Contact";
+                x.Caption = "Shop Owner Contact";
+                x.VisibleIndex = 4;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "State";
+                x.Caption = "State";
+                x.VisibleIndex = 5;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+           
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Entitycode";
+                x.Caption = "Entitycode";
+                x.VisibleIndex = 6;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Retailer";
+                x.Caption = "Retailer";
+                x.VisibleIndex = 7;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Party_Status";
+                x.Caption = "Party Status";
+                x.VisibleIndex = 8;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(160);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Status";
+                x.Caption = "Status";
+                x.VisibleIndex = 9;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Reason";
+                x.Caption = "Reason";
+                x.VisibleIndex = 10;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UpdateOn";
+                x.Caption = "Update On";
+                x.VisibleIndex = 11;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm tt";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm tt";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UpdatedBy";
+                x.Caption = "Updated By";
+                x.VisibleIndex = 12;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+            });
+
+           
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
+        }
+        // End of Rev 1.0
 
         string uploadtext = "~/CommonFolder/Log/ShopRegistration.txt";
         [AcceptVerbs("POST")]
