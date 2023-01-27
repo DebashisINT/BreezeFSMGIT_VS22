@@ -803,14 +803,6 @@ namespace MyShop.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<V_GROUPBEATLIST> V_GROUPBEATLISTs
-		{
-			get
-			{
-				return this.GetTable<V_GROUPBEATLIST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<FTSEMPLOYEEPERFORMANCE_REPORT> FTSEMPLOYEEPERFORMANCE_REPORTs
 		{
 			get
@@ -824,6 +816,14 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<FTS_MapUserList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<V_GROUPBEATLIST> V_GROUPBEATLISTs
+		{
+			get
+			{
+				return this.GetTable<V_GROUPBEATLIST>();
 			}
 		}
 	}
@@ -41220,159 +41220,6 @@ namespace MyShop.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.V_GROUPBEATLIST")]
-	public partial class V_GROUPBEATLIST
-	{
-		
-		private long _ID;
-		
-		private string _Beat_Code;
-		
-		private string _Beat_Name;
-		
-		private string _Created_By;
-		
-		private System.Nullable<System.DateTime> _Created_On;
-		
-		private string _Updated_By;
-		
-		private System.Nullable<System.DateTime> _Updated_On;
-		
-		private string _CODE_TYPE;
-		
-		public V_GROUPBEATLIST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Code", DbType="VarChar(500)")]
-		public string Beat_Code
-		{
-			get
-			{
-				return this._Beat_Code;
-			}
-			set
-			{
-				if ((this._Beat_Code != value))
-				{
-					this._Beat_Code = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Name", DbType="VarChar(500)")]
-		public string Beat_Name
-		{
-			get
-			{
-				return this._Beat_Name;
-			}
-			set
-			{
-				if ((this._Beat_Name != value))
-				{
-					this._Beat_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_By", DbType="VarChar(50)")]
-		public string Created_By
-		{
-			get
-			{
-				return this._Created_By;
-			}
-			set
-			{
-				if ((this._Created_By != value))
-				{
-					this._Created_By = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_On", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Created_On
-		{
-			get
-			{
-				return this._Created_On;
-			}
-			set
-			{
-				if ((this._Created_On != value))
-				{
-					this._Created_On = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_By", DbType="VarChar(50)")]
-		public string Updated_By
-		{
-			get
-			{
-				return this._Updated_By;
-			}
-			set
-			{
-				if ((this._Updated_By != value))
-				{
-					this._Updated_By = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_On", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Updated_On
-		{
-			get
-			{
-				return this._Updated_On;
-			}
-			set
-			{
-				if ((this._Updated_On != value))
-				{
-					this._Updated_On = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODE_TYPE", DbType="VarChar(10)")]
-		public string CODE_TYPE
-		{
-			get
-			{
-				return this._CODE_TYPE;
-			}
-			set
-			{
-				if ((this._CODE_TYPE != value))
-				{
-					this._CODE_TYPE = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSEMPLOYEEPERFORMANCE_REPORT")]
 	public partial class FTSEMPLOYEEPERFORMANCE_REPORT
 	{
@@ -42322,6 +42169,213 @@ namespace MyShop.Models
 				if ((this._user_loginId != value))
 				{
 					this._user_loginId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.V_GROUPBEATLIST")]
+	public partial class V_GROUPBEATLIST
+	{
+		
+		private long _ID;
+		
+		private string _Beat_Code;
+		
+		private string _Beat_Name;
+		
+		private string _Created_By;
+		
+		private System.Nullable<System.DateTime> _Created_On;
+		
+		private string _Updated_By;
+		
+		private System.Nullable<System.DateTime> _Updated_On;
+		
+		private string _CODE_TYPE;
+		
+		private string _AREANAME;
+		
+		private string _ROUTENAME;
+		
+		private string _BEATNAME;
+		
+		public V_GROUPBEATLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="BigInt NOT NULL")]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Code", DbType="VarChar(500)")]
+		public string Beat_Code
+		{
+			get
+			{
+				return this._Beat_Code;
+			}
+			set
+			{
+				if ((this._Beat_Code != value))
+				{
+					this._Beat_Code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beat_Name", DbType="VarChar(500)")]
+		public string Beat_Name
+		{
+			get
+			{
+				return this._Beat_Name;
+			}
+			set
+			{
+				if ((this._Beat_Name != value))
+				{
+					this._Beat_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_By", DbType="VarChar(50)")]
+		public string Created_By
+		{
+			get
+			{
+				return this._Created_By;
+			}
+			set
+			{
+				if ((this._Created_By != value))
+				{
+					this._Created_By = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_On", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Created_On
+		{
+			get
+			{
+				return this._Created_On;
+			}
+			set
+			{
+				if ((this._Created_On != value))
+				{
+					this._Created_On = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_By", DbType="VarChar(50)")]
+		public string Updated_By
+		{
+			get
+			{
+				return this._Updated_By;
+			}
+			set
+			{
+				if ((this._Updated_By != value))
+				{
+					this._Updated_By = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated_On", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Updated_On
+		{
+			get
+			{
+				return this._Updated_On;
+			}
+			set
+			{
+				if ((this._Updated_On != value))
+				{
+					this._Updated_On = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODE_TYPE", DbType="VarChar(10)")]
+		public string CODE_TYPE
+		{
+			get
+			{
+				return this._CODE_TYPE;
+			}
+			set
+			{
+				if ((this._CODE_TYPE != value))
+				{
+					this._CODE_TYPE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AREANAME", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
+		public string AREANAME
+		{
+			get
+			{
+				return this._AREANAME;
+			}
+			set
+			{
+				if ((this._AREANAME != value))
+				{
+					this._AREANAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ROUTENAME", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
+		public string ROUTENAME
+		{
+			get
+			{
+				return this._ROUTENAME;
+			}
+			set
+			{
+				if ((this._ROUTENAME != value))
+				{
+					this._ROUTENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BEATNAME", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
+		public string BEATNAME
+		{
+			get
+			{
+				return this._BEATNAME;
+			}
+			set
+			{
+				if ((this._BEATNAME != value))
+				{
+					this._BEATNAME = value;
 				}
 			}
 		}

@@ -10,3 +10,9 @@ E:\GIT\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.Assemb
 E:\GIT\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 E:\GIT\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 E:\GIT\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\GITV22\BreezeFSMGIT_VS22\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

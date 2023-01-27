@@ -851,7 +851,8 @@
             </div>
 
             <div class="col-md-2">
-                <label>Fuel Type</label><span class="red">*</span>
+                <label>Fuel Type</label>
+                @*<span class="red">*</span>*@
                 <div id="divfuelType">
 
                     @Html.DropDownListFor(m => m.fuelID, new SelectList(Model.fueltype, "ID", "Name", Model.fuelID), "N.A", new { @id = "idfuel", @class = "form-control", @tabindex = 7 })
