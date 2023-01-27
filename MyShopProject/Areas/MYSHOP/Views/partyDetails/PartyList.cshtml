@@ -3,7 +3,7 @@
 @*1.0                06-01-2023        2.0.38           Pallab              button overlapping issue fix *@
 @*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
-@*4.0                25-01-2023        2.0.38           Pallab              party list module all popup design issue fix *@
+@*@4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1638,6 +1638,153 @@
         pcModalImportLogViewMode_AreaRouteBeat.Show();
     }
     // End of Mantis Issue 25545
+    // Rev 4.0
+    function DownloadTemplate() {
+        $("#myDownloadTemplateModal").modal('show');
+       // var url = '@Url.Action("DownloadTemplate", "partyDetails")'
+       // window.location.href = url;
+    }
+
+    function BulkModifyPopOpen() {
+        $("#myBulkModifyModal").modal('show');
+    }
+
+    function BulkModifyParty() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod_BulkModify").val();
+        if ($('#fileprod_BulkModify').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod_BulkModify").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("BulkModifyParty", "partyDetails")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportModal").toggle();
+                        $("#myImportModal").modal('hide');
+                        GridShow();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("BulkModifyLog", "partyDetails")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateBulkModifyLog.Show();
+                                    gridBulkModifyLog.Refresh();
+                                    gridBulkModifyLog.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+
+    function DownloadBulkModifyTempateFormat() {
+        if ($("#ddlState_BulkModify").val() == "0") {
+            jAlert("Please select State.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlState_BulkModify").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        var stateid = $("#ddlState_BulkModify").val();
+        var url = '@Url.Action("DownloadBulkModifyTempate", "partyDetails", new { StateId = "_type_" })'
+        window.location.href = url.replace("_type_", stateid);
+
+    }
+
+    function BulkModifyPartyLogPopOpen() {
+        var d = new Date();
+
+        dtLogFrom_BulkModify.SetValue(d);
+        dtLogTo_BulkModify.SetValue(d);
+
+        pcModalBulkModifyViewMode.Show();
+    }
+
+    function BulkModifyUserLog() {
+        var url = '/partyDetails/BulkModifyUserLog/';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ 'Fromdt': dtLogFrom_BulkModify.GetText(), 'ToDate': dtLogTo_BulkModify.GetText() }),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "True") {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("BulkModifyLog", "partyDetails")",
+                        success: function (response) {
+                            if (response) {
+                                $("#ReAssignedModal_AreaRouteBeat").modal('hide');
+                                pcModalTemplateBulkModifyLog.Show();
+                                gridBulkModifyLog.Refresh();
+                                gridBulkModifyLog.Refresh();
+                            }
+                        }
+                    });
+                }
+                else {
+                    jAlert(response);
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function ExportBulkModifyLogGrid() {
+        var url = '@Url.Action("ExportBulkModifyLogGrid", "partyDetails", new { type = "_type_" })'
+        window.location.href = url.replace("_type_", 3);
+    }
+    // End of Rev 4.0
 </script>
 
 <script>
@@ -2156,30 +2303,20 @@
 
 <style>
     .pmsModal .modal-header {
-        background: #094e8c !important;
+        background: #298ecc !important;
         background-image: none !important;
         padding: 11px 20px;
         border: none;
-        border-radius: 5px 5px 0 0;
+        border-radius: 20px 20px 0 0;
         color: #fff;
-        border-radius: 10px 10px 0 0;
     }
 
     .pmsModal .modal-content {
         border: none;
-        border-radius: 10px;
     }
 
     .pmsModal .modal-header .modal-title {
         font-size: 14px;
-    }
-
-    .pmsModal .close {
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        text-shadow: none;
-        opacity: .5;
     }
 
     .pmsModal.w70 .modal-dialog {
@@ -2320,16 +2457,10 @@
     }
 
     .pmsModal .modal-body {
-        /*Rev 4.0*/
-        /*padding-top: 0;*/
-        padding-top: 15px;
-        /*Rev end 4.0*/
+        padding-top: 0;
         padding-right: 15px;
         padding-left: 15px;
-        /*Rev 4.0*/
-        /*padding-bottom: 0;*/
-        padding-bottom: 15px;
-        /*Rev end 4.0*/
+        padding-bottom: 0;
     }
 
     .General-part h3 {
@@ -2382,63 +2513,6 @@
 
 
     /*Rev end 3.0*/
-    /*Rev 4.0*/
-    #EmployeeTable table tr th,
-    #PPModel table tr th,
-    .dynamicPopupTbl > tbody > tr > td input {
-        font-family: 'Poppins', sans-serif !important;
-        font-size: 12px;
-        padding: 5px;
-    }
-
-    .w-50 {
-        width: 50% !important
-    }
-
-    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
-        left: 20px !important;
-    }
-
-    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
-        margin-top: 15px;
-    }
-
-    #dtFrom, #dtTo {
-        position: relative;
-        z-index: 1;
-        background: transparent;
-    }
-
-    .calendar-icon {
-        position: absolute;
-        bottom: 7px;
-        right: 19px;
-        z-index: 0;
-        cursor: pointer;
-    }
-
-    #dtFrom_B-1, #dtTo_B-1 {
-        background: transparent !important;
-        border: none;
-        width: 30px;
-        padding: 10px !important;
-    }
-
-        #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img {
-            display: none;
-        }
-
-    #dtFrom_I, #dtTo_I {
-        background: transparent;
-    }
-
-    .for-cust-icon {
-        position: relative;
-        z-index: 1;
-    }
-
-    /*Rev end 4.0*/
 </style>
 
 <script>
@@ -2807,6 +2881,17 @@
                             Re-assigned Area/Route/Beat Log
                         </button>
                         @*End of Mantis Issue 25545*@
+                        @*Rev 4.0*@
+                        <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
+                            Download Template
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="BulkModifyPopOpen();">
+                            Bulk Modify
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="BulkModifyPartyLogPopOpen();">
+                            View Log
+                        </button>
+                        @*End of Rev 4.0*@
                     </div>
                     <div class="clear"></div>
                     <div class="col-md-2" style="margin-bottom: 16px;">
@@ -2833,10 +2918,8 @@
                             }).GetHtml()
                         </div>
                     </div>
-                    @*Rev 4.0*@
-                    @*<div class="col-md-2">*@
-                    <div class="col-md-2 for-cust-icon">
-                        @*Rev end 4.0*@
+
+                    <div class="col-md-2">
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -2850,15 +2933,10 @@
                             deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                             deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                         }).GetHtml()
-                            @*Rev 1.0*@
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-                            @*Rev end 1.0*@
+
                         </div>
                     </div>
-                    @*Rev 4.0*@
-                    @*<div class="col-md-2">*@
-                    <div class="col-md-2 for-cust-icon">
-                        @*Rev end 4.0*@
+                    <div class="col-md-2">
                         <span>To Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -2872,9 +2950,6 @@
                             deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                             deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                         }).GetHtml()
-                            @*Rev 1.0*@
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-                            @*Rev end 1.0*@
                         </div>
                     </div>
                     @*Rev 2.0*@
@@ -3574,9 +3649,7 @@
 @*End of Mantis Issue 24603*@
 <!--PP List-->
 <div class="modal fade pmsModal w70" id="PPModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3585,10 +3658,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                @*Rev 4.0*@
-                @*<input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />*@
-                <input class="form-control mb-3" type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
-                @*Rev end 4.0*@
+                <input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
                 <div id="PPTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -3671,6 +3741,74 @@
 
     </div>
 </div>
+
+@*Rev 4.0*@
+<div id="myDownloadTemplateModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Download Template For Bulk Modify</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select State <span class="red">*</span></label>
+                                    <div id="statediv">
+                                        @Html.DropDownListFor(m => m.State_BulkModify, new SelectList(Model.StateList_BulkModify, "StateID_BulkModify", "StateName_BulkModify", Model.StateID_BulkModify), new { @id = "ddlState_BulkModify", @class = "form-control" })
+                                    </div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Download Template" onclick="return DownloadBulkModifyTempateFormat();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myBulkModifyModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Bulk Modify Template For Parties</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Bulk Modify</label>
+                                    <div><input type="file" id="fileprod_BulkModify" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Modify" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*End of Rev 4.0*@
 
 @Html.DevExpress().PopupControl(
         settings =>
@@ -3805,9 +3943,7 @@
 @*End of Mantis Issue 25133*@
 <!--DD List-->
 <div class="modal fade pmsModal w70" id="DDModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3816,10 +3952,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                @*Rev 4.0*@
-                @*<input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />*@
-                <input class="form-control mb-3" type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
-                @*Rev end 4.0*@
+                <input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
                 <div id="DDTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4089,10 +4222,7 @@
 <!--Retailer List-->
 <!--User List-->
 <div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4101,8 +4231,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*<input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                <input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="UserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4125,10 +4254,7 @@
 <!--User List-->
 <!--Old User List-->
 <div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4137,10 +4263,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 4.0*@
-                @*<input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 4.0*@
+                <input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="OldUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4171,8 +4294,7 @@
                 <h4 class="modal-title">Employee Search</h4>
             </div>
             <div class="modal-body">
-                @*<input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />*@
-                <input type="text" class="form-control mb-3" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
                 <div id="EmployeeTable">
                     <table border='1' width="100%">
 
@@ -4197,10 +4319,7 @@
 <!--Employee Modal -->
 <!--New Assign User List-->
 <div class="modal fade pmsModal w70" id="NewAssignUserSearchModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4209,10 +4328,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 4.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 4.0*@
+                <input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="NewAssignUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4236,10 +4352,7 @@
 <!--Mantis Issue 25133-->
 <!--New Assign Group Beat List-->
 <div class="modal fade pmsModal w70" id="NewAssignGroupBeatSearchModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4248,10 +4361,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 4.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 4.0*@
+                <input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="NewAssignGroupBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4354,10 +4464,7 @@
     </div>
 </div>
 <div class="modal fade pmsModal w70" id="NewAssignUserAreaRouteBeatSearchModel" role="dialog">
-    @*Rev 4.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 4.0*@
+    <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4366,10 +4473,7 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 4.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 4.0*@
+                <input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
                 <div id="NewAssignUserAreaRouteBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4442,3 +4546,55 @@
         }).GetHtml()
 
 @*End of Mantis Issue 25545*@
+@*Rev 4.0*@
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalBulkModifyViewMode";
+        settings.Width = 300;
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Bulk Modify Party Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("_BulkModifyManualLogView");
+        });
+
+        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalTemplateBulkModifyLog";
+        settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                //settings.Height = 220;
+                                //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Bulk Modify Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
+        ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
+        });
+
+        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+    }).GetHtml()
+@*End of Rev 4.0*@
