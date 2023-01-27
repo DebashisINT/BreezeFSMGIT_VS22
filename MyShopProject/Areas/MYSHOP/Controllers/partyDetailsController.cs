@@ -1276,7 +1276,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public ActionResult BulkModifyParty()
         {
-           
+
             // Checking no of files injected in Request object  
             if (Request.Files.Count > 0)
             {
@@ -1308,11 +1308,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     return Json("Error occurred. Error details: " + ex.Message);
                 }
+
             }
             else
             {
                 return Json("No files selected.");
             }
+           
         }
 
         public Int32 BulkModify_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
@@ -1362,7 +1364,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
-                            proc.AddPara("@IMPORT_TABLE", dtExcelData);
+                            proc.AddPara("@BULKMODIFYPARTY_TABLE", dtExcelData);
                             proc.AddPara("@ACTION", "BulkUpdate");
                             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
