@@ -1171,7 +1171,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             // This block will show error when run from loacl machine in debug mode. But will run properly in test server.
             // Refer of ClosedXML.dll added in MyshopProject
-            dt.TableName = "table";
+            dt.TableName = "List";
             using (XLWorkbook wb = new XLWorkbook())
             {
                 wb.Worksheets.Add(dt);
@@ -1372,9 +1372,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (Convert.ToString(row["Shop_Code*"]) != "")
+                            if (Convert.ToString(row["Shop_Code"]) != "")
                             {
-                                dtExcelData.Rows.Add(Convert.ToString(row["Shop_Code*"]), Convert.ToString(row["Retailer"]), Convert.ToString(row["Party_Status"]));
+                                dtExcelData.Rows.Add(Convert.ToString(row["Shop_Code"]), Convert.ToString(row["Retailer"]), Convert.ToString(row["Party_Status"]));
                             }
 
                         }
