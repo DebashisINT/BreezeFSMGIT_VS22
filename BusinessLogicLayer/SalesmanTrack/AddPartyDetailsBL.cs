@@ -1,4 +1,7 @@
-﻿using DataAccessLayer;
+﻿/*************************************************************************************************************
+Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
+*****************************************************************************************************************/
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -257,6 +260,17 @@ namespace BusinessLogicLayer.SalesmanTrack
             return dt;
         }
         // End of Mantis Issue 25545
-
+        // Rev 1.0
+        public DataTable BulkModifyPartyLog(String FromDate, String ToDate)
+        {
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
+            proc.AddPara("@ACTION", "GetBulkModifyPartyLog");
+            proc.AddPara("@FromDate", FromDate);
+            proc.AddPara("@ToDate", ToDate);
+            dt = proc.GetTable();
+            return dt;
+        }
+        // End of Rev 1.0
     }
 }
