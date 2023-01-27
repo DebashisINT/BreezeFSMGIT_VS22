@@ -4,6 +4,7 @@
 @*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
 @*@4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
+@*5.0                27-01-2023        2.0.38           Pallab              Party list module all popup design issue fix. Refer: 25628 *@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -2457,10 +2458,16 @@
     }
 
     .pmsModal .modal-body {
-        padding-top: 0;
+        /*Rev 5.0*/
+        /*padding-top: 0;*/
+        padding-top: 15px;
+        /*Rev end 5.0*/
         padding-right: 15px;
         padding-left: 15px;
-        padding-bottom: 0;
+        /*Rev 5.0*/
+        /*padding-bottom: 0;*/
+        padding-bottom: 15px;
+        /*Rev end 5.0*/
     }
 
     .General-part h3 {
@@ -2513,6 +2520,64 @@
 
 
     /*Rev end 3.0*/
+
+    /*Rev 5.0*/
+    #EmployeeTable table tr th,
+    #PPModel table tr th,
+    .dynamicPopupTbl > tbody > tr > td input {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .w-50 {
+        width: 50% !important
+    }
+
+    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
+        left: 20px !important;
+    }
+
+    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
+        margin-top: 15px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 7px;
+        right: 19px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    /*Rev end 5.0*/
 </style>
 
 <script>
@@ -2859,11 +2924,11 @@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-                                Re-assigned Beat/Group
-                            </button>
-                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-                                Re-assigned Beat/Group Log
-                            </button>*@
+                Re-assigned Beat/Group
+            </button>
+            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+                Re-assigned Beat/Group Log
+            </button>*@
                         <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
                             Re-assigned Beat/Party
                         </button>
@@ -2919,7 +2984,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    @*Rev 5.0*@
+                    @*<div class="col-md-2">*@
+                    <div class="col-md-2 for-cust-icon">
+                        @*Rev end 5.0*@
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -2936,7 +3004,10 @@
 
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    @*Rev 5.0*@
+                    @*<div class="col-md-2">*@
+                    <div class="col-md-2 for-cust-icon">
+                        @*Rev end 5.0*@
                         <span>To Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -3649,7 +3720,9 @@
 @*End of Mantis Issue 24603*@
 <!--PP List-->
 <div class="modal fade pmsModal w70" id="PPModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3658,7 +3731,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                <input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
+                @*Rev 5.0*@
+                @*<input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />*@
+                <input class="form-control mb-3" type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
+                @*Rev end 5.0*@
                 <div id="PPTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -3943,7 +4019,9 @@
 @*End of Mantis Issue 25133*@
 <!--DD List-->
 <div class="modal fade pmsModal w70" id="DDModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -3952,7 +4030,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                <input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
+                @*Rev 5.0*@
+                @*<input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />*@
+                <input class="form-control mb-3" type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
+                @*Rev end 5.0*@
                 <div id="DDTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4222,7 +4303,10 @@
 <!--Retailer List-->
 <!--User List-->
 <div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4231,7 +4315,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 5.0*@
+                @*<input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 5.0*@
                 <div id="UserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4254,7 +4341,10 @@
 <!--User List-->
 <!--Old User List-->
 <div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4263,7 +4353,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 5.0*@
+                @*<input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 5.0*@
                 <div id="OldUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4319,7 +4412,10 @@
 <!--Employee Modal -->
 <!--New Assign User List-->
 <div class="modal fade pmsModal w70" id="NewAssignUserSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4328,7 +4424,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 5.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 5.0*@
                 <div id="NewAssignUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4352,7 +4451,10 @@
 <!--Mantis Issue 25133-->
 <!--New Assign Group Beat List-->
 <div class="modal fade pmsModal w70" id="NewAssignGroupBeatSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4361,7 +4463,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 5.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 5.0*@
                 <div id="NewAssignGroupBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -4464,7 +4569,10 @@
     </div>
 </div>
 <div class="modal fade pmsModal w70" id="NewAssignUserAreaRouteBeatSearchModel" role="dialog">
-    <div class="modal-dialog">
+    @*Rev 5.0 : w-50 class add*@
+    @*<div class="modal-dialog">*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -4473,7 +4581,10 @@
             </div>
             <div class="modal-body">
                 @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                <input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev 5.0*@
+                @*<input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                @*Rev end 5.0*@
                 <div id="NewAssignUserAreaRouteBeatTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
