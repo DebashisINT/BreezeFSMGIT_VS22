@@ -3,7 +3,7 @@ Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is r
 *****************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
-//using ClosedXML.Excel;
+using ClosedXML.Excel;
 using DataAccessLayer;
 using DevExpress.Utils;
 using DevExpress.Web;
@@ -1169,6 +1169,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
             dt = proc.GetTable();
 
+            // This block will show error when run from loacl machine in debug mode. But will run properly in test server.
+            // Refer of ClosedXML.dll added in MyshopProject
+            dt.TableName = "table";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=BulkImportTemplate.xlsx");
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+
             //using (XLWorkbook wb = new XLWorkbook())
             //{
             //    wb.Worksheets.Add(dt);
@@ -1187,71 +1208,71 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //    }
             //}
 
-            int i = 0;
-            int j = 0;
-            string sql = null;
-            string data = null;
-            Excel.Application xlApp;
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
-            object misValue = System.Reflection.Missing.Value;
-            xlApp = new Excel.Application();
-            xlApp.Visible = false;
-            //xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(Missing.Value));
-            xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(1));
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.ActiveSheet;
-            xlWorkSheet.Name = "List";
+            //int i = 0;
+            //int j = 0;
+            //string sql = null;
+            //string data = null;
+            //Excel.Application xlApp;
+            //Excel.Workbook xlWorkBook;
+            //Excel.Worksheet xlWorkSheet;
+            //object misValue = System.Reflection.Missing.Value;
+            //xlApp = new Excel.Application();
+            //xlApp.Visible = false;
+            ////xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(Missing.Value));
+            //xlWorkBook = (Excel.Workbook)(xlApp.Workbooks.Add(1));
+            //xlWorkSheet = (Excel.Worksheet)xlWorkBook.ActiveSheet;
+            //xlWorkSheet.Name = "List";
 
-            xlWorkSheet.Cells[1, 1] = "Shop_Code*";
-            xlWorkSheet.Cells[1, 2] = "Shop_Name";
-            xlWorkSheet.Cells[1, 3] = "Shop_Type";
-            xlWorkSheet.Cells[1, 4] = "Shop_Owner_Contact";
-            xlWorkSheet.Cells[1, 5] = "State";
-            xlWorkSheet.Cells[1, 6] = "Entitycode";
-            xlWorkSheet.Cells[1, 7] = "Retailer";
-            xlWorkSheet.Cells[1, 8] = "Party_Status";
+            //xlWorkSheet.Cells[1, 1] = "Shop_Code*";
+            //xlWorkSheet.Cells[1, 2] = "Shop_Name";
+            //xlWorkSheet.Cells[1, 3] = "Shop_Type";
+            //xlWorkSheet.Cells[1, 4] = "Shop_Owner_Contact";
+            //xlWorkSheet.Cells[1, 5] = "State";
+            //xlWorkSheet.Cells[1, 6] = "Entitycode";
+            //xlWorkSheet.Cells[1, 7] = "Retailer";
+            //xlWorkSheet.Cells[1, 8] = "Party_Status";
 
-            xlWorkSheet.get_Range("A1", "H1").Font.Bold = true;
-            xlWorkSheet.get_Range("A1", "H1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            //xlWorkSheet.get_Range("A1", "H1").Font.Bold = true;
+            //xlWorkSheet.get_Range("A1", "H1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
-            for (i = 0; i <= dt.Rows.Count - 1; i++)
-            {
-                var newj = 0;
-                for (j = 0; j <= dt.Columns.Count - 1; j++)
-                {
-                    data = dt.Rows[i].ItemArray[j].ToString();
-                    xlWorkSheet.Cells[i + 2, newj + 1] = data;
-                    newj++;
-                }
-            }
+            //for (i = 0; i <= dt.Rows.Count - 1; i++)
+            //{
+            //    var newj = 0;
+            //    for (j = 0; j <= dt.Columns.Count - 1; j++)
+            //    {
+            //        data = dt.Rows[i].ItemArray[j].ToString();
+            //        xlWorkSheet.Cells[i + 2, newj + 1] = data;
+            //        newj++;
+            //    }
+            //}
 
-            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string authorsFile = "BulkImportTemplate.xlsx";
+            //string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string authorsFile = "BulkImportTemplate.xlsx";
 
-            if (System.IO.File.Exists(Path.Combine(rootFolder, authorsFile)))
-            {
-                // If file found, delete it    
-                System.IO.File.Delete(Path.Combine(rootFolder, authorsFile));
-            }
+            //if (System.IO.File.Exists(Path.Combine(rootFolder, authorsFile)))
+            //{
+            //    // If file found, delete it    
+            //    System.IO.File.Delete(Path.Combine(rootFolder, authorsFile));
+            //}
 
-            xlWorkBook.SaveAs("BulkImportTemplate.xlsx");
-            
-            xlWorkBook.Close(true);
-            xlApp.Quit();
+            //xlWorkBook.SaveAs("BulkImportTemplate.xlsx");
 
-            releaseObject(xlWorkSheet);
-            releaseObject(xlWorkBook);
-            releaseObject(xlApp);
+            //xlWorkBook.Close(true);
+            //xlApp.Quit();
 
-            string FileName = "BulkImportTemplate.xlsx";
-            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
-            response.ClearContent();
-            response.Clear();
-            response.ContentType = "image/jpeg";
-            response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
-            response.TransmitFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/BulkImportTemplate.xlsx");
-            response.Flush();
-            response.End();
+            //releaseObject(xlWorkSheet);
+            //releaseObject(xlWorkBook);
+            //releaseObject(xlApp);
+
+            //string FileName = "BulkImportTemplate.xlsx";
+            //System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            //response.ClearContent();
+            //response.Clear();
+            //response.ContentType = "image/jpeg";
+            //response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
+            //response.TransmitFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/BulkImportTemplate.xlsx");
+            //response.Flush();
+            //response.End();
 
             return null;
         }
