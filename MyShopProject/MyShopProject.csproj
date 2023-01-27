@@ -1491,6 +1491,15 @@
     <Content Include="Scripts\pluggins\multiselect\bootstrap-multiselect.js" />
     <Content Include="Scripts\SearchMultiPopup.js" />
     <Content Include="Scripts\SearchPopup.js" />
+    <Content Include="Views\Common\_PartialMenu.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1923,15 +1932,6 @@
     <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopGroupBeatManualLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\QuotationApproval\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\QuotationApproval\PartialGetQuotationApprovalDetails.cshtml" />
-    <Content Include="Views\Common\_PartialMenu.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\Systemsettings\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DealerDistributorWisePerformance\PartialDealerDistributorWisePerformance.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DealerDistributorWisePerformance\DealerDistributorWisePerformance.cshtml" />
