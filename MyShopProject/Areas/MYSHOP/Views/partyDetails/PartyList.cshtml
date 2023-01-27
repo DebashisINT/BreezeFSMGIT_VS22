@@ -5,6 +5,7 @@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
 @*@4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
 @*5.0                27-01-2023        2.0.38           Pallab              Party list module all popup design issue fix. Refer: 25628 *@
+@*6.0                27/01/2023        V2.0.38          Sanchita            Assign to DD is not showing while making shop from Portal. Refer: 25606*@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1024,7 +1025,9 @@
             $("#DivAssignToDD").removeClass("hide");
         }
 
-        $("#lblTypes").html($("#ddlshoptypesr :selected").text() + " Type ");
+        // Rev 6.0
+        //$("#lblTypes").html($("#ddlshoptypesr :selected").text() + " Type ");
+        // End of Rev 6.0
         /*Rev 3.0*/
         $("#lblTypes_second").html($("#ddlshoptypesr :selected").text() + " Type ");
         /*Rev end 3.0*/
@@ -1282,7 +1285,11 @@
         OtherDetails.SearchKey = $("#txtDDSearch").val(),
         // Mantis Issue 24450,24451
         //OtherDetails.ddType = $("#ddlddShopType").val();
-        OtherDetails.ddType = $("#ddlShopTypes").val();
+        // Rev 6.0
+        //OtherDetails.ddType = $("#ddlShopTypes").val();
+        OtherDetails.ShopTypes = $("#ddlShopTypes").val();
+        OtherDetails.ddType = $("#ddlddShopType").val();
+        // End of Rev 6.0
         // End of Mantis Issue 24450,24451
         // OtherDetails.BranchID = $('#ddl_Branch').val();
 
@@ -2576,6 +2583,7 @@
         position: relative;
         z-index: 1;
     }
+
     .pmsModal .modal-content {
         overflow: hidden;
     }
@@ -2927,11 +2935,11 @@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-                Re-assigned Beat/Group
-            </button>
-            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-                Re-assigned Beat/Group Log
-            </button>*@
+                                Re-assigned Beat/Group
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+                                Re-assigned Beat/Group Log
+                            </button>*@
                         <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
                             Re-assigned Beat/Party
                         </button>
@@ -3152,6 +3160,19 @@
                         @*Rev end 3.0*@
 
 
+                        @*Rev 6.0*@
+                        <div class="col-md-3 hide" id="divddType">
+                            @*Rev 3.0: id changed*@
+                            @*<label id="lblTypes">Type </label>*@
+                            <label id="lblTypes_second">Type </label>
+                            @*Rev end 3.0*@
+                            <div id="ShopTypes">
+                                <select class="form-control" id="ddlShopTypes">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*End of Rev 6.0*@
 
                         <div class="col-md-3 hide" id="divddShopType">
                             <label id="lblTypes">DD Type </label>
@@ -3161,6 +3182,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-3" id="DivAssignToDD">
                             <label>Assigned To DD</label>
                             <div>
@@ -3182,7 +3204,8 @@
                             </div>
                         </div>
                         @*Rev 3.0*@
-                        <div class="col-md-3 hide" id="divddType">
+                        @*Rev 6.0*@
+                        <!--<div class="col-md-3 hide" id="divddType">
                             @*Rev 3.0: id changed*@
                             @*<label id="lblTypes">Type </label>*@
                             <label id="lblTypes_second">Type </label>
@@ -3192,7 +3215,8 @@
                                     <option>Select</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
+                        @*End of Rev 6.0*@
 
                         <div class="col-md-3 hide" id="DivAssignToRetailer">
                             <label>Assigned To Retailer</label>
@@ -3600,6 +3624,7 @@
                     <!--</div>
                     </div>-->
                     <div class="clear"></div>
+
                     <!--<div class="col-md-3">
                     <label>Entity Category </label>
                     <div>-->
@@ -3619,6 +3644,22 @@
                     </div>-->
 
                     <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3678,6 +3719,8 @@
                         </div>
                     </div>-->
                     <div class="clear"></div>
+
+
 
                     <!--<div class="col-md-3">
                     <label>Party Status </label>

@@ -1,7 +1,7 @@
 ﻿//********************************************************************************************************************
-// 1.0      v2 .0.38    Sanchita    13/01/2023  DD Type should be shown based on the Type_ID & Parent_ID mapping as
-//                                  per tbl_shoptypeDetails table. Refer: 25578
-
+// 1.0      v2.0.38    Sanchita    13/01/2023  DD Type should be shown based on the Type_ID & Parent_ID mapping as
+//                                              per tbl_shoptypeDetails table. Refer: 25578
+// 2.0      V2.0.38     Sanchita    27/01/2023  Assign to DD is not showing while making shop from Portal. Refer: 25606
 // ********************************************************************************************************************
 using DataAccessLayer;
 using System;
@@ -51,7 +51,10 @@ namespace MyShop.Models
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public object GetDDShop(string SearchKey, String ddType)
+        // Rev 2.0
+        //public object GetDDShop(string SearchKey, String ddType)
+        public object GetDDShop(string SearchKey, String ShopTypes, String ddType)
+            // End of Rev 2.0
         {
             List<PPModel> listShop = new List<PPModel>();
             if (HttpContext.Current.Session["userid"] != null)
@@ -69,6 +72,9 @@ namespace MyShop.Models
                 proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
                 proc.AddPara("@SearchKey", SearchKey);
                 proc.AddPara("@dealer_id", ddType);
+                // Rev 2.0
+                proc.AddPara("@retailer_id", ShopTypes);
+                // End of Rev 2.0
                 DataTable Shop = proc.GetTable();
                 // End of Rev 1.0
 
