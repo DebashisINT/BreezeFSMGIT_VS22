@@ -302,8 +302,6 @@ E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraPivotGrid.v15.1.xml
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraReports.v15.1.xml
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraReports.v15.1.Web.xml
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraScheduler.v15.1.Core.xml
-E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\FTSEntityframework.pdb
-E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\FTSEntityframework.dll.config
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.Map.v15.1.Core.xml
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.Sparkline.v15.1.Core.xml
 E:\GIT\BreezeFSMGIT_VS22\MyShopProject\bin\DevExpress.XtraGauges.v15.1.Win.xml
