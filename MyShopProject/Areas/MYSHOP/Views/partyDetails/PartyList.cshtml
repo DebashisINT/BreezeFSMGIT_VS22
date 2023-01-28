@@ -2935,11 +2935,11 @@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-                                Re-assigned Beat/Group
-                            </button>
-                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-                                Re-assigned Beat/Group Log
-                            </button>*@
+            Re-assigned Beat/Group
+        </button>
+        <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+            Re-assigned Beat/Group Log
+        </button>*@
                         <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
                             Re-assigned Beat/Party
                         </button>
@@ -2958,15 +2958,18 @@
                         </button>
                         @*End of Mantis Issue 25545*@
                         @*Rev 4.0*@
-                        <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
-                            Download Template
-                        </button>
-                        <button type="button" class="btn btn-success" onclick="BulkModifyPopOpen();">
-                            Bulk Modify
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="BulkModifyPartyLogPopOpen();">
-                            View Log
-                        </button>
+                        @if(ViewBag.CanBulkUpdate)
+                        {
+                            <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
+                                Download Template
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="BulkModifyPopOpen();">
+                                Bulk Update
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="BulkModifyPartyLogPopOpen();">
+                                View Log
+                            </button>
+                        }
                         @*End of Rev 4.0*@
                     </div>
                     <div class="clear"></div>
@@ -3875,7 +3878,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Download Template For Bulk Modify</h4>
+                <h4 class="modal-title">Download Template For Bulk Update</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -3909,7 +3912,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Bulk Modify Template For Parties</h4>
+                <h4 class="modal-title">Bulk Update Template For Parties</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -3918,9 +3921,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="divproduct">
-                                    <label class="uplabel mb-4">Select File to Bulk Modify</label>
+                                    <label class="uplabel mb-4">Select File to Bulk Update</label>
                                     <div><input type="file" id="fileprod_BulkModify" accept=".xls,.xlsx"></div>
-                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Modify" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Update" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
                                 </div>
                             </div>
                         </div>
@@ -4720,7 +4723,7 @@
         settings.CloseAction = CloseAction.CloseButton;
         settings.CloseOnEscape = true;
         settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Bulk Modify Party Log";
+        settings.HeaderText = "Bulk Update Party Log";
         settings.Modal = true;
         settings.AutoUpdatePosition = true;
         settings.Top = 50;
@@ -4745,7 +4748,7 @@
         settings.CloseAction = CloseAction.CloseButton;
         settings.CloseOnEscape = true;
         settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Bulk Modify Log";
+        settings.HeaderText = "Bulk Update Log";
         settings.Modal = true;
         settings.AutoUpdatePosition = true;
         settings.Top = 50;
