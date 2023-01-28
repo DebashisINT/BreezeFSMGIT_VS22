@@ -144,6 +144,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 IsAutoCodificationRequired = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='IsAutoCodificationRequired'").Rows[0][0]);
                 ViewBag.IsAutoCodificationRequired = IsAutoCodificationRequired;
                 // End of Mantis Issue 24603
+
+                // Rev 1.0
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/partyDetails/PartyList");
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+                // End of Rev 1.0
+
                 return View(Dtls);
             }
             catch
@@ -158,6 +166,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/partyDetails/PartyList");
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
+            // Rev 1.0
+            ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+            // End of Rev 1.0
             return PartialView(GetDataDetails(Is_PageLoad));
         }
 
@@ -1510,7 +1521,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             var settings = new GridViewSettings();
             settings.Name = "BulkModifyLog";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Bulk Modify Party Log";
+            settings.SettingsExport.FileName = "Bulk Update Party Log";
 
             settings.Columns.Add(x =>
             {
