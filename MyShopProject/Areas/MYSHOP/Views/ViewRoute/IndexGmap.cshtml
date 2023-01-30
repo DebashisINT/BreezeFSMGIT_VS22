@@ -4,6 +4,7 @@
 @*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                10-01-2023        2.0.37           Pallab              Space add in travel points *@
+@*2.0                30-01-2023        2.0.38           Sanchita            Distance issue in View route of Nordusk. Refer: 25515*@
 @*====================================================== Revision History ===========================================================*@
 
 <style>
@@ -184,6 +185,7 @@
         });*@
 
         $('.FullDiv').removeClass('hide');
+
         var Url = '@Url.Action("GetSalesmanLocation", "ViewRoute")'
         var d = new Date();
         var userid = id;
@@ -2686,6 +2688,16 @@
         var lookup = ASPxClientControl.GetControlCollection().GetByName("BranchGridLookup");
         lookup.GetGridView().Refresh();
         //End of Rev Debashis 0025198
+        // Rev 2.0
+        if (@ViewBag.strTotalDistanceShowinViewRouteAsPerGoogleAPI==0 ) {
+            $('.leftFloak').removeClass('hide');
+            $('.leftFloak2').addClass('hide');
+        }
+        else {
+            $('.leftFloak').addClass('hide');
+            $('.leftFloak2').removeClass('hide');
+        }
+        // End of Rev 2.0
         StatePopulate();
         setTimeout(function () {
             $("#ddlState").val('15');
@@ -3095,7 +3107,10 @@
                 var point = i+1
                 summaryPanel.innerHTML += '<li><div><span class="mainLabel marker-link mMark" >Travel Point: ' + point + '</span><span class="bt_indicator"><img src="../../../../../assests/images/battery-status.png" />' + response[i].battery_percentage + '</span><span class="nt_indicator"><img src="../../../../../assests/images/high-signal.png" />' + response[i].network_status + '</span></div>';
                 summaryPanel.innerHTML += '<div class="mCont ff">' + response[i].location_name + ' </div>'
-                summaryPanel.innerHTML += '<div><span class="mKm">0 km' + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
+                // Rev 2.0
+                //summaryPanel.innerHTML += '<div><span class="mKm">0 km' + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
+                summaryPanel.innerHTML += '<div><span class="mKm">' + response[i].distance_covered + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
+                // End of Rev 2.0
                 summaryPanel.innerHTML += '<div class="lnArea">Lat: <span>' + response[i].latitude + '</span> <span>Long: ' + response[i].longitude + '</span></div></li>';
             }
             summaryPanel.innerHTML += '<div class="fTotal"><b>Total Distance covered: </b> ' + ttValue.toFixed(2) + ' km' + '</div>'
@@ -3226,8 +3241,10 @@
         <ul id="listDirec"></ul>
     </div>
     <div id="lbltotaldistancecovered"></div>
-    @*2nd view*@
-    <div class="leftFloak2" style="display:none">
+
+    @*2nd view [ for Nordusk only] *@
+    @*Rev 2.0  [style="display:none" REMOVED] *@
+    <div class="leftFloak2">
         <div class="leftFloakToggle2">
             <span class="lnr lnr-chevron-right"></span>
 
@@ -3237,6 +3254,7 @@
         <ul id="listDirec2"></ul>
     </div>
     <div id="lbltotaldistancecovered"></div>
+
 </div>
 <div class="container mt-5 mb-4">
     <div class="backBox p-4">
