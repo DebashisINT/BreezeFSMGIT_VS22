@@ -1024,6 +1024,11 @@
             $("#DivAssignTo").removeClass("hide");
             $("#DivAssignToDD").removeClass("hide");
         }
+        // Rev 6.0
+        var status = "<select id='ddlddShopType' class = 'form-control'>";
+        status = status + '<option value=0>Select</option> </select>';
+        $('#ddShopType').html(status);
+        // End of Rev 6.0
 
         // Rev 6.0
         //$("#lblTypes").html($("#ddlshoptypesr :selected").text() + " Type ");
