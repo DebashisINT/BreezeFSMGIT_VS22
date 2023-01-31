@@ -331,6 +331,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\PaitentOrderRegisterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PartialMapRouteController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\partyDetailsController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\PerformanceAnalyticsController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PerformanceController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PerformanceSummaryMonthWiseController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PerformanceVisitRegisterController.cs" />
@@ -1954,6 +1955,8 @@
     <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopList_ForAreaRouteBeat.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\_ShopReassignManualLogView_AreaRouteBeat.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopUserManualLog_AreaRouteBeat.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\Report.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\PartialGetPerformanceAnalytics.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
