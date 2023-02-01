@@ -1,11 +1,11 @@
 <%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_frmContactMain" CodeBehind="frmContactMain.aspx.cs" %>
 
-<%--Revision History --%>
-<%--
-   1.0     v2.0.36     Sanchita    10/01/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" then 
-                                                   data in portal shall be populated based on Hierarchy Only. Refer: 25504
---%>
-<%--End of Revision History--%>
+<%--------------------------------------------------Revision History ------------------------------------------------------------%>
+<%--1.0     v2.0.36     Sanchita    10/01/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" then 
+                                                   data in portal shall be populated based on Hierarchy Only. Refer: 25504--%>
+<%--2.0     V2.0.38     Pallab      01/01/2023     Salesman page design modification--%>
+
+<%-----------------------------------------------End of Revision History----------------------------------------------------------%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -13,6 +13,13 @@
         #EmployeeGrid_DXPagerBottom {
         min-width:100% !important;
         }
+        /*Rev 2.0*/
+        .btn-sm
+        {
+           padding: 7px 10px;
+               font-size: 14px;
+        }
+        /*Rev end 2.0*/
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
