@@ -1,8 +1,9 @@
 ﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           Pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
-@*2.0                11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
-@*3.0                11-01-2023        2.0.37           Pallab              "Monthly Attendance Summary" chart bar color change and month active color change *@
+@*1.0                06-01-2023        2.0.38           Pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
+@*2.0                11-01-2023        2.0.38           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
+@*3.0                11-01-2023        2.0.38           Pallab              "Monthly Attendance Summary" chart bar color change and month active color change *@
+@*4.0                01-02-2023        2.0.38           Pallab              View full screen issue fix  *@
 @*====================================================== Revision History ===========================================================*@
 
 <link href="~/assests/css/pignose.calendar.min.css" rel="stylesheet" />
@@ -660,6 +661,16 @@
                 }
             });
         });
+        /*rev 4.0*/
+        $('.toggleFullScreen').click(function () {
+            $(this).parent('.box-full').toggleClass('');
+            if ($(this).parent(".box-full").hasClass("full-screen")) {
+                $(this).parent(".box-full").removeClass("full-screen");
+            } else {
+                $(this).parent(".box-full").addClass("full-screen");
+            }
+        });
+        /*rev end 4.0*/
     });
 </script>
 <style>
