@@ -832,7 +832,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "SHOP_NAME";
-                    x.Caption = "Outlate Name";
+                    x.Caption = "Outlet Name";
                     x.VisibleIndex = 22;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -857,7 +857,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "OUTLET_TYPE";
-                    x.Caption = "Outlate Type";
+                    x.Caption = "Outlet Type";
                     x.VisibleIndex = 23;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -881,12 +881,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 settings.Columns.Add(x =>
                 {
-                    x.FieldName = "SHOP_CODE";
-                    x.Caption = "Outlate Code";
+                    x.FieldName = "ENTITYCODE";
+                    x.Caption = "Outlet Code";
                     x.VisibleIndex = 24;
                     if (ViewBag.RetentionColumn != null)
                     {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_CODE'");
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
                         if (row != null && row.Length > 0)  /// Check now
                         {
                             x.Visible = false;
@@ -907,7 +907,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "SHOPADDR_CONTACT";
-                    x.Caption = "Outlate Address & Mobile no.";
+                    x.Caption = "Outlet Address & Mobile no.";
                     x.VisibleIndex = 25;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -932,7 +932,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "MANNINGSTATUS";
-                    x.Caption = "(Manning) Status";
+                    x.Caption = "Status (Manning)";
                     x.VisibleIndex = 26;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -1620,7 +1620,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "SHOP_NAME";
-                    x.Caption = "Outlate Name";
+                    x.Caption = "Outlet Name";
                     x.VisibleIndex = 22;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -1645,7 +1645,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "OUTLET_TYPE";
-                    x.Caption = "Outlate Type";
+                    x.Caption = "Outlet Type";
                     x.VisibleIndex = 23;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -1669,12 +1669,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 settings.Columns.Add(x =>
                 {
-                    x.FieldName = "SHOP_CODE";
-                    x.Caption = "Outlate Code";
+                    x.FieldName = "ENTITYCODE";
+                    x.Caption = "Outlet Code";
                     x.VisibleIndex = 24;
                     if (ViewBag.RetentionColumn != null)
                     {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SHOP_CODE'");
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
                         if (row != null && row.Length > 0)  /// Check now
                         {
                             x.Visible = false;
@@ -1695,7 +1695,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "SHOPADDR_CONTACT";
-                    x.Caption = "Outlate Address & Mobile no.";
+                    x.Caption = "Outlet Address & Mobile no.";
                     x.VisibleIndex = 25;
                     if (ViewBag.RetentionColumn != null)
                     {
@@ -1720,7 +1720,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "MANNINGSTATUS";
-                    x.Caption = "(Manning) Status";
+                    x.Caption = "Status (Manning)";
                     x.VisibleIndex = 26;
                     if (ViewBag.RetentionColumn != null)
                     {
