@@ -1,9 +1,9 @@
 ﻿@*====================================================== Revision History ===========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@rev Sanchita
 @*1.0                06-01-2023        2.0.38           Pallab              button overlapping issue fix *@
 @*2.0                13-01-2023        2.0.38           Pallab              show and export button break issue fix *@
 @*3.0                19-01-2023        2.0.38           Pallab              25600: Need to restructure the sequence of fields in the Add Party module from Portal *@
-@*@4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
+@*4.0               27-01-2023        2.0.38           Sanchita            Bulk modification feature is required in Parties menu. Refer: 25609*@
 @*5.0                27-01-2023        2.0.38           Pallab              Party list module all popup design issue fix. Refer: 25628 *@
 @*6.0                27/01/2023        V2.0.38          Sanchita            Assign to DD is not showing while making shop from Portal. Refer: 25606*@
 @*====================================================== Revision History ===========================================================*@
@@ -19,6 +19,12 @@
 <link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />
 <script src="~/assests/pluggins/choosen/choosen.min.js"></script>
 <script src="~/Scripts/SearchMultiPopup.js"></script>
+
+@*Rev 4.0*@
+<link href="~/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
+@*End of Rev 4.0*@
+
 <script>
     var Is_PageLoad = "Ispageload";
     $(function () {
@@ -1734,17 +1740,27 @@
     }
 
     function DownloadBulkModifyTempateFormat() {
-        if ($("#ddlState_BulkModify").val() == "0") {
-            jAlert("Please select State.", "Alert", function () {
-                setTimeout(function () {
-                    $("#ddlState_BulkModify").focus();
-                    return
-                }, 200);
+        //if ($("#ddlState_BulkModify").val() == "0") {
+        //    jAlert("Please select State.", "Alert", function () {
+        //        setTimeout(function () {
+        //            $("#ddlState_BulkModify").focus();
+        //            return
+        //        }, 200);
+        //    });
+        //    return
+        //}
+
+        if ($('#cmbState').val() == null) {
+            jAlert('Please select atleast one state.', 'Warning', function () {
+                return;
             });
-            return
+        }
+        if ($('#cmbState').val() == null) {
+            return;
         }
 
-        var stateid = $("#ddlState_BulkModify").val();
+        //var stateid = $("#ddlState_BulkModify").val();
+        var stateid = JSON.stringify($('#cmbState').val(), ",") ;
         var url = '@Url.Action("DownloadBulkModifyTempate", "partyDetails", new { StateId = "_type_" })'
         window.location.href = url.replace("_type_", stateid);
 
@@ -2107,6 +2123,7 @@
 
 </script>
 @*Mantis Issue 25133*@
+
 <script>
 
 
@@ -2171,6 +2188,22 @@
     //        $("#txtPartyCode").val("Auto");
     //    }
     //})
+
+    // Rev 4.0
+    $(function () {
+        $('#cmbState').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '100%',
+
+            onDropdownHide: function (event) {
+
+            }
+        }).multiselect('selectAll', false).multiselect('updateButtonText');
+        stateids = $('#cmbState').val();
+    });
+    // End of Rev 4.0
 
 </script>
 <script>
@@ -2593,7 +2626,164 @@
         overflow: hidden;
     }
 
+    /*Rev 4.0*/
+    .multiselect-container.dropdown-menu {
+        right: 0 !important;
+        left: auto;
+        min-width: 340px;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        right: auto !important;
+        left: 0;
+        min-width: 340px;
+    }
+
+    .multiselect-container > li > a {
+        padding: 5px 0;
+    }
+
+        .multiselect-container > li > a input[type="checkbox"] {
+            transform: translateY(3px);
+        }
+
+    .multiselect-container > li.active > a {
+        background: transparent !important;
+        color: #333;
+    }
+
+        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+            background: #f3f3f3 !important;
+            color: #333 !important;
+            padding: 5px 0;
+        }
+
+    .multiselect-item.multiselect-filter {
+        padding-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .multiselect-item.multiselect-filter .form-control.multiselect-search {
+            height: 32px;
+        }
+
+        .multiselect-item.multiselect-filter .input-group-addon {
+            background: #41a8f1;
+            color: #fff;
+            border-color: #41a8f1;
+        }
+
+    .input-group-btn .multiselect-clear-filter {
+        background: #f98181;
+        color: #fffefe;
+        /* box-shadow: none; */
+        text-shadow: none;
+        border-color: #f96a6a;
+        padding: 5px 10px 4px 10px;
+    }
+
+    .multiselect.dropdown-toggle {
+        background: #fff;
+        border-radius: 0;
+    }
+
+    .iminentSpan > span {
+        display: block;
+    }
+
+    .btn-excel {
+        float: right;
+        margin-right: 38px;
+        margin-top: -4px;
+    }
+
+    .gridbinded {
+        position: absolute;
+        right: 15px;
+        top: 11px;
+    }
+
+    #cmbState + .btn-group > button {
+        border-radius: 4px;
+        height: 34px;
+    }
+
+    span.multiselect-native-select button {
+        border: 1px solid #c9c9c9 !important;
+        border-radius: 5px !important;
+    }
+
+    .pmsModal.w30 .modal-dialog {
+        max-width: 45%;
+    }
+
+    .mTop35 {
+        margin-top: 35px !important;
+    }
+
+    .dropdown-menu, .multiselect-container {
+        position: static !important;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        height: 300px;
+        overflow: auto;
+    }
+
+    .btn.multiselect-clear-filter {
+        margin-bottom: 0;
+        border-radius: 0 4px 4px 0 !important;
+        height: 32px;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 43px;
+            right: 13px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlShowReport {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    /*End of Rev 4.0*/
+
     /*Rev end 5.0*/
+
+
 </style>
 
 <script>
@@ -2940,11 +3130,11 @@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-            Re-assigned Beat/Group
-        </button>
-        <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-            Re-assigned Beat/Group Log
-        </button>*@
+                                Re-assigned Beat/Group
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+                                Re-assigned Beat/Group Log
+                            </button>*@
                         <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
                             Re-assigned Beat/Party
                         </button>
@@ -2963,7 +3153,7 @@
                         </button>
                         @*End of Mantis Issue 25545*@
                         @*Rev 4.0*@
-                        @if(ViewBag.CanBulkUpdate)
+                        @if (ViewBag.CanBulkUpdate)
                         {
                             <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
                                 Download Template
@@ -3232,13 +3422,13 @@
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
                                 {
-                                    settings.Name = "RetailerTxt";
-                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    settings.Text = Model.AssignedToRetaile;
-                                    settings.ReadOnly = true;
-                                    settings.Properties.Buttons.Add("...");
-                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){RetailerButnClick(s,e);}";
-                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Retailer_KeyDown(s,e);}";
+                                settings.Name = "RetailerTxt";
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                settings.Text = Model.AssignedToRetaile;
+                                settings.ReadOnly = true;
+                                settings.Properties.Buttons.Add("...");
+                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){RetailerButnClick(s,e);}";
+                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Retailer_KeyDown(s,e);}";
                                 }).GetHtml()
 
                                 <input type="hidden" id="txtContact_hidden">
@@ -3246,373 +3436,413 @@
                             </div>
                         </div>
                         @*Rev end 3.0*@
+                                           <div
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="party-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Party Info</h3>
+
+                            <div class="col-md-3">
+                                <label>Party Code <span class="red">*</span>&nbsp;   <span id="SpnlastEntityCode" class="red"></span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Party_Code, new { @class = "form-control", @id = "txtPartyCode", @MaxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Party Name <span class="red">*</span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Party_Name, new { @class = "form-control", @id = "txtPartyName" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Address <span class="red">*</span></label>
+                                <div>
+                                    @*<textarea rows="4" class="form-control"></textarea>*@
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Pin Code <span class="red">*</span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Status <span class="red">*</span></label>
+                                <div>
+                                    <select class="form-control" id="ddlStatus">
+                                        <option value="Select">Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                    @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Party Status </label>
+                                <div id="Citydiv">
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Entity Category </label>
+                                <div>
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 hide" id="divEntityType">
+                                <label>Entity Type</label>
+                                <div id="EntityTypediv">
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Group/Beat </label>
+                                <div id="Citydiv">
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <label>Cluster <span class="red">*</span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Cluster, new { @class = "form-control", @id = "txtcluster" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <label>Party Location Lat </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Party Location Long</label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>GSTIN </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Assign to User <span class="red">*</span></label>
+                                <div>
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
+                                    @Html.DevExpress().ButtonEdit(
+                                    settings =>
+                                    {
+                                        settings.Name = "UserTxt";
+                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        settings.Text = Model.AssignedTo;
+                                        settings.ReadOnly = true;
+                                        settings.Properties.Buttons.Add("...");
+                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+                                    }).GetHtml()
+
+                                    @*<input type="hidden" id="txtContact_hidden">*@
+                                    <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Old Assigned User</label>
+                                <div>
+                                    @*<select class="form-control">
+                                            <option>Select</option>
+                                        </select>*@
+                                    @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
+
+                                    @Html.DevExpress().ButtonEdit(
+                                    settings =>
+                                    {
+                                        settings.Name = "OldUserTxt";
+                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        settings.Text = Model.AssignedTo;
+                                        settings.ReadOnly = true;
+                                        settings.Properties.Buttons.Add("...");
+                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
+                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
+
+                                    }).GetHtml()
+
+                                    @*<input type="hidden" id="txtContact_hidden">*@
+                                    <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Add Photo</label>
+                                <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                                <span class="red">
+                                    Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                                </span>
+                                @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="contact-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
+
+                            <div class="col-md-3">
+                                <label>Owner <span class="red">*</span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.owner_name, new { @class = "form-control", @id = "txtOwner" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Contact <span class="red">*</span></label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.owner_contact_no, new { @class = "form-control numbersOnly", @id = "txtContact", @MaxLength = "10" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Alternate Contact </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
+                                </div>
+                            </div>
+                            @*Mantis Issue 24571*@
+                            <div class="col-md-3">
+                                <label>Alternate Contact 1 </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Alt_MobileNo1, new { @class = "form-control numbersOnly", @id = "txtAlternateContact1", @MaxLength = "10" })
+                                </div>
+                            </div>
+                            @*End of Mantis Issue 24571*@
+
+                            @*End of Mantis Issue 24571*@
+                            <div class="col-md-3">
+                                <label>Email </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
+                                </div>
+                            </div>
+                            @*Mantis Issue 24571*@
+
+                            <div class="col-md-3">
+                                <label>Alternate Email </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Shop_Owner_Email2, new { @class = "form-control", @id = "txtAltEmail" })
+                                </div>
+                            </div>
+                            @*End of Mantis Issue 24571*@
+
+                            <div class="col-md-3">
+                                <label>DOB </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @*@Html.TextBoxFor(m => m.dobstr, new { @class = "form-control", @id = "txtDOB" })*@
+                                    @Html.DevExpress().DateEditFor(x => x.dobstr,
+                                            deSettings =>
+                                            {
+                                                deSettings.Name = "txtDOB";
+                                                deSettings.Date = DateTime.Now;
+                                                deSettings.Properties.UseMaskBehavior = true;
+                                                deSettings.Properties.EditFormat = EditFormat.Custom;
+                                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                            }).GetHtml()
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Anniversary </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @*@Html.TextBoxFor(m => m.date_aniversarystr, new { @class = "form-control", @id = "txtAnniversary" })*@
+                                    @Html.DevExpress().DateEditFor(x => x.date_aniversarystr,
+                                    deSettings =>
+                                    {
+                                        deSettings.Name = "txtAnniversary";
+                                        deSettings.Date = DateTime.Now;
+                                        deSettings.Properties.UseMaskBehavior = true;
+                                        deSettings.Properties.EditFormat = EditFormat.Custom;
+                                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                    }).GetHtml()
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Owner Aadhaar </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Owner_Adhar, new { @class = "form-control numbersOnly", @id = "txtOwnerAdhar", @MaxLength = "16" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Owner PAN <span class="infoQ" data-toggle="modal" data-target="#PanModel"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                                <div class="relative">
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Owner_PAN, new { @class = "form-control", @id = "txtOwnerPAN", @MaxLength = "10" })
+                                    <span class="sample">Sample: AAAAA9999A</span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Trade License </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Trade_Licence_Number, new { @class = "form-control", @id = "txttradelicence" })
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="account-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Account Info</h3>
+                            <div class="col-md-3">
+                                <label>Account Holder </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.AccountHolder, new { @class = "form-control", @id = "txtAccountHolder", @MaxLength = "200" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Account No </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control numbersOnly", @id = "txtAccountNo", @MaxLength = "15" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Bank Name </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @id = "txtBankName", @MaxLength = "100" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>IFSC Code </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @id = "txtIFSCCode", @MaxLength = "11" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>UPI ID </label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.UPIID, new { @class = "form-control", @id = "txtUPIID", @MaxLength = "100" })
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="other-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Other Info</h3>
+                            <div class="col-md-6">
+                                <label>Location </label>
+                                <div>
+                                    @*<textarea rows="4" class="form-control"></textarea>*@
+                                    @Html.TextAreaFor(m => m.Location, new { @class = "form-control", @id = "txtLocation" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Remarks (if any)</label>
+                                <div>
+                                    @*<input type="text" class="form-control" />*@
+                                    @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        @*Rev end 3.0*@
+
+
+
+
+
+
+
+                        <!--<div class="col-md-3">
+                        <label>Status <span class="red">*</span></label>
+                        <div>
+                            <select class="form-control" id="ddlStatus">
+                                <option value="Select">Select</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>-->
+                        @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
+                        <!--</div>
+                        </div>-->
                         <div class="clear"></div>
-                    </div>
 
-
-                    <div class="party-info">
-                        <h3 class="add-party-popup-section-title col-md-12">Party Info</h3>
-
-                        <div class="col-md-3">
-                            <label>Party Code <span class="red">*</span>&nbsp;   <span id="SpnlastEntityCode" class="red"></span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Party_Code, new { @class = "form-control", @id = "txtPartyCode", @MaxLength = "10" })
+                        <!--<div class="col-md-3">
+                        <label>Entity Category </label>
+                        <div>-->
+                        @*<select class="form-control">
+                                <option>Select</option>
+                            </select>*@
+                        <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Party Name <span class="red">*</span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Party_Name, new { @class = "form-control", @id = "txtPartyName" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Address <span class="red">*</span></label>
-                            <div>
-                                @*<textarea rows="4" class="form-control"></textarea>*@
-                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Pin Code <span class="red">*</span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Status <span class="red">*</span></label>
-                            <div>
-                                <select class="form-control" id="ddlStatus">
-                                    <option value="Select">Select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                                @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Party Status </label>
-                            <div id="Citydiv">
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Entity Category </label>
-                            <div>
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 hide" id="divEntityType">
-                            <label>Entity Type</label>
-                            <div id="EntityTypediv">
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @Html.DropDownListFor(m => m.Entity, new SelectList(Model.EntityList, "id", "name", Model.EntityId), new { @id = "ddlEntity", @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Group/Beat </label>
-                            <div id="Citydiv">
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <label>Cluster <span class="red">*</span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Cluster, new { @class = "form-control", @id = "txtcluster" })
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <label>Party Location Lat </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Party Location Long</label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>GSTIN </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Assign to User <span class="red">*</span></label>
-                            <div>
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
-                                @Html.DevExpress().ButtonEdit(
-                                settings =>
-                                {
-                                    settings.Name = "UserTxt";
-                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    settings.Text = Model.AssignedTo;
-                                    settings.ReadOnly = true;
-                                    settings.Properties.Buttons.Add("...");
-                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
-
-                                }).GetHtml()
-
-                                @*<input type="hidden" id="txtContact_hidden">*@
-                                <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Old Assigned User</label>
-                            <div>
-                                @*<select class="form-control">
-                                        <option>Select</option>
-                                    </select>*@
-                                @*@Html.DropDownListFor(m => m.OldUser, new SelectList(Model.OldUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlOldCreateUser", @class = "form-control" })*@
-
-                                @Html.DevExpress().ButtonEdit(
-                                settings =>
-                                {
-                                    settings.Name = "OldUserTxt";
-                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    settings.Text = Model.AssignedTo;
-                                    settings.ReadOnly = true;
-                                    settings.Properties.Buttons.Add("...");
-                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
-                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
-
-                                }).GetHtml()
-
-                                @*<input type="hidden" id="txtContact_hidden">*@
-                                <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Add Photo</label>
-                            <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-                            <span class="red">
-                                Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-                            </span>
-                            @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
-                        </div>
-
-                        <div class="clear"></div>
-                    </div>
-
-
-                    <div class="contact-info">
-                        <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
-
-                        <div class="col-md-3">
-                            <label>Owner <span class="red">*</span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.owner_name, new { @class = "form-control", @id = "txtOwner" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Contact <span class="red">*</span></label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.owner_contact_no, new { @class = "form-control numbersOnly", @id = "txtContact", @MaxLength = "10" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Alternate Contact </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
-                            </div>
-                        </div>
+                        </div>-->
                         @*Mantis Issue 24571*@
-                        <div class="col-md-3">
-                            <label>Alternate Contact 1 </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Alt_MobileNo1, new { @class = "form-control numbersOnly", @id = "txtAlternateContact1", @MaxLength = "10" })
+                        <!--<div class="col-md-3">
+                        <label>GSTIN </label>
+                        <div>-->
+                        @*<input type="text" class="form-control" />*@
+                        <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
                             </div>
-                        </div>
-                        @*End of Mantis Issue 24571*@
-
-                        @*End of Mantis Issue 24571*@
-                        <div class="col-md-3">
-                            <label>Email </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
-                            </div>
-                        </div>
-                        @*Mantis Issue 24571*@
-
-                        <div class="col-md-3">
-                            <label>Alternate Email </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Shop_Owner_Email2, new { @class = "form-control", @id = "txtAltEmail" })
-                            </div>
-                        </div>
-                        @*End of Mantis Issue 24571*@
-
-                        <div class="col-md-3">
-                            <label>DOB </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @*@Html.TextBoxFor(m => m.dobstr, new { @class = "form-control", @id = "txtDOB" })*@
-                                @Html.DevExpress().DateEditFor(x => x.dobstr,
-                                        deSettings =>
-                                        {
-                                            deSettings.Name = "txtDOB";
-                                            deSettings.Date = DateTime.Now;
-                                            deSettings.Properties.UseMaskBehavior = true;
-                                            deSettings.Properties.EditFormat = EditFormat.Custom;
-                                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                        }).GetHtml()
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Anniversary </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @*@Html.TextBoxFor(m => m.date_aniversarystr, new { @class = "form-control", @id = "txtAnniversary" })*@
-                                @Html.DevExpress().DateEditFor(x => x.date_aniversarystr,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "txtAnniversary";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Owner Aadhaar </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Owner_Adhar, new { @class = "form-control numbersOnly", @id = "txtOwnerAdhar", @MaxLength = "16" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Owner PAN <span class="infoQ" data-toggle="modal" data-target="#PanModel"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
-                            <div class="relative">
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Owner_PAN, new { @class = "form-control", @id = "txtOwnerPAN", @MaxLength = "10" })
-                                <span class="sample">Sample: AAAAA9999A</span>
-
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Trade License </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Trade_Licence_Number, new { @class = "form-control", @id = "txttradelicence" })
-                            </div>
-                        </div>
+                        </div>-->
 
                         <div class="clear"></div>
-                    </div>
-
-
-                    <div class="account-info">
-                        <h3 class="add-party-popup-section-title col-md-12">Account Info</h3>
-                        <div class="col-md-3">
-                            <label>Account Holder </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.AccountHolder, new { @class = "form-control", @id = "txtAccountHolder", @MaxLength = "200" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Account No </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control numbersOnly", @id = "txtAccountNo", @MaxLength = "15" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Bank Name </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @id = "txtBankName", @MaxLength = "100" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>IFSC Code </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @id = "txtIFSCCode", @MaxLength = "11" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>UPI ID </label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.UPIID, new { @class = "form-control", @id = "txtUPIID", @MaxLength = "100" })
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-
-
-                    <div class="other-info">
-                        <h3 class="add-party-popup-section-title col-md-12">Other Info</h3>
-                        <div class="col-md-6">
-                            <label>Location </label>
-                            <div>
-                                @*<textarea rows="4" class="form-control"></textarea>*@
-                                @Html.TextAreaFor(m => m.Location, new { @class = "form-control", @id = "txtLocation" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Remarks (if any)</label>
-                            <div>
-                                @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
-                            </div>
-                        </div>
-
-                        <div class="clear"></div>
-                    </div>
-
-                    @*Rev end 3.0*@
 
 
 
@@ -3620,38 +3850,31 @@
 
 
 
-                    <!--<div class="col-md-3">
-                    <label>Status <span class="red">*</span></label>
-                    <div>
-                        <select class="form-control" id="ddlStatus">
-                            <option value="Select">Select</option>
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>-->
-                    @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
-                    <!--</div>
-                    </div>-->
-                    <div class="clear"></div>
 
-                    <!--<div class="col-md-3">
-                    <label>Entity Category </label>
-                    <div>-->
-                    @*<select class="form-control">
-                            <option>Select</option>
-                        </select>*@
-                    <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-                        </div>
-                    </div>-->
-                    @*Mantis Issue 24571*@
-                    <!--<div class="col-md-3">
-                    <label>GSTIN </label>
-                    <div>-->
-                    @*<input type="text" class="form-control" />*@
-                    <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-                        </div>
-                    </div>-->
 
-                    <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3726,237 +3949,529 @@
                     <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
                         </div>
                     </div>-->
-                    <div class="clear"></div>
+                        <div class="clear"></div>
 
 
 
-                    <!--<div class="col-md-3">
-                    <label>Party Status </label>
-                    <div id="Citydiv">-->
-                    @*<select class="form-control">
-                            <option>Select</option>
+                        <!--<div class="col-md-3">
+                        <label>Party Status </label>
+                        <div id="Citydiv">-->
+                        @*<select class="form-control">
+                        <option>Select</option>
                         </select>*@
-                    <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-                        </div>
-                    </div>-->
-                    <!--<div class="col-md-3">
-                    <label>Group/Beat </label>
-                    <div id="Citydiv">-->
-                    @*<select class="form-control">
-                            <option>Select</option>
-                        </select>*@
-                    <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-                        </div>
-                    </div>-->
-
-                    <div class="clear"></div>
-
-
-
-                    <!--<div class="col-md-4">
-                    <label>Add Photo</label>
-                    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-                    <span class="red">
-                        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-                    </span>-->
-                    @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
-                    <!--</div>-->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="AddShop('Exit');">Save & Exit</button>
-                <button type="button" class="btn btn-primary" onclick="AddShop('New');">Save & New</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<input type="hidden" id="hdnUserID" value="@Model.user_id" />
-<input type="hidden" id="hdnShopMode" />
-@*Mantis Issue 24603*@
-<input type="hidden" id="hdnIsAutoCodificationRequiredViewbag" value="@ViewBag.IsAutoCodificationRequired">
-@*End of Mantis Issue 24603*@
-<!--PP List-->
-<div class="modal fade pmsModal w70" id="PPModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">PP Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                @*Rev 5.0*@
-                @*<input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />*@
-                <input class="form-control mb-3" type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
-                @*Rev end 5.0*@
-                <div id="PPTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Location</th>
-                            @*Mantis Issue 24450,24451*@
-                            <th>Contact No</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--PP List-->
-
-<div class="modal fade pmsModal w40 " id="PanModel" role="dialog" aria-hidden="false">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">PAN</h4>
-            </div>
-            <div class="modal-body">
-                <div id="SalesManTable">
-                    <div style="color: #986014; font-size: 13px;">
-                        <p>1. First three characters are alphabetic series running from AAA to ZZZ<br></p>
-                        <p>2. Fourth character of PAN represents the status of the PAN holder.C — Company P — Person H — HUF(Hindu Undivided Family) <br></p>
-                        <p>3. F — Firm A — Association of Persons (AOP) T — AOP (Trust) B — Body of Individuals (BOI) L — Local Authority J — Artificial Juridical Person G — Government<br></p>
-                        <p>4. Fifth character represents the first character of the PAN holder’s last name/surname.<br></p>
-                        <p>5. Next four characters are sequential number running from 0001 to 9999.<br></p>
-                        <p>6. Last character in the PAN is an alphabetic check digit.<br></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Import Excel Template For Parties</h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <div class="">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="divproduct">
-                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
-                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
-                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary"></div>
-                                </div>
+                        <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
                             </div>
-                        </div>
-                        <div class="row">
+                        </div>-->
+                        <!--<div class="col-md-3">
+                        <label>Group/Beat </label>
+                        <div id="Citydiv">-->
+                        @*<select class="form-control">
+                        <option>Select</option>
+                        </select>*@
+                        <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
+                            </div>
+                        </div>-->
 
-                        </div>
+                        <div class="clear"></div>
+
+
+
+                        <!--<div class="col-md-4">
+                        <label>Add Photo</label>
+                        <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                        <span class="red">
+                            Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                        </span>-->
+                        @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
+                        <!--</div>-->
                     </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="AddShop('Exit');">Save & Exit</button>
+                    <button type="button" class="btn btn-primary" onclick="AddShop('New');">Save & New</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
 
-@*Rev 4.0*@
-<div id="myDownloadTemplateModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Download Template For Bulk Update</h4>
+    <input type="hidden" id="hdnUserID" value="@Model.user_id" />
+    <input type="hidden" id="hdnShopMode" />
+    @*Mantis Issue 24603*@
+    <input type="hidden" id="hdnIsAutoCodificationRequiredViewbag" value="@ViewBag.IsAutoCodificationRequired">
+    @*End of Mantis Issue 24603*@
+    <!--PP List-->
+    <div class="modal fade pmsModal w70" id="PPModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">PP Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
+                    @*Rev 5.0*@
+                    @*<input type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />*@
+                    <input class="form-control mb-3" type="text" onkeydown="PPkeydown(event)" id="txtPPSearch" autofocus style="width:100%" placeholder="Search By PP Name or PP Code or Contact No" />
+                    @*Rev end 5.0*@
+                    <div id="PPTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Location</th>
+                                @*Mantis Issue 24450,24451*@
+                                <th>Contact No</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div>
-                    <div class="">
+        </div>
+    </div>
+    <!--PP List-->
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="divproduct">
-                                    <label class="uplabel mb-4">Select State <span class="red">*</span></label>
-                                    <div id="statediv">
-                                        @Html.DropDownListFor(m => m.State_BulkModify, new SelectList(Model.StateList_BulkModify, "StateID_BulkModify", "StateName_BulkModify", Model.StateID_BulkModify), new { @id = "ddlState_BulkModify", @class = "form-control" })
+    <div class="modal fade pmsModal w40 " id="PanModel" role="dialog" aria-hidden="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">PAN</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="SalesManTable">
+                        <div style="color: #986014; font-size: 13px;">
+                            <p>1. First three characters are alphabetic series running from AAA to ZZZ<br></p>
+                            <p>2. Fourth character of PAN represents the status of the PAN holder.C — Company P — Person H — HUF(Hindu Undivided Family) <br></p>
+                            <p>3. F — Firm A — Association of Persons (AOP) T — AOP (Trust) B — Body of Individuals (BOI) L — Local Authority J — Artificial Juridical Person G — Government<br></p>
+                            <p>4. Fifth character represents the first character of the PAN holder’s last name/surname.<br></p>
+                            <p>5. Next four characters are sequential number running from 0001 to 9999.<br></p>
+                            <p>6. Last character in the PAN is an alphabetic check digit.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Import Excel Template For Parties</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="divproduct">
+                                        <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                        <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                        <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary"></div>
                                     </div>
-                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Download Template" onclick="return DownloadBulkModifyTempateFormat();" id="btnimportxls" class="btn btn-primary"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div class="row">
 
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div id="myBulkModifyModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Bulk Update Template For Parties</h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <div class="">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="divproduct">
-                                    <label class="uplabel mb-4">Select File to Bulk Update</label>
-                                    <div><input type="file" id="fileprod_BulkModify" accept=".xls,.xlsx"></div>
-                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Update" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
-                                </div>
                             </div>
                         </div>
-                        <div class="row">
 
-                        </div>
                     </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
+
+    @*Rev 4.0*@
+    <div id="myDownloadTemplateModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Download Template For Bulk Update</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="divproduct">
+                                        <div class="row">
+                                            <div class="col-md-8 h-branch-select">
+                                                <label class="uplabel mb-4">Select State <span class="red">*</span></label>
+                                                <div id="statediv" class="iminentSpan">
+                                                    @*@Html.DropDownListFor(m => m.State_BulkModify, new SelectList(Model.StateList_BulkModify, "StateID_BulkModify", "StateName_BulkModify", Model.StateID_BulkModify), new { @id = "ddlState_BulkModify", @class = "form-control" })*@
+                                                    <select class="demo" multiple="multiple" id="cmbState">
+                                                        @foreach (var item in Model.StateList_BulkModify)
+                                                        {
+                                                            <option value="@item.StateID_BulkModify">@item.StateName_BulkModify</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="pTop10  mTop35 mt-4"><input type="submit" value="Download Template" onclick="return DownloadBulkModifyTempateFormat();" id="btnimportxls" class="btn btn-primary"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="myBulkModifyModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Bulk Update Template For Parties</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="divproduct">
+                                        <label class="uplabel mb-4">Select File to Bulk Update</label>
+                                        <div><input type="file" id="fileprod_BulkModify" accept=".xls,.xlsx"></div>
+                                        <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Update" onclick="return BulkModifyParty();" id="btnimportxls" class="btn btn-primary"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*End of Rev 4.0*@
+
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateImportLogMode";
+                settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Import Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("GetPartyImportLog", new List<partyDetailsModel>());
+                    //ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportLogGrid();'>Export</button>");
+                });
+
+                //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateReAssignShopLogMode";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assign Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("GetReAssignShopUserLog", new List<ReAssignShopModel>());
+                    ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGrid();'>Export</button>");
+                });
+
+                //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+    @*Mantis Issue 25133*@
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateReAssignShopLogModeGroupBeat";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assign Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("GetReAssignShopGroupBeatLog", new List<ReAssignShopGroupBeatModel>());
+                    ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGroupBeatGrid();'>Export</button>");
+                });
+
+                //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+    @*End of Mantis Issue 25133*@
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateReAssignShopManualLogMode";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assign Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("ReAssignShopUserManualLog", new List<ReAssignShopModelLog>());
+                    ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid();'>Export</button>");
+                });
+
+                // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+
+    @*Mantis Issue 25133*@
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateReAssignShopManualGroupBeatLogMode";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assign Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("ReAssignShopGroupBeatManualLog", new List<ReAssignShopGroupBeatModelLog>());
+                    ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignGroupBeatManualLogGrid();'>Export</button>");
+                });
+
+                // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+    @*End of Mantis Issue 25133*@
+    <!--DD List-->
+    <div class="modal fade pmsModal w70" id="DDModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">DD Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
+                    @*Rev 5.0*@
+                    @*<input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />*@
+                    <input class="form-control mb-3" type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
+                    @*Rev end 5.0*@
+                    <div id="DDTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Location</th>
+                                @*Mantis Issue 24450,24451*@
+                                <th>Contact No</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
-@*End of Rev 4.0*@
+    <!--DD List-->
 
-@Html.DevExpress().PopupControl(
+
+    <div id="ReAssignedModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Old Assigned User </label>
+                            <div>
+                                @Html.DropDownListFor(m => m.InactiveUserid, new SelectList(Model.InactiveUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlOldUser", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 25px;">
+
+                            <button type="button" class="btn btn-success" onclick="GenerateShopList();">Generate</button>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Assign to User</label>
+                            <div>
+                                @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "NewAssignUserTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignUserButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignUser_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnNewAssignUserID" value="@Model.OldUserid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="ShopReAssignUser();">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*Mantis Issue 25133*@
+    <div id="ReAssignedBeatModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned Beat/Party</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Assigned Beat/Party </label>
+                            <div>
+                                @Html.DropDownListFor(m => m.GroupBeatId, new SelectList(Model.InactiveGroupBeatidList, "ID", "NAME", Model.NewUserid), new { @id = "ddlGroupBeatOld", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 25px;">
+
+                            <button type="button" class="btn btn-success" onclick="GenerateShopForGroupBeatList();">Generate</button>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Assign to Beat/Party</label>
+                            <div>
+                                @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "NewAssignGroupBeatTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignGroupBeatButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignGroupBeat_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnNewAssignGroupBeatID" value="@Model.OldGroupBeatId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="ShopReAssignGroupBeat();">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*End of Mantis Issue 25133*@
+
+    @Html.DevExpress().PopupControl(
         settings =>
         {
-            settings.Name = "pcModalTemplateImportLogMode";
-            settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+            settings.Name = "pcModalImportLogViewMode";
+            settings.Width = 300;
             //settings.Height = 220;
             //settings.ScrollBars.v
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Import Log";
+            settings.HeaderText = "Re-assigned User Log";
             settings.Modal = true;
             settings.AutoUpdatePosition = true;
             settings.Top = 50;
@@ -3964,25 +4479,24 @@
             settings.PopupVerticalAlign = PopupVerticalAlign.Above;
             settings.SetContent(() =>
             {
-                Html.RenderPartial("GetPartyImportLog", new List<partyDetailsModel>());
-                //ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportLogGrid();'>Export</button>");
+                Html.RenderPartial("_ShopReassignManualLogView");
             });
 
-            //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
         }).GetHtml()
-
-@Html.DevExpress().PopupControl(
+    @*Mantis Issue 25133*@
+    @Html.DevExpress().PopupControl(
         settings =>
         {
-            settings.Name = "pcModalTemplateReAssignShopLogMode";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+            settings.Name = "pcModalImportGroupBeatLogViewMode";
+            settings.Width = 300;
             //settings.Height = 220;
             //settings.ScrollBars.v
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assign Log";
+            settings.HeaderText = "Re-assigned Beat/Party Log";
             settings.Modal = true;
             settings.AutoUpdatePosition = true;
             settings.Top = 50;
@@ -3990,25 +4504,413 @@
             settings.PopupVerticalAlign = PopupVerticalAlign.Above;
             settings.SetContent(() =>
             {
-                Html.RenderPartial("GetReAssignShopUserLog", new List<ReAssignShopModel>());
-                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGrid();'>Export</button>");
+                Html.RenderPartial("_ShopReassignGroupBeatManualLogView");
             });
 
-            //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
         }).GetHtml()
-@*Mantis Issue 25133*@
-@Html.DevExpress().PopupControl(
+    @*End of Mantis Issue 25133*@
+    <div id="ReAssignedShopListModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
+        <div class="modal-dialog " style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned Shop List</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                Html.RenderAction("ReAssignShopList", "partyDetails");
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopCodes();">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*Mantis Issue 25133*@
+    <div id="ReAssignedShopListModalBeat" class="modal fade pmsModal w90 new-popup-width " data-backdrop="static" role="dialog">
+        <div class="modal-dialog " style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned Shop List</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                Html.RenderAction("ReAssignShopListForGroupBeat", "partyDetails");
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopGroupBeatCodes();">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*End of Mantis Issue 25133*@
+    <!--Retailer List-->
+    <div class="modal fade pmsModal w70" id="RetailerModel" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Retailer Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" onkeydown="Retailerkeydown(event)" id="txtRetailerSearch" autofocus style="width:100%" placeholder="Search By Retailer Name or Retailer Code" />
+                    <div id="RetailerTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Location</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Retailer List-->
+    <!--User List-->
+    <div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        @*<div class="modal-dialog">*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
+                    @*Rev 5.0*@
+                    @*<input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                    <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                    @*Rev end 5.0*@
+                    <div id="UserTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>User Name</th>
+                                <th>User Login Id</th>
+                                @*Rev Sancita*@
+                                <th>Employee Id</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--User List-->
+    <!--Old User List-->
+    <div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        @*<div class="modal-dialog">*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Old User Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
+                    @*Rev 5.0*@
+                    @*<input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                    <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                    @*Rev end 5.0*@
+                    <div id="OldUserTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>User Name</th>
+                                <th>User Login Id</th>
+                                @*Rev Sancita*@
+                                <th>Employee Id</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Old User List-->
+    <!--Employee Modal -->
+    <div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Employee Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                    <div id="EmployeeTable">
+                        <table border='1' width="100%">
+
+                            <tr class="HeaderStyle" style="font-size:small">
+                                <th>Select</th>
+                                <th class="hide">id</th>
+                                <th>Employee Name</th>
+                                <th>Employee Code</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
+                    <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                    @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <asp:HiddenField ID="hdnEmployeeId" runat="server" />
+    <!--Employee Modal -->
+    <!--New Assign User List-->
+    <div class="modal fade pmsModal w70" id="NewAssignUserSearchModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        @*<div class="modal-dialog">*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
+                    @*Rev 5.0*@
+                    @*<input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                    <input type="text" class="form-control mb-3" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                    @*Rev end 5.0*@
+                    <div id="NewAssignUserTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>User Name</th>
+                                <th>User Login Id</th>
+                                @*Rev Sancita*@
+                                <th>Employee Id</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--New Assign User List-->
+    <!--Mantis Issue 25133-->
+    <!--New Assign Group Beat List-->
+    <div class="modal fade pmsModal w70" id="NewAssignGroupBeatSearchModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        @*<div class="modal-dialog">*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Group Beat Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
+                    @*Rev 5.0*@
+                    @*<input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                    <input type="text" class="form-control mb-3" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                    @*Rev end 5.0*@
+                    <div id="NewAssignGroupBeatTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Group Beat Name</th>
+                                <th>Group Beat Code</th>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--New Assign Group Beat List-->
+    <!--End of Mantis Issue 25133-->
+    @*Mantis Issue 25545*@
+    <div id="ReAssignedAreaRouteBeatModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned Area/Route/Beat</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Old Assigned User </label>
+                            <div>
+                                @Html.DropDownListFor(m => m.AreaRouteBeatUserid, new SelectList(Model.AreaRouteBeatUseridList, "UserID", "username", Model.AreaRouteBeatUserid), new { @id = "ddlOldAreaRouteBeatUser", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 25px;">
+
+                            <button type="button" class="btn btn-success" onclick="GenerateAreaRouteBeatShopList();">Generate</button>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Assign to User</label>
+                            <div>
+                                @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "ReassignedUserAreaRouteBeatTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignUserAreaRouteBeatButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignUserAreaRouteBeat_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnNewAssignUserAreaRouteBeatID" value="@Model.OldAreaRouteBeatId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="ShopReAssignUserAreaRouteBeat();">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ReAssignedShopListAreaRouteBeatModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
+        <div class="modal-dialog " style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Re-assigned Shop List</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                Html.RenderAction("ReAssignShopList_ForAreaRouteBeat", "partyDetails");
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopCodesForAreaRouteBeat();">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade pmsModal w70" id="NewAssignUserAreaRouteBeatSearchModel" role="dialog">
+        @*Rev 5.0 : w-50 class add*@
+        @*<div class="modal-dialog">*@
+        <div class="modal-dialog w-50">
+            @*Rev end 5.0*@
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Search</h4>
+                </div>
+                <div class="modal-body">
+                    @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
+                    @*Rev 5.0*@
+                    @*<input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
+                    <input type="text" class="form-control mb-3" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                    @*Rev end 5.0*@
+                    <div id="NewAssignUserAreaRouteBeatTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>User Name</th>
+                                <th>User Login Id</th>
+                                @*Rev Sancita*@
+                                <th>Employee Id</th>
+                                @*End of Mantis Issue 24450,24451*@
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.DevExpress().PopupControl(
         settings =>
         {
-            settings.Name = "pcModalTemplateReAssignShopLogModeGroupBeat";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+            settings.Name = "pcModalImportLogViewMode_AreaRouteBeat";
+            settings.Width = 300;
             //settings.Height = 220;
             //settings.ScrollBars.v
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assign Log";
+            settings.HeaderText = "Re-assigned Area/Route/Beat Log";
             settings.Modal = true;
             settings.AutoUpdatePosition = true;
             settings.Top = 50;
@@ -4016,25 +4918,52 @@
             settings.PopupVerticalAlign = PopupVerticalAlign.Above;
             settings.SetContent(() =>
             {
-                Html.RenderPartial("GetReAssignShopGroupBeatLog", new List<ReAssignShopGroupBeatModel>());
-                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGroupBeatGrid();'>Export</button>");
+                Html.RenderPartial("_ShopReassignManualLogView_AreaRouteBeat");
             });
 
-            //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
         }).GetHtml()
-@*End of Mantis Issue 25133*@
-@Html.DevExpress().PopupControl(
+
+    @Html.DevExpress().PopupControl(
+            settings =>
+            {
+                settings.Name = "pcModalTemplateReAssignShopManualLogMode_AreaRouteBeat";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assign Area/Beat/Route Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("ReAssignShopUserManualLog_AreaRouteBeat", new List<ReAssignShopModelLog>());
+                    ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid_AreaRouteBeat();'>Export</button>");
+                });
+
+                // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+            }).GetHtml()
+
+    @*End of Mantis Issue 25545*@
+    @*Rev 4.0*@
+    @Html.DevExpress().PopupControl(
         settings =>
         {
-            settings.Name = "pcModalTemplateReAssignShopManualLogMode";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+            settings.Name = "pcModalBulkModifyViewMode";
+            settings.Width = 300;
             //settings.Height = 220;
             //settings.ScrollBars.v
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assign Log";
+            settings.HeaderText = "Bulk Update Party Log";
             settings.Modal = true;
             settings.AutoUpdatePosition = true;
             settings.Top = 50;
@@ -4042,729 +4971,35 @@
             settings.PopupVerticalAlign = PopupVerticalAlign.Above;
             settings.SetContent(() =>
             {
-                Html.RenderPartial("ReAssignShopUserManualLog", new List<ReAssignShopModelLog>());
-                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid();'>Export</button>");
+                Html.RenderPartial("_BulkModifyManualLogView");
+            });
+
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+        }).GetHtml()
+
+    @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalTemplateBulkModifyLog";
+            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                    //settings.Height = 220;
+                                    //settings.ScrollBars.v
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Bulk Update Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
+            ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
             });
 
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
         }).GetHtml()
-
-@*Mantis Issue 25133*@
-@Html.DevExpress().PopupControl(
-        settings =>
-        {
-            settings.Name = "pcModalTemplateReAssignShopManualGroupBeatLogMode";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-            //settings.Height = 220;
-            //settings.ScrollBars.v
-            settings.AllowDragging = true;
-            settings.CloseAction = CloseAction.CloseButton;
-            settings.CloseOnEscape = true;
-            settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assign Log";
-            settings.Modal = true;
-            settings.AutoUpdatePosition = true;
-            settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
-            {
-                Html.RenderPartial("ReAssignShopGroupBeatManualLog", new List<ReAssignShopGroupBeatModelLog>());
-                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignGroupBeatManualLogGrid();'>Export</button>");
-            });
-
-            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
-        }).GetHtml()
-@*End of Mantis Issue 25133*@
-<!--DD List-->
-<div class="modal fade pmsModal w70" id="DDModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">DD Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451 [ "or Contact No"  added]*@
-                @*Rev 5.0*@
-                @*<input type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />*@
-                <input class="form-control mb-3" type="text" onkeydown="DDkeydown(event)" id="txtDDSearch" autofocus style="width:100%" placeholder="Search By DD Name or DD Code or Contact No" />
-                @*Rev end 5.0*@
-                <div id="DDTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Location</th>
-                            @*Mantis Issue 24450,24451*@
-                            <th>Contact No</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--DD List-->
-
-
-<div id="ReAssignedModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned User</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Old Assigned User </label>
-                        <div>
-                            @Html.DropDownListFor(m => m.InactiveUserid, new SelectList(Model.InactiveUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlOldUser", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="padding-top: 25px;">
-
-                        <button type="button" class="btn btn-success" onclick="GenerateShopList();">Generate</button>
-                    </div>
-                    <div class="col-md-5">
-                        <label>Assign to User</label>
-                        <div>
-                            @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "NewAssignUserTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignUserButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignUser_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            @*<input type="hidden" id="txtContact_hidden">*@
-                            <input type="hidden" id="hdnNewAssignUserID" value="@Model.OldUserid">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" onclick="ShopReAssignUser();">Update</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-@*Mantis Issue 25133*@
-<div id="ReAssignedBeatModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned Beat/Party</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Assigned Beat/Party </label>
-                        <div>
-                            @Html.DropDownListFor(m => m.GroupBeatId, new SelectList(Model.InactiveGroupBeatidList, "ID", "NAME", Model.NewUserid), new { @id = "ddlGroupBeatOld", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="padding-top: 25px;">
-
-                        <button type="button" class="btn btn-success" onclick="GenerateShopForGroupBeatList();">Generate</button>
-                    </div>
-                    <div class="col-md-5">
-                        <label>Assign to Beat/Party</label>
-                        <div>
-                            @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "NewAssignGroupBeatTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignGroupBeatButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignGroupBeat_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            @*<input type="hidden" id="txtContact_hidden">*@
-                            <input type="hidden" id="hdnNewAssignGroupBeatID" value="@Model.OldGroupBeatId">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" onclick="ShopReAssignGroupBeat();">Update</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-@*End of Mantis Issue 25133*@
-
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalImportLogViewMode";
-        settings.Width = 300;
-        //settings.Height = 220;
-        //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Re-assigned User Log";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("_ShopReassignManualLogView");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
-    }).GetHtml()
-@*Mantis Issue 25133*@
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalImportGroupBeatLogViewMode";
-        settings.Width = 300;
-        //settings.Height = 220;
-        //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Re-assigned Beat/Party Log";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("_ShopReassignGroupBeatManualLogView");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
-    }).GetHtml()
-@*End of Mantis Issue 25133*@
-<div id="ReAssignedShopListModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
-    <div class="modal-dialog " style="width: 90%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned Shop List</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        @{
-                            Html.RenderAction("ReAssignShopList", "partyDetails");
-                        }
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopCodes();">OK</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-@*Mantis Issue 25133*@
-<div id="ReAssignedShopListModalBeat" class="modal fade pmsModal w90 new-popup-width " data-backdrop="static" role="dialog">
-    <div class="modal-dialog " style="width: 90%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned Shop List</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        @{
-                            Html.RenderAction("ReAssignShopListForGroupBeat", "partyDetails");
-                        }
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopGroupBeatCodes();">OK</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-@*End of Mantis Issue 25133*@
-<!--Retailer List-->
-<div class="modal fade pmsModal w70" id="RetailerModel" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Retailer Search</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" onkeydown="Retailerkeydown(event)" id="txtRetailerSearch" autofocus style="width:100%" placeholder="Search By Retailer Name or Retailer Code" />
-                <div id="RetailerTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Location</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Retailer List-->
-<!--User List-->
-<div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 5.0*@
-                @*<input type="text" class="form-control" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 5.0*@
-                <div id="UserTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>User Name</th>
-                            <th>User Login Id</th>
-                            @*Rev Sancita*@
-                            <th>Employee Id</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--User List-->
-<!--Old User List-->
-<div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Old User Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 5.0*@
-                @*<input type="text" class="form-control" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 5.0*@
-                <div id="OldUserTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>User Name</th>
-                            <th>User Login Id</th>
-                            @*Rev Sancita*@
-                            <th>Employee Id</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Old User List-->
-<!--Employee Modal -->
-<div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Employee Search</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
-                <div id="EmployeeTable">
-                    <table border='1' width="100%">
-
-                        <tr class="HeaderStyle" style="font-size:small">
-                            <th>Select</th>
-                            <th class="hide">id</th>
-                            <th>Employee Name</th>
-                            <th>Employee Code</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
-                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-                @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
-            </div>
-        </div>
-    </div>
-</div>
-<asp:HiddenField ID="hdnEmployeeId" runat="server" />
-<!--Employee Modal -->
-<!--New Assign User List-->
-<div class="modal fade pmsModal w70" id="NewAssignUserSearchModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 5.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserkeydown(event)" id="txtNewAssignUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 5.0*@
-                <div id="NewAssignUserTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>User Name</th>
-                            <th>User Login Id</th>
-                            @*Rev Sancita*@
-                            <th>Employee Id</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--New Assign User List-->
-<!--Mantis Issue 25133-->
-<!--New Assign Group Beat List-->
-<div class="modal fade pmsModal w70" id="NewAssignGroupBeatSearchModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Group Beat Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 5.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignGroupBeatkeydown(event)" id="txtNewAssignGroupBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 5.0*@
-                <div id="NewAssignGroupBeatTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Group Beat Name</th>
-                            <th>Group Beat Code</th>
-
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--New Assign Group Beat List-->
-<!--End of Mantis Issue 25133-->
-@*Mantis Issue 25545*@
-<div id="ReAssignedAreaRouteBeatModal" class="modal fade pmsModal w50" data-backdrop="static" role="dialog">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned Area/Route/Beat</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Old Assigned User </label>
-                        <div>
-                            @Html.DropDownListFor(m => m.AreaRouteBeatUserid, new SelectList(Model.AreaRouteBeatUseridList, "UserID", "username", Model.AreaRouteBeatUserid), new { @id = "ddlOldAreaRouteBeatUser", @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="padding-top: 25px;">
-
-                        <button type="button" class="btn btn-success" onclick="GenerateAreaRouteBeatShopList();">Generate</button>
-                    </div>
-                    <div class="col-md-5">
-                        <label>Assign to User</label>
-                        <div>
-                            @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
-                            @Html.DevExpress().ButtonEdit(
-                            settings =>
-                            {
-                                settings.Name = "ReassignedUserAreaRouteBeatTxt";
-                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.AssignedTo;
-                                settings.ReadOnly = true;
-                                settings.Properties.Buttons.Add("...");
-                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){NewAssignUserAreaRouteBeatButnClick(s,e);}";
-                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){NewAssignUserAreaRouteBeat_KeyDown(s,e);}";
-
-                            }).GetHtml()
-
-                            @*<input type="hidden" id="txtContact_hidden">*@
-                            <input type="hidden" id="hdnNewAssignUserAreaRouteBeatID" value="@Model.OldAreaRouteBeatId">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" onclick="ShopReAssignUserAreaRouteBeat();">Update</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div id="ReAssignedShopListAreaRouteBeatModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
-    <div class="modal-dialog " style="width: 90%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Re-assigned Shop List</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        @{
-                            Html.RenderAction("ReAssignShopList_ForAreaRouteBeat", "partyDetails");
-                        }
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="SelectShopCodesForAreaRouteBeat();">OK</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="modal fade pmsModal w70" id="NewAssignUserAreaRouteBeatSearchModel" role="dialog">
-    @*Rev 5.0 : w-50 class add*@
-    @*<div class="modal-dialog">*@
-    <div class="modal-dialog w-50">
-        @*Rev end 5.0*@
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Search</h4>
-            </div>
-            <div class="modal-body">
-                @*Mantis Issue 24450,24451  [ "or Employee Id" added ] *@
-                @*Rev 5.0*@
-                @*<input type="text" class="form-control" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />*@
-                <input type="text" class="form-control mb-3" onkeydown="NewAssignUserAreaRouteBeatkeydown(event)" id="txtNewAssignUserAreaRouteBeatSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
-                @*Rev end 5.0*@
-                <div id="NewAssignUserAreaRouteBeatTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>User Name</th>
-                            <th>User Login Id</th>
-                            @*Rev Sancita*@
-                            <th>Employee Id</th>
-                            @*End of Mantis Issue 24450,24451*@
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalImportLogViewMode_AreaRouteBeat";
-        settings.Width = 300;
-        //settings.Height = 220;
-        //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Re-assigned Area/Route/Beat Log";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("_ShopReassignManualLogView_AreaRouteBeat");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
-    }).GetHtml()
-
-@Html.DevExpress().PopupControl(
-        settings =>
-        {
-            settings.Name = "pcModalTemplateReAssignShopManualLogMode_AreaRouteBeat";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-            //settings.Height = 220;
-            //settings.ScrollBars.v
-            settings.AllowDragging = true;
-            settings.CloseAction = CloseAction.CloseButton;
-            settings.CloseOnEscape = true;
-            settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assign Area/Beat/Route Log";
-            settings.Modal = true;
-            settings.AutoUpdatePosition = true;
-            settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
-            {
-                Html.RenderPartial("ReAssignShopUserManualLog_AreaRouteBeat", new List<ReAssignShopModelLog>());
-                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid_AreaRouteBeat();'>Export</button>");
-            });
-
-            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
-        }).GetHtml()
-
-@*End of Mantis Issue 25545*@
-@*Rev 4.0*@
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalBulkModifyViewMode";
-        settings.Width = 300;
-        //settings.Height = 220;
-        //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Bulk Update Party Log";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("_BulkModifyManualLogView");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
-    }).GetHtml()
-
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalTemplateBulkModifyLog";
-        settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                                //settings.Height = 220;
-                                //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Bulk Update Log";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
-        ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
-    }).GetHtml()
-@*End of Rev 4.0*@
+    @*End of Rev 4.0*@
