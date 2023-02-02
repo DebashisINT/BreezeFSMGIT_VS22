@@ -1957,6 +1957,8 @@
     <Content Include="Areas\MYSHOP\Views\partyDetails\ReAssignShopUserManualLog_AreaRouteBeat.cshtml" />
     <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\PartialGetPerformanceAnalytics.cshtml" />
     <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\Report.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\_BulkModifyManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\BulkModifyLog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
