@@ -1,8 +1,4 @@
-﻿/**************************************************************************************************
- * 1.0      Sanchita    V2.0.38     02/02/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True"
- *                                                  then data in portal shall be populated based on Hierarchy Only. Refer: 25504
- * ****************************************************************************************************/
-using BusinessLogicLayer;
+﻿using BusinessLogicLayer;
 using DataAccessLayer;
 using DevExpress.Export;
 using DevExpress.Web;
@@ -104,9 +100,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     proc.AddVarcharPara("@TODATE", 10, dattoat);
                     proc.AddVarcharPara("@EMPID", 500, empcode);
                     proc.AddVarcharPara("@PRODUCT_ID", 500, prod);
-                    // Rev 1.0
-                    proc.AddVarcharPara("@USERID", 500, Userid); 
-                    // End of Rev 1.0
                     ds = proc.GetDataSet();
                 }
             }
