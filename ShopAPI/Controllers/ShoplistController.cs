@@ -1,5 +1,5 @@
 ﻿#region======================================Revision History=========================================================
-
+//1.0   V2.0.38     Debashis    02/02/2023      Two new methods have been added.Row: 810 to 811
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -669,5 +669,125 @@ namespace ShopAPI.Controllers
 
         }
         //End of Rev Debashis Row: 761 to 765
+
+        //Rev 1.0 Row: 810 to 811
+        [HttpPost]
+        public HttpResponseMessage ModifiedShopLists(ModifiedShopslistInput model)
+        {
+            ModifiedShopslistOutput omodel = new ModifiedShopslistOutput();
+            List<ModifiedShopslists> oview = new List<ModifiedShopslists>();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                String weburl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+                string DoctorDegree = System.Configuration.ConfigurationManager.AppSettings["DoctorDegree"];
+
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_APIGETMODIFIEDSHOPLISTS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETSHOPLISTS");
+                sqlcmd.Parameters.AddWithValue("@User_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@Weburl", weburl);
+                sqlcmd.Parameters.AddWithValue("@DoctorDegree", DoctorDegree);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt.Rows.Count > 0)
+                {
+                    oview = APIHelperMethods.ToModelList<ModifiedShopslists>(dt);
+                    omodel.status = "200";
+                    omodel.message = "Success.";
+                    omodel.user_id = model.user_id;
+                    omodel.modified_shop_list= oview;
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+
+        }
+
+        [HttpPost]
+        public HttpResponseMessage EditModifiedShop(EditModifiedShopInput model)
+        {
+            EditModifiedShopOutput omodel = new EditModifiedShopOutput();
+            List<EditModifiedShopList> omedl2 = new List<EditModifiedShopList>();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+
+                    foreach (var s2 in model.shop_modified_list)
+                    {
+                        omedl2.Add(new EditModifiedShopList()
+                        {
+                            shop_id = s2.shop_id
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcmd.CommandTimeout = 60;
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_APIGETMODIFIEDSHOPLISTS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "EDITMODIFIEDSHOP");
+                    sqlcmd.Parameters.AddWithValue("@User_id", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+
+                    if (dt.Rows.Count > 0 && Convert.ToString(dt.Rows[0]["STRMESSAGE"]) == "Success")
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Update Successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Records not updated.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+        //End of Rev 1.0 Row: 810 to 811
     }
 }
