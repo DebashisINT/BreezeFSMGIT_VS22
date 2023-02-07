@@ -1,5 +1,7 @@
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_root_user" CodeBehind="root_user.aspx.cs" %>
-
+<%--Rev Sanchita--%>
+<%@ Register Assembly="DevExpress.Web.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Data.Linq" TagPrefix="dx" %>
+<%--End of Rev Sanchita--%>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -491,6 +493,13 @@
             $("#transfer1").html('');
             $("#PartyMapUsersModal").modal('show');
         }
+
+        // Rev Sanchita
+        function ShowData() {
+            $("#hfIsFilter").val("Y");
+            grid.PerformCallback("Show");
+        }
+        // End of Rev Sanchita
     </script>
 
     <script>
@@ -845,6 +854,13 @@
 
                                                 <a href="javascript:void(0);" onclick="ShowAssignParty()" class="btn btn-success"><span>Assign Party</span> </a>
                                                 <%} %>
+
+                                                <%--Rev Sanchita--%>
+                                                <% if (rights.CanView)
+                                                    { %>
+                                                <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
+                                                <% } %>
+                                                <%--End of Rev Sanchita--%>
                                             </td>
                                             <%--<td id="Td1">
                                             <a href="javascript:ShowHideFilter('All');" class="btn btn-primary"><span>All Records</span></a>
@@ -860,12 +876,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <dxe:ASPxGridView ID="userGrid" ClientInstanceName="grid" runat="server" AutoGenerateColumns="False"
+                        <%--Rev Sanchita [ DataSourceID="EntityServerlogModeDataSource"  added ]--%>
+                        <dxe:ASPxGridView ID="userGrid" ClientInstanceName="grid" runat="server" AutoGenerateColumns="False" DataSourceID="EntityServerlogModeDataSource"
                             KeyFieldName="user_id" Width="100%" OnCustomCallback="userGrid_CustomCallback" OnCustomJSProperties="userGrid_CustomJSProperties" SettingsBehavior-AllowFocusedRow="true"
                             SettingsCookies-Enabled="true" SettingsCookies-StorePaging="true" SettingsCookies-StoreFiltering="true" SettingsCookies-StoreGroupingAndSorting="true" Settings-HorizontalScrollBarMode="Auto">
                             <%--DataSourceID="RootUserDataSource"--%>
                             <Columns>
-                                <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="user_id"
+                                <%--Rev Sanchita [SortOrder="Descending"  added]   --%>
+                                <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="user_id" SortOrder="Descending"
                                     Visible="False">
                                     <EditFormSettings Visible="False"></EditFormSettings>
                                 </dxe:GridViewDataTextColumn>
@@ -1017,10 +1035,15 @@
 	EndCall(s.cpHeight);
 }" />
                         </dxe:ASPxGridView>
+                        <%--Rev Sanchita--%>
+                        <dx:linqservermodedatasource id="EntityServerlogModeDataSource" runat="server" onselecting="EntityServerModelogDataSource_Selecting"
+                                    contexttypename="ERPDataClassesDataContext" tablename="FSMUser_Master_List" />
+                        <%--End of Rev Sanchita--%>
                     </td>
                 </tr>
             </table>
         </div>
+        
         <asp:SqlDataSource ID="RootUserDataSource" runat="server" ConflictDetection="CompareAllValues"
             DeleteCommand="DELETE FROM [tbl_master_user] WHERE [user_id] = @original_user_id"
             OldValuesParameterFormatString="original_{0}" SelectCommand="">
@@ -1247,6 +1270,9 @@
     </dxe:ASPxPopupControl>
     <asp:HiddenField ID="hdnIsFaceDetectionOn" runat="server" />
     <asp:HiddenField ID="hdnEmployeeHierarchy" runat="server" />
+    <%--Rev Sanchita--%>
+    <asp:HiddenField ID="hfIsFilter" runat="server" />
+    <%--End of Rev Sanchita--%>
 
     <%--Rev Work 08.04.2022
         Mantise No:0024819 In user master in Assign Party entry section in edit mode selected party not coming as checked--%>
