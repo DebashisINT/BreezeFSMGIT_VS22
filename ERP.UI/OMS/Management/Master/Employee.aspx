@@ -162,7 +162,10 @@
             HideTrTd("Tr_EmployeeName");
             HideTrTd("Tr_EmployeeCode");
 
-            cGrdEmployee.PerformCallback("Show~~~");
+            // Rev Sanchita
+            //cGrdEmployee.PerformCallback("Show~~~");
+            $("#hfIsFilter").val("N");
+            // End of Rev Sanchita
         }
         function PerformCallToGridBind() {
             var EmpId = document.getElementById('hdnContactId').value;
@@ -204,14 +207,21 @@
                 datatype: "json",
                 success: function (responseFromServer) {
                     //  alert(responseFromServer.d)
-                    cGrdEmployee.PerformCallback("Show~~~");
+                    // Rev Sanchita
+                    //cGrdEmployee.PerformCallback("Show~~~");
+                    // End of Rev Sanchita
                     jAlert('Supervisor Changed Successfully.');
                     cActivationPopupsupervisor.Hide();
                 }
             });
 
         }
-
+        // Rev Sanchita
+        function ShowData() {
+            $("#hfIsFilter").val("Y");
+            cGrdEmployee.PerformCallback("Show~~~");
+        }
+        // End of Rev Sanchita
 
 
         var GlobalCheckOption = '';
@@ -705,6 +715,34 @@
 padding: 5px;
     margin-right: 1px;
 }
+/*Rev Pallab*/
+#modalimport .modal-header {
+        background: #094e8c !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        border-radius: 10px 10px 0 0;
+    }
+
+    #modalimport .modal-content {
+        border: none;
+        border-radius: 10px;
+    }
+
+    #modalimport .modal-header .modal-title {
+        font-size: 14px;
+    }
+
+    #modalimport .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+    /*Rev end Pallab*/
     </style>
 
     <script>
@@ -993,12 +1031,19 @@ padding: 5px;
                                    { %>
                                 <a href="javascript:void(0);" onclick="OnChangeSuperVisor()" class="btn btn-warning"><span>Change Supervisor</span> </a>
                                 <% } %>
+
 <asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderexcel_Click" CssClass="btn btn-info btn-radius  mBot0">Download Format</asp:LinkButton>
 <button type="button" onclick="ImportUpdatePopOpenEmployeesTarget();" class="btn btn-danger btn-radius">Import(Add/Update)</button>
 
 
 
                             <button type="button" class="btn btn-warning btn-radius hide" data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
+                                <%--Rev Sanchita--%>
+                                <% if (rights.CanView)
+                                   { %>
+                                <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
+                                <% } %>
+                                <%--End of Rev Sanchita--%>
                             </td>
                               <td>
                             
@@ -1222,6 +1267,7 @@ padding: 5px;
                 <td colspan="2">
                     <%--Mantise ID:0024752: Optimize FSM Employee Master [ DataSourceID="EntityServerlogModeDataSource"  added]
                      Rev work Swati Date:-15.03.2022--%>
+                    <%--Rev Pallab : Some columns width px to %--%>
                     <dxe:ASPxGridView ID="GrdEmployee" runat="server" KeyFieldName="cnt_id" AutoGenerateColumns="False" DataSourceID="EntityServerlogModeDataSource"
                         Width="100%" ClientInstanceName="cGrdEmployee" OnCustomCallback="GrdEmployee_CustomCallback" SettingsBehavior-AllowFocusedRow="true" Settings-HorizontalScrollBarMode="Auto">
                         <ClientSideEvents EndCallback="function(s, e) {GrdEmployee1_EndCallBack();}" />
@@ -1247,7 +1293,7 @@ padding: 5px;
                             </dxe:GridViewDataTextColumn>
                             <%--End of Mantis Issue 24752_Rectify--%>
 
-                            <dxe:GridViewDataTextColumn Caption="Code" Visible="False" FieldName="ContactID" Width="90px"
+                            <dxe:GridViewDataTextColumn Caption="Code" Visible="False" FieldName="ContactID" Width="10%"
                                 VisibleIndex="0" FixedStyle="Left">
                                 <PropertiesTextEdit DisplayFormatInEditMode="True">
                                 </PropertiesTextEdit>
@@ -1255,14 +1301,14 @@ padding: 5px;
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
 
-                            <dxe:GridViewDataTextColumn Caption="Name" FieldName="Name" Width="150px"
+                            <dxe:GridViewDataTextColumn Caption="Name" FieldName="Name" Width="15%"
                                 VisibleIndex="1" FixedStyle="Left">
                                 <CellStyle CssClass="gridcellleft" Wrap="true">
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
 
 
-                            <dxe:GridViewDataTextColumn Caption="Grade" FieldName="Employee_Grade" Width="50px"
+                            <dxe:GridViewDataTextColumn Caption="Grade" FieldName="Employee_Grade" Width="10%"
                                 VisibleIndex="2" FixedStyle="Left">
                                 <CellStyle CssClass="gridcellleft" Wrap="true">
                                 </CellStyle>
@@ -1419,7 +1465,7 @@ padding: 5px;
                             </dxe:GridViewDataTextColumn>
 
                             <dxe:GridViewDataTextColumn Caption="Employee Code" FieldName="Code"
-                                VisibleIndex="1" FixedStyle="Left" Width="150px">
+                                VisibleIndex="1" FixedStyle="Left" Width="15%">
                                 <CellStyle CssClass="gridcellleft" Wrap="False">
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
@@ -1456,6 +1502,9 @@ padding: 5px;
              Rev work close Swati Date:-15.03.2022--%>
         <br />
         <asp:HiddenField ID="hdn_GridBindOrNotBind" runat="server" />
+        <%--Rev Sanchita--%>
+        <asp:HiddenField ID="hfIsFilter" runat="server" />
+        <%--End of Rev Sanchita--%>
         <asp:Button ID="BtnForExportEvent" runat="server" OnClick="cmbExport_SelectedIndexChanged" BackColor="#DDECFE" BorderStyle="None" Visible="false" />
         <dxe:ASPxGridViewExporter ID="exporter" runat="server" GridViewID="GrdEmployee" Landscape="true" PaperKind="A4" PageHeader-Font-Size="Larger" PageHeader-Font-Bold="true">
         </dxe:ASPxGridViewExporter>

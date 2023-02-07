@@ -395,16 +395,33 @@ namespace ERP.OMS.Management.Master
             // Mantis Issue 24752_Rectify
             //DataTable dtCmb = GetEmpListRecord();
             // End of Mantis Issue 24752_Rectify
+            // Rev Sanchita
+            string IsFilter = Convert.ToString(hfIsFilter.Value);
+            // End of Rev Sanchita
 
             ERPDataClassesDataContext dc1 = new ERPDataClassesDataContext(connectionString);
 
-            var q = from d in dc1.FSMEmployee_Masters
-                    where d.USERID == Convert.ToInt64(HttpContext.Current.Session["userid"].ToString())
-                    // Mantis Issue 24752_Rectify
-                    orderby d.cnt_id descending
-                    // End of Mantis Issue 24752_Rectify
-                    select d;
-            e.QueryableSource = q;
+            // Rev Sanchita
+            if (IsFilter == "Y")
+            {
+                // End of Rev Sanchita
+                var q = from d in dc1.FSMEmployee_Masters
+                        where d.USERID == Convert.ToInt64(HttpContext.Current.Session["userid"].ToString())
+                        // Mantis Issue 24752_Rectify
+                        orderby d.cnt_id descending
+                        // End of Mantis Issue 24752_Rectify
+                        select d;
+                e.QueryableSource = q;
+                // Rev Sanchita
+            }
+            else
+            {
+                var q = from d in dc1.FSMEmployee_Masters
+                        where d.SRLNO == 0
+                        select d;
+                e.QueryableSource = q;
+            }
+            // End of Rev Sanchita
         }
         /*Mantise ID:0024752: Optimize FSM Employee Master
        Rev work Close Swati Date:-15.03.2022*/
@@ -500,73 +517,78 @@ namespace ERP.OMS.Management.Master
             int TotalPage = 0;
             //if (WhichCall == "Show")
             //{
-            //Set Show filter's FilterExpression Empty and For Fresh Record Fetch
-            GrdEmployee.FilterExpression = string.Empty;
-            P_ShowFilter_SearchString = null;
+            // Rev Sanchita
+            if (WhichCall == "Show" || WhichCall== "Delete") { 
+                //Set Show filter's FilterExpression Empty and For Fresh Record Fetch
+                GrdEmployee.FilterExpression = string.Empty;
+                P_ShowFilter_SearchString = null;
 
-            Ds_Global = new DataSet();
-            // Mantis Issue 24752_Rectify
-            //Ds_Global = Fetch_EmployeeData(strFromDOJ == "" ? "1900-01-01" : strFromDOJ, strToDOJ == "" ? "9999-12-31" : strToDOJ, P_PageSize,
-            //    "1", strSearchString, strSearchBy, strFindOption, "S", "N", String.Empty);     
-            Ds_Global = GetEmpListRecord();
-            // End of Mantis Issue 24752_Rectify
+                Ds_Global = new DataSet();
+                // Mantis Issue 24752_Rectify
+                //Ds_Global = Fetch_EmployeeData(strFromDOJ == "" ? "1900-01-01" : strFromDOJ, strToDOJ == "" ? "9999-12-31" : strToDOJ, P_PageSize,
+                //    "1", strSearchString, strSearchBy, strFindOption, "S", "N", String.Empty);     
+                Ds_Global = GetEmpListRecord();
+                // End of Mantis Issue 24752_Rectify
 
-            if (Ds_Global.Tables.Count > 0)
-            {
-                // Count Employee Grid Data Start
-
-                string CurrentComp = Convert.ToString(HttpContext.Current.Session["LastCompany"]);
-
-                Employee_BL objEmploye = new Employee_BL();
-                string ListOfCompany = "";
-                string[] cmpId = oDBEngine.GetFieldValue1("tbl_master_company", "cmp_id", " cmp_internalid='" + CurrentComp + "'", 1);
-                string Companyid = Convert.ToString(cmpId[0]);
-                string Allcompany = "";
-                string ChildCompanyid = objEmploye.getChildCompany(CurrentComp, ListOfCompany);
-                if (ChildCompanyid != "")
+                if (Ds_Global.Tables.Count > 0)
                 {
-                    Allcompany = Companyid + "," + ChildCompanyid;
-                    Allcompany = Allcompany.TrimEnd(',');
-                }
-                else
-                {
-                    Allcompany = Companyid;
-                }
-                DataRow[] extraRow = Ds_Global.Tables[0].Select("organizationid not in(" + Allcompany + ")");
-                foreach (DataRow dr in extraRow)
-                {
-                    Ds_Global.Tables[0].Rows.Remove(dr);
-                }
+                    // Count Employee Grid Data Start
 
-                // Count Employee Grid Data End
+                    string CurrentComp = Convert.ToString(HttpContext.Current.Session["LastCompany"]);
 
-                if (Ds_Global.Tables[0].Rows.Count > 0)
-                {
-                    TotalItems = Convert.ToInt32(Ds_Global.Tables[0].Rows[0]["TotalRecord"].ToString());
-                    TotalPage = TotalItems % Convert.ToInt32(P_PageSize) == 0 ? (TotalItems / Convert.ToInt32(P_PageSize)) : (TotalItems / Convert.ToInt32(P_PageSize)) + 1;
-                    GrdEmployee.JSProperties["cpRefreshNavPanel"] = "ShowBtnClick~1~" + TotalPage.ToString() + '~' + TotalItems.ToString();
-                    // Mantis Issue 24752_Rectify
-                    GrdEmployee.JSProperties["cpLoadData"] = "Success";
-                    // End of Mantis Issue 24752_Rectify
-                    /* Mantise ID:0024752: Optimize FSM Employee Master
-                    Rev work Swati Date:-15.03.2022*/
-                    // oAspxHelper.BindGrid(GrdEmployee, Ds_Global);
-                    // Mantis Issue 24752_Rectify
-                  //  GrdEmployee.DataBind();
-                    // End of Rev Sanhita
-                    /*Mantise ID:0024752: Optimize FSM Employee Master
-            Rev work Close Swati Date:-15.03.2022*/
+                    Employee_BL objEmploye = new Employee_BL();
+                    string ListOfCompany = "";
+                    string[] cmpId = oDBEngine.GetFieldValue1("tbl_master_company", "cmp_id", " cmp_internalid='" + CurrentComp + "'", 1);
+                    string Companyid = Convert.ToString(cmpId[0]);
+                    string Allcompany = "";
+                    string ChildCompanyid = objEmploye.getChildCompany(CurrentComp, ListOfCompany);
+                    if (ChildCompanyid != "")
+                    {
+                        Allcompany = Companyid + "," + ChildCompanyid;
+                        Allcompany = Allcompany.TrimEnd(',');
+                    }
+                    else
+                    {
+                        Allcompany = Companyid;
+                    }
+                    DataRow[] extraRow = Ds_Global.Tables[0].Select("organizationid not in(" + Allcompany + ")");
+                    foreach (DataRow dr in extraRow)
+                    {
+                        Ds_Global.Tables[0].Rows.Remove(dr);
+                    }
+
+                    // Count Employee Grid Data End
+
+                    if (Ds_Global.Tables[0].Rows.Count > 0)
+                    {
+                        TotalItems = Convert.ToInt32(Ds_Global.Tables[0].Rows[0]["TotalRecord"].ToString());
+                        TotalPage = TotalItems % Convert.ToInt32(P_PageSize) == 0 ? (TotalItems / Convert.ToInt32(P_PageSize)) : (TotalItems / Convert.ToInt32(P_PageSize)) + 1;
+                        GrdEmployee.JSProperties["cpRefreshNavPanel"] = "ShowBtnClick~1~" + TotalPage.ToString() + '~' + TotalItems.ToString();
+                        // Mantis Issue 24752_Rectify
+                        GrdEmployee.JSProperties["cpLoadData"] = "Success";
+                        // End of Mantis Issue 24752_Rectify
+                        /* Mantise ID:0024752: Optimize FSM Employee Master
+                        Rev work Swati Date:-15.03.2022*/
+                        // oAspxHelper.BindGrid(GrdEmployee, Ds_Global);
+                        // Mantis Issue 24752_Rectify
+                        //  GrdEmployee.DataBind();
+                        // End of Rev Sanhita
+                        /*Mantise ID:0024752: Optimize FSM Employee Master
+                Rev work Close Swati Date:-15.03.2022*/
+                    }
                 }
+                // Mantis Issue 24752_Rectify
+                //    else
+                //        /* Mantise ID:0024752: Optimize FSM Employee Master
+                //  Rev work Swati Date:-15.03.2022*/
+                //      //  oAspxHelper.BindGrid(GrdEmployee);
+                //        GrdEmployee.DataBind();
+                //    /*Mantise ID:0024752: Optimize FSM Employee Master
+                //Rev work Close Swati Date:-15.03.2022*/
+                //}
+            // Rev Sanchita
             }
-            // Mantis Issue 24752_Rectify
-            //    else
-            //        /* Mantise ID:0024752: Optimize FSM Employee Master
-            //  Rev work Swati Date:-15.03.2022*/
-            //      //  oAspxHelper.BindGrid(GrdEmployee);
-            //        GrdEmployee.DataBind();
-            //    /*Mantise ID:0024752: Optimize FSM Employee Master
-            //Rev work Close Swati Date:-15.03.2022*/
-            //}
+            // End of Rev Sanchita
             //else
             //    /* Mantise ID:0024752: Optimize FSM Employee Master
             //  Rev work Swati Date:-15.03.2022*/
