@@ -1,3 +1,6 @@
+/******************************************************************************************************
+ * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ *******************************************************************************************************/
 using System;
 using System.Data;
 using System.Web;
@@ -395,16 +398,16 @@ namespace ERP.OMS.Management.Master
             // Mantis Issue 24752_Rectify
             //DataTable dtCmb = GetEmpListRecord();
             // End of Mantis Issue 24752_Rectify
-            // Rev Sanchita
+            // Rev 1.0
             string IsFilter = Convert.ToString(hfIsFilter.Value);
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             ERPDataClassesDataContext dc1 = new ERPDataClassesDataContext(connectionString);
 
-            // Rev Sanchita
+            // Rev 1.0
             if (IsFilter == "Y")
             {
-                // End of Rev Sanchita
+                // End of Rev 1.0
                 var q = from d in dc1.FSMEmployee_Masters
                         where d.USERID == Convert.ToInt64(HttpContext.Current.Session["userid"].ToString())
                         // Mantis Issue 24752_Rectify
@@ -412,7 +415,7 @@ namespace ERP.OMS.Management.Master
                         // End of Mantis Issue 24752_Rectify
                         select d;
                 e.QueryableSource = q;
-                // Rev Sanchita
+                // Rev 1.0
             }
             else
             {
@@ -421,7 +424,7 @@ namespace ERP.OMS.Management.Master
                         select d;
                 e.QueryableSource = q;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
         }
         /*Mantise ID:0024752: Optimize FSM Employee Master
        Rev work Close Swati Date:-15.03.2022*/
@@ -517,7 +520,7 @@ namespace ERP.OMS.Management.Master
             int TotalPage = 0;
             //if (WhichCall == "Show")
             //{
-            // Rev Sanchita
+            // Rev 1.0
             if (WhichCall == "Show" || WhichCall== "Delete") { 
                 //Set Show filter's FilterExpression Empty and For Fresh Record Fetch
                 GrdEmployee.FilterExpression = string.Empty;
@@ -586,9 +589,9 @@ namespace ERP.OMS.Management.Master
                 //    /*Mantise ID:0024752: Optimize FSM Employee Master
                 //Rev work Close Swati Date:-15.03.2022*/
                 //}
-            // Rev Sanchita
+            // Rev 1.0
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
             //else
             //    /* Mantise ID:0024752: Optimize FSM Employee Master
             //  Rev work Swati Date:-15.03.2022*/

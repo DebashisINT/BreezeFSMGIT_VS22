@@ -1,3 +1,7 @@
+<%--******************************************************************************************************
+ * Rev 1.0      Sanchita/Pallab    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ *******************************************************************************************************--%>
+
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
  <%--Mantise ID:0024752: Optimize FSM Employee Master
       Rev work Swati Date:-15.03.2022--%>
@@ -162,10 +166,10 @@
             HideTrTd("Tr_EmployeeName");
             HideTrTd("Tr_EmployeeCode");
 
-            // Rev Sanchita
+            // Rev 1.0
             //cGrdEmployee.PerformCallback("Show~~~");
             $("#hfIsFilter").val("N");
-            // End of Rev Sanchita
+            // End of Rev 1.0
         }
         function PerformCallToGridBind() {
             var EmpId = document.getElementById('hdnContactId').value;
@@ -207,21 +211,21 @@
                 datatype: "json",
                 success: function (responseFromServer) {
                     //  alert(responseFromServer.d)
-                    // Rev Sanchita
+                    // Rev 1.0
                     //cGrdEmployee.PerformCallback("Show~~~");
-                    // End of Rev Sanchita
+                    // End of Rev 1.0
                     jAlert('Supervisor Changed Successfully.');
                     cActivationPopupsupervisor.Hide();
                 }
             });
 
         }
-        // Rev Sanchita
+        // Rev 1.0
         function ShowData() {
             $("#hfIsFilter").val("Y");
             cGrdEmployee.PerformCallback("Show~~~");
         }
-        // End of Rev Sanchita
+        // End of Rev 1.0
 
 
         var GlobalCheckOption = '';
@@ -715,7 +719,7 @@
 padding: 5px;
     margin-right: 1px;
 }
-/*Rev Pallab*/
+/*Rev 1.0*/
 #modalimport .modal-header {
         background: #094e8c !important;
         background-image: none !important;
@@ -742,7 +746,7 @@ padding: 5px;
         text-shadow: none;
         opacity: .5;
     }
-    /*Rev end Pallab*/
+    /*Rev end 1.0*/
     </style>
 
     <script>
@@ -1038,12 +1042,12 @@ padding: 5px;
 
 
                             <button type="button" class="btn btn-warning btn-radius hide" data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
-                                <%--Rev Sanchita--%>
+                                <%--Rev 1.0--%>
                                 <% if (rights.CanView)
                                    { %>
                                 <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
                                 <% } %>
-                                <%--End of Rev Sanchita--%>
+                                <%--End of Rev 1.0--%>
                             </td>
                               <td>
                             
@@ -1267,7 +1271,7 @@ padding: 5px;
                 <td colspan="2">
                     <%--Mantise ID:0024752: Optimize FSM Employee Master [ DataSourceID="EntityServerlogModeDataSource"  added]
                      Rev work Swati Date:-15.03.2022--%>
-                    <%--Rev Pallab : Some columns width px to %--%>
+                    <%--Rev 1.0 : Some columns width px to %--%>
                     <dxe:ASPxGridView ID="GrdEmployee" runat="server" KeyFieldName="cnt_id" AutoGenerateColumns="False" DataSourceID="EntityServerlogModeDataSource"
                         Width="100%" ClientInstanceName="cGrdEmployee" OnCustomCallback="GrdEmployee_CustomCallback" SettingsBehavior-AllowFocusedRow="true" Settings-HorizontalScrollBarMode="Auto">
                         <ClientSideEvents EndCallback="function(s, e) {GrdEmployee1_EndCallBack();}" />
@@ -1502,9 +1506,9 @@ padding: 5px;
              Rev work close Swati Date:-15.03.2022--%>
         <br />
         <asp:HiddenField ID="hdn_GridBindOrNotBind" runat="server" />
-        <%--Rev Sanchita--%>
+        <%--Rev 1.0--%>
         <asp:HiddenField ID="hfIsFilter" runat="server" />
-        <%--End of Rev Sanchita--%>
+        <%--End of Rev 1.0--%>
         <asp:Button ID="BtnForExportEvent" runat="server" OnClick="cmbExport_SelectedIndexChanged" BackColor="#DDECFE" BorderStyle="None" Visible="false" />
         <dxe:ASPxGridViewExporter ID="exporter" runat="server" GridViewID="GrdEmployee" Landscape="true" PaperKind="A4" PageHeader-Font-Size="Larger" PageHeader-Font-Bold="true">
         </dxe:ASPxGridViewExporter>

@@ -1,7 +1,11 @@
+<%--******************************************************************************************************
+ * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ *******************************************************************************************************--%>
+
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_root_user" CodeBehind="root_user.aspx.cs" %>
-<%--Rev Sanchita--%>
+<%--Rev 1.0--%>
 <%@ Register Assembly="DevExpress.Web.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Data.Linq" TagPrefix="dx" %>
-<%--End of Rev Sanchita--%>
+<%--End of Rev 1.0--%>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -494,12 +498,12 @@
             $("#PartyMapUsersModal").modal('show');
         }
 
-        // Rev Sanchita
+        // Rev 1.0
         function ShowData() {
             $("#hfIsFilter").val("Y");
             grid.PerformCallback("Show");
         }
-        // End of Rev Sanchita
+        // End of Rev 1.0
     </script>
 
     <script>
@@ -855,12 +859,12 @@
                                                 <a href="javascript:void(0);" onclick="ShowAssignParty()" class="btn btn-success"><span>Assign Party</span> </a>
                                                 <%} %>
 
-                                                <%--Rev Sanchita--%>
+                                                <%--Rev 1.0--%>
                                                 <% if (rights.CanView)
                                                     { %>
                                                 <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
                                                 <% } %>
-                                                <%--End of Rev Sanchita--%>
+                                                <%--End of Rev 1.0--%>
                                             </td>
                                             <%--<td id="Td1">
                                             <a href="javascript:ShowHideFilter('All');" class="btn btn-primary"><span>All Records</span></a>
@@ -876,13 +880,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <%--Rev Sanchita [ DataSourceID="EntityServerlogModeDataSource"  added ]--%>
+                        <%--Rev 1.0 [ DataSourceID="EntityServerlogModeDataSource"  added ]--%>
                         <dxe:ASPxGridView ID="userGrid" ClientInstanceName="grid" runat="server" AutoGenerateColumns="False" DataSourceID="EntityServerlogModeDataSource"
                             KeyFieldName="user_id" Width="100%" OnCustomCallback="userGrid_CustomCallback" OnCustomJSProperties="userGrid_CustomJSProperties" SettingsBehavior-AllowFocusedRow="true"
                             SettingsCookies-Enabled="true" SettingsCookies-StorePaging="true" SettingsCookies-StoreFiltering="true" SettingsCookies-StoreGroupingAndSorting="true" Settings-HorizontalScrollBarMode="Auto">
                             <%--DataSourceID="RootUserDataSource"--%>
                             <Columns>
-                                <%--Rev Sanchita [SortOrder="Descending"  added]   --%>
+                                <%--Rev 1.0 [SortOrder="Descending"  added]   --%>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="user_id" SortOrder="Descending"
                                     Visible="False">
                                     <EditFormSettings Visible="False"></EditFormSettings>
@@ -1035,10 +1039,10 @@
 	EndCall(s.cpHeight);
 }" />
                         </dxe:ASPxGridView>
-                        <%--Rev Sanchita--%>
+                        <%--Rev 1.0--%>
                         <dx:linqservermodedatasource id="EntityServerlogModeDataSource" runat="server" onselecting="EntityServerModelogDataSource_Selecting"
                                     contexttypename="ERPDataClassesDataContext" tablename="FSMUser_Master_List" />
-                        <%--End of Rev Sanchita--%>
+                        <%--End of Rev 1.0--%>
                     </td>
                 </tr>
             </table>
@@ -1270,9 +1274,9 @@
     </dxe:ASPxPopupControl>
     <asp:HiddenField ID="hdnIsFaceDetectionOn" runat="server" />
     <asp:HiddenField ID="hdnEmployeeHierarchy" runat="server" />
-    <%--Rev Sanchita--%>
+    <%--Rev 1.0--%>
     <asp:HiddenField ID="hfIsFilter" runat="server" />
-    <%--End of Rev Sanchita--%>
+    <%--End of Rev 1.0--%>
 
     <%--Rev Work 08.04.2022
         Mantise No:0024819 In user master in Assign Party entry section in edit mode selected party not coming as checked--%>
