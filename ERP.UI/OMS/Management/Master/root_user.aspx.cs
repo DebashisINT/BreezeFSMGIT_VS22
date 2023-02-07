@@ -1,3 +1,6 @@
+/******************************************************************************************************
+ * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ *******************************************************************************************************/
 using System;
 using System.Web;
 using System.Web.UI;
@@ -11,9 +14,9 @@ using DevExpress.Web;
 using System.Collections.Generic;
 using UtilityLayer;
 using ERP.Models;
-// Rev Sanchita
+// Rev 1.0
 using System.Linq;
-// End of Rev Sanchita
+// End of Rev 1.0
 
 namespace ERP.OMS.Management.Master
 {
@@ -101,19 +104,19 @@ namespace ERP.OMS.Management.Master
             //    "FROM [tbl_master_user],tbl_master_employee,tbl_master_contact,tbl_master_usergroup  where emp_ContactId=user_contactId  and cnt_InternalId=user_contactId  "+
             //" and user_group=grp_id  and user_branchId in (" + HttpContext.Current.Session["userbranchHierarchy"] + ")";
 
-            // Rev Sanchita
+            // Rev 1.0
             //userGrid.DataSource = BindUserList();
             //userGrid.DataBind();
-            // Rev Sanchita
+            // Rev 1.0
 
         }
         public void bindexport(int Filter)
         {
             //Code  Added and Commented By Priti on 20122016 to use Export Header,date
             // userGrid.Columns[5].Visible = false;
-            // Rev Sanchita [ Branch now showing in Export ]
+            // Rev 1.0 [ Branch now showing in Export ]
             //userGrid.Columns[6].Visible = false;
-            // End of Rev Sanchita
+            // End of Rev 1.0
             string filename = "Users";
             exporter.FileName = filename;
 
@@ -159,7 +162,7 @@ namespace ERP.OMS.Management.Master
         }
         protected void userGrid_CustomCallback(object sender, DevExpress.Web.ASPxGridViewCustomCallbackEventArgs e)
         {
-            // Rev Sanchita
+            // Rev 1.0
             string WhichCall = e.Parameters.Split('~')[0];
             if (WhichCall == "Show")
             {
@@ -168,7 +171,7 @@ namespace ERP.OMS.Management.Master
             }
             else
             {
-                // End of Rev Sanchita
+                // End of Rev 1.0
                 // Code  Added and Commented By Priti on 20122016 to use Covert.Tostring() instead of Tostring()
                 ////RootUserDataSource.SelectCommand = "SELECT user_id,user_name,user_loginId,case when  (emp_effectiveuntil is null or emp_effectiveuntil='1900-01-01 00:00:00.000') then 'Active' else 'Deactive' end as Status, (select deg_designation from tbl_master_designation where deg_id =emp_Designation) as designation FROM [tbl_master_user],tbl_trans_employeeCTC where emp_cntId=user_contactId and user_branchId in (" + HttpContext.Current.Session["userbranchHierarchy"] + ")";
                 //if (Session["addedituser"].ToString() == "yes")
@@ -204,9 +207,9 @@ namespace ERP.OMS.Management.Master
                         userGrid.DataBind();
                     }
                 }
-                // Rev Sanchita
+                // Rev 1.0
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
         }
         protected void userGrid_CustomJSProperties(object sender, DevExpress.Web.ASPxGridViewClientJSPropertiesEventArgs e)
         {
@@ -240,7 +243,7 @@ namespace ERP.OMS.Management.Master
             dt = proc.GetTable();
             return dt;
         }
-        // Rev Sanchita
+        // Rev 1.0
         protected void EntityServerModelogDataSource_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
         {
             e.KeyExpression = "user_id";
@@ -266,7 +269,7 @@ namespace ERP.OMS.Management.Master
                 e.QueryableSource = q;
             }
         }
-        // End of Rev Sanchita
+        // End of Rev 1.0
         protected void FillComboPartyType()
         {
             string[,] DataPartyType = oDBEngine.GetFieldValue("tbl_shoptype", "TypeId,Name", "IsActive=1", 2);
