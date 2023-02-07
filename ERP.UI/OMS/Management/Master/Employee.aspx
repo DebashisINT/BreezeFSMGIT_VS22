@@ -1305,14 +1305,14 @@ padding: 5px;
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
 
-                            <dxe:GridViewDataTextColumn Caption="Name" FieldName="Name" Width="15%"
+                            <dxe:GridViewDataTextColumn Caption="Name" FieldName="Name" Width="150px"
                                 VisibleIndex="1" FixedStyle="Left">
                                 <CellStyle CssClass="gridcellleft" Wrap="true">
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
 
 
-                            <dxe:GridViewDataTextColumn Caption="Grade" FieldName="Employee_Grade" Width="10%"
+                            <dxe:GridViewDataTextColumn Caption="Grade" FieldName="Employee_Grade" Width="100px"
                                 VisibleIndex="2" FixedStyle="Left">
                                 <CellStyle CssClass="gridcellleft" Wrap="true">
                                 </CellStyle>
