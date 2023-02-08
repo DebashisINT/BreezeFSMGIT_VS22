@@ -1,6 +1,7 @@
 <%-- ---------------------------------------------------------------------------------------------------------------------
 Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length of the Description field of Product Master. Refer: 25603    
-    
+Rev 2.0     Sanchita    V2.0.39     08/02/2023      When a product is Modified and saved instantly without clicking on Product Attribute
+                                                    button, the product attributes becomes blank in mapping tables. Refer: 25655
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
@@ -1146,6 +1147,54 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
                 grid.PerformCallback('savecity~' + GetObjectID('fileName').value);
             }
             else {
+                // Rev 2.0
+                ProdColorNew = "";
+                var Colors = $("#ddlColorNew").val();
+
+                if (Colors != null) {
+                    for (var i = 0; i < Colors.length; i++) {
+                        if (ProdColorNew == "") {
+                            ProdColorNew = Colors[i];
+                        }
+                        else {
+                            ProdColorNew += ',' + Colors[i];
+                        }
+                    }
+                }
+                $("#hdnColorNew").val(ProdColorNew);
+
+
+                ProdSizeNew = "";
+                var Sizes = $("#ddlSizeNew").val();
+
+                if (Sizes != null) {
+                    for (var i = 0; i < Sizes.length; i++) {
+                        if (ProdSizeNew == "") {
+                            ProdSizeNew = Sizes[i];
+                        }
+                        else {
+                            ProdSizeNew += ',' + Sizes[i];
+                        }
+                    }
+                }
+                $("#hdnSizeNew").val(ProdSizeNew);
+
+
+                ProdGenderNew = "";
+                var Genders = $("#ddlGenderNew").val();
+                if (Genders != null) {
+                    for (var i = 0; i < Genders.length; i++) {
+                        if (ProdGenderNew == "") {
+                            ProdGenderNew = Genders[i];
+                        }
+                        else {
+                            ProdGenderNew += ',' + Genders[i];
+                        }
+                    }
+                }
+                $("#hdnGenderNew").val(ProdGenderNew);
+                // End of Rev 2.0
+
                 grid.PerformCallback('updatecity~' + GetObjectID('hiddenedit').value + "~" + GetObjectID('fileName').value);
             }
 
@@ -1458,7 +1507,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
                 
                 if (ColorNew != '') {
                     ProdColorNew = grid.cpEdit.split('~')[64];
-
+                   
                     $('#ddlColorNew').multiselect({
                         numberDisplayed: 2
                     });
@@ -1471,6 +1520,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
                 }
                 else {
                     ProdColorNew = '';
+                    
                     $('#ddlColorNew').multiselect({
                         numberDisplayed: 2
                     });
@@ -1484,7 +1534,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
 
                 if (SizeNew != '') {
                     ProdSizeNew = grid.cpEdit.split('~')[65];
-
+                    
                     $('#ddlSizeNew').multiselect({
                         numberDisplayed: 2
                     });
@@ -1497,7 +1547,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
                 }
                 else {
                     ProdSizeNew = '';
-
+                    
                     $('#ddlSizeNew').multiselect({
                         numberDisplayed: 2
                     });
@@ -1511,7 +1561,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
 
                 if (GenderNew != '') {
                     ProdGenderNew = grid.cpEdit.split('~')[66];
-
+                   
                     $('#ddlGenderNew').multiselect({
                         numberDisplayed: 2
                     });
@@ -1524,7 +1574,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
                 }
                 else {
                     ProdGenderNew = 0;
-
+                    
                     $('#ddlGenderNew').multiselect({
                         numberDisplayed: 2
                     });
