@@ -1,5 +1,6 @@
 <%--******************************************************************************************************
  * Rev 1.0      Sanchita/Pallab    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+   Rev 2.0      Pallab             08-02-2023      V2.0.36     Master module design modification. refer: 25656 
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -716,7 +717,7 @@
             z-index:auto !important;
         }
 .nfc {
-padding: 5px;
+padding: 7px;
     margin-right: 1px;
 }
 /*Rev 1.0*/
@@ -747,6 +748,19 @@ padding: 5px;
         opacity: .5;
     }
     /*Rev end 1.0*/
+    /*Rev 2.0*/
+    .btn-show
+    {
+        background: #2379d1;
+        border-color: #2379d1;
+            color: #fff;
+    }
+
+    .btn-show:hover , .btn-show:focus
+    {
+        color: #fff;
+    }
+    /*Rev end 2.0*/
     </style>
 
     <script>
@@ -1045,7 +1059,7 @@ padding: 5px;
                                 <%--Rev 1.0--%>
                                 <% if (rights.CanView)
                                    { %>
-                                <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
+                                <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
                                 <% } %>
                                 <%--End of Rev 1.0--%>
                             </td>

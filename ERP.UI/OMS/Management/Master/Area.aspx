@@ -1,3 +1,8 @@
+<%--====================================================== Revision History ==========================================================
+Rev Number         DATE              VERSION          DEVELOPER           CHANGES
+1.0                08-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+====================================================== Revision History ==========================================================--%>
+
 <%@ Page Title="Area" Language="C#" MasterPageFile="~/OMS/MasterPage/ERP.Master" AutoEventWireup="true" Inherits="ERP.OMS.Management.Master.management_master_Area" CodeBehind="Area.aspx.cs" %>
 
 <%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
@@ -111,7 +116,10 @@
 
     <style>
         .btn-pd {
-            padding: 5px;
+            /*Rev 1.0*/
+            /*padding: 5px;*/
+            padding: 7px;
+            /*Rev end 1.0*/
             margin-right: 1px;
         }
     </style>
