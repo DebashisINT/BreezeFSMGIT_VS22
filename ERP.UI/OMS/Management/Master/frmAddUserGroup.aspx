@@ -1,4 +1,9 @@
-﻿<%@ Page Title="User Group" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" CodeBehind="frmAddUserGroup.aspx.cs" Inherits="ERP.OMS.Management.Master.frmAddUserGroup" %>
+﻿<%--====================================================== Revision History ==========================================================
+Rev Number         DATE              VERSION          DEVELOPER           CHANGES
+1.0                08-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+====================================================== Revision History ==========================================================--%>
+
+<%@ Page Title="User Group" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" CodeBehind="frmAddUserGroup.aspx.cs" Inherits="ERP.OMS.Management.Master.frmAddUserGroup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/assests/pluggins/easyui/easyui.css" rel="stylesheet" />
@@ -378,6 +383,9 @@
         }
         .bdWhite {
             background:#fff;
+            /*Rev 1.0*/
+            border-radius: 10px;
+            /*Rev end 1.0*/
         }
     </style>
      <script>
