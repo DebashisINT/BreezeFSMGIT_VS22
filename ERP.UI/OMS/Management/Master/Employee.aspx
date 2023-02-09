@@ -760,6 +760,10 @@ padding: 7px;
     {
         color: #fff;
     }
+
+    .dxgvControl_PlasticBlue a img{
+        margin-bottom: 5px;
+    }
     /*Rev end 2.0*/
     </style>
 
@@ -1423,12 +1427,18 @@ padding: 7px;
                                      <% if (rights.CanAdd)
                                        { %>
                                     <a href="javascript:void(0);" onclick="OnCopyInfoClick('<%# Container.KeyValue %>')" class="pad" title="Copy">
-                                        <img src="../../../assests/images/copy.png" /></a><% } %>
+                                        <%--Rev 2.0--%>
+                                        <%--<img src="../../../assests/images/copy.png" /></a>--%>
+                                        <img src="../../../assests/images/copy2.png" /></a><% } %>
+                                    <%--Rev end 2.0--%>
                                     <%--Rev work close 26.04.2022 0024853: Copy feature add in Employee master--%>
                                     <% if (rights.CanAdd)
                                        { %>
                                     <a href="javascript:void(0);" onclick="EMPIDBind('<%#Eval("ContactID") %>')" title="Update Employee ID" class="pad" style="text-decoration: none;">
-                                        <img src="../../../assests/images/exchange.png" width="16px" />
+                                        <%--Rev 2.0--%>
+                                        <%--<img src="../../../assests/images/exchange.png" width="16px" />--%>
+                                        <img src="../../../assests/images/exchange2.png" width="16px" />
+                                        <%--Rev end 2.0--%>
                                         <% } %>
 
                                         <%--<a href="javascript:void(0);" onclick="OnAddBusinessClick('<%#Eval("ContactID") %>','<%#Eval("Name") %>')" title="State Bind" class="pad" style="text-decoration: none;">
@@ -1456,7 +1466,10 @@ padding: 7px;
                                             <% if (rights.CanAdd)
                                             { %>
                                         <a href="javascript:void(0);" onclick="OnEmployeeChannelInfoClick('<%# Container.KeyValue %>')" class="pad" title="EmployeeChannel">
-                                            <img src="../../../assests/images/doc.png" /></a><% } %>
+                                            <%--Rev 2.0--%>
+                                            <%--<img src="../../../assests/images/doc.png" />--%>
+                                            <img src="../../../assests/images/doc2.png" /></a><% } %>
+                                            <%--Rev end 2.0--%>
                                             <%--End of Mantis Issue 24982--%>
 
                                             <%--Mantis Issue 25001--%>
@@ -1464,7 +1477,11 @@ padding: 7px;
                                             <%--Mantis Issue 25001--%>
                                                 <%--Mantis Issue 25001--%>
                                                 <a href="javascript:void(0);" onclick="fn_BranchMap('<%# Container.KeyValue %>')" class="pad" title="Branch Mapping">
-                                                <span class='ico deleteColor'><i class='fa fa-sitemap' aria-hidden='true'></i></span></a>
+                                                    <%--Rev 2.0--%>
+                                                    <%--<span class='ico deleteColor'><i class='fa fa-sitemap' aria-hidden='true'></i></span>--%>
+                                                    <img src="../../../assests/images/branch-map.png"  />
+                                                    <%--Rev end 2.0--%>
+                                                </a>
                                                 <%--End of Mantis Issue 25001--%>
                                             <% }  %>
 
