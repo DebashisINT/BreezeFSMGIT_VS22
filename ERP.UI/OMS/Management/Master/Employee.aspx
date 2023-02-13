@@ -560,9 +560,11 @@
 
     <script>
         // Mantis Issue 24752_Rectify
-        $(document).ready(function () {
-            cGrdEmployee.PerformCallback();
-        });
+        // Rev 1.0
+        //$(document).ready(function () {
+        //    cGrdEmployee.PerformCallback();
+        //});
+        // End of Rev 1.0
         // End of Mantis Issue 24752_Rectify
 
         var statelist = []
@@ -1500,7 +1502,7 @@ padding: 7px;
                             </dxe:GridViewDataTextColumn>
 
                             <dxe:GridViewDataTextColumn Caption="Employee Code" FieldName="Code"
-                                VisibleIndex="1" FixedStyle="Left" Width="15%">
+                                VisibleIndex="1" FixedStyle="Left" Width="150px">
                                 <CellStyle CssClass="gridcellleft" Wrap="False">
                                 </CellStyle>
                             </dxe:GridViewDataTextColumn>
