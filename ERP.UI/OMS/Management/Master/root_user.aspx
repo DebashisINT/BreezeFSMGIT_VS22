@@ -1,6 +1,7 @@
 <%--******************************************************************************************************
- * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
-   Rev 2.0      Pallab      09/02/2023      V2.0.36     Master module design modification. refer: 25656
+ * Rev 1.0      Sanchita            07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+   Rev 2.0      Pallab              09/02/2023      V2.0.36     Master module design modification. refer: 25656
+   Rev 3.0      Sanchita/Pallab     15/02/2023      V2.0.39     A setting required for Employee and User Master module in FSM Portal. 
  *******************************************************************************************************--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_root_user" CodeBehind="root_user.aspx.cs" %>
@@ -10,6 +11,15 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--Rev 3.0--%>
+    <script src="/assests/pluggins/choosen/choosen.min.js"></script>
+
+    <script src="/assests/pluggins/choosen/choosen.min.js"></script>
+    <link href="../../../assests/css/custom/SearchPopup.css" rel="stylesheet" />
+    <script src="../../../Scripts/SearchPopup.js"></script>
+    <script src="../../../Scripts/SearchMultiPopup.js"></script>
+    <%--End of Rev 3.0--%>
+
     <style>
         #divDashboardHeaderList .panel:last-child {
             margin-bottom: 0;
@@ -98,6 +108,98 @@
         .pad28 {
             padding-top: 26px;
         }
+
+         /*Rev 3.0*/
+       .for-cust-padding
+       {
+           padding: 0 0 0 10px;
+       }
+
+       .for-cust-padding label
+       {
+           margin-right: 5px;
+       }
+
+       .dis-flex
+       {
+            display: flex;
+            align-items: center;
+       }
+
+       .btn-show
+       {
+           margin-left: 10px;
+       }
+
+       .modal-header {
+            background: #094e8c !important;
+            background-image: none !important;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-content {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .modal-header .modal-title {
+            font-size: 14px;
+        }
+
+        .close {
+            font-weight: 400;
+            font-size: 25px;
+            color: #fff;
+            text-shadow: none;
+            opacity: .5;
+        }
+
+        .close:hover
+        {
+            color: #fff;
+            opacity: 1;
+        }
+
+        #EmployeeTable {
+            margin-top: 10px;
+        }
+
+            #EmployeeTable table tr th {
+                padding: 5px 10px;
+            }
+
+        .dynamicPopupTbl {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+            .dynamicPopupTbl > tbody > tr > td,
+            #EmployeeTable table tr th {
+                font-family: 'Poppins', sans-serif !important;
+                font-size: 12px;
+            }
+
+            .btn-show
+    {
+        background: #2379d1;
+        border-color: #2379d1;
+            color: #fff;
+    }
+
+    .btn-show:hover , .btn-show:focus
+    {
+        color: #fff;
+    }
+
+    .pmsModal.w80 .modal-dialog {
+    width: 50% !important;
+}
+
+       /*Rev end 3.0*/
+       
     </style>
 
     <style>
@@ -544,6 +646,47 @@
         padding: 7px 10px !important;
     }
 
+    /*Rev 3.0*/
+        .fullMulti .multiselect-native-select, .fullMulti .multiselect-native-select .btn-group {
+            width: 100%;
+        }
+
+            .fullMulti .multiselect-native-select .multiselect {
+                width: 100%;
+                text-align: left;
+                border-radius: 4px !important;
+            }
+
+                .fullMulti .multiselect-native-select .multiselect .caret {
+                    float: right;
+                    margin: 9px 5px;
+                }
+
+        .hideScndTd > table > tbody > tr > td:last-child {
+            display: none;
+        }
+
+        .multiselect.dropdown-toggle {
+        text-align: left;
+        }
+
+        .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+        }
+
+            .dynamicPopupTbl > tbody > tr > td,
+            #EmployeeTable table tr th {
+                font-family: 'Poppins', sans-serif !important;
+                font-size: 12px;
+            }
+        /*End of Rev 3.0*/
     /*Rev end 2.0*/
     </style>
     <link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
@@ -738,13 +881,58 @@
             cPartySelectPopup.Show();
         }
 
+        // Rev 3.0
+        function EmployeeButnClick(s, e) {
+            $('#EmployeeModel').modal('show');
+            $("#txtEmployeeSearch").focus();
+        }
 
+        function EmployeebtnKeyDown(s, e) {
+            if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+                $('#EmployeeModel').modal('show');
+                $("#txtEmployeeSearch").focus();
+            }
+        }
+
+        function Employeekeydown(e) {
+
+            var OtherDetails = {}
+            OtherDetails.SearchKey = $("#txtEmployeeSearch").val();
+            if ($.trim($("#txtEmployeeSearch").val()) == "" || $.trim($("#txtEmployeeSearch").val()) == null) {
+                return false;
+            }
+            if (e.code == "Enter" || e.code == "NumpadEnter") {
+                var HeaderCaption = [];
+                HeaderCaption.push("Employee Name");
+                HeaderCaption.push("Employee Code");
+                if ($("#txtEmployeeSearch").val() != null && $("#txtEmployeeSearch").val() != "") {
+                    //callonServerM("Employee.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee");
+                    //callonServerM("Employee.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee", "EmployeeSource");
+                    callonServerM("root_user.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+                }
+            }
+            else if (e.code == "ArrowDown") {
+                if ($("input[EmployeeIndex=0]"))
+                    $("input[EmployeeIndex=0]").focus();
+            }
+        }
+        // End of Rev 3.0
 
 
     </script>
 
     <%--select user bind--%>
     <script>
+
+        // Rev 3.0
+        var EmployeeArr = new Array();
+        $(document).ready(function () {
+            var EmployeeObj = new Object();
+            EmployeeObj.Name = "EmployeeSource";
+            EmployeeObj.ArraySource = EmployeeArr;
+            arrMultiPopup.push(EmployeeObj);
+        })
+        // End of Rev 3.0
 
         function MapUser() {
             cUsersGrid.PerformCallback('BindUsersList');
@@ -1004,7 +1192,22 @@
                    
                 }
             }
+            // Rev 3.0
+            if (ArrName == 'EmployeeSource') {
+                var key = Id;
+                if (key != null && key != '') {
+                    $("#txtEmployee_hidden").val(Id);
+                    ctxtEmployee.SetText(Name);
+                    $('#EmployeeModel').modal('hide');
+                }
+                else {
+                    $("#txtEmployee_hidden").val('');
+                    ctxtEmployee.SetText('');
+                    $('#EmployeeModel').modal('hide');
 
+                }
+            }
+            // End of Rev 3.0
         }
         // End of Mantis Issue 24363
 
@@ -1278,13 +1481,39 @@
                                                 <a href="javascript:void(0);" onclick="ShowAssignParty()" class="btn btn-success"><span>Assign Party</span> </a>
                                                 <%} %>
 
+                                                <%--Rev 3.0--%>
                                                 <%--Rev 1.0--%>
-                                                <% if (rights.CanView)
+                                               <%-- <% if (rights.CanView)
                                                     { %>
                                                 <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-warning"><span>Show Data</span> </a>
-                                                <% } %>
+                                                <% } %> --%>
                                                 <%--End of Rev 1.0--%>
+                                                <%--End of Rev 3.0--%>
                                             </td>
+                                            <%--Rev 3.0--%>
+                                            <td class="for-cust-padding" id="divEmp" runat="server" >
+                                                <div class="dis-flex" >
+                                                    <label>Employee(s)</label>
+                                                    <div style="position: relative">
+                                                        <dxe:ASPxButtonEdit ID="txtEmployee" runat="server" ReadOnly="true" ClientInstanceName="ctxtEmployee" >
+                                                            <Buttons>
+                                                                <dxe:EditButton>
+                                                                </dxe:EditButton>
+                                                            </Buttons>
+                                                            <ClientSideEvents ButtonClick="function(s,e){EmployeeButnClick();}" KeyDown="EmployeebtnKeyDown" />
+                                                        </dxe:ASPxButtonEdit>
+                                                        <asp:HiddenField ID="txtEmployee_hidden" runat="server" />
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                 <% if (rights.CanView)
+                                                   { %>
+                                                    <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
+                                                <% } %>
+                                            </td>
+                                            <%--End of Rev 3.0--%>
                                             <%--<td id="Td1">
                                             <a href="javascript:ShowHideFilter('All');" class="btn btn-primary"><span>All Records</span></a>
                                         </td>--%>
@@ -1915,4 +2144,35 @@
             </div>
         </div>
     </div>
+    <%--Rev 3.0--%>
+    <div class="modal fade pmsModal w80 " id="EmployeeModel" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Employee Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" class="form-control" autofocus width="100%" placeholder="Search By Employee Code" />
+
+                    <div id="EmployeeTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Employee Name</th>
+                                <th>Employee Code</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveEmployee" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                    <button type="button" id="btnCloseEmployee" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <%--End of Rev 3.0--%>
 </asp:Content>
