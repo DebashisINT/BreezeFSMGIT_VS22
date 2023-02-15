@@ -1,5 +1,6 @@
 /******************************************************************************************************
  * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ * Rev 2.0      Priti       15/02/2023      V2.0.39     Import employee excel sheet through Employee Master
  *******************************************************************************************************/
 using System;
 using System.Data;
@@ -1304,7 +1305,9 @@ namespace ERP.OMS.Management.Master
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeUserInsertFromExcel");
                             proc.AddPara("@ImportEmployee", ds.Tables[0]);
-                            proc.AddPara("@ImportUser", ds.Tables[1]);
+                            //Rev 2.0
+                            //proc.AddPara("@ImportUser", ds.Tables[1]);
+                            //Rev 2.0 END
                             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
                           
