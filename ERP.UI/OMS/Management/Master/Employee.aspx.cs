@@ -1,5 +1,6 @@
 /******************************************************************************************************
  * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
+ * Rev 2.0      Sanchita    15/02/2023      V2.0.39     A setting required for Employee and User Master module in FSM Portal. 
  *******************************************************************************************************/
 using System;
 using System.Data;
@@ -260,6 +261,20 @@ namespace ERP.OMS.Management.Master
                 //code Added By Priti on 21122016 to use Export Header,date
                 Session["exportval"] = null;
                 //....end...
+                // Rev 2.0
+                string IsShowEmpAndUserSearchInMaster = "0";
+                DBEngine obj1 = new DBEngine();
+                IsShowEmpAndUserSearchInMaster = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='IsShowEmpAndUserSearchInMaster'").Rows[0][0]);
+
+                if (IsShowEmpAndUserSearchInMaster == "1")
+                {
+                    divEmp.Visible = true;
+                }
+                else
+                {
+                    divEmp.Visible = false;
+                }
+                // End of Rev 2.0
             }
 
             /* Mantise ID:0024752: Optimize FSM Employee Master
@@ -378,6 +393,9 @@ namespace ERP.OMS.Management.Master
                 proc.AddPara("@DevXFilterOn", "N");
                 proc.AddPara("@DevXFilterString", String.Empty);
                 proc.AddPara("@User_id", Convert.ToInt32(Session["userid"]));
+                // Rev 2.0
+                proc.AddPara("@Employees", Convert.ToString(txtEmployee_hidden.Value));
+                // End of Rev 2.0
 
                 // Mantis Issue 24752_Rectify
                 //ds = proc.GetTable();
@@ -1158,6 +1176,39 @@ namespace ERP.OMS.Management.Master
 
             public bool IsChecked { get; set; }
         }
+
+        // Rev 2.0
+        public class EmployeeModel
+        {
+            public string id { get; set; }
+            public string Employee_Name { get; set; }
+            public string Employee_Code { get; set; }
+        }
+        [WebMethod]
+        public static object GetOnDemandEmployee(string SearchKey)
+        {
+            List<EmployeeModel> listEmployee = new List<EmployeeModel>();
+            if (HttpContext.Current.Session["userid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeNameSearch");
+                proc.AddPara("@USER_ID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                dt = proc.GetTable();
+
+                listEmployee = (from DataRow dr in dt.Rows
+                                select new EmployeeModel()
+                                {
+                                    id = Convert.ToString(dr["cnt_internalId"]),
+                                    Employee_Code = Convert.ToString(dr["cnt_UCC"]),
+                                    Employee_Name = Convert.ToString(dr["Employee_Name"])
+                                }).ToList();
+            }
+
+            return listEmployee;
+        }
+        // End of Rev 2.0
 
         //Import Employee User
 
