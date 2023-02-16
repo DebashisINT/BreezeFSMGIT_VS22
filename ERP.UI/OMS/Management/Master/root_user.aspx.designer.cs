@@ -24,31 +24,31 @@ namespace ERP.OMS.Management.Master
         protected global::System.Web.UI.WebControls.DropDownList drdExport;
 
         /// <summary>
-        /// divEmp control.
+        /// divUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell divEmp;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divUser;
 
         /// <summary>
-        /// txtEmployee control.
+        /// txtUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButtonEdit txtEmployee;
+        protected global::DevExpress.Web.ASPxButtonEdit txtUser;
 
         /// <summary>
-        /// txtEmployee_hidden control.
+        /// txtUser_hidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField txtEmployee_hidden;
+        protected global::System.Web.UI.WebControls.HiddenField txtUser_hidden;
 
         /// <summary>
         /// userGrid control.

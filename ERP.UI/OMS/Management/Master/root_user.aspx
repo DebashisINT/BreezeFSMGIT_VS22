@@ -882,38 +882,37 @@
         }
 
         // Rev 3.0
-        function EmployeeButnClick(s, e) {
-            $('#EmployeeModel').modal('show');
-            $("#txtEmployeeSearch").focus();
+        function UserButnClick(s, e) {
+            $('#UserModel').modal('show');
+            $("#txtUserSearch").focus();
         }
 
-        function EmployeebtnKeyDown(s, e) {
+        function UserbtnKeyDown(s, e) {
             if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
-                $('#EmployeeModel').modal('show');
-                $("#txtEmployeeSearch").focus();
+                $('#UserModel').modal('show');
+                $("#txtUserSearch").focus();
             }
         }
 
-        function Employeekeydown(e) {
+        function Userkeydown(e) {
 
             var OtherDetails = {}
-            OtherDetails.SearchKey = $("#txtEmployeeSearch").val();
-            if ($.trim($("#txtEmployeeSearch").val()) == "" || $.trim($("#txtEmployeeSearch").val()) == null) {
+            OtherDetails.SearchKey = $("#txtUserSearch").val();
+            if ($.trim($("#txtUserSearch").val()) == "" || $.trim($("#txtUserSearch").val()) == null) {
                 return false;
             }
             if (e.code == "Enter" || e.code == "NumpadEnter") {
                 var HeaderCaption = [];
-                HeaderCaption.push("Employee Name");
-                HeaderCaption.push("Employee Code");
-                if ($("#txtEmployeeSearch").val() != null && $("#txtEmployeeSearch").val() != "") {
-                    //callonServerM("Employee.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee");
-                    //callonServerM("Employee.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee", "EmployeeSource");
-                    callonServerM("root_user.aspx/GetOnDemandEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+                HeaderCaption.push("User Name");
+                HeaderCaption.push("Login ID");
+                HeaderCaption.push("Employee ID");
+                if ($("#txtUserSearch").val() != null && $("#txtUserSearch").val() != "") {
+                    callonServerM("root_user.aspx/GetOnDemandUser", OtherDetails, "UserTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "UserSource");
                 }
             }
             else if (e.code == "ArrowDown") {
-                if ($("input[EmployeeIndex=0]"))
-                    $("input[EmployeeIndex=0]").focus();
+                if ($("input[UserIndex=0]"))
+                    $("input[UserIndex=0]").focus();
             }
         }
         // End of Rev 3.0
@@ -925,12 +924,12 @@
     <script>
 
         // Rev 3.0
-        var EmployeeArr = new Array();
+        var UserArr = new Array();
         $(document).ready(function () {
-            var EmployeeObj = new Object();
-            EmployeeObj.Name = "EmployeeSource";
-            EmployeeObj.ArraySource = EmployeeArr;
-            arrMultiPopup.push(EmployeeObj);
+            var UserObj = new Object();
+            UserObj.Name = "UserSource";
+            UserObj.ArraySource = UserArr;
+            arrMultiPopup.push(UserObj);
         })
         // End of Rev 3.0
 
@@ -1193,17 +1192,17 @@
                 }
             }
             // Rev 3.0
-            if (ArrName == 'EmployeeSource') {
+            if (ArrName == 'UserSource') {
                 var key = Id;
                 if (key != null && key != '') {
-                    $("#txtEmployee_hidden").val(Id);
-                    ctxtEmployee.SetText(Name);
-                    $('#EmployeeModel').modal('hide');
+                    $("#txtUser_hidden").val(Id);
+                    ctxtUser.SetText(Name);
+                    $('#UserModel').modal('hide');
                 }
                 else {
-                    $("#txtEmployee_hidden").val('');
-                    ctxtEmployee.SetText('');
-                    $('#EmployeeModel').modal('hide');
+                    $("#txtUser_hidden").val('');
+                    ctxtUser.SetText('');
+                    $('#UserModel').modal('hide');
 
                 }
             }
@@ -1491,18 +1490,18 @@
                                                 <%--End of Rev 3.0--%>
                                             </td>
                                             <%--Rev 3.0--%>
-                                            <td class="for-cust-padding" id="divEmp" runat="server" >
+                                            <td class="for-cust-padding" id="divUser" runat="server" >
                                                 <div class="dis-flex" >
-                                                    <label>Employee(s)</label>
+                                                    <label>User(s)</label>
                                                     <div style="position: relative">
-                                                        <dxe:ASPxButtonEdit ID="txtEmployee" runat="server" ReadOnly="true" ClientInstanceName="ctxtEmployee" >
+                                                        <dxe:ASPxButtonEdit ID="txtUser" runat="server" ReadOnly="true" ClientInstanceName="ctxtUser" >
                                                             <Buttons>
                                                                 <dxe:EditButton>
                                                                 </dxe:EditButton>
                                                             </Buttons>
-                                                            <ClientSideEvents ButtonClick="function(s,e){EmployeeButnClick();}" KeyDown="EmployeebtnKeyDown" />
+                                                            <ClientSideEvents ButtonClick="function(s,e){UserButnClick();}" KeyDown="UserbtnKeyDown" />
                                                         </dxe:ASPxButtonEdit>
-                                                        <asp:HiddenField ID="txtEmployee_hidden" runat="server" />
+                                                        <asp:HiddenField ID="txtUser_hidden" runat="server" />
 
                                                     </div>
                                                 </div>
@@ -2145,30 +2144,31 @@
         </div>
     </div>
     <%--Rev 3.0--%>
-    <div class="modal fade pmsModal w80 " id="EmployeeModel" role="dialog">
+    <div class="modal fade pmsModal w80 " id="UserModel" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Employee Search</h4>
+                    <h4 class="modal-title">User Search</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" class="form-control" autofocus width="100%" placeholder="Search By Employee Code" />
+                    <input type="text" onkeydown="Userkeydown(event)" id="txtUserSearch" class="form-control" autofocus width="100%" placeholder="Search By User Code" />
 
-                    <div id="EmployeeTable">
+                    <div id="UserTable">
                         <table border='1' width="100%" class="dynamicPopupTbl">
                             <tr class="HeaderStyle">
                                 <th class="hide">id</th>
-                                <th>Employee Name</th>
-                                <th>Employee Code</th>
+                                <th>User Name</th>
+                                <th>Login ID</th>
+                                <th>Employee ID</th>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnSaveEmployee" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-                    <button type="button" id="btnCloseEmployee" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSaveUser" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('UserSource')">OK</button>
+                    <button type="button" id="btnCloseUser" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 

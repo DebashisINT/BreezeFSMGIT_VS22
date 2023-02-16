@@ -98,11 +98,11 @@ namespace ERP.OMS.Management.Master
 
                 if (IsShowEmpAndUserSearchInMaster == "1")
                 {
-                    divEmp.Visible = true;
+                    divUser.Visible = true;
                 }
                 else
                 {
-                    divEmp.Visible = false;
+                    divUser.Visible = false;
                 }
                 // End of Rev 2.0
             }
@@ -257,7 +257,7 @@ namespace ERP.OMS.Management.Master
             proc.AddPara("@BRANCHID", Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]));
             proc.AddPara("@ACTION", "BINDUSERLIST");
             // Rev 2.0
-            proc.AddPara("@Employees", Convert.ToString(txtEmployee_hidden.Value));
+            proc.AddPara("@Users", Convert.ToString(txtUser_hidden.Value));
             // End of Rev 2.0
             dt = proc.GetTable();
             return dt;
@@ -894,35 +894,37 @@ namespace ERP.OMS.Management.Master
         }
         //End of Mantis Issue 25116
         // Rev 2.0
-        public class EmployeeModel
+        public class UserModel
         {
             public string id { get; set; }
-            public string Employee_Name { get; set; }
-            public string Employee_Code { get; set; }
+            public string user_name { get; set; }
+            public string user_loginId { get; set; }
+            public string EmployeeID { get; set; }
         }
         [WebMethod]
-        public static object GetOnDemandEmployee(string SearchKey)
+        public static object GetOnDemandUser(string SearchKey)
         {
-            List<EmployeeModel> listEmployee = new List<EmployeeModel>();
+            List<UserModel> listUser = new List<UserModel>();
             if (HttpContext.Current.Session["userid"] != null)
             {
                 SearchKey = SearchKey.Replace("'", "''");
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeNameSearch");
+                ProcedureExecute proc = new ProcedureExecute("PRC_UserNameSearchForListing");
                 proc.AddPara("@USER_ID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
                 proc.AddPara("@SearchKey", SearchKey);
                 dt = proc.GetTable();
 
-                listEmployee = (from DataRow dr in dt.Rows
-                                select new EmployeeModel()
+                listUser = (from DataRow dr in dt.Rows
+                                select new UserModel()
                                 {
-                                    id = Convert.ToString(dr["cnt_internalId"]),
-                                    Employee_Code = Convert.ToString(dr["cnt_UCC"]),
-                                    Employee_Name = Convert.ToString(dr["Employee_Name"])
+                                    id = Convert.ToString(dr["user_id"]),
+                                    user_name = Convert.ToString(dr["user_name"]),
+                                    user_loginId = Convert.ToString(dr["user_loginId"]),
+                                    EmployeeID = Convert.ToString(dr["EmployeeID"])
                                 }).ToList();
             }
 
-            return listEmployee;
+            return listUser;
         }
         // End of Rev 2.0
     }
