@@ -1,6 +1,8 @@
 ﻿<%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                09-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+2.0                17/02/2023        2.0.39           Sanchita            A setting required for 'User Account' Master module in FSM Portal
+                                                                          Refer: 25669  
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" Inherits="ERP.OMS.Management.Master.management_master_UserAccountList" CodeBehind="UserAccountList.aspx.cs" %>
@@ -619,8 +621,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             KeyFieldName="USER_ID" Width="100%" OnCustomJSProperties="userGrid_CustomJSProperties" SettingsBehavior-AllowFocusedRow="true"
                             Settings-HorizontalScrollBarMode="Auto">                           
                             <Columns>
+                                <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="UID"
+                                    Caption="UID" Width="0" SortOrder="Descending">
+                                    <EditFormSettings></EditFormSettings>
+                                </dxe:GridViewDataTextColumn>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="USER_ID"
-                                    Caption="User ID" Width="100px" SortOrder="Descending">
+                                    Caption="User ID" Width="100px" >
                                     <EditFormSettings></EditFormSettings>
                                 </dxe:GridViewDataTextColumn>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="1" FieldName="USER_NAME"
@@ -640,7 +646,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
                                 </dxe:GridViewDataTextColumn>
-                                <%--Rev Sanchita [ caption changed from Report To to WD ID--%>
+                                <%--Rev 2.0 [ caption changed from Report To to WD ID--%>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="4" FieldName="REPORTTO"
                                     Caption="WD ID" Width="150px">
                                     <PropertiesTextEdit>
@@ -665,14 +671,14 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
                                 </dxe:GridViewDataTextColumn>   
-                                <%--Rev Sanchita--%>   
+                                <%--Rev 2.0--%>   
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="8" FieldName="deg_designation"
                                     Caption="Designation" Width="120px">
                                     <PropertiesTextEdit>
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
                                 </dxe:GridViewDataTextColumn>   
-                                <%--End of Rev Sanchita--%>                         
+                                <%--End of Rev 2.0--%>                         
                             </Columns>                          
                             <SettingsSearchPanel Visible="True" />
                             <Settings ShowStatusBar="Hidden" ShowFilterRow="true" ShowGroupPanel="True" ShowFilterRowMenu="true" />                           

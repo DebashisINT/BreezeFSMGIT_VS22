@@ -1,6 +1,8 @@
 ﻿<%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                09-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+2.0                17/02/2023        2.0.39           Sanchita            A setting required for 'User Account' Master module in FSM Portal
+                                                                          Refer: 25669  
 ====================================================== Revision History ==========================================================--%>
 
 <%--<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserAccountAdd.aspx.cs" Inherits="ERP.OMS.Management.Master.UserAccountAdd" %>--%>
@@ -511,7 +513,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 $('#MandatoryReportTo').css({ 'display': 'none' });
             }
 
-            // Rev Sanchita
+            
             if (document.getElementById("txtuserid").value.trim() == "") {
                 $('#MandatoryLoginid').css({ 'display': 'block' });
                 return false;
@@ -534,7 +536,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             else {
                 $('#MandatoryType').css({ 'display': 'none' });
             }
-            // End of Rev sanchita
+            
             //Mantis Issue 25148
             if ($("#IsChannelCircleSectionMandatory").val() == "1") {
                 //if ($("#txtChannels").val() == "") {
@@ -1280,124 +1282,122 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <%--Rev Sanchita [ mandatory * sign added ]--%>
                                     <label>User Login ID<span style="color: red">*</span></label>
                                     <div style="position: relative">
                                         <%--Rev work start 26.07.2022 mantise no:25046--%>
                                         <%--<asp:TextBox ID='txtuserid' runat="server" Width="100%" CssClass="form-control" ValidationGroup="a" value=" " MaxLength="50" autocomplete="off"></asp:TextBox>--%>
                                         <asp:TextBox ID='txtuserid' runat="server" Width="100%" CssClass="form-control" ValidationGroup="a" value="" MaxLength="50" autocomplete="off" TabIndex="7"></asp:TextBox>
                                           <%--Rev work close 26.07.2022 mantise no:25046--%> 
-                                        <%--Rev Sanchita--%>
                                         <span id="MandatoryLoginid" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                        <%--End of Rev Sanchita--%>                                
                                     </div>
                                 </div>
                                 <%--Rev 1.0--%>
                                 <%--<div class="col-md-3">--%>
                                  <div class="col-md-3 h-branch-select">
                                  <%--Rev end 1.0--%>
-                                    <%--Rev Sanchita [ mandatory * sign added ]--%>
                                     <label>User Group<span style="color: red">*</span></label>
                                     <div style="position: relative">
                                          <%--Rev work start 26.07.2022 mantise no:25046--%>
                                         <%--<asp:DropDownList ID="ddlGroups" runat="server" CssClass="sml" Width="100%"></asp:DropDownList>--%>
                                         <asp:DropDownList ID="ddlGroups" runat="server" CssClass="sml" Width="100%" TabIndex="8"></asp:DropDownList>
                                         <%--Rev work close 26.07.2022 mantise no:25046--%> 
-                                        <%--Rev Sanchita--%>
                                         <span id="MandatoryGroup" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                        <%--End of Rev Sanchita--%>
                                     </div>
                                 </div>
                                 <%--Rev 1.0--%>
                                 <%--<div class="col-md-3">--%>
-                                 <div class="col-md-3 h-branch-select">
+                                <%--Rev 2.0 [id="divUserType" runat="server" added] --%>
+                                 <div class="col-md-3 h-branch-select" id="divUserType" runat="server">
                                  <%--Rev end 1.0--%>
-                                     <%--Rev Sanchita [ mandatory * sign added ]--%>
                                     <label>User Type<span style="color: red">*</span></label>
                                     <div style="position: relative">
                                         <%--Rev work start 26.07.2022 mantise no:25046--%>
                                         <%--<asp:DropDownList ID="ddlType" runat="server" CssClass="sml" Width="100%"></asp:DropDownList>--%>
                                         <asp:DropDownList ID="ddlType" runat="server" CssClass="sml" Width="100%" TabIndex="9"></asp:DropDownList>
                                         <%--Rev work close 26.07.2022 mantise no:25046--%> 
-                                        <%--Rev Sanchita--%>
                                         <span id="MandatoryType" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                        <%--End of Rev Sanchita--%>
                                     </div>
                                 </div>
-                                 <div class="col-md-3">
-                                <label>Channel Type</label>
-                                <div style="position: relative">
-                                    <%--Rev work start 26.07.2022 mantise no:25046--%>
-                                    <%--<dxe:ASPxButtonEdit ID="txtChannels" runat="server" ReadOnly="true" ClientInstanceName="ctxtChannels" TabIndex="8" Width="100%">--%>
-                                    <dxe:ASPxButtonEdit ID="txtChannels" runat="server" ReadOnly="true" ClientInstanceName="ctxtChannels" TabIndex="10" Width="100%">
-                                        <%--Rev work close 26.07.2022 mantise no:25046--%>
-                                        <Buttons>
-                                            <dxe:EditButton>
-                                            </dxe:EditButton>
-                                        </Buttons>
-                                        <ClientSideEvents ButtonClick="function(s,e){ChannelButnClick();}" KeyDown="ChannelbtnKeyDown" />
-                                    </dxe:ASPxButtonEdit>
-                                    <dxe:ASPxCheckBox ID="chkChannelDefault" runat="server" Text="Set as Default">
-                                        <ClientSideEvents CheckedChanged="function (s, e) {ChannelDefault_Checked();}" />
-                                    </dxe:ASPxCheckBox>
-                                     <%--Mantis Issue 25148--%>
-                                    <span id="MandatoryChannel" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                    <%--End of Mantis Issue 25148--%>
 
-                                    <asp:HiddenField ID="txtChannel_hidden" runat="server" />
-                                    <asp:HiddenField ID="calledFromChannelLookup_hidden" runat="server" />
-                                    <%--Mantis Issue 25148--%>
-                                    <asp:HiddenField ID="IsChannelCircleSectionMandatory" runat="server" />
-                                    <%--End of Mantis Issue 25148--%>
-                                </div>
-                            </div>
-                                <div class="col-md-3">
-                                <label>Circle</label>
-                                <div style="position: relative">
-                                    <%--Rev work start 26.07.2022--%>
-                                    <%--<dxe:ASPxButtonEdit ID="txtCircle" runat="server" ReadOnly="true" ClientInstanceName="ctxtCircles" TabIndex="8" Width="100%">--%>
-                                    <dxe:ASPxButtonEdit ID="txtCircle" runat="server" ReadOnly="true" ClientInstanceName="ctxtCircles" TabIndex="11" Width="100%">
-                                        <%--Rev work close 26.07.2022--%>
-                                        <Buttons>
-                                            <dxe:EditButton>
-                                            </dxe:EditButton>
-                                        </Buttons>
-                                        <ClientSideEvents ButtonClick="function(s,e){CircleButnClick();}" KeyDown="CirclebtnKeyDown" />
-                                    </dxe:ASPxButtonEdit>
-                                    <dxe:ASPxCheckBox ID="chkCircleDefault" runat="server" Text="Set as Default">
-                                        <ClientSideEvents CheckedChanged="function (s, e) {CircleDefault_Checked();}" />
-                                    </dxe:ASPxCheckBox>
-                                    <%--Mantis Issue 25148--%>
-                                    <span id="MandatoryCircle" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                    <%--End of Mantis Issue 25148--%>
-                                    <asp:HiddenField ID="txtCircle_hidden" runat="server" />
-                                    <asp:HiddenField ID="calledFromCircleLookup_hidden" runat="server" />
-                                </div>
-                            </div>
+                                <%--Rev 2.0 [id="divChannel" runat="server" added] --%>
+                                 <div class="col-md-3" id="divChannel" runat="server">
+                                    <label>Channel Type</label>
+                                    <div style="position: relative">
+                                        <%--Rev work start 26.07.2022 mantise no:25046--%>
+                                        <%--<dxe:ASPxButtonEdit ID="txtChannels" runat="server" ReadOnly="true" ClientInstanceName="ctxtChannels" TabIndex="8" Width="100%">--%>
+                                        <dxe:ASPxButtonEdit ID="txtChannels" runat="server" ReadOnly="true" ClientInstanceName="ctxtChannels" TabIndex="10" Width="100%">
+                                            <%--Rev work close 26.07.2022 mantise no:25046--%>
+                                            <Buttons>
+                                                <dxe:EditButton>
+                                                </dxe:EditButton>
+                                            </Buttons>
+                                            <ClientSideEvents ButtonClick="function(s,e){ChannelButnClick();}" KeyDown="ChannelbtnKeyDown" />
+                                        </dxe:ASPxButtonEdit>
+                                        <dxe:ASPxCheckBox ID="chkChannelDefault" runat="server" Text="Set as Default">
+                                            <ClientSideEvents CheckedChanged="function (s, e) {ChannelDefault_Checked();}" />
+                                        </dxe:ASPxCheckBox>
+                                         <%--Mantis Issue 25148--%>
+                                        <span id="MandatoryChannel" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
+                                        <%--End of Mantis Issue 25148--%>
 
-                            <div class="col-md-3">
-                                <label>Section</label>
-                                <div style="position: relative">
-                                     <%--Rev work start 26.07.2022--%>
-                                    <%--<dxe:ASPxButtonEdit ID="txtSection" runat="server" ReadOnly="true" ClientInstanceName="ctxtSections" TabIndex="8" Width="100%">--%>
-                                    <dxe:ASPxButtonEdit ID="txtSection" runat="server" ReadOnly="true" ClientInstanceName="ctxtSections" TabIndex="12" Width="100%">
-                                         <%--Rev work close 26.07.2022--%>
-                                        <Buttons>
-                                            <dxe:EditButton>
-                                            </dxe:EditButton>
-                                        </Buttons>
-                                        <ClientSideEvents ButtonClick="function(s,e){SectionButnClick();}" KeyDown="SectionbtnKeyDown" />
-                                    </dxe:ASPxButtonEdit>
-                                    <dxe:ASPxCheckBox ID="chkSectionDefault" runat="server" Text="Set as Default">
-                                        <ClientSideEvents CheckedChanged="function (s, e) {SectionDefault_Checked();}" />
-                                    </dxe:ASPxCheckBox>
-                                    <%--Mantis Issue 25148--%>
-                                    <span id="MandatorySection" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
-                                    <%--End of Mantis Issue 25148--%>
-                                    <asp:HiddenField ID="txtSection_hidden" runat="server" />
-                                    <asp:HiddenField ID="calledFromSectionLookup_hidden" runat="server" />
+                                        <asp:HiddenField ID="txtChannel_hidden" runat="server" />
+                                        <asp:HiddenField ID="calledFromChannelLookup_hidden" runat="server" />
+                                        <%--Mantis Issue 25148--%>
+                                        <asp:HiddenField ID="IsChannelCircleSectionMandatory" runat="server" />
+                                        <%--End of Mantis Issue 25148--%>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <%--Rev 2.0 [id="divCircle" runat="server" added] --%>
+                                <div class="col-md-3" id="divCircle" runat="server" >
+                                    <label>Circle</label>
+                                    <div style="position: relative">
+                                        <%--Rev work start 26.07.2022--%>
+                                        <%--<dxe:ASPxButtonEdit ID="txtCircle" runat="server" ReadOnly="true" ClientInstanceName="ctxtCircles" TabIndex="8" Width="100%">--%>
+                                        <dxe:ASPxButtonEdit ID="txtCircle" runat="server" ReadOnly="true" ClientInstanceName="ctxtCircles" TabIndex="11" Width="100%">
+                                            <%--Rev work close 26.07.2022--%>
+                                            <Buttons>
+                                                <dxe:EditButton>
+                                                </dxe:EditButton>
+                                            </Buttons>
+                                            <ClientSideEvents ButtonClick="function(s,e){CircleButnClick();}" KeyDown="CirclebtnKeyDown" />
+                                        </dxe:ASPxButtonEdit>
+                                        <dxe:ASPxCheckBox ID="chkCircleDefault" runat="server" Text="Set as Default">
+                                            <ClientSideEvents CheckedChanged="function (s, e) {CircleDefault_Checked();}" />
+                                        </dxe:ASPxCheckBox>
+                                        <%--Mantis Issue 25148--%>
+                                        <span id="MandatoryCircle" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
+                                        <%--End of Mantis Issue 25148--%>
+                                        <asp:HiddenField ID="txtCircle_hidden" runat="server" />
+                                        <asp:HiddenField ID="calledFromCircleLookup_hidden" runat="server" />
+                                    </div>
+                                </div>
+
+                                <%--Rev 2.0 [id="divSection" runat="server" added] --%>
+                                <div class="col-md-3" id="divSection" runat="server">
+                                    <label>Section</label>
+                                    <div style="position: relative">
+                                         <%--Rev work start 26.07.2022--%>
+                                        <%--<dxe:ASPxButtonEdit ID="txtSection" runat="server" ReadOnly="true" ClientInstanceName="ctxtSections" TabIndex="8" Width="100%">--%>
+                                        <dxe:ASPxButtonEdit ID="txtSection" runat="server" ReadOnly="true" ClientInstanceName="ctxtSections" TabIndex="12" Width="100%">
+                                             <%--Rev work close 26.07.2022--%>
+                                            <Buttons>
+                                                <dxe:EditButton>
+                                                </dxe:EditButton>
+                                            </Buttons>
+                                            <ClientSideEvents ButtonClick="function(s,e){SectionButnClick();}" KeyDown="SectionbtnKeyDown" />
+                                        </dxe:ASPxButtonEdit>
+                                        <dxe:ASPxCheckBox ID="chkSectionDefault" runat="server" Text="Set as Default">
+                                            <ClientSideEvents CheckedChanged="function (s, e) {SectionDefault_Checked();}" />
+                                        </dxe:ASPxCheckBox>
+                                        <%--Mantis Issue 25148--%>
+                                        <span id="MandatorySection" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -18px; top: 10px; display: none" title="Mandatory"></span>
+                                        <%--End of Mantis Issue 25148--%>
+                                        <asp:HiddenField ID="txtSection_hidden" runat="server" />
+                                        <asp:HiddenField ID="calledFromSectionLookup_hidden" runat="server" />
+                                    </div>
+                                </div>
+
                                  <div class="col-md-3">
                                     <label>Contact No</label>
                                     <div style="position: relative">
