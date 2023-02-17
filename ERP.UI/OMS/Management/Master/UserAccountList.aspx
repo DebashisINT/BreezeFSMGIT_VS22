@@ -616,7 +616,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                     </td>
                 </tr>
                 <tr>
-                    <td>                       
+                    <td>
+                        <%--Rev 2.0: grid column width increase--%>
                         <dxe:ASPxGridView ID="userGrid" ClientInstanceName="grid" runat="server" AutoGenerateColumns="False"
                             KeyFieldName="USER_ID" Width="100%" OnCustomJSProperties="userGrid_CustomJSProperties" SettingsBehavior-AllowFocusedRow="true"
                             Settings-HorizontalScrollBarMode="Auto">                           
@@ -626,11 +627,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                     <EditFormSettings></EditFormSettings>
                                 </dxe:GridViewDataTextColumn>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="0" FieldName="USER_ID"
-                                    Caption="User ID" Width="100px" >
+                                    Caption="User ID" Width="180px" >
                                     <EditFormSettings></EditFormSettings>
                                 </dxe:GridViewDataTextColumn>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="1" FieldName="USER_NAME"
-                                    Caption="User Name" Width="200px">
+                                    Caption="User Name" Width="260px">
                                     <PropertiesTextEdit>
                                         <ValidationSettings ErrorDisplayMode="ImageWithText" ErrorTextPosition="Bottom" SetFocusOnError="True">
                                             <RequiredField ErrorText="Please Enter user Name" IsRequired="True" />
@@ -641,14 +642,14 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 <dxe:GridViewDataTextColumn VisibleIndex="2" Caption="User Type" FieldName="STAGE"  Width="200px">
                                 </dxe:GridViewDataTextColumn>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="3" FieldName="BRANCHNAME"
-                                    Caption="Branch" Width="220px" >
+                                    Caption="Branch" Width="270px" >
                                     <PropertiesTextEdit>
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
                                 </dxe:GridViewDataTextColumn>
                                 <%--Rev 2.0 [ caption changed from Report To to WD ID--%>
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="4" FieldName="REPORTTO"
-                                    Caption="WD ID" Width="150px">
+                                    Caption="WD ID" Width="300px">
                                     <PropertiesTextEdit>
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
@@ -673,7 +674,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 </dxe:GridViewDataTextColumn>   
                                 <%--Rev 2.0--%>   
                                 <dxe:GridViewDataTextColumn ReadOnly="True" VisibleIndex="8" FieldName="deg_designation"
-                                    Caption="Designation" Width="120px">
+                                    Caption="Designation" Width="180px">
                                     <PropertiesTextEdit>
                                     </PropertiesTextEdit>
                                     <EditFormSettings Visible="false" />
