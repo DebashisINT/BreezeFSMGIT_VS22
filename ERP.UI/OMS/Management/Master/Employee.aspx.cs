@@ -1,7 +1,7 @@
 /******************************************************************************************************
  * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
  * Rev 2.0      Sanchita    15/02/2023      V2.0.39     A setting required for Employee and User Master module in FSM Portal. 
- * Rev 3.0      Priti       15/02/2023      V2.0.39     Import employee excel sheet through Employee Master
+ * Rev 3.0      Priti       15/02/2023      V2.0.39    	0025676: Employee Import Facility
  *******************************************************************************************************/
 using System;
 using System.Data;
@@ -23,6 +23,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
       Rev work Swati Date:-15.03.2022*/
 using ERP.Models;
 using System.Linq;
+using iTextSharp.text.log;
+using EO.Web.Internal;
 /* Mantise ID:0024752: Optimize FSM Employee Master
       Rev work Close Swati Date:-15.03.2022*/
 namespace ERP.OMS.Management.Master
@@ -63,6 +65,8 @@ namespace ERP.OMS.Management.Master
         // Rev Mantis Issue 25001
         public bool ActivateEmployeeBranchHierarchy { get; set; }
         // End of Rev Mantis Issue 25001
+
+        Employee_BL objEmploye = new Employee_BL();
         #endregion
         //Session Used in This Page : PageSize,FromDOJ,ToDoj,PageNumAfterNav,SerachString,SearchBy,FindOption
         #region Page Properties
@@ -1209,6 +1213,9 @@ namespace ERP.OMS.Management.Master
 
             return listEmployee;
         }
+
+       
+
         // End of Rev 2.0
 
         //Import Employee User
@@ -1301,7 +1308,7 @@ namespace ERP.OMS.Management.Master
         {
             Boolean Success = false;
             Boolean HasLog = false;
-
+            int loopcounter = 1;
             if (file.FileName.Trim() != "")
             {
                 if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
@@ -1351,28 +1358,47 @@ namespace ERP.OMS.Management.Master
                     }
                     if (ds != null && ds.Tables[0].Rows.Count > 0)
                     {
-                        try
-                        {
-                            DataTable dtCmb = new DataTable();
-                            ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeUserInsertFromExcel");
-                            proc.AddPara("@ImportEmployee", ds.Tables[0]);
-                            //Rev 3.0
-                            //proc.AddPara("@ImportUser", ds.Tables[1]);
-                            //Rev 3.0 END
-                            proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
-                            dtCmb = proc.GetTable();
-                          
-                        }
-                        catch (Exception)
-                        {
+                        string EmployeeCode = string.Empty;
 
-                        }
+                        //foreach (DataRow row in ds.Tables[0].Rows)
+                        //{
+                        //    loopcounter++;
+                           // EmployeeCode = Convert.ToString(row["Emp. Code*"]);
+                            try
+                            {
+                                string File_Name = Session["FileName"].ToString();
+                                DataTable dtCmb = new DataTable();
+                                ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeUserInsertFromExcel");
+                                proc.AddPara("@ImportEmployee", ds.Tables[0]);
+                                //Rev 3.0
+                                //proc.AddPara("@ImportUser", ds.Tables[1]);
+                                proc.AddPara("@FileName", File_Name);
+                                //Rev 3.0 END
+                                proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
+                                dtCmb = proc.GetTable();
+                                HasLog = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                HasLog = false;
+                                int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, "", "", Session["FileName"].ToString(), ex.Message.ToString(), "Failed");
+
+                            }
+                        //}
                     }
                 }
             }
             return HasLog;
         }
-
+        //Rev 3.0
+        protected void GvImportDetailsSearch_DataBinding(object sender, EventArgs e)
+        {
+           
+            string fileName = Convert.ToString(Session["FileName"]);
+            DataSet dt2 = objEmploye.GetEmployeeLog(fileName);
+            GvImportDetailsSearch.DataSource = dt2.Tables[0];
+        }
+        //Rev 3.0 End
         private string GetValue(SpreadsheetDocument doc, Cell cell)
         {
             string value = cell.CellValue.InnerText;
@@ -1382,6 +1408,8 @@ namespace ERP.OMS.Management.Master
             }
             return value;
         }
+
+
     }
 }
 

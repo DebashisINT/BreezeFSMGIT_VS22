@@ -2,7 +2,7 @@
  * Rev 1.0      Sanchita/Pallab    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
    Rev 2.0      Pallab             08-02-2023      V2.0.36     Master module design modification. refer: 25656 
    Rev 3.0      Sanchita/Pallab    15/02/2023      V2.0.39     A setting required for Employee and User Master module in FSM Portal. 
-                                                               Refer: 25668 
+   Rev 4.0      Priti              20/02/2023      V2.0.39    	0025676: Employee Import Facility                                                          Refer: 25668 
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -202,7 +202,16 @@
             }
         /*End of Rev 3.0*/
     </style>
-
+    <script type="text/javascript">
+      //REV 4.0
+      function ShowLogData(haslog) {           
+            $('#btnViewLog').click();           
+        }
+        function ViewLogData() {
+            cGvImportDetailsSearch.Refresh();
+        }
+       //REV 4.0 END
+    </script>
     <script type="text/javascript">
 
         function Pageload() {
@@ -1250,10 +1259,7 @@ padding: 7px;
 
                             <asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderexcel_Click" CssClass="btn btn-info btn-radius  mBot0">Download Format</asp:LinkButton>
                             <button type="button" onclick="ImportUpdatePopOpenEmployeesTarget();" class="btn btn-danger btn-radius">Import(Add/Update)</button>
-
-
-
-                            <button type="button" class="btn btn-warning btn-radius hide" data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
+                            <button type="button" class="btn btn-warning btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
                                 <%--Rev 3.0--%>
                                 <%--<%--Rev 1.0--%>
                                 <%--<% if (rights.CanView)
@@ -2318,4 +2324,73 @@ padding: 7px;
         </div>
     </div>
     <%--End of Rev 3.0--%>
+
+   <%-- Rev 4.0--%>
+    <div class="modal fade" id="modalSS" role="dialog">
+        <div class="modal-dialog fullWidth">           
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Employee Log</h4>
+                </div>
+                <div class="modal-body">
+                    <dxe:ASPxGridView ID="GvImportDetailsSearch" runat="server" AutoGenerateColumns="False" SettingsBehavior-AllowSort="true"
+                        ClientInstanceName="cGvImportDetailsSearch" KeyFieldName="EMPLOGID" Width="100%" OnDataBinding="GvImportDetailsSearch_DataBinding" Settings-VerticalScrollBarMode="Auto" Settings-VerticalScrollableHeight="400">
+
+                        <SettingsBehavior ConfirmDelete="false" ColumnResizeMode="NextColumn" />
+                        <Styles>
+                            <Header SortingImageSpacing="5px" ImageSpacing="5px"></Header>
+                            <FocusedRow HorizontalAlign="Left" VerticalAlign="Top" CssClass="gridselectrow"></FocusedRow>
+                            <LoadingPanel ImageSpacing="10px"></LoadingPanel>
+                            <FocusedGroupRow CssClass="gridselectrow"></FocusedGroupRow>
+                            <Footer CssClass="gridfooter"></Footer>
+                        </Styles>
+                        <Columns>
+                            <dxe:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="EMPLOGID" Caption="LogID" SortOrder="Descending">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            </dxe:GridViewDataTextColumn>
+                            <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="CREATEDDATETIME" Caption="Date" Width="10%">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                                <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                            </dxe:GridViewDataTextColumn>
+
+                            <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="EMPLOYEECODE" Caption="Employee Code" Width="10%">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                                <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                            </dxe:GridViewDataTextColumn>
+                            <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="LOOPNUMBER" Caption="Row Number" Width="13%">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            </dxe:GridViewDataTextColumn>
+                            <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="EMPNAME" Width="8%" Caption="Employee Name">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            </dxe:GridViewDataTextColumn>
+                            <dxe:GridViewDataTextColumn VisibleIndex="4" FieldName="FILENAME" Width="14%" Caption="File Name">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                                <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                            </dxe:GridViewDataTextColumn>
+                            <dxe:GridViewDataTextColumn VisibleIndex="5" FieldName="DESCRIPTION" Caption="Description" Width="10%" Settings-AllowAutoFilter="False">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            </dxe:GridViewDataTextColumn>
+
+                            <dxe:GridViewDataTextColumn VisibleIndex="5" FieldName="STATUS" Caption="Status" Width="14%" Settings-AllowAutoFilter="False">
+                                <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            </dxe:GridViewDataTextColumn>
+                        </Columns>
+                        <Settings ShowGroupPanel="True" ShowStatusBar="Visible" ShowFilterRow="true" ShowFilterRowMenu="true" />
+                        <SettingsSearchPanel Visible="false" />
+                        <SettingsPager NumericButtonCount="200" PageSize="200" ShowSeparators="True" Mode="ShowPager">
+                            <PageSizeItemSettings Visible="true" ShowAllItem="false" Items="200,400,600" />
+                            <FirstPageButton Visible="True">
+                            </FirstPageButton>
+                            <LastPageButton Visible="True">
+                            </LastPageButton>
+                        </SettingsPager>
+                    </dxe:ASPxGridView>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+  <%--  Rev 4.0 End--%>
 </asp:Content>
