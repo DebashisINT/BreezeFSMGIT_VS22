@@ -16,7 +16,7 @@
         /*Rev 2.0*/
         .btn-sm
         {
-           padding: 7px 10px;
+           padding: 5px 10px;
                font-size: 14px;
         }
         /*Rev end 2.0*/
