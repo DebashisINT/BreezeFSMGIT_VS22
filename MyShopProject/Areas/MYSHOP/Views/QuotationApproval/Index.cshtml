@@ -743,23 +743,24 @@
         opacity: .5;
     }
 
-    #EmployeeTable {
+    #EmployeeTable, #CustomerTable {
         margin-top: 10px;
     }
 
-        #EmployeeTable table tr th {
+        #EmployeeTable table tr th, #CustomerTable table tr th {
             padding: 5px 10px;
         }
 
-    .dynamicPopupTbl {
-        font-family: 'Poppins', sans-serif !important;
-    }
-
-        .dynamicPopupTbl > tbody > tr > td,
-        #EmployeeTable table tr th {
+        .dynamicPopupTbl, #CustomerTable table {
             font-family: 'Poppins', sans-serif !important;
-            font-size: 12px;
         }
+
+            .dynamicPopupTbl > tbody > tr > td,
+            #EmployeeTable table tr th,
+            #CustomerTable table tr th {
+                font-family: 'Poppins', sans-serif !important;
+                font-size: 12px;
+            }
 
     .w150 {
         width: 160px;
@@ -838,6 +839,7 @@
 
     .btn-sm, .btn-xs {
         padding: 7px 10px !important;
+        border-radius: 4px !important;
     }
 
     #productAttributePopUp_PWH-1 span, #ASPxPopupControl2_PWH-1 span {
