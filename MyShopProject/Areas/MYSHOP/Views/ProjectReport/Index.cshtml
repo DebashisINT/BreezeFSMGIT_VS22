@@ -1629,6 +1629,9 @@
     #proj_start_dt_DDD_PW-1 {
         left: -21px !important;
     }
+    .pmsModal .modal-header {
+        background: #094e8c !important;
+    }
     /*Rev end 1.0*/
 </style>
 
@@ -2102,7 +2105,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    @*Rev 1.0*@
+                    @*<div class="col-md-3">*@
+                    <div class="col-md-3 for-cust-icon">
+                        @*Rev end 1.0*@
                         <label>Completed project </label>
                         <div>
                             @Html.DevExpress().DateEdit(
@@ -2119,7 +2125,9 @@
                             ).GetHtml()
 
                             @*<input type="date" id="proj_complete_dt" name="proj_complete_dt" value="@Model.proj_complete_dt">*@
-
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </div>
 
