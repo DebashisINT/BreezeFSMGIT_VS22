@@ -40,7 +40,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     <style>
         .btn-pd {
-            padding: 7px;
+            /*padding: 7px;*/
+            padding: 6px 10px !important;
             margin-right: 1px;
         }
 
@@ -441,6 +442,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     {
             height: 34px;
             border-radius: 4px;
+    }
+
+    .btn
+    {
+        height: 34px;
     }
 
     /*Rev end 1.0*/
