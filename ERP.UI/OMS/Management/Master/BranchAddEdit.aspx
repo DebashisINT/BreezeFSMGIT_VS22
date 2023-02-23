@@ -870,8 +870,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     .calendar-icon {
         position: absolute;
-        bottom: 9px;
-        right: 24px;
+        bottom: 8px;
+        right: 20px;
         z-index: 0;
         cursor: pointer;
     }
@@ -882,7 +882,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         background: transparent;
     }
 
-    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear , #txtCINVdate {
         -webkit-appearance: none;
         position: relative;
         z-index: 1;
@@ -897,7 +897,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             /*content: '<';*/
             content: url(../../../assests/images/left-arw.png);
             position: absolute;
-            top: 37px;
+            top: 42px;
             right: 12px;
             font-size: 18px;
             transform: rotate(269deg);
@@ -910,7 +910,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             /* padding: 10px 0; */
             border-radius: 4px;
             text-align: center;
-            line-height: 19px;
+            line-height: 18px;
             z-index: 0;
         }
 
@@ -1151,7 +1151,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         padding-right: 20px;
     }
 
-    #dtFrom_B-1, #dtTo_B-1 {
+    #dtFrom_B-1, #dtTo_B-1 , #txtCINVdate_B-1 {
         background: transparent !important;
         border: none;
         width: 30px;
@@ -1159,7 +1159,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     }
 
         #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img {
+        #dtTo_B-1 #dtTo_B-1Img,
+        #txtCINVdate_B-1 #txtCINVdate_B-1Img{
             display: none;
         }
 
@@ -1474,6 +1475,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                         <ButtonStyle Width="13px">
                                                         </ButtonStyle>
                                                     </dxe:ASPxDateEdit>
+                                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon"/>
                                                 </div>
                                             </div>
 
