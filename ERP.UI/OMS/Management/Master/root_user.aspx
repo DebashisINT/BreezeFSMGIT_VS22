@@ -643,7 +643,20 @@
 
     .btn-sm, .btn-xs
     {
-        padding: 7px 10px !important;
+        padding: 6px 10px !important;
+    }
+    .btn
+    {
+        height: 34px;
+    }
+
+    #UserTable
+    {
+        margin-top: 10px;
+    }
+    #PartyTable
+    {
+        margin-top: 10px;
     }
 
     /*Rev 3.0*/
@@ -2122,7 +2135,7 @@
                     <h4 class="modal-title">Party Search</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" onkeydown="partyskeydown(event)" id="txtPartySearch" autofocus style="width: 100%" placeholder="Search By Party Name or Party Code" />
+                    <input type="text" onkeydown="partyskeydown(event)" class="form-control" id="txtPartySearch" autofocus style="width: 100%" placeholder="Search By Party Name or Party Code" />
                     <div id="PartyTable">
                         <table border='1' width="100%" class="dynamicPopupTbl">
                             <tr class="HeaderStyle">

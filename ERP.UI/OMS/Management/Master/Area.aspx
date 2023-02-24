@@ -536,7 +536,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     .btn-sm, .btn-xs
     {
-        padding: 7px 10px !important;
+        padding: 6px 10px !important;
+    }
+    .btn
+    {
+        height: 34px;
     }
 
     /*Rev end 1.0*/

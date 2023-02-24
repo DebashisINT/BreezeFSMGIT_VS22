@@ -639,7 +639,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             /* padding: 10px 0; */
             border-radius: 4px;
             text-align: center;
-            line-height: 19px;
+            line-height: 16px;
             z-index: 0;
         }
 
@@ -953,7 +953,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     .btn-sm, .btn-xs
     {
-        padding: 7px 10px !important;
+        padding: 6px 10px !important;
+    }
+
+    .btn
+    {
+        height: 34px;
     }
 
     /*Rev end 1.0*/
@@ -1101,7 +1106,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 </div>
                 <%--Rev 1.0--%>
                 <%--<div class="col-md-3 mt-3" runat="server" id="DivisHomeRestrictAttendance">--%>
-                  <div class="col-md-3 mt-3 h-branch-select" runat="server" id="DivisHomeRestrictAttendance">
+                  <div class="col-md-4 mt-3 h-branch-select" runat="server" id="DivisHomeRestrictAttendance">
                       <%--Rev end 1.0--%>
                     <label title="Restriction Attendance from Home Location">Restriction Attendance from Home Location:</label>
                     <div class="reltv">

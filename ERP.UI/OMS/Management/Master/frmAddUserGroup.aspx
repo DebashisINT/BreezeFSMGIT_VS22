@@ -387,6 +387,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             border-radius: 10px;
             /*Rev end 1.0*/
         }
+        .form-group input[type=text]
+        {
+            border-radius: 4px !important;
+            height: 34px;
+        }
     </style>
      <script>
          $(function () {
@@ -422,7 +427,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             <asp:Label ID="lblGroupName" runat="server" Text="Group Name"></asp:Label><span style="color:red;"> *</span>
                                         </div>
                                         <div class="col-sm-4 divDown mt-2" style="position:relative">
-                                            <asp:TextBox ID="txtGroupName" runat="server" MaxLength="50"></asp:TextBox>
+                                            <asp:TextBox ID="txtGroupName" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
                                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtGroupName" ErrorTextPosition="Right"  CssClass="pullrightClass fa fa-exclamation-circle r591" SetFocusOnError="true"
                                     Display="Dynamic" ErrorMessage="" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                                         </div>
