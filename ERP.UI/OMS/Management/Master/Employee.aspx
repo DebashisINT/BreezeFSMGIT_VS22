@@ -1435,6 +1435,16 @@ padding: 7px;
 
     }
 
+    .pTop10
+    {
+        padding-top: 10px;
+    }
+
+    #modalSS .modal-dialog
+    {
+        width: 700px;
+    }
+
     /*Rev end 5.0*/
 
     </style>
