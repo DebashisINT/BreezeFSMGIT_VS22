@@ -3,6 +3,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
 Rev 2.0     Sanchita    V2.0.39     08/02/2023      When a product is Modified and saved instantly without clicking on Product Attribute
                                                     button, the product attributes becomes blank in mapping tables. Refer: 25655
 Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modification. Refer: 25656
+Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25668
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
@@ -16,6 +17,9 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
     <script src="../../Activities/JS/SearchPopup.js"></script>
     <link href="../../Activities/CSS/SearchPopup.css" rel="stylesheet" />
     
+    <%--Rev 4.0--%>
+    <script src="../../Activities/JS/SearchMultiPopup.js"></script>
+    <%--End of Rev 4.0--%>
 
     <script type="text/javascript">
 
@@ -50,6 +54,72 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
             grid.PerformCallback(obj);
         }
 
+        // Rev 4.0
+
+        var ProductArr = new Array();
+        $(document).ready(function () {
+            var ProductObj = new Object();
+            ProductObj.Name = "ProductSource";
+            ProductObj.ArraySource = ProductArr;
+            arrMultiPopup.push(ProductObj);
+            $("#hfIsFilter").val("N");
+        })
+
+        function ProductButnClick(s, e) {
+            $('#ProductModel').modal('show');
+            $("#txtProdSearch").focus();
+        }
+
+        function ProductbtnKeyDown(s, e) {
+            if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+                $('#ProductModel').modal('show');
+                $("#txtProdSearch").focus();
+            }
+        }
+
+        function Productkeydown(e) {
+
+            var OtherDetails = {}
+            OtherDetails.SearchKey = $("#txtProdSearch").val();
+            if ($.trim($("#txtProdSearch").val()) == "" || $.trim($("#txtProdSearch").val()) == null) {
+                return false;
+            }
+            if (e.code == "Enter" || e.code == "NumpadEnter") {
+                var HeaderCaption = [];
+                HeaderCaption.push("Product Name");
+                HeaderCaption.push("Product Code");
+                if ($("#txtProdSearch").val() != null && $("#txtProdSearch").val() != "") {
+                   callonServerM("sProducts.aspx/GetOnDemandProduct", OtherDetails, "ProductTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "ProductSource");
+                }
+            }
+            else if (e.code == "ArrowDown") {
+                if ($("input[ProductIndex=0]"))
+                    $("input[ProductIndex=0]").focus();
+            }
+        }
+
+        function SetSelectedValues(Id, Name, ArrName) {
+            if (ArrName == 'ProductSource') {
+                var key = Id;
+                if (key != null && key != '') {
+                    $('#ProductModel').modal('hide');
+                    ctxtProducts.SetText(Name);
+                    $('#txtProduct_hidden').val(key);
+                }
+                else {
+                    ctxtProducts.SetText('');
+                    $('#txtProduct_hidden').val('');
+                }
+            }
+
+
+        }
+
+        function ShowData() {
+            $("#hfIsFilter").val("Y");
+            grid.PerformCallback("Show~~~");
+        }
+        // End of Rev 4.0
     </script>
 
 
@@ -2350,7 +2420,7 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
 
         .FilterSide {
             float: left;
-            width: 50%;
+            /*width: 50%;*/
         }
 
         .SearchArea {
@@ -2510,6 +2580,54 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
         {
             color: #fff;
         }
+        /*Rev 4.0*/
+        .fullMulti .multiselect-native-select, .fullMulti .multiselect-native-select .btn-group {
+            width: 100%;
+        }
+
+            .fullMulti .multiselect-native-select .multiselect {
+                width: 100%;
+                text-align: left;
+                border-radius: 4px !important;
+            }
+
+                .fullMulti .multiselect-native-select .multiselect .caret {
+                    float: right;
+                    margin: 9px 5px;
+                }
+
+        .hideScndTd > table > tbody > tr > td:last-child {
+            display: none;
+        }
+
+        .multiselect.dropdown-toggle {
+        text-align: left;
+        }
+
+        .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+        }
+
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+        }
+
+        .width-50px
+        {
+            width: 300px;
+        }
+
+
+        /*Rev end 4.0*/
     </style>
 
 </asp:Content>
@@ -2525,6 +2643,7 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
             <%-- <div class="TitleArea">
                 <strong><span style="color: #000099">marketss</span></strong>
             </div>--%>
+            
             <div class="SearchArea">
                 <div class="FilterSide mb-3">
                     <div style="float: left; padding-right: 5px;">
@@ -2543,12 +2662,14 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
                         </asp:DropDownList>
                         <%} %>
 
-
-                       <asp:Button ID="btndownload" runat="server" cssclass="btn btn-info mr-1" OnClick="btnDownload_Click" Text="Download Format" />
+                       <%--Rev 4.0--%>
+                       <%--<asp:Button ID="btndownload" runat="server" cssclass="btn btn-info mr-1" OnClick="btnDownload_Click" Text="Download Format" />--%>
+                       <asp:LinkButton ID="btndownload" runat="server" OnClick="btnDownload_Click" CssClass="btn btn-info btn-radius pull-rigth mBot0">Download Format</asp:LinkButton>
+                       <%--End of Rev 4.0--%>
                     
                         <a class="btn btn-warning" href="javascript:void(0);" onclick="fn_PopOpenProducts()" id="btnimportexcel"><span>Import (Add/Update)</span> </a>
-
                     </div>
+                    
                     <%-- <div>
                         <a class="btn btn-primary" href="javascript:ShowHideFilter('All');"><span>All Records</span></a>
                     </div>--%>
@@ -2572,6 +2693,29 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
                     </div>
                 </div>--%>
             </div>
+            <%--Rev 4.0--%>
+            <div>
+                <div class="width-50px" id="divProd" runat="server">
+                    <label>Products(s)</label>
+                    <div style="position: relative">
+                        <dxe:ASPxButtonEdit ID="txtProducts" runat="server" ReadOnly="true" ClientInstanceName="ctxtProducts" >
+                            <Buttons>
+                                <dxe:EditButton>
+                                </dxe:EditButton>
+                            </Buttons>
+                            <ClientSideEvents ButtonClick="function(s,e){ProductButnClick();}" KeyDown="ProductbtnKeyDown" />
+                        </dxe:ASPxButtonEdit>
+                        <asp:HiddenField ID="txtProduct_hidden" runat="server" />
+
+                    </div>
+                </div>
+                <% if (rights.CanView)
+                { %>
+                    <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
+                <% } %>
+            </div>
+            <%--End of Rev 4.0--%>
+ 
             <%--debjyoti 22-12-2016--%>
             <dxe:ASPxPopupControl ID="ASPXPopupControl" runat="server"
                 CloseAction="CloseButton" PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="popup" Height="630px"
@@ -4499,6 +4643,9 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
            <ClientSideEvents Shown="function(){ $('#txtMainAccountPRSearch').focus();}" />
         </dxe:ASPxPopupControl>
         <asp:HiddenField runat="server" ID="hdnPRMainAccount" />
+        <%--Rev 4.0--%>
+        <asp:HiddenField ID="hfIsFilter" runat="server" />
+        <%--End of Rev 4.0--%>
 
         <dxe:ASPxPopupControl ID="AspxDirectCustomerViewPopup" runat="server"
             CloseAction="CloseButton" PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="CAspxDirectCustomerViewPopup" Height="650px"
@@ -4687,5 +4834,37 @@ Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modific
         </dxe:ASPxPopupControl>
  </div>
         </div>
+
+    <%--Rev 4.0--%>
+    <div class="modal fade pmsModal w80 " id="ProductModel" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Product Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" onkeydown="Productkeydown(event)" id="txtProdSearch" class="form-control" autofocus width="100%" placeholder="Search By Product Code" />
+
+                    <div id="ProductTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Product Name</th>
+                                <th>Product Code</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveProduct" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>
+                    <button type="button" id="btnCloseProduct" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <%--End of Rev 4.0--%>
 
 </asp:Content>
