@@ -599,7 +599,7 @@ Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : List
 
     .btn-sm, .btn-xs
     {
-        padding: 7px 10px !important;
+        padding: 6px 10px !important;
     }
 
     #productAttributePopUp_PWH-1 span, #ASPxPopupControl2_PWH-1 span
@@ -2623,9 +2623,36 @@ Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : List
 
         .width-50px
         {
-            width: 300px;
+            width: 275px;
+            float: left;
+            display: flex;
+            align-items: center;
+                margin-left: 10px;
         }
 
+        .width-50px label
+        {
+                margin-right: 5px;
+        }
+
+        .btn-show {
+    background: #2379d1;
+    border-color: #2379d1;
+    color: #fff;
+}
+        .btn-show:hover, .btn-show:focus {
+    color: #fff;
+}
+
+        .btn
+        {
+            height: 34px;
+        }
+
+        #ProductTable
+        {
+            margin-top: 10px;
+        }
 
         /*Rev end 4.0*/
     </style>
@@ -2692,9 +2719,9 @@ Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : List
                         </dxe:ASPxComboBox>
                     </div>
                 </div>--%>
-            </div>
+            
             <%--Rev 4.0--%>
-            <div>
+            <%--<div>--%>
                 <div class="width-50px" id="divProd" runat="server">
                     <label>Products(s)</label>
                     <div style="position: relative">
@@ -2713,8 +2740,10 @@ Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : List
                 { %>
                     <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
                 <% } %>
-            </div>
+            <%--</div>--%>
+                </div>
             <%--End of Rev 4.0--%>
+                
  
             <%--debjyoti 22-12-2016--%>
             <dxe:ASPxPopupControl ID="ASPXPopupControl" runat="server"
