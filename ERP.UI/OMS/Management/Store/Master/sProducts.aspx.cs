@@ -1,6 +1,6 @@
 /*****************************************************************************************************************************
  * Rev 1.0     Sanchita    V2.0.38     31-01-2023      An error is showing while saving a new product. Refer: 25631
- * Rev 2.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25668
+ * Rev 2.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25709
  * *****************************************************************************************************************************/
 using System;
 using System.Data;

@@ -3,7 +3,7 @@ Rev 1.0     Sanchita    V2.0.38     20/01/2023      Need to increase the length 
 Rev 2.0     Sanchita    V2.0.39     08/02/2023      When a product is Modified and saved instantly without clicking on Product Attribute
                                                     button, the product attributes becomes blank in mapping tables. Refer: 25655
 Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modification. Refer: 25656
-Rev 4.0     Sanchita    V2.0.39     03/01/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25668
+Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25709
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
