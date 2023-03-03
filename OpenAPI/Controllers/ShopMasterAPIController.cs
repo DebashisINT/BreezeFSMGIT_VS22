@@ -16,9 +16,9 @@ using System.Web.UI.WebControls;
 //https://localhost:44395/API/ShopMasterAPI/List
 
 //HEADERS
-//Content - Type : application / json
-//account - id : 31331 / 55454854
-//api - key : AAAAZj4rINg: APA91bHmnhpJuY6068fHwK3RFHPdWAEWkljlkjlkjklEwQ39jf8xzSm2IFDMwifn9e_A6AY8EYWmnP5IVFyJVyFmgv555dsdsemofko53fYEcJUsbpMYMxinjnzcTdOHQwfSfbenM_tzr
+//Content-Type : application/json
+//account-id : 31331/55454854
+//api-key : AAAAZj4rINg: APA91bHmnhpJuY6068fHwK3RFHPdWAEWkljlkjlkjklEwQ39jf8xzSm2IFDMwifn9e_A6AY8EYWmnP5IVFyJVyFmgv555dsdsemofko53fYEcJUsbpMYMxinjnzcTdOHQwfSfbenM_tzr
 
 
 //BODY
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 //    "user_id":"378",
 //    "Uniquecont":"0"
 //}
-
 //RAW - JSON
 //
 
