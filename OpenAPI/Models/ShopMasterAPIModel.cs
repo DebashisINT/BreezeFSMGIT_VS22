@@ -11,7 +11,6 @@ namespace OpenAPI.Models
         public string session_token { get; set; }
 
         public List<ShopsMastersAPI> shopmaster_list { get; set; }
-
     }
 
     public class ShopsMasterAPIInput
@@ -28,8 +27,6 @@ namespace OpenAPI.Models
         public string message { get; set; }
         public ShopsMasterAPIDatalists data { get; set; }
     }
-
-  
 
     public class ShopsMastersAPI
     {
