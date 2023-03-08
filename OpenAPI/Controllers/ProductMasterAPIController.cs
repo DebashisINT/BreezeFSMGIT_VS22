@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*******************************************************************************************************
+ * Written by Priti for V2.0.39 on 08/03/2023 - Implement Open API for Product Master 
+ ********************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -7,6 +11,23 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using OpenAPI.Models;
+
+// POSTMAN HIT CREDENTIALS
+//https://localhost:44395/API/ProductMasterAPI/GetProductDetailsBySearchKey
+
+//HEADERS
+//account-id : 01360645-267C-4690-ABC5-A3D66B300B8731331/55454854
+//api-key : 01360645-267C-4690-ABC5-A3D66B300B87GVDBHFJNFGJMUJHIJIFGG
+
+
+//BODY
+//{
+//    session_token: "",
+//    SearchKey: "a",
+//    Uniquecont: "5"
+//}
+//RAW - JSON
+//
 
 namespace OpenAPI.Controllers
 {
