@@ -65,8 +65,30 @@ namespace OpenAPI.Controllers
                 APIKey = APIheaders.GetValues("api-key").First();
             }
 
-            String OpenAPIKey = System.Configuration.ConfigurationManager.AppSettings["OpenAPIKey"];
-            String OpenAPIAccountId = System.Configuration.ConfigurationManager.AppSettings["OpenAPIAccountId"];
+            //String OpenAPIKey = System.Configuration.ConfigurationManager.AppSettings["OpenAPIKey"];
+            //String OpenAPIAccountId = System.Configuration.ConfigurationManager.AppSettings["OpenAPIAccountId"];
+            String OpenAPIKey = "";
+            String OpenAPIAccountId = "";
+
+            DataTable dtCobfigData = new DataTable();
+            String con1 = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd1 = new SqlCommand();
+            SqlConnection sqlcon1 = new SqlConnection(con1);
+            sqlcon1.Open();
+            sqlcmd1 = new SqlCommand("SP_API_GetshopMasterlists", sqlcon1);
+            sqlcmd1.Parameters.AddWithValue("@ACTION", "GETKEY");
+            sqlcmd1.Parameters.AddWithValue("@OPENAPI_CLIENTNAME", "FSM_ITC");
+            sqlcmd1.Parameters.AddWithValue("@MODULE_NAME", "SHOP MASTER");
+            sqlcmd1.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da1 = new SqlDataAdapter(sqlcmd1);
+            da1.Fill(dtCobfigData);
+            sqlcon1.Close();
+            if (dtCobfigData.Rows.Count > 0)
+            {
+                OpenAPIKey = Convert.ToString(dtCobfigData.Rows[0]["OPENAPI_KEY"]);
+                OpenAPIAccountId = Convert.ToString(dtCobfigData.Rows[0]["OPENAPI_ACCOUNTID"]);
+            }
+
 
             if (APIKey=="" || APIAccountid=="")
             {
@@ -112,6 +134,7 @@ namespace OpenAPI.Controllers
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("SP_API_GetshopMasterlists", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "GETLIST");
                     sqlcmd.Parameters.AddWithValue("@session_token", model.session_token);
                     sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
                     sqlcmd.Parameters.AddWithValue("@Uniquecont", model.Uniquecont);
