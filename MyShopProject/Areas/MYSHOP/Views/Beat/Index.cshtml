@@ -439,8 +439,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 33px;
-            right: 13px;
+            top: 8px;
+            right: -2px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -818,7 +818,7 @@
                                 </div>*@
 
                             <label>Route <span class="red">*</span></label>
-                            <div>
+                            <div class="h-branch-select">
                                 @Html.DropDownListFor(m => m.Route, new SelectList(Model.RouteList, "RouteId", "RouteName", Model.RouteId), new { @id = "ddlRoute", @class = "form-control" })
                             </div>
                             @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
@@ -908,7 +908,7 @@
                                 <input type="text" id="txtRouteName" maxlength="100" class="form-control" />
                             </div>
                             <label>Area <span class="red">*</span></label>
-                            <div>
+                            <div class="h-branch-select">
                                 @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlArea", @class = "form-control" })
                             </div>
                         </div>
