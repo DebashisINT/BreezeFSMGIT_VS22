@@ -156,12 +156,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductMasterAPIController.cs" />
     <Compile Include="Controllers\ShopMasterAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelLocationupdate.cs" />
+    <Compile Include="Models\ModelProduct.cs" />
     <Compile Include="Models\ModelShop.cs" />
     <Compile Include="Models\ShopMasterAPIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
