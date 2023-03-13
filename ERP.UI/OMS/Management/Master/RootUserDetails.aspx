@@ -1,6 +1,7 @@
 <%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                09-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+2.0                13-03-2023        2.0.39           Pallab              "Restriction Attendance from Home Location" field issue fix 
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -627,7 +628,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             content: url(../../../assests/images/left-arw.png);
             position: absolute;
             top: 33px;
-            right: 13px;
+            right: 8px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -639,7 +640,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             /* padding: 10px 0; */
             border-radius: 4px;
             text-align: center;
-            line-height: 16px;
+            line-height: 18px;
             z-index: 0;
         }
 
@@ -962,6 +963,18 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     }
 
     /*Rev end 1.0*/
+
+    /*Rev 2.0*/
+    .col-md-3
+    {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .dxeTextBox_PlasticBlue.form-control
+    {
+        padding: 2px 12px !important;
+    }
+    /*Rev end 2.0*/
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -1106,9 +1119,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 </div>
                 <%--Rev 1.0--%>
                 <%--<div class="col-md-3 mt-3" runat="server" id="DivisHomeRestrictAttendance">--%>
-                  <div class="col-md-4 mt-3 h-branch-select" runat="server" id="DivisHomeRestrictAttendance">
+                  <div class="col-md-3 mt-3 h-branch-select" runat="server" id="DivisHomeRestrictAttendance">
                       <%--Rev end 1.0--%>
-                    <label title="Restriction Attendance from Home Location">Restriction Attendance from Home Location:</label>
+                      <%--Rev 2.0 : label change--%>
+                    <%--<label title="Restriction Attendance from Home Location">Restriction Attendance from Home Location:</label>--%>
+                    <label title="Restriction Attendance from Home Location">Restrict Attend. from Home Location:</label>
+                    <%--Rev end 2.0--%>
                     <div class="reltv">
                         <asp:DropDownList ID="ddlRestrictionHomeLocation" runat="server" CssClass="sml" Width="100%">
                             <asp:ListItem Value="0">Home Restriction</asp:ListItem>
@@ -1177,7 +1193,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         <dxe:ASPxTextBox ID="txtDeviceInfoMin" Text="0" ClientInstanceName="ctxtDeviceInfoMin" MaxLength="2" runat="server" Width="100%" CssClass="form-control">
                             <MaskSettings Mask="<0..99>" />
                         </dxe:ASPxTextBox>
-                        <span style="position: absolute; right: 4px; top: 3px; background: #e9e9e9; padding: 6px; border-radius: 3px;">mins</span>
+                        <span style="position: absolute; right: 3px; top: 3px; background: #e9e9e9; padding: 4px 6px; border-radius: 3px;">mins</span>
 
                     </div>
                 </div>
