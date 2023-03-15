@@ -499,7 +499,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     .btn-sm, .btn-xs
     {
-        padding: 7px 10px !important;
+        padding: 5px 10px !important;
+    }
+
+    #drdExport
+    {
+        height: 32px;
     }
 
     /*Rev end 1.0*/
