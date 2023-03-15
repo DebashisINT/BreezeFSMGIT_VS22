@@ -2655,6 +2655,11 @@ Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : List
         }
 
         /*Rev end 4.0*/
+
+        #txtPro_Description , #txtPro_Description textarea
+        {
+            border-radius: 4px;
+        }
     </style>
 
 </asp:Content>

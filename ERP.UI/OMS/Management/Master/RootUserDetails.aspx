@@ -1,7 +1,7 @@
 <%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                09-02-2023        2.0.39           Pallab              25656 : Master module design modification 
-2.0                13-03-2023        2.0.39           Pallab              "Restriction Attendance from Home Location" field issue fix 
+2.0                13-03-2023        2.0.39           Pallab              25731 : Check box design issue in User Master 
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"

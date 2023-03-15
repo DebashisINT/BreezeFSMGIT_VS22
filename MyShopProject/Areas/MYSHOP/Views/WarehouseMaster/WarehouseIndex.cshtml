@@ -178,7 +178,7 @@
             /* padding: 10px 0; */
             border-radius: 4px;
             text-align: center;
-            line-height: 19px;
+            line-height: 18px;
             z-index: 0;
         }
 
@@ -926,12 +926,12 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-2">
+                    <div class="col-md-2 h-branch-select">
                         <label>Country <span class="red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.DropDownList("ddlCountry", new SelectList(Model.Country_List, "cou_id", "cou_country"), new { @name = "from", @class = "full form-control", @Onchange = "CoutryChange()" })
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 h-branch-select">
                         <label>State <span class="red">*</span></label>
                         <div id="divState">
                             @*<input type="text" class="form-control" />*@
@@ -939,7 +939,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2  h-branch-select">
                         <label>City/District <span class="red">*</span></label>
                         <div id="divCity">
                             @*<input type="text" class="form-control" />*@
