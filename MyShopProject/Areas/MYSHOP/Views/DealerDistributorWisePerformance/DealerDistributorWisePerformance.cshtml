@@ -1,6 +1,8 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                07-02-2023        2.0.39           Pallab              25576: Report page design modification *@
+@*2.0		         16/03/2023        V2.0.39			Sanchita	        All months are not showing for Previous year while selecting parameter
+                                                                            in Dealer/Distributor wise Sales report. Refer: 25732*@
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.DealerDistributorWisePerformanceModel
@@ -67,6 +69,35 @@
 
     }
 
+    // Rev 2.0
+    function BindMonths() {
+        var years = $('#ddlYear').val();
+        MonthId = "";
+        if (years == null || years == "") {
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/DealerDistributorWisePerformance/PupolateMonthList",
+                data: { "years": years },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var listItems = "";
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += "<option value='" + data[i].MID + "'>" + data[i].MonthName + "</option>";
+                    }
+                    $("#ddlMonth").html(listItems);
+                },
+                error: function () {
+                    //
+                }
+            });
+
+        }
+    }
+    // End of Rev 2.0
 </script>
 
 <script type="text/javascript" src="~/Scripts/globalize.js"></script>
@@ -455,7 +486,7 @@
 
     /*Rev 1.0*/
 
-    #BranchGridLookup {
+    #MonthGridLookup {
         min-height: 34px;
         border-radius: 5px;
     }
@@ -836,26 +867,48 @@
 <div class="container">
     <div class="backBox mt-5  p-3">
         <div class="row ">
+
             @*Rev 1.0*@
             @*<div class="col-md-2" id="mnthIntro">*@
-            <div class="col-md-2 h-branch-select" id="mnthIntro">
-                @*Rev end 1.0*@
-                <label>Month</label>
-                <div>
-                    @Html.DropDownList("ddlMonth", new SelectList(Model.MonthList, "MID", "MonthName"), new { @name = "from", @class = "full form-control" })
+            @*Rev 2.0*@
+            <!--<div class="col-md-2 h-branch-select" id="mnthIntro">-->
+            @*Rev end 1.0*@
+            <!--<label>Month</label>
+            <div>
+                @*@Html.DropDownList("ddlMonth", new SelectList(Model.MonthList, "MID", "MonthName"), new { @name = "from", @class = "full form-control" })*@
 
-                </div>
             </div>
+            </div>-->
             @*Rev 1.0*@
             @*<div class="col-md-2" id="YersIntro">*@
-            <div class="col-md-2 h-branch-select" id="YersIntro">
-                @*Rev end 1.0*@
-                <label>Year</label>
-                <div>
-                    @Html.DropDownList("ddlYear", new SelectList(Model.YearList, "ID", "YearName"), new { @name = "from", @class = "full form-control" })
+            <!--<div class="col-md-2 h-branch-select" id="YersIntro">-->
+            @*Rev end 1.0*@
+            <!--<label>Year</label>
+            <div>
+               @* @Html.DropDownList("ddlYear", new SelectList(Model.YearList, "ID", "YearName"), new { @name = "from", @class = "full form-control" }) *@
 
-                </div>
             </div>
+            </div>-->
+
+            <div class="col-md-2 h-branch-select" id="YersIntro">
+                <label></label>
+                <select id="ddlYear" name="ddlYear" onchange="BindMonths()" data-placeholder="Click or Type Here..." class="whclass selectH">
+                    @foreach (var item in Model.YearList)
+                    {
+                        <option value="@item.ID">@item.YearName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2 h-branch-select" id="mnthIntro">
+                <label>Month</label>
+                <select id="ddlMonth" name="ddlMonth" data-placeholder="Click or Type Here..." class="whclass selectH">
+                    @foreach (var item in Model.MonthList)
+                    {
+                        <option value="@item.MID">@item.MonthName</option>
+                    }
+                </select>
+            </div>
+            @*End of Rev 2.0*@
             <div class="col-md-4 col-lg-2" id="stateIntro">
                 <label>State</label>
                 <div>
@@ -899,11 +952,11 @@
             <input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />
         </div>
         @*Rev 1.0*@
-    @*</div>
-</div>
-<div class="container">
-    <div class="backBox mt-4 p-3 ">*@
-    @*Rev end 1.0*@
+        @*</div>
+            </div>
+            <div class="container">
+                <div class="backBox mt-4 p-3 ">*@
+        @*Rev end 1.0*@
         <div class="mx-4 ">
             <div class="options">
                 <div class="options-item">
