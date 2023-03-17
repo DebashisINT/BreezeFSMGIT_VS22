@@ -1,5 +1,6 @@
 ﻿//====================================================== Revision History ==========================================================
 //1.0  03-02-2023    2.0.38    Priti     0025604: Enhancement Required in the Order Summary Report
+//2.0  17-03-2023    2.0.39    Priti     0025734: Separate Design required to exclude the MRP & Discount fields in the Sales Order output if these settings are off in Sales Order
 //====================================================== Revision History ==========================================================
 
 using System;
@@ -276,6 +277,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             DesignList desig = new DesignList();
             foreach (string filename in filePaths)
             {
+                //Rev 2.0
+                desig = new DesignList();
+                //Rev 2.0 End
                 string reportname = Path.GetFileNameWithoutExtension(filename);
                 string name = "";
                 if (reportname.Split('~').Length > 1)
