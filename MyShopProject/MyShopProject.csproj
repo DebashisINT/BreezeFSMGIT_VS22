@@ -227,6 +227,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ActivityController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ActivityMasterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ActivityReportController.cs" />
@@ -386,12 +390,17 @@
     <Compile Include="Areas\MYSHOP\Controllers\WarehouseMasterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\Work_DashboardReportController.cs" />
     <Compile Include="Areas\MYSHOP\MYSHOPAreaRegistration.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="DAL\ExecProcedure.cs" />
     <Compile Include="DAL\KeyObj.cs" />
     <Compile Include="DAL\KeyValue.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityMasterModel.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -525,6 +534,7 @@
     <Compile Include="Repostiory\PartialHeaderMenu\PartialHeader.cs" />
     <Compile Include="Repostiory\ShiftMaster\IShiftMasterLogic.cs" />
     <Compile Include="Repostiory\ShiftMaster\ShiftMasterLogic.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\FSMDashboard.cshtml" />
@@ -1062,6 +1072,7 @@
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\UtilityLayer.dll" />
+    <Content Include="Global.asax" />
     <Content Include="Models\ShopAddress.asmx" />
     <Content Include="obj\Debug\MyShopProject.csproj.FileListAbsolute.txt" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -1940,6 +1951,15 @@
     <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\Report.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\_BulkModifyManualLogView.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\BulkModifyLog.cshtml" />
+    <Content Include="Views\Common\_PartialMenu.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2992,7 +3012,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_Start\" />
     <Folder Include="Areas\MYSHOP\Models\" />
     <Folder Include="Areas\MYSHOP\Views\ActivityTypeMaster\" />
     <Folder Include="Areas\MYSHOP\Views\AlermConfiguration\" />
