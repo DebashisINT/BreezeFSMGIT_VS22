@@ -1,4 +1,6 @@
-﻿
+﻿//====================================================== Revision History ==========================================================
+//1.0  20-02-2023    2.0.39    Priti     Close sql connection after close the SqlDataReader
+//====================================================== Revision History ==========================================================
 
 using System;
 using System.Collections.Generic;
@@ -208,7 +210,9 @@ namespace BusinessLogicLayer
 
             // We close the DataReader
             lsdr.Close();
-
+            //Rev 1.0
+            CloseConnection();
+            //Rev 1.0 End
             return vRetVal;
         }
 
@@ -1945,7 +1949,9 @@ namespace BusinessLogicLayer
                 CountNoRow = (int)lsdr[0];
             }
             lsdr.Close();
-
+            //Rev 1.0
+            proc.CloseConnection();
+            //Rev 1.0 End
             if (CountNoRow > 0)
             {
                 //Now define length of an array
@@ -1981,7 +1987,9 @@ namespace BusinessLogicLayer
                     messg[0, 0] = "n";
                     // We close the DataReader
                     lsdr.Close();
-
+                    //Rev 1.0
+                    proc.CloseConnection();
+                    //Rev 1.0 End
                     return messg;
                 }
             }
@@ -1991,13 +1999,17 @@ namespace BusinessLogicLayer
                 messg[0, 0] = "n";
                 // We close the DataReader
                 lsdr.Close();
-
+                //Rev 1.0
+                proc.CloseConnection();
+                //Rev 1.0 End
                 return messg;
             }
 
             // We close the DataReader
             lsdr.Close();
-
+            //Rev 1.0
+            proc.CloseConnection();
+            //Rev 1.0 End
             return vRetVal;
         }
 
@@ -2030,10 +2042,16 @@ namespace BusinessLogicLayer
                     CountNoRow = (int)lsdr[0];
                 }
                 lsdr.Close();
+                //Rev 1.0
+                proc.CloseConnection();
+                //Rev 1.0 End
             }
             else
             {
                 lsdr.Close();
+                //Rev 1.0
+                proc.CloseConnection();
+                //Rev 1.0 End
             }
             //Now define length of an array
             vRetVal = new string[CountNoRow, NoField];
@@ -2070,12 +2088,17 @@ namespace BusinessLogicLayer
                 string[,] messg = new string[1, 1];
                 messg[0, 0] = "n";
                 lsdr.Close();
-
+                //Rev 1.0
+                proc.CloseConnection();
+                //Rev 1.0 End
                 return messg;
             }
 
             // We close the DataReader
             lsdr.Close();
+             //Rev 1.0
+            proc.CloseConnection();
+            //Rev 1.0 End
             return vRetVal;
         }
 
@@ -3020,7 +3043,9 @@ namespace BusinessLogicLayer
                     }
                 }
                 lsdr.Close();
-
+                //Rev 1.0
+                proc.CloseConnection();
+                //Rev 1.0 End
                 int length = ID.Length;
                 int intpart = int.Parse(ID.Substring(length - 7, 7));
                 int newNo = intpart + 1;
@@ -6918,7 +6943,11 @@ namespace BusinessLogicLayer
                 Dr.Close();
             }
             catch { Dr.Close(); }
-            finally { Dr.Close(); }
+            finally 
+            { 
+                Dr.Close();
+                proc.CloseConnection();
+            }
             return Date;
         }
 
