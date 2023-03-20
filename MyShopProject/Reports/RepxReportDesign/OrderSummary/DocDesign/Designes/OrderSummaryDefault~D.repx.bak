@@ -864,7 +864,7 @@ namespace XtraReportSerialization {
             this.table3.Name = "table3";
             this.table3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.tableRow4});
-            this.table3.SizeF = new System.Drawing.SizeF(779.16F, 19.79F);
+            this.table3.SizeF = new System.Drawing.SizeF(779.02F, 19.79F);
             this.table3.StylePriority.UseBorders = false;
             this.table3.StylePriority.UseFont = false;
             this.table3.StylePriority.UseForeColor = false;
@@ -940,7 +940,7 @@ namespace XtraReportSerialization {
             this.tableCell1.StylePriority.UseTextAlignment = false;
             this.tableCell1.Text = "Rate";
             this.tableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            this.tableCell1.Weight = 0.42065123095455759D;
+            this.tableCell1.Weight = 0.42695266363109075D;
             // 
             // tableCell4
             // 
@@ -953,7 +953,7 @@ namespace XtraReportSerialization {
             this.tableCell4.StylePriority.UseTextAlignment = false;
             this.tableCell4.Text = "Amount";
             this.tableCell4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            this.tableCell4.Weight = 0.45248429708084847D;
+            this.tableCell4.Weight = 0.44571712744565173D;
             // 
             // table4
             // 
@@ -962,11 +962,11 @@ namespace XtraReportSerialization {
                         | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.table4.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
             this.table4.ForeColor = System.Drawing.Color.Black;
-            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(17.73F, 0F);
+            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(19.79F, 0F);
             this.table4.Name = "table4";
             this.table4.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.tableRow6});
-            this.table4.SizeF = new System.Drawing.SizeF(776.04F, 26.04F);
+            this.table4.SizeF = new System.Drawing.SizeF(772.92F, 26.04F);
             this.table4.StylePriority.UseBorderColor = false;
             this.table4.StylePriority.UseBorders = false;
             this.table4.StylePriority.UseFont = false;
@@ -985,7 +985,7 @@ namespace XtraReportSerialization {
             // 
             // tableCell37
             // 
-            this.tableCell37.Borders = DevExpress.XtraPrinting.BorderSide.Left;
+            this.tableCell37.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.tableCell37.CanShrink = true;
             this.tableCell37.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
                         new DevExpress.XtraReports.UI.XRBinding("Text", null, "Header.HeaderDetails.SEQ")});
@@ -999,7 +999,7 @@ namespace XtraReportSerialization {
             this.tableCell37.StylePriority.UsePadding = false;
             this.tableCell37.StylePriority.UseTextAlignment = false;
             this.tableCell37.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
-            this.tableCell37.Weight = 0.19432858680021547D;
+            this.tableCell37.Weight = 0.20079584216892674D;
             // 
             // tableCell40
             // 
@@ -1015,7 +1015,7 @@ namespace XtraReportSerialization {
             this.tableCell40.StylePriority.UsePadding = false;
             this.tableCell40.StylePriority.UseTextAlignment = false;
             this.tableCell40.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
-            this.tableCell40.Weight = 0.90678382487063791D;
+            this.tableCell40.Weight = 0.89391149928099156D;
             // 
             // tableCell42
             // 
@@ -1047,11 +1047,11 @@ namespace XtraReportSerialization {
             this.tableCell39.StylePriority.UsePadding = false;
             this.tableCell39.StylePriority.UseTextAlignment = false;
             this.tableCell39.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            this.tableCell39.Weight = 0.38548573106385153D;
+            this.tableCell39.Weight = 0.388657173600431D;
             // 
             // tableCell14
             // 
-            this.tableCell14.Borders = DevExpress.XtraPrinting.BorderSide.Right;
+            this.tableCell14.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.tableCell14.CanShrink = true;
             this.tableCell14.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
                         new DevExpress.XtraReports.UI.XRBinding("Text", null, "Header.HeaderDetails.Product_Price")});
@@ -1061,18 +1061,18 @@ namespace XtraReportSerialization {
             this.tableCell14.StylePriority.UseFont = false;
             this.tableCell14.StylePriority.UseTextAlignment = false;
             this.tableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            this.tableCell14.Weight = 0.40809003228045254D;
+            this.tableCell14.Weight = 0.40162277691174131D;
             // 
             // table2
             // 
             this.table2.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
                         | DevExpress.XtraPrinting.BorderSide.Right) 
                         | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(17.2F, 0F);
+            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(18.23F, 0F);
             this.table2.Name = "table2";
             this.table2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.tableRow2});
-            this.table2.SizeF = new System.Drawing.SizeF(776.04F, 25F);
+            this.table2.SizeF = new System.Drawing.SizeF(774.44F, 25F);
             this.table2.StylePriority.UseBorders = false;
             // 
             // tableRow2
@@ -1087,15 +1087,14 @@ namespace XtraReportSerialization {
             // tableCell5
             // 
             this.tableCell5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tableCell5.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
-                        | DevExpress.XtraPrinting.BorderSide.Right) 
+            this.tableCell5.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Top | DevExpress.XtraPrinting.BorderSide.Right) 
                         | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.tableCell5.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
                         new DevExpress.XtraReports.UI.XRBinding("Text", null, "Header.HeaderDetails.AmountInWords")});
             this.tableCell5.Name = "tableCell5";
             this.tableCell5.StylePriority.UseBorderColor = false;
             this.tableCell5.StylePriority.UseBorders = false;
-            this.tableCell5.Weight = 2.08463190115682D;
+            this.tableCell5.Weight = 2.0786763626191966D;
             // 
             // tableCell6
             // 
@@ -1103,13 +1102,12 @@ namespace XtraReportSerialization {
             this.tableCell6.Name = "tableCell6";
             this.tableCell6.StylePriority.UseBorderColor = false;
             this.tableCell6.Text = "Total Amount:";
-            this.tableCell6.Weight = 0.37397569895622368D;
+            this.tableCell6.Weight = 0.38332364277601083D;
             // 
             // tableCell7
             // 
             this.tableCell7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tableCell7.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
-                        | DevExpress.XtraPrinting.BorderSide.Right) 
+            this.tableCell7.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
                         | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.tableCell7.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
                         new DevExpress.XtraReports.UI.XRBinding("Text", null, "Header.HeaderDetails.Product_Price")});
@@ -1120,7 +1118,7 @@ namespace XtraReportSerialization {
             summary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Group;
             this.tableCell7.Summary = summary1;
             this.tableCell7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
-            this.tableCell7.Weight = 0.50524147482556048D;
+            this.tableCell7.Weight = 0.49573033119306581D;
             // 
             // sqlDataSource1
             // 
@@ -1202,7 +1200,7 @@ namespace XtraReportSerialization {
             // crossLine1
             // 
             this.crossLine1.EndBand = this.PageFooter1;
-            this.crossLine1.EndPointFloat = new DevExpress.Utils.PointFloat(16.67F, 0.01F);
+            this.crossLine1.EndPointFloat = new DevExpress.Utils.PointFloat(16.67F, 2.08F);
             this.crossLine1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.crossLine1.LocationFloat = new DevExpress.Utils.PointFloat(16.67F, 0F);
             this.crossLine1.Name = "crossLine1";
