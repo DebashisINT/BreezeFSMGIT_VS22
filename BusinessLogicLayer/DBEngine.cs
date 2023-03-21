@@ -3004,7 +3004,6 @@ namespace BusinessLogicLayer
         // getBranchForLogin
         public string getBranchForLogin(string BranchId, string ListOfUser)
         {
-            string actual = "";
             DataTable dtBranch = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_getBranch");
             proc.AddPara("@ParentBranchID", BranchId);
