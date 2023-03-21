@@ -359,7 +359,10 @@ namespace BusinessLogicLayer
                             {
                                 /////NewMethodwFindOUtEmployeeHierarch
                                 HttpContext.Current.Session["userchildHierarchy"] = GeEmployeeHierarchy(ValidUser[0, 15].ToString());
-                                string branch = getBranch(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
+                                // Rev 2.0
+                                //string branch = getBranch(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
+                                string branch = getBranchForLogin(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
+                                // End of Rev 2.0
                                 actual = "";
                                 HttpContext.Current.Session["userbranchHierarchy"] = branch;
                             }
@@ -2983,19 +2986,25 @@ namespace BusinessLogicLayer
 
         public string getBranch(string BranchId, string ListOfUser)
         {
-            // Rev 2.0
-            //DataTable DtSecond = GetDataTable(" tbl_master_branch ", " branch_id ", " branch_parentId= " + BranchId);
-            //if (DtSecond.Rows.Count != 0)
-            //{
-            //    for (int i = 0; i < DtSecond.Rows.Count; i++)
-            //    {
-            //        ListOfUser += DtSecond.Rows[i][0].ToString() + ",";
-            //        actual += DtSecond.Rows[i][0].ToString() + ",";
-            //        getBranch(DtSecond.Rows[i][0].ToString(), ListOfUser);
-            //    }
-            //}
+            DataTable DtSecond = GetDataTable(" tbl_master_branch ", " branch_id ", " branch_parentId= " + BranchId);
+            if (DtSecond.Rows.Count != 0)
+            {
+                for (int i = 0; i < DtSecond.Rows.Count; i++)
+                {
+                    ListOfUser += DtSecond.Rows[i][0].ToString() + ",";
+                    actual += DtSecond.Rows[i][0].ToString() + ",";
+                    getBranch(DtSecond.Rows[i][0].ToString(), ListOfUser);
+                }
+            }
 
-            string strBranchList = "";
+            return actual;
+        }
+
+        // Rev 2.0
+        // getBranchForLogin
+        public string getBranchForLogin(string BranchId, string ListOfUser)
+        {
+            string actual = "";
             DataTable dtBranch = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_getBranch");
             proc.AddPara("@ParentBranchID", BranchId);
@@ -3003,13 +3012,13 @@ namespace BusinessLogicLayer
 
             if (dtBranch.Rows.Count > 0)
             {
-                strBranchList = Convert.ToString(dtBranch.Rows[0][0]);
+                actual = Convert.ToString(dtBranch.Rows[0][0]);
             }
-            // End of Rev 2.0
-
-            return strBranchList;
+           
+            return actual;
         }
 
+        // End of Rev 2.0
 
         //
 
