@@ -1,5 +1,6 @@
 ﻿//====================================================== Revision History ==========================================================
-//1.0  20-02-2023    2.0.39    Priti     Close sql connection after close the SqlDataReader
+//1.0  20-02-2023    2.0.39    Priti      Close sql connection after close the SqlDataReader
+//2.0  21-03-2023    2.0.39    Sanchita   Dashboard optimization. Refer: 25741
 //====================================================== Revision History ==========================================================
 
 using System;
@@ -2982,17 +2983,31 @@ namespace BusinessLogicLayer
 
         public string getBranch(string BranchId, string ListOfUser)
         {
-            DataTable DtSecond = GetDataTable(" tbl_master_branch ", " branch_id ", " branch_parentId= " + BranchId);
-            if (DtSecond.Rows.Count != 0)
+            // Rev 2.0
+            //DataTable DtSecond = GetDataTable(" tbl_master_branch ", " branch_id ", " branch_parentId= " + BranchId);
+            //if (DtSecond.Rows.Count != 0)
+            //{
+            //    for (int i = 0; i < DtSecond.Rows.Count; i++)
+            //    {
+            //        ListOfUser += DtSecond.Rows[i][0].ToString() + ",";
+            //        actual += DtSecond.Rows[i][0].ToString() + ",";
+            //        getBranch(DtSecond.Rows[i][0].ToString(), ListOfUser);
+            //    }
+            //}
+
+            string strBranchList = "";
+            DataTable dtBranch = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_getBranch");
+            proc.AddPara("@ParentBranchID", BranchId);
+            dtBranch = proc.GetTable();
+
+            if (dtBranch.Rows.Count > 0)
             {
-                for (int i = 0; i < DtSecond.Rows.Count; i++)
-                {
-                    ListOfUser += DtSecond.Rows[i][0].ToString() + ",";
-                    actual += DtSecond.Rows[i][0].ToString() + ",";
-                    getBranch(DtSecond.Rows[i][0].ToString(), ListOfUser);
-                }
+                strBranchList = Convert.ToString(dtBranch.Rows[0][0]);
             }
-            return actual;
+            // End of Rev 2.0
+
+            return strBranchList;
         }
 
 
@@ -7825,19 +7840,29 @@ namespace BusinessLogicLayer
 
         public string GeEmployeeHierarchy(string EmployeeID)
         {
-            string[] InputName = new string[1];
-            string[] InputType = new string[1];
-            string[] InputValue = new string[1];
+            // Rev 2.0
+            //string[] InputName = new string[1];
+            //string[] InputType = new string[1];
+            //string[] InputValue = new string[1];
 
-            DataSet DsEmployeeSubTree = new DataSet();
+            //DataSet DsEmployeeSubTree = new DataSet();
 
-            InputName[0] = "empid";
-            InputType[0] = "I";
-            InputValue[0] = EmployeeID;
-            DsEmployeeSubTree = SQLProcedures.SelectProcedureArrDS("Hr_GetEmployeeSubTree", InputName, InputType, InputValue);
-            if (DsEmployeeSubTree.Tables.Count > 0)
-                if (DsEmployeeSubTree.Tables[0].Rows.Count > 0)
-                    return DsEmployeeSubTree.Tables[0].Rows[0][0].ToString();
+            //InputName[0] = "empid";
+            //InputType[0] = "I";
+            //InputValue[0] = EmployeeID;
+            //DsEmployeeSubTree = SQLProcedures.SelectProcedureArrDS("Hr_GetEmployeeSubTree", InputName, InputType, InputValue);
+            //if (DsEmployeeSubTree.Tables.Count > 0)
+            //    if (DsEmployeeSubTree.Tables[0].Rows.Count > 0)
+            //        return DsEmployeeSubTree.Tables[0].Rows[0][0].ToString();
+
+            DataTable DtEmployeeSubTree = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("Hr_GetEmployeeSubTree");
+            proc.AddPara("@empid", EmployeeID);
+            DtEmployeeSubTree = proc.GetTable();
+
+            if (DtEmployeeSubTree.Rows.Count > 0)
+                return DtEmployeeSubTree.Rows[0][0].ToString();
+            // End of Rev 2.0
 
             return "";
         }

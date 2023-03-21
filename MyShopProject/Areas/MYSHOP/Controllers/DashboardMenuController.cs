@@ -1,4 +1,7 @@
-﻿using System;
+﻿/******************************************************************************************************************
+ * Rev 1.0      21-03-2023      Sanchita    V2.0.39         Dashboard optimization. Refer: 25741
+ *******************************************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -681,10 +684,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             catch { }
             ViewBag.StateListCount = statedate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             TempData["statedate"] = statedate;
             TempData["statedateobj"] = statedateobj;
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             return PartialView(statedateobj);
         }
@@ -697,10 +700,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<StateData> statedate = new List<StateData>();
             List<StateData> statedateobj = new List<StateData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if (TempData["statedateobj"] == null)
             {
-                // End of Rev Sanchita
+                // End of Rev 1.0
                 try
                 {
                     StateData obj = null;
@@ -715,7 +718,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 catch { }
                 ViewBag.StateListCount = statedate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -724,7 +727,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.StateListCount = statedate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             return PartialView(statedateobj);
         }
@@ -762,10 +765,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             catch { }
             ViewBag.BranchListCount = branchdate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             TempData["branchdate"] = branchdate;
             TempData["branchdateobj"] = branchdateobj;
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             if (chkState == 1)
             {
@@ -791,10 +794,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<BranchData> branchdate = new List<BranchData>();
             List<BranchData> branchdateobj = new List<BranchData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if (TempData["branchdateobj"] == null)
             {
-            // End of Rev Sanchita
+            // End of Rev 1.0
                 string stateIds = dashboard.StateId;
                 try
                 {
@@ -816,7 +819,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 catch { }
                 ViewBag.BranchListCount = branchdate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -825,7 +828,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.BranchListCount = branchdate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             if (chkState == 1)
             {
@@ -855,9 +858,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<BranchData> branchdate = new List<BranchData>();
             List<BranchData> branchdateobj = new List<BranchData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if (TempData["branchdateobj"] == null) { 
-            // End of Rev Sanchita
+            // End of Rev 1.0
                 string stateIds = dashboard.StateId;
                 try
                 {
@@ -867,7 +870,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         stateid = "";
                     }
 
-                    // Rev Sanchita
+                    // Rev 1.0
                     //branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
                     if (TempData["branchdate"] != null)
                     {
@@ -877,7 +880,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
                     }
-                    // End of Rev Sanchita
+                    // End of Rev 1.0
 
                     foreach (var item in branchdate)
                     {
@@ -889,7 +892,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 catch { }
                 ViewBag.BranchListCount = branchdate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -898,7 +901,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.BranchListCount = branchdate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             if (chkState == 1)
             {
@@ -922,10 +925,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<StateData> statedate = new List<StateData>();
             List<StateData> statedateobj = new List<StateData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if(TempData["statedateobj"] == null)
             {
-            // End of Rev Sanchita
+            // End of Rev 1.0
                 try
                 {
                     StateData obj = null;
@@ -941,7 +944,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 catch { }
                 ViewBag.StateListCount = statedate.Count;
             
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -950,7 +953,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.StateListCount = statedate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
             return PartialView(statedateobj);
         }
         public ActionResult DashboardAttendance(List<DashboardSettingMapped> list)
@@ -2328,9 +2331,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<BranchData> branchdate = new List<BranchData>();
             List<BranchData> branchdateobj = new List<BranchData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if (TempData["branchdateobj"] == null) { 
-            // End of Rev Sanchita
+            // End of Rev 1.0
                 string stateIds = dashboard.StateId;
                 try
                 {
@@ -2340,7 +2343,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         stateid = "";
                     }
 
-                    // Rev Sanchita
+                    // Rev 1.0
                     //branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
                     if (TempData["branchdate"] != null)
                     {
@@ -2350,7 +2353,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
                     }
-                    // End of Rev Sanchita
+                    // End of Rev 1.0
 
                     foreach (var item in branchdate)
                     {
@@ -2363,7 +2366,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 catch { }
                 ViewBag.BranchListCount = branchdate.Count;
 
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -2372,7 +2375,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.BranchListCount = branchdate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             if (chkState == 1)
             {
@@ -2395,9 +2398,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             List<StateData> statedate = new List<StateData>();
             List<StateData> statedateobj = new List<StateData>();
 
-            // Rev Sanchita
+            // Rev 1.0
             if (TempData["statedateobj"] == null) { 
-            // End of Rev Sanchita
+            // End of Rev 1.0
                 try
                 {
                     StateData obj = null;
@@ -2412,7 +2415,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 catch { }
                 ViewBag.StateListCount = statedate.Count;
-            // Rev Sanchita
+            // Rev 1.0
             }
             else
             {
@@ -2421,7 +2424,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 ViewBag.StateListCount = statedate.Count;
             }
-            // End of Rev Sanchita
+            // End of Rev 1.0
           
             return PartialView(statedateobj);
         }
