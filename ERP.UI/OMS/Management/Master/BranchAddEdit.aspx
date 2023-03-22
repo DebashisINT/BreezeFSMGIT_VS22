@@ -856,11 +856,58 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             padding: 0 4px !important;
         }
 
+
         .dxeButtonDisabled_PlasticBlue {
             background: #ababab !important;
         }
 
         .chosen-container-single .chosen-single div {
+
+    .chosen-container-active.chosen-with-drop .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+    }
+
+        .chosen-container-active.chosen-with-drop .chosen-single div::after {
+            transform: rotate(90deg);
+            right: 7px;
+        }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 20px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    .date-select .form-control {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear , #txtCINVdate {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            /*content: '<';*/
+            content: url(../../../assests/images/left-arw.png);
+            position: absolute;
+            top: 37px;
+            right: 12px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+
             background: #094e8c;
             color: #fff;
             border-radius: 4px;
