@@ -3,6 +3,7 @@
 //2.0   V2.0.38     Debashis    25/01/2023      A new parameter has been added.Row: 808
 //3.0   V2.0.38     Debashis    02/02/2023      Some new parameters have been added.Row: 809
 //4.0   V2.0.38     Debashis    08/02/2023      Some new parameter has been added.Row: 812
+//5.0   V2.0.38     Debashis    22/03/2023      A new parameter has been added.Row: 815
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -191,6 +192,9 @@ namespace ShopAPI.Models
         public bool IsShowOtherInfoinShopMaster { get; set; }
         public bool IsShowQuotationFooterforEurobond { get; set; }
         //End of Rev 4.0 Row:812
+        //Rev 5.0 Row:815
+        public bool ShowApproxDistanceInNearbyShopList { get; set; }
+        //End of Rev 5.0 Row:815
     }
 
     public class ConfigurationModelInput
