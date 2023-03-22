@@ -604,9 +604,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             width:180px;
             /*margin-left:-8px*/
             margin-left: 0;
-            position: absolute;
+            /*position: absolute;
             right: 10px;
-            top: 10px;
+            top: 10px;*/
+            margin-bottom: 40px;
         }
     </style> 
     <style type="text/css">

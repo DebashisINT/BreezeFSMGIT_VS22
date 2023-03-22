@@ -897,7 +897,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             /*content: '<';*/
             content: url(../../../assests/images/left-arw.png);
             position: absolute;
-            top: 42px;
+            top: 37px;
             right: 12px;
             font-size: 18px;
             transform: rotate(269deg);
