@@ -296,18 +296,21 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 string reportValue = reportname;
                 //CmbDesignName.Items.Add(name, reportValue);
-                desig.name = name;
-                desig.reportValue = reportname;
+               
                 //REV 2.0
                 if(name== "OrderSummaryDefault")
                 {
                     if (IsDiscountInOrder != "0" && IsViewMRPInOrder != "0")
                     {
+                        desig.name = "OrderSummary_MRPDiscount";
+                        desig.reportValue = reportname;
                         Listobj.Add(desig);
                     }
                 }
                 else
                 {
+                    desig.name = name;
+                    desig.reportValue = reportname;
                     Listobj.Add(desig);
                 }
                 //REV 2.0 End
