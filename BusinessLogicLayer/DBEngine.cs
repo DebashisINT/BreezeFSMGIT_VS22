@@ -360,8 +360,8 @@ namespace BusinessLogicLayer
                                 /////NewMethodwFindOUtEmployeeHierarch
                                 HttpContext.Current.Session["userchildHierarchy"] = GeEmployeeHierarchy(ValidUser[0, 15].ToString());
                                 // Rev 2.0
-                                string branch = getBranch(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
-                                //string branch = getBranchForLogin(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
+                                //string branch = getBranch(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
+                                string branch = getBranchForLogin(HttpContext.Current.Session["userbranchID"].ToString(), "") + HttpContext.Current.Session["userbranchID"].ToString();
                                 // End of Rev 2.0
                                 actual = "";
                                 HttpContext.Current.Session["userbranchHierarchy"] = branch;
