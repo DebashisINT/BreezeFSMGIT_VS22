@@ -1,6 +1,8 @@
 //====================================================== Revision History ================================================================
 //Rev Number DATE              VERSION          DEVELOPER           CHANGES
 //1.0        22-03-2023        2.0.39           Priti               0025745 :While click the Add button of Branch Master, it is taking some time to load the page & take the input    
+//2.0        22-03-2023        2.0.39           Sanchita            While creating a new Branch, that branch should be mapped automatically for System Admin Employee/User
+//                                                                  Refer: 25744
 //====================================================== Revision History ================================================================
 
 
@@ -38,6 +40,9 @@ namespace ERP.OMS.Managemnent.Master
         BusinessLogicLayer.GenericStoreProcedure oGenericStoreProcedure;
         clsDropDownList clsdropdown = new clsDropDownList();
         BusinessLogicLayer.RemarkCategoryBL reCat = new BusinessLogicLayer.RemarkCategoryBL();
+        // Rev 2.0
+        public bool ActivateEmployeeBranchHierarchy { get; set; }
+        // End of Rev 2.0
         protected void Page_PreInit(object sender, EventArgs e)
         {
             // Code  Added and Commented By Priti on 21122016 to add Convert.ToString instead of ToString()
@@ -65,7 +70,19 @@ namespace ERP.OMS.Managemnent.Master
                 //{
                 //    //Page.ClientScript.RegisterStartupScript(GetType(), "SighOff", "<script>SignOff();</script>");
                 //}
-            
+                // Rev 2.0
+                CommonBL cbl = new CommonBL();
+                string mastersettings = cbl.GetSystemSettingsResult("IsActivateEmployeeBranchHierarchy");
+                if (mastersettings == "0")
+                {
+                    ActivateEmployeeBranchHierarchy = false;
+                }
+                else
+                {
+                    ActivateEmployeeBranchHierarchy = true;
+                }
+                // End of Rev 2.0
+
                 if (!IsPostBack)
                 {
                     //Debjyoti 23-12-2016
@@ -497,6 +514,17 @@ namespace ERP.OMS.Managemnent.Master
                         
                         if (noofRows > 0)
                         {
+                            // Rev 2.0
+                            if (ActivateEmployeeBranchHierarchy == false)
+                            {
+                                DataTable dt = new DataTable();
+                                ProcedureExecute proc = new ProcedureExecute("Prc_BranchMasterDetails");
+                                proc.AddPara("@action", "UpdateEmployeeBranchMap");
+                                proc.AddPara("@branch_internalId", NewId);
+                                dt = proc.GetTable();
+                            }
+                            // End of Rev 2.0
+
                             Page.ClientScript.RegisterStartupScript(GetType(), "pagecall", "<script>alert('Saved Successfully..');   window.location.href='/OMS/management/Master/branch.aspx'</script>");
                         }
                     }
@@ -514,6 +542,16 @@ namespace ERP.OMS.Managemnent.Master
                             if (udfTable != null)
                                 Session["UdfDataOnAdd"] = reCat.insertRemarksCategoryAddMode("Br", NewId, udfTable, Convert.ToString(Session["userid"]));
 
+                            // Rev 2.0
+                            if (ActivateEmployeeBranchHierarchy == false)
+                            {
+                                DataTable dt = new DataTable();
+                                ProcedureExecute proc = new ProcedureExecute("Prc_BranchMasterDetails");
+                                proc.AddPara("@action", "UpdateEmployeeBranchMap");
+                                proc.AddPara("@branch_internalId", NewId);
+                                dt = proc.GetTable();
+                            }
+                            // End of Rev 2.0
 
                             Page.ClientScript.RegisterStartupScript(GetType(), "pagecall456", "<script>alert('Saved Successfully..');    window.location.href='/OMS/management/Master/branch.aspx'</script>");
                         }
