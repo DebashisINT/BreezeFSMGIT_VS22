@@ -257,10 +257,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         //Mantis Issue 24944
         public JsonResult PrintSalesOrder(string OrderId)
         {
-            //REV 2.0
-            string IsDiscountInOrder = objSystemSettings.GetSystemSettingsResult("IsDiscountInOrder");
-            string IsViewMRPInOrder = objSystemSettings.GetSystemSettingsResult("IsViewMRPInOrder");
-            //REV 2.0 END
+            
             string[] filePaths = new string[] { };
             string DesignPath = "";
             if (ConfigurationManager.AppSettings["IsDevelopedZone"] != null)
@@ -294,31 +291,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     name = reportname;
                 }
-                string reportValue = reportname;
-                //CmbDesignName.Items.Add(name, reportValue);
-                //REV 2.0
-                if (name == "OrderSummary")
-                {
-                    desig.name = "OrderSummary_MRPDiscount";
-                }
-                else
-                {
-                    desig.name = name;
-                }
+                string reportValue = reportname;                
+
+                desig.name = name;
                 desig.reportValue = reportname;
-                
-                if (name== "OrderSummaryDefault")
-                {
-                    if (IsDiscountInOrder != "0" && IsViewMRPInOrder != "0")
-                    {                        
-                        Listobj.Add(desig);
-                    }
-                }
-                else
-                {                    
-                    Listobj.Add(desig);
-                }
-                //REV 2.0 End
+                Listobj.Add(desig);               
 
             }
             //CmbDesignName.SelectedIndex = 0;
