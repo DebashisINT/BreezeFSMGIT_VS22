@@ -862,6 +862,29 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         }
 
         .chosen-container-single .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+        border-radius: 4px;
+        height: 30px;
+        top: 1px;
+        right: 1px;
+        /*position:relative;*/
+    }
+
+        .chosen-container-single .chosen-single div b {
+            display: none;
+        }
+
+        .chosen-container-single .chosen-single div::after {
+            /*content: '<';*/
+            content: url(../../../assests/images/left-arw.png);
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 13px;
+            transform: rotate(269deg);
+            font-weight: 500;
+        }
 
     .chosen-container-active.chosen-with-drop .chosen-single div {
         background: #094e8c;
@@ -1278,6 +1301,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         .dxeTextBox_PlasticBlue {
             height: 34px;
             border-radius: 4px;
+        }
+
+        .container {
+            width: 88% !important;
         }
 
         /*Rev end 1.0*/
