@@ -1,6 +1,8 @@
 ﻿#region======================================Revision History=========================================================
 //1.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 786
 //2.0   V2.0.39     Debashis    27/03/2023      A new parameter has been added.Row: 814 & Refer: 0025749
+//3.0   V2.0.40     Debashis    04/04/2023      Optimized Shopsubmission/ShopVisited & Shopsubmission/ITCShopVisited API.
+//                                              Refer: 0025779
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -210,25 +212,29 @@ namespace ShopAPI.Controllers
                         omodel.status = "200";
                         omodel.message = "Shop details successfully updated.";
                         omodel.shop_list = oview;
-                        if (logprint == "1")
-                        {
-                            using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
-                            {
-                                stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Success(Shopsubmission/ShopVisited)[200]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
-                            }
-                        }
+                        //Rev 3.0 Mantis: 0025779
+                        //if (logprint == "1")
+                        //{
+                        //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
+                        //    {
+                        //        stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Success(Shopsubmission/ShopVisited)[200]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
+                        //    }
+                        //}
+                        //End of Rev 3.0 Mantis: 0025779
                     }
                     else
                     {
                         omodel.status = "205";
                         omodel.message = "Records not updated.";
-                        if (logprint == "1")
-                        {
-                            using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
-                            {
-                                stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Fail(Shopsubmission/ShopVisited)[205]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
-                            }
-                        }
+                        //Rev 3.0 Mantis: 0025779
+                        //if (logprint == "1")
+                        //{
+                        //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
+                        //    {
+                        //        stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Fail(Shopsubmission/ShopVisited)[205]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
+                        //    }
+                        //}
+                        //End of Rev 3.0 Mantis: 0025779
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
@@ -239,14 +245,16 @@ namespace ShopAPI.Controllers
             {
                 omodel.status = "204";
                 omodel.message = ex.Message;
-                if (logprint == "1")
-                {
-                    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
-                    {
-                        stream.WriteLine("   Revisit  Start " + "Start Time:" + sdatetime + "End Time:" + DateTime.Now + "Status:Error(Shopsubmission/ShopVisited)[204]" + ex.Message + "User ID:" + model.user_id + svisitlog + "   Revisit  END ");
-                        //txt.Close();
-                    }
-                }
+                //Rev 3.0 Mantis: 0025779
+                //if (logprint == "1")
+                //{
+                //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
+                //    {
+                //        stream.WriteLine("   Revisit  Start " + "Start Time:" + sdatetime + "End Time:" + DateTime.Now + "Status:Error(Shopsubmission/ShopVisited)[204]" + ex.Message + "User ID:" + model.user_id + svisitlog + "   Revisit  END ");
+                //        //txt.Close();
+                //    }
+                //}
+                //End of Rev 3.0 Mantis: 0025779
                 var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                 return message;
             }
@@ -611,7 +619,7 @@ namespace ShopAPI.Controllers
 
                         svisitlog = svisitlog + " Shop:" + s2.shop_id + "  Visit:" + s2.visited_time;
                     }
-
+                    //Rev 3.0 Mantis: 0025779
                     //if (logprint == "1")
                     //{
                     //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
@@ -619,7 +627,7 @@ namespace ShopAPI.Controllers
                     //        stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Success(Shopsubmission/ShopVisited)[200]" + "User ID:" + model.user_id + svisitlog + " Revisit END ");
                     //    }
                     //}
-
+                    //End of Rev 3.0 Mantis: 0025779
                     string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
                     String dates = DateTime.Now.ToString("ddMMyyyyhhmmssffffff");
                     DataTable dt = new DataTable();
@@ -652,25 +660,29 @@ namespace ShopAPI.Controllers
                         omodel.status = "200";
                         omodel.message = "Shop details successfully updated.";
                         omodel.shop_list = oview;
-                        if (logprint == "1")
-                        {
-                            using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
-                            {
-                                stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Success(Shopsubmission/ShopVisited)[200]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
-                            }
-                        }
+                        //Rev 3.0 Mantis: 0025779
+                        //if (logprint == "1")
+                        //{
+                        //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
+                        //    {
+                        //        stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Success(Shopsubmission/ShopVisited)[200]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
+                        //    }
+                        //}
+                        //End of Rev 3.0 Mantis: 0025779
                     }
                     else
                     {
                         omodel.status = "205";
                         omodel.message = "Records not updated.";
-                        if (logprint == "1")
-                        {
-                            using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
-                            {
-                                stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Fail(Shopsubmission/ShopVisited)[205]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
-                            }
-                        }
+                        //Rev 3.0 Mantis: 0025779
+                        //if (logprint == "1")
+                        //{
+                        //    using (StreamWriter stream = new FileInfo((Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(uploadtext)))).AppendText())
+                        //    {
+                        //        stream.WriteLine("Revisit Start " + "Start Time:" + DateTime.Now + "End Time:" + DateTime.Now + "Status:Fail(Shopsubmission/ShopVisited)[205]" + "User ID:" + model.user_id + svisitlog + " Revisit END");
+                        //    }
+                        //}
+                        //End of Rev 3.0 Mantis: 0025779
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
