@@ -1,8 +1,14 @@
-﻿$(function () {
+﻿//****************************************************************************************************
+//Rev Number  DATE            VERSION     DEVELOPER      CHANGES
+//1.0         05-04-2023      V2.0.40     Sanchita        ITC user dashboard is taking too much time to respond
+//                                                        for AE & AM users login credentials. refer: 25781
+//****************************************************************************************************
+
+$(function () {
     var isLeaveList = $("#isLeaveList").val();
 
 
-    if(isLeaveList==1){
+    if (isLeaveList == 1) {
         var d = new Date();
         dtFrom.SetValue(d);
         dtTo.SetValue(d);
@@ -27,13 +33,9 @@
 
 
     }
-
-
-       
-
-  
-
-    
+    // Rev 1.0
+});
+// End of Rev 1.0
 
 
 $('#ddlAppIds').on('change', function () {
@@ -80,14 +82,16 @@ function GetEmpSelectedFieldValuesCallback(values) {
     }
 }
 
-function OnStartCallback(s, e) {
-    e.customArgs["Fromdate"] = dtFrom.GetText();
-    e.customArgs["Todate"] = dtTo.GetText();
-    //e.customArgs["selectedusrid"] = empId
-    //e.customArgs["empcode"] = empId;
-    //e.customArgs["StateId"] = StateId;
-    e.customArgs["Is_PageLoad"] = Is_PageLoad;
-}
+// Rev 1.0
+//function OnStartCallback(s, e) {
+//    e.customArgs["Fromdate"] = dtFrom.GetText();
+//    e.customArgs["Todate"] = dtTo.GetText();
+//    //e.customArgs["selectedusrid"] = empId
+//    //e.customArgs["empcode"] = empId;
+//    //e.customArgs["StateId"] = StateId;
+//    e.customArgs["Is_PageLoad"] = Is_PageLoad;
+//}
+// End of Rev 1.0
 
 function LookupValChange() {
     EmpGridLookup.GetGridView().Refresh()
