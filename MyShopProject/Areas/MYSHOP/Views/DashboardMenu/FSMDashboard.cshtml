@@ -1,8 +1,10 @@
-﻿@*====================================================== Revision History ==============================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           pallab              25570: show button position change *@
-@*2.0                30-03-2023        2.0.39           pallab              25767: When attendance tab active by default, showing wrong tab details *@
-@*====================================================== Revision History ==============================================*@
+﻿<!--====================================================== Revision History ==============================================
+Rev Number   DATE            VERSION     DEVELOPER       CHANGES
+1.0          06-01-2023      2.0.37      pallab          25570: show button position change 
+2.0          30-03-2023      2.0.39      pallab          25767: When attendance tab active by default, showing wrong tab details 
+3.0          05-04-2023      V2.0.40     Sanchita        ITC user dashboard is taking too much time to respond
+                                                         for AE & AM users login credentials. refer: 25781
+====================================================== Revision History ==============================================-->
 
 @model MyShop.Models.FSMDashBoardFilter
 
@@ -1686,7 +1688,9 @@
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeamH').attr("Style", "Display:none;");
         griddashboardTeamH.Refresh();
-        griddashboardTeamH.Refresh();
+        // Rev 3.0
+        //griddashboardTeamH.Refresh();
+        // End of Rev 3.0
     }
 
     function AtWorkClickTeamVisitH(elem) {
@@ -1707,7 +1711,9 @@
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
         griddashboardTeamH.Refresh();
-        griddashboardTeamH.Refresh();
+        // Rev 3.0
+        //griddashboardTeamH.Refresh();
+        // End of Rev 3.0
     }
 
     function OnLeaveClickTeamVisitH(elem) {
@@ -1727,9 +1733,11 @@
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
         griddashboardTeamH.Refresh();
-        setTimeout(function () {
-            griddashboardTeamH.Refresh();
-        }, 100)
+        // Rev 3.0
+        //setTimeout(function () {
+        //    griddashboardTeamH.Refresh();
+        //}, 100)
+        // End of Rev 3.0
     }
 
     function NotLoggedInClickTeamVisitH(elem) {
@@ -1750,7 +1758,9 @@
         gridsummarydashboardclickTeamVisitH(null, null);
         $('#backSpnTeam').attr("Style", "Display:none;");
         griddashboardTeamH.Refresh();
-        griddashboardTeamH.Refresh();
+        // Rev 3.0
+        //griddashboardTeamH.Refresh();
+        // End of Rev 3.0
     }
 
     function gridsummarydashboardclickTeamVisitH(desig, state) {
@@ -1789,7 +1799,9 @@
 
         $("#griddetailsHeadedtextTeamH").text("Employee Attendance details - " + summaryof + "");
         griddashboardTeamH.Refresh();
-        griddashboardTeamH.Refresh();
+        // Rev 3.0
+        //griddashboardTeamH.Refresh();
+        // End of Rev 3.0
 
 
     }
@@ -2741,23 +2753,23 @@
                                 @*rev 1.0*@
                                 @*rev Mantis Issue 25455*@
                                 <!--<div class="row">
-            <div class="col-md-12 text-right clearfix py-0 marg-b-50">
-                <table class="float-right">
-                    <tr>
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
+                                    <table class="float-right">
+                                        <tr>
 
-                        <td>
-                            <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
+                                            <td>
+                                                <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
                                 @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
                                 <!--<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowFieldVisitData()" style=" line-height: 20px;">
-                                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
-                                            <div class="hands fieldvisit-tb-hand"></div>
-                                        </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>-->
+                                                                <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                                <div class="hands fieldvisit-tb-hand"></div>
+                                                            </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
                                 @*rev end Mantis Issue 25455*@
                                 @*rev end  1.0*@
                                 <div class="">
@@ -2913,23 +2925,23 @@
                                 @*rev  1.0*@
                                 @*rev Mantis Issue 25455*@
                                 <!--<div class="row">
-            <div class="col-md-12 text-right clearfix py-0 marg-b-50">
-                <table class="float-right">
-                    <tr>-->
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
+                                    <table class="float-right">
+                                        <tr>-->
                                 @*<td><button type="button" class="btn btn-success" onclick="ShowVisitData()">Show</button></td>*@
                                 <!--<td>
-            <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
+                                <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
                                 @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-custom-class="tooltip-custom" data-original-title="Click to Show Dashboard Summary">*@
                                 <!--<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowVisitData()" style=" line-height: 20px;" title="">
-                                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
-                                            <div class="hands visit-tb-hand"></div>
-                                        </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>-->
+                                                                <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                                <div class="hands visit-tb-hand"></div>
+                                                            </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
                                 @*rev end Mantis Issue 25455*@
                                 @*rev end  1.0*@
                                 <div class="">
@@ -3090,23 +3102,23 @@
                                 @*rev 1.0*@
                                 @*rev Mantis Issue 25455*@
                                 <!--<div class="row">
-            <div class="col-md-12 text-right clearfix py-0 marg-b-50">
-                <table class="float-right">
-                    <tr>-->
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
+                                    <table class="float-right">
+                                        <tr>-->
                                 @*<td><button type="button" class="btn btn-success" onclick="ShowTeamVisitData()">Show</button></td>*@
                                 <!--<td>
-            <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
+                                <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
                                 @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
                                 <!--<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitData()" style=" line-height: 20px;">
-                                        <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
-                                        <div class="hands teamvisit-tb-hand"></div>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>-->
+                                                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                            <div class="hands teamvisit-tb-hand"></div>
+                                                        </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
                                 @*rev end Mantis Issue 25455*@
                                 @*rev end 1.0*@
                                 <div class="">
@@ -3232,23 +3244,23 @@
                             <div role="tabpanel" class="tab-pane " id="teamVisitH">
                                 @*rev  1.0*@
                                 <!--<div class="row">
-            <div class="col-md-12 text-right clearfix py-0 marg-b-50">
-                <table class="float-right">
-                    <tr>-->
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
+                                    <table class="float-right">
+                                        <tr>-->
                                 @*<td><button type="button" class="btn btn-success" onclick="ShowTeamVisitHData()">Show</button></td>*@
                                 <!--<td>
-            <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
+                                <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
                                 @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitHData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
                                 <!--<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowTeamVisitHData()" style=" line-height: 20px;">
-                                        <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
-                                        <div class="hands teamVisitH-tb-hand"></div>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>-->
+                                                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                            <div class="hands teamVisitH-tb-hand"></div>
+                                                        </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
                                 @*rev end  1.0*@
                                 <div class="">
                                     @Html.Action("DashboardAttendanceTVH", new { list = Model.DashboardSettingMappedList })
@@ -3375,23 +3387,23 @@
                                 @*rev  1.0*@
                                 @*rev Mantis Issue 25455*@
                                 <!--<div class="row">
-            <div class="col-md-12 text-right clearfix py-0 marg-b-50">
-                <table class="float-right">
-                    <tr>-->
+                                <div class="col-md-12 text-right clearfix py-0 marg-b-50">
+                                    <table class="float-right">
+                                        <tr>-->
                                 @*<td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>*@
                                 <!--<td>
-            <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
+                                <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">-->
                                 @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
                                 <!--<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;">
-                                           <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
-                                           <div class="hands attendance-tb-hand"></div>
-                                   </button>
-                    </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>-->
+                                                               <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;">
+                                                               <div class="hands attendance-tb-hand"></div>
+                                                       </button>
+                                        </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-->
                                 @*rev end Mantis Issue 25455*@
                                 @*rev end 1.0*@
                                 <div>@Html.Action("attendanceDetails")</div>
