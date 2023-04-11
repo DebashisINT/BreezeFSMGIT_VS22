@@ -650,6 +650,12 @@
         padding-top: 24px;
     }
     /*Rev end 1.0*/
+    /*Rev 2.0*/
+    .w195
+    {
+        width: 195px;
+    }
+    /*Rev end 2.0*/
 </style>
 
 <script>
@@ -864,8 +870,8 @@
                                     <div>
                                         @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
                                         @*<span id="MandatoryState" style="display: none" class="validclass">
-                                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
-                                            </span>*@
+                    <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                </span>*@
                                     </div>
                                 </td>
                                 <td class="w150">
@@ -904,12 +910,17 @@
                                     <label for="">Show Rate</label>
                                     @*Rev end 1.0*@
                                 </td>
-                                @*Rev 1.0*@
-                                <td class="w10 inputSpacer" style="padding-top:21px">
+                            @*Rev 2.0*@
+                            </tr>
+                            <tr>
+                            @*End of Rev 2.0*@
+
+                                @*Rev 2.0*@
+                                <td class="w195 inputSpacer" style="padding-top:21px">
                                     <input class="styled-checkbox" type="checkbox" id="IsShowInactiveUsers" name="IsShowInactiveUsers" value="0" style="margin-right:5px">
                                     <label for="">Show Inactive Users</label>
                                 </td>
-                                @*End of Rev 1.0*@
+                                @*End of Rev 2.0*@
                                 @*Rev 1.0*@
                                 @*<td style="padding-top: 22px;width:170px;">*@
                                 <td style="padding-top: 24px;width:190px;">
