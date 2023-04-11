@@ -1,6 +1,8 @@
 ﻿#region======================================Revision History=========================================================================
 //1.0   V2.0.38     Debashis    20/01/2023      Revisit Contact information is required in the Performance Summary report.
 //                                              Refer: 0025586
+//2.0   V2.0.38     Sanchita    11-04-2023      A tick box required as "Show Inactive Users" in parameter of
+//                                              Order Register list report. Refer: 25771
 #endregion===================================End of Revision History==================================================================
 using System;
 using System.Collections.Generic;
@@ -39,6 +41,9 @@ namespace Models
         //Rev 1.0 Mantis:0025586
         public int IsRevisitContactDetails { get; set; }
         //End of Rev 1.0 Mantis:0025586
+        // Rev 2.0
+        public int IsShowInactiveUsers { get; set; }
+        // End of Rev 2.0
         //public List<SelectListItem> PopulateLeaveDropdown(string RID)
         //{
         //    List<SelectListItem> items = new List<SelectListItem>();

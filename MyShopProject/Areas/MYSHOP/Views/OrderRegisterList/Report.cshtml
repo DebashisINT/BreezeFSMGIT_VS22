@@ -1,6 +1,8 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                24-01-2023        2.0.38           Pallab              25576: Report page design modification *@
+@*2.0                11-04-2023        2.0.38           Sanchita            A tick box required as "Show Inactive Users" in parameter of
+                                                                            Order Register list report. Refer: 25771    *@
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.SalesSummaryReport
@@ -179,6 +181,14 @@
             e.customArgs["IsShowRate"] = 0;
         }
         //End of Rev Debashis && 0025066
+        // Rev 1.0
+        if ($('#IsShowInactiveUsers').prop('checked')) {
+            e.customArgs["IsShowInactiveUsers"] = 1;
+        }
+        else {
+            e.customArgs["IsShowInactiveUsers"] = 0;
+        }
+        // End of Rev 1.0
         e.customArgs["is_pageload"] = is_pageload;
 
         // alert(e.customArgs["StateId"]);
@@ -854,8 +864,8 @@
                                     <div>
                                         @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
                                         @*<span id="MandatoryState" style="display: none" class="validclass">
-                    <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
-                </span>*@
+                                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                                            </span>*@
                                     </div>
                                 </td>
                                 <td class="w150">
@@ -895,6 +905,12 @@
                                     @*Rev end 1.0*@
                                 </td>
                                 @*Rev 1.0*@
+                                <td class="w10 inputSpacer" style="padding-top:21px">
+                                    <input class="styled-checkbox" type="checkbox" id="IsShowInactiveUsers" name="IsShowInactiveUsers" value="0" style="margin-right:5px">
+                                    <label for="">Show Inactive Users</label>
+                                </td>
+                                @*End of Rev 1.0*@
+                                @*Rev 1.0*@
                                 @*<td style="padding-top: 22px;width:170px;">*@
                                 <td style="padding-top: 24px;width:190px;">
                                     @*Rev end 1.0*@
@@ -923,12 +939,12 @@
             <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
             <input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />
         </div>
-    @*Rev 1.0*@
-    @*</div>
-</div>*@
-<div style="clear: both;"><br /></div>
-@*<div class="container">
-    <div class="backBox mt-1 p-3 ">*@
+        @*Rev 1.0*@
+        @*</div>
+            </div>*@
+        <div style="clear: both;"><br /></div>
+        @*<div class="container">
+            <div class="backBox mt-1 p-3 ">*@
         @*Rev end 1.0*@
         <div class="mx-4">
             <div class="options">
@@ -945,7 +961,8 @@
             <div class="row">
                 <div id="refreshgridsalessummary">
                     @{
-                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0" });
+                        // Rev 1.0 [IsShowInactiveUsers added]
+                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0", IsShowInactiveUsers = Model.IsShowInactiveUsers });
                         // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
 
                     }
