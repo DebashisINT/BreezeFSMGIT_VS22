@@ -3,6 +3,8 @@
 //                                              Refer: 0025586
 //2.0   V2.0.38     Debashis    31/01/2023      A new report is required as "Performance Analytics".
 //                                              Refer: 0025620
+//3.0    V2.0.38    Sanchita    11-04-2023      A tick box required as "Show Inactive Users" in parameter of
+//                                              Order Register list report. Refer: 25771
 #endregion===================================End of Revision History==================================================================
 using DataAccessLayer;
 using System;
@@ -74,7 +76,8 @@ namespace BusinessLogicLayer.SalesTrackerReports
         //End of Rev 2.0 Mantis: 0025620
 
         //Rev Debashis
-        public DataTable GetOrderRegisterListReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
+        // Rev 3.0 [ ShowInactiveUsers added ]
+        public DataTable GetOrderRegisterListReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid, int ShowInactiveUsers)
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_FTSORDERWITHPRODUCTATTRIBUTE_REPORT");
@@ -85,6 +88,9 @@ namespace BusinessLogicLayer.SalesTrackerReports
             proc.AddPara("@DESIGNID", desigid);
             proc.AddPara("@EMPID", empid);
             proc.AddPara("@USERID", userid);
+            // Rev 3.0
+            proc.AddPara("@ShowInactiveUsers", ShowInactiveUsers);
+            // End of Rev 3.0
             ds = proc.GetTable();
 
             return ds;
