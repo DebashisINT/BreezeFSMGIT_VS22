@@ -511,12 +511,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         .screenDark .formArea
         {
             width: 35%;
-            height: 95vh;
-            position: absolute;
+            /*height: 95vh;*/
+            /*position: absolute;
             right: 20px;
             top: 2.5vh;
             background: #fff;
-            border-radius: 14px;
+            border-radius: 14px;*/
             text-align:left !important;
         }
         /*Rev end 2.0*/
@@ -1186,14 +1186,14 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 }
                 /*Rev 2.0*/
                 //image toogle
-                if ($('.light-design').hasClass('img-hide')) {
-                    $('.light-design').removeClass('img-hide');
-                    $('.dark-design').addClass('img-hide');
-                }
-                else {
-                    $('.dark-design').removeClass('img-hide');
-                    $('.light-design').addClass('img-hide');
-                }
+                //if ($('.light-design').hasClass('img-hide')) {
+                //    $('.light-design').removeClass('img-hide');
+                //    $('.dark-design').addClass('img-hide');
+                //}
+                //else {
+                //    $('.dark-design').removeClass('img-hide');
+                //    $('.light-design').addClass('img-hide');
+                //}
                 /*Rev end 2.0*/
             })
         })
@@ -1236,7 +1236,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                  </div>--%>
                  <img src="/assests/images/NLogin/left-top-image.png" class="left-top-image light-design"  />
                  <%--Rev 2.0 : img add--%>
-                 <img src="/assests/images/NLogin/fsm-left-lgt-design.png" class="left-top-image dark-design img-hide" />
+                 <%--<img src="/assests/images/NLogin/fsm-left-lgt-design.png" class="left-top-image dark-design img-hide" />--%>
                  <%--Rev end 2.0--%>
              </div>
             
