@@ -181,14 +181,14 @@
             e.customArgs["IsShowRate"] = 0;
         }
         //End of Rev Debashis && 0025066
-        // Rev 1.0
+        // Rev 2.0
         if ($('#IsShowInactiveUsers').prop('checked')) {
             e.customArgs["IsShowInactiveUsers"] = 1;
         }
         else {
             e.customArgs["IsShowInactiveUsers"] = 0;
         }
-        // End of Rev 1.0
+        // End of Rev 2.0
         e.customArgs["is_pageload"] = is_pageload;
 
         // alert(e.customArgs["StateId"]);
@@ -972,7 +972,7 @@
             <div class="row">
                 <div id="refreshgridsalessummary">
                     @{
-                        // Rev 1.0 [IsShowInactiveUsers added]
+                        // Rev 2.0 [IsShowInactiveUsers added]
                         Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0", IsShowInactiveUsers = Model.IsShowInactiveUsers });
                         // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
 

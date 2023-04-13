@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*****************************************************************************************************************
+ * 1.0		V2.0.38		Sanchita	13/04/2023		A tick box required as "Show Inactive Users" in parameter of 
+												TERRITORY SALES INCHARGE WISE PERFORMANCE ANALYTICS report. Refer: 25811
+********************************************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,6 +36,10 @@ namespace Models
         public string is_pageload { get; set; }
         public String EmployeeCode { get; set; }
         public Int32 is_procfirst { get; set; }
+
+        // Rev 1.0
+        public int IsShowInactiveUsers { get; set; }
+        // End of Rev 1.0
 
     }
 }
