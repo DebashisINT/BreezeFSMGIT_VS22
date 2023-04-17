@@ -1,8 +1,4 @@
-﻿/*****************************************************************************************************************
- * 1.0		V2.0.38		Sanchita	13/04/2023		A tick box required as "Show Inactive Users" in parameter of 
-												TERRITORY SALES INCHARGE WISE PERFORMANCE ANALYTICS report. Refer: 25811
-********************************************************************************************************************/
-using SalesmanTrack;
+﻿using SalesmanTrack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,17 +131,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 string FromDate = model.Fromdate;
                 string ToDate = model.Todate;
-                // Rev 1.0
-                int ShowInactiveUsers = model.IsShowInactiveUsers;
-                // End of Rev 1.0
-
+                
                 if (model.is_pageload == "1")
                 {
                     double days = (Convert.ToDateTime(ToDate) - Convert.ToDateTime(FromDate)).TotalDays;
                     if (days <= 366)
                     {
-                        // Rev 1.0 [ IsShowInactiveUsers added ]
-                        dt = objgps.GetTerritorySalesInchargeWisePerformanceAnalyReport(FromDate,ToDate, state, empcode, Userid, ShowInactiveUsers);
+                        dt = objgps.GetTerritorySalesInchargeWisePerformanceAnalyReport(FromDate,ToDate, state, empcode, Userid);
                     }
                 }
             }

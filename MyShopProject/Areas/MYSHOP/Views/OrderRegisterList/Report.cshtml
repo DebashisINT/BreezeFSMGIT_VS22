@@ -1,8 +1,6 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                24-01-2023        2.0.38           Pallab              25576: Report page design modification *@
-@*2.0                11-04-2023        2.0.38           Sanchita            A tick box required as "Show Inactive Users" in parameter of
-                                                                            Order Register list report. Refer: 25771    *@
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.SalesSummaryReport
@@ -181,14 +179,6 @@
             e.customArgs["IsShowRate"] = 0;
         }
         //End of Rev Debashis && 0025066
-        // Rev 2.0
-        if ($('#IsShowInactiveUsers').prop('checked')) {
-            e.customArgs["IsShowInactiveUsers"] = 1;
-        }
-        else {
-            e.customArgs["IsShowInactiveUsers"] = 0;
-        }
-        // End of Rev 2.0
         e.customArgs["is_pageload"] = is_pageload;
 
         // alert(e.customArgs["StateId"]);
@@ -910,17 +900,7 @@
                                     <label for="">Show Rate</label>
                                     @*Rev end 1.0*@
                                 </td>
-                            @*Rev 2.0*@
-                            </tr>
-                            <tr>
-                            @*End of Rev 2.0*@
-
-                                @*Rev 2.0*@
-                                <td class="w195 inputSpacer" style="padding-top:21px">
-                                    <input class="styled-checkbox" type="checkbox" id="IsShowInactiveUsers" name="IsShowInactiveUsers" value="0" style="margin-right:5px">
-                                    <label for="">Show Inactive Users</label>
-                                </td>
-                                @*End of Rev 2.0*@
+                            
                                 @*Rev 1.0*@
                                 @*<td style="padding-top: 22px;width:170px;">*@
                                 <td style="padding-top: 24px;width:190px;">
@@ -972,8 +952,7 @@
             <div class="row">
                 <div id="refreshgridsalessummary">
                     @{
-                        // Rev 2.0 [IsShowInactiveUsers added]
-                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0", IsShowInactiveUsers = Model.IsShowInactiveUsers });
+                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0"});
                         // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
 
                     }
