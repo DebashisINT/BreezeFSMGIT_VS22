@@ -1,8 +1,4 @@
-﻿/****************************************************************************************************************
- * 1.0      11-04-2023        2.0.38      Sanchita       A tick box required as "Show Inactive Users" in parameter of
-                                                         Order Register list report. Refer: 25771
- *****************************************************************************************************************/
-using SalesmanTrack;
+﻿using SalesmanTrack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,17 +128,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     TempData.Keep();
                 }
                 //End of Rev Debashis && 0025066
-                // Rev 1.0
-                int ShowInactiveUsers = model.IsShowInactiveUsers;
-                // End of Rev 1.0
-
+                
                 double days = (Convert.ToDateTime(dattoat) - Convert.ToDateTime(datfrmat)).TotalDays;
 
                 //if (days <= 7)
                 //if (days <= 30)
                 //{
-                // Rev 1.0 [ IsShowInactiveUsers added ]
-                dt = objgps.GetOrderRegisterListReport(datfrmat, dattoat, Userid, state, desig, empcode, ShowInactiveUsers);
+                dt = objgps.GetOrderRegisterListReport(datfrmat, dattoat, Userid, state, desig, empcode);
                 //}
 
                 return PartialView("PartialGetOrderRegisterListSummary", OrderRegisterListSummary(frmdate));
