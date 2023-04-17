@@ -1443,6 +1443,14 @@
                 }
             })
         }
+
+        /*Rev 6.0*/
+        $(document).ready(function () {
+            $('#UserModel').on('shown.bs.modal', function () {
+                $('#txtUserSearch').focus();
+            })
+        })
+        /*Rev end 6.0*/
     </script>
     <%-- Show details Party Assign --%>
 </asp:Content>
