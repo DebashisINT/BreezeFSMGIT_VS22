@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                10-02-2023        2.0.39           Pallab              25656 : Master module design modification *@
+@*1.0                10-02-2023        2.0.38           Pallab              25656 : Master module design modification *@
+@*2.0                17-04-2023        2.0.38           Pallab              25831 : Traveling Allowance Pop Up Height issue fixing *@
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.ReimbursementReport
@@ -904,7 +905,16 @@
     }
 
     /*Rev end 1.0*/
+
+    /*Rev 2.0*/
+    #pcModalReimbursement_PWC-1 {
+        display: block !important;
+        height: 590px;
+        overflow-y: auto;
+    }
+    /*Rev end 2.0*/
 </style>
+
 <link href="~/Content/media.css" rel="stylesheet" />
 
 <div class="breadCumb">
