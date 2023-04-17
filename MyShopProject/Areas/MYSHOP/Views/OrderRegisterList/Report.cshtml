@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                24-01-2023        2.0.38           Pallab              25576: Report page design modification *@
+@*2.0                17-04-2023        2.0.39           Pallab              25828: Order Register List module parameter alignment issue in small width device *@
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.SalesSummaryReport
@@ -641,9 +642,16 @@
     }
     /*Rev end 1.0*/
     /*Rev 2.0*/
-    .w195
+
+    @@media only screen and (max-width: 1400px) and (min-width: 1260px)
     {
-        width: 195px;
+        .w150 {
+            width: 130px !important;
+        }
+
+        table.dxeButtonEditSys td.dxic {
+            padding: 4px 2px 3px 4px !important;
+        }
     }
     /*Rev end 2.0*/
 </style>
@@ -860,8 +868,8 @@
                                     <div>
                                         @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
                                         @*<span id="MandatoryState" style="display: none" class="validclass">
-                    <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
-                </span>*@
+                                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                                            </span>*@
                                     </div>
                                 </td>
                                 <td class="w150">
@@ -900,7 +908,7 @@
                                     <label for="">Show Rate</label>
                                     @*Rev end 1.0*@
                                 </td>
-                            
+
                                 @*Rev 1.0*@
                                 @*<td style="padding-top: 22px;width:170px;">*@
                                 <td style="padding-top: 24px;width:190px;">
@@ -952,7 +960,7 @@
             <div class="row">
                 <div id="refreshgridsalessummary">
                     @{
-                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0"});
+                        Html.RenderAction("GetOrderRegisterList", "OrderRegisterList", new { Fromdate = Model.Fromdate, Todate = Model.Todate, StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, IsShowRate = Model.IsShowRate, is_pageload = "0" });
                         // Html.RenderAction("GetSalesSummaryList1", "SalesReportSummary");
 
                     }
