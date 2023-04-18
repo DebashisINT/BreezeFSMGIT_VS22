@@ -4,6 +4,7 @@ Rev 2.0     Sanchita    V2.0.39     08/02/2023      When a product is Modified a
                                                     button, the product attributes becomes blank in mapping tables. Refer: 25655
 Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modification. Refer: 25656
 Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25709
+Rev 5.0     Pallab      V2.0.39     18/04/2023      Dropdown window is not showing for Colour & Gender while selecting Configure Product Attribute in Product master. Refer: 25851
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
@@ -174,7 +175,43 @@ Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : List
             width: 100%;
             text-align: left;
             border-radius: 4px !important;
+            /*Rev 5.0*/
+            background: #fff;
+            border: 1px Solid #ccc;
+                overflow: hidden;
+            /*Rev end 5.0*/
         }
+        /*Rev 5.0*/
+        .btn-default .caret
+        {
+            background: #094e8c;
+    width: 18px;
+    height: 92%;
+    position: absolute;
+    right: -3px;
+    top: -8px;
+    border-radius: 4px;
+    border:none;
+    
+        }
+
+        .btn-default .caret::after
+        {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 4px;
+            font-size: 13px;
+            /* transform: rotate(269deg); */
+            font-weight: 500;
+            /* width: 10px; */
+            /* height: 10px; */
+            border-top: 5px solid #ffffff;
+            border-right: 5px solid transparent;
+            border-bottom: 0 dotted;
+            border-left: 5px solid transparent;
+        }
+        /*Rev end 5.0*/
 
         .fullMulti .multiselect-native-select .multiselect .caret {
             float: right;
@@ -561,9 +598,9 @@ Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : List
         border-radius: 0 4px 4px 0;
     }
 
-    .btn .caret {
+    /*.btn .caret {
         display: none;
-    }
+    }*/
 
     .iminentSpan button.multiselect.dropdown-toggle {
         height: 34px;
@@ -3416,7 +3453,7 @@ Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : List
 
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3" id="Div1">
+                            <div class="col-md-6 mt-2" id="Div1">
                                 <%--<div class="cityDiv" style="height: auto;">
 
                                     <asp:Label ID="Label26" runat="server" Text="Gender" CssClass="newLbl"></asp:Label>
