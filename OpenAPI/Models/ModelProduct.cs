@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -69,6 +70,32 @@ namespace OpenAPI.Models
         public string SALESUOMNAME { get; set; }
         public string CLASSCODE { get; set; }
         public string BRANDNAME { get; set; }
+
+    }
+
+    public class InsertProductInput
+    {
+        [Required]
+        public string user_id { get; set; }
+        public string session_token { get; set; }
+        public List<InsertProductInputModel> ProductInput_list { get; set; }
+    }
+    public class InsertProductInputModel
+    {
+        [Required]
+        public string ProductCode { get; set; }
+        [Required]
+        public string ProductName { get; set; }
+        public string Description { get; set; }
+       
+        [Required]
+        public string SalesUnit { get; set; }
+        [Required]
+        public string PurchaseUnit { get; set; }
+
+        public Decimal MRP { get; set; }
+
+        public Decimal Discount { get; set; }
 
     }
 }
