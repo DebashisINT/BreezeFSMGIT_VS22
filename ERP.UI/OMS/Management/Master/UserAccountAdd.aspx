@@ -3,7 +3,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 1.0                09-02-2023        2.0.39           Pallab              25656 : Master module design modification 
 2.0                17/02/2023        2.0.39           Sanchita            A setting required for 'User Account' Master module in FSM Portal
                                                                           Refer: 25669  
-3.0                20/04/2023        2.0.39           Pallab              Add User Account module employee search popup auto focus add and "cancel" button color change
+3.0                20/04/2023        2.0.40           Pallab              Add User Account module employee search popup auto focus add and "cancel" button color change
                                                                           Refer: 25866
 ====================================================== Revision History ==========================================================--%>
 

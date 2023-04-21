@@ -1,7 +1,7 @@
 <%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                08-02-2023        2.0.39           Pallab              25656 : Master module design modification 
-2.0                20-04-2023        2.0.39           Pallab              25865 : Add Employee master module employee search popup auto focus add and "cancel" button color change
+2.0                20-04-2023        2.0.40           Pallab              25865 : Add Employee master module employee search popup auto focus add and "cancel" button color change
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="True"
