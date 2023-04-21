@@ -66,11 +66,25 @@ namespace OpenAPI.Models
         public string ProductsName { get; set; }
         public string ProductsDescription { get; set; }
 
-        public string STKUOMNAME { get; set; }
+        public string PURCHASEUOMNAME { get; set; }
         public string SALESUOMNAME { get; set; }
         public string CLASSCODE { get; set; }
         public string BRANDNAME { get; set; }
 
+        public string STATUS { get; set; }
+
+
+        public decimal MRP { get; set; }
+        public decimal DISCOUNT { get; set; }
+        public string COLOR { get; set; }
+        public string SIZE { get; set; }
+        public string GENDER { get; set; }
+
+        public string PRODUCTQTY { get; set; }
+        public string PRODUCTUOM { get; set; }
+        public string PACKINGQTY { get; set; }
+        public string PACKINGUOM { get; set; }
+        
     }
 
     public class InsertProductInput
