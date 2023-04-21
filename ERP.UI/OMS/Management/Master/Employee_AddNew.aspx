@@ -1,6 +1,7 @@
 <%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                08-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+2.0                20-04-2023        2.0.39           Pallab              25865 : Add Employee master module employee search popup auto focus add and "cancel" button color change
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="True"
@@ -1383,6 +1384,17 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     }
 
     /*Rev end 1.0*/
+    /*Rev 2.0*/
+    #txtReportToSearch , #txtAdditionalReportingHeadSearch , #txtColleagueSearch , #txtColleague1Search , #txtColleague2Search , #txtChannelSearch , #txtCircleSearch , #txtSectionSearch
+    {
+        margin-bottom: 10px;
+    }
+
+    .btn-default
+    {
+            background-color: #e0e0e0;
+    }
+    /*Rev end 2.0*/
     </style>
     <%--  <link href="../../css/choosen.min.css" rel="stylesheet" />--%>
 
@@ -1425,6 +1437,35 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             ctxtReportTo.SetText(Name);
             $('#ReportToModel').modal('hide');
         }
+
+        /*Rev 2.0*/
+        $(document).ready(function () {
+            $('#ReportToModel').on('shown.bs.modal', function () {
+                $('#txtReportToSearch').focus();
+            })
+            $('#AdditionalReportingHeadModel').on('shown.bs.modal', function () {
+                $('#txtAdditionalReportingHeadSearch').focus();
+            })
+            $('#ColleagueModel').on('shown.bs.modal', function () {
+                $('#txtColleagueSearch').focus();
+            })
+            $('#Colleague1Model').on('shown.bs.modal', function () {
+                $('#txtColleague1Search').focus();
+            })
+            $('#Colleague2Model').on('shown.bs.modal', function () {
+                $('#txtColleague2Search').focus();
+            })
+            $('#ChannelModel').on('shown.bs.modal', function () {
+                $('#txtChannelSearch').focus();
+            })
+            $('#CircleModel').on('shown.bs.modal', function () {
+                $('#txtCircleSearch').focus();
+            })
+            $('#SectionModel').on('shown.bs.modal', function () {
+                $('#txtSectionSearch').focus();
+            })
+        });
+        /*Rev end 2.0*/
     </script>
 
 </asp:Content>
@@ -2082,7 +2123,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ID="btnSaveChannel" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('ChannelSource')">OK</button>
+                        <button type="button" ID="btnSaveChannel" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('ChannelSource')">OK</button>
                         <button type="button" ID="btnCloseChannel" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -2114,7 +2155,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ID="btnSaveCircle" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('CircleSource')">OK</button>
+                        <button type="button" ID="btnSaveCircle" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('CircleSource')">OK</button>
                         <button type="button" ID="btnCloseCircle" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -2146,7 +2187,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ID="btnSaveSection" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('SectionSource')">OK</button>
+                        <button type="button" ID="btnSaveSection" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('SectionSource')">OK</button>
                         <button type="button" ID="btnCloseSection" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
