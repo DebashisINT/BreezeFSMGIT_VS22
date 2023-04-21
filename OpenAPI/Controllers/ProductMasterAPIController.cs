@@ -208,7 +208,7 @@ namespace OpenAPI.Controllers
                             oview = APIHelperMethods.ToModelList<Productslists>(ds.Tables[0]);
                             odata.product_list = oview;
                             omodeloutput.status = "200";
-                            omodeloutput.message = "Product Details";
+                            omodeloutput.message = Header.Rows.Count.ToString() + "No. of Product Details available. ";
                             omodeloutput.data = odata;
                         }
                         else
@@ -351,9 +351,6 @@ namespace OpenAPI.Controllers
                         DataTable dt = new DataTable();
                         try
                         {
-                           
-
-
                             String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                             SqlCommand sqlcmd = new SqlCommand();
                             SqlConnection sqlcon = new SqlConnection(con);
