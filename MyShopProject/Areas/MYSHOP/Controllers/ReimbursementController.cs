@@ -148,7 +148,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             }
             dt = objgps.GetReimbursementListReport(month, Userid, state, desig, empcode, year);
-
+            // Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+            ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
+            // End of Rev 1.0
             return PartialView("PartialGetReimbursementList", LGetReimbursement(frmdate));
         }
 
@@ -359,6 +364,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Pending";
                 column.FieldName = "PENDING_COUNT";
             });
+
+            // Rev 1.0
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Confirmed";
+                column.FieldName = "CONFIRMED_COUNT";
+            });
+            // End of Rev 1.0
 
             settings.Columns.Add(column =>
             {

@@ -77,12 +77,6 @@ namespace MyShop.Models
     partial void Deletetbl_master_user(tbl_master_user instance);
     #endregion
 		
-		public ReportsDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public ReportsDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -128,14 +122,6 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<FTSSALESORDERANALYSIS_REPORT>();
-			}
-		}
-		
-		public System.Data.Linq.Table<FTSEMPLOYEEREIMBURSEMENTLIST_REPORT> FTSEMPLOYEEREIMBURSEMENTLIST_REPORTs
-		{
-			get
-			{
-				return this.GetTable<FTSEMPLOYEEREIMBURSEMENTLIST_REPORT>();
 			}
 		}
 		
@@ -832,6 +818,14 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<FTSEMPLOYEEOUTLETMASTER_REPORT>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FTSEMPLOYEEREIMBURSEMENTLIST_REPORT> FTSEMPLOYEEREIMBURSEMENTLIST_REPORTs
+		{
+			get
+			{
+				return this.GetTable<FTSEMPLOYEEREIMBURSEMENTLIST_REPORT>();
 			}
 		}
 	}
@@ -1920,465 +1914,6 @@ namespace MyShop.Models
 				if ((this._REPORTTO != value))
 				{
 					this._REPORTTO = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSEMPLOYEEREIMBURSEMENTLIST_REPORT")]
-	public partial class FTSEMPLOYEEREIMBURSEMENTLIST_REPORT
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<int> _SEQ;
-		
-		private System.Nullable<int> _USER_ID;
-		
-		private string _USER_NAME;
-		
-		private string _CNT_INTERNALID;
-		
-		private string _EMPCODE;
-		
-		private string _EMPNAME;
-		
-		private string _EMPLOYEE_GRADE;
-		
-		private string _CONTACT;
-		
-		private System.Nullable<int> _STATEID;
-		
-		private string _STATE;
-		
-		private System.Nullable<int> _DEG_ID;
-		
-		private string _DEG_DESIGNATION;
-		
-		private string _REPORTTO;
-		
-		private string _REPORTCONTACT;
-		
-		private System.Nullable<int> _RPTTODESGID;
-		
-		private string _RPTTODESG;
-		
-		private System.Nullable<decimal> _AMOUNT;
-		
-		private System.Nullable<decimal> _APPROVED_AMOUNT;
-		
-		private System.Nullable<int> _PENDING_COUNT;
-		
-		private System.Nullable<int> _APPROVED_COUNT;
-		
-		private System.Nullable<int> _REJECTED_COUNT;
-		
-		private string _STATUS;
-		
-		private string _UPDATEDBY;
-		
-		private string _LASTUPDATED_ON;
-		
-		public FTSEMPLOYEEREIMBURSEMENTLIST_REPORT()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
-		public System.Nullable<int> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="Int")]
-		public System.Nullable<int> USER_ID
-		{
-			get
-			{
-				return this._USER_ID;
-			}
-			set
-			{
-				if ((this._USER_ID != value))
-				{
-					this._USER_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="NVarChar(50)")]
-		public string USER_NAME
-		{
-			get
-			{
-				return this._USER_NAME;
-			}
-			set
-			{
-				if ((this._USER_NAME != value))
-				{
-					this._USER_NAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CNT_INTERNALID", DbType="NVarChar(100)")]
-		public string CNT_INTERNALID
-		{
-			get
-			{
-				return this._CNT_INTERNALID;
-			}
-			set
-			{
-				if ((this._CNT_INTERNALID != value))
-				{
-					this._CNT_INTERNALID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPCODE", DbType="NVarChar(100)")]
-		public string EMPCODE
-		{
-			get
-			{
-				return this._EMPCODE;
-			}
-			set
-			{
-				if ((this._EMPCODE != value))
-				{
-					this._EMPCODE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPNAME", DbType="NVarChar(300)")]
-		public string EMPNAME
-		{
-			get
-			{
-				return this._EMPNAME;
-			}
-			set
-			{
-				if ((this._EMPNAME != value))
-				{
-					this._EMPNAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPLOYEE_GRADE", DbType="NVarChar(300)")]
-		public string EMPLOYEE_GRADE
-		{
-			get
-			{
-				return this._EMPLOYEE_GRADE;
-			}
-			set
-			{
-				if ((this._EMPLOYEE_GRADE != value))
-				{
-					this._EMPLOYEE_GRADE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTACT", DbType="NVarChar(50)")]
-		public string CONTACT
-		{
-			get
-			{
-				return this._CONTACT;
-			}
-			set
-			{
-				if ((this._CONTACT != value))
-				{
-					this._CONTACT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATEID", DbType="Int")]
-		public System.Nullable<int> STATEID
-		{
-			get
-			{
-				return this._STATEID;
-			}
-			set
-			{
-				if ((this._STATEID != value))
-				{
-					this._STATEID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE", DbType="NVarChar(50)")]
-		public string STATE
-		{
-			get
-			{
-				return this._STATE;
-			}
-			set
-			{
-				if ((this._STATE != value))
-				{
-					this._STATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEG_ID", DbType="Int")]
-		public System.Nullable<int> DEG_ID
-		{
-			get
-			{
-				return this._DEG_ID;
-			}
-			set
-			{
-				if ((this._DEG_ID != value))
-				{
-					this._DEG_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEG_DESIGNATION", DbType="NVarChar(50)")]
-		public string DEG_DESIGNATION
-		{
-			get
-			{
-				return this._DEG_DESIGNATION;
-			}
-			set
-			{
-				if ((this._DEG_DESIGNATION != value))
-				{
-					this._DEG_DESIGNATION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTTO", DbType="NVarChar(300)")]
-		public string REPORTTO
-		{
-			get
-			{
-				return this._REPORTTO;
-			}
-			set
-			{
-				if ((this._REPORTTO != value))
-				{
-					this._REPORTTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTCONTACT", DbType="NVarChar(50)")]
-		public string REPORTCONTACT
-		{
-			get
-			{
-				return this._REPORTCONTACT;
-			}
-			set
-			{
-				if ((this._REPORTCONTACT != value))
-				{
-					this._REPORTCONTACT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RPTTODESGID", DbType="Int")]
-		public System.Nullable<int> RPTTODESGID
-		{
-			get
-			{
-				return this._RPTTODESGID;
-			}
-			set
-			{
-				if ((this._RPTTODESGID != value))
-				{
-					this._RPTTODESGID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RPTTODESG", DbType="NVarChar(50)")]
-		public string RPTTODESG
-		{
-			get
-			{
-				return this._RPTTODESG;
-			}
-			set
-			{
-				if ((this._RPTTODESG != value))
-				{
-					this._RPTTODESG = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AMOUNT", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> AMOUNT
-		{
-			get
-			{
-				return this._AMOUNT;
-			}
-			set
-			{
-				if ((this._AMOUNT != value))
-				{
-					this._AMOUNT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APPROVED_AMOUNT", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> APPROVED_AMOUNT
-		{
-			get
-			{
-				return this._APPROVED_AMOUNT;
-			}
-			set
-			{
-				if ((this._APPROVED_AMOUNT != value))
-				{
-					this._APPROVED_AMOUNT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PENDING_COUNT", DbType="Int")]
-		public System.Nullable<int> PENDING_COUNT
-		{
-			get
-			{
-				return this._PENDING_COUNT;
-			}
-			set
-			{
-				if ((this._PENDING_COUNT != value))
-				{
-					this._PENDING_COUNT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APPROVED_COUNT", DbType="Int")]
-		public System.Nullable<int> APPROVED_COUNT
-		{
-			get
-			{
-				return this._APPROVED_COUNT;
-			}
-			set
-			{
-				if ((this._APPROVED_COUNT != value))
-				{
-					this._APPROVED_COUNT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REJECTED_COUNT", DbType="Int")]
-		public System.Nullable<int> REJECTED_COUNT
-		{
-			get
-			{
-				return this._REJECTED_COUNT;
-			}
-			set
-			{
-				if ((this._REJECTED_COUNT != value))
-				{
-					this._REJECTED_COUNT = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATUS", DbType="NVarChar(20)")]
-		public string STATUS
-		{
-			get
-			{
-				return this._STATUS;
-			}
-			set
-			{
-				if ((this._STATUS != value))
-				{
-					this._STATUS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="NVarChar(50)")]
-		public string UPDATEDBY
-		{
-			get
-			{
-				return this._UPDATEDBY;
-			}
-			set
-			{
-				if ((this._UPDATEDBY != value))
-				{
-					this._UPDATEDBY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LASTUPDATED_ON", DbType="NVarChar(100)")]
-		public string LASTUPDATED_ON
-		{
-			get
-			{
-				return this._LASTUPDATED_ON;
-			}
-			set
-			{
-				if ((this._LASTUPDATED_ON != value))
-				{
-					this._LASTUPDATED_ON = value;
 				}
 			}
 		}
@@ -43383,6 +42918,483 @@ namespace MyShop.Models
 				if ((this._LASTVISITEDBY != value))
 				{
 					this._LASTVISITEDBY = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSEMPLOYEEREIMBURSEMENTLIST_REPORT")]
+	public partial class FTSEMPLOYEEREIMBURSEMENTLIST_REPORT
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<int> _USER_ID;
+		
+		private string _USER_NAME;
+		
+		private string _CNT_INTERNALID;
+		
+		private string _EMPCODE;
+		
+		private string _EMPNAME;
+		
+		private string _EMPLOYEE_GRADE;
+		
+		private string _CONTACT;
+		
+		private System.Nullable<int> _STATEID;
+		
+		private string _STATE;
+		
+		private System.Nullable<int> _DEG_ID;
+		
+		private string _DEG_DESIGNATION;
+		
+		private string _REPORTTO;
+		
+		private string _REPORTCONTACT;
+		
+		private System.Nullable<int> _RPTTODESGID;
+		
+		private string _RPTTODESG;
+		
+		private System.Nullable<decimal> _AMOUNT;
+		
+		private System.Nullable<decimal> _APPROVED_AMOUNT;
+		
+		private System.Nullable<int> _PENDING_COUNT;
+		
+		private System.Nullable<int> _APPROVED_COUNT;
+		
+		private System.Nullable<int> _REJECTED_COUNT;
+		
+		private string _STATUS;
+		
+		private string _UPDATEDBY;
+		
+		private string _LASTUPDATED_ON;
+		
+		private System.Nullable<int> _CONFIRMED_COUNT;
+		
+		public FTSEMPLOYEEREIMBURSEMENTLIST_REPORT()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="Int")]
+		public System.Nullable<int> USER_ID
+		{
+			get
+			{
+				return this._USER_ID;
+			}
+			set
+			{
+				if ((this._USER_ID != value))
+				{
+					this._USER_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="NVarChar(50)")]
+		public string USER_NAME
+		{
+			get
+			{
+				return this._USER_NAME;
+			}
+			set
+			{
+				if ((this._USER_NAME != value))
+				{
+					this._USER_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CNT_INTERNALID", DbType="NVarChar(100)")]
+		public string CNT_INTERNALID
+		{
+			get
+			{
+				return this._CNT_INTERNALID;
+			}
+			set
+			{
+				if ((this._CNT_INTERNALID != value))
+				{
+					this._CNT_INTERNALID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPCODE", DbType="NVarChar(100)")]
+		public string EMPCODE
+		{
+			get
+			{
+				return this._EMPCODE;
+			}
+			set
+			{
+				if ((this._EMPCODE != value))
+				{
+					this._EMPCODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPNAME", DbType="NVarChar(300)")]
+		public string EMPNAME
+		{
+			get
+			{
+				return this._EMPNAME;
+			}
+			set
+			{
+				if ((this._EMPNAME != value))
+				{
+					this._EMPNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPLOYEE_GRADE", DbType="NVarChar(300)")]
+		public string EMPLOYEE_GRADE
+		{
+			get
+			{
+				return this._EMPLOYEE_GRADE;
+			}
+			set
+			{
+				if ((this._EMPLOYEE_GRADE != value))
+				{
+					this._EMPLOYEE_GRADE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTACT", DbType="NVarChar(50)")]
+		public string CONTACT
+		{
+			get
+			{
+				return this._CONTACT;
+			}
+			set
+			{
+				if ((this._CONTACT != value))
+				{
+					this._CONTACT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATEID", DbType="Int")]
+		public System.Nullable<int> STATEID
+		{
+			get
+			{
+				return this._STATEID;
+			}
+			set
+			{
+				if ((this._STATEID != value))
+				{
+					this._STATEID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE", DbType="NVarChar(50)")]
+		public string STATE
+		{
+			get
+			{
+				return this._STATE;
+			}
+			set
+			{
+				if ((this._STATE != value))
+				{
+					this._STATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEG_ID", DbType="Int")]
+		public System.Nullable<int> DEG_ID
+		{
+			get
+			{
+				return this._DEG_ID;
+			}
+			set
+			{
+				if ((this._DEG_ID != value))
+				{
+					this._DEG_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEG_DESIGNATION", DbType="NVarChar(50)")]
+		public string DEG_DESIGNATION
+		{
+			get
+			{
+				return this._DEG_DESIGNATION;
+			}
+			set
+			{
+				if ((this._DEG_DESIGNATION != value))
+				{
+					this._DEG_DESIGNATION = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTTO", DbType="NVarChar(300)")]
+		public string REPORTTO
+		{
+			get
+			{
+				return this._REPORTTO;
+			}
+			set
+			{
+				if ((this._REPORTTO != value))
+				{
+					this._REPORTTO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTCONTACT", DbType="NVarChar(50)")]
+		public string REPORTCONTACT
+		{
+			get
+			{
+				return this._REPORTCONTACT;
+			}
+			set
+			{
+				if ((this._REPORTCONTACT != value))
+				{
+					this._REPORTCONTACT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RPTTODESGID", DbType="Int")]
+		public System.Nullable<int> RPTTODESGID
+		{
+			get
+			{
+				return this._RPTTODESGID;
+			}
+			set
+			{
+				if ((this._RPTTODESGID != value))
+				{
+					this._RPTTODESGID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RPTTODESG", DbType="NVarChar(50)")]
+		public string RPTTODESG
+		{
+			get
+			{
+				return this._RPTTODESG;
+			}
+			set
+			{
+				if ((this._RPTTODESG != value))
+				{
+					this._RPTTODESG = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AMOUNT", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> AMOUNT
+		{
+			get
+			{
+				return this._AMOUNT;
+			}
+			set
+			{
+				if ((this._AMOUNT != value))
+				{
+					this._AMOUNT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APPROVED_AMOUNT", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> APPROVED_AMOUNT
+		{
+			get
+			{
+				return this._APPROVED_AMOUNT;
+			}
+			set
+			{
+				if ((this._APPROVED_AMOUNT != value))
+				{
+					this._APPROVED_AMOUNT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PENDING_COUNT", DbType="Int")]
+		public System.Nullable<int> PENDING_COUNT
+		{
+			get
+			{
+				return this._PENDING_COUNT;
+			}
+			set
+			{
+				if ((this._PENDING_COUNT != value))
+				{
+					this._PENDING_COUNT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APPROVED_COUNT", DbType="Int")]
+		public System.Nullable<int> APPROVED_COUNT
+		{
+			get
+			{
+				return this._APPROVED_COUNT;
+			}
+			set
+			{
+				if ((this._APPROVED_COUNT != value))
+				{
+					this._APPROVED_COUNT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REJECTED_COUNT", DbType="Int")]
+		public System.Nullable<int> REJECTED_COUNT
+		{
+			get
+			{
+				return this._REJECTED_COUNT;
+			}
+			set
+			{
+				if ((this._REJECTED_COUNT != value))
+				{
+					this._REJECTED_COUNT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATUS", DbType="NVarChar(20)")]
+		public string STATUS
+		{
+			get
+			{
+				return this._STATUS;
+			}
+			set
+			{
+				if ((this._STATUS != value))
+				{
+					this._STATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="NVarChar(50)")]
+		public string UPDATEDBY
+		{
+			get
+			{
+				return this._UPDATEDBY;
+			}
+			set
+			{
+				if ((this._UPDATEDBY != value))
+				{
+					this._UPDATEDBY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LASTUPDATED_ON", DbType="NVarChar(100)")]
+		public string LASTUPDATED_ON
+		{
+			get
+			{
+				return this._LASTUPDATED_ON;
+			}
+			set
+			{
+				if ((this._LASTUPDATED_ON != value))
+				{
+					this._LASTUPDATED_ON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONFIRMED_COUNT", DbType="Int")]
+		public System.Nullable<int> CONFIRMED_COUNT
+		{
+			get
+			{
+				return this._CONFIRMED_COUNT;
+			}
+			set
+			{
+				if ((this._CONFIRMED_COUNT != value))
+				{
+					this._CONFIRMED_COUNT = value;
 				}
 			}
 		}
