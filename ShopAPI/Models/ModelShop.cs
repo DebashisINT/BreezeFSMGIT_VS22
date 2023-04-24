@@ -1,4 +1,7 @@
-﻿using System;
+﻿#region======================================Revision History=========================================================
+//1.0   V2.0.39     Debashis    21/04/2023      Some new parameters have been added.Row: 819
+#endregion===================================End of Revision History==================================================
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -112,9 +115,6 @@ namespace ShopAPI.Models
         public string Gps_Accuracy { get; set; }
         public string willAlarmTrigger { get; set; }
         public string idle_time { get; set; }
-
-
-
         public string home_lat { get; set; }
         public string home_long { get; set; }
         public string user_login_time { get; set; }
@@ -128,6 +128,10 @@ namespace ShopAPI.Models
         public bool IsOnLeaveForToday { get; set; }
         public string OnLeaveForTodayStatus { get; set; }
         //Add two extra parameter Debashis
+        //Rev 1.0 Row: 819
+        public string profile_latitude { get; set; }
+        public string profile_longitude { get; set; }
+        //End of Rev 1.0 Row: 819
     }
     public class ClassLoginINput_Route
     {

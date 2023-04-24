@@ -1,8 +1,9 @@
 ﻿#region======================================Revision History=========================================================
 //1.0   V2.0.37     Debashis    10/01/2023      Some new parameters have been added.Row: 786
 //2.0   V2.0.39     Debashis    27/03/2023      A new parameter has been added.Row: 814 & Refer: 0025749
-//3.0   V2.0.40     Debashis    04/04/2023      Optimized Shopsubmission/ShopVisited & Shopsubmission/ITCShopVisited API.
+//3.0   V2.0.39     Debashis    04/04/2023      Optimized Shopsubmission/ShopVisited & Shopsubmission/ITCShopVisited API.
 //                                              Refer: 0025779
+//4.0   V2.0.39     Debashis    24/04/2023      Some new parameters have been added.Row: 820
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -94,8 +95,12 @@ namespace ShopAPI.Controllers
                             multi_contact_number= s2.multi_contact_number,
                             //End of Rev 1.0 Row:786
                             //Rev 2.0 Row:814
-                            IsShopUpdate=s2.IsShopUpdate
+                            IsShopUpdate=s2.IsShopUpdate,
                             //End of Rev 2.0 Row:814
+                            //Rev 4.0 Row:820
+                            distFromProfileAddrKms= s2.distFromProfileAddrKms,
+                            stationCode= s2.stationCode
+                            //End of Rev 4.0 Row:820
                         });
 
 
