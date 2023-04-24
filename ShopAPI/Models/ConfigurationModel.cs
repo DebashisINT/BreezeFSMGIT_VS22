@@ -5,6 +5,7 @@
 //4.0   V2.0.38     Debashis    08/02/2023      Some new parameter has been added.Row: 812
 //5.0   V2.0.38     Debashis    22/03/2023      A new parameter has been added.Row: 815
 //6.0   V2.0.39     Debashis    06/04/2023      A new parameter has been added.Row: 817
+//7.0   V2.0.39     Debashis    24/04/2023      A new parameter has been added.Row: 824
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -199,6 +200,9 @@ namespace ShopAPI.Models
         //Rev 6.0 Row:817
         public bool IsAssignedDDAvailableForAllUser { get; set; }
         //End of Rev 6.0 Row:817
+        //Rev 7.0 Row:824
+        public bool IsShowEmployeePerformance { get; set; }
+        //End of Rev 7.0 Row:824
     }
 
     public class ConfigurationModelInput
