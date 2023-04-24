@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.625, 10.125" name="Reports">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.625, 10.75" name="Reports">
   <DataContextMoniker Name="/ReportsDataContext" />
   <nestedChildShapes>
     <classShape Id="6f8bddd7-026f-4c14-800e-203cf2368696" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
@@ -18,12 +18,6 @@
       <DataClassMoniker Name="/ReportsDataContext/FTSSALESORDERANALYSIS_REPORT" />
       <nestedChildShapes>
         <elementListCompartment Id="a9600edd-28b6-441a-b75b-367a21bd9da1" absoluteBounds="9.14, 3.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="4bc3aaea-91c2-443d-9194-9b4198221a14" isExpanded="false" absoluteBounds="0.5, 1.125, 2, 0.45">
-      <DataClassMoniker Name="/ReportsDataContext/FTSEMPLOYEEREIMBURSEMENTLIST_REPORT" />
-      <nestedChildShapes>
-        <elementListCompartment Id="8e87f6ae-90ba-4a4e-8c0e-581879213095" absoluteBounds="0.51499999999999968, 1.585, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="bd81c902-b799-4456-a6ae-bb7b84ef4915" isExpanded="false" absoluteBounds="2.625, 1.125, 2, 0.45">
@@ -546,6 +540,12 @@
       <DataClassMoniker Name="/ReportsDataContext/FTSEMPLOYEEOUTLETMASTER_REPORT" />
       <nestedChildShapes>
         <elementListCompartment Id="afa965d2-28d5-4fee-b4d7-f4487a3b51d3" absoluteBounds="2.64, 7.9600000000000009, 1.9700000000000002, 6.0184326171875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="53d2ac5b-11d6-4c2f-9942-b3594cbacbff" isExpanded="false" absoluteBounds="0.5, 10, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/FTSEMPLOYEEREIMBURSEMENTLIST_REPORT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3f9ef9ba-39a3-4228-8524-31d8d9e914cf" absoluteBounds="0.515, 10.46, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
