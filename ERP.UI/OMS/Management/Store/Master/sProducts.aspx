@@ -5,6 +5,7 @@ Rev 2.0     Sanchita    V2.0.39     08/02/2023      When a product is Modified a
 Rev 3.0     Pallab      V2.0.39     13/02/2023      Master module design modification. Refer: 25656
 Rev 4.0     Sanchita    V2.0.39     01/03/2023      FSM >> Product Master : Listing - Implement Show Button. Refer: 25709
 Rev 5.0     Pallab      V2.0.39     18/04/2023      Dropdown window is not showing for Colour & Gender while selecting Configure Product Attribute in Product master. Refer: 25851
+Rev 6.0     Pallab      V2.0.39     25/04/2023      Products module all search popup auto focus add and "cancel" button color change. Refer: 25914
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
@@ -2697,7 +2698,27 @@ Rev 5.0     Pallab      V2.0.39     18/04/2023      Dropdown window is not showi
         {
             border-radius: 4px;
         }
+
+        /*Rev 6.0*/
+            /*#txtEmployeeSearch {
+                margin-bottom: 10px;
+            }*/
+
+            .btn-default {
+                background-color: #e0e0e0;
+            }
+        /*Rev end 6.0*/
     </style>
+
+    <script>
+        /*Rev 6.0*/
+        $(document).ready(function () {
+            $('#ProductModel').on('shown.bs.modal', function () {
+                $('#txtProdSearch').focus();
+            })
+        });
+        /*Rev end 6.0*/
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -4929,7 +4950,7 @@ Rev 5.0     Pallab      V2.0.39     18/04/2023      Dropdown window is not showi
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnSaveProduct" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>
+                    <button type="button" id="btnSaveProduct" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>
                     <button type="button" id="btnCloseProduct" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
