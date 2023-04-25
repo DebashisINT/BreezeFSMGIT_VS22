@@ -309,6 +309,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         private GridViewSettings GetEmployeeBatchGridViewSettings()
         {
+            //Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+            // End of Rev 1.0
+
             var settings = new GridViewSettings();
             settings.Name = "Reimbursement";
             settings.CallbackRouteValues = new { Controller = "SalesReportSummary", Action = "GetReimbursementList" };
@@ -366,11 +372,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
             });
 
             // Rev 1.0
-            settings.Columns.Add(column =>
+            if (isExpenseFeatureAvailable == "1")
             {
-                column.Caption = "Confirmed";
-                column.FieldName = "CONFIRMED_COUNT";
-            });
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "Confirmed";
+                    column.FieldName = "CONFIRMED_COUNT";
+                });
+            }
             // End of Rev 1.0
 
             settings.Columns.Add(column =>
