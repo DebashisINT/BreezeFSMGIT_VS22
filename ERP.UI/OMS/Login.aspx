@@ -3,6 +3,7 @@
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                14-01-2023        2.0.38           Pallab              Design change if we provide wrong password: fix 
 2.0                07-04-2023        2.0.39           Pallab              25805 : TEAM BEHIND and theme change features add in FSM login page
+3.0                24-04-2023        2.0.39           Pallab/Sanchita     25861 : Event banner should dynamically change according to the date
 ====================================================== Revision History ===========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="true" Inherits="pLogin"
@@ -313,9 +314,9 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     
     
     
-    <script src="/assests/pluggins/amchart/core.js"></script>
-    <script src="/assests/pluggins/amchart/charts.js"></script>
-    <script src="/assests/pluggins/amchart/themes/animated.js"></script>
+    <%--<script src="/assests/pluggins/amchart/core.js"></script>--%>
+    <%--<script src="/assests/pluggins/amchart/charts.js"></script>--%>
+    <%--<script src="/assests/pluggins/amchart/themes/animated.js"></script>--%>
     <script>
         $(document).ready(function () {
             $('.form-control').focusout(function () {
@@ -328,118 +329,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
         });
        
-        // chart
-        am4core.ready(function () {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
-
-            /**
-             * Define data for each year
-             */
-            var chartData = {
-                "1995": [
-                  { "sector": "Agriculture", "size": 1 },
-                  { "sector": "Mining and Quarrying", "size": 5 },
-                  { "sector": "Manufacturing", "size": 12 },
-                  { "sector": "Electricity and Water", "size": 8 },
-                  { "sector": "Construction", "size": 4 },
-                ],
-                "1996": [
-                  { "sector": "Agriculture", "size": 13 },
-                  { "sector": "Mining and Quarrying", "size": 7 },
-                  { "sector": "Manufacturing", "size": 3 },
-                  { "sector": "Electricity and Water", "size": 8 },
-                  { "sector": "Construction", "size": 5 },
-                ],
-                "1997": [
-                  { "sector": "Agriculture", "size": 4 },
-                  { "sector": "Mining and Quarrying", "size": 13 },
-                  { "sector": "Manufacturing", "size": 2 },
-                  { "sector": "Electricity and Water", "size": 5 },
-                  { "sector": "Construction", "size": 8 },
-                ],
-                "1998": [
-                  { "sector": "Agriculture", "size": 13 },
-                  { "sector": "Mining and Quarrying", "size": 1 },
-                  { "sector": "Manufacturing", "size": 7 },
-                  { "sector": "Electricity and Water", "size": 3 },
-                  { "sector": "Construction", "size": 6 },
-                ],
-                "1999": [
-                  { "sector": "Agriculture", "size": 8 },
-                  { "sector": "Mining and Quarrying", "size": 3 },
-                  { "sector": "Manufacturing", "size": 10 },
-                  { "sector": "Electricity and Water", "size": 4 },
-                  { "sector": "Construction", "size": 11 },
-                ]
-            };
-
-            // Create chart instance
-            var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-            // Add data
-            chart.data = [
-              { "sector": "Agriculture", "size": 6 },
-              { "sector": "Mining and Quarrying", "size": 10 },
-              { "sector": "Manufacturing", "size": 3 },
-              { "sector": "Electricity and Water", "size": 8 },
-              { "sector": "Construction", "size": 2 },
-
-            ];
-
-            // Add label
-
-            var label = chart.seriesContainer.createChild(am4core.Label);
-            label.text = "1995";
-            label.horizontalCenter = "middle";
-            label.verticalCenter = "middle";
-            label.fontSize = 50;
-
-            // Add and configure Series
-            var pieSeries = chart.series.push(new am4charts.PieSeries());
-            pieSeries.dataFields.value = "size";
-            pieSeries.dataFields.category = "sector";
-            pieSeries.ticks.template.disabled = true;
-            pieSeries.alignLabels = false;
-            pieSeries.labels.template.text = "{value.percent.formatNumber('#.')}%";
-            pieSeries.labels.template.radius = am4core.percent(-40);
-            pieSeries.labels.template.fill = am4core.color("white");
-            pieSeries.hideCredits = true;
-            pieSeries.tooltip.disabled = true;
-            pieSeries.colors.list = [
-                   am4core.color("#845EC2"),
-  am4core.color("#D65DB1"),
-  am4core.color("#FF6F91"),
-  am4core.color("#FF9671"),
-  am4core.color("#FFC75F"),
-  am4core.color("#F9F871"),
-            ];
-            // Animate chart data
-            var currentYear = 1995;
-            function getCurrentData() {
-                label.text = currentYear;
-                var data = chartData[currentYear];
-                currentYear++;
-                if (currentYear > 1999)
-                    currentYear = 1995;
-                return data;
-            }
-
-            function loop() {
-                //chart.allLabels[0].text = currentYear;
-                var data = getCurrentData();
-                for (var i = 0; i < data.length; i++) {
-                    chart.data[i].size = data[i].size;
-                }
-                chart.invalidateRawData();
-                chart.setTimeout(loop, 1500);
-            }
-
-            loop();
-
-        }); // end am4core.ready()
+        
     </script>
     <link href="/assests/css/newlogin.css" rel="stylesheet" />
      <style type="text/css">
@@ -909,7 +799,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             border-radius: 10px;
             margin-top: 15px;
             width: 300px;
-            height: 135px;
+            /*height: 135px;*/
             margin-left:auto;
             margin-right: auto;
             margin-bottom: 15px;
@@ -1246,7 +1136,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                      <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
                  <div class="login-part">
                     <div class="event-img">
-                         <img src="/assests/images/event-banner.jpg" />
+                        <%--Rev 3.0 : id="EV1" & runat="server" added--%>
+                         <%--<img src="/assests/images/Events/event-banner.jpg" />--%>   
+                         <img id="EV1" runat="server" src="" />
+                        <%--End of Rev 3.0--%>
                      </div>
                      <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
                      <%--<p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>--%>
