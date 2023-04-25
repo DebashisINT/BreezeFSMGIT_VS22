@@ -89,10 +89,6 @@ public partial class pLogin : System.Web.UI.Page
             Page.ClientScript.RegisterStartupScript(GetType(), "JScript15", "<script language='javascript'>alert('You are not authorized to login from this location..');</script>");
         }
 
-        // Rev 1.0
-        EV1.Src = oDBEngine.GetEventImage();
-        // End of Rev 1.0
-
         if (!Page.IsPostBack)
         {
             //lblCompHead.Text = oDBEngine.GetFieldValue("tbl_master_company", "cmp_name", "cmp_id=45", 1)[0, 0].ToString();
@@ -101,7 +97,9 @@ public partial class pLogin : System.Web.UI.Page
             this.txtPassword.Text = "";
             //this.lblMessage.Visible = false;
 
-
+            // Rev 1.0
+            EV1.Src = oDBEngine.GetEventImage();
+            // End of Rev 1.0
 
 
             if (Request.QueryString["rurl"] != null)

@@ -8039,23 +8039,24 @@ namespace BusinessLogicLayer
         {
             string strEventImage = "";
 
-            DataTable dtInst = new DataTable();
-            SqlConnection con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["ErpConnectionMaster"].ConnectionString));
-
-            SqlCommand cmd = new SqlCommand("PRC_FTSGetEventImage", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.CommandTimeout = 0;
-            SqlDataAdapter Adap = new SqlDataAdapter();
-            Adap.SelectCommand = cmd;
-            Adap.Fill(dtInst);
-
-            if (dtInst.Rows.Count > 0)
+            if (ConfigurationManager.ConnectionStrings["ErpConnectionMaster"] != null)
             {
-                strEventImage = dtInst.Rows[0]["Value"].ToString();
-            }
-            
+                DataTable dtInst = new DataTable();
+                SqlConnection con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["ErpConnectionMaster"].ConnectionString));
 
+                SqlCommand cmd = new SqlCommand("PRC_FTSGetEventImage", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.CommandTimeout = 0;
+                SqlDataAdapter Adap = new SqlDataAdapter();
+                Adap.SelectCommand = cmd;
+                Adap.Fill(dtInst);
+
+                if (dtInst.Rows.Count > 0)
+                {
+                    strEventImage = dtInst.Rows[0]["Value"].ToString();
+                }
+            }
             return strEventImage;
         }
         // End of Rev 3.0
