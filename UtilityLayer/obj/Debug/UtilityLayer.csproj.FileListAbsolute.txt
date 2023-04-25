@@ -68,3 +68,17 @@ E:\GIT22\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.CoreCompil
 E:\GIT22\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.CopyComplete
 E:\GIT22\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.dll
 E:\GIT22\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.pdb
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\UtilityLayer.pdb
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\EntityLayer.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\DataAccessLayer.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\Aspose.Pdf.Kit.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\Ionic.Zip.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\EntityLayer.pdb
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\bin\Debug\DataAccessLayer.pdb
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.AssemblyReference.cache
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.CoreCompileInputs.cache
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.csproj.CopyComplete
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.dll
+C:\Projects\BreezeFSMGIT_VS22\UtilityLayer\obj\Debug\UtilityLayer.pdb
