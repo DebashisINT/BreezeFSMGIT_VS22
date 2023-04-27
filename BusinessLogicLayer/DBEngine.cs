@@ -8044,8 +8044,9 @@ namespace BusinessLogicLayer
                 DataTable dtInst = new DataTable();
                 SqlConnection con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["ErpConnectionMaster"].ConnectionString));
 
-                SqlCommand cmd = new SqlCommand("PRC_FTSGetEventImage", con);
+                SqlCommand cmd = new SqlCommand("PRC_EVENTBANNERIMAGEDETAILS", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ACTION", "GETEVENTIMAGE");
 
                 cmd.CommandTimeout = 0;
                 SqlDataAdapter Adap = new SqlDataAdapter();
