@@ -8039,10 +8039,10 @@ namespace BusinessLogicLayer
         {
             string strEventImage = "";
 
-            if (ConfigurationManager.ConnectionStrings["ErpConnectionMaster"] != null)
+            if (ConfigurationManager.AppSettings["ErpConnectionMaster"] != null)
             {
                 DataTable dtInst = new DataTable();
-                SqlConnection con = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["ErpConnectionMaster"].ConnectionString));
+                SqlConnection con = new SqlConnection(Convert.ToString(ConfigurationManager.AppSettings["ErpConnectionMaster"]));
 
                 SqlCommand cmd = new SqlCommand("PRC_MASTER_EVENTBANNERIMAGEDETAILS", con);
                 cmd.CommandType = CommandType.StoredProcedure;
