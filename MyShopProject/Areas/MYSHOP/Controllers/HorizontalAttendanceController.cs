@@ -112,7 +112,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
 
             string frmdate = string.Empty;
-            String Path = System.Configuration.ConfigurationSettings.AppSettings["Path"];
+            // Rev Sanchita
+            //String Path = System.Configuration.ConfigurationSettings.AppSettings["Path"];
+            String Path = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
+            // End of Rev Sanchita
             String weburl = Path + "AttendanceImageDemo/";
 
             if (model.is_pageload == "0")
