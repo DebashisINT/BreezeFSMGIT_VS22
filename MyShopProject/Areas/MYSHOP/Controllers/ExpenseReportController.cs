@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer.SalesmanTrack;
+﻿/******************************************************************************************************
+ * Created by Sanchita for V2.0.40 on 04-05-2023. Work done in Controller, View and Model
+ * A New Expense Report is Required for BP Poddar. Refer: 25833
+ * *******************************************************************************************************/
+using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
@@ -298,8 +302,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public ActionResult LoadImageDocument(string REIMBURSEMENT_DATE, string EMPID)
         {
-            //String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
-            string fileLocation = System.Configuration.ConfigurationManager.AppSettings["ReimbursementImageUrl"];
+            //string weburl = System.Web.Hosting.HostingEnvironment.MapPath("~/APP/CommonFolder/Reimbursement/");
+            string weburl =  Server.MapPath("~/CommonFolder/Reimbursement/");
+            weburl = weburl.Replace("MyShopProject", "APP");
+
             List<ReimbursementApplicationbills> list = new List<ReimbursementApplicationbills>();
 
             DataTable dt = new DataTable();
@@ -312,9 +318,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                
-
-                string dir = Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment");
+                //string dir = Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment");
+                string dir = weburl + "Reimbursement_Attachment";
                 // If directory does not exist, create it
                 if (!Directory.Exists(dir))
                 {
@@ -325,8 +330,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     string FileName = Convert.ToString(row["Bills"]);
 
-                    var source = Server.MapPath("~/CommonFolder/Reimbursement/" + FileName + "");
-                    var destination = Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment/" + FileName + "");
+                    //var source = Server.MapPath("~/CommonFolder/Reimbursement/" + FileName + "");
+                    //var destination = Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment/" + FileName + "");
+                    var source = weburl + FileName ;
+                    var destination = weburl + "Reimbursement_Attachment/" + FileName ;
 
                     //Do your job with "file"  
                     if (!System.IO.File.Exists(destination))
@@ -338,8 +345,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 using (var zip = new Ionic.Zip.ZipFile())
                 {
-                    zip.AddFiles(Directory.GetFiles(Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment")), "Reimbursement");
-                    zip.Save(Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment.zip"));
+                    //zip.AddFiles(Directory.GetFiles(Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment")), "Reimbursement");
+                    //zip.Save(Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment.zip"));
+                    
+                    zip.AddFiles(Directory.GetFiles(weburl + "Reimbursement_Attachment"), "Reimbursement");
+                    zip.Save(weburl + "Reimbursement_Attachment.zip");
                 }
 
 
@@ -350,7 +360,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 response.Clear();
                 response.ContentType = "image/jpeg";
                 response.AddHeader("Content-Disposition", "attachment; filename=Reimbursement_Attachment.zip;");
-                response.TransmitFile(Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment.zip"));
+                response.TransmitFile(weburl + "Reimbursement_Attachment.zip");
                 response.Flush();
                 response.End();
 
@@ -359,16 +369,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     System.IO.Directory.Delete(dir, true);
                 }
 
-                string zippath = Server.MapPath("~/CommonFolder/Reimbursement/Reimbursement_Attachment.zip");
+                string zippath = weburl + "Reimbursement_Attachment.zip";
                 if (System.IO.File.Exists(zippath))
                 {
                     System.IO.File.Delete(zippath);
                 }
-
-               
             }
 
-                return null;
+            return null;
         }
     }
 }
