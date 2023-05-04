@@ -462,7 +462,6 @@ D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\DataAccessLayer.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\EntityLayer.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\UtilityLayer.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Aspose.Pdf.Kit.dll
-D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Ionic.Zip.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\BusinessLogicLayer.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\DataAccessLayer.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\EntityLayer.pdb

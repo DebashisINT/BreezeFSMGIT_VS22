@@ -2596,4 +2596,21 @@
       <Column Name="CONFIRMED_COUNT" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.EXPENSE_REPORT" Member="EXPENSE_REPORTs">
+    <Type Name="EXPENSE_REPORT">
+      <Column Name="SL" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="REIMBURSEMENT_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HQ_NAME" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EMPID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EMP_NAME" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EMP_DESIGNATION" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="REPORTTO_NAME" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EXPENSE_TYPE" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="OTHER_ALLOWANCE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="DAILY_ALLOWANCE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TOTAL_ALLOWANCE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IS_IMAGE" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="USER_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
