@@ -304,7 +304,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             //string weburl = System.Web.Hosting.HostingEnvironment.MapPath("~/APP/CommonFolder/Reimbursement/");
             string weburl =  Server.MapPath("~/CommonFolder/Reimbursement/");
-            weburl = weburl.Replace("MyShopProject", "APP");
+
+            //weburl = weburl.Replace("MyShopProject", "APP");
+            weburl = weburl.Replace("PORTAL", "APP");
 
             List<ReimbursementApplicationbills> list = new List<ReimbursementApplicationbills>();
 
