@@ -110,6 +110,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\FTSEntityframework.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -289,6 +292,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\EmployeeTargetvsAchvController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\EntityRatingController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ERPSettingsController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ExpenseReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\GPSStatisticsReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\GPSStatusController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\HierarchyWiseTargetController.cs" />
@@ -429,6 +433,7 @@
     <Compile Include="Models\EmployeeActivityDetailsModel.cs" />
     <Compile Include="Models\EmployeeActivityStatusModel.cs" />
     <Compile Include="Models\EmployeeMasterReport.cs" />
+    <Compile Include="Models\ExpenseReport.cs" />
     <Compile Include="Models\FormulaApply.cs" />
     <Compile Include="Models\HorizontalAttendanceModel.cs" />
     <Compile Include="Models\HorizontalPerformanceReport.cs" />
@@ -1961,6 +1966,10 @@
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\Reimbursement\_ReimbursementDetailsDataConfirmed.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ExpenseReport\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ExpenseReport\_ExpenseTypePartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ExpenseReport\_HQNamePartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ExpenseReport\_PartialExpenseReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

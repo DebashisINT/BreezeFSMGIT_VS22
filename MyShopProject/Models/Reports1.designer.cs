@@ -828,6 +828,14 @@ namespace MyShop.Models
 				return this.GetTable<FTSEMPLOYEEREIMBURSEMENTLIST_REPORT>();
 			}
 		}
+		
+		public System.Data.Linq.Table<EXPENSE_REPORT> EXPENSE_REPORTs
+		{
+			get
+			{
+				return this.GetTable<EXPENSE_REPORT>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSDASHBOARD_REPORT")]
@@ -43395,6 +43403,249 @@ namespace MyShop.Models
 				if ((this._CONFIRMED_COUNT != value))
 				{
 					this._CONFIRMED_COUNT = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXPENSE_REPORT")]
+	public partial class EXPENSE_REPORT
+	{
+		
+		private System.Nullable<long> _SL;
+		
+		private System.Nullable<System.DateTime> _REIMBURSEMENT_DATE;
+		
+		private string _HQ_NAME;
+		
+		private string _EMPID;
+		
+		private string _EMP_NAME;
+		
+		private string _EMP_DESIGNATION;
+		
+		private string _REPORTTO_NAME;
+		
+		private string _EXPENSE_TYPE;
+		
+		private System.Nullable<decimal> _OTHER_ALLOWANCE;
+		
+		private System.Nullable<decimal> _DAILY_ALLOWANCE;
+		
+		private System.Nullable<decimal> _TOTAL_ALLOWANCE;
+		
+		private System.Nullable<bool> _IS_IMAGE;
+		
+		private System.Nullable<long> _USER_ID;
+		
+		public EXPENSE_REPORT()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SL", DbType="BigInt")]
+		public System.Nullable<long> SL
+		{
+			get
+			{
+				return this._SL;
+			}
+			set
+			{
+				if ((this._SL != value))
+				{
+					this._SL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REIMBURSEMENT_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> REIMBURSEMENT_DATE
+		{
+			get
+			{
+				return this._REIMBURSEMENT_DATE;
+			}
+			set
+			{
+				if ((this._REIMBURSEMENT_DATE != value))
+				{
+					this._REIMBURSEMENT_DATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HQ_NAME", DbType="NVarChar(100)")]
+		public string HQ_NAME
+		{
+			get
+			{
+				return this._HQ_NAME;
+			}
+			set
+			{
+				if ((this._HQ_NAME != value))
+				{
+					this._HQ_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPID", DbType="NVarChar(100)")]
+		public string EMPID
+		{
+			get
+			{
+				return this._EMPID;
+			}
+			set
+			{
+				if ((this._EMPID != value))
+				{
+					this._EMPID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMP_NAME", DbType="NVarChar(500)")]
+		public string EMP_NAME
+		{
+			get
+			{
+				return this._EMP_NAME;
+			}
+			set
+			{
+				if ((this._EMP_NAME != value))
+				{
+					this._EMP_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMP_DESIGNATION", DbType="NVarChar(500)")]
+		public string EMP_DESIGNATION
+		{
+			get
+			{
+				return this._EMP_DESIGNATION;
+			}
+			set
+			{
+				if ((this._EMP_DESIGNATION != value))
+				{
+					this._EMP_DESIGNATION = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTTO_NAME", DbType="NVarChar(500)")]
+		public string REPORTTO_NAME
+		{
+			get
+			{
+				return this._REPORTTO_NAME;
+			}
+			set
+			{
+				if ((this._REPORTTO_NAME != value))
+				{
+					this._REPORTTO_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EXPENSE_TYPE", DbType="NVarChar(500)")]
+		public string EXPENSE_TYPE
+		{
+			get
+			{
+				return this._EXPENSE_TYPE;
+			}
+			set
+			{
+				if ((this._EXPENSE_TYPE != value))
+				{
+					this._EXPENSE_TYPE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OTHER_ALLOWANCE", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> OTHER_ALLOWANCE
+		{
+			get
+			{
+				return this._OTHER_ALLOWANCE;
+			}
+			set
+			{
+				if ((this._OTHER_ALLOWANCE != value))
+				{
+					this._OTHER_ALLOWANCE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DAILY_ALLOWANCE", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> DAILY_ALLOWANCE
+		{
+			get
+			{
+				return this._DAILY_ALLOWANCE;
+			}
+			set
+			{
+				if ((this._DAILY_ALLOWANCE != value))
+				{
+					this._DAILY_ALLOWANCE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_ALLOWANCE", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TOTAL_ALLOWANCE
+		{
+			get
+			{
+				return this._TOTAL_ALLOWANCE;
+			}
+			set
+			{
+				if ((this._TOTAL_ALLOWANCE != value))
+				{
+					this._TOTAL_ALLOWANCE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IS_IMAGE", DbType="Bit")]
+		public System.Nullable<bool> IS_IMAGE
+		{
+			get
+			{
+				return this._IS_IMAGE;
+			}
+			set
+			{
+				if ((this._IS_IMAGE != value))
+				{
+					this._IS_IMAGE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="BigInt")]
+		public System.Nullable<long> USER_ID
+		{
+			get
+			{
+				return this._USER_ID;
+			}
+			set
+			{
+				if ((this._USER_ID != value))
+				{
+					this._USER_ID = value;
 				}
 			}
 		}
