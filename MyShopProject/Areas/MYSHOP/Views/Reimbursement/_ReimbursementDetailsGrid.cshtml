@@ -1,4 +1,9 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*====================================================== Revision History ==========================================================*@
+@*1.0		05-05-2023   	V2.0.40		Sanchita		In TRAVELLING ALLOWANCE -- Approve/Reject Page: One Coloumn('Confirm/Reject') required
+                                                        before 'Approve/Reject' coloumn. refer: 25809*@
+@*====================================================== Revision History ==========================================================*@
+
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridreimbursementdetails";
 
@@ -27,7 +32,7 @@
     settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Reimbursement", Action = "BatchEditingUpdateReimbursement" };
 
     settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
-    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "20","50","100" };
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "20", "50", "100" };
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
     settings.SettingsPager.PageSize = 5;
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
@@ -38,9 +43,11 @@
     settings.CommandColumn.Width = 40;
 
     settings.CommandColumn.VisibleIndex = 0;
-    settings.CommandColumn.FixedStyle = GridViewColumnFixedStyle.Left;;
+    settings.CommandColumn.FixedStyle = GridViewColumnFixedStyle.Left; ;
     settings.CommandColumn.ShowClearFilterButton = true;
-    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    // Rev 1.0
+    //settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    // End of Rev 1.0
     settings.ClientSideEvents.RowClick = "rowClick";
 
 
@@ -330,12 +337,14 @@
 
         x.SetDataItemTemplateContent(c =>
         {
-            if(Convert.ToInt32(DataBinder.Eval(c.DataItem, "is_ApprovedPermision")) == 1){
+            if (Convert.ToInt32(DataBinder.Eval(c.DataItem, "is_ApprovedPermision")) == 1)
+            {
                 ViewContext.Writer.Write(
                            "<a style='cursor:pointer' class='disableHref clsReimbursementDetailsGridApprovedData' onclick=\"OpenReimbursementDetailsGridApprovedData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "user_contactId")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "ApplicationID")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "Apprvd_Dist")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "Apprvd_Amt")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "App_Rej_Remarks")) + "')\"> <img src='/assests/images/document.png' title='Click to Edit' /></a>"
                       );
             }
-            else{
+            else
+            {
                 ViewContext.Writer.Write(
                                      "<a style='cursor:pointer' class='disableHref clsReimbursementDetailsGridApprovedData' onclick=\"CheckApprovedPermission('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Checked_Message")) + "')\"> <img src='/assests/images/document.png' title='Not Applicable' /></a>"
                               );
@@ -353,7 +362,8 @@
 
         x.SetDataItemTemplateContent(c =>
         {
-            if(Convert.ToInt32(DataBinder.Eval(c.DataItem, "is_Image")) == 1){
+            if (Convert.ToInt32(DataBinder.Eval(c.DataItem, "is_Image")) == 1)
+            {
                 ViewContext.Writer.Write(
                       "<a style='cursor:pointer' onclick=\"OpenReimbursementImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "MapExpenseID")) + "')\"> <img src='/assests/images/document.png' title='Click to View' /></a>"
                   );
