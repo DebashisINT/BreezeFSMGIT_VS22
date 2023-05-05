@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                20-01-2023        2.0.38           Pallab              25576: Report page design modification *@
+@*2.0                05-05-2023        2.0.39           Pallab              26039: Design enhancement for small device of Order Status page *@
 @*====================================================== Revision History ==========================================================*@
 
 @model MyShop.Models.OrderStatusModel
@@ -681,35 +682,34 @@
             z-index: 0;
         }
 
-    .whclass.selectH , #ddlShowReport {
+    .whclass.selectH, #ddlShowReport {
         -webkit-appearance: none;
         position: relative;
         z-index: 1;
         background-color: transparent;
     }
 
-        .whclass.selectH
-        {
-            padding-right: 30px;
-        }
+    .whclass.selectH {
+        padding-right: 30px;
+    }
 
-        #ddlShowReport:focus-visible {
-            box-shadow: none;
-            outline: none;
-            border: 1px solid #164f93;
-        }
+    #ddlShowReport:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: 1px solid #164f93;
+    }
 
-        #ddlShowReport:focus {
-            border: 1px solid #164f93;
-        }
+    #ddlShowReport:focus {
+        border: 1px solid #164f93;
+    }
 
-        .whclass.selectH:focus-visible {
-            outline: none;
-        }
+    .whclass.selectH:focus-visible {
+        outline: none;
+    }
 
-        .whclass.selectH:focus {
-            border: 1px solid #164f93;
-        }
+    .whclass.selectH:focus {
+        border: 1px solid #164f93;
+    }
 
     .dxeButtonEdit_PlasticBlue {
         border: 1px Solid #ccc;
@@ -950,6 +950,13 @@
 
                     }).GetHtml()
                 </td>
+
+                @*Rev 1.0*@
+                @*<td style="width:190px;">*@
+
+            </tr>
+            <tr>
+                @*Rev 2.0: 3 td added in this tr, from last tr*@
                 <td style="width:190px;">
                     <label>From Date </label>
                     @Html.DevExpress().DateEditFor(x => x.FromDate,
@@ -980,10 +987,9 @@
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
                 </td>
-                @*Rev 1.0*@
-                @*<td style="width:190px;">*@
+
                 <td style="width:190px;" class="h-branch-select">
-                 @*Rev end 1.0*@
+                    @*Rev end 1.0*@
                     <label>Show Report on </label>
                     <select name="ddlShowReport" class="from-control" id="ddlShowReport" style="width:100%">
                         <option value="0">Order Date</option>
@@ -991,8 +997,6 @@
 
                     </select>
                 </td>
-            </tr>
-            <tr>
                 @*Rev 1.0*@
                 @*<td style="padding-top: 20px; width: 192px;">*@
                 <td style="padding-top: 20px; width: 230px;">
