@@ -89,7 +89,7 @@ namespace ERP.OMS.Management.Store.Master
                 IsUdfpresent.Value = Convert.ToString(getUdfCount());
                 Session["exportval"] = null;
                 // Rev 3.0
-                Session["sProducts"] = null;
+                Session["Master_ProductDetails"] = null;
                 // End of Rev 3.0
 
                 BindProType();
@@ -558,7 +558,7 @@ namespace ERP.OMS.Management.Store.Master
             if (dtFillGrid.Rows.Count > 0)
             {
                 // Rev 3.0
-                Session["sProducts"] = dtFillGrid;
+                Session["Master_ProductDetails"] = dtFillGrid;
                 // End of Rev 3.0
                 cityGrid.DataSource = dtFillGrid;
                 cityGrid.DataBind();
@@ -566,7 +566,7 @@ namespace ERP.OMS.Management.Store.Master
             else
             {
                 // Rev 3.0
-                Session["sProducts"] = null;
+                Session["Master_ProductDetails"] = null;
                 // End of Rev 3.0
                 cityGrid.DataSource = null;
                 cityGrid.DataBind();
@@ -617,7 +617,7 @@ namespace ERP.OMS.Management.Store.Master
             if (Filter != 0)
             {
                 // Rev 3.0
-                cityGrid.DataSource = Session["sProducts"];
+                cityGrid.DataSource = Session["Master_ProductDetails"];
                 cityGrid.DataBind();
                 // End of Rev 3.0
 
