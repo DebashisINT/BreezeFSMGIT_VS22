@@ -260,7 +260,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Other Allowance";
                 x.VisibleIndex = 8;
                 x.Width = 100;
-
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
             });
 
             settings.Columns.Add(x =>
@@ -269,7 +271,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Daily Allowance";
                 x.VisibleIndex = 9;
                 x.Width = 100;
-
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
             });
 
             settings.Columns.Add(x =>
@@ -278,7 +282,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Total Allowance";
                 x.VisibleIndex = 10;
                 x.Width = 100;
-
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
             });
 
             
