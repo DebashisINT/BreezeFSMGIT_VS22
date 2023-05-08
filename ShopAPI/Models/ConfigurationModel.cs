@@ -6,6 +6,7 @@
 //5.0   V2.0.38     Debashis    22/03/2023      A new parameter has been added.Row: 815
 //6.0   V2.0.39     Debashis    06/04/2023      A new parameter has been added.Row: 817
 //7.0   V2.0.39     Debashis    24/04/2023      A new parameter has been added.Row: 824
+//8.0   V2.0.39     Debashis    08/05/2023      Some new parameters have been added.Row: 825,826,827
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -203,6 +204,18 @@ namespace ShopAPI.Models
         //Rev 7.0 Row:824
         public bool IsShowEmployeePerformance { get; set; }
         //End of Rev 7.0 Row:824
+        //Rev 8.0 Row:825,826,827
+        public bool IsShowPrivacyPolicyInMenu { get; set; }
+        public bool IsAttendanceCheckedforExpense { get; set; }
+        public bool IsShowLocalinExpense { get; set; }
+        public bool IsShowOutStationinExpense { get; set; }
+        public bool IsTAAttachment1Mandatory { get; set; }
+        public bool IsTAAttachment2Mandatory { get; set; }
+        public bool IsSingleDayTAApplyRestriction { get; set; }
+        public string NameforConveyanceAttachment1 { get; set; }
+        public string NameforConveyanceAttachment2 { get; set; }
+        public bool IsTaskManagementAvailable { get; set; }
+        //End of Rev 8.0 Row:825,826,827
     }
 
     public class ConfigurationModelInput
