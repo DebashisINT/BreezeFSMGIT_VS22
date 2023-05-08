@@ -4047,6 +4047,24 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkShowEmployeePerformance;
 
         /// <summary>
+        /// divShowBeatInMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divShowBeatInMenu;
+
+        /// <summary>
+        /// chkShowBeatInMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkShowBeatInMenu;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

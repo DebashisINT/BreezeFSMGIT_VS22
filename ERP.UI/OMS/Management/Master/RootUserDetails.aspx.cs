@@ -1,6 +1,9 @@
 /*******************************************************************************************************************
  * 1.0                26-04-2023       V2.0.40           Sanchita         A checkbox required for performance module,check box name is Show Employee Performance.
                                                                           Refer: 25911
+ * 2.0                08-05-2023       V2.0.40           Sanchita         In user table a column exist as IsShowBeatInMenu. 
+ *                                                                        This will show in portal under user settings as"ShowBeatInMenu".
+                                                                          Refer: 25947
 *******************************************************************************************************************/
 using System;
 using System.Data;
@@ -2244,6 +2247,16 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                     chkShowEmployeePerformance.Checked = false;
                 }
                 // End of Rev 1.0
+                // Rev 2.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowBeatInMenu"]) == true)
+                {
+                    chkShowBeatInMenu.Checked = true;
+                }
+                else
+                {
+                    chkShowBeatInMenu.Checked = false;
+                }
+                // End of Rev 2.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2627,6 +2640,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 // Rev 1.0
                 int IsShowEmployeePerformance = 0;
                 // End of Rev 1.0
+                // Rev 2.0
+                int IsShowBeatInMenu = 0;
+                // End of Rev 2.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -3968,6 +3984,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 else
                     IsShowEmployeePerformance = 0;
                 // End of Rev 1.0
+                // Rev 2.0
+                if (chkShowBeatInMenu.Checked == true)
+                    IsShowBeatInMenu = 1;
+                else
+                    IsShowBeatInMenu = 0;
+                // End of Rev 2.0
 
                 String PartyType = hdnPartyType.Value.ToString();
                 //Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master
@@ -4288,6 +4310,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             // Rev 1.0
                             proc.AddPara("@IsShowEmployeePerformance", IsShowEmployeePerformance);
                             // End of Rev 1.0
+                            // Rev 2.0
+                            proc.AddPara("@IsShowBeatInMenu", IsShowBeatInMenu);
+                            // End of Rev 2.0
 
                             DataTable dt = proc.GetTable();
 
@@ -4688,6 +4713,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             // Rev 1.0
                             proc.AddPara("@IsShowEmployeePerformance", IsShowEmployeePerformance);
                             // End of Rev 1.0
+                            // Rev 2.0
+                            proc.AddPara("@IsShowBeatInMenu", IsShowBeatInMenu);
+                            // End of Rev 2.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5084,6 +5112,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             // Rev 1.0
                             proc.AddPara("@IsShowEmployeePerformance", IsShowEmployeePerformance);
                             // End of Rev 1.0
+                            // Rev 2.0
+                            proc.AddPara("@IsShowBeatInMenu", IsShowBeatInMenu);
+                            // End of Rev 2.0
 
                             DataTable dt = proc.GetTable();
 
