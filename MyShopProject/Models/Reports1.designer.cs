@@ -77,6 +77,12 @@ namespace MyShop.Models
     partial void Deletetbl_master_user(tbl_master_user instance);
     #endregion
 		
+		public ReportsDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FSM_ITCConnectionString3"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public ReportsDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -834,6 +840,14 @@ namespace MyShop.Models
 			get
 			{
 				return this.GetTable<EXPENSE_REPORT>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TASKMANAGEMENT_LISTING> TASKMANAGEMENT_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<TASKMANAGEMENT_LISTING>();
 			}
 		}
 	}
@@ -43646,6 +43660,339 @@ namespace MyShop.Models
 				if ((this._USER_ID != value))
 				{
 					this._USER_ID = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TASKMANAGEMENT_LISTING")]
+	public partial class TASKMANAGEMENT_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<int> _TASK_ID;
+		
+		private System.Nullable<System.DateTime> _STARTDATE;
+		
+		private System.Nullable<System.DateTime> _DUETDATE;
+		
+		private string _Task_Name;
+		
+		private string _Task_Priority;
+		
+		private string _Task_Details;
+		
+		private System.Nullable<System.DateTime> _CREATED_DATE;
+		
+		private string _CREATED_BY;
+		
+		private string _MODIFIED_BY;
+		
+		private System.Nullable<System.DateTime> _MODIFIED_DATE;
+		
+		private string _Task_STATUS;
+		
+		private string _ASSIGNED_TO;
+		
+		private string _ReASSIGNED_TO;
+		
+		private System.Nullable<System.DateTime> _SalesmanAssign_date;
+		
+		private System.Nullable<System.DateTime> _ReSalesmanAssign_date;
+		
+		private string _ASSIGNED_TOID;
+		
+		public TASKMANAGEMENT_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TASK_ID", DbType="Int")]
+		public System.Nullable<int> TASK_ID
+		{
+			get
+			{
+				return this._TASK_ID;
+			}
+			set
+			{
+				if ((this._TASK_ID != value))
+				{
+					this._TASK_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STARTDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> STARTDATE
+		{
+			get
+			{
+				return this._STARTDATE;
+			}
+			set
+			{
+				if ((this._STARTDATE != value))
+				{
+					this._STARTDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DUETDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DUETDATE
+		{
+			get
+			{
+				return this._DUETDATE;
+			}
+			set
+			{
+				if ((this._DUETDATE != value))
+				{
+					this._DUETDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Task_Name", DbType="NVarChar(300)")]
+		public string Task_Name
+		{
+			get
+			{
+				return this._Task_Name;
+			}
+			set
+			{
+				if ((this._Task_Name != value))
+				{
+					this._Task_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Task_Priority", DbType="NVarChar(200)")]
+		public string Task_Priority
+		{
+			get
+			{
+				return this._Task_Priority;
+			}
+			set
+			{
+				if ((this._Task_Priority != value))
+				{
+					this._Task_Priority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Task_Details", DbType="NVarChar(500)")]
+		public string Task_Details
+		{
+			get
+			{
+				return this._Task_Details;
+			}
+			set
+			{
+				if ((this._Task_Details != value))
+				{
+					this._Task_Details = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATED_DATE
+		{
+			get
+			{
+				return this._CREATED_DATE;
+			}
+			set
+			{
+				if ((this._CREATED_DATE != value))
+				{
+					this._CREATED_DATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_BY", DbType="NVarChar(50)")]
+		public string CREATED_BY
+		{
+			get
+			{
+				return this._CREATED_BY;
+			}
+			set
+			{
+				if ((this._CREATED_BY != value))
+				{
+					this._CREATED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_BY", DbType="NVarChar(50)")]
+		public string MODIFIED_BY
+		{
+			get
+			{
+				return this._MODIFIED_BY;
+			}
+			set
+			{
+				if ((this._MODIFIED_BY != value))
+				{
+					this._MODIFIED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFIED_DATE
+		{
+			get
+			{
+				return this._MODIFIED_DATE;
+			}
+			set
+			{
+				if ((this._MODIFIED_DATE != value))
+				{
+					this._MODIFIED_DATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Task_STATUS", DbType="NVarChar(50)")]
+		public string Task_STATUS
+		{
+			get
+			{
+				return this._Task_STATUS;
+			}
+			set
+			{
+				if ((this._Task_STATUS != value))
+				{
+					this._Task_STATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASSIGNED_TO", DbType="NVarChar(200)")]
+		public string ASSIGNED_TO
+		{
+			get
+			{
+				return this._ASSIGNED_TO;
+			}
+			set
+			{
+				if ((this._ASSIGNED_TO != value))
+				{
+					this._ASSIGNED_TO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReASSIGNED_TO", DbType="NVarChar(200)")]
+		public string ReASSIGNED_TO
+		{
+			get
+			{
+				return this._ReASSIGNED_TO;
+			}
+			set
+			{
+				if ((this._ReASSIGNED_TO != value))
+				{
+					this._ReASSIGNED_TO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesmanAssign_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> SalesmanAssign_date
+		{
+			get
+			{
+				return this._SalesmanAssign_date;
+			}
+			set
+			{
+				if ((this._SalesmanAssign_date != value))
+				{
+					this._SalesmanAssign_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReSalesmanAssign_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ReSalesmanAssign_date
+		{
+			get
+			{
+				return this._ReSalesmanAssign_date;
+			}
+			set
+			{
+				if ((this._ReSalesmanAssign_date != value))
+				{
+					this._ReSalesmanAssign_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASSIGNED_TOID", DbType="NVarChar(200)")]
+		public string ASSIGNED_TOID
+		{
+			get
+			{
+				return this._ASSIGNED_TOID;
+			}
+			set
+			{
+				if ((this._ASSIGNED_TOID != value))
+				{
+					this._ASSIGNED_TOID = value;
 				}
 			}
 		}

@@ -1,4 +1,10 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*====================================================== Revision History ===================================================*@
+@*1.0    V2.0.40    PRITI       09/05/2023      0026031:Copy the current Enquiry page, and create a duplicate and name it as 'Task Management'
+  2.0    V2.0.40    PRITI       09/05/2023      0026032: Customization in Task Management Page
+  3.0    V2.0.40    PRITI       09/05/2023      0026034: Customization in Add Task Page*@
+
+@*====================================================== Revision History ===================================================*@
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridTaskManagement";
     settings.KeyFieldName = "TASK_ID";
@@ -49,7 +55,7 @@
         //    else
         //    {
         //        column.Visible = true;
-        //        
+        //
         //    }
         //}
         //else
@@ -77,7 +83,7 @@
         //    else
         //    {
         //        column.Visible = true;
-        //        
+        //
         //    }
         //}
         //else
@@ -459,7 +465,8 @@
 
             });
         }
-        else{
+        else
+        {
             x.SetDataItemTemplateContent(tc =>
             {
                 ViewContext.Writer.Write(
