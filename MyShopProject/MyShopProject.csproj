@@ -378,6 +378,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\SystemsettingsController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\TargetVsAchivementSummaryController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\TargetvsAchvTodayController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\TaskManagementController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\TeamVisitChannelHierarchyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\TeamVisitReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\TerritorySalesInchargeWisePerformanceAnalyController.cs" />
@@ -521,6 +522,7 @@
     <Compile Include="Models\SystemsettingsModel.cs" />
     <Compile Include="Models\TargetVsAchivementClass.cs" />
     <Compile Include="Models\TargetVsAchivementRangeClass.cs" />
+    <Compile Include="Models\TaskManagementModel.cs" />
     <Compile Include="Models\TeamVisitChannelHierarchyModel.cs" />
     <Compile Include="Models\TeamVisitModel.cs" />
     <Compile Include="Models\TerritorySalesInchargeWisePerformanceAnalyModel.cs" />
@@ -1970,6 +1972,11 @@
     <Content Include="Areas\MYSHOP\Views\ExpenseReport\_ExpenseTypePartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ExpenseReport\_HQNamePartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ExpenseReport\_PartialExpenseReport.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\TaskManagement\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\TaskManagement\PartialTaskManagementGridList.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementBulkAssign.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementBulkReAssign.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementFromPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
