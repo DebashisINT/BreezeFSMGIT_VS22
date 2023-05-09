@@ -554,5 +554,11 @@
         <elementListCompartment Id="18452057-b68d-4a7a-aeb4-55ef5f40cbf7" absoluteBounds="2.64, 10.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="9e73bbd6-e2b9-4c76-a7e0-94fb5d87c4af" isExpanded="false" absoluteBounds="0.5, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/TASKMANAGEMENT_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="263661df-346d-4c72-9712-f332c4f24054" absoluteBounds="0.515, 1.71, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

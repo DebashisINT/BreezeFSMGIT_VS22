@@ -1,6 +1,9 @@
 ﻿@*====================================================== Revision History ===================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                15-02-2023        V2.0.39          Pallab              25656: Master module design modification *@
+@*Page Create By : PRITI On  09/05/2023 for V2.0.40 Refer:
+    0026031:Copy the current Enquiry page, and create a duplicate and name it as 'Task Management'
+    0026032: Customization in Task Management Page
+    0026034: Customization in Add Task Page*@
+
 @*====================================================== Revision History ===================================================*@
 
 @using MyShop.Models;
@@ -103,7 +106,7 @@
                 Is_PageLoad = "1";
                 gridTaskManagement.Refresh();
 
-                
+
             }
         });
 
@@ -345,7 +348,7 @@
         }
 
 
-        
+
 
         if (ddlPriority.selectedIndex == 0) {
             jAlert("Please select Priority!");
@@ -374,9 +377,9 @@
 
             StartDate: appcbl_frm_dt.GetDate(),
             DueDate: dt_due.GetDate(),
-            Task_Name: $('#txt_Task_Name').val(),            
+            Task_Name: $('#txt_Task_Name').val(),
             Priority: $('#ddlPriority').val(),
-            Task_Details: $('#txt_task_detls').val(),           
+            Task_Details: $('#txt_task_detls').val(),
             Action_type: action
         }
 
@@ -775,7 +778,7 @@
                 $("#txt_Task_Name").val(data.Task_Name);
                 $("#ddlPriority").val(data.Priority);
                 $("#txt_task_detls").val(data.Task_Details);
-               
+
                 $('#myModal').modal('show');
             },
             error: function () {
@@ -2086,7 +2089,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ClearData();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add Task</h4>
-            </div>          
+            </div>
             <div class="modal-body inputShrink">
                 <div class="row">
 
@@ -2100,9 +2103,9 @@
                                          settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                          settings.Properties.EditFormatString = "dd-MM-yyyy";
                                          settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                         settings.Properties.ClientSideEvents.DateChanged = "datevalidate";                                       
+                                         settings.Properties.ClientSideEvents.DateChanged = "datevalidate";
                                          settings.Date = DateTime.Now;
-                                         
+
                                      }
                             ).GetHtml()
                         </div>
@@ -2119,7 +2122,7 @@
                                          settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                          settings.Properties.ClientSideEvents.DateChanged = "datevalidate";
                                          settings.Date = DateTime.Now;
-                                         
+
                                      }
                             ).GetHtml()
                         </div>
@@ -2127,28 +2130,28 @@
                     <div class="col-md-3">
                         <label>Task Name <span class="red">*</span></label>
                         <div>
-                            <input type="text" id="txt_Task_Name" class="form-control" value="@Model.Task_Name" />                            
+                            <input type="text" id="txt_Task_Name" class="form-control" value="@Model.Task_Name" />
                         </div>
-                    </div>                
-                    
-                    <div class="col-md-3 h-branch-select">                      
+                    </div>
+
+                    <div class="col-md-3 h-branch-select">
                         <label>Priority<span class="red">*</span></label>
                         <div>
                             <select class="form-control" id="ddlPriority">
                                 <option value="Select">Select</option>
                                 <option value="1">High</option>
                                 <option value="2">Medium</option>
-                                <option value="3">Low</option>                               
+                                <option value="3">Low</option>
                             </select>
                         </div>
                     </div>
-                    <div class="clear"></div>                  
-                   
+                    <div class="clear"></div>
+
                     <div class="col-md-12">
                         <label>Task Details</label>
-                        <div>                           
+                        <div>
                             <textarea rows="10" class="form-control" style="height:140px" cols="100" id="txt_task_detls">@Model.Task_Details</textarea>
-                           
+
                         </div>
                     </div>
                     <div class="clear"></div>
