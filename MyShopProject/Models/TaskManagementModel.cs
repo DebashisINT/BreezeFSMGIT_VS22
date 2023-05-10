@@ -32,6 +32,9 @@ namespace MyShop.Models
         public string Action_type { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
+
+        public string _StartDate { get; set; }
+        public string _DueDate { get; set; }
         public string Task_Name { get; set; }        
         public string Priority { get; set; }       
         public string Task_Details { get; set; }

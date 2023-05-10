@@ -72,12 +72,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
             BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(string.Empty);
             try
             {
-                List<GetEnquiryFrom> modelEnquiryFrom = new List<GetEnquiryFrom>();
+                List<GetTaskPriority> modelEnquiryFrom = new List<GetTaskPriority>();
                 //DataTable dtEnquiryFrom = lstuser.GetHeadEnquiryFromList(Hoid, Hoid);
                 //DataTable dtEnquiryFromChild = new DataTable();
                 DataTable ComponentTable = new DataTable();
                 ComponentTable = oDBEngine.GetDataTable("SELECT cast(TASKPRIORITY_ID as varchar)TASKPRIORITY_ID, TASKPRIORITY_FROM TaskPriorityDesc from MASTER_TASKPRIORITY order by TASKPRIORITY_ID");
-                modelEnquiryFrom = APIHelperMethods.ToModelList<GetEnquiryFrom>(ComponentTable);
+                modelEnquiryFrom = APIHelperMethods.ToModelList<GetTaskPriority>(ComponentTable);
                 return Json(modelEnquiryFrom, JsonRequestBehavior.AllowGet);
 
             }
@@ -244,14 +244,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     if (_getenq.Rows.Count > 0)
                     {
                         _apply.TASK_ID = TASK_ID;
-                        _apply.StartDate = Convert.ToDateTime(_getenq.Rows[0]["TASK_STARTDATE"].ToString());
-                        _apply.DueDate = Convert.ToDateTime(_getenq.Rows[0]["TASK_DUEDATE"].ToString());
+                        _apply._StartDate = _getenq.Rows[0]["TASK_STARTDATE"].ToString();
+                        _apply._DueDate = _getenq.Rows[0]["TASK_DUEDATE"].ToString();
                         _apply.Task_Name = _getenq.Rows[0]["TASK_NAME"].ToString();
                         _apply.Task_Details = _getenq.Rows[0]["Task_Details"].ToString();
-                        _apply.Priority = _getenq.Rows[0]["TASK_PRIORITY"].ToString();
-                       
-                       
-
+                        _apply.Priority = _getenq.Rows[0]["TASK_PRIORITY"].ToString();                     
+                     
                     }
 
                 }
