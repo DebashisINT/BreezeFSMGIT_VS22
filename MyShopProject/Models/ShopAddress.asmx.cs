@@ -308,7 +308,7 @@ namespace MyShop.Models
                 //BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
                 //DataTable Shop = oDBEngine.GetDataTable("select top(10)cnt_internalId,Replace(ISNULL(cnt_firstName,'')+' '+ISNULL(cnt_middleName,'')+ ' '+ISNULL(cnt_lastName,''),'''','&#39;') AS Employee_Name,cnt_UCC from tbl_master_contact where (cnt_firstName like '%" + SearchKey + "%') or  (cnt_middleName like '%" + SearchKey + "%') or  (cnt_lastName like '%" + SearchKey + "%')");
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeNameSearchHQId");
+                ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeNameSearchByHQ");
                 proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
                 proc.AddPara("@SearchKey", SearchKey);
                 proc.AddPara("@HQid", HQid);
