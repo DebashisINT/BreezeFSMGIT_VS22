@@ -37,8 +37,18 @@ namespace MyShop.Areas.MYSHOP.Controllers
         public ActionResult Index()
         {
             ExpenseReport omodel = new ExpenseReport();
-            omodel.FromDate = DateTime.Now.ToString("dd-MM-yyyy");
-            omodel.ToDate = DateTime.Now.ToString("dd-MM-yyyy");
+
+            var today = DateTime.Today;
+            var month = new DateTime(today.Year, today.Month, 1);
+            var first = month.AddMonths(-1);
+            var last = month.AddDays(-1);
+
+            omodel.FromDate = first.ToString("dd-MM-yyyy");
+            omodel.ToDate = last.ToString("dd-MM-yyyy");
+            
+            omodel.dtFromDate = first;
+            omodel.dtToDate = last;
+
 
             return View(omodel);
         }

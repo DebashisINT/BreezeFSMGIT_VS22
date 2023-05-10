@@ -25,6 +25,9 @@ namespace MyShop.Models
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string EmployeeCode { get; set; }
 
+        public DateTime dtFromDate { get; set; }
+        public DateTime dtToDate { get; set; }
+
         public class GetHQName
         {
             public string HQid { get; set; }
