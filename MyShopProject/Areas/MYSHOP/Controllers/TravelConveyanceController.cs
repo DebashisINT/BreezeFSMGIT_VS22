@@ -1,4 +1,8 @@
-﻿using System;
+﻿/******************************************************************************************************
+ * Rev 1.0   Sanchita   V2.0.40     04-05-2023      A New Expense Report is Required for BP Poddar. 
+ *                                                  Refer: 25833
+ * *******************************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -67,6 +71,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
             omodel.state = modelsate;
             omodel.fueltype = modelfuelmode;
 
+            // Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+            ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
+            // End of Rev 1.0
+
             return View(omodel);
 
 
@@ -90,6 +101,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             }
 
+            // Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+            ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
+            // End of Rev 1.0
+
             return PartialView("_PartialTAConfiguration", omodel);
         }
 
@@ -99,7 +117,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             string state = "";
             int i = 1;
-           
+
+            // Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+             // End of Rev 1.0
+
             DataTable dttravel = new DataTable(); 
             DataColumn dc =new DataColumn();
 
@@ -152,18 +176,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 foreach (string item in model.EmpgradeId)
                 {
-                    
                     if (model.StateId != null && model.StateId.Count > 0)
                     {
                         foreach (string item2 in model.StateId)
                         {
-
-                            dttravel.Rows.Add(model.VisitlocId, model.ExpenseId, model.DesignationId, model.TravelId, item2, item, model.EligibleDistance, model.EligibleRate, model.EligibleAmtday, model.fuelID);
+                            // Rev 1.0
+                            //dttravel.Rows.Add(model.VisitlocId, model.ExpenseId, model.DesignationId, model.TravelId, item2, item, model.EligibleDistance, model.EligibleRate, model.EligibleAmtday, model.fuelID);
+                            if (isExpenseFeatureAvailable == "0")
+                            {
+                                dttravel.Rows.Add(model.VisitlocId, model.ExpenseId, model.DesignationId, model.TravelId, item2, item, model.EligibleDistance, model.EligibleRate, model.EligibleAmtday, model.fuelID);
+                            }
+                            else
+                            {
+                                dttravel.Rows.Add(model.VisitlocId, model.ExpenseId, model.DesignationId, 0, item2, item, 0, 0, model.EligibleAmtday, 0);
+                            }
+                            // End of Rev 1.0
 
                         }
 
                     }
-
 
                 }
 
@@ -331,7 +362,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "Travel Conveyance";
 
-
+            // Rev 1.0
+            string isExpenseFeatureAvailable = "0";
+            DBEngine obj1 = new DBEngine();
+            isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
+            // End of Rev 1.0
 
 
             settings.Columns.Add(x =>
@@ -393,7 +428,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             //});
 
-
             settings.Columns.Add(x =>
             {
                 x.FieldName = "StateName";
@@ -404,38 +438,44 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             });
 
-
-        
-
-            settings.Columns.Add(x =>
+            // Rev 1.0
+            if (isExpenseFeatureAvailable == "0")
             {
-                x.FieldName = "TravelName";
-                x.Caption = "Mode Of Travel";
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(13);
+            // End of Rev 1.0
+
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "TravelName";
+                    x.Caption = "Mode Of Travel";
+                    x.Width = System.Web.UI.WebControls.Unit.Percentage(13);
 
 
 
 
-            });
-
-     
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "EligibleDistance";
-                x.Caption = "Eligible Distance(Km)";
-                x.PropertiesEdit.DisplayFormatString = "0.00";  
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+                });
 
 
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "EligibleDistance";
+                    x.Caption = "Eligible Distance(Km)";
+                    x.PropertiesEdit.DisplayFormatString = "0.00";
+                    x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
-            });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "EligibleRate";
-                x.Caption = "Eligible Rate";
-                x.PropertiesEdit.DisplayFormatString = "0.00";  
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-            });
+
+
+                });
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "EligibleRate";
+                    x.Caption = "Eligible Rate";
+                    x.PropertiesEdit.DisplayFormatString = "0.00";
+                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+                });
+
+            // Rev 1.0
+            }
+            // End of Rev 1.0
 
             settings.Columns.Add(x =>
             {

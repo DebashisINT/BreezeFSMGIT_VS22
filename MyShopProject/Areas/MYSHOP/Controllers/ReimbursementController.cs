@@ -581,7 +581,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 reimbursementDetails.GetReimbursementDetailsList = APIHelperMethods.ToModelList<ReimbursementDetailsList>(dtReimbursementDet);
                 TempData["grddata"] = reimbursementDetails.GetReimbursementDetailsList;
                 TempData.Keep();
-                ViewBag.Message = "Please 'Confirmed' first and then Click on 'Approved/Reject'.";
+                ViewBag.Message = "Wish to Approve/Reject? Please 'Confirm' first and then proceed.";
                 return PartialView("_ReimbursementDetailsGrid", reimbursementDetails.GetReimbursementDetailsList);
             }
             // End of Rev 1.0

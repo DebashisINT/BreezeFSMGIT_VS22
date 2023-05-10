@@ -1,9 +1,13 @@
-﻿@*@model MyShop.Models.TravelConveyanceModelclass*@
+﻿@**********************************************************************************************************************************@
+@* 1.0           04-05-2023      V2.0.40    Sanchita       A New Expense Report is Required for BP Poddar. Refer: 25833*@ 
+@**********************************************************************************************************************************@
+
+@*@model MyShop.Models.TravelConveyanceModelclass*@
 @Html.DevExpress().GridView(settings =>
             {
                 settings.Name = "gridTaconfiguration";
                 settings.KeyFieldName = "TCId";
-             
+
                 settings.CallbackRouteValues = new { Action = "ConfigurationPartial", Controller = "TravelConveyance" };
                 settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                 settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
@@ -33,7 +37,7 @@
 
 
                });
-                
+
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "DateConveyance";
@@ -41,8 +45,8 @@
 
                     x.Width = 120;
                 });
-                
-                
+
+
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "VisitlocName";
@@ -123,91 +127,100 @@
                 //    });
                 //});
 
-
-                settings.Columns.Add(x =>
+                // Rev 1.0
+                if (@ViewBag.isExpenseFeatureAvailable == "0")
                 {
-                    x.FieldName = "TravelName";
-                    x.Caption = "Mode Of Travel";
-                    x.Width = 180;
+                // End of Rev 1.0
+
+
+                    settings.Columns.Add(x =>
+                    {
+                        x.FieldName = "TravelName";
+                        x.Caption = "Mode Of Travel";
+                        x.Width = 180;
 
 
 
 
-                    //        x.SetDataItemTemplateContent(data =>
+                        //        x.SetDataItemTemplateContent(data =>
+                        //{
+                        //    Html.DevExpress().ComboBox(set =>
+                        //    {
+
+                        //        set.CallbackRouteValues = new { Controller = "Editing", Action = "GetCities", TextField = "CityName" };
+
+                        //        Response.Write(DataBinder.Eval(data.DataItem, "Status").ToString());
+
+                        //        set.Properties.DataSource = Model.travelmode.Where(t => t.Expense_Id == 1).OrderBy(t => t.Name).ToList();
+                        //        set.Properties.TextField = "Name";
+                        //        set.Properties.ValueField = "ID";
+                        //        //set.Properties.ClientSideEvents.ValueChanged = "StatusChangePopup";
+                        //        //set.Properties.ClientSideEvents.ValueChanged = string.Format("function(s, e) {{ KeyValue = {0}; StatusChangePopup(s, e); }}", data.KeyValue);
+
+
+
+                        //    });
+
+                        //});
+                    });
+
+                    //settings.CellEditorInitialize += (s, e) =>
                     //{
-                    //    Html.DevExpress().ComboBox(set =>
+                    //    if (e.Column.FieldName == "ExpenseId")
                     //    {
-
-                    //        set.CallbackRouteValues = new { Controller = "Editing", Action = "GetCities", TextField = "CityName" };
-
-                    //        Response.Write(DataBinder.Eval(data.DataItem, "Status").ToString());
-
-                    //        set.Properties.DataSource = Model.travelmode.Where(t => t.Expense_Id == 1).OrderBy(t => t.Name).ToList();
-                    //        set.Properties.TextField = "Name";
-                    //        set.Properties.ValueField = "ID";
-                    //        //set.Properties.ClientSideEvents.ValueChanged = "StatusChangePopup";
-                    //        //set.Properties.ClientSideEvents.ValueChanged = string.Format("function(s, e) {{ KeyValue = {0}; StatusChangePopup(s, e); }}", data.KeyValue);
+                    //        ASPxComboBox comboBox = (ASPxComboBox)e.Editor;
 
 
 
-                    //    });
+                    //        for (int i = 0; i < e.VisibleIndex; i++)
+                    //        {
+                    //            comboBox.Items.Add(i.ToString());
 
-                    //});
-                });
+                    //        }
+                    //    }
 
-                //settings.CellEditorInitialize += (s, e) =>
-                //{
-                //    if (e.Column.FieldName == "ExpenseId")
-                //    {
-                //        ASPxComboBox comboBox = (ASPxComboBox)e.Editor;
+                    //};
 
+                    settings.Columns.Add(x =>
+                   {
+                       x.FieldName = "FuelTypes";
+                       x.Caption = "Fuel type";
+                       x.Width = 190;
 
+                   });
+                    settings.Columns.Add(x =>
+                    {
+                        x.FieldName = "EligibleDistance";
+                        x.Caption = "Eligible Distance(Km)";
+                        //var TextboxProperties = x.PropertiesEdit as TextBoxProperties;
+                        //TextboxProperties.DisplayFormatString = "n0";
+                        //TextboxProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        //TextboxProperties.ValidationSettings.RequiredField.IsRequired = true;
+                        //TextboxProperties.ValidationSettings.RequiredField.ErrorText = "Required";
+                        //TextboxProperties.ValidationSettings.RegularExpression.ValidationExpression = @"^[1-9]\d*$";
+                        //TextboxProperties.ValidationSettings.RegularExpression.ErrorText = "Invalid Value.";
+                        ////TextboxProperties.Style.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
 
-                //        for (int i = 0; i < e.VisibleIndex; i++)
-                //        {
-                //            comboBox.Items.Add(i.ToString());
-
-                //        }
-                //    }
-
-                //};
-
-                settings.Columns.Add(x =>
-               {
-                   x.FieldName = "FuelTypes";
-                   x.Caption = "Fuel type";
-                   x.Width = 190;
-
-               });
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "EligibleDistance";
-                    x.Caption = "Eligible Distance(Km)";
-                    //var TextboxProperties = x.PropertiesEdit as TextBoxProperties;
-                    //TextboxProperties.DisplayFormatString = "n0";
-                    //TextboxProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
-                    //TextboxProperties.ValidationSettings.RequiredField.IsRequired = true;
-                    //TextboxProperties.ValidationSettings.RequiredField.ErrorText = "Required";
-                    //TextboxProperties.ValidationSettings.RegularExpression.ValidationExpression = @"^[1-9]\d*$";
-                    //TextboxProperties.ValidationSettings.RegularExpression.ErrorText = "Invalid Value.";
-                    ////TextboxProperties.Style.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
-
-                    //x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                        //x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
 
 
-                    //TextboxProperties.MaxLength = 10;
-                    x.Width = 220;
+                        //TextboxProperties.MaxLength = 10;
+                        x.Width = 220;
 
 
 
-                });
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "EligibleRate";
-                    x.Caption = "Eligible Rate";
+                    });
+                    settings.Columns.Add(x =>
+                    {
+                        x.FieldName = "EligibleRate";
+                        x.Caption = "Eligible Rate";
 
-                    x.Width = 200;
-                });
+                        x.Width = 200;
+                    });
+
+                // Rev 1.0
+                }
+                // End of Rev 1.0
 
                 settings.Columns.Add(x =>
                 {
@@ -218,8 +231,8 @@
                 });
 
 
-              
-                
+
+
                 settings.Columns.Add(x =>
                 {
                         x.FieldName = "IsActivename";
@@ -245,12 +258,12 @@
                         ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteTConveyance('" + Convert.ToString(DataBinder.Eval(c.DataItem, "TCId")) + "')\"><img src='/assests/images/Delete.png' </a>");
 
                     });
-                    
-                 
-                    
-                    
-                    
+
+
+
+
+
                 });
-                
+
             }).Bind(Model.conveyancemode).GetHtml()
 

@@ -7,7 +7,7 @@
 @model MyShop.Models.ExpenseReport
 
 @{
-    ViewBag.Title = "Expense";
+    ViewBag.Title = "Expense register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -515,7 +515,8 @@
         }
         OtherDetails.SearchKey = $("#txtEmployeeSearch").val();
         OtherDetails.ClassID = "";
-
+        OtherDetails.HQid = HQId.join(',');
+       
         if (e.code == "Enter" || e.code == "NumpadEnter") {
 
             var HeaderCaption = [];
@@ -524,7 +525,8 @@
 
 
             if ($("#txtEmployeeSearch").val() != "") {
-                callonServerM("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+               // callonServerM("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+                callonServerM("../../../Models/ShopAddress.asmx/GetEmployeeListHQWise", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -921,7 +923,7 @@
 
 
 <div class="breadCumb">
-    <span class="relative">Expense <span class="circle-rip hide" id="circle-rip" title="Click for Help">? </span></span>
+    <span class="relative">Expense register <span class="circle-rip hide" id="circle-rip" title="Click for Help">? </span></span>
 </div>
 
 
@@ -939,7 +941,8 @@
                         settings.Properties.EditFormatString = "dd-MM-yyyy";
 
                         settings.Properties.EditFormat = EditFormat.DateTime;
-                        settings.Date = DateTime.Now;
+                        //settings.Date = DateTime.Now;
+                        settings.Date = Model.dtFromDate;
                         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                     }).GetHtml()
                     <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
@@ -955,7 +958,8 @@
                         settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                         settings.Properties.EditFormat = EditFormat.DateTime;
                         settings.Properties.EditFormatString = "dd-MM-yyyy";
-                        settings.Date = DateTime.Now;
+                        //settings.Date = DateTime.Now;
+                        settings.Date = Model.dtToDate;
                         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                     }).GetHtml()
                     <img src="/assests/images/calendar-icon.png" class="calendar-icon" />

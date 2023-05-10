@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                10-02-2023        2.0.39           Pallab              25656 : Master module design modification *@
+@*Rev Number    DATE            VERSION    DEVELOPER      CHANGES*@
+@*1.0           10-02-2023      2.0.39     Pallab         25656 : Master module design modification *@
+@*2.0           04-05-2023      V2.0.40    Sanchita       A New Expense Report is Required for BP Poddar. Refer: 25833 *@
 @*====================================================== Revision History ==========================================================*@
 
 @model  MyShop.Models.TravelConveyanceModelclass
@@ -22,6 +23,17 @@
 </style>
 
 <script>
+
+    // Rev 2.0
+    $(document).ready(function () {
+        if (@ViewBag.isExpenseFeatureAvailable == "1") {
+            $("#divMOTHide").hide();
+            $("#divFTHide").hide();
+            $("#divEDHide").hide();
+            $("#divERHide").hide();
+        }
+    });
+    // End of Rev 2.0
 
     function isNumber(txt, evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -52,6 +64,7 @@
         $("#txteligibleamount").val('0.00');
         $("#btnEdit").hide();
         $("#btnshow").show();
+
 
         //$("#txtdistance").keydown(function (event) {
 
@@ -155,18 +168,26 @@
 
             }
 
-            if ($("#iddesignation").val() == '') {
-                f = false;
+            // Rev 2.0
+            if (@ViewBag.isExpenseFeatureAvailable == "0") {
+            // End of Rev 2.0
+                if ($("#iddesignation").val() == '') {
+                    f = false;
 
-            }
-            if ($("#idtravelmode").val() == '' && $("#idexpense").val() == 1) {
-                f = false;
+                }
+                if ($("#idtravelmode").val() == '' && $("#idexpense").val() == 1) {
+                    f = false;
 
+                }
+            // Rev 2.0
             }
+            // End of Rev 2.0
+
             if ($("#idstate").val() == '') {
                 f = false;
 
             }
+
             //  alert(($("#txtdistance").val()) + ' ' + parseInt($("#txtRate").val()) + ' ' + parseInt($("#txteligibleamount").val()));
 
             if (parseInt($("#txteligibleamount").val()) == "0" || $("#txteligibleamount").val() == '') {
@@ -351,18 +372,26 @@
 
             }
 
-            if ($("#iddesignation").val() == '') {
-                f = false;
+            // Rev 2.0
+            if (@ViewBag.isExpenseFeatureAvailable == "0") {
+            // End of Rev 2.0
+                if ($("#iddesignation").val() == '') {
+                    f = false;
 
-            }
-            if ($("#idtravelmode").val() == '' && $("#idexpense").val() == 1) {
-                f = false;
+                }
+                if ($("#idtravelmode").val() == '' && $("#idexpense").val() == 1) {
+                    f = false;
 
+                }
+            // Rev 2.0
             }
+            // End of Rev 2.0
+
             if ($("#idstate").val() == '') {
                 f = false;
 
             }
+
             //  alert(($("#txtdistance").val()) + ' ' + parseInt($("#txtRate").val()) + ' ' + parseInt($("#txteligibleamount").val()));
 
             if (parseInt($("#txteligibleamount").val()) == "0" || $("#txteligibleamount").val() == '') {
@@ -1174,8 +1203,7 @@
         background: #ababab !important;
     }
 
-    .red
-    {
+    .red {
         color: red;
     }
 
@@ -1217,12 +1245,12 @@
                 </div>
             </div>
             @*<div class="col-md-2">
-            <label>Designation</label><span class="red">*</span>
-            <div>
+                    <label>Designation</label><span class="red">*</span>
+                    <div>
 
-                @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.designation, "ID", "Name", Model.DesignationId), "Select", new { @id = "iddesignation", @class = "form-control", @tabindex = 4 })
-            </div>
-        </div>*@
+                        @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.designation, "ID", "Name", Model.DesignationId), "Select", new { @id = "iddesignation", @class = "form-control", @tabindex = 4 })
+                    </div>
+                </div>*@
             <div class="col-md-2">
                 <label>State</label><span class="red">*</span>
                 <div>
@@ -1236,7 +1264,8 @@
             </div>
             @*Rev 1.0*@
             @*<div class="col-md-2">*@
-            <div class="col-md-2 h-branch-select">
+            @*Rev 2.0 [id="divHide" added] *@
+            <div class="col-md-2 h-branch-select" id="divMOTHide">
                 @*Rev end 1.0*@
                 <label>Mode Of Travel</label><span class="red">*</span>
                 <div id="divtravel">
@@ -1248,7 +1277,8 @@
 
             @*Rev 1.0*@
             @*<div class="col-md-2">*@
-            <div class="col-md-2 h-branch-select">
+            @*Rev 2.0 [id="divHide" added] *@
+            <div class="col-md-2 h-branch-select" id="divFTHide">
                 @*Rev end 1.0*@
                 <label>Fuel Type</label><span class="red">*</span>
                 <div id="divfuelType">
@@ -1258,7 +1288,8 @@
                 </div>
             </div>
 
-            <div class="col-md-3 mt-4">
+            @*Rev 2.0 [id="divHide" added] *@
+            <div class="col-md-3 mt-4" id="divEDHide">
                 <label>Eligible Distance(KM)</label><span class="red" id="spandistance">*</span>
                 <div>
 
@@ -1266,13 +1297,16 @@
 
                 </div>
             </div>
-            <div class="col-md-2 mt-4">
+
+            @*Rev 2.0 [id="divHide" added] *@
+            <div class="col-md-2 mt-4" id="divERHide">
                 <label>Eligible Rate</label><span class="red" id="spanrate">*</span>
                 <div>
 
                     @Html.TextBoxFor(m => m.EligibleRate, new { @class = "form-control", @id = "txtRate", @tabindex = 9, onkeypress = "return isNumber(this,event)" })
                 </div>
             </div>
+
             <div class="col-md-2 mt-4">
                 <label>Eligible Amount/Day</label><span class="red" id="spaneligible">*</span>
                 <div>
