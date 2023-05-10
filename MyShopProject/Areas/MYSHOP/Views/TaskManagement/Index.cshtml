@@ -397,17 +397,25 @@
                     jAlert("Saved Successfully", "Alert", function () {
                         if (actionType == "N") {
 
-                            $('#txt_custname').val('');
-                            $('#txt_contactpersn').val('');
-                            $('#txt_phoneno').val('');
-                            $('#txt_email').val('');
-                            $('#txt_location').val('');
-                            $('#txt_productrequired').val('');
-                            $('#txt_qty').val('');
-                            $('#txt_ordervalue').val('');
-                            $('#txt_enq_detls').val('');
-                            $('#ddlProvidedBy').val('');
+                            //$('#txt_custname').val('');
+                            //$('#txt_contactpersn').val('');
+                            //$('#txt_phoneno').val('');
+                            //$('#txt_email').val('');
+                            //$('#txt_location').val('');
+                            //$('#txt_productrequired').val('');
+                            //$('#txt_qty').val('');
+                            //$('#txt_ordervalue').val('');
+                            //$('#txt_enq_detls').val('');
+                            //$('#ddlProvidedBy').val('');
+                            //appcbl_frm_dt.SetDate(null);
+
                             appcbl_frm_dt.SetDate(null);
+                            dt_due.SetDate(null);
+                            $('#txt_Task_Name').val('');
+                            $('#ddlPriority').val('');
+                            $('#txt_task_detls').val('');
+                                    
+
                         }
                         else {
                             var url = '@Url.Action("Index", "TaskManagement")'
@@ -771,8 +779,9 @@
                 $("#hdnAction").val('Edit');
                 $("#myModalLabel").text("Edit Task Management");
                 $("#hdnuniqueid").val(data.TASK_ID);
-                appcbl_frm_dt.SetDate(data.StartDate);
-                dt_due.SetDate(data.DueDate);
+                console.log(data._StartDate);
+                appcbl_frm_dt.SetDate(new Date(data._StartDate));
+                dt_due.SetDate(new Date(data._DueDate));
                 //$("#appcbl_frm_dt").val(data.StartDate);
                // $("#dt_due").val(data.DueDate);
                 $("#txt_Task_Name").val(data.Task_Name);
@@ -793,26 +802,12 @@
     function ClearData() {
         $("#hdnAction").val('Add');
         $("#hdnuniqueid").val('');
-
         $("#myModalLabel").val("Add Task Management");
-
-        $("#txt_custname").val('');
-        $("#txt_contactpersn").val('');
-        $("#txt_phoneno").val('');
-        $("#txt_email").val('');
-        $("#txt_location").val('');
-        $('#txt_productrequired').val('');
-        //PPTxt.SetText('');
-        $('#txt_qty').val('');
-        //DDTxt.SetText('');
-        $("#txt_ordervalue").val('');
-        $("#ddlProvidedBy").val('');
-        $("#txt_enq_detls").val('');
-        $("#txt_UOM").val('');
-        ddlProvidedBy.selectedIndex = 0;
-
-
-
+        appcbl_frm_dt.SetDate(null);
+        dt_due.SetDate(null);
+        $('#txt_Task_Name').val('');       
+        $('#txt_task_detls').val('');
+        ddlPriority.selectedIndex = 0;
     }
 
     @*function DownloadFormat() {
@@ -2105,6 +2100,7 @@
                                          settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                          settings.Properties.ClientSideEvents.DateChanged = "datevalidate";
                                          settings.Date = DateTime.Now;
+                                         //settings.Date = Convert.ToDateTime(@Model.StartDate);
 
                                      }
                             ).GetHtml()
@@ -2122,6 +2118,7 @@
                                          settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                          settings.Properties.ClientSideEvents.DateChanged = "datevalidate";
                                          settings.Date = DateTime.Now;
+                                         //settings.Date = Convert.ToDateTime(@Model.DueDate);
 
                                      }
                             ).GetHtml()
