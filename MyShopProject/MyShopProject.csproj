@@ -248,6 +248,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\AttendanceuserwiseController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\AttendanceVsProductivityRatioController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\BeatController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\BeatPlanController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\BreakageTrackingRegisterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ChatController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ChemistActivityReportController.cs" />
@@ -412,6 +413,7 @@
     <Compile Include="Models\ActivityReportModel.cs" />
     <Compile Include="Models\AddPartyDetailsModel.cs" />
     <Compile Include="Models\BeatModel.cs" />
+    <Compile Include="Models\BeatPlanModel.cs" />
     <Compile Include="Models\BreakageTrackingRegisterModel.cs" />
     <Compile Include="Models\ChemistActivityModel.cs" />
     <Compile Include="Models\ChemistStockistDetailsModel.cs" />
@@ -1977,6 +1979,7 @@
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementBulkAssign.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementBulkReAssign.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementFromPartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\BeatPlan\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
