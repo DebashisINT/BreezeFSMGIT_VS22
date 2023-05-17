@@ -7,6 +7,8 @@
 //6.0   V2.0.39     Debashis    06/04/2023      A new parameter has been added.Row: 817
 //7.0   V2.0.39     Debashis    24/04/2023      A new parameter has been added.Row: 824
 //8.0   V2.0.39     Debashis    08/05/2023      Some new parameters have been added.Row: 825,826,827
+//9.0   V2.0.39     Debashis    16/05/2023      A new parameter has been added.Row: 833
+//10.0  V2.0.39     Debashis    16/05/2023      A new parameter has been added.Row: 838
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -216,6 +218,12 @@ namespace ShopAPI.Models
         public string NameforConveyanceAttachment2 { get; set; }
         public bool IsTaskManagementAvailable { get; set; }
         //End of Rev 8.0 Row:825,826,827
+        //Rev 9.0 Row:833
+        public bool IsAttachmentAvailableForCurrentStock { get; set; }
+        //End of Rev 9.0 Row:833
+        //Rev 10.0 Row:838
+        public bool IsShowReimbursementTypeInAttendance { get; set; }
+        //End of Rev 10.0 Row:838
     }
 
     public class ConfigurationModelInput
