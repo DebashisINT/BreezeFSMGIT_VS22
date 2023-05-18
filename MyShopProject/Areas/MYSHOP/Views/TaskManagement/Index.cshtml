@@ -231,8 +231,8 @@
                 TaskPriorityDesc = [];
                 EnquiryFrom_Desc = "";
                 $.each(data, function (i, data) {
-                    TaskPriorityDesc.push(data.TaskPriorityDesc);
-                    EnquiryFrom_Desc += data.TaskPriorityDesc + ',';
+                    TaskPriorityDesc.push(data.TASKPRIORITY_ID);
+                    EnquiryFrom_Desc += data.TASKPRIORITY_ID + ',';
                 });
                 EnquiryFromGridLookup.gridView.SelectRows();
             },
