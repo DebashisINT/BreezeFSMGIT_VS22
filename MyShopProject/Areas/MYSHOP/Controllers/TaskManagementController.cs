@@ -1,4 +1,11 @@
-﻿using BusinessLogicLayer;
+﻿//====================================================== Revision History =================================================== 
+//Page Create By : PRITI On  09/05/2023 for V2.0.40 Refer:
+//    0026031:Copy the current Enquiry page, and create a duplicate and name it as 'Task Management'
+//    0026032: Customization in Task Management Page
+//    0026034: Customization in Add Task Page
+//====================================================== Revision History ===================================================
+
+using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
 using DevExpress.Utils;
@@ -150,7 +157,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                
 
-                GetTaskManagementListing(TaskPriority, datfrmat, dattoat);
+                GetTaskManagementListing(TaskPriority, datfrmat, dattoat, Is_PageLoad);
 
                 model.Is_PageLoad = "Ispageload";
 
@@ -165,7 +172,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
            
         }
         
-        public void GetTaskManagementListing(string TaskPriority, string FromDate, string ToDate)
+        public void GetTaskManagementListing(string TaskPriority, string FromDate, string ToDate,string Is_PageLoad)
         {
             string user_id = Convert.ToString(Session["userid"]);
             //string FROMDATE = dtFrom.ToString("yyyy-MM-dd");
@@ -174,7 +181,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
             string action = string.Empty;
             DataTable formula_dtls = new DataTable();
             DataSet dsInst = new DataSet();
-
+            if(Is_PageLoad== "is_pageload")
+            {
+                Is_PageLoad = "1";
+            }
+            else
+            {
+                Is_PageLoad = "0";
+            }
             try
             {
                 DataTable dt = new DataTable();
@@ -183,6 +197,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc.AddPara("@TaskPriority", TaskPriority);
                 proc.AddPara("@FROMDATE", FromDate);
                 proc.AddPara("@TODATE", ToDate);
+                proc.AddPara("@Is_PageLoad", Is_PageLoad);
                 dt = proc.GetTable();
 
             }
