@@ -237,6 +237,7 @@
     <Compile Include="Controllers\CompetitorStockController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\CurrentStockImageInfoController.cs" />
     <Compile Include="Controllers\CustomerJobStatusController.cs" />
     <Compile Include="Controllers\DayStartEndImageSaveController.cs" />
     <Compile Include="Controllers\DaywiseshopController.cs" />
