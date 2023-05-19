@@ -17,6 +17,10 @@ namespace MyShop.Models
         public string Area_Old { get; set; }
         public string Route_Old { get; set; }
         public string Remarks { get; set; }
+        public string Empcode { get; set; }
+        public string BranchId { get; set; }
+        public string Is_PageLoad { get; set; }
+
 
         public string Beat { get; set; }
         public string BeatId { get; set; }
@@ -45,5 +49,24 @@ namespace MyShop.Models
     {
         public string id { get; set; }
         public string name { get; set; }
+    }
+
+    public class saveBeatPlan
+    {
+        public string Mode { get; set; }
+        public string PLAN_ID { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string Plan { get; set; }
+        public string EmpCntId { get; set; }
+        public string BeatId { get; set; }
+        public string RouteId { get; set; }
+        public string AreaId { get; set; }
+        public string BeatNameOld { get; set; }
+        public string RouteNameOld { get; set; }
+        public string AreaNameOld { get; set; }
+        public string Remarks { get; set; }
+        public string EMPNAME { get; set; }
+
     }
 }
