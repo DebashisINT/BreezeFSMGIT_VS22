@@ -993,7 +993,7 @@
         margin-top: 15px;
     }
 
-    #dtFrom, #dtTo {
+    #dtFrom, #dtTo, #txtAssignedFrom, #txtAssignedTo {
         position: relative;
         z-index: 1;
         background: transparent;
@@ -1007,7 +1007,15 @@
         cursor: pointer;
     }
 
-    #dtFrom_B-1, #dtTo_B-1 {
+    .calendar-icon-2 {
+        position: absolute;
+        bottom: 7px;
+        right: 13px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1, #txtAssignedFrom_B-1, #txtAssignedTo_B-1 {
         background: transparent !important;
         border: none;
         width: 30px;
@@ -1015,17 +1023,17 @@
     }
 
         #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img {
+        #dtTo_B-1 #dtTo_B-1Img, #txtAssignedFrom_B-1 #txtAssignedFrom_B-1Img, #txtAssignedTo_B-1 #txtAssignedTo_B-1Img {
             display: none;
         }
 
-    #dtFrom_I, #dtTo_I {
+    #dtFrom_I, #dtTo_I, #txtAssignedFrom_I, #txtAssignedTo_I {
         background: transparent;
     }
 
     .for-cust-icon {
         position: relative;
-        z-index: 1;
+        z-index: 2;
     }
 
     .pmsModal .modal-content {
@@ -1197,6 +1205,53 @@
         width: 100%;
     }
     /*Parameter Branch*/
+
+    .custom-select, .custom-select-2 {
+        position: relative;
+    }
+
+        .custom-select::after, .custom-select-2::after {
+            content: '<';
+            position: absolute;
+            top: 26px;
+            right: 13px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 26px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+        .custom-select-2::after {
+            top: 35px !important;
+            right: 6px !important;
+        }
+
+            select:not(.btn) {
+                height: 30px;
+                z-index: 1;
+                position: relative;
+                background: transparent;
+                -webkit-appearance: none;
+            }
+
+    select:not(.btn):focus-visible
+    {
+        outline:none;
+        box-shadow:none;
+    }
+
+    #myModal .modal-content .modal-body {
+        overflow-y: visible;
+    }
 </style>
 
 <div class="breadCumb">
@@ -1210,7 +1265,7 @@
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
                             Add Plan
                         </button>
                         @*<button type="button" class="btn btn-info mr-1" onclick="DownloadMonthlyPlanFormat();">
@@ -1230,7 +1285,7 @@
                     <div class="clear"></div>
 
                     @*Parameter Branch*@
-                    <div class="col-md-2 for-cust-icon">
+                    <div class="col-md-2 custom-select">
                         <span>Head Branch : </span>
                         <div>
                             @Html.DropDownList("HeadBranch", new SelectList(ViewBag.HeadBranch, "BRANCH_ID", "CODE"), new { @id = "HeadBranch", @onchange = "BindBranches()", @class = "whclass selectH" })
@@ -1277,22 +1332,28 @@
                                 settings.Date = DateTime.Now;
                                 settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                             }).GetHtml()
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </div>
                     <div class="col-md-2 for-cust-icon">
                         <span>To Date</span>
                         <div>
-                           @Html.DevExpress().DateEdit(
-                           settings =>
-                           {
-                               settings.Name = "dtTo";
-                               settings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                               settings.Properties.EditFormatString = "dd-MM-yyyy";
+                            @Html.DevExpress().DateEdit(
+                            settings =>
+                            {
+                                settings.Name = "dtTo";
+                                settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                settings.Properties.EditFormatString = "dd-MM-yyyy";
 
-                               settings.Properties.EditFormat = EditFormat.DateTime;
-                               settings.Date = DateTime.Now;
-                               settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                           }).GetHtml()
+                                settings.Properties.EditFormat = EditFormat.DateTime;
+                                settings.Date = DateTime.Now;
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            }).GetHtml()
+                            @*Rev 1.0*@
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            @*Rev end 1.0*@
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -1332,7 +1393,7 @@
             <div class="modal-body inputShrink">
                 <div class="row">
                     <div>
-                        <div class="col-md-4" id="divPlan">
+                        <div class="col-md-4 custom-select-2" id="divPlan">
                             <label>Beat Plan <span class="red">*</span></label>
                             <div>
                                 <select class="form-control" name="ddlPlan" id="ddlPlan">
@@ -1344,7 +1405,7 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 for-cust-icon">
                             <label>From Date <span class="red">*</span></label>
                             <div>
                                 @Html.DevExpress().DateEdit(
@@ -1359,9 +1420,12 @@
                                     //settings.Date = Model.date_AssignedFrom;
                                     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                 }).GetHtml()
+                                @*Rev 1.0*@
+                                <img src="/assests/images/calendar-icon.png" class="calendar-icon-2" />
+                                @*Rev end 1.0*@
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 for-cust-icon">
                             <label>To Date <span class="red">*</span></label>
                             <div>
                                 @Html.DevExpress().DateEdit(
@@ -1376,6 +1440,9 @@
                                     //settings.Date = Model.date_AssignedTo;
                                     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                 }).GetHtml()
+                                @*Rev 1.0*@
+                                <img src="/assests/images/calendar-icon.png" class="calendar-icon-2" />
+                                @*Rev end 1.0*@
                             </div>
                         </div>
                         <div class="col-md-4" id="DivAssignTo">
@@ -1400,21 +1467,21 @@
 
                         <div class="clear"></div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 custom-select-2">
                             <label>Assigned Beat <span class="red">*</span></label>
                             <div id="Citydiv">
                                 @Html.DropDownListFor(m => m.Beat, new SelectList(Model.BeatList, "id", "name", Model.BeatId), new { @id = "ddlBeat", @class = "form-control" })
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 custom-select-2">
                             <label>Assigned Route <span class="red">*</span></label>
                             <div id="Citydiv">
                                 @Html.DropDownListFor(m => m.Route, new SelectList(Model.RouteList, "id", "name", Model.RouteId), new { @id = "ddlRoute", @class = "form-control" })
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 custom-select-2">
                             <label>Assigned Area <span class="red">*</span></label>
                             <div id="Citydiv">
                                 @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "id", "name", Model.AreaId), new { @id = "ddlArea", @class = "form-control" })
@@ -1552,8 +1619,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
-                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                <button type="button" class="btnOkformultiselection btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
+                <button type="button" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
                 @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
             </div>
         </div>
