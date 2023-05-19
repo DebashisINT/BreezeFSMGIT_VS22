@@ -38,10 +38,10 @@
         $('#ddlAppIds').on('change', function () {
             if ($("#ddlAppIds option:selected").index() > 0) {
                 var selectedValue = $(this).val();
-                var desg = $("#drpdesignation").val();
-                var usrtype = $("#ddlusertypes").val();
+                //var desg = $("#drpdesignation").val();
+                //var usrtype = $("#ddlusertypes").val();
                 $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporRegisterList", "partyDetails", new { type = "_type_" })'
+                var url = '@Url.Action("ExporBeatPlanList", "BeatPlan", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
 
             }
@@ -81,48 +81,58 @@
 
         $('#ddlBeat').on('change', function () {
             if ($("#ddlBeat option:selected").index() >= 0) {
-                var selectedValue = $(this).val();
 
-                $.ajax({
-                    url: "@Url.Action("GetAreaRouteChain", "BeatPlan")",
-                    async: false,
-                    data: {
-                        code_type: 'BEAT',
-                        code_id: selectedValue
-                    },
-                    type: 'POST',
-                    success: function (data) {
-                        //$("#ddlBeat").val(data.BeatId);
-                        $("#ddlArea").val(data.AreaId);
-                        $("#ddlRoute").val(data.RouteId);
-                    },
-                    error: function () {
-                    },
-                });
+                //$("#ddlBeat").val(data.BeatId);
+                $("#ddlArea").val('0');
+                $("#ddlRoute").val('0');
+
+                //var selectedValue = $(this).val();
+
+                //$.ajax({
+                //    url: "@Url.Action("GetAreaRouteChain", "BeatPlan")",
+                //    async: false,
+                //    data: {
+                //        code_type: 'BEAT',
+                //        code_id: selectedValue
+                //    },
+                //    type: 'POST',
+                //    success: function (data) {
+                //        //$("#ddlBeat").val(data.BeatId);
+                //        $("#ddlArea").val(data.AreaId);
+                //        $("#ddlRoute").val(data.RouteId);
+                //    },
+                //    error: function () {
+                //    },
+                //});
             }
         });
 
 
         $('#ddlRoute').on('change', function () {
             if ($("#ddlRoute option:selected").index() >= 0) {
-                var selectedValue = $(this).val();
 
-                $.ajax({
-                    url: "@Url.Action("GetAreaRouteChain", "BeatPlan")",
-                    async: false,
-                    data: {
-                        code_type: 'ROUTE',
-                        code_id: selectedValue
-                    },
-                    type: 'POST',
-                    success: function (data) {
-                        $("#ddlBeat").val('0');
-                        $("#ddlArea").val(data.AreaId);
-                       // $("#ddlRoute").val(data.RouteId);
-                    },
-                    error: function () {
-                    },
-                });
+                $("#ddlBeat").val('0');
+                $("#ddlArea").val('0');
+                //$("#ddlRoute").val('0');
+
+                //var selectedValue = $(this).val();
+
+                //$.ajax({
+                //    url: "@Url.Action("GetAreaRouteChain", "BeatPlan")",
+                //    async: false,
+                //    data: {
+                //        code_type: 'ROUTE',
+               //         code_id: selectedValue
+                //    },
+                //    type: 'POST',
+               //     success: function (data) {
+               //         $("#ddlBeat").val('0');
+               //         $("#ddlArea").val(data.AreaId);
+               //        // $("#ddlRoute").val(data.RouteId);
+               //     },
+              //      error: function () {
+              //      },
+              //  });
             }
         });
 
@@ -134,14 +144,49 @@
             }
         });
 
+        // Parameter Branch
+        var lookup = ASPxClientControl.GetControlCollection().GetByName("BranchGridLookup");
+        lookup.GetGridView().Refresh();
+        var lookup = ASPxClientControl.GetControlCollection().GetByName("BranchGridLookup");
+        lookup.GetGridView().Refresh();
+        // Parameter Branch
+
+        $('body').on('click', '#btnshow', function () {
+            GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeListId").val());
+            var emp = empId.join(',');
+            var Branch = BranchId.join(',');
+
+            if (dtFrom.GetText() == "" || dtFrom.GetText() == null || dtFrom.GetText() == "01-01-0100" ||
+            dtTo.GetText() == "" || dtTo.GetText() == null || dtTo.GetText() == "01-01-0100") {
+                jAlert('Please enter From and To Date.');
+            }
+            else {
+                Is_PageLoad = "1";
+
+                $.ajax({
+                    url: "@Url.Action("GetBeatPlanList", "BeatPlan")",
+                    async: false,
+                    data: {
+                        Fromdate: dtFrom.GetText(),
+                        Todate: dtTo.GetText(),
+                        Empcode: emp,
+                        BranchId: Branch,
+                        Is_PageLoad: Is_PageLoad,
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        gridBeatPlan.Refresh();
+                        gridBeatPlan.Refresh();
+                    },
+                    error: function () {
+                    },
+                });
+            }
 
 
+
+        });
     });
-
-
-
-
-
 
 </script>
 
@@ -202,22 +247,28 @@
             $('#txtEmployeeSearch').focus();
     }
 
-    function SetSelectedValues(Id, Name, ArrName) {
-        if (ArrName == 'EmployeeSource') {
-            var key = Id;
-            if (key != null && key != '') {
-                $('#EmployeeModel').modal('hide');
-                EmployeeTxt.SetText(Name);
-                $('#hdnEmployeeId').val(key);
-            }
-            else {
-                EmployeeTxt.SetText('');
-                $('#hdnEmployeeId').val('');
-            }
-        }
-    }
+    //function SetSelectedValues(Id, Name, ArrName) {
+    //    if (ArrName == 'EmployeeSource') {
+    //        var key = Id;
+    //        if (key != null && key != '') {
+    //            $('#EmployeeModel').modal('hide');
+    //            EmployeeTxt.SetText(Name);
+    //            $('#hdnEmployeeId').val(key);
+    //        }
+    //        else {
+    //            EmployeeTxt.SetText('');
+    //            $('#hdnEmployeeId').val('');
+    //        }
+    //    }
+    //}
 
     function ClearData() {
+        $("#hdnMode").val('ADDBEATPLAN');
+        $("#hdnPLAN_ID").val(0);
+        $("#divPlan").addClass('show');
+        EmployeeTxt.SetEnabled(true);
+
+        $("#myModalLabel").text("Add Beat Plan");
         $("#ddlPlan").val('Daily');
 
         $('#hdnEmployeeId').val('0');
@@ -233,60 +284,489 @@
         $("#txtRemarks").val('');
     }
 
-    function AddBeatPlan(values) {
-
+    function AddBeatPlan() {
+        var mode = $("#hdnMode").val();
         datefrm = txtAssignedFrom.GetText();
         var newdatefrom = datefrm.split("-").reverse().join("-");
         var startdate = new Date(Date.parse(newdatefrom));
+        var PLAN_ID = $("#hdnPLAN_ID").val();
 
         dateto = txtAssignedTo.GetText();
         var newdateTo = dateto.split("-").reverse().join("-");
         var endDate = new Date(Date.parse(newdateTo));
 
-
-        if (txtAssignedFrom.GetText() == null || txtAnniversary.GetText() == "01-01-0100" || txtAssignedTo.GetText() == null || txtAssignedTo.GetText() == "01-01-0100") {
-            jAlert("Please enter From and To Date.", "Alert", function () {
-                setTimeout(function () {
-                    EmployeeTxt.focus();
-                    return
-                }, 200);
-            });
-            return
-        }
-        else if ($("#ddlPlan").val() == "Custom" ) {
-            if ((Math.ceil((endDate - startdate) / (1000 * 60 * 60 * 24))) >31 ) {
-                jAlert("Difference of From Date and To Date cannot be more than 31 days.", "Alert", function () {
+        if (mode == "ADDBEATPLAN") {
+            if (txtAssignedFrom.GetText() == "" || txtAssignedFrom.GetText() == null || txtAssignedFrom.GetText() == "01-01-0100") {
+                jAlert("Please enter From Date.", "Alert", function () {
                     setTimeout(function () {
-                        EmployeeTxt.focus();
+                        //txtAssignedFrom.focus();
+                        return
+                    }, 200);
+                });
+                return
+            }
+
+            if (txtAssignedTo.GetText() == "" || txtAssignedTo.GetText() == null || txtAssignedTo.GetText() == "01-01-0100") {
+                jAlert("Please enter To Date.", "Alert", function () {
+                    setTimeout(function () {
+                        // txtAssignedTo.focus();
+                        return
+                    }, 200);
+                });
+                return
+            }
+
+            if ($('#hdnEmployeeId').val() == "" || $('#hdnEmployeeId').val() == "0") {
+                jAlert("Please select Employee.", "Alert", function () {
+                    setTimeout(function () {
+                        //EmployeeTxt.focus();
                         return
                     }, 200);
                 });
                 return
             }
         }
-        else if ($('#hdnEmployeeId') == "") {
-            jAlert("Please select Employee.", "Alert", function () {
-                setTimeout(function () {
-                    EmployeeTxt.focus();
-                    return
-                }, 200);
-            });
-            return
+
+
+        if ($("#ddlPlan").val() == "Custom") {
+            if ((Math.ceil((endDate - startdate) / (1000 * 60 * 60 * 24))) > 31) {
+                jAlert("Difference of From Date and To Date cannot be more than 31 days.", "Alert", function () {
+                    setTimeout(function () {
+                        //ddlPlan.focus();
+                        return
+                    }, 200);
+                });
+                return
+            }
         }
-        else if ($("#ddlBeat").val() == "0" && $("#ddlBeat").val() == "0" && $("#ddlBeat").val() == "0" ) {
+
+        if (($("#ddlBeat").val() == null || $("#ddlBeat").val() == "0") && ($("#ddlArea").val() == null || $("#ddlArea").val() == "0")
+            && ($("#ddlRoute").val() == null || $("#ddlRoute").val() == "0") ) {
             jAlert("Please either Beat or Area or Route.", "Alert", function () {
                 setTimeout(function () {
-                    $("#ddlBeat").focus();
+                    //$("#ddlBeat").focus();
                     return
                 }, 200);
             });
             return
         }
 
+        var data = {
+            Mode: mode,
+            PLAN_ID: PLAN_ID,
+            FromDate: datefrm,
+            ToDate: dateto,
+            Plan: $("#ddlPlan").val(),
+            EmpCntId: $('#hdnEmployeeId').val(),
+            BeatId: $("#ddlBeat").val(),
+            RouteId: $("#ddlRoute").val(),
+            AreaId: $("#ddlArea").val(),
+            Remarks: $("#txtRemarks").val()
+        }
+
+        $.ajax({
+            url: "@Url.Action("SaveBeatPlan", "BeatPlan")",
+            async: false,
+            data: { data: data },
+            type: 'POST',
+            success: function (returnValue
+                ) {
+                // Mantis Issue 24603 (Return value "returnValue" added )
+                if (returnValue == "SUCCESS") {
+                    jAlert("Beat Plan saved successfully.");
+                    ClearData();
+                    $('#myModal').modal('hide');
+                    GridShow();
+                }
+                else if (returnValue == "EXISTS") {
+                    jAlert("Beat Plan already exists.");
+                }
+                else {
+                    jAlert("Unable to save.");
+                }
+
+
+            },
+            error: function () {
+            },
+        });
 
     }
+
+    function GridShow() {
+        // Show Button Click
+        GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeListId").val());
+        var emp = empId.join(',');
+        var Branch = BranchId.join(',');
+
+        if (dtFrom.GetText() == "" || dtFrom.GetText() == null || dtFrom.GetText() == "01-01-0100" ||
+        dtTo.GetText() == "" || dtTo.GetText() == null || dtTo.GetText() == "01-01-0100") {
+            jAlert('Please enter From and To Date.');
+        }
+        else {
+            Is_PageLoad = "1";
+
+            $.ajax({
+                url: "@Url.Action("GetBeatPlanList", "BeatPlan")",
+                async: false,
+                data: {
+                    Fromdate: dtFrom.GetText(),
+                    Todate: dtTo.GetText(),
+                    Empcode: emp,
+                    BranchId: Branch,
+                    Is_PageLoad: Is_PageLoad,
+                },
+                type: 'POST',
+                success: function (data) {
+                    gridBeatPlan.Refresh();
+                    gridBeatPlan.Refresh();
+                },
+                error: function () {
+                },
+            });
+        }
+    }
+
+    function OnClickDeleteForm(PLAN_ID) {
+        var url = '/BeatPlan/BeatPlanDelete/';
+
+        jConfirm("Confirm Delete?", "Confirmation Dialog", function (ret) {
+            if (ret == true) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify({ 'PLAN_ID': PLAN_ID }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "Delete Succesfully.") {
+                            jAlert("Successfully Deleted.");
+                            GridShow();
+                        }
+                        else {
+                            jAlert(response);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        });
+    }
+
+    function OnStartCallback(s, e) {
+        e.customArgs["Fromdate"] = dtFrom.GetText();
+        e.customArgs["Todate"] = dtTo.GetText();
+        e.customArgs["empcode"] = empId;
+        e.customArgs["BranchId"] = BranchId;
+        e.customArgs["Is_PageLoad"] = Is_PageLoad;
+    }
+
+    function DownloadMonthlyPlanFormat() {
+        var url = '@Url.Action("DownloadMonthlyPlanFormat", "BeatPlan")'
+        window.location.href = url;
+    }
+
+    function DownloadDailyPlanFormat() {
+        var url = '@Url.Action("DownloadDailyPlanFormat", "BeatPlan")'
+        window.location.href = url;
+    }
+
+    function ImportPlanPopOpen() {
+        $("#myImportPlanModal").modal('show');
+    }
+
+    function ImportPlan() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod").val();
+        if ($('#fileprod').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("ImportPlanExcel", "BeatPlan")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        $("#myImportPlanModal").modal('hide');
+                        GridShow();
+
+                       // $.ajax({
+                       //     type: "POST",
+                       //     url: "@Url.Action("GetPlanImportLog", "BeatPlan")",
+                       //     success: function (response) {
+                       //         if (response) {
+                      //              pcModalTemplateImportLogMode.Show();
+                       //             gridTemplateImportLogList.Refresh();
+                       //             gridTemplateImportLogList.Refresh();
+                      //          }
+                      //      }
+                      //  });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+
+    // Parameter Branch
+    var BranchId = [];
+    var Branch_Id = "";
+    function BranchSelectionChanged(s, e) {
+        BranchGridLookup.gridView.GetSelectedFieldValues("BRANCH_ID", GetSelectedFieldValuesCallbackBranch);
+    }
+    function GetSelectedFieldValuesCallbackBranch(values) {
+
+        try {
+            BranchId = [];
+            Branch_Id = "";
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        } finally {
+            console.log(BranchId);
+        }
+    }
+
+    function SelectAllGridLookup(s, e) {
+        BranchGridLookup.gridView.SelectRows();
+        var Hoid = $('#HeadBranch').val();
+        BranchId = "";
+        BranchGridLookup.SetText("");
+        if (Hoid == null || Hoid == "") {
+            //Hoid = "0";
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/MasterPopulate/GetSelectedChildBranchList",
+                data: { "Hoid": Hoid },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    BranchId = [];
+                    Branch_Id = "";
+                    $.each(data, function (i, data) {
+                        BranchId.push(data.BRANCH_ID);
+                        Branch_Id += data.BRANCH_ID + ',';
+                    });
+                    BranchGridLookup.gridView.SelectRows();
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+    function DeSelectAllGridLookup(s, e) {
+        BranchGridLookup.gridView.UnselectRows();
+
+        BranchId = [];
+        Branch_Id = "";
+    }
+
+    function BranchStartCallback(s, e) {
+        e.customArgs["UserID"] = $("#hdnUserID").val();
+    }
+
+    function BranchLookupValChange() {
+        BranchGridLookup.GetGridView().Refresh();
+    }
+
+    function BindBranches() {
+        var Hoid = $('#HeadBranch').val();
+        BranchId = "";
+        BranchGridLookup.SetText("");
+        if (Hoid == null || Hoid == "") {
+            //Hoid = "0";
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/MasterPopulate/GetChildBranchList",
+                data: { "Hoid": Hoid },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+            BranchGridLookup.GetGridView().Refresh();
+        }
+    }
+    // Parameter Branch
+
+    function OnClickReassign(PLAN_ID) {
+        var x = "";
+        var dt = "";
+        $.ajax({
+            url: "@Url.Action("ShowBeatPlanDetails", "BeatPlan")",
+            async: false,
+            data: { PLAN_ID: PLAN_ID },
+            type: 'POST',
+            success: function (data) {
+
+                $("#hdnMode").val('REASSIGNBEATPLAN');
+                $("#hdnPLAN_ID").val(PLAN_ID);
+
+                $("#divPlan").addClass('hide');
+                EmployeeTxt.SetEnabled(false)
+                txtAssignedFrom.SetEnabled(false);
+                txtAssignedTo.SetEnabled(false);
+                $("#myModalLabel").text("Reassign Beat Plan");
+
+                $("#ddlPlan").val(data.Plan);
+               // $('#hdnEmployeeId').val(data.EmpCntId);
+                EmployeeTxt.SetText(data.EMPNAME);
+
+                $("#ddlBeat").val(data.BeatId);
+                $("#ddlArea").val(data.AreaId);
+                $("#ddlRoute").val(data.RouteId);
+
+                $("#txtBeatOld").val(data.BeatNameOld);
+                $("#txtRouteOld").val(data.RouteNameOld);
+                $("#txtAreaOld").val(data.AreaNameOld);
+
+                $("#txtRemarks").val(data.Remarks);
+
+
+                $('#myModal').modal('show');
+            },
+            error: function () {
+            },
+        });
+    }
+
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('#EmployeeListModel').on('shown.bs.modal', function () {
+            $('#txtEmployeeListSearch').focus();
+        })
+    })
+    var ProdArr = new Array();
+    $(document).ready(function () {
+        var ProdObj = new Object();
+        ProdObj.Name = "EmployeeSource";
+        ProdObj.ArraySource = ProdArr;
+        arrMultiPopup.push(ProdObj);
+    })
+
+    function EmployeeListButnClick(s, e) {
+        $('#EmployeeListModel').modal('show');
+    }
+
+    function EmployeeList_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter") {
+            $('#EmployeeListModel').modal('show');
+        }
+    }
+
+    function EmployeeListkeydown(e) {
+        var OtherDetails = {}
+
+        if ($.trim($("#txtEmployeeListSearch").val()) == "" || $.trim($("#txtEmployeeListSearch").val()) == null) {
+            return false;
+        }
+        OtherDetails.SearchKey = $("#txtEmployeeListSearch").val();
+        OtherDetails.ClassID = "";
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+
+            var HeaderCaption = [];
+            HeaderCaption.push("Employee Name");
+            HeaderCaption.push("Employee Code");
+
+
+            if ($("#txtEmployeeListSearch").val() != "") {
+                callonServerM("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTableList", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[dPropertyIndex=0]"))
+                $("input[dPropertyIndex=0]").focus();
+        }
+    }
+
+    function SetfocusOnseach(indexName) {
+        if (indexName == "dPropertyIndex")
+            $('#txtEmployeeListSearch').focus();
+        else
+            $('#txtEmployeeListSearch').focus();
+    }
+
+    function SetSelectedValues(Id, Name, ArrName) {
+        if (ArrName == 'EmployeeSource') {
+            var key = Id;
+            if (key != null && key != '') {
+                $('#EmployeeListModel').modal('hide');
+                EmployeeListTxt.SetText(Name);
+                $('#hdnEmployeeListId').val(key);
+            }
+            else {
+                EmployeeListTxt.SetText('');
+                $('#hdnEmployeeListId').val('');
+            }
+        }
+    }
+
+    function GetEmpSelectedFieldValuesOndemand(values) {
+        try {
+            empId = [];
+            var eids = values.split(',');
+            for (var i = 0; i < eids.length; i++) {
+                empId.push(eids[i]);
+            }
+        } finally {
+            console.log(empId);
+        }
+    }
+</script>
 
 <style>
     .pmsModal .modal-header {
@@ -370,10 +850,11 @@
     #myImportModal .modal-body {
         border-radius: 0 0 20px 20px;
     }
+
     .btn {
         margin-bottom: 15px;
     }
-    
+
     .dxeButtonEdit_PlasticBlue {
         min-height: 30px;
         border-radius: 4px;
@@ -711,10 +1192,15 @@
         background-color: #e0e0e0;
     }
 
+    /*Parameter Branch*/
+    #BranchGridLookup_CC {
+        width: 100%;
+    }
+    /*Parameter Branch*/
 </style>
 
 <div class="breadCumb">
-    <span>Party List</span>
+    <span>BEAT PLAN</span>
 </div>
 
 <div class="container ">
@@ -727,57 +1213,89 @@
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
                             Add Plan
                         </button>
-                        <button type="button" class="btn btn-info mr-1" onclick="DownloadFormat();">
+                        @*<button type="button" class="btn btn-info mr-1" onclick="DownloadMonthlyPlanFormat();">
                             Download Monthly Plan Format
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="ImportPartyPopOpen();">
+                        <button type="button" class="btn btn-primary" onclick="ImportPlanPopOpen();">
                             Import Monthly Plan
                         </button>
-                        <button type="button" class="btn btn-info mr-1" onclick="DownloadFormat();">
+                        <button type="button" class="btn btn-info mr-1" onclick="DownloadDailyPlanFormat();">
                             Download Daily Plan Format
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="ImportPartyPopOpen();">
-                            Import Daily Plan  
-                        </button>
-                        
+                        <button type="button" class="btn btn-primary" onclick="ImportPlanPopOpen();">
+                            Import Daily Plan
+                        </button>*@
+
                     </div>
                     <div class="clear"></div>
-                    
 
-                     <div class="col-md-2 for-cust-icon">
+                    @*Parameter Branch*@
+                    <div class="col-md-2 for-cust-icon">
+                        <span>Head Branch : </span>
+                        <div>
+                            @Html.DropDownList("HeadBranch", new SelectList(ViewBag.HeadBranch, "BRANCH_ID", "CODE"), new { @id = "HeadBranch", @onchange = "BindBranches()", @class = "whclass selectH" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 for-cust-icon">
+                        <span>Branch</span>
+                        <div>
+                            @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
+                        </div>
+                    </div>
+                    @*Parameter Branch*@
+
+                    <div class="col-md-2 for-cust-icon">
+                        <span>Employee(s)</span>
+                        <div>
+                            @Html.DevExpress().ButtonEdit(
+                            settings =>
+                            {
+                                settings.Name = "EmployeeListTxt";
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                //settings.Text = Model.AssignedTo;
+                                settings.ReadOnly = true;
+                                settings.Properties.Buttons.Add("...");
+                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){EmployeeListButnClick(s,e);}";
+                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){EmployeeList_KeyDown(s,e);}";
+
+                            }).GetHtml()
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 for-cust-icon">
                         <span>From Date</span>
                         <div>
-                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
-                            deSettings =>
+                            @Html.DevExpress().DateEdit(
+                            settings =>
                             {
-                                deSettings.Name = "dtFrom";
-                                deSettings.Date = DateTime.Now;
-                                deSettings.Properties.UseMaskBehavior = true;
-                                deSettings.Properties.EditFormat = EditFormat.Custom;
-                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                settings.Name = "dtFrom";
+                                settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                settings.Properties.EditFormatString = "dd-MM-yyyy";
+
+                                settings.Properties.EditFormat = EditFormat.DateTime;
+                                settings.Date = DateTime.Now;
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                             }).GetHtml()
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
                     <div class="col-md-2 for-cust-icon">
                         <span>To Date</span>
                         <div>
-                            @Html.DevExpress().DateEditFor(x => x.Todate,
-                            deSettings =>
-                            {
-                                deSettings.Name = "dtTo";
-                                deSettings.Date = DateTime.Now;
-                                deSettings.Properties.UseMaskBehavior = true;
-                                deSettings.Properties.EditFormat = EditFormat.Custom;
-                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                            }).GetHtml()
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                           @Html.DevExpress().DateEdit(
+                           settings =>
+                           {
+                               settings.Name = "dtTo";
+                               settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                               settings.Properties.EditFormatString = "dd-MM-yyyy";
+
+                               settings.Properties.EditFormat = EditFormat.DateTime;
+                               settings.Date = DateTime.Now;
+                               settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                           }).GetHtml()
                         </div>
                     </div>
+                    <div class="clear"></div>
                     <div class="col-md-12" style="padding-top: 13px;">
                         <span></span>
                         <div>
@@ -791,13 +1309,13 @@
                 </div>
                 <div class="clearfix"></div>
 
-                @*<div class="scrooler">
+                <div class="scrooler">
                     <div id="refreshgrid">
                         @{
-                            Html.RenderAction("PartialPartyDetailsGridList", "partyDetails", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
+                            Html.RenderAction("PartialBeatPlanGridList", "BeatPlan", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload", Branch = Model.BranchId, Employee = Model.Empcode });
                         }
                     </div>
-                </div>*@
+                </div>
             </div>
         </div>
     </div>
@@ -814,10 +1332,10 @@
             <div class="modal-body inputShrink">
                 <div class="row">
                     <div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="divPlan">
                             <label>Beat Plan <span class="red">*</span></label>
                             <div>
-                                <select class="form-control" name="ddlPlan" id="ddlPlan" >
+                                <select class="form-control" name="ddlPlan" id="ddlPlan">
                                     <option value="Daily">Daily</option>
                                     <option value="Weekly">Weekly</option>
                                     <option value="Monthly">Monthly</option>
@@ -938,7 +1456,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="AddBeatPlan('Save');">Save</button>
+                <button type="button" class="btn btn-success" onclick="AddBeatPlan();">Save</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
             </div>
         </div>
@@ -968,7 +1486,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btnOkformultiselection btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
                 <button type="button" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
                 @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
             </div>
@@ -976,3 +1493,71 @@
     </div>
 </div>
 <asp:HiddenField ID="hdnEmployeeId" runat="server" />
+<input type="hidden" id="hdnMode" />
+<input type="hidden" id="hdnPLAN_ID" />
+
+<div id="myImportPlanModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For Beat Plan</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ImportPlan();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--EmployeeList Modal -->
+<div class="modal fade pmsModal w50" id="EmployeeListModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Employee Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" onkeydown="EmployeeListkeydown(event)" id="txtEmployeeListSearch" width="100%" placeholder="Search By Employee Name" />
+                <div id="EmployeeTableList">
+                    <table border='1' width="100%">
+
+                        <tr class="HeaderStyle" style="font-size:small">
+                            <th>Select</th>
+                            <th class="hide">id</th>
+                            <th>Employee Name</th>
+                            <th>Employee Code</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
+                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<asp:HiddenField ID="hdnEmployeeListId" runat="server" />
+<!--EmployeeList Modal -->
