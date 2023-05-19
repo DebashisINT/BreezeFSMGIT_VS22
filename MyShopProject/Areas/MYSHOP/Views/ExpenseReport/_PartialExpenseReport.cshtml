@@ -2,6 +2,9 @@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 
 @* Added by Sanchita for V2.0.40 on 26-04-2023     A New Expense Report is Required for BP Poddar, Refer: 25833  *@
+
+@*Rev 1.0      Sanchita    V2.0.40     19/05/2023      ‘Other Allowance’ Coloumn name should be renamed as ‘Travelling Allowance’
+ *                                                      when IsShowReimbursementTypeInAttendance=1. Refer: 26146*@
 @*====================================================== Revision History ==========================================================*@
 
 @Html.DevExpress().GridView(settings =>
@@ -99,14 +102,40 @@
 
     });
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "OTHER_ALLOWANCE";
-        x.Caption = "Other Allowance";
-        x.VisibleIndex = 8;
-        x.Width = 200;
+    // Rev 1.0
+    //settings.Columns.Add(x =>
+    //    {
+    //        x.FieldName = "OTHER_ALLOWANCE";
+    //        x.Caption = "Other Allowance";
+    //        x.VisibleIndex = 8;
+    //        x.Width = 200;
 
-    });
+    //    });
+
+    if (ViewBag.isExpenseFeatureAvailable == "1")
+    {
+        settings.Columns.Add(x =>
+        {
+            x.FieldName = "OTHER_ALLOWANCE";
+            x.Caption = "Travelling Allowance";
+            x.VisibleIndex = 8;
+            x.Width = 200;
+
+        });
+    }
+    else
+    {
+        settings.Columns.Add(x =>
+        {
+            x.FieldName = "OTHER_ALLOWANCE";
+            x.Caption = "Other Allowance";
+            x.VisibleIndex = 8;
+            x.Width = 200;
+
+        });
+    }
+    // End of Rev 1.0
+
 
     settings.Columns.Add(x =>
     {

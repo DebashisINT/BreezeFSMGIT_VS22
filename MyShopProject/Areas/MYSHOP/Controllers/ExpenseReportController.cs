@@ -1,6 +1,8 @@
 ﻿/******************************************************************************************************
  * Created by Sanchita for V2.0.40 on 04-05-2023. Work done in Controller, View and Model
  * A New Expense Report is Required for BP Poddar. Refer: 25833
+ * Rev 1.0      Sanchita    V2.0.40     19/05/2023      ‘Other Allowance’ Coloumn name should be renamed as ‘Travelling Allowance’ 
+ *                                                      when IsShowReimbursementTypeInAttendance=1. Refer: 26146
  * *******************************************************************************************************/
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
@@ -27,12 +29,16 @@ using System.Text;
 using DocumentFormat.OpenXml.Vml.Office;
 using System.Web.WebPages;
 using Ionic.Zip;
-
+using BusinessLogicLayer;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
     public class ExpenseReportController : Controller
     {
+        // Rev 1.0
+        CommonBL objSystemSettings = new CommonBL();
+        // End of Rev 1.0
+
         // GET: MYSHOP/ExpenseReport
         public ActionResult Index()
         {
@@ -107,7 +113,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //}
 
             //TempData.Keep();
-
+            // Rev 1.0
+            string isExpenseFeatureAvailable = objSystemSettings.GetSystemSettingsResult("isExpenseFeatureAvailable");
+            ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
+            // End of Rev 1.0
             return PartialView(GetReport(ispageload));
         }
 
@@ -188,6 +197,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         private GridViewSettings GetEmployeeBatchGridViewSettings()
         {
+            // Rev 1.0
+            string isExpenseFeatureAvailable = objSystemSettings.GetSystemSettingsResult("isExpenseFeatureAvailable");
+            // End of Rev 1.0
+
             var settings = new GridViewSettings();
             settings.Name = "Employee Summary Report";
             settings.CallbackRouteValues = new { Action = "_PartialLateVisitGrid", Controller = "ShopVisitRegister" };
@@ -264,16 +277,45 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
             });
 
-            settings.Columns.Add(x =>
+            // Rev 1.0
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "OTHER_ALLOWANCE";
+            //    x.Caption = "Other Allowance";
+            //    x.VisibleIndex = 8;
+            //    x.Width = 100;
+            //    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            //    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            //    x.PropertiesEdit.DisplayFormatString = "0.00";
+            //});
+
+            if (isExpenseFeatureAvailable == "1") {
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "OTHER_ALLOWANCE";
+                    x.Caption = "Travelling Allowance";
+                    x.VisibleIndex = 8;
+                    x.Width = 100;
+                    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    x.PropertiesEdit.DisplayFormatString = "0.00";
+                });
+            }
+            else
             {
-                x.FieldName = "OTHER_ALLOWANCE";
-                x.Caption = "Other Allowance";
-                x.VisibleIndex = 8;
-                x.Width = 100;
-                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.PropertiesEdit.DisplayFormatString = "0.00";
-            });
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "OTHER_ALLOWANCE";
+                    x.Caption = "Other Allowance";
+                    x.VisibleIndex = 8;
+                    x.Width = 100;
+                    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    x.PropertiesEdit.DisplayFormatString = "0.00";
+                });
+            }
+            // End of Rev 1.0
+            
 
             settings.Columns.Add(x =>
             {
