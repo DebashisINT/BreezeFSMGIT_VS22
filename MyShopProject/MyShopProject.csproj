@@ -1980,6 +1980,7 @@
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementBulkReAssign.cshtml" />
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementFromPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\BeatPlan\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\BeatPlan\PartialBeatPlanGridList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
