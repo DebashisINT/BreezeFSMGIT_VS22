@@ -640,7 +640,7 @@
     }
     // Parameter Branch
 
-    function OnClickReassign(PLAN_ID) {
+    function OnClickEdit(PLAN_ID) {
         var x = "";
         var dt = "";
         $.ajax({
@@ -650,14 +650,14 @@
             type: 'POST',
             success: function (data) {
 
-                $("#hdnMode").val('REASSIGNBEATPLAN');
+                $("#hdnMode").val('MODIFYBEATPLAN');
                 $("#hdnPLAN_ID").val(PLAN_ID);
 
                 $("#divPlan").addClass('hide');
                 EmployeeTxt.SetEnabled(false)
                 txtAssignedFrom.SetEnabled(false);
                 txtAssignedTo.SetEnabled(false);
-                $("#myModalLabel").text("Reassign Beat Plan");
+                $("#myModalLabel").text("Edit Beat Plan");
 
                 $("#ddlPlan").val(data.Plan);
                // $('#hdnEmployeeId').val(data.EmpCntId);
