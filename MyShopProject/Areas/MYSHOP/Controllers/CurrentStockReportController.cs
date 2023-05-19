@@ -562,26 +562,33 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 foreach (DataRow row in dt.Rows)
                 {
                     string _FileName1 = Convert.ToString(row["STOCKIMAGEPATH1"]);
-                    string filename1 = Path.GetFileName(_FileName1);
-                    var source = weburl + filename1;
-                    var destination = weburl + "CURRENTSTOCK_Attachment/" + filename1;
-
-                    //Do your job with "file"  
-                    if (!System.IO.File.Exists(destination))
+                    if (_FileName1 != "")
                     {
-                        System.IO.File.Copy(source, destination);
+
+                        string filename1 = Path.GetFileName(_FileName1);
+                        var source = weburl + filename1;
+                        var destination = weburl + "CURRENTSTOCK_Attachment/" + filename1;
+
+                        //Do your job with "file"  
+                        if (!System.IO.File.Exists(destination))
+                        {
+                            System.IO.File.Copy(source, destination);
+                        }
                     }
 
 
                     string _FileName2 = Convert.ToString(row["STOCKIMAGEPATH2"]);
-                    string filename2 = Path.GetFileName(_FileName2);
-                    var source1 = weburl + filename2;
-                    var destination1 = weburl + "CURRENTSTOCK_Attachment/" + filename2;
-
-                    //Do your job with "file"  
-                    if (!System.IO.File.Exists(destination1))
+                    if (_FileName2 != "")
                     {
-                        System.IO.File.Copy(source1, destination1);
+                        string filename2 = Path.GetFileName(_FileName2);
+                        var source1 = weburl + filename2;
+                        var destination1 = weburl + "CURRENTSTOCK_Attachment/" + filename2;
+
+                        //Do your job with "file"  
+                        if (!System.IO.File.Exists(destination1))
+                        {
+                            System.IO.File.Copy(source1, destination1);
+                        }
                     }
                 }
 
