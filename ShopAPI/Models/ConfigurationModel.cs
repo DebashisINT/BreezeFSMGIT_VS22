@@ -9,6 +9,7 @@
 //8.0   V2.0.39     Debashis    08/05/2023      Some new parameters have been added.Row: 825,826,827
 //9.0   V2.0.39     Debashis    16/05/2023      A new parameter has been added.Row: 833
 //10.0  V2.0.39     Debashis    16/05/2023      A new parameter has been added.Row: 838
+//11.0  V2.0.39     Debashis    19/05/2023      A new parameter has been added.Row: 841
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -224,6 +225,9 @@ namespace ShopAPI.Models
         //Rev 10.0 Row:838
         public bool IsShowReimbursementTypeInAttendance { get; set; }
         //End of Rev 10.0 Row:838
+        //Rev 11.0 Row:841
+        public bool IsBeatPlanAvailable { get; set; }
+        //End of Rev 11.0 Row:841
     }
 
     public class ConfigurationModelInput
