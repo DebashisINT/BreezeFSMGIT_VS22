@@ -1,7 +1,7 @@
-﻿/******************************************************************************************************
- * Rev 1.0   Sanchita   V2.0.40     04-05-2023      A New Expense Report is Required for BP Poddar. 
- *                                                  Refer: 25833
- * *******************************************************************************************************/
+﻿/**********************************************************************************************************************************
+ * Rev 1.0   Sanchita   V2.0.40     04-05-2023      A New Expense Report is Required for BP Poddar.Refer: 25833                                                 
+ * Rev 2.0   Priti      v2.0.40     19-05-2023      0026145:Modification in the ‘Configure Travelling Allowance’ page.
+ * ***********************************************************************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 {
     public class TravelConveyanceController : Controller
     {
-
+        CommonBL objSystemSettings = new CommonBL();
         DataTable dtvisitloc = new DataTable();
         DataTable dtexpensetype = new DataTable();
         DataTable dtdesignation = new DataTable();
@@ -78,6 +78,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
             // End of Rev 1.0
 
+            // Rev 2.0
+            string IsShowReimbursementTypeInAttendance = objSystemSettings.GetSystemSettingsResult("IsShowReimbursementTypeInAttendance");//REV 1.0
+            ViewBag.IsShowReimbursementTypeInAttendance = IsShowReimbursementTypeInAttendance;
+            // Rev 2.0 End
+
             return View(omodel);
 
 
@@ -107,6 +112,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             isExpenseFeatureAvailable = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='isExpenseFeatureAvailable'").Rows[0][0]);
             ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
             // End of Rev 1.0
+
+            // Rev 2.0
+            string IsShowReimbursementTypeInAttendance = objSystemSettings.GetSystemSettingsResult("IsShowReimbursementTypeInAttendance");//REV 1.0
+            ViewBag.IsShowReimbursementTypeInAttendance = IsShowReimbursementTypeInAttendance;
+            // Rev 2.0 End
 
             return PartialView("_PartialTAConfiguration", omodel);
         }
@@ -138,36 +148,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
             new DataColumn("EligibleDistance", typeof(String)),  
             new DataColumn("EligibleRate", typeof(String)),   
             new DataColumn("EligibleAmtday", typeof(String)),   
-            new DataColumn("fuelID", typeof(String))   
+            new DataColumn("fuelID", typeof(String))         
          });
-
-
-            //         dc = new DataColumn("VisitlocId", typeof(String
-            //      dc = new DataColumn("ExpenseId", typeof(String));
-            //        dc = new DataColumn("DesignationId", typeof(String));
-            //dc = new DataColumn("TravelId", typeof(String));
-            //dc = new DataColumn("StateId", typeof(String));
-            //dc = new DataColumn("EmpgradeId", typeof(String));
-            //dc = new DataColumn("EligibleDistance", typeof(String));
-            //dc = new DataColumn("EligibleRate", typeof(String));
-            //dc = new DataColumn("EligibleAmtday", typeof(String));
-            //dc = new DataColumn("fuelID", typeof(String));
-            //dttravel.Columns.Add(dc);
-
-
-            //if (model.StateId != null && model.StateId.Count > 0)
-            //{
-            //    foreach (string item in model.StateId)
-            //    {
-            //        if (i > 1)
-            //            state = state + "," + item;
-            //        else
-            //            state = item;
-            //        i++;
-            //    }
-
-            //}
-
 
             string Grade = "";
             int j = 1;
@@ -190,7 +172,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             {
                                 dttravel.Rows.Add(model.VisitlocId, model.ExpenseId, model.DesignationId, 0, item2, item, 0, 0, model.EligibleAmtday, 0);
                             }
-                            // End of Rev 1.0
+                            // End of Rev 1.0                        
 
                         }
 
@@ -199,12 +181,45 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
 
             }
+            //Rev 2.0
+            DataTable dtBranch = new DataTable();
+            dtBranch.Columns.AddRange(new DataColumn[]
+            { 
+                new DataColumn("BranchId", typeof(String))            
+            });
+
+            if (model.BranchId != null && model.BranchId.Count > 0)
+            {
+                foreach (string itemBranch in model.BranchId)
+                {
+                    dtBranch.Rows.Add(itemBranch);                    
+                }
+            }
+
+            DataTable dtArea = new DataTable();
+            dtArea.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn("AreaId", typeof(String))
+            });
+
+            if (model.AreaId != null && model.AreaId.Count > 0)
+            {
+                foreach (string itemArea in model.AreaId)
+                {
+                    dtArea.Rows.Add(itemArea);
+                }
+            }
+            //Rev 2.0 End
+
+
 
 
             string userid = Convert.ToString(Session["userid"]);
-          // int k = lstuser.GetConveyanceInsert(model.VisitlocId,model.ExpenseId,model.DesignationId,model.TravelId,model.StateId,model.EmpgradeId,model.EligibleDistance,model.EligibleRate,model.EligibleAmtday,model.fuelID,userid,"Insert",model.IsActive);
-            int k = lstuser.GetConveyanceConfig(dttravel, userid, "Insert", model.IsActive);
-    
+            // int k = lstuser.GetConveyanceInsert(model.VisitlocId,model.ExpenseId,model.DesignationId,model.TravelId,model.StateId,model.EmpgradeId,model.EligibleDistance,model.EligibleRate,model.EligibleAmtday,model.fuelID,userid,"Insert",model.IsActive);
+            //Rev 2.0
+            //int k = lstuser.GetConveyanceConfig(dttravel, userid, "Insert", model.IsActive);
+            int k = lstuser.GetConveyanceConfig(dttravel, userid, "Insert", model.IsActive, dtBranch, dtArea);
+            //Rev 2.0 End
             if (k > 0)
             {
                 return Json("Success");
