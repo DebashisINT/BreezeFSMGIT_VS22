@@ -1502,6 +1502,15 @@
     <Content Include="Scripts\pluggins\multiselect\bootstrap-multiselect.js" />
     <Content Include="Scripts\SearchMultiPopup.js" />
     <Content Include="Scripts\SearchPopup.js" />
+    <Content Include="Views\Common\_PartialMenu.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1960,15 +1969,6 @@
     <Content Include="Areas\MYSHOP\Views\PerformanceAnalytics\Report.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\_BulkModifyManualLogView.cshtml" />
     <Content Include="Areas\MYSHOP\Views\partyDetails\BulkModifyLog.cshtml" />
-    <Content Include="Views\Common\_PartialMenu.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\Reimbursement\_ReimbursementDetailsDataConfirmed.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ExpenseReport\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ExpenseReport\_ExpenseTypePartial.cshtml" />
@@ -1981,6 +1981,8 @@
     <Content Include="Areas\MYSHOP\Views\TaskManagement\_TaskManagementFromPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\BeatPlan\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\BeatPlan\PartialBeatPlanGridList.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\SearchingInputs\_AreaBranchWisePartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\SearchingInputs\_BranchPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3100,7 +3102,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5735</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5737/</IISUrl>
+          <IISUrl>http://localhost:5738/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

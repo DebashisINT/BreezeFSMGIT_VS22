@@ -2,6 +2,8 @@
 @*Rev Number    DATE            VERSION    DEVELOPER      CHANGES*@
 @*1.0           10-02-2023      2.0.39     Pallab         25656 : Master module design modification *@
 @*2.0           04-05-2023      V2.0.40    Sanchita       A New Expense Report is Required for BP Poddar. Refer: 25833 *@
+@*3.0           19-05-2023      V2.0.40    Priti          0026145:Modification in the ‘Configure Travelling Allowance’ page. *@
+
 @*====================================================== Revision History ==========================================================*@
 
 @model  MyShop.Models.TravelConveyanceModelclass
@@ -33,6 +35,19 @@
             $("#divERHide").hide();
             $("#forTopSpaceControl").removeClass("mt-4");
         }
+
+        //Rev 3.0
+         if ('@ViewBag.IsShowReimbursementTypeInAttendance' == "1") {
+             $("#DivBranch").removeClass("hidden");
+             $("#DivArea").removeClass("hidden");
+             
+        }
+        else {
+             $("#DivBranch").addClass("hidden");
+             $("#DivArea").addClass("hidden");
+        }
+         //Rev 3.0 End
+
     });
     // End of Rev 2.0
 
@@ -66,48 +81,6 @@
         $("#btnEdit").hide();
         $("#btnshow").show();
 
-
-        //$("#txtdistance").keydown(function (event) {
-
-        //    if(!(event.keyCode == 8                                // backspace
-        //|| event.keyCode == 46                              // delete
-        //|| (event.keyCode >= 35 && event.keyCode <= 40)     // arrow keys/home/end
-        //|| (event.keyCode >= 48 && event.keyCode <= 57)     // numbers on keyboard
-        //|| (event.keyCode >= 96 && event.keyCode <= 105))   // number on keypad
-        //        )
-        //    {
-
-        //        event.preventDefault();
-        //    }
-        //});
-
-        //$("#txtRate").keydown(function (event) {
-
-        //    if (!(event.keyCode == 8                                // backspace
-        //|| event.keyCode == 46                              // delete
-        //|| (event.keyCode >= 35 && event.keyCode <= 40)     // arrow keys/home/end
-        //|| (event.keyCode >= 48 && event.keyCode <= 57)     // numbers on keyboard
-        //|| (event.keyCode >= 96 && event.keyCode <= 105))   // number on keypad
-        //        ) {
-
-        //        event.preventDefault();
-        //    }
-        //});
-        //$("#txteligibleamount").keydown(function (event) {
-
-        //    if (!(event.keyCode == 8                                // backspace
-        //|| event.keyCode == 46                              // delete
-        //|| (event.keyCode >= 35 && event.keyCode <= 40)     // arrow keys/home/end
-        //|| (event.keyCode >= 48 && event.keyCode <= 57)     // numbers on keyboard
-        //|| (event.keyCode >= 96 && event.keyCode <= 105))   // number on keypad
-        //        ) {
-
-        //        event.preventDefault();
-        //    }
-        //});
-
-
-
         $('body').on('click', '#btnclear', function () {
             $("#btnEdit").hide();
             $("#btnshow").show();
@@ -128,15 +101,6 @@
             StateGridLookup.gridView.UnselectAllRowsOnPage();
             empgradeGridLookup.SetEnabled(true);
             StateGridLookup.SetEnabled(true);
-            // $('input:checkbox#IsActive').prop('checked', false);
-
-            //if ($('input[type=checkbox]').is(':checked')) {
-            //    $(this).prop('checked', false);
-
-            //} else {
-            //    $(this).prop('checked', false);
-            //}
-
 
         });
 
@@ -144,18 +108,11 @@
 
         $('body').on('click', '#btnshow', function () {
 
-            //  alert($('#idfuel').val());
-
-
             if ($("#txteligibleamount").val() == '') {
                 $("#txteligibleamount").val('0');
 
             }
-            // alert($("#txtdistance").val());
             var f = true;
-
-
-            //if ($("#idexpense").val() == 1) {
             if ($("#idvisitloc").val() == '') {
                 f = false;
 
@@ -188,96 +145,49 @@
                 f = false;
 
             }
-
-            //  alert(($("#txtdistance").val()) + ' ' + parseInt($("#txtRate").val()) + ' ' + parseInt($("#txteligibleamount").val()));
-
             if (parseInt($("#txteligibleamount").val()) == "0" || $("#txteligibleamount").val() == '') {
                 if ((parseInt($("#txtdistance").val()) == "0" || $("#txtdistance").val() == '') || (parseInt($("#txtRate").val()) == "0" || $("#txtRate").val() == '') && $("#idexpense").val() == 1) {
                     f = false;
-
                 }
             }
             if ((parseInt($("#txteligibleamount").val()) == "0" || $("#txteligibleamount").val() == '') && $("#idexpense").val() != 1) {
                 f = false;
 
             }
-            ////alert($("#chkIsactive").is(':checked'));
-            //if ($("#idvisitloc").val() != '' && $("#idempgrade").val() != '' && $("#idexpense").val() != '' && $("#iddesignation").val() != ''
-            //    && $("#idtravelmode").val() != '' && $("#idstate").val() != '' && parseInt($("#txtdistance").val()) != "0" && $("#txtdistance").val() != ''
-            //    ) {
-
-            //    f=true;
-            //}
-            //else
-            //{
-            //    f = false;
-            //}
             if ($("#idexpense").val() == 1) {
                 $("#spaneligible").hide();
             }
             if ($("#idexpense").val() != 1) {
                 $("#spaneligible").show();
             }
-            //}
-            //else {
-
-            //    if ($("#idvisitloc").val() != '' && $("#idempgrade").val() != '' && $("#idexpense").val() != '' && $("#iddesignation").val() != ''
-            //     && $("#idstate").val() != '' && parseInt($("#txteligibleamount").val()) != "0" && $("#txteligibleamount").val() != ''
-            //       ) {
-            //        f = true;
-            //    }
-            //    else
-            //    {
-            //        f = false;
-
-            //    }
-            //    $("#spaneligible").show();
-            //}
-            // alert(f);
-
-
-            //   alert(f);
 
             if (f == true) {
                 var surl = '@Url.Action("ConfigurationInsert", "TravelConveyance")';
                 $.ajax({
                     url: surl,
-                    //async: false,
                     data: {
 
                         VisitlocId: $("#idvisitloc").val(),
-
                         StateId: StateId,
                         EmpgradeId: EmpgradeId,
-
-
-                       // EmpgradeId: $("#idempgrade").val(),
                         ExpenseId: $("#idexpense").val(),
                         DesignationId: $("#iddesignation").val(),
                         TravelId: $('#idtravelmode option:selected').val().split(",")[0],
-                       // StateId: $("#idstate").val(),
                         EligibleDistance: $("#txtdistance").val(),
                         EligibleRate: $("#txtRate").val(),
                         EligibleAmtday: $("#txteligibleamount").val(),
                         IsActive: $("#chkIsactive").is(':checked'),
-                        fuelID: $('#idfuel').val()
+                        fuelID: $('#idfuel').val(),
 
-
-
-
+                        //Rev  3.0
+                        BranchId:BranchId,
+                        AreaId:AreaId
+                        //Rev  3.0 End
                     },
                     type: 'POST',
 
                     success: function (data) {
-                        // alert(data);
                         if (data == "Success") {
-                            // alert(data);
-                            //$("#myModal").modal('hide');
-                            //$.jAlert({
-                            //    'title': 'Alert!',
-                            //    'content': 'Shop Modified successfully',
-                            //    'theme': 'dark_blue'
-                            //});
                             $("#btnEdit").hide();
                             $("#btnshow").show();
                             $("#idvisitloc").val('');
@@ -301,76 +211,28 @@
                             StateGridLookup.SetEnabled(true);
                         }
                         else {
-                            //jAlert('Already data was inserted against same Grade,Designation,State');
-
-
                             jAlert('Already data was inserted against same Grade,Designation,State,Visit location,Travel mode.');
                         }
                     },
                     error: function () {
-
                     },
-
-
                 });
-
             }
             else {
                 jAlert('Mandatory fields/Value required.');
-
             }
-
         });
-
-
-
         $('body').on('click', '#btnEdit', function () {
 
-
-
-            //var f = true;
-            //if ($("#idexpense").val() == 1) {
-            //    //alert($("#chkIsactive").is(':checked'));
-            //    if ($("#idvisitloc").val() != '' && $("#idempgrade").val() != '' && $("#idexpense").val() != '' && $("#iddesignation").val() != ''
-            //     && $("#idtravelmode").val() != '' && $("#idstate").val() != '' && parseInt($("#txtdistance").val()) != "0" && $("#txtdistance").val() != ''
-            //        ) {
-
-            //        f = true;
-            //    }
-            //    else {
-            //        f = false;
-            //    }
-            //    $("#spaneligible").hide();
-            //}
-            //else {
-
-            //    if ($("#idvisitloc").val() != '' && $("#idempgrade").val() != '' && $("#idexpense").val() != '' && $("#iddesignation").val() != ''
-            //        && $("#idstate").val() != '' && parseInt($("#txteligibleamount").val()) != "0" && $("#txteligibleamount").val() != ''
-            //       ) {
-            //        f = true;
-            //    }
-            //    else {
-            //        f = false;
-
-            //    }
-            //    $("#spaneligible").show();
-            //}
-
             var f = true;
-
-
-            //if ($("#idexpense").val() == 1) {
             if ($("#idvisitloc").val() == '') {
                 f = false;
-
             }
             if ($("#idempgrade").val() == '') {
                 f = false;
-
             }
             if ($("#idexpense").val() == '') {
                 f = false;
-
             }
 
             // Rev 2.0
@@ -404,27 +266,12 @@
             if ((parseInt($("#txteligibleamount").val()) == "0" || $("#txteligibleamount").val() == '') && $("#idexpense").val() != 1) {
                 f = false;
             }
-            ////alert($("#chkIsactive").is(':checked'));
-            //if ($("#idvisitloc").val() != '' && $("#idempgrade").val() != '' && $("#idexpense").val() != '' && $("#iddesignation").val() != ''
-            //    && $("#idtravelmode").val() != '' && $("#idstate").val() != '' && parseInt($("#txtdistance").val()) != "0" && $("#txtdistance").val() != ''
-            //    ) {
-
-            //    f=true;
-            //}
-            //else
-            //{
-            //    f = false;
-            //}
             if ($("#idexpense").val() == 1) {
                 $("#spaneligible").hide();
             }
             if ($("#idexpense").val() != 1) {
                 $("#spaneligible").show();
             }
-
-
-
-
             if (f == true) {
                 var surl = '@Url.Action("ConfigurationUpdate", "TravelConveyance")';
                 $.ajax({
@@ -476,14 +323,6 @@
                             StateGridLookup.SetEnabled(true);
                         }
                         else {
-
-                            //$.jAlert({
-                            //    'title': 'Alert!',
-                            //    'content': 'Already data was inserted against same Grade,Designation,State,Visit location,Travel mode',
-                            //    'theme': 'dark_blue'
-                            //});
-
-
                             jAlert('Already data was inserted against same Grade,Designation,State,Visit location,Travel mode.');
                         }
                     },
@@ -547,11 +386,8 @@
                 $("#idempgrade").val(dataconvence.EmpgradeId);
                 $("#idexpense").val(dataconvence.ExpenseId);
                 $("#iddesignation").val(dataconvence.DesignationId);
-
                 $("#idstate").val(dataconvence.StateId);
-
                 $("#hdTCid_id").val(dataconvence.TCId);
-
                 $("#chkIsactive").prop('checked', dataconvence.IsActive);
                 Func_Travelmode();
                 if (dataconvence.TravelId != "0") {
@@ -573,6 +409,10 @@
 
                 //empgradeGridLookup.SetValue(dataconvence.EmpgradeIdfetch);
                 //StateGridLookup.SetValue(dataconvence.StateIdfetch);
+                 //Rev 3.0
+                StateId = dataconvence.StateId;
+                
+                 //Rev 3.0 End
             },
             error: function () {
 
@@ -582,9 +422,12 @@
         });
         empgradeGridLookup.SetEnabled(false);
         StateGridLookup.SetEnabled(false);
+
+        //Rev 3.0
+        AreaGridLookup.SetEnabled(false);
+        BranchGridLookup.SetEnabled(false);
+        //Rev 3.0 End
     }
-
-
     function DeleteTConveyance(Tsid) {
 
         jConfirm('Confirm delete?', 'Confirmation Dialog', function (r) {
@@ -622,9 +465,6 @@
 
         });
     }
-
-
-
     function Func_Travelmode() {
         $("#txtdistance").val('0.00');
         $("#txtRate").val('0.00');
@@ -722,12 +562,6 @@
       }
 
     }
-
-
-
-
-
-
     function Func_FuelBind() {
 
 
@@ -780,16 +614,10 @@
             $('#divfuelType').html(fueltypess);
         }
     }
-
-
-
-
     var StateId = [];
     function StateSelectionChanged(s, e) {
         StateGridLookup.gridView.GetSelectedFieldValues("ID", GetSelectedFieldValuesCallback);
     }
-
-
     function GetSelectedFieldValuesCallback(values) {
 
         try {
@@ -798,10 +626,62 @@
                 StateId.push(values[i]);
             }
         } finally {
-            console.log(StateId);
+            //console.log(StateId);
         }
 
+        BranchId = [];
+        BranchGridLookup.SetValue("");
+
     }
+    //Rev 3.0
+    var BranchId = [];
+    function BranchSelectionChanged(s, e) {
+        BranchGridLookup.gridView.GetSelectedFieldValues("BRANCH_ID", GetBranchSelectedFieldValuesCallback);
+    }
+    function GetBranchSelectedFieldValuesCallback(values) {
+        try {
+            BranchId = [];
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+            }
+        } finally {
+            //console.log(BranchId);
+        }
+        AreaId = [];
+        AreaGridLookup.SetValue("");
+    }
+    function LookupAreaValChange(s, e) {
+        AreaGridLookup.GetGridView().Refresh();
+    }
+    function AreaStartCallback(s, e) {
+        e.customArgs["BranchId"] = BranchId;
+    }
+    function BranchStartCallback(s, e) {
+        e.customArgs["StateId"] = StateId;
+    }
+    function BranchLookupValChange(s, e) {
+        BranchGridLookup.GetGridView().Refresh();
+    }
+
+
+    var AreaId = [];
+    function AreaSelectionChanged(s, e) {
+        AreaGridLookup.gridView.GetSelectedFieldValues("AreaID", GetAreaSelectedFieldValuesCallback);
+    }
+    function GetAreaSelectedFieldValuesCallback(values) {
+        try {
+            AreaId = [];
+            for (var i = 0; i < values.length; i++) {
+                AreaId.push(values[i]);
+            }
+        } finally {
+            //console.log(AreaId);
+        }
+    }
+     //Rev 3.0 End
+
+
+
 
 
     var EmpgradeId = [];
@@ -1249,24 +1129,41 @@
                 </div>
             </div>
             @*<div class="col-md-2">
-            <label>Designation</label><span class="red">*</span>
-            <div>
+                    <label>Designation</label><span class="red">*</span>
+                    <div>
 
-                @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.designation, "ID", "Name", Model.DesignationId), "Select", new { @id = "iddesignation", @class = "form-control", @tabindex = 4 })
-            </div>
-        </div>*@
+                        @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.designation, "ID", "Name", Model.DesignationId), "Select", new { @id = "iddesignation", @class = "form-control", @tabindex = 4 })
+                    </div>
+                </div>*@
             @*Rev 2.0 ["mb-3" class added] *@
             <div class="col-md-2 mb-3">
                 <label>State</label><span class="red">*</span>
                 <div>
-
                     @*@Html.DropDownListFor(m => m.StateId, new SelectList(Model.state, "ID", "Name", Model.StateId), "Select", new { @id = "idstate", @class = "form-control", @tabindex = 5 })*@
 
                     @Html.Action("GetStateList", "MasterPopulate")
-
-
                 </div>
             </div>
+            @*Rev 3.0*@
+            <div class="col-md-2 mb-3" id="DivBranch">
+                <label>Branch</label>
+                <div>
+                    @{
+                        Html.RenderAction("GetBranchList", "MasterPopulate", new { StateId = Model.StateId, is_pageload = "0" });
+                    }
+                </div>
+            </div>
+            <div class="col-md-2 mb-3" id="DivArea">
+                <label>Area</label>
+                <div>
+                    @{
+                        Html.RenderAction("GetAreaBranchWise", "MasterPopulate", new { BranchId = Model.BranchId, is_pageload = "0" });
+
+                    }
+                </div>
+            </div>
+            @*Rev 3.0 End*@
+
             @*Rev 1.0*@
             @*<div class="col-md-2">*@
             @*Rev 2.0 [id="divHide" and "mb-3" class added] *@
