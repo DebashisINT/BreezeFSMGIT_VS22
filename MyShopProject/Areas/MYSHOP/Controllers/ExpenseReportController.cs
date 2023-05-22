@@ -294,14 +294,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 // Rev 2.0
                 settings.Columns.Add(x =>
                 {
-                    x.FieldName = "BRANCH";
+                    x.FieldName = "BRANCHNAME";
                     x.Caption = "Branch";
                     x.VisibleIndex = 8;
                     x.Width = 100;
                 });
                 settings.Columns.Add(x =>
                 {
-                    x.FieldName = "AREA";
+                    x.FieldName = "AREANAME";
                     x.Caption = "Area";
                     x.VisibleIndex = 8;
                     x.Width = 100;
