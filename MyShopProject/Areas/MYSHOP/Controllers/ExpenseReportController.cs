@@ -3,6 +3,7 @@
  * A New Expense Report is Required for BP Poddar. Refer: 25833
  * Rev 1.0      Sanchita    V2.0.40     19/05/2023      ‘Other Allowance’ Coloumn name should be renamed as ‘Travelling Allowance’ 
  *                                                      when IsShowReimbursementTypeInAttendance=1. Refer: 26146
+ * Rev 2.0      Sanchita    V2.0.40     22-05-2023      Need to implement Branch and Area in the Expense Register Report. Refer: 26185                                                      
  * *******************************************************************************************************/
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
@@ -290,6 +291,22 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //});
 
             if (isExpenseFeatureAvailable == "1") {
+                // Rev 2.0
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "BRANCH";
+                    x.Caption = "Branch";
+                    x.VisibleIndex = 8;
+                    x.Width = 100;
+                });
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "AREA";
+                    x.Caption = "Area";
+                    x.VisibleIndex = 8;
+                    x.Width = 100;
+                });
+                // End of Rev 2.0
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "OTHER_ALLOWANCE";

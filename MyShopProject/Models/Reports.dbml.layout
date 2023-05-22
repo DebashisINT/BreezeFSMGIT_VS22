@@ -542,12 +542,6 @@
         <elementListCompartment Id="3f9ef9ba-39a3-4228-8524-31d8d9e914cf" absoluteBounds="0.515, 10.46, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4a26624d-79f5-49bc-900b-fbd2ff7eaa97" isExpanded="false" absoluteBounds="2.625, 10, 2, 0.45">
-      <DataClassMoniker Name="/ReportsDataContext/EXPENSE_REPORT" />
-      <nestedChildShapes>
-        <elementListCompartment Id="18452057-b68d-4a7a-aeb4-55ef5f40cbf7" absoluteBounds="2.64, 10.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="9e73bbd6-e2b9-4c76-a7e0-94fb5d87c4af" isExpanded="false" absoluteBounds="0.5, 1.25, 2, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/TASKMANAGEMENT_LISTING" />
       <nestedChildShapes>
@@ -564,6 +558,12 @@
       <DataClassMoniker Name="/ReportsDataContext/FTS_BEATPLANLIST" />
       <nestedChildShapes>
         <elementListCompartment Id="fbfdbb3b-b8be-49e1-88c7-152be7b9e282" absoluteBounds="4.89, 10.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3cb734b5-55d0-409f-95c4-71ad818d4268" isExpanded="false" absoluteBounds="2.625, 10, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/EXPENSE_REPORT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="94f32200-bbe8-48ec-bb04-eddf022968ca" absoluteBounds="2.64, 10.46, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
