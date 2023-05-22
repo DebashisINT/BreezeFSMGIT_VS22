@@ -115,8 +115,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             //TempData.Keep();
             // Rev 1.0
-            string isExpenseFeatureAvailable = objSystemSettings.GetSystemSettingsResult("isExpenseFeatureAvailable");
-            ViewBag.isExpenseFeatureAvailable = isExpenseFeatureAvailable;
+            string IsShowReimbursementTypeInAttendance = objSystemSettings.GetSystemSettingsResult("IsShowReimbursementTypeInAttendance");
+            ViewBag.IsShowReimbursementTypeInAttendance = IsShowReimbursementTypeInAttendance;
             // End of Rev 1.0
             return PartialView(GetReport(ispageload));
         }
@@ -199,7 +199,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         private GridViewSettings GetEmployeeBatchGridViewSettings()
         {
             // Rev 1.0
-            string isExpenseFeatureAvailable = objSystemSettings.GetSystemSettingsResult("isExpenseFeatureAvailable");
+            string IsShowReimbursementTypeInAttendance = objSystemSettings.GetSystemSettingsResult("IsShowReimbursementTypeInAttendance");
             // End of Rev 1.0
 
             var settings = new GridViewSettings();
@@ -290,7 +290,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //    x.PropertiesEdit.DisplayFormatString = "0.00";
             //});
 
-            if (isExpenseFeatureAvailable == "1") {
+            if (IsShowReimbursementTypeInAttendance == "1") {
                 // Rev 2.0
                 settings.Columns.Add(x =>
                 {
