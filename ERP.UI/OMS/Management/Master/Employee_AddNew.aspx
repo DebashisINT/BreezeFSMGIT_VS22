@@ -2,6 +2,8 @@
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                08-02-2023        2.0.39           Pallab              25656 : Master module design modification 
 2.0                20-04-2023        2.0.40           Pallab              25865 : Add Employee master module employee search popup auto focus add and "cancel" button color change
+3.0                22-05-2023       v2.0.40           Sanchita            The first name field of the employee master should consider 150 character from the application end. 
+                                                                          Refer: 26187
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="True"
@@ -1505,8 +1507,9 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 </div>
                                 <div class="col-md-3">
                                     <label>First Name<span style="color: red">*</span></label>
+                                    <%--Rev 3.0 [ MaxLength="20" increased to MaxLength="150" ] --%>
                                     <div style="position: relative">
-                                        <asp:TextBox ID="txtFirstNmae" runat="server" Width="100%" MaxLength="20" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtFirstNmae" runat="server" Width="100%" MaxLength="150" CssClass="form-control"></asp:TextBox>
                                         <span id="MandatoryFirstName" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -4px; top: 10px; display: none" title="Mandatory"></span>
                                         <%--  <dxe:ASPxTextBox ID="txtFirstNmae" runat="server" Width="225px" TabIndex="2">
                                                  </dxe:ASPxTextBox>--%>
