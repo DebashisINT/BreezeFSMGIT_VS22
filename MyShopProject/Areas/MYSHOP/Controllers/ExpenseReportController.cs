@@ -235,11 +235,31 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Width = 100;
             });
 
+            // Rev 2.0
+            if (IsShowReimbursementTypeInAttendance == "1")
+            {
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "BRANCHNAME";
+                    x.Caption = "Branch";
+                    x.VisibleIndex = 3;
+                    x.Width = 100;
+                });
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "AREANAME";
+                    x.Caption = "Area";
+                    x.VisibleIndex = 4;
+                    x.Width = 100;
+                });
+            }
+            // End of Rev 2.0
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "EMP_NAME";
                 x.Caption = "Employee Name";
-                x.VisibleIndex = 3;
+                x.VisibleIndex = 5;
                 x.Width = 200;
             });
 
@@ -248,7 +268,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "EMPID";
                 x.Caption = "Employee ID";
-                x.VisibleIndex = 4;
+                x.VisibleIndex = 6;
                 x.Width = 200;
             });
             //End of Rev Debashis 0025198
@@ -257,7 +277,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "EMP_DESIGNATION";
                 x.Caption = "Designation";
-                x.VisibleIndex = 5;
+                x.VisibleIndex = 7;
                 x.Width = 200;
             });
 
@@ -265,7 +285,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "REPORTTO_NAME";
                 x.Caption = "Reporting Manager";
-                x.VisibleIndex = 6;
+                x.VisibleIndex = 8;
                 x.Width = 200;
             });
 
@@ -273,7 +293,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "EXPENSE_TYPE";
                 x.Caption = "Expense Type";
-                x.VisibleIndex = 7;
+                x.VisibleIndex = 9;
                 x.Width = 200;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
             });
@@ -291,27 +311,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //});
 
             if (IsShowReimbursementTypeInAttendance == "1") {
-                // Rev 2.0
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "BRANCHNAME";
-                    x.Caption = "Branch";
-                    x.VisibleIndex = 8;
-                    x.Width = 100;
-                });
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "AREANAME";
-                    x.Caption = "Area";
-                    x.VisibleIndex = 8;
-                    x.Width = 100;
-                });
-                // End of Rev 2.0
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "OTHER_ALLOWANCE";
                     x.Caption = "Travelling Allowance";
-                    x.VisibleIndex = 8;
+                    x.VisibleIndex = 10;
                     x.Width = 100;
                     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -324,7 +328,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     x.FieldName = "OTHER_ALLOWANCE";
                     x.Caption = "Other Allowance";
-                    x.VisibleIndex = 8;
+                    x.VisibleIndex = 11;
                     x.Width = 100;
                     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                     x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -338,7 +342,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "DAILY_ALLOWANCE";
                 x.Caption = "Daily Allowance";
-                x.VisibleIndex = 9;
+                x.VisibleIndex = 12;
                 x.Width = 100;
                 x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                 x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -349,7 +353,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "TOTAL_ALLOWANCE";
                 x.Caption = "Total Allowance";
-                x.VisibleIndex = 10;
+                x.VisibleIndex = 13;
                 x.Width = 100;
                 x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                 x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
