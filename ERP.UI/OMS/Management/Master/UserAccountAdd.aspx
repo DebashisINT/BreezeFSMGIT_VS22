@@ -5,6 +5,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                                           Refer: 25669  
 3.0                20/04/2023        2.0.40           Pallab              Add User Account module employee search popup auto focus add and "cancel" button color change
                                                                           Refer: 25866
+4.0                22-05-2023       v2.0.40           Sanchita            The first name field of the employee master should consider 150 character from the application end. 
+                                                                          For this module the First Name is increased up to 50 since both Employee name
+                                                                          and User Name saved from the Fist Name data. In TBL_MASTER_USER, the column first_name has has length 50.  
+                                                                          Refer: 26187
 ====================================================== Revision History ==========================================================--%>
 
 <%--<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserAccountAdd.aspx.cs" Inherits="ERP.OMS.Management.Master.UserAccountAdd" %>--%>
@@ -1240,7 +1244,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                     <div style="position: relative">
                                         <%--Rev work start 26.07.2022 mantise no:25046--%>
                                         <%--<asp:TextBox ID="txtFirstNmae" runat="server" Width="100%" MaxLength="20" CssClass="form-control"></asp:TextBox>--%>
-                                        <asp:TextBox ID="txtFirstNmae" runat="server" Width="100%" MaxLength="20" CssClass="form-control" TabIndex="1"></asp:TextBox>
+                                        <%--Rev 4.0 [MaxLength="20" changed to MaxLength="50" ] --%>
+                                        <asp:TextBox ID="txtFirstNmae" runat="server" Width="100%" MaxLength="50" CssClass="form-control" TabIndex="1"></asp:TextBox>
                                         <%--Rev work close 26.07.2022 mantise no:25046--%>
                                         <span id="MandatoryFirstName" class="pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; right: -4px; top: 10px; display: none" title="Mandatory"></span>
                                         <%--  <dxe:ASPxTextBox ID="txtFirstNmae" runat="server" Width="225px" TabIndex="2">
