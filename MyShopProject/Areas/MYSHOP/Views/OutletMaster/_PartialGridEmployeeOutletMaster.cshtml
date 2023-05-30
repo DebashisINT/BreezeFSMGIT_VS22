@@ -400,7 +400,16 @@
     });
     //REV 1.0 END
 
-
+    // Rev Sanchita
+    settings.Columns.Add(x =>
+    {
+        x.Caption = "Status";
+        x.FieldName = "OUTLETSTATUS";
+        //column.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 150;
+        x.VisibleIndex = 15;
+    });
+    // End of Rev Sanchita
 
 
 
