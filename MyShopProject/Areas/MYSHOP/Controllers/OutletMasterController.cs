@@ -703,6 +703,30 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
             });
             //REV 1.0 END
+            // Rev Sanchita
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "OUTLETSTATUS";
+                x.Caption = "Status";
+                x.VisibleIndex = 15;
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='OUTLETSTATUS'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                }
+            });
+            // End of Rev Sanchita
 
 
             #region//rev Pratik
