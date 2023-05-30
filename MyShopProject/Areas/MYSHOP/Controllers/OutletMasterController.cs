@@ -1,6 +1,8 @@
 ﻿#region======================================Revision History=========================================================================
 //1.0   V2 .0.39    PRITI       13/02/2023      0025663:Last Visit fields shall be available in Outlet Reports
 //2.0   V2 .0.39    Debashis    12/05/2023      Optimization required for Employee Outlet Master.Refer: 0026020
+//3.0   V2.0.41     Sanchita    30-05-2023      Employee Outlet Master : Report a column required "Status".
+//                                              It will the Showing status 'Active' or 'Inactive'. refer: 26240
 #endregion===================================End of Revision History==================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
@@ -703,7 +705,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
             });
             //REV 1.0 END
-            // Rev Sanchita
+            // Rev 3.0
             settings.Columns.Add(x =>
             {
                 x.FieldName = "OUTLETSTATUS";
@@ -726,7 +728,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.Visible = true;
                 }
             });
-            // End of Rev Sanchita
+            // End of Rev 3.0
 
 
             #region//rev Pratik
