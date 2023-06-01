@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*****************************************************************************************************************************
+Rev 1.0     Sanchita        V2.0.41     FSM - Message will be fired from first tab when logged out from the 2nd tab. Refer: 26273
+******************************************************************************************************************************/
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -14,6 +17,8 @@ using BusinessLogicLayer;
 using ERP.Models;
 using BusinessLogicLayer.SalesmanTrack;
 using UtilityLayer;
+using System.Web.Services;
+
 namespace ERP.OMS.Management
 {
     public partial class management_ProjectMainPage : System.Web.UI.Page
@@ -75,6 +80,21 @@ namespace ERP.OMS.Management
                 Response.Redirect("/oms/Login.aspx");
             }
         }
-       
+
+        // Rev 1.0
+        [WebMethod]
+        public static int checkSessionLogout()
+        {
+            if (HttpContext.Current.Session["userid"] == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        // End of Rev 1.0
+
     }
 }
