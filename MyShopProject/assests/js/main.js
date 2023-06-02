@@ -1,3 +1,37 @@
+/*******************************************************************************************************************
+Rev 1.0     Sanchita    V2.0.41     01/06/2023      FSm - Message will be fired from first tab when logged out from the 2nd tab
+                                                    Refer: 26273
+*********************************************************************************************************************/
+
+// Rev 1.0
+document.addEventListener("visibilitychange", () => {
+    // it could be either hidden or visible
+    if (document.visibilityState === 'visible') {
+        checkSessionLogoutMasterPage();
+    }
+});
+
+function checkSessionLogoutMasterPage() {
+    $.ajax({
+        type: "POST",
+        url: "/MasterPopulate/checkSessionLogout",
+        async: true,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.SessionLoddedOut == '1') {
+                jAlert('Session has expired !!!', 'Alert', function () {
+                    window.parent.location.href = '/oms/login.aspx';
+                });
+            }
+        },
+        error: function (response) {
+            jAlert("Please try again later");
+        }
+    });
+       
+}
+// End of Rev 1.0
 
 $(document).ready(function () {
     "use strict";
