@@ -1,4 +1,8 @@
-﻿
+﻿@*/*******************************************************************************************************************
+ * Rev 1.0      Sanchita        V2.0.41     05/06/2023      Reports - Listing of Masters - Employee(s) - The Aadhar, PAN and Voter photo
+ *                                                          should show based on global settings. Refer: 26262
+ ********************************************************************************************************************/*@
+
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridEmpList";
@@ -408,107 +412,114 @@
 
     });
 
-    // Rev Sanchita
-    //settings.Columns.Add(x =>
-    //{
-    //   // x.FieldName = "AadharPhoto";
-    //    x.Caption = "Aadhar Photo";
-    //    x.VisibleIndex = 14;
-    //    //x.Width = 100;
-    //    // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    //    if (ViewBag.RetentionColumn != null)
-    //    {
-    //        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='AadharPhoto'");
-    //        if (row != null && row.Length > 0)  /// Check now
-    //        {
-    //            x.Visible = false;
-    //            //x.Width = 0;
-    //        }
-    //        else
-    //        {
-    //            x.Visible = true;
-    //            x.Width = 100;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        x.Visible = true;
-    //        x.Width = 100;
+    // Rev 1.0
+    if (ViewBag.IsShowIdentityPhotoInEmployeeReport == "1")
+    {
+        // End of Rev 1.0
+        settings.Columns.Add(x =>
+        {
+            // x.FieldName = "AadharPhoto";
+            x.Caption = "Aadhar Photo";
+            x.VisibleIndex = 14;
+            //x.Width = 100;
+            // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+            if (ViewBag.RetentionColumn != null)
+            {
+                System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='AadharPhoto'");
+                if (row != null && row.Length > 0)  /// Check now
+                {
+                    x.Visible = false;
+                    //x.Width = 0;
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 100;
+                }
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 100;
 
-    //        x.SetDataItemTemplateContent(c =>
-    //        {
-    //            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "AadharPhoto")) + "')\">Show Image</a>");
-    //        });
-    //    }
-    //});
+                x.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "AadharPhoto")) + "')\">Show Image</a>");
+                });
+            }
+        });
 
 
-    //    settings.Columns.Add(x =>
-    //{
-    //    //x.FieldName = "PANPhoto";
-    //    x.Caption = "PAN Photo";
-    //    x.VisibleIndex = 15;
-    //    //x.Width = 120;
-    //    // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    //    if (ViewBag.RetentionColumn != null)
-    //    {
-    //        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='PANPhoto'");
-    //        if (row != null && row.Length > 0)  /// Check now
-    //        {
-    //            x.Visible = false;
-    //            //x.Width = 0;
-    //        }
-    //        else
-    //        {
-    //            x.Visible = true;
-    //            x.Width = 120;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        x.Visible = true;
-    //        x.Width = 120;
+        settings.Columns.Add(x =>
+        {
+            //x.FieldName = "PANPhoto";
+            x.Caption = "PAN Photo";
+            x.VisibleIndex = 15;
+            //x.Width = 120;
+            // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+            if (ViewBag.RetentionColumn != null)
+            {
+                System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='PANPhoto'");
+                if (row != null && row.Length > 0)  /// Check now
+                {
+                    x.Visible = false;
+                    //x.Width = 0;
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 120;
+                }
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 120;
 
-    //        x.SetDataItemTemplateContent(c =>
-    //        {
-    //            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "PANPhoto")) + "')\">Show Image</a>");
-    //        });
-    //    }
-    //});
+                x.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "PANPhoto")) + "')\">Show Image</a>");
+                });
+            }
+        });
 
-    //    settings.Columns.Add(x =>
-    //{
-    //    x.FieldName = "VoterPhoto";
-    //    x.Caption = "Voter Photo";
-    //    x.VisibleIndex = 16;
-    //    //x.Width = 100;
-    //    // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    //    if (ViewBag.RetentionColumn != null)
-    //    {
-    //        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='VoterPhoto'");
-    //        if (row != null && row.Length > 0)  /// Check now
-    //        {
-    //            x.Visible = false;
-    //            //x.Width = 0;
-    //        }
-    //        else
-    //        {
-    //            x.Visible = true;
-    //            x.Width = 100;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        x.Visible = true;
-    //        x.Width = 100;
+        settings.Columns.Add(x =>
+        {
+            // Rev 1.0
+            //x.FieldName = "VoterPhoto";
+            // End of Rev 1.0
+            x.Caption = "Voter Photo";
+            x.VisibleIndex = 16;
+            //x.Width = 100;
+            // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+            if (ViewBag.RetentionColumn != null)
+            {
+                System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='VoterPhoto'");
+                if (row != null && row.Length > 0)  /// Check now
+                {
+                    x.Visible = false;
+                    //x.Width = 0;
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 100;
+                }
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 100;
 
-    //        x.SetDataItemTemplateContent(c =>
-    //        {
-    //            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "VoterPhoto")) + "')\">Show Image</a>");
-    //        });
-    //    }
-    //});
-// End of Rev Sanchita
+                x.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenImage('" + Convert.ToString(DataBinder.Eval(c.DataItem, "VoterPhoto")) + "')\">Show Image</a>");
+                });
+            }
+        });
+        // Rev 1.0
+    }
+    // End of Rev 1.0
 
 
 

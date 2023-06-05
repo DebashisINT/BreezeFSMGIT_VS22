@@ -1,4 +1,8 @@
-﻿using SalesmanTrack;
+﻿/*******************************************************************************************************************
+ * Rev 1.0      Sanchita        V2.0.41     05/06/2023      Reports - Listing of Masters - Employee(s) - The Aadhar, PAN and Voter photo 
+ *                                                          should show based on global settings. Refer: 26262
+ ********************************************************************************************************************/
+using SalesmanTrack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +20,9 @@ using DevExpress.Web;
 using DataAccessLayer;
 using System.Web.UI.WebControls;
 using DevExpress.Xpo.DB;
+// Rev 1.0
+using BusinessLogicLayer;
+// End of Rev 1.0
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -23,6 +30,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
     {
         UserList lstuser = new UserList();
         //SalesSummary_Report objgps = new SalesSummary_Report();
+        // Rev 1.0
+        CommonBL objSystemSettings = new CommonBL();
+        // End of Rev 1.0
 
         public ActionResult Index()
         {
@@ -166,6 +176,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    return PartialView("PartialEmpList", LGetEmpListReport(Is_PageLoad));
                 //}
                 dt = GetEmpListReport(empcode, Branch);
+                
+                // Rev 1.0
+                string IsShowIdentityPhotoInEmployeeReport = objSystemSettings.GetSystemSettingsResult("IsShowIdentityPhotoInEmployeeReport");//REV 1.0
+                ViewBag.IsShowIdentityPhotoInEmployeeReport = IsShowIdentityPhotoInEmployeeReport;
+                // End of Rev 1.0
 
                 return PartialView("PartialEmpList", LGetEmpListReport(Is_PageLoad));
 
@@ -365,6 +380,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //{
             //    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
             //}
+
+            // Rev 1.0
+            string IsShowIdentityPhotoInEmployeeReport = objSystemSettings.GetSystemSettingsResult("IsShowIdentityPhotoInEmployeeReport");//REV 1.0
+            // End of Rev 1.0
+
             var settings = new GridViewSettings();
             settings.Name = "Employee List";
             settings.CallbackRouteValues = new { Controller = "EmpList", Action = "GetEmpList" };
@@ -715,7 +735,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
             });
 
-            // Rev Sanchita
+            // Rev 1.0
             settings.Columns.Add(x =>
             {
                 x.FieldName = "FacePhoto";
@@ -744,7 +764,97 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.Width = 100;
                 }
             });
-            // End of Rev Sanchita
+
+            if (IsShowIdentityPhotoInEmployeeReport == "1")
+            {
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "AadharPhoto";
+                    x.Caption = "Aadhar Photo";
+                    x.VisibleIndex = 14;
+                    x.ColumnType = MVCxGridViewColumnType.HyperLink;
+                    //x.Width = 100;
+                    if (ViewBag.RetentionColumn != null)
+                    {
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='AadharPhoto'");
+                        if (row != null && row.Length > 0)  /// Check now
+                        {
+                            x.Visible = false;
+                            //x.Width = 0;
+                        }
+                        else
+                        {
+                            x.Visible = true;
+                            x.Width = 100;
+
+                        }
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 100;
+                    }
+                });
+
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "PANPhoto";
+                    x.Caption = "PAN Photo";
+                    x.VisibleIndex = 15;
+                    x.ColumnType = MVCxGridViewColumnType.HyperLink;
+                    //x.Width = 100;
+                    if (ViewBag.RetentionColumn != null)
+                    {
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='PANPhoto'");
+                        if (row != null && row.Length > 0)  /// Check now
+                        {
+                            x.Visible = false;
+                            //x.Width = 0;
+                        }
+                        else
+                        {
+                            x.Visible = true;
+                            x.Width = 100;
+
+                        }
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 100;
+                    }
+                });
+
+                settings.Columns.Add(x =>
+                {
+                    x.FieldName = "VoterPhoto";
+                    x.Caption = "Voter Photo";
+                    x.VisibleIndex = 16;
+                    x.ColumnType = MVCxGridViewColumnType.HyperLink;
+                    //x.Width = 100;
+                    if (ViewBag.RetentionColumn != null)
+                    {
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='VoterPhoto'");
+                        if (row != null && row.Length > 0)  /// Check now
+                        {
+                            x.Visible = false;
+                            //x.Width = 0;
+                        }
+                        else
+                        {
+                            x.Visible = true;
+                            x.Width = 100;
+
+                        }
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 100;
+                    }
+                });
+            }
+            // End of Rev 1.0
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
