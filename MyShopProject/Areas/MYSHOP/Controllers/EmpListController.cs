@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************************************************
  * Rev 1.0      Sanchita        V2.0.41     05/06/2023      Reports - Listing of Masters - Employee(s) - The Aadhar, PAN and Voter photo 
- *                                                          should show based on global settings. Refer: 26262
+ *                                                          should show based on global settings. Refer: 26288
  ********************************************************************************************************************/
 using SalesmanTrack;
 using System;
