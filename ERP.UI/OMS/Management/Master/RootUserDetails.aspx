@@ -7,6 +7,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 4.0                08-05-2023       V2.0.40           Sanchita            In user table a column exist as IsShowBeatInMenu. 
                                                                           This will show in portal under user settings as"ShowBeatInMenu".
                                                                           Refer: 25947
+5.0                05-06-2023       V2.0.41           Sanchita            Master - Organization - Users - Check box caption correction 
+                                                                          Refer: 26289  
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -3379,7 +3381,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         <dxe:ASPxCheckBox ID="chkIsShowRepeatOrderinNotification" runat="server" Text="">
                                         </dxe:ASPxCheckBox>
                                     </td>
-                                    <td>Is Show Repeat Orderin Notification ? </td>
+                                    <%--Rev 5.0--%>
+                                    <%--<td>Is Show Repeat Orderin Notification ? </td>--%>
+                                    <td>Is Show Repeat Order in Notification ? </td>
+                                    <%--End of Rev 5.0 --%>
                                 </tr>
                             </table>
                         </td>
@@ -3390,7 +3395,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         <dxe:ASPxCheckBox ID="chkIsShowRepeatOrdersNotificationinTeam" runat="server" Text="">
                                         </dxe:ASPxCheckBox>
                                     </td>
-                                    <td>Is Show Repeat Orders Notificationin Team ? </td>
+                                    <%--Rev 5.0--%>
+                                    <%--<td>Is Show Repeat Orders Notificationin Team ? </td>--%>
+                                    <td>Is Show Repeat Orders Notification in Team ? </td>
+                                    <%--End of Rev 5.0--%>
                                 </tr>
                             </table>
                         </td>
