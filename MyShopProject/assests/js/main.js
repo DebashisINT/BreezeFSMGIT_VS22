@@ -1,6 +1,8 @@
 /*******************************************************************************************************************
 Rev 1.0     Sanchita    V2.0.41     01/06/2023      FSm - Message will be fired from first tab when logged out from the 2nd tab
                                                     Refer: 26273
+Rev 2.0     Pallab      V2.0.41     02/06/2023      "Session expired" message change and alert design modification for FSM
+                                                    Refer: 26280
 *********************************************************************************************************************/
 
 // Rev 1.0
@@ -20,9 +22,21 @@ function checkSessionLogoutMasterPage() {
         dataType: "json",
         success: function (response) {
             if (response.SessionLoddedOut == '1') {
-                jAlert('Session has expired !!!', 'Alert', function () {
-                    window.parent.location.href = '/oms/login.aspx';
-                });
+                /*Rev 2.0*/
+                //jAlert('Session has expired !!!', 'Alert', function () {
+                //    window.parent.location.href = '/oms/login.aspx';
+                //});
+                Swal.fire({
+                    confirmButtonText: 'Login',
+                    title: 'User Session has Expired!',
+                    text: 'You have been logged out. Please log in again.',
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.parent.location.href = '/oms/login.aspx';
+                    }
+                })
+                /*Rev end 2.0*/
             }
         },
         error: function (response) {
