@@ -14,7 +14,8 @@ using MyShop.Models;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
 using DataAccessLayer;
-
+using System.Web.UI.WebControls;
+using DevExpress.Xpo.DB;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -370,6 +371,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             // Export-specific settings
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "Employee(s) List";
+            
 
 
             settings.Columns.Add(x =>
@@ -713,6 +715,36 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
             });
 
+            // Rev Sanchita
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "FacePhoto";
+                x.Caption = "Face Photo";
+                x.VisibleIndex = 13;
+                x.ColumnType = MVCxGridViewColumnType.HyperLink;
+                //x.Width = 100;
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='FacePhoto'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                        //x.Width = 0;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 100;
+                       
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 100;
+                }
+            });
+            // End of Rev Sanchita
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
