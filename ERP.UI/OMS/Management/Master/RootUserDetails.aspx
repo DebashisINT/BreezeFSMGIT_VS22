@@ -9,6 +9,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                                           Refer: 25947
 5.0                05-06-2023       V2.0.41           Sanchita            Master - Organization - Users - Check box caption correction 
                                                                           Refer: 26289  
+6.0                07-06-2023       V2.0.41           Sanchita            Required below System settings + user wise settings in portal
+                                                                          Refer: 26245       
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -1330,14 +1332,20 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 </tr>
                             </table>
                         </td>
-                        <td id="DivShowProductRateinApp" runat="server">
+                        <%--Rev 6.0--%>
+                        <%--<td id="DivShowProductRateinApp" runat="server">--%>
+                        <td id="DivRateEditableSettings" runat="server">
+                        <%--End of Rev 6.0--%>
                             <table>
                                 <tr>
                                     <td>
                                         <dxe:ASPxCheckBox ID="chkRateEditableSettings" runat="server" Text="">
                                         </dxe:ASPxCheckBox>
                                     </td>
-                                    <td>Show Product Rate in App</td>
+                                    <%--Rev 6.0--%>
+                                    <%--<td>Show Product Rate in App</td>--%>
+                                    <td>Order Rate Not Editable</td>
+                                    <%--End of Rev 6.0--%>
                                 </tr>
                             </table>
                         </td>
@@ -3748,6 +3756,89 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         </td>
                         <%--End of Rev 4.0--%>
                     </tr>
+                    <%--Rev 6.0--%>
+                    <tr>
+                        <td id="divShowWorkType" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowWorkType" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Work Type </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divShowMarketSpendTimer" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowMarketSpendTimer" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Market Spend Timer </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divShowUploadImageInAppProfile" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowUploadImageInAppProfile" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Upload Image In App Profile </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divShowCalendar" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowCalendar" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Calendar </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="divShowCalculator" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowCalculator" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Calculator </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divShowInactiveCustomer" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowInactiveCustomer" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Inactive Customer </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divShowAttendanceSummary" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowAttendanceSummary" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Attendance Summary </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <%--End of Rev 6.0--%>
                     <%--End of Mantis Issue 25207--%>
 
                 </table>
