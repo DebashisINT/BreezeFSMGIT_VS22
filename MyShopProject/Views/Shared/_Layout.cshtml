@@ -98,7 +98,7 @@ Rev 1.0     Pallab      V2.0.41     02/06/2023      "Session expired" message ch
 
 
     @RenderSection("HeadResources", false)
-    <style>
+<style>
         #dayDate, #clock {
             font-weight: 600;
         }
@@ -461,7 +461,29 @@ Rev 1.0     Pallab      V2.0.41     02/06/2023      "Session expired" message ch
             bottom: -5px;
         }
         /*rev end Pallab 25528*/
-    </style>
+
+    .flex-dr {
+        display: flex;
+        align-items: center;
+    }
+
+    @@media only screen and (max-width: 767px) {
+        .flex-dr {
+                display: flex;
+                width: 100%;
+                flex-flow: row-reverse;
+            }
+
+            .headerMain {
+                flex-wrap: wrap;
+            }
+
+        .middleWraper
+        {
+            justify-content:end;
+        }
+        }
+</style>
     <link href="~/assests/css/responsive.css" rel="stylesheet" />
     <script>
 
@@ -560,33 +582,35 @@ Rev 1.0     Pallab      V2.0.41     02/06/2023      "Session expired" message ch
 <body class="">
     <div id="pageLoader"><img src="/assests/images/loadr.gif" style="width: 45px;" alt="" /></div>
     <header class="clearfix headerMain align-items-center">
-        <div class="hamburger" data-toggle="tooltip" title="Click to open/close menu" data-placement="right" id="step1">
-            <div class="lineTop"></div>
-            <div class="lineBottom"></div>
-        </div>
-        <div class="d-flex flex-grow-1 middleWraper align-items-center">
-            <div class="logoWrap" id="step2"><img src="/assests/images/logo.png"></div>
-            <div class="dateTime" id="step3">
-                <img src="/assests/images/datetime.png" style="margin-right: 5px;">
-                <span class="text-uppercase" id="dayDate"></span>, <span id="yeaR"></span> |
-                <span id="clock"></span> <span class="text-muted "><small id="aMpM"></small></span>
+        
+            <div class="hamburger" data-toggle="tooltip" title="Click to open/close menu" data-placement="right" id="step1">
+                <div class="lineTop"></div>
+                <div class="lineBottom"></div>
             </div>
-            <div class="search flex-grow-1">
-
-                <div class="form-group hide">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Search">
-                        <div class="input-group-addon btn-transparent"><span class="lnr lnr-magnifier"></span></div>
-                    </div>
+            <div class="d-flex flex-grow-1 middleWraper align-items-center">
+                <div class="logoWrap" id="step2"><img src="/assests/images/logo.png"></div>
+                <div class="dateTime" id="step3">
+                    <img src="/assests/images/datetime.png" style="margin-right: 5px;">
+                    <span class="text-uppercase" id="dayDate"></span>, <span id="yeaR"></span> |
+                    <span id="clock"></span> <span class="text-muted "><small id="aMpM"></small></span>
                 </div>
-                @*<div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-transparent" type="button" id="button-addon2"><span class="lnr lnr-magnifier"></span></button>
+                <div class="search flex-grow-1">
+
+                    <div class="form-group hide">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Search">
+                            <div class="input-group-addon btn-transparent"><span class="lnr lnr-magnifier"></span></div>
                         </div>
-                    </div>*@
+                    </div>
+                    @*<div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-transparent" type="button" id="button-addon2"><span class="lnr lnr-magnifier"></span></button>
+                    </div>
+                </div>*@
+                </div>
             </div>
-        </div>
+        
         <div class="prof flex-grow-1 align-items-center ">
             <ul class="nav">
                 @*<li> <i class="fa fa-search" style="cursor:pointer" id="searchScreenHandle"></i></li>*@
