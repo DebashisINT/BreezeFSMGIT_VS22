@@ -1525,3 +1525,19 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     background: rgb(0 0 0 / 10%) !important;
 }
 /*Rev end 5.0*/
+
+.box-holder.full-screen, .box-full.full-screen {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background: #fff;
+    left: 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.35);
+    z-index: 99;
+    border-top: 4px solid rgb(13, 105, 67);
+    border-radius: 5px;
+    padding: 20px;
+    border-radius: 0px;
+    margin: 0;
+}
