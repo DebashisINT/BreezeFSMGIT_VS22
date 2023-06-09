@@ -1,6 +1,8 @@
 ﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
+@*1.0               11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
+@*2.0               09-06-2023        V2.0.41          Sanchita            FSM Dashboard - Reimbursement tab - Applied Amount per Month - The months names getting overlapped.
+                                                                           Refer: 26314*@
 @*====================================================== Revision History ===========================================================*@
 
 <link href="~/assests/css/pignose.calendar.min.css" rel="stylesheet" />
@@ -259,8 +261,12 @@
     function getdataReimburse() {
         am4core.disposeAllCharts();
 
-        var fromDate = $('#fromDate').val();
-        var toDate = $('#toDate').val();
+        // Rev 2.0
+        //var fromDate = $('#fromDate').val();
+        //var toDate = $('#toDate').val();
+        var fromDate = $('#fromDateRE').val();
+        var toDate = $('#toDateRE').val();
+        // End of Rev 2.0
 
         var inputDatefrm = fromDate;
         var inputDateto = toDate;
