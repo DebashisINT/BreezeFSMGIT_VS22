@@ -592,16 +592,16 @@
                     }
                     console.log(chart_data);
 
-                    var exporting = am5plugins_exporting.Exporting.new(root, {
-                        menu: am5plugins_exporting.ExportingMenu.new(root, {
-                            align: "right",
-                            valign: "bottom",
-                            container: document.getElementById("exportdiv"),
+                    //var exporting = am5plugins_exporting.Exporting.new(root, {
+                    //    menu: am5plugins_exporting.ExportingMenu.new(root, {
+                    //        align: "right",
+                    //        valign: "bottom",
+                    //        container: document.getElementById("exportdiv"),
 
-                        }),
-                        dataSource: chart_data,
-                        filePrefix: "Monthly Attendance Summary"
-                    });
+                    //    }),
+                    //    dataSource: chart_data,
+                    //    filePrefix: "Monthly Attendance Summary"
+                    //});
 
                     //exporting.events.on("dataprocessed", function (ev) {
                     //    for (var i = 0; i < ev.chart_data.length; i++) {
@@ -1275,7 +1275,7 @@
 
                 @*<td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>*@
                 <td>
-                    <span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">
+                    @*<span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">*@
                         @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
                         <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;">
                             <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;" /> click here to show data
@@ -1343,7 +1343,6 @@
                 </div>
             </div>
             <div class="bxd-cont">
-                <div id="exportdiv"></div>
                 <div class="att-chart" id="chartdiv" style="height:484px"></div>
             </div>
         </div>

@@ -2040,4 +2040,64 @@
 }*/
 
 
+.box-holder {
+    box-shadow: 1px 1px 10px #1111112e;
+    border-radius: 8px !important;
+    border: none !important;
+    border-top: 5px solid rgb(23 80 149) !important;
+    margin-top: 30px !important;
+    position: relative;
+}
+
+#pieOne.chartHolder, #pieTwo.chartHolder, #LineOne.chartHolder, #columnHori.chartHolder, #pie1chart.chartHolder, #pie2chart.chartHolder {
+    border: none !important;
+}
+
+.box-holder .hdd-rp {
+    padding: 12px 15px !important;
+}
+
+.toggleFullScreen {
+    top: 12px !important;
+    right: 28px !important;
+}
+
+.chartHolder {
+    border-radius: 8px !important;
+}
+
+.usrTabl > thead > tr > th {
+    background: #2071d3 !important;
+}
+
+.box-holder.full-screen, .box-full.full-screen
+{
+    margin-top:0px !important;
+}
+
+.pignose-calendar .pignose-calendar-top {
+    background-color: #0d4282 !important;
+    color: #fff !important;
+}
+
+    .pignose-calendar .pignose-calendar-top .pignose-calendar-top-year, .pignose-calendar .pignose-calendar-top .pignose-calendar-top-nav .pignose-calendar-top-icon {
+        color: #fff !important;
+    }
+
+.pignose-calendar .pignose-calendar-unit a {
+    color: #7e7e7e !important;
+    font-weight: 400 !important;
+    background: #f7f7f7 !important;
+    border-radius: 6px !important;
+}
+
+.pignose-calendar .pignose-calendar-unit.pignose-calendar-unit-active a {
+    background-color: #501795 !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+}
+
+.pignose-calendar .pignose-calendar-header {
+    padding: 0 5px !important;
+}
     
