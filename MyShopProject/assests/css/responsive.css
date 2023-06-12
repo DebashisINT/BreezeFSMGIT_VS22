@@ -222,6 +222,21 @@
     .tabs-style-shape .tab-content {
         border-radius: 15px !important;
     }
+
+    .resulter.on {
+        width: 100%;
+        padding: 10px 5px;
+    }
+
+    #clonedMenus > a {
+        width: 100%;
+    }
+
+    .prof {
+        justify-content: center;
+        display: flex;
+        margin-right: 0;
+    }
 }
 
 

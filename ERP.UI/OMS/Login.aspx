@@ -1076,6 +1076,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 padding-left: 10px !important;
                 padding-bottom: 10px !important;
             }
+
+            .creditsSec , #switchArea
+            {
+                display: none;
+            }
         }
          /*Rev end 4.0*/
     </style>
