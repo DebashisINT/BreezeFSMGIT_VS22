@@ -702,6 +702,16 @@
                 font-size: 12px;
             }
         /*End of Rev 3.0*/
+
+        #userGrid a img
+        {
+            transition: all .3s;
+        }
+
+        #userGrid a:hover img
+        {
+            transform: scale(1.1, 1.1);
+        }
     /*Rev end 2.0*/
     </style>
     <link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
@@ -1665,7 +1675,7 @@
                                         <a href="javascript:void(0);" onclick="RefreshLoggoff('<%# Container.KeyValue %>')" title="Reset Online Status" class="pad">
                                             <%--Rev 2.0--%>
                                             <%--<span class="fa fa-refresh"></span>--%>
-                                            <img src="../../../assests/images/reset.png" /></a>
+                                            <img src="../../../assests/images/reset-status.png" /></a>
 
                                         <% if (rights.CanEdit)
                                            { %>
@@ -1675,23 +1685,24 @@
                                         <%--Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master--%>
                                         <% if (rights.CanAdd)
                                            { %>
+                                        <a href="javascript:void(0);" onclick="ChangePassword('<%# Container.KeyValue %>')" title="Change Password">
+                                            <%--Rev 2.0--%>
+                                            <%--<img src="../../../assests/images/change-dark.png" />--%>
+                                            <img src="../../../assests/images/change-password.png" /></a>
+                                        <%--Rev end 2.0--%>
                                         <a href="javascript:void(0);" onclick="CopyUserDetails('<%# Container.KeyValue %>')" title="Copy" class="pad">
                                             <%--Rev 2.0--%>
                                             <%--<img src="../../../assests/images/copy.png" /></a>--%>
                                             <img src="../../../assests/images/copy2.png" /></a>
                                         <%--Rev end 2.0--%>
                                         <% } %>
-                                         <%--Rev work close 26.04.2022 Mantise ID:0024856: Copy feature add in User master--%>
-                                        <a href="javascript:void(0);" onclick="ChangePassword('<%# Container.KeyValue %>')" title="Change Password">
-                                            <%--Rev 2.0--%>
-                                            <%--<img src="../../../assests/images/change-dark.png" />--%>
-                                            <img src="../../../assests/images/change-dark2.png" /></a>
-                                        <%--Rev end 2.0--%>
+                                         
+                                        
                                         <%--Mantis Issue 25116--%>
                                         <a href="javascript:void(0);" onclick="AttendanceLeaveClear('<%# Container.KeyValue %>')" title="Attendance/Leave Clear">
                                             <%--Rev 2.0--%>
                                             <%--<img src="../../../assests/images/clear.png" / style="width:16px">--%>
-                                            <img src="../../../assests/images/clear2.png" / style="width:16px"></a>
+                                            <img src="../../../assests/images/clear2.png" / style=""></a>
                                         <%--Rev end 2.0--%>
                                         <%--End of Mantis Issue 25116--%>
 

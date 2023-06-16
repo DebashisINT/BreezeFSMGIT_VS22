@@ -507,6 +507,16 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         height: 32px;
     }
 
+    #marketsGrid
+    {
+        max-width: 95% !important;
+    }
+
+    .GridViewArea
+    {
+        overflow: hidden;
+    overflow-x: auto;
+    }
     /*Rev end 1.0*/
     </style>
 </asp:Content>
@@ -607,13 +617,15 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>
+            </table>
+            <%--<tr>
+                <td>--%>
+                    <div class="GridViewArea">
                     <dxe:ASPxGridView ID="marketsGrid" ClientInstanceName="grid" runat="server" AutoGenerateColumns="False" 
                         DataSourceID="markets" KeyFieldName="ProductClass_ID" Width="100%" OnHtmlRowCreated="marketsGrid_HtmlRowCreated" OnRowDeleting="marketsGrid_RowDeleting"
                           
                         OnHtmlEditFormCreated="marketsGrid_HtmlEditFormCreated" OnCustomCallback="marketsGrid_CustomCallback"
-                        OnCustomErrorText="marketsGrid_CustomErrorText" OnStartRowEditing="marketsGrid_StartRowEditing" SettingsBehavior-AllowFocusedRow="true" OnCellEditorInitialize="marketsGrid_CellEditorInitialize" OnCommandButtonInitialize="marketsGrid_CommandButtonInitialize">
+                        OnCustomErrorText="marketsGrid_CustomErrorText" OnStartRowEditing="marketsGrid_StartRowEditing" SettingsBehavior-AllowFocusedRow="true" OnCellEditorInitialize="marketsGrid_CellEditorInitialize" OnCommandButtonInitialize="marketsGrid_CommandButtonInitialize" Settings-HorizontalScrollBarMode="Auto">
                         <SettingsSearchPanel Visible="True" />
                         <Settings ShowGroupPanel="True" ShowStatusBar="Hidden" ShowFilterRow="true" ShowFilterRowMenu="true" />
                         <Columns>
@@ -621,7 +633,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 <EditFormSettings Visible="False"></EditFormSettings>
                             </dxe:GridViewDataTextColumn>
 
-                            <dxe:GridViewDataTextColumn VisibleIndex="0" FieldName="ProductClass_Code" Caption="Short Name">
+                            <dxe:GridViewDataTextColumn VisibleIndex="0" FieldName="ProductClass_Code" Caption="Short Name" Width="22%">
                                 <PropertiesTextEdit Width="200px" MaxLength="50"  Style-Wrap="True" >
 
                                     <ClientSideEvents TextChanged="function(s, e) {UniqueCodeCheck();}" Init="function (s,e) {s.Focus(); }" />
@@ -639,7 +651,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 </EditFormCaptionStyle>
                             </dxe:GridViewDataTextColumn>
                             
-                            <dxe:GridViewDataTextColumn VisibleIndex="0" FieldName="ProductClass_Name" Caption=" Name">
+                            <dxe:GridViewDataTextColumn VisibleIndex="0" FieldName="ProductClass_Name" Caption=" Name" Width="22%">
                                 <PropertiesTextEdit Width="200px" MaxLength="100"  EncodeHtml="false">
                                    
                                     
@@ -664,7 +676,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             </dxe:GridViewDataTextColumn>
 
                             <dxe:GridViewDataTextColumn VisibleIndex="0" FieldName="ProductClass_Description"
-                                Caption="Description"> 
+                                Caption="Description" Width="22%"> 
                                 <EditItemTemplate>
                                     <dxe:ASPxMemo ID="ASPxMemo1" runat="server" Width="198px" Height="60px" MaxLength="300" Text='<%# Bind("ProductClass_Description") %>'>
                                     </dxe:ASPxMemo>
@@ -765,7 +777,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 <EditFormSettings Visible="False"></EditFormSettings>
                             </dxe:GridViewDataTextColumn>
 
-                            <dxe:GridViewCommandColumn ShowDeleteButton="true" Width="6%" ShowEditButton="true">
+                            <dxe:GridViewCommandColumn ShowDeleteButton="true" Width="20%" ShowEditButton="true">
                                 
                                 <%-- <DeleteButton Visible="True">
                             </DeleteButton>
@@ -856,9 +868,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         </Templates>
                         <clientsideevents endcallback="function(s, e) {	LastCall( );}" />
                     </dxe:ASPxGridView>
-                </td>
+                    </div>
+                <%--</td>
             </tr>
-        </table>
+        </table>--%>
         <asp:SqlDataSource ID="SqlSourceProductClass_ParentID" runat="server" ConnectionString="<%$ ConnectionStrings:crmConnectionString %>"
             SelectCommand="select ProductClass_ID,ProductClass_Name from Master_ProductClass order by ProductClass_Name"></asp:SqlDataSource>
         <asp:SqlDataSource ID="markets" runat="server" ConflictDetection="CompareAllValues"

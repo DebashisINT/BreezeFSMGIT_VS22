@@ -608,14 +608,15 @@
     /*#griddashboard_DXFooterRow {
         display: none;
     }*/
-    #griddashboard.dxgvControl_PlasticBlue, #griddashboard.dxgvDisabled_PlasticBlue {
-        border-top: none !important;
-        border: none !important;
-        font: 10px 'Montserrat', sans-serif !important;
-        background-color: none !important;
-        color: #000000;
-        cursor: default;
-    }
+#griddashboard.dxgvControl_PlasticBlue, #griddashboard.dxgvDisabled_PlasticBlue {
+    border-top: none !important;
+    border: none !important;
+    font: 12px 'Montserrat', sans-serif !important;
+    background-color: none !important;
+    color: #000000;
+    cursor: default;
+    font-family: 'Poppins', sans-serif !important;
+}
 
     #griddashboard .dxgvTable_PlasticBlue {
         background-color: none !important;
@@ -2087,7 +2088,7 @@
 .pignose-calendar .pignose-calendar-unit a {
     color: #7e7e7e !important;
     font-weight: 400 !important;
-    background: #f7f7f7 !important;
+    background: #f2f2f2 !important;
     border-radius: 6px !important;
 }
 

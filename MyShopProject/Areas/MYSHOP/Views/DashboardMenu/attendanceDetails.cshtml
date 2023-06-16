@@ -25,9 +25,20 @@
 <script src="~/assests/pluggins/amchart5/exporting.js"></script>
 @*Rev end 5.0*@
 
+<script src="/assests/pluggins/choosen/choosen.min.js"></script>
+
+<script src="/assests/pluggins/choosen/choosen.min.js"></script>
+<link href="../../../assests/css/custom/SearchPopup.css" rel="stylesheet" />
+<script src="../../../Scripts/SearchPopup.js"></script>
+<script src="../../../Scripts/SearchMultiPopup.js"></script>
 
 
 <script type="text/javascript">
+
+
+    
+
+
     $(function () {
 
         $('#userID').on('change', function () {
@@ -273,6 +284,17 @@
                 $(".calendar").pignoseCalendar({
                     date: sdate,
                     format: 'DD-MM-YYYY',
+                    lang: 'en',
+                    monthNames: [
+                        'January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'
+                    ],
+                    formatOptions: {
+                        shortMonthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        fullMonthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        
+                    },
+                    
                     scheduleOptions: {
                         colors: {
                             Absent: "#e83636",
@@ -573,7 +595,11 @@
                         }),
                     }));
 
-                    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+                    series.columns.template.setAll({
+                        cornerRadiusTL: 5,
+                        cornerRadiusTR: 5,
+                        width: am5.percent(40)
+                    });
                     series.columns.template.adapters.add("fill", function (fill, target) {
                         return chart.get("colors").getIndex(series.columns.indexOf(target));
                     });
@@ -644,6 +670,7 @@
     }
 @*End of Mantis Issue 25455*@
 </script>
+
 <script>
     $(document).ready(function () {
         $('.calPopup .closbtn').click(function () {
@@ -795,15 +822,36 @@
         //    }
         //});
 
+        //var toggleFullScreenElements = document.querySelectorAll('.toggleFullScreen');
+        //toggleFullScreenElements.forEach(function (element) {
+        //    element.addEventListener('click', function () {
+        //        var parentBoxFull = this.parentNode;
+        //        parentBoxFull.classList.toggle('full-screen');
+        //        if (parentBoxFull.classList.contains('full-screen')) {
+        //            parentBoxFull.classList.remove('full-screen');
+        //            this.setAttribute('data-original-title', 'Minimize');
+        //        } else {
+        //            parentBoxFull.classList.add('full-screen');
+        //            this.setAttribute('data-original-title', 'Maximize');
+        //        }
+        //    });
+        //});
+
         var toggleFullScreenElements = document.querySelectorAll('.toggleFullScreen');
         toggleFullScreenElements.forEach(function (element) {
             element.addEventListener('click', function () {
                 var parentBoxFull = this.parentNode;
                 parentBoxFull.classList.toggle('full-screen');
+
+                var toggleButton = this.querySelector('img');
                 if (parentBoxFull.classList.contains('full-screen')) {
                     parentBoxFull.classList.remove('full-screen');
+                    this.setAttribute('data-original-title', 'Minimize');
+                    toggleButton.src = '/assests/images/minimize.png';
                 } else {
                     parentBoxFull.classList.add('full-screen');
+                    this.setAttribute('data-original-title', 'Maximize');
+                    toggleButton.src = '/assests/images/maximize.png';
                 }
             });
         });
@@ -962,6 +1010,7 @@
             font-size: 15px;
             font-weight: 600;
             padding: 8px 15px;
+            color: #555;
         }
 
         .box-holder .bxd-cont {
@@ -1026,8 +1075,10 @@
         cursor: pointer;
     }
 
-    .font-normal {
-        font-size: 14px !important;
+    .emp-dropdown-title > .font-normal {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #555 !important;
     }
 
     .pignose-calendar {
@@ -1055,23 +1106,29 @@
             }
 
     .sltemp {
-        padding: 5px 10px 0 15px;
+        padding: 0px 10px 0 15px;
         /* margin-top: 5px; */
         max-width: 150px;
     }
 
     .lagendInfo {
-        font-size: 14px;
+        font-size: 16px !important;
         margin: 10px 0;
+        font-weight: 500 !important;
     }
 
-        .lagendInfo .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 15px;
-            display: inline-block;
-            margin-right: 7px;
-        }
+    #leavesS tr td {
+        font-size: 14px !important;
+        font-weight: 400 !important;
+    }
+
+    .lagendInfo .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 15px;
+        display: inline-block;
+        margin-right: 7px;
+    }
 
             .lagendInfo .dot.Present {
                 background: #50c36e;
@@ -1276,11 +1333,11 @@
                 @*<td><button type="button" class="btn btn-success" onclick="ShowAttendanceData()">Show</button></td>*@
                 <td>
                     @*<span class="tool cust-tooltip-cls" data-tip="Click to Show Dashboard Summary" tabindex="1">*@
-                        @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
-                        <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;">
-                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;" /> click here to show data
-                            @*<div class="hands attendance-tb-hand"></div>*@
-                        </button>
+                    @*<button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Click to Show Dashboard Summary">*@
+                    <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowAttendanceData()" style=" line-height: 20px;">
+                        <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;" /> click here to show data
+                        @*<div class="hands attendance-tb-hand"></div>*@
+                    </button>
                     </span>
                 </td>
             </tr>
@@ -1304,14 +1361,15 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <table style="width: 100%; margin-top: 5px;">
+                        <table style="width: 100%; margin-top: 10px;">
                             <tr>
                                 <td class="emp-dropdown-title"><span class="font-normal">Employee</span></td>
-                                <td class="sltemp">
-                                    <select id="userID">
-                                        <option></option>
-                                    </select>
-                                </td>
+                                    <td class="sltemp">
+                                        <select id="userID">
+                                            <option></option>
+                                        </select>
+                                    </td>
+
                             </tr>
                         </table>
 
@@ -1329,8 +1387,9 @@
     </div>
     <div class="col-md-7">
         <div class="box-holder mTop10 box-full">
-            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                <img src="/assests/images/maximize.png" />
             </span>
             <div class="clearfix">
                 <div class="row">
@@ -1641,6 +1700,37 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Employee Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                <div id="EmployeeTable">
+                    <table border='1' width="100%">
+
+                        <tr class="HeaderStyle" style="font-size:small">
+                            <th>Select</th>
+                            <th class="hide">id</th>
+                            <th>Employee Name</th>
+                            <th>Employee Code</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
+                @*<button type="button" class="btnOkformultiselection btn-default" data-dismiss="modal">Close</button>*@
             </div>
         </div>
     </div>
