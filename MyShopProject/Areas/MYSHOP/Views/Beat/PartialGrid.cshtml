@@ -168,6 +168,7 @@
         {
             // ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenHomeLocationforEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "UserID")) + "')\">Modify</a>");
             ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"AssignUserClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/user1.png' style='margin-right:3px' /></a>");
+
             // Mantis Issue 25536, 25535, 25542, 25543, 25544
             //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
             //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");

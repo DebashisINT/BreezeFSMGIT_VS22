@@ -166,6 +166,7 @@
         font-size: 15px;
         font-weight: 600;
         padding: 8px 15px;
+        color: #555;
     }
 
     .box-holder .bxd-cont {
@@ -229,6 +230,8 @@
 
         .tbleChoosedate > tbody > tr > td:not(:last-child) {
             padding-right: 15px;
+            font-size: 16px;
+            font-weight: 600;
         }
 
     .dateWidth {
@@ -314,6 +317,21 @@
             background: transparent;
             cursor: pointer;
         }
+
+    .right-align {
+        text-align: right;
+    }
+
+    .usrTabl > tbody > tr > td {
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+    .order-rating-title {
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        color: #656565 !important;
+    }
 </style>
 
 
@@ -398,6 +416,7 @@
                         var chart = am4core.create("chartLine", am4charts.XYChart);
 
                         chart.mouseWheelBehavior = "zoomX";
+                        chart.paddingRight = "20px";
 
                         chart.data = msg;
 
@@ -410,6 +429,7 @@
                         categoryAxis.dataFields.category = "ORDERDATE";
                         categoryAxis.startLocation = 0.4;
                         categoryAxis.endLocation = 0.6;
+                        categoryAxis.renderer.labels.template.fontSize = 14;
 
 
                         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -525,6 +545,7 @@
                     chart.scrollbarX.disabled = true;
 
                     chart.mouseWheelBehavior = "zoomX";
+                    chart.paddingRight = "40px";
 
                 } else {
                     $('#chartLine2').html('<div class="nCheck">No Data Available</div>');
@@ -737,9 +758,31 @@
                         pieSeries.colors = colorSet;
                         // Add a legend
                         chart.legend = new am4charts.Legend();
-                        chart.legend.position = "right";
+                        chart.legend.position = "bottom";
                         chart.legend.maxHeight = 250;
                         chart.legend.scrollable = true;
+
+
+                        chart.responsive.rules.push({
+                            relevant: function (target) {
+                                if (target.pixelWidth <= 600) {
+                                    return true;
+                                }
+                                return false;
+                            },
+                            state: function (target, stateId) {
+                                if (target instanceof am4charts.Legend) {
+                                    var state = target.states.create(stateId);
+                                    state.properties.position = "right";
+
+                                    var labelState = target.labels.template.states.create(stateId);
+                                    labelState.properties.maxWidth = 100;
+                                    labelState.properties.truncate = true;
+                                    return state;
+                                }
+                                return null;
+                            }
+                        });
 
 
                     }); // end am4core.ready()
@@ -797,7 +840,7 @@
                             return target.dataItem.values.value.percent < 5 ? true : false;
                         }
                         var colorSet = new am4core.ColorSet();
-                        colorSet.list = ["#f83838", "#14be94", "#1325cc", "#66ce1a", "#b90909", "#c9be14", "#387d01"].map(function (color) {
+                        colorSet.list = ["#10a95f", "#6210b5", "#f83838", "#66ce1a", "#b90909", "#c9be14", "#387d01"].map(function (color) {
                             return new am4core.color(color);
                         });
                         pieSeries.colors = colorSet;
@@ -1004,8 +1047,10 @@
 <div class="row">
     <div class="col-md-6">
         <div class="box-holder mTop10 box-full">
-            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+            @*<span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                <img src="/assests/images/maximize.png" />
             </span>
             <div class="clearfix">
                 <div class="row">
@@ -1027,8 +1072,10 @@
     </div>
     <div class="col-md-6">
         <div class="box-holder mTop10 box-full">
-            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+            @*<span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                <img src="/assests/images/maximize.png" />
             </span>
             <div class="clearfix">
                 <div class="row">
@@ -1057,8 +1104,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="box-full">
-                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            @*<span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                                <img src="/assests/images/maximize.png" />
                             </span>
                             <div id="chartLine" class="chartHolder font-normal pt-5">@*<div class="nCheck">Select date to refresh data</div>*@</div>
                             <div class="hdd-rp text-center">Order Count</div>
@@ -1066,8 +1115,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="box-full">
-                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            @*<span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                                <img src="/assests/images/maximize.png" />
                             </span>
                             <div id="chartLine2" class="chartHolder font-normal pt-5"><div class="nCheck">Select date to refresh data</div></div>
                             <div class="hdd-rp text-center">Order Total</div>
@@ -1075,8 +1126,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="box-full">
-                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">
-                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            @*<span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+                            <span class="toggleFullScreen" style="top:10px" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                                <img src="/assests/images/maximize.png" />
                             </span>
                             <div id="chartLine3" class="chartHolder font-normal pt-5"><div class="nCheck">Select date to refresh data</div></div>
                             <div class="hdd-rp text-center">Order Delivered</div>
@@ -1149,7 +1202,7 @@
 </div>
 
 <div class="row clearfix">
-    <div style="float: left; margin-left: 15px; margin-top: 28px;">Customer Order Rating</div>
+    <div style="float: left; margin-left: 15px; margin-top: 28px;" class="order-rating-title">Customer Order Rating</div>
     <div class="col-md-12">
         @{
             Html.RenderAction("Rendermainpage", "ShopOrderRating");

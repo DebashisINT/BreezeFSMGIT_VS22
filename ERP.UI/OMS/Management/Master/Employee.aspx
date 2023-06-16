@@ -1384,6 +1384,7 @@ padding: 7px;
     .nfc
     {
         padding: 5px 12px;
+            height: 32px;
     }
 
     @media only screen and (min-width: 1300px) and (max-width: 1500px)
@@ -1447,6 +1448,11 @@ padding: 7px;
     }
 
     /*Rev end 5.0*/
+
+    .dxgvControl_PlasticBlue a
+    {
+        margin: 0 2px !important;
+    }
 
     </style>
 
@@ -2124,7 +2130,7 @@ padding: 7px;
                             </dxe:GridViewCommandColumn>
                             <%--Rev work start 26.04.2022 0024853: Copy feature add in Employee master--%>
                             <%--<dxe:GridViewDataTextColumn HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="center" VisibleIndex="17" Width="100px">--%>
-                            <dxe:GridViewDataTextColumn HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="center" VisibleIndex="17" Width="110px">
+                            <dxe:GridViewDataTextColumn HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="center" VisibleIndex="17" Width="150px">
                                 <%--Rev work close 26.04.2022 0024853: Copy feature add in Employee master--%>
                                 <DataItemTemplate>
                                     <% if (rights.CanContactPerson)
@@ -2150,7 +2156,7 @@ padding: 7px;
                                     <a href="javascript:void(0);" onclick="EMPIDBind('<%#Eval("ContactID") %>')" title="Update Employee ID" class="pad" style="text-decoration: none;">
                                         <%--Rev 2.0--%>
                                         <%--<img src="../../../assests/images/exchange.png" width="16px" />--%>
-                                        <img src="../../../assests/images/exchange2.png" width="16px" />
+                                        <img src="../../../assests/images/update-id.png" />
                                         <%--Rev end 2.0--%>
                                         <% } %>
 
@@ -2159,7 +2165,7 @@ padding: 7px;
 
 
                                         <a href="javascript:void(0);" onclick="StateBind('<%#Eval("ContactID") %>')" title="State Mapping" class="pad" style="text-decoration: none;">
-                                            <img src="../../../assests/images/icoaccts.gif" />
+                                            <img src="../../../assests/images/state-mapping.png" />
                                             <% if (rights.CanDelete)
                                                { %>
 
@@ -2181,7 +2187,7 @@ padding: 7px;
                                         <a href="javascript:void(0);" onclick="OnEmployeeChannelInfoClick('<%# Container.KeyValue %>')" class="pad" title="EmployeeChannel">
                                             <%--Rev 2.0--%>
                                             <%--<img src="../../../assests/images/doc.png" />--%>
-                                            <img src="../../../assests/images/doc2.png" /></a><% } %>
+                                            <img src="../../../assests/images/employee-channel.png" /></a><% } %>
                                             <%--Rev end 2.0--%>
                                             <%--End of Mantis Issue 24982--%>
 
@@ -2192,7 +2198,7 @@ padding: 7px;
                                                 <a href="javascript:void(0);" onclick="fn_BranchMap('<%# Container.KeyValue %>')" class="pad" title="Branch Mapping">
                                                     <%--Rev 2.0--%>
                                                     <%--<span class='ico deleteColor'><i class='fa fa-sitemap' aria-hidden='true'></i></span>--%>
-                                                    <img src="../../../assests/images/branch-map.png"  />
+                                                    <img src="../../../assests/images/branch-mapping.png"  />
                                                     <%--Rev end 2.0--%>
                                                 </a>
                                                 <%--End of Mantis Issue 25001--%>
