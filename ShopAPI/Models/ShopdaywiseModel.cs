@@ -78,6 +78,9 @@ namespace ShopAPI.Models
         public decimal distFromProfileAddrKms { get; set; }
         public int stationCode { get; set; }
         //End of Rev 2.0 Row:821
+        //Rev Debashis Row: 850
+        public bool Is_Newshopadd { get; set; }
+        //End of Rev Debashis Row: 850
     }
 
 
