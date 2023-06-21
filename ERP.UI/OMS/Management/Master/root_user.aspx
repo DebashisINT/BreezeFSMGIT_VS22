@@ -1667,7 +1667,7 @@
 
                                 <%--Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master--%>
                                 <%--<dxe:GridViewDataTextColumn VisibleIndex="11" Width="6%" HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="Center">--%>
-                                <dxe:GridViewDataTextColumn VisibleIndex="11" Width="120px" HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="Center">
+                                <dxe:GridViewDataTextColumn VisibleIndex="11" Width="200px" HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="Center">
                                 <%--Rev work close 26.04.2022 Mantise ID:0024856: Copy feature add in User master--%>
                                     <DataItemTemplate>
 
