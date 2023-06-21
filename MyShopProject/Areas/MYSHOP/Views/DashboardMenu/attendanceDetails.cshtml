@@ -36,9 +36,6 @@
 <script type="text/javascript">
 
 
-    
-
-
     $(function () {
 
         $('#userID').on('change', function () {
@@ -281,7 +278,9 @@
             contentType: 'application/json',
             success: function (msg) {
                 //console.log(msg);
+
                 $(".calendar").pignoseCalendar({
+
                     date: sdate,
                     format: 'DD-MM-YYYY',
                     lang: 'en',
@@ -329,7 +328,9 @@
                         //console.log(text);
                         openCalClick(usrId, text);
                         $('.calPopup, .calBackdrop').addClass('in');
-                    }
+                    },
+                    
+                    
                 });
             }
         });
