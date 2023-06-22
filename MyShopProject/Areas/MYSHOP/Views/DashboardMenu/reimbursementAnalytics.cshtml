@@ -3,6 +3,7 @@
 @*1.0               11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
 @*2.0               09-06-2023        V2.0.41          Sanchita            FSM Dashboard - Reimbursement tab - Applied Amount per Month - The months names getting overlapped.
                                                                            Refer: 26314*@
+@*3.0               21-06-2023        2.0.41           Pallab              26356: Dashboard "Attendance" , "Order" , "Reimbursement" chart and others issue fix *@
 @*====================================================== Revision History ===========================================================*@
 
 <link href="~/assests/css/pignose.calendar.min.css" rel="stylesheet" />
@@ -384,6 +385,9 @@
 
                     chart.mouseWheelBehavior = "zoomX";
                     chart.paddingRight = "40px";
+                    /*Rev 3.0*/
+                    chart.responsive.enabled = true;
+                    /*Rev end 3.0*/
 
                     chart.scrollbarX = new am4core.Scrollbar();
                     chart.scrollbarX.parent = chart.bottomAxesContainer;
@@ -444,6 +448,9 @@
                     chart.cursor.behavior = "zoomY";
 
                     chart.paddingRight = "40px";
+                    /*Rev 3.0*/
+                    chart.responsive.enabled = true;
+                    /*Rev end 3.0*/
 
                     //add legend
                     //chart.legend = new am4charts.Legend();
@@ -504,10 +511,31 @@
                     pieSeries.colors = colorSet;
                     // Add a legend
                     chart.legend = new am4charts.Legend();
-                    chart.legend.position = "right";
-                    chart.legend.maxHeight = 250;
+                    //chart.legend.position = "right";
+                    //chart.legend.maxHeight = 250;
                     chart.legend.scrollable = true;
+                    /*Rev 3.0*/
+                    // Adjust legend position for mobile devices
+                    if (window.innerWidth <= 767) {
+                        chart.legend.position = "bottom";
+                        chart.legend.maxHeight = 100;
+                    } else {
+                        chart.legend.position = "right";
+                        chart.legend.maxHeight = 250;
+                    }
 
+                    // Redraw the chart when the window is resized
+                    $(window).on("resize", function () {
+                        if (window.innerWidth <= 767) {
+                            chart.legend.position = "bottom";
+                            chart.legend.maxHeight = 100;
+                        } else {
+                            chart.legend.position = "right";
+                            chart.legend.maxHeight = 250;
+                        }
+                        chart.invalidateRawData();
+                    });
+                    /*Rev end 3.0*/
                 }); // end am4core.ready()
             }
         });
@@ -567,11 +595,32 @@
                     pieSeries.colors = colorSet;
                     // Add a legend
                     chart.legend = new am4charts.Legend();
-                    chart.legend.position = "right";
-                    chart.legend.maxHeight = 250;
+                    //chart.legend.position = "right";
+                    //chart.legend.maxHeight = 250;
                     chart.legend.scrollable = true;
                     /*pieSeries.legendSettings.labelText = '{country}'*/
+                    /*Rev 3.0*/
+                    // Adjust legend position for mobile devices
+                    if (window.innerWidth <= 767) {
+                        chart.legend.position = "bottom";
+                        chart.legend.maxHeight = 100;
+                    } else {
+                        chart.legend.position = "right";
+                        chart.legend.maxHeight = 250;
+                    }
 
+                    // Redraw the chart when the window is resized
+                    $(window).on("resize", function () {
+                        if (window.innerWidth <= 767) {
+                            chart.legend.position = "bottom";
+                            chart.legend.maxHeight = 100;
+                        } else {
+                            chart.legend.position = "right";
+                            chart.legend.maxHeight = 250;
+                        }
+                        chart.invalidateRawData();
+                    });
+                    /*Rev end 3.0*/
                 }); // end am4core.ready()
             }
         });

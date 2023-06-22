@@ -286,6 +286,50 @@
     #DetailsTable {
         overflow-x: auto;
     }
+
+    .box-holder .hdd-rp {
+        width: 80%;
+    }
+
+    .toggleFullScreen {
+        right: 24px !important;
+    }
+
+    .breadCumb {
+        padding: 0 72px;
+    }
+
+    .px-5 {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .pmsModal.w50 .modal-dialog {
+        width: 98%;
+    }
+
+    #refreshgrid {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .dxgvControl_Elegant {
+        min-width: 100%;
+    }
+
+    .dxgvTable_Elegant {
+        table-layout: auto !important;
+        width: 100% !important;
+    }
+
+        .dxgvTable_Elegant th,
+        .dxgvTable_Elegant td {
+            white-space: nowrap;
+        }
+
+    .col-md-2 {
+        margin-bottom: 10px !important;
+    }
 }
 
 

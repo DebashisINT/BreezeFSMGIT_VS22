@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ===========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
+@*2.0                21-06-2023        2.0.41           Pallab              26356: Dashboard "Attendance" , "Order" , "Reimbursement" chart and others issue fix *@
 @*====================================================== Revision History ===========================================================*@
 
 <style>
@@ -288,9 +289,9 @@
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>*@
 
 <script src="~/assests/pluggins/amchart5/index.js"></script>
-    <script src="~/assests/pluggins/amchart5/xy.js"></script>
-    <script src="/assests/pluggins/amchart5/Animated.js"></script>
-    @*<script src="/assests/pluggins/amchart5/percent.js"></script>*@
+<script src="~/assests/pluggins/amchart5/xy.js"></script>
+<script src="/assests/pluggins/amchart5/Animated.js"></script>
+@*<script src="/assests/pluggins/amchart5/percent.js"></script>*@
 
 
 <style>
@@ -306,9 +307,9 @@
         z-index: 0;
         cursor: pointer;
     }
-    .dateWidth
-    {
-        position:relative;
+
+    .dateWidth {
+        position: relative;
     }
 
         .dateWidth input {
@@ -545,7 +546,30 @@
                     chart.scrollbarX.disabled = true;
 
                     chart.mouseWheelBehavior = "zoomX";
-                    chart.paddingRight = "40px";
+                    /*chart.paddingRight = "40px";*/
+                    /*Rev 2.0*/
+                    // Adjust legend position for mobile devices
+                    if (window.innerWidth <= 767) {
+                        chart.paddingRight = "20px";
+                    } else {
+                        chart.paddingRight = "40px";
+                    }
+
+                    // Redraw the chart when the window is resized
+                    $(window).on("resize", function () {
+                        if (window.innerWidth <= 767) {
+                            chart.paddingRight = "20px";
+                        } else {
+                            chart.paddingRight = "40px";
+                        }
+                        chart.invalidateRawData();
+                    });
+                    /*Rev end 2.0*/
+                    //$(window).on("resize", function () {
+                    //    var chartContainer = $("#chartLine2");
+                    //    chart.width = chartContainer.width();
+                    //    chart.height = chartContainer.height();
+                    //});
 
                 } else {
                     $('#chartLine2').html('<div class="nCheck">No Data Available</div>');
@@ -758,32 +782,31 @@
                         pieSeries.colors = colorSet;
                         // Add a legend
                         chart.legend = new am4charts.Legend();
-                        chart.legend.position = "bottom";
-                        chart.legend.maxHeight = 250;
+                        /*chart.legend.position = "right";
+                        chart.legend.maxHeight = 250;*/
                         chart.legend.scrollable = true;
+                        /*Rev 2.0*/
+                        // Adjust legend position for mobile devices
+                        if (window.innerWidth <= 767) {
+                            chart.legend.position = "bottom";
+                            chart.legend.maxHeight = 100;
+                        } else {
+                            chart.legend.position = "right";
+                            chart.legend.maxHeight = 250;
+                        }
 
-
-                        chart.responsive.rules.push({
-                            relevant: function (target) {
-                                if (target.pixelWidth <= 600) {
-                                    return true;
-                                }
-                                return false;
-                            },
-                            state: function (target, stateId) {
-                                if (target instanceof am4charts.Legend) {
-                                    var state = target.states.create(stateId);
-                                    state.properties.position = "right";
-
-                                    var labelState = target.labels.template.states.create(stateId);
-                                    labelState.properties.maxWidth = 100;
-                                    labelState.properties.truncate = true;
-                                    return state;
-                                }
-                                return null;
+                        // Redraw the chart when the window is resized
+                        $(window).on("resize", function () {
+                            if (window.innerWidth <= 767) {
+                                chart.legend.position = "bottom";
+                                chart.legend.maxHeight = 100;
+                            } else {
+                                chart.legend.position = "right";
+                                chart.legend.maxHeight = 250;
                             }
+                            chart.invalidateRawData();
                         });
-
+                        /*Rev end 2.0*/
 
                     }); // end am4core.ready()
                 } else {
@@ -846,9 +869,31 @@
                         pieSeries.colors = colorSet;
                         // Add a legend
                         chart.legend = new am4charts.Legend();
-                        chart.legend.position = "right";
-                        chart.legend.maxHeight = 250;
+                        //chart.legend.position = "right";
+                        //chart.legend.maxHeight = 250;
                         chart.legend.scrollable = true;
+                        /*Rev 2.0*/
+                        // Adjust legend position for mobile devices
+                        if (window.innerWidth <= 767) {
+                            chart.legend.position = "bottom";
+                            chart.legend.maxHeight = 100;
+                        } else {
+                            chart.legend.position = "right";
+                            chart.legend.maxHeight = 250;
+                        }
+
+                        // Redraw the chart when the window is resized
+                        $(window).on("resize", function () {
+                            if (window.innerWidth <= 767) {
+                                chart.legend.position = "bottom";
+                                chart.legend.maxHeight = 100;
+                            } else {
+                                chart.legend.position = "right";
+                                chart.legend.maxHeight = 250;
+                            }
+                            chart.invalidateRawData();
+                        });
+                        /*Rev end 2.0*/
 
                     }); // end am4core.ready()
                 } else {
