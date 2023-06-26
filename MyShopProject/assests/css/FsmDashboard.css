@@ -1843,7 +1843,11 @@
     border-radius: 12px 0 0 12px !important;
 }
 
-.newStyleMN .widgBox:hover .icon {
+/*.newStyleMN .widgBox:hover .icon {
+    top: 0px !important;
+    left: 0px !important;
+}*/
+.newStyleMN .widgBox.zoom:hover .icon {
     top: 0px !important;
     left: 0px !important;
 }
@@ -1867,12 +1871,13 @@
         background: linear-gradient(150deg, rgb(124 110 8 / 90%) 0%, rgb(211 191 58) 100%);
     }
 
-.widgBox.active.c2 {
+/*.widgBox.active.c2 */
+.widgBox.active.zoom.c2 {
     /*background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;*/
     background: #083b68 !important;
     box-shadow: 1px 1px 15px #2068b2c4;
 }
-    .widgBox.active.c2 .icon {
+    .widgBox.active.zoom.c2 .icon {
         /*background: linear-gradient(150deg, rgba(13,7,69,1) 0%, rgba(133,123,223,1) 100%) !important;*/
         background: #072442 !important;
         color: #fff !important;
@@ -1895,14 +1900,16 @@
     /*background: linear-gradient(150deg, rgb(219 68 87) 0%, rgb(255 169 180) 100%);*/
     background: linear-gradient(150deg, rgb(5 129 94 / 90%) 0%, rgb(45 223 174 / 90%) 100%);
 }
-.widgBox.active.c3 {
+/*.widgBox.active.c3*/
+.widgBox.active.zoom.c3 
+{
     /*background: linear-gradient(150deg, rgb(189 37 56) 0%, rgb(255 169 180) 100%) !important;*/
     /*background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;*/
     background: #083b68 !important;
     box-shadow: 1px 1px 15px #2068b2c4;
 }
 
-    .widgBox.active.c3 .icon {
+    .widgBox.active.zoom.c3 .icon {
         /*background: linear-gradient(150deg, rgb(6 157 115) 0%, rgb(45 211 165) 100%) !important;*/
         background: #072442 !important;
         color: #fff !important;
@@ -1953,14 +1960,14 @@
     /*background: linear-gradient(150deg, rgb(203 128 17) 0%, rgb(245 194 118) 100%);*/
     background: linear-gradient(150deg, rgb(46 100 6 / 90%) 0%, rgb(106 189 46) 100%);
 }
-.widgBox.active.c5 {
+.widgBox.active.zoom.c5 {
     /* background: linear-gradient(150deg, rgb(203 128 17) 0%, rgb(245 194 118) 100%) !important;*/
     /*background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;*/
     background: #083b68 !important;
     box-shadow: 1px 1px 15px #2068b2c4;
 }
 
-    .widgBox.active.c5 .icon {
+    .widgBox.active.zoom.c5 .icon {
         /*background: linear-gradient(150deg, rgb(95 124 6) 0%, rgb(151 189 34) 100%) !important;*/
         background: #072442 !important;
         color: #fff !important;
