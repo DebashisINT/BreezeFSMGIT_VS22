@@ -4,7 +4,8 @@
 @*2.0                11-01-2023        2.0.38           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
 @*3.0                11-01-2023        2.0.38           Pallab              "Monthly Attendance Summary" chart bar color change and month active color change *@
 @*4.0                07-06-2023        2.0.41           Pallab              26304: Zoom in not happening in the Attendance, Order, Reimbursement tab  *@
-@*5.0                01-02-2023        2.0.38           Pallab              26305: am chart version update in FSM  *@
+@*5.0                07-06-2023        2.0.41           Pallab              26305: am chart version update in FSM  *@
+@*6.0                26-06-2023        2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked  *@
 @*====================================================== Revision History ===========================================================*@
 
 <link href="~/assests/css/pignose.calendar.min.css" rel="stylesheet" />
@@ -291,9 +292,9 @@
                     formatOptions: {
                         shortMonthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                         fullMonthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                        
+
                     },
-                    
+
                     scheduleOptions: {
                         colors: {
                             Absent: "#e83636",
@@ -329,8 +330,8 @@
                         openCalClick(usrId, text);
                         $('.calPopup, .calBackdrop').addClass('in');
                     },
-                    
-                    
+
+
                 });
             }
         });
@@ -384,7 +385,23 @@
          });
     }
     @*Mantis Issue 25455*@
-    function ShowAttendanceData(){
+
+    /*Rev 6.0*/
+    var isShowAttendanceDataClicked = false;
+    /*Rev end 6.0*/
+
+    function ShowAttendanceData() {
+        /*Rev 6.0*/
+        isShowAttendanceDataClicked = true;
+        var element4atten = document.getElementById("getTotalA");
+        var element1atten = document.getElementById("getOnTimeToday");
+        var element2atten = document.getElementById("getLateToday");
+        var element3atten = document.getElementById("getAbsentToday");
+        element4atten.style.cursor = "pointer";
+        element3atten.style.cursor = "pointer";
+        element2atten.style.cursor = "pointer";
+        element1atten.style.cursor = "pointer";
+        /*Rev end 6.0*/
         var Url = '@Url.Action("GetAttendanceResults", "DashboardMenu")'
 
             $.ajax({
@@ -678,6 +695,11 @@
             $('.calPopup, .calBackdrop').removeClass('in');
         })
         $("#getTotalA").click(function () {
+            /*Rev 6.0*/
+            if (!isShowAttendanceDataClicked) {
+                return; // Disable click event
+            }
+            /*Rev end 6.0*/
             var Url = '@Url.Action("GetTotalAttendance", "Attendance")'
 
             $.ajax({
@@ -711,6 +733,11 @@
             });
         })
         $("#getAbsentToday").click(function () {
+            /*Rev 6.0*/
+            if (!isShowAttendanceDataClicked) {
+                return; // Disable click event
+            }
+            /*Rev end 6.0*/
             var Url = '@Url.Action("GetAbsentToday", "Attendance")'
 
             $.ajax({
@@ -744,6 +771,11 @@
             });
         });
         $("#getOnTimeToday").click(function () {
+            /*Rev 6.0*/
+            if (!isShowAttendanceDataClicked) {
+                return; // Disable click event
+            }
+            /*Rev end 6.0*/
             var Url = '@Url.Action("GetOntime", "Attendance")'
 
             $.ajax({
@@ -777,6 +809,11 @@
             });
         });
         $("#getLateToday").click(function () {
+            /*Rev 6.0*/
+            if (!isShowAttendanceDataClicked) {
+                return; // Disable click event
+            }
+            /*Rev end 6.0*/
             var Url = '@Url.Action("GetLateToday", "Attendance")'
 
             $.ajax({
@@ -1072,9 +1109,9 @@
         color: #fff
     }
 
-    #getTotalA, #getAbsentToday, #getOnTimeToday, #getLateToday {
+    /*#getTotalA, #getAbsentToday, #getOnTimeToday, #getLateToday {
         cursor: pointer;
-    }
+    }*/
 
     .emp-dropdown-title > .font-normal {
         font-size: 16px !important;
@@ -1131,13 +1168,13 @@
         margin-right: 7px;
     }
 
-            .lagendInfo .dot.Present {
-                background: #50c36e;
-            }
+        .lagendInfo .dot.Present {
+            background: #50c36e;
+        }
 
-            .lagendInfo .dot.Leave {
-                background: #757272;
-            }
+        .lagendInfo .dot.Leave {
+            background: #757272;
+        }
 
     .separt {
         width: 20px;
@@ -1365,11 +1402,11 @@
                         <table style="width: 100%; margin-top: 10px;">
                             <tr>
                                 <td class="emp-dropdown-title"><span class="font-normal">Employee</span></td>
-                                    <td class="sltemp">
-                                        <select id="userID">
-                                            <option></option>
-                                        </select>
-                                    </td>
+                                <td class="sltemp">
+                                    <select id="userID">
+                                        <option></option>
+                                    </select>
+                                </td>
 
                             </tr>
                         </table>
