@@ -2,7 +2,9 @@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                11-01-2023        2.0.37           Pallab              25570: Attendance, Order, Reimbursement, Target/Achievement tab box design change *@
 @*2.0                21-06-2023        2.0.41           Pallab              26356: Dashboard "Attendance" , "Order" , "Reimbursement" chart and others issue fix *@
-@*====================================================== Revision History ===========================================================*@
+@*3.0                27-06-2023        2.0.41           Sanchita            State & Branch selection facility is required in the Order Analytics in Dashboard
+                                                                                Refer: 26309
+    @*====================================================== Revision History ===========================================================*@
 
 <style>
     ul.nopad {
@@ -335,6 +337,245 @@
     }
 </style>
 
+@*Rev 3.0*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#cmbStateOrder').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 400,
+            enableCaseInsensitiveFiltering: true,
+            onDropdownHide: function (event) {
+                GetSateValueOrder();
+            }
+        }).multiselect('selectAll', false).multiselect('updateButtonText');
+        $('#cmbBranchOrder').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 400,
+            enableCaseInsensitiveFiltering: true,
+            onDropdownHide: function (event) {
+                GetBranchValueOrder();
+            }
+        }).multiselect('selectAll', false).multiselect('updateButtonText');
+
+        branchidsOrder = $('#cmbBranchOrder').val();
+
+        stateidsOrder = $('#cmbStateOrder').val();
+        var statelistcountOrder = $('#hdnStateListCountOrder').val();
+        if (statelistcountOrder > 0) {
+            var GroupBy = $('#hdnGridStatewiseSummaryGroupByOrder').val();
+            for (var i = objsettings.length - 1; i >= 0; i--) {
+                if (objsettings[i].ID == settingsid) {
+                    objsettings.splice(i, 1);
+                }
+            }
+
+
+        }
+        else {
+            $('.bodymain_areastatewise').hide();
+        }
+
+    });
+
+
+    var stateidsOrder = [];
+    var branchidsOrder = [];
+
+
+    function GetSateValueOrder() {
+        stateidsOrder = [];
+
+        var datalist = $('#cmbStateOrder').val();
+        if (datalist != null) {
+            stateidsOrder = datalist;
+        }
+        else {
+            stateidsOrder.push('999999');
+        }
+        cmbStatechangeOrder();
+    }
+
+    function GetBranchValueOrder() {
+        branchidsOrder = [];
+
+        var datalist = $('#cmbBranchOrder').val();
+        if (datalist != null) {
+            branchidsOrder = datalist;
+        }
+        else {
+            branchidsOrder.push('999999');
+        }
+        cmbBranchChangeOrder();
+    }
+
+    function cmbBranchChangeOrder() {
+        let newBranch = $('#cmbBranchOrder').val();
+
+        var isObject = typeof newBranch
+        if (isObject == "object") {
+            if (newBranch != null && newBranch.length > 0) {
+                branchidsOrder = newBranch.join(',');
+            } else {
+                branchidsOrder = "";
+
+            }
+        } else {
+            if (newBranch != null && newBranch.length > 0) {
+                branchidsOrder = newBranch;
+            }
+            else {
+                branchidsOrder = "";
+            }
+        }
+        reloadBoxDataOrder(branchidsOrder);
+    }
+
+    function cmbStatechangeOrder() {
+        settingsid = "1";
+
+        for (var i = objsettings.length - 1; i >= 0; i--) {
+            if (objsettings[i].ID == settingsid) {
+                objsettings.splice(i, 1);
+            }
+        }
+        if (settingsid == "1") {
+            var obj = {};
+            obj.ID = "1";
+            obj.action = "AT_WORK";
+            obj.rptype = "Summary";
+            obj.empid = "";
+            obj.stateid = stateidsOrder.join(',');//cmbState.GeOrderalue();
+            obj.designid = "";
+            // Mantis Issue 24729
+            var isObject = typeof branchidsOrder
+            if (isObject == "object") {
+                if (branchidsOrder != null && branchidsOrder.length > 0) {
+                    obj.branchid = branchidsOrder.join(',');
+                } else {
+                    obj.branchid = "";
+
+                }
+            } else {
+                if (branchidsOrder != null && branchidsOrder.length > 0) {
+                    obj.branchid = branchidsOrder;
+                }
+                else {
+                    obj.branchid = "";
+                }
+            }
+
+
+            // End of Mantis Issue 24729
+            objsettings.push(obj);
+        }
+        //  gridsalesman.ClearFilter();
+        if (!$('#dashDetails1').hasClass('hide')) {
+            $('#dashDetails1').addClass('hide');
+        }
+        if (!$('#dashDetails2').hasClass('hide')) {
+            $('#dashDetails2').addClass('hide');
+        }
+        if (!$('#gridthirdlevel').hasClass('hide')) {
+            $('#gridthirdlevel').addClass('hide');
+        }
+        $('.boxWidget').removeClass('activeW');
+
+        stateidOrder = stateidsOrder.join(','); //;cmbState.GetValue();
+        // Mantis Issue 24729
+        var obj1 = {};
+        obj1.stateid = stateidOrder;
+
+        $.ajax({
+            type: "POST",
+            url: "/DashboardMenu/DashboardBranchCombobox",
+            data: JSON.stringify(obj1),
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //console.log("res branch", response);
+                const mainData = response.map(function (item) {
+                    return {
+                        label: item.name,
+                        title: item.name,
+                        value: item.BranchID,
+                        selected: true
+                    }
+                    // arr.push(obj)
+                })
+
+                $("#cmbBranchOrder").multiselect('dataprovider', mainData);
+                var newBranch = $('#cmbBranchOrder').val();
+
+                var isObject = typeof newBranch
+                if (isObject == "object") {
+                    if (newBranch != null && newBranch.length > 0) {
+                        branchidsOrder = newBranch.join(',');
+                    } else {
+                        branchidsOrder = "";
+
+                    }
+                } else {
+                    if (newBranch != null && newBranch.length > 0) {
+                        branchidsOrder = newBranch;
+                    }
+                    else {
+                        branchidsOrder = "";
+                    }
+                }
+
+                reloadBoxDataOrder(branchidsOrder);
+            },
+            error: function (response) {
+                jAlert("Please try again later");
+            }
+        });
+
+
+    }
+
+    function reloadBoxDataOrder(branchidsOrder) {
+        branchid = branchidsOrder;
+
+        objData = {};
+        $('#mapdeatsilsOrder').hide();
+        $('#mapOrder').show();
+
+        var obj = {};
+        obj.stateid = stateid;
+        // Mantis Issue 24729
+        obj.branchid = branchid;
+        // End of Mantis Issue 24729
+        $.ajax({
+            type: "POST",
+            url: "/DashboardMenu/GetDashboardDataVisit",
+            data: JSON.stringify(obj),
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#EAWOrder").text(response.lblAtWork);
+                $("#EOLOrder").text(response.lblOnLeave);
+                $("#NLIOrder").text(response.lblNotLoggedIn);
+                $("#EMPOrder").text(response.lblTotal);
+                $("#lbltotalshopOrder").text(response.TotalVisit);
+                $("#lblnewvisitOrder").text(response.NewVisit);
+                $("#lblrevisitOrder").text(response.ReVisit);
+
+                $("#lblavgvisitsOrder").text(response.AvgPerDay);
+                $("#lblavgdurationOrder").text(response.AvgDurationPerShop);
+            },
+            error: function (response) {
+                jAlert("Please try again later");
+            }
+        });
+    }
+</script>
+
+@*End of Rev 3.0*@
 
 <script type="text/javascript">
     $(function () {
@@ -364,22 +605,60 @@
         var newDatefrm = changeDateFormat(inputDatefrm);
         var newDateto = changeDateFormat(inputDateto);
 
+        // Rev 3.0
+        var stateid = stateidsOrder.join(',');
+
+        var isObject = typeof branchidsOrder
+        if (isObject == "object") {
+            if (branchidsOrder != null && branchidsOrder.length > 0) {
+                var branchid = branchidsOrder.join(',');
+            } else {
+                var branchid = "";
+
+            }
+        } else {
+            if (branchidsOrder != null && branchidsOrder.length > 0) {
+                var branchid = branchidsOrder;
+            }
+            else {
+                var branchid = "";
+            }
+        }
+        // End of Rev 3.0
+
         console.log(inputDatefrm);
 
-        getTotalOrderCount(newDatefrm, newDateto);
-        getTotalOrderValue(newDatefrm, newDateto);
-        getAvgOrderValue(newDatefrm, newDateto);
-        getOrderDelivered(newDatefrm, newDateto);
+        // Rev 3.0
+        //getTotalOrderCount(newDatefrm, newDateto);
+        //getTotalOrderValue(newDatefrm, newDateto);
+        //getAvgOrderValue(newDatefrm, newDateto);
+        //getOrderDelivered(newDatefrm, newDateto);
 
-        gettop10orderValue(newDatefrm, newDateto);
-        gettop10orderQty(newDatefrm, newDateto);
+        //gettop10orderValue(newDatefrm, newDateto);
+        //gettop10orderQty(newDatefrm, newDateto);
 
-        getCustomer(newDatefrm, newDateto);
-        getOrderStateWise(newDatefrm, newDateto);
+        //getCustomer(newDatefrm, newDateto);
+        //getOrderStateWise(newDatefrm, newDateto);
 
-        getOrderCountChart(newDatefrm, newDateto);
-        getOrderTotalChart(newDatefrm, newDateto);
-        getOrderDeliverChart(newDatefrm, newDateto);
+        //getOrderCountChart(newDatefrm, newDateto);
+        //getOrderTotalChart(newDatefrm, newDateto);
+        //getOrderDeliverChart(newDatefrm, newDateto);
+
+        getTotalOrderCount(newDatefrm, newDateto, stateid, branchid);
+        getTotalOrderValue(newDatefrm, newDateto, stateid, branchid);
+        getAvgOrderValue(newDatefrm, newDateto, stateid, branchid);
+        getOrderDelivered(newDatefrm, newDateto, stateid, branchid);
+
+        gettop10orderValue(newDatefrm, newDateto, stateid, branchid);
+        gettop10orderQty(newDatefrm, newDateto, stateid, branchid);
+
+        getCustomer(newDatefrm, newDateto, stateid, branchid);
+        getOrderStateWise(newDatefrm, newDateto, stateid, branchid);
+
+        getOrderCountChart(newDatefrm, newDateto, stateid, branchid);
+        getOrderTotalChart(newDatefrm, newDateto, stateid, branchid);
+        getOrderDeliverChart(newDatefrm, newDateto, stateid, branchid);
+        // End of Rev 3.0
     }
     function changeDateFormat(inputDate) {  // expects Y-m-d
         var splitDate = inputDate.split('-');
@@ -396,10 +675,15 @@
 
 
     //order count chart
-    function getOrderCountChart(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function getOrderCountChart(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("OrdercountChart", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -473,10 +757,15 @@
 
     }
     //order Total chart
-    function getOrderTotalChart(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function getOrderTotalChart(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("OrderTotalChart", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -580,10 +869,15 @@
     }
 
     // Order Delivered
-    function getOrderDeliverChart(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function getOrderDeliverChart(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("OrderDeliveredChart", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -666,10 +960,15 @@
 
 
     // top customers
-    function getCustomer(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function getCustomer(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GettopCustomers", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -698,10 +997,15 @@
         });
     }
     // top order
-    function getOrderStateWise(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function getOrderStateWise(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GettopOrdersStateWise", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -730,10 +1034,15 @@
     }
 
     // top 10 order value
-    function gettop10orderValue(fromDate, toDate) {
+    // Rev 3.0 [parameters , stateid, branchid added]
+    function gettop10orderValue(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("Gettop10orderValue", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -818,10 +1127,15 @@
 
     }
     // top 10 order quantity
-    function gettop10orderQty(fromDate, toDate) {
+    // Rev 3.0 [ parameter , stateid, branchid added]
+    function gettop10orderQty(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("Gettop10orderQuantity", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -905,10 +1219,17 @@
         });
     }
 
-    function getTotalOrderCount(fromDate, toDate) {
+    // Rev 3.0
+    //function getTotalOrderCount(fromDate, toDate) {
+    function getTotalOrderCount(fromDate, toDate, stateid, branchid) {
+        // End of Rev 2.0
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GetOrderAnalyticTotalOrderCount", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -922,10 +1243,17 @@
             }
         });
     }
-    function getTotalOrderValue(fromDate, toDate) {
+    // Rev 3.0
+    //function getTotalOrderValue(fromDate, toDate) {
+    function getTotalOrderValue(fromDate, toDate, stateid, branchid) {
+        // End of Rev 3.0
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GetOrderAnalyticTotalOrderValue", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -939,10 +1267,15 @@
             }
         });
     }
-    function getAvgOrderValue(fromDate, toDate) {
+    // Rev 3.0 [parameters , stateid, branchid added]
+    function getAvgOrderValue(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GetOrderAnalyticAvgOrderValue", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -956,10 +1289,15 @@
             }
         });
     }
-    function getOrderDelivered(fromDate, toDate) {
+    // Rev 3.0 [parameters , stateid, branchid added]
+    function getOrderDelivered(fromDate, toDate, stateid, branchid) {
         var obj = {};
         obj.fromDate = fromDate;
         obj.toDate = toDate;
+        // Rev 3.0
+        obj.stateid = stateid;
+        obj.branchid = branchid;
+        // End of Rev 3.0
         var Url = '@Url.Action("GetOrderAnalyticOrderDelivered", "DashboardMenu")';
         $.ajax({
             type: "POST",
@@ -995,6 +1333,22 @@
     }
 </script>
 
+@*Rev 3.0*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 Widgheading clearfix">
+            <ul class="mapShowlist clearfix">
+                <li class="relative">
+                    @Html.Action("DashboardStateComboboxOrder")
+                </li>
+                <li class="relative">
+                    @Html.Action("DashboardBranchComboboxOrder")
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@*End of Rev 3.0*@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
