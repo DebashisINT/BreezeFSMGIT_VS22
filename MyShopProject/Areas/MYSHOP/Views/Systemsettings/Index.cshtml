@@ -57,13 +57,19 @@
 
         $('#timePicker').datetimepicker({
             useCurrent: false,
-            format: "hh:mm A"
+            // Rev Sanchita
+            //format: "hh:mm A"
+            format: "hh:mm:ss"
+            // End of Rev Sanchita
         }).on('dp.show', function () {
             if (firstOpen) {
                 time = moment().startOf('day');
                 firstOpen = false;
             } else {
-                time = "01:00 PM"
+                // Rev Sanchita
+                //time = "01:00 PM"
+                time = "01:00:00"
+                // End of Rev Sanchita
             }
 
             $(this).data('DateTimePicker').date(time);
