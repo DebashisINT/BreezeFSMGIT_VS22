@@ -184,6 +184,19 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "PJPvsActualDetailsReport";
 
+            // Rev 1.0
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Date";
+                column.FieldName = "Date";
+                column.ColumnType = MVCxGridViewColumnType.TextBox;
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+                column.Width = 100;
+            });
+            // End of Rev 1.0
+
             settings.Columns.Add(column =>
             {
                 column.Caption = "Employee Name";
