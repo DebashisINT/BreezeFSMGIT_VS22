@@ -1348,6 +1348,14 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             box-shadow: none;
             outline: none;
         }
+
+        @media only screen and (max-width: 768px)
+        {
+            .breadCumb > span
+            {
+                padding: 9px 12px;
+            }
+        }
     </style>
    <%-- Rev 2.0--%>
     <script>

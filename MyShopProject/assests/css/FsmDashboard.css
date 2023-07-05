@@ -575,7 +575,9 @@
 #cmbStateTV + .btn-group > button,
 #cmbBranchTV + .btn-group > button,
 #cmbStateTVH + .btn-group > button,
-#cmbBranchTVH + .btn-group > button {
+#cmbBranchTVH + .btn-group > button,
+#cmbStateOrder + .btn-group > button,
+#cmbBranchOrder + .btn-group > button {
     border-radius: 50px;
     overflow: hidden;
     border: none;

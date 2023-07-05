@@ -14,7 +14,7 @@
         display:block;
     }
     .tabs-style-shape nav li {
-        margin:5px 0 !important; 
+        margin:3px 0 !important; 
     }
     .tabs-style-shape nav li a{
         margin:0 !important;
@@ -297,7 +297,6 @@
     }
 
     .breadCumb {
-        /*padding: 0 72px;*/
         padding: 0 23%;
     }
 
@@ -339,9 +338,16 @@
     .middleWraper {
         justify-content: end;
     }
+
     .form_main {
         overflow-x: auto;
     }
+
+    /*.dxtcLite_PlasticBlue > .dxtc-stripContainer .dxtc-tab, .dxtcLite_PlasticBlue > .dxtc-stripContainer .dxtc-activeTab
+    {
+        float:none;
+        width: 100%;
+    }*/
 
     .GridViewArea {
         overflow-x: auto !important;
@@ -365,26 +371,27 @@
     }
 
     .col-lg-2 {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        margin-bottom: 10px !important;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    .secboxback {
+    .secboxback
+    {
         margin-bottom: 10px;
     }
 
     .parameter-btns .btn {
         margin-bottom: 8px;
     }
-
-    .eqpadtbl > tbody > tr > td
-    {
+    .eqpadtbl > tbody > tr > td {
         display: block;
+        width: 100% !important;
     }
+
     .w150 {
         width: 100% !important;
     }
+
 }
 
 

@@ -5,6 +5,7 @@
    Rev 4.0      Priti              20/02/2023      V2.0.39     0025676: Employee Import Facility. Refer: 25668 
    Rev 5.0      Pallab             20/02/2023      V2.0.39     parameters and grid issue fix for small screen
    Rev 6.0      Pallab             17/04/2023      V2.0.39     25840: Employee master module employee search popup auto focus add and "cancel" button color change
+   Rev 7.0      Pallab             27/06/2023      V2.0.41     26442: Employees module responsive issue fix and make mobile friendly
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -1454,6 +1455,33 @@ padding: 7px;
         margin: 0 2px !important;
     }
 
+    /*Rev 7.0*/
+    @media only screen and (max-width: 768px)
+    {
+        #ShowFilter, #divEmp, #show-btn
+        {
+             width: 100%;
+            display: block;
+        }
+
+        #ShowFilter a, #ShowFilter select, #ShowFilter button
+        {
+            margin-bottom: 10px;
+        }
+
+        #divEmp
+        {
+            margin-bottom: 10px;
+        }
+
+        .grid-view
+        {
+            overflow-x: auto;
+            width: 280px;
+        }
+    }
+    /*Rev end 7.0*/
+
     </style>
 
     <script>
@@ -1779,7 +1807,7 @@ padding: 7px;
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td id="show-btn">
                                  <% if (rights.CanView)
                                    { %>
                                     <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
@@ -2006,6 +2034,8 @@ padding: 7px;
             </tr>
             <tr>
                 <td colspan="2">
+                    <div class="grid-view">
+
                     <%--Mantise ID:0024752: Optimize FSM Employee Master [ DataSourceID="EntityServerlogModeDataSource"  added]
                      Rev work Swati Date:-15.03.2022--%>
                     <%--Rev 1.0 : Some columns width px to %--%>
@@ -2016,7 +2046,9 @@ padding: 7px;
                              Rev work close Swati Date:-15.03.2022--%>
                         <SettingsBehavior AllowFocusedRow="true" ConfirmDelete="True" ColumnResizeMode="NextColumn" />
                         <Styles>
-                            <Header SortingImageSpacing="5px" ImageSpacing="5px">
+                            
+                            
+                           <Header SortingImageSpacing="5px" ImageSpacing="5px">
                             </Header>
                             <LoadingPanel ImageSpacing="10px">
                             </LoadingPanel>
@@ -2243,7 +2275,8 @@ padding: 7px;
                         <Settings ShowGroupPanel="True" ShowStatusBar="Hidden" ShowHorizontalScrollBar="False" ShowFilterRow="true" ShowFilterRowMenu="true" />
                         <SettingsLoadingPanel Text="Please Wait..." />
                     </dxe:ASPxGridView>
-
+                    
+                    </div>
                 </td>
             </tr>
         </table>

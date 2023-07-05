@@ -518,6 +518,26 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     overflow-x: auto;
     }
     /*Rev end 1.0*/
+
+    @media only screen and (max-width: 768px) {
+        .breadCumb {
+            padding: 0 11%;
+        }
+
+        .breadCumb > span {
+            padding: 9px 10px;
+        }
+
+        .FilterSide
+        {
+            width: 100% !important;
+        }
+
+        #marketsGrid_DXPEForm_PW-1
+        {
+            width: 330px !important;
+        }
+    }
     </style>
 </asp:Content>
 
