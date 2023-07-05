@@ -1,6 +1,8 @@
 ﻿<%-- ********************************************************************************************************************
 Rev 1.0     Pallab      V2.0.41     02/06/2023      "Session expired" message change and alert design modification for FSM
                                                     Refer: 26280
+Rev 2.0     Pallab      V2.0.41     22/06/2023      all module responsive work and make mobile friendly
+                                                    Refer: 26442
 **********************************************************************************************************************--%>
 
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ERP.master.cs" Inherits="ERP.OMS.MasterPage.ERP" %>
@@ -60,7 +62,9 @@ Rev 1.0     Pallab      V2.0.41     02/06/2023      "Session expired" message ch
 
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" />
     <link rel="stylesheet" href="/assests/css/ftsNewScreen.css" />
-
+    <%--Rev 2.0--%>
+    <link href="~/assests/css/responsive.css" rel="stylesheet" />
+    <%--Rev end 2.0--%>
     <script src="/assests/js/jquery.confirm.min.js"></script>
     <meta name="theme-color" content="#0C78B1" />
     <!-- Windows Phone -->

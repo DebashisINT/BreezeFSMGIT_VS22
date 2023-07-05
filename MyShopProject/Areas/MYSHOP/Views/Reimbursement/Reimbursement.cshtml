@@ -978,6 +978,18 @@
     .clsReimbursementDetailsGridApprovedData:hover img, .hover-effect:hover img {
         transform: scale(1.1, 1.1);
     }
+
+    @@media only screen and (max-width: 768px)
+    {
+        .breadCumb {
+            padding: 0 16%;
+        }
+
+        .breadCumb > span
+        {
+            padding: 9px 10px;
+        }
+    }
 </style>
 
 <link href="~/Content/media.css" rel="stylesheet" />
@@ -1052,9 +1064,11 @@
         @*<div id="refreshgridreimbursement " class="container">*@
         @*<div class="backBox mt-3 p-3 ">*@
         @*Rev end 1.0*@
-        @{
-            Html.RenderAction("GetReimbursementList", "Reimbursement", new { Month = "JAN", StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, is_pageload = "0", Year = "2018" });
-        }
+        <div class="overflow-x-auto">
+            @{
+                Html.RenderAction("GetReimbursementList", "Reimbursement", new { Month = "JAN", StateId = Model.StateId, desgid = Model.desgid, empcode = Model.empcode, is_pageload = "0", Year = "2018" });
+            }
+        </div>
     </div>
 </div>
 @Html.DevExpress().PopupControl(

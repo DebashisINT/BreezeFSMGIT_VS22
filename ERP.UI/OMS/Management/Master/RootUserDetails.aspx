@@ -490,7 +490,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
         .tblWhiteS > tbody > tr > td {
             vertical-align: top;
-            padding: 0 5px 16px;
+            padding: 0 5px 10px;
         }
 
             .tblWhiteS > tbody > tr > td > table > tbody > tr > td:first-child {
@@ -777,20 +777,20 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         border-radius: 8px;
     }*/
 
-    .styled-checkbox {
+    .styled-checkbox input {
         position: absolute;
         opacity: 0;
         z-index: 1;
     }
 
-        .styled-checkbox + label {
+        .styled-checkbox input + label {
             position: relative;
             /*cursor: pointer;*/
             padding: 0;
             margin-bottom: 0 !important;
         }
 
-            .styled-checkbox + label:before {
+            .styled-checkbox input + label:before {
                 content: "";
                 margin-right: 6px;
                 display: inline-block;
@@ -803,26 +803,26 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                 border: 1px solid #c5c5c5;
             }
 
-        .styled-checkbox:hover + label:before {
+        .styled-checkbox input:hover + label:before {
             background: #094e8c;
         }
 
 
-        .styled-checkbox:checked + label:before {
+        .styled-checkbox input:checked + label:before {
             background: #094e8c;
         }
 
-        .styled-checkbox:disabled + label {
+        .styled-checkbox input:disabled + label {
             color: #b8b8b8;
             cursor: auto;
         }
 
-            .styled-checkbox:disabled + label:before {
+            .styled-checkbox input:disabled + label:before {
                 box-shadow: none;
                 background: #ddd;
             }
 
-        .styled-checkbox:checked + label:after {
+        .styled-checkbox input:checked + label:after {
             content: "";
             position: absolute;
             left: 3px;
@@ -984,6 +984,26 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         padding: 2px 12px !important;
     }
     /*Rev end 2.0*/
+
+    .dxWeb_edtCheckBoxUnchecked_PlasticBlue
+    {
+        background-image: none !important;
+        border: 1px solid #236cb9 !important;
+        border-radius: 2px;
+    }
+
+    .tblWhiteS > tbody > tr > td
+    {
+            font-size: 13px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tblWhiteS > tbody > tr > td
+        {
+                display: block  !important;
+        }
+    }
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -1210,6 +1230,50 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
                 <div class="clear"></div>
                 <div class="col-md-12 mt-4"></div>
+
+                <%--Rev Pallab--%>
+                <%--<div class="col-md-12 mt-4">
+                    <div class="segHeader col-md-12">General</div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="ASPxCheckBox1" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Tick to Make Inactive</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="ASPxCheckBox2" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Is Mac Lock?</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-md-3"  id="TdHierarchywiseTargetSettings" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="ASPxCheckBox3" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Tick to active Hierarchy-wise Target Settings</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>--%>
+                <%--Rev end Pallab--%>
+
                 <table class="tblWhiteS">
                     <tr>
                         <td colspan="4">
@@ -1221,7 +1285,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             <table>
                                 <tr>
                                     <td>
-                                        <dxe:ASPxCheckBox ID="chkIsActive" runat="server" Text="">
+                                        <dxe:ASPxCheckBox ID="chkIsActive" runat="server" Text="" CssClass="C-checkbox">
                                         </dxe:ASPxCheckBox>
                                     </td>
                                     <td>Tick to Make Inactive</td>
