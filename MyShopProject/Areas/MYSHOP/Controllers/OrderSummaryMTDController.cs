@@ -204,7 +204,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         private GridViewSettings GetDashboardGridView(object dataset)
         {
             var settings = new GridViewSettings();
-            settings.Name = "Order Summary (MTD) report";
+            settings.Name = "Order Summary(MTD) report";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "Order Summary MTD";
             String ID = Convert.ToString(TempData["OrderSummaryMTDGridView"]);
