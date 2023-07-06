@@ -154,7 +154,7 @@
                 var desg = $("#drpdesignation").val();
                 var usrtype = $("#ddlusertypes").val();
                 $('#ddlSumExport').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporPerformanceMonthWiseList", "PerformanceSummaryMonthWise", new { type = "_type_" })'
+                var url = '@Url.Action("ExporTOrderSummaryMTDList", "OrderSummaryMTD", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
 
             }
