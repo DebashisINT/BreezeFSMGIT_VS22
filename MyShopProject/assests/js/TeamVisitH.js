@@ -385,7 +385,10 @@ function ShowTeamVisitHData() {
         obj.action = "AT_WORK";
         obj.rptype = "Summary";
         obj.empid = "";
-        obj.stateid = stateids.join(',');// cmbState.GeTVHalue();
+        // Rev Sanchita
+        //obj.stateid = stateids.join(',');// cmbState.GeTVHalue();
+        obj.stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
+        // End of Rev Sanchita
 
         var isObject = typeof branchidsTVH
         if (isObject == "object") {
@@ -573,7 +576,10 @@ function gridsalesmanclick(degsi) {
             obj.action = "AT_WORK";
             obj.rptype = "Detail";
             obj.empid = "";
-            obj.stateid = stateids.join(','); //cmbState.GeTVHalue();
+            // Rev Sanchita
+            //obj.stateid = stateids.join(','); //cmbState.GeTVHalue();
+            obj.stateid = stateidsTVH.join(','); //cmbState.GeTVHalue();
+            // End of Rev Sanchita
             // Mantis Issue 24729
 
             var isObject = typeof branchids
@@ -624,7 +630,10 @@ function assignedclick(id, EMPNAME) {
         obj.action = "VISITTODAY";
         obj.rptype = "Detail";
         obj.empid = id;
-        obj.stateid = stateids.join(',');//cmbState.GeTVHalue();
+        // Rev Sanchita
+        //obj.stateid = stateids.join(',');//cmbState.GeTVHalue();
+        obj.stateid = stateidsTVH.join(',');//cmbState.GeTVHalue();
+        // End of Rev Sanchita
 
         var isObject = typeof branchids
         if (isObject == "object") {
@@ -814,7 +823,10 @@ function AtWorkClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "AT_WORK";
-    stateid = stateids.join(',');// cmbState.GeTVHalue();
+    // Rev Sanchita
+    //stateid = stateids.join(',');// cmbState.GeTVHalue();
+    stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
+    // End of Rev Sanchita
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees At Work");
 
@@ -842,7 +854,10 @@ function NotLoggedInClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "NOT_LOGIN";
-    stateid = stateids.join(',');//cmbState.GeTVHalue();
+    // Rev Sanchita
+    //stateid = stateids.join(',');//cmbState.GeTVHalue();
+    stateid = stateidsTVH.join(',');//cmbState.GeTVHalue();
+    // End of Rev Sanchita
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees Not Logged In");
 
@@ -870,7 +885,10 @@ function OnLeaveClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "ON_LEAVE";
-    stateid = stateids.join(',');// cmbState.GeTVHalue();
+    // Rev Sanchita
+    //stateid = stateids.join(',');// cmbState.GeTVHalue();
+    stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
+    // End of Rev Sanchita
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees On Leave");
     //gridsummarydashboard.Refresh();
@@ -898,7 +916,10 @@ function OnTotalClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "EMP";
-    stateid = stateids.join(',');// cmbState.GeTVHalue();
+    // Rev Sanchita
+    //stateid = stateids.join(',');// cmbState.GeTVHalue();
+    stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
+    // End of Rev Sanchita
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Total Employees");
     //gridsummarydashboard.Refresh();
@@ -923,8 +944,10 @@ function shopclickTeam(id, EMPNAME) {
 
 
 function showMapTVH() {
-
-    stateid = stateids.join(',');// cmbState.GeTVHalue();
+    // Rev Sanchita
+    //stateid = stateids.join(',');// cmbState.GeTVHalue();
+    stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
+    // End of Rev Sanchita
     GetAddressTVH(stateid);
     $('#mapTVH').removeClass('hide');
 }
