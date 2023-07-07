@@ -740,6 +740,7 @@ Rev 2.0     Pallab      V2.0.41     22/06/2023      all module responsive work a
                     $('body').toggleClass('navActivated');
                 });
                 $('.widgBox').click(function () {
+
                     //$('.widgBox').removeClass('active');
                     //$(this).addClass('active');
                 });

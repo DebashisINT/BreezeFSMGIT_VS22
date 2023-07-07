@@ -685,6 +685,7 @@ var FilterName = "";
 function AtWorkClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
+
         /*elem.title = "Please click 'show data' button";*/
         return; // Disable click event
     }
