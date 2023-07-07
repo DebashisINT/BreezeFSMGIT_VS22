@@ -370,14 +370,14 @@ function ShowTeamVisitHData() {
     $('#a1tvh').addClass('zoom');
     $('#a2tvh').addClass('zoom');
     $('#a3tvh').addClass('zoom');
-    var element4tvh = document.getElementById("a4tvh");
-    var element1tvh = document.getElementById("a1tvh");
-    var element2tvh = document.getElementById("a2tvh");
-    var element3tvh = document.getElementById("a3tvh");
-    element1tvh.removeAttribute('title');
-    element2tvh.removeAttribute('title');
-    element3tvh.removeAttribute('title');
-    element4tvh.removeAttribute('title');
+    //var element4tvh = document.getElementById("a4tvh");
+    //var element1tvh = document.getElementById("a1tvh");
+    //var element2tvh = document.getElementById("a2tvh");
+    //var element3tvh = document.getElementById("a3tvh");
+    //element1tvh.removeAttribute('title');
+    //element2tvh.removeAttribute('title');
+    //element3tvh.removeAttribute('title');
+    //element4tvh.removeAttribute('title');
     /*Rev end 1.0*/
     if (settingsid == "1") {
         var obj = {};
