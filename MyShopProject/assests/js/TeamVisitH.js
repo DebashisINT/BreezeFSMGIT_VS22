@@ -2,6 +2,7 @@
 //@* Rev Number         DATE                VERSION          DEVELOPER           CHANGES *@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
 //@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
+//@* 3.0                07 - 07 - 2023      V2.0.42          Sanchita            FSM Dashboard - Hierarchy Tab - Console error when clicked on Show Data.Refer: 26530*/
 //====================================================== Revision History ===========================================================
 
 
@@ -388,10 +389,10 @@ function ShowTeamVisitHData() {
         obj.action = "AT_WORK";
         obj.rptype = "Summary";
         obj.empid = "";
-        // Rev Sanchita
+        // Rev 3.0
         //obj.stateid = stateids.join(',');// cmbState.GeTVHalue();
         obj.stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
-        // End of Rev Sanchita
+        // End of Rev 3.0
 
         var isObject = typeof branchidsTVH
         if (isObject == "object") {
@@ -579,10 +580,10 @@ function gridsalesmanclick(degsi) {
             obj.action = "AT_WORK";
             obj.rptype = "Detail";
             obj.empid = "";
-            // Rev Sanchita
+            // Rev 3.0
             //obj.stateid = stateids.join(','); //cmbState.GeTVHalue();
             obj.stateid = stateidsTVH.join(','); //cmbState.GeTVHalue();
-            // End of Rev Sanchita
+            // End of Rev 3.0
             // Mantis Issue 24729
 
             var isObject = typeof branchids
@@ -633,10 +634,10 @@ function assignedclick(id, EMPNAME) {
         obj.action = "VISITTODAY";
         obj.rptype = "Detail";
         obj.empid = id;
-        // Rev Sanchita
+        // Rev 3.0
         //obj.stateid = stateids.join(',');//cmbState.GeTVHalue();
         obj.stateid = stateidsTVH.join(',');//cmbState.GeTVHalue();
-        // End of Rev Sanchita
+        // End of Rev 3.0
 
         var isObject = typeof branchids
         if (isObject == "object") {
@@ -826,10 +827,10 @@ function AtWorkClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "AT_WORK";
-    // Rev Sanchita
+    // Rev 3.0
     //stateid = stateids.join(',');// cmbState.GeTVHalue();
     stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
-    // End of Rev Sanchita
+    // End of Rev 3.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees At Work");
 
@@ -857,10 +858,10 @@ function NotLoggedInClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "NOT_LOGIN";
-    // Rev Sanchita
+    // Rev 3.0
     //stateid = stateids.join(',');//cmbState.GeTVHalue();
     stateid = stateidsTVH.join(',');//cmbState.GeTVHalue();
-    // End of Rev Sanchita
+    // End of Rev 3.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees Not Logged In");
 
@@ -888,10 +889,10 @@ function OnLeaveClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "ON_LEAVE";
-    // Rev Sanchita
+    // Rev 3.0
     //stateid = stateids.join(',');// cmbState.GeTVHalue();
     stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
-    // End of Rev Sanchita
+    // End of Rev 3.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees On Leave");
     //gridsummarydashboard.Refresh();
@@ -919,10 +920,10 @@ function OnTotalClickTVH(elem) {
     $('#collapseTwoTVH').addClass('in');
     Type = "Attendance";
     FilterName = "EMP";
-    // Rev Sanchita
+    // Rev 3.0
     //stateid = stateids.join(',');// cmbState.GeTVHalue();
     stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
-    // End of Rev Sanchita
+    // End of Rev 3.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Total Employees");
     //gridsummarydashboard.Refresh();
@@ -947,10 +948,10 @@ function shopclickTeam(id, EMPNAME) {
 
 
 function showMapTVH() {
-    // Rev Sanchita
+    // Rev 3.0
     //stateid = stateids.join(',');// cmbState.GeTVHalue();
     stateid = stateidsTVH.join(',');// cmbState.GeTVHalue();
-    // End of Rev Sanchita
+    // End of Rev 3.0
     GetAddressTVH(stateid);
     $('#mapTVH').removeClass('hide');
 }
