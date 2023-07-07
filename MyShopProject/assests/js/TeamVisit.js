@@ -257,14 +257,14 @@ function ShowTeamVisitData() {
     $('#a1tv').addClass('zoom');
     $('#a2tv').addClass('zoom');
     $('#a3tv').addClass('zoom');
-    var element4 = document.getElementById("a4tv");
-    var element1 = document.getElementById("a1tv");
-    var element2 = document.getElementById("a2tv");
-    var element3 = document.getElementById("a3tv");
-    element1.removeAttribute('title');
-    element2.removeAttribute('title');
-    element3.removeAttribute('title');
-    element4.removeAttribute('title');
+    //var element4 = document.getElementById("a4tv");
+    //var element1 = document.getElementById("a1tv");
+    //var element2 = document.getElementById("a2tv");
+    //var element3 = document.getElementById("a3tv");
+    //element1.removeAttribute('title');
+    //element2.removeAttribute('title');
+    //element3.removeAttribute('title');
+    //element4.removeAttribute('title');
     /*Rev end 1.0*/
     if (settingsid == "1") {
         var obj = {};

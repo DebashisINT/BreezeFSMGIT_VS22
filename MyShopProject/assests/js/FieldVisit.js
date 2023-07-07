@@ -258,14 +258,14 @@ function ShowFieldVisitData() {
     $('#a1fv').addClass('zoom');
     $('#a2fv').addClass('zoom');
     $('#a3fv').addClass('zoom');
-    var element4fv = document.getElementById("a4fv");
-    var element1fv = document.getElementById("a1fv");
-    var element2fv = document.getElementById("a2fv");
-    var element3fv = document.getElementById("a3fv");
-    element1fv.removeAttribute('title');
-    element2fv.removeAttribute('title');
-    element3fv.removeAttribute('title');
-    element4fv.removeAttribute('title');
+    //var element4fv = document.getElementById("a4fv");
+    //var element1fv = document.getElementById("a1fv");
+    //var element2fv = document.getElementById("a2fv");
+    //var element3fv = document.getElementById("a3fv");
+    //element1fv.removeAttribute('title');
+    //element2fv.removeAttribute('title');
+    //element3fv.removeAttribute('title');
+    //element4fv.removeAttribute('title');
     /*Rev end 1.0*/
 
     if (settingsid == "1") {
