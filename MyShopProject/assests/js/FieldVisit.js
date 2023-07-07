@@ -1,6 +1,7 @@
 ﻿//====================================================== Revision History ===========================================================
 //@* Rev Number         DATE                VERSION          DEVELOPER           CHANGES *@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
+//@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
 //====================================================== Revision History ===========================================================
 
 $(document).ready(function () {
@@ -258,6 +259,7 @@ function ShowFieldVisitData() {
     $('#a1fv').addClass('zoom');
     $('#a2fv').addClass('zoom');
     $('#a3fv').addClass('zoom');
+    /*Rev 2.0*/
     //var element4fv = document.getElementById("a4fv");
     //var element1fv = document.getElementById("a1fv");
     //var element2fv = document.getElementById("a2fv");
@@ -266,6 +268,7 @@ function ShowFieldVisitData() {
     //element2fv.removeAttribute('title');
     //element3fv.removeAttribute('title');
     //element4fv.removeAttribute('title');
+    /*Rev end 2.0*/
     /*Rev end 1.0*/
 
     if (settingsid == "1") {
@@ -685,8 +688,9 @@ var FilterName = "";
 function AtWorkClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
-
+        /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
+        /*Rev end 2.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -727,7 +731,9 @@ function AtWorkClickFV(elem) {
 function NotLoggedInClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
+        /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
+        /*Rev end 2.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -765,7 +771,9 @@ function NotLoggedInClickFV(elem) {
 function OnLeaveClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
+        /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
+        /*Rev end 2.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -804,7 +812,9 @@ function OnLeaveClickFV(elem) {
 function OnTotalClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
+        /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
+        /*Rev end 2.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/

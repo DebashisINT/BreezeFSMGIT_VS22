@@ -1,6 +1,7 @@
 ﻿//====================================================== Revision History ===========================================================
 //@* Rev Number         DATE                VERSION          DEVELOPER           CHANGES *@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
+//@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
 //====================================================== Revision History ===========================================================
 
 
@@ -370,6 +371,7 @@ function ShowTeamVisitHData() {
     $('#a1tvh').addClass('zoom');
     $('#a2tvh').addClass('zoom');
     $('#a3tvh').addClass('zoom');
+    /*Rev 2.0*/
     //var element4tvh = document.getElementById("a4tvh");
     //var element1tvh = document.getElementById("a1tvh");
     //var element2tvh = document.getElementById("a2tvh");
@@ -378,6 +380,7 @@ function ShowTeamVisitHData() {
     //element2tvh.removeAttribute('title');
     //element3tvh.removeAttribute('title');
     //element4tvh.removeAttribute('title');
+    /*Rev end 2.0*/
     /*Rev end 1.0*/
     if (settingsid == "1") {
         var obj = {};
