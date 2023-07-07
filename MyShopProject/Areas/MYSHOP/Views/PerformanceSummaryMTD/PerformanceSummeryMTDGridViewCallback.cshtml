@@ -153,14 +153,14 @@
             }
 
             //Footer Summary
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTALSHPCNT").DisplayFormat = "0.00";
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "UNIQUESHOPCNT").DisplayFormat = "0.00";
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTAL_VISIT").DisplayFormat = "0.00";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTALSHPCNT").DisplayFormat = "0";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "UNIQUESHOPCNT").DisplayFormat = "0";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTAL_VISIT").DisplayFormat = "0";
 
             System.Data.DataRow[] drrSum = dtColumnTable.Select("PARRENTID<>0 AND PARRENTID<>1");
             foreach (System.Data.DataRow drrSumLoop in drrSum)
             {
-                settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, Convert.ToString(drrSumLoop["HEADSHRTNAME"]).Trim()).DisplayFormat = "0.00";
+                settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, Convert.ToString(drrSumLoop["HEADSHRTNAME"]).Trim()).DisplayFormat = "0";
             }
             //End Footer Summary
         }
