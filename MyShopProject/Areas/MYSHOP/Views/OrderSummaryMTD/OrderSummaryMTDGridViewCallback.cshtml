@@ -151,9 +151,9 @@
             }
 
             //Footer Summary
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTALSHPCNT").DisplayFormat = "0.00";
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "UNIQUEORDCNT").DisplayFormat = "0.00";
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ORDCNT").DisplayFormat = "0.00";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TOTALSHPCNT").DisplayFormat = "0";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "UNIQUEORDCNT").DisplayFormat = "0";
+            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ORDCNT").DisplayFormat = "0";
 
             System.Data.DataRow[] drrSum = dtColumnTable.Select("PARRENTID<>0 AND PARRENTID<>1");
             foreach (System.Data.DataRow drrSumLoop in drrSum)
