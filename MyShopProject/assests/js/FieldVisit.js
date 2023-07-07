@@ -685,7 +685,7 @@ var FilterName = "";
 function AtWorkClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
-        elem.title = "Please click 'show data' button";
+        /*elem.title = "Please click 'show data' button";*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -726,7 +726,7 @@ function AtWorkClickFV(elem) {
 function NotLoggedInClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
-        elem.title = "Please click 'show data' button";
+        /*elem.title = "Please click 'show data' button";*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -764,7 +764,7 @@ function NotLoggedInClickFV(elem) {
 function OnLeaveClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
-        elem.title = "Please click 'show data' button";
+        /*elem.title = "Please click 'show data' button";*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -803,7 +803,7 @@ function OnLeaveClickFV(elem) {
 function OnTotalClickFV(elem) {
     /*Rev 1.0*/
     if (!isShowFieldVisitDataClicked) {
-        elem.title = "Please click 'show data' button";
+        /*elem.title = "Please click 'show data' button";*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
