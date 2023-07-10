@@ -11,7 +11,6 @@ using System.Web;
 
 namespace ShopAPI.Models
 {
-
     public class ShopsubmissionInput
     {
         public string session_token { get; set; }
