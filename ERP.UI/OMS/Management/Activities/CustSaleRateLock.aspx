@@ -476,6 +476,27 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         height: 220px !important;
     }
 /*Rev end 1.0*/
+
+    @media only screen and (max-width: 768px) {
+        .breadCumb {
+            padding: 0 18%;
+        }
+
+        .breadCumb > span {
+            padding: 9px 28px;
+        }
+
+        #TblSearch .btn
+        {
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        #view
+        {
+            overflow-x:auto;
+        }
+    }
     </style>
     <script>
         /***Short cut key handling***/

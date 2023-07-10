@@ -2110,4 +2110,10 @@
 .pignose-calendar .pignose-calendar-header {
     padding: 0 5px !important;
 }
-    
+
+
+.show-data-msg #swal2-title {
+    font-size: 16px !important;
+    color: #164f92 !important;
+    line-height: 25px !important;
+}

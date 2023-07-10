@@ -2709,7 +2709,6 @@ Rev 7.0     Sanchita    V2.0.40     16/05/2023      Product MRP & Discount perce
                 background-color: #e0e0e0;
             }
         /*Rev end 6.0*/
-
         @media only screen and (max-width: 768px) {
         /*.breadCumb {
             padding: 0 15%;

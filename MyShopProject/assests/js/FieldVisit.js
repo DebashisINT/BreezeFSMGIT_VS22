@@ -2,6 +2,7 @@
 //@* Rev Number         DATE                VERSION          DEVELOPER           CHANGES *@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
 //@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
+//@* 3.0                10 - 07 - 2023      2.0.42           Pallab              When show data button not clicked, show a message, when box click. refer: 26538
 //====================================================== Revision History ===========================================================
 
 $(document).ready(function () {
@@ -691,6 +692,15 @@ function AtWorkClickFV(elem) {
         /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
         /*Rev end 2.0*/
+        /*Rev 3.0*/
+        Swal.fire({
+            position: 'top',
+            title: 'Please select show data first, then view the details from here. Thanks.',
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: "show-data-msg"
+        })
+        /*Rev end 3.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -734,6 +744,15 @@ function NotLoggedInClickFV(elem) {
         /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
         /*Rev end 2.0*/
+        /*Rev 3.0*/
+        Swal.fire({
+            position: 'top',
+            title: 'Please select show data first, then view the details from here. Thanks.',
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: "show-data-msg"
+        })
+        /*Rev end 3.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -774,6 +793,15 @@ function OnLeaveClickFV(elem) {
         /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
         /*Rev end 2.0*/
+        /*Rev 3.0*/
+        Swal.fire({
+            position: 'top',
+            title: 'Please select show data first, then view the details from here. Thanks.',
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: "show-data-msg"
+        })
+        /*Rev end 3.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
@@ -815,6 +843,15 @@ function OnTotalClickFV(elem) {
         /*Rev 2.0*/
         /*elem.title = "Please click 'show data' button";*/
         /*Rev end 2.0*/
+        /*Rev 3.0*/
+        Swal.fire({
+            position: 'top',
+            title: 'Please select show data first, then view the details from here. Thanks.',
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: "show-data-msg"
+        })
+        /*Rev end 3.0*/
         return; // Disable click event
     }
     /*Rev end 1.0*/
