@@ -8,6 +8,7 @@
 //                                              Trans_ShopActivitySubmit_TodayData table.
 //                                              At app logout Shopsubmission/ITCShopVisited this api is called with some updated data for the shop & needs to be updated in
 //                                              Trans_ShopActivitySubmit_TodayData this table through Shopsubmission/ITCShopVisited this api.Refer: 0026359
+//6.0   V2.0.40     Debashis    10/07/2023      A new parameter has been added.Row: 855
 #endregion===================================End of Revision History======================================================================================================
 using ShopAPI.Models;
 using System;
@@ -609,7 +610,10 @@ namespace ShopAPI.Controllers
                             updated_on = s2.updated_on,
                             agency_name = s2.agency_name,
                             approximate_1st_billing_value = s2.approximate_1st_billing_value,
-                            IsShopUpdate = s2.IsShopUpdate
+                            IsShopUpdate = s2.IsShopUpdate,
+                            //Rev 6.0 Row: 855
+                            isNewShop= s2.isNewShop
+                            //End of Rev 6.0 Row: 855
                         });
                     }
 
