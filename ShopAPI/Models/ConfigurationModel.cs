@@ -12,6 +12,7 @@
 //11.0  V2.0.39     Debashis    19/05/2023      A new parameter has been added.Row: 841
 //12.0  V2.0.39     Debashis    02/06/2023      A new parameter has been added.Row: 848
 //13.0  V2.0.40     Debashis    30/06/2023      A new parameter has been added.Row: 851
+//14.0  V2.0.41     Debashis    17/07/2023      A new parameter has been added.Row: 856
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -236,6 +237,9 @@ namespace ShopAPI.Models
         //Rev 13.0 Row:851
         public bool ConsiderInactiveShopWhileLogin { get; set; }
         //End of Rev 13.0 Row:851
+        //Rev 14.0 Row:856
+        public string ShopSyncIntervalInMinutes { get; set; }
+        //End of Rev 14.0 Row:856
     }
 
     public class ConfigurationModelInput
