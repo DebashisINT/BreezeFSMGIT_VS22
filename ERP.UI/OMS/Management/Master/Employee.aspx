@@ -6,6 +6,7 @@
    Rev 5.0      Pallab             20/02/2023      V2.0.39     parameters and grid issue fix for small screen
    Rev 6.0      Pallab             17/04/2023      V2.0.39     25840: Employee master module employee search popup auto focus add and "cancel" button color change
    Rev 7.0      Pallab             27/06/2023      V2.0.41     26442: Employees module responsive issue fix and make mobile friendly
+   Rev 8.0      Pallab             11/07/2023      V2.0.42     26551: Employees module parameter break issue fix for small device
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -1481,7 +1482,17 @@ padding: 7px;
         }
     }
     /*Rev end 7.0*/
-
+    /*Rev 8.0*/
+    @media  only screen and (min-width: 767px) and (max-width: 1320px)
+    {
+        #ShowFilter , #divEmp
+        {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+    /*Rev end 8.0*/
     </style>
 
     <script>
@@ -1805,14 +1816,19 @@ padding: 7px;
                                         <asp:HiddenField ID="txtEmployee_hidden" runat="server" />
 
                                     </div>
+                                    <% if (rights.CanView)
+                                   { %>
+                                    <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
+                                <% } %>
                                 </div>
+                                
                             </td>
-                            <td id="show-btn">
+                            <%--<td id="show-btn">
                                  <% if (rights.CanView)
                                    { %>
                                     <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
                                 <% } %>
-                            </td>
+                            </td>--%>
                             <%--End of Rev 3.0--%>
                         <td>
                             
@@ -2173,7 +2189,7 @@ padding: 7px;
                                     <% if (rights.CanEdit)
                                        { %>
                                     <a href="javascript:void(0);" onclick="OnMoreInfoClick('<%# Container.KeyValue %>')" class="pad" title="More Info">
-                                        <img src="../../../assests/images/info.png" /></a><% } %>
+                                        <img src="../../../assests/images/Edit.png" /></a><% } %>
                                     <%--Rev work start 26.04.2022 0024853: Copy feature add in Employee master--%>
                                      <% if (rights.CanAdd)
                                        { %>

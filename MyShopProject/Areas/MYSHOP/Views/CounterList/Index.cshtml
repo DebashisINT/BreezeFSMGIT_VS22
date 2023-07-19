@@ -786,6 +786,35 @@
     }
 
     /*Rev end 3.0*/
+
+    @@media only screen and (max-width: 768px) {
+
+        /*.breadCumb > span {
+            padding: 9px 10px;
+            text-align: center;
+        }*/
+
+        .breadCumb {
+            padding: 0 32%;
+        }
+
+        #dtdesg2 {
+            width: 100% !important;
+        }
+
+        #ddlshotype ul {
+            padding-top: 5px !important;
+            margin-bottom: 0px !important;
+        }
+
+            #ddlshotype ul li {
+                margin-bottom: 10px !important;
+            }
+
+        .tblspace.smblock {
+            margin-bottom: 0px !important;
+        }
+    }
 </style>
 
 <div class="breadCumb">
@@ -874,7 +903,7 @@
         @*Rev 3.0 : replace into div*@
         <div class="row pt-4">
             @*Rev 2.0 Mantis:0025585*@
-            <div class="col-md-4 pt-2">
+            <div class="col-md-4 pt-2 mb-10-mob">
                 @*<input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">
                     <span class="">Show Multiple Contact Details</span>*@
                 <input class="styled-checkbox" type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">

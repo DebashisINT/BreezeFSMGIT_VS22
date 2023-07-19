@@ -385,6 +385,15 @@
     .w150 {
         width: 100% !important;
     }
+
+    .w-100-mobile {
+        width: 100% !important;
+    }
+
+    .mb-10-mob
+    {
+        margin-bottom: 10px !important;
+    }
 }
 
 

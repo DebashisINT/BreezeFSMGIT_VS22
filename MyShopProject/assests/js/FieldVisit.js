@@ -694,7 +694,7 @@ function AtWorkClickFV(elem) {
         /*Rev end 2.0*/
         /*Rev 3.0*/
         Swal.fire({
-            position: 'top',
+            /*position: 'top',*/
             title: 'Please select show data first, then view the details from here. Thanks.',
             showConfirmButton: false,
             timer: 2000,
@@ -746,7 +746,7 @@ function NotLoggedInClickFV(elem) {
         /*Rev end 2.0*/
         /*Rev 3.0*/
         Swal.fire({
-            position: 'top',
+            /*position: 'top',*/
             title: 'Please select show data first, then view the details from here. Thanks.',
             showConfirmButton: false,
             timer: 2000,
@@ -795,7 +795,7 @@ function OnLeaveClickFV(elem) {
         /*Rev end 2.0*/
         /*Rev 3.0*/
         Swal.fire({
-            position: 'top',
+            /*position: 'top',*/
             title: 'Please select show data first, then view the details from here. Thanks.',
             showConfirmButton: false,
             timer: 2000,
@@ -845,7 +845,7 @@ function OnTotalClickFV(elem) {
         /*Rev end 2.0*/
         /*Rev 3.0*/
         Swal.fire({
-            position: 'top',
+            /*position: 'top',*/
             title: 'Please select show data first, then view the details from here. Thanks.',
             showConfirmButton: false,
             timer: 2000,
