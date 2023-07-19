@@ -3,6 +3,7 @@
 //                                              Refer: 0025586
 //2.0   V2.0.38     Debashis    31/01/2023      A new report is required as "Performance Analytics".
 //                                              Refer: 0025620
+//3.0   V2.0.41     Sanchita    19/07/2023      Add Branch parameter in MIS -> Performance Summary report. Mantis : 26135
 #endregion===================================End of Revision History==================================================================
 using DataAccessLayer;
 using System;
@@ -34,7 +35,8 @@ namespace BusinessLogicLayer.SalesTrackerReports
         }
         //Rev 1.0 Mantis: 0025586
         //public DataTable GetSalesPerformanceReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
-        public DataTable GetSalesPerformanceReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid, int IsRevisitContactDetails)
+        // Rev 3.0 [ parameter string BranchId added ]
+        public DataTable GetSalesPerformanceReport(string BranchId,string fromdate, string todate, string userid, string stateID, string desigid, string empid, int IsRevisitContactDetails)
         //End of Rev 1.0 Mantis: 0025586
         {
             DataTable ds = new DataTable();
@@ -49,6 +51,9 @@ namespace BusinessLogicLayer.SalesTrackerReports
             proc.AddPara("@ISREVISITCONTACTDETAILS", IsRevisitContactDetails);
             //End of Rev 1.0 Mantis: 0025586
             proc.AddPara("@USERID", userid);
+            // Rev 3.0
+            proc.AddPara("@BRANCHID", BranchId);
+            // End of Rev 3.0
             ds = proc.GetTable();
 
             return ds;
