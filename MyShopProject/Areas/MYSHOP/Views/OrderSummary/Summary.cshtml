@@ -3,7 +3,12 @@
 @*1.0                20-01-2023        V2.0.38           Pallab              25576: Report page design modification *@
 @*2.0                03-02-2023        V2.0.38           PRITI               0025604: Enhancement Required in the Order Summary Report *@
 @*3.0                30-06-2023        V2.0.41           Sanchita            Employee filtration is not working in Order summary Report.Refer: 26260    *@
+
 @*4.0                19-07-2023        V2.0.42           Priti               0026135: Branch Parameter is required for various FSM reports
+
+@*5.0                19-07-2023        V2.0.41           Pallab              All action button should be under one column, cross icon add in "Select Design" popup in order summary
+                                                                                Refer: 26596 *@
+
 @*====================================================== Revision History ==========================================================*@
 
 @model Models.Reportorderregisterinput
@@ -47,7 +52,7 @@
         }
     }
      //Rev 1.0 End
-   
+
     $(function () {
 
         $("#btnEdit").attr('style', 'display:none;');
@@ -514,32 +519,34 @@
 
 </script>
 <style>
-   /* REV 4.0*/
+    /* REV 4.0*/
     #BranchGridLookup_CC {
         width: 100%;
     }
+
     .h-branch-select {
         position: relative;
     }
-    .h-branch-select::after {
-        content: '<';
-        position: absolute;
-        top: 34px;
-        right: 17px;
-        font-size: 18px;
-        transform: rotate(269deg);
-        font-weight: 500;
-        background: #094e8c;
-        color: #fff;
-        height: 18px;
-        display: block;
-        width: 28px;
-        /* padding: 10px 0; */
-        border-radius: 4px;
-        text-align: center;
-        line-height: 19px;
-        z-index: 0;
-    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 34px;
+            right: 17px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
     /* REV 4.0 END*/
     .padTabl > tbody > tr > td {
         padding: 3px 10px;
@@ -681,7 +688,7 @@
         position: relative;
     }
 
-        
+
 
     .whclass.selectH {
         -webkit-appearance: none;
@@ -992,7 +999,7 @@
 </script>
 <script>
     //Rev 4.0
-    var BranchId = [];    
+    var BranchId = [];
     var Branch_Id = "";
     function BindBranches() {
         var Hoid = $('#HeadBranch').val();
@@ -1021,22 +1028,22 @@
     }
     function GetSelectedFieldValuesCallbackBranch(values) {
         try {
-            BranchId = [];           
-            Branch_Id = "";           
+            BranchId = [];
+            Branch_Id = "";
             for (var i = 0; i < values.length; i++) {
-                BranchId.push(values[i]);               
-                Branch_Id += values[i] + ',';                
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
             }
         } finally {
             console.log(BranchId);
         }
     }
     function SelectAllGridLookup(s, e) {
-        BranchGridLookup.gridView.SelectRows();       
+        BranchGridLookup.gridView.SelectRows();
         var Hoid = $('#HeadBranch').val();
         BranchId = "";
-        BranchGridLookup.SetText("");       
-        if (Hoid == null || Hoid == "") {          
+        BranchGridLookup.SetText("");
+        if (Hoid == null || Hoid == "") {
             return false;
         }
         else {
@@ -1055,10 +1062,10 @@
                     });
                     BranchGridLookup.gridView.SelectRows();
                 },
-                error: function () {                    
+                error: function () {
                 }
-            });           
-        }        
+            });
+        }
     }
     function DeSelectAllGridLookup(s, e) {
         BranchGridLookup.gridView.UnselectRows();
@@ -1067,9 +1074,9 @@
         $('#hdnEmployeeDSId').val('')
         EmployeeTxt.SetText('')
         EmployeeWDTxt.SetText('')
-        EmployeeDSTxt.SetText('')       
+        EmployeeDSTxt.SetText('')
         BranchId = [];
-        Branch_Id = "";       
+        Branch_Id = "";
     }
     function BranchStartCallback(s, e) {
         e.customArgs["UserID"] = $("#hdnUserID").val();
@@ -1216,7 +1223,7 @@
                         //Html.RenderAction("PartialOrderSummary", "OrderSummary", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId });
                         Html.RenderAction("PartialOrderSummary", "OrderSummary", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId });
                         //REV 4.0 END
-                      }
+                    }
                 </div>
                 @*Mantis Issue 24944*@
                 <input type="hidden" id="Order_Id" />
@@ -1298,7 +1305,10 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+                @*Rev 5.0*@
                 @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                @*Rev end 5.0*@
                 <h4 class="modal-title">Select Design</h4>
             </div>
             <div class="modal-body">
