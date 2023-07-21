@@ -3,7 +3,9 @@
 //                                              Refer: 0025586
 //2.0   V2.0.38     Debashis    31/01/2023      A new report is required as "Performance Analytics".
 //                                              Refer: 0025620
-//3.0   V2.0.41     Sanchita    19/07/2023      Add Branch parameter in MIS -> Performance Summary report. Mantis : 26135
+
+//3.0   V2.0.42     Priti       19/07/2023      0026135: Branch Parameter is required for various FSM reports
+
 #endregion===================================End of Revision History==================================================================
 using DataAccessLayer;
 using System;
@@ -17,7 +19,10 @@ namespace BusinessLogicLayer.SalesTrackerReports
 {
     public class SalesSummary_Report
     {
-        public DataTable GetSalesSummaryReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
+        //Rev 3.0
+        //public DataTable GetSalesSummaryReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
+        public DataTable GetSalesSummaryReport(string fromdate, string todate, string userid, string stateID, string desigid, string empid, string Branch_Id)
+        //REV 3.0 END
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_FTSSALESSUMMARY_REPORT");
@@ -26,11 +31,12 @@ namespace BusinessLogicLayer.SalesTrackerReports
             proc.AddPara("@TODATE", todate);
             proc.AddPara("@STATEID", stateID);
             proc.AddPara("@DESIGNID", desigid);
-
             proc.AddPara("@USERID", userid);
             proc.AddPara("@EMPID", empid);
+            //Rev 3.0
+            proc.AddPara("@BRANCHID", Branch_Id);
+            //Rev 3.0 End
             ds = proc.GetTable();
-
             return ds;
         }
         //Rev 1.0 Mantis: 0025586
@@ -189,18 +195,22 @@ namespace BusinessLogicLayer.SalesTrackerReports
 
             return ds;
         }
-        public DataTable GetSalesSummaryReportDayWise(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
+        //Rev 3.0
+        //public DataTable GetSalesSummaryReportDayWise(string fromdate, string todate, string userid, string stateID, string desigid, string empid)
+        public DataTable GetSalesSummaryReportDayWise(string fromdate, string todate, string userid, string stateID, string desigid, string empid, string Branch_Id)
+        //Rev 3.0 End
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_FTSSALESSUMMARY_REPORTDALY");
-
             proc.AddPara("@FROMDATE", fromdate);
             proc.AddPara("@TODATE", todate);
             proc.AddPara("@STATEID", stateID);
             proc.AddPara("@DESIGNID", desigid);
-
             proc.AddPara("@USERID", userid);
             proc.AddPara("@EMPID", empid);
+            //Rev 3.0
+            proc.AddPara("@BRANCHID", Branch_Id);
+            //Rev 3.0 End
             ds = proc.GetTable();
 
             return ds;
