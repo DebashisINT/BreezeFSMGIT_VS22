@@ -24,5 +24,8 @@ namespace MyShop.Models
         public int ShowLoginLocation { get; set; }
         public int ShowLogoutLocation { get; set; }
         //End of Mantise work 0025111
+        // Rev Sanchita
+        public List<string> BranchId { get; set; }
+        // End of Rev Sanchita
     }
 }

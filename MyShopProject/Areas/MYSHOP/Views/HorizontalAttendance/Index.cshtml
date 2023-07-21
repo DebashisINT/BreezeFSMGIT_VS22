@@ -2,6 +2,7 @@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                02-02-2023        2.0.38           Pallab              25576: Report page design modification *@
 @*2.0                14-06-2023        2.0.41           Pallab              26337: Attendance Register report parameter design issue fix *@
+@*4.0                19/07/2023        V2.0.41          Sanchita            Add Branch parameter in MIS - Attendance Register. Mantis : 26135*@
 @*====================================================== Revision History ==========================================================*@
 
 @model System.Data.DataSet
@@ -23,6 +24,13 @@
 <script>
     var is_pageload = "0";
     $(function () {
+
+        // Rev 4.0
+        var lookup = ASPxClientControl.GetControlCollection().GetByName("BranchGridLookup");
+        lookup.GetGridView().Refresh();
+        var lookup = ASPxClientControl.GetControlCollection().GetByName("BranchGridLookup");
+        lookup.GetGridView().Refresh();
+        // End of Rev 4.0
 
         var d = new Date();
 
@@ -153,6 +161,16 @@
         });
     })
 
+    // Rev 4.0
+    function BranchStartCallback(s, e) {
+        e.customArgs["UserID"] = $("#hdnUserID").val();
+    }
+
+    function BranchLookupValChange() {
+        BranchGridLookup.GetGridView().Refresh();
+    }
+    // End of Rev 4.0
+
     function OnStartCallback(s, e) {
 
 
@@ -207,6 +225,9 @@
         e.customArgs["ShowLoginLocation"] = ShowLoginLocation;
         e.customArgs["ShowLogoutLocation"] = ShowLogoutLocation;
         //End of Mantise work 0025111
+        // Rev 4.0
+        e.customArgs["BranchId"] = BranchId;
+        // End of Rev 4.0
     }
 
 
@@ -273,6 +294,88 @@
     function ProductLookupValChange() {
         ProductGridLookup.GetGridView().Refresh()
     }
+
+    // Rev 4.0
+    var BranchId = [];
+    var Branch_Id = "";
+    function BranchSelectionChanged(s, e) {
+        BranchGridLookup.gridView.GetSelectedFieldValues("BRANCH_ID", GetSelectedFieldValuesCallbackBranch);
+    }
+    function GetSelectedFieldValuesCallbackBranch(values) {
+
+        try {
+            BranchId = [];
+            Branch_Id = "";
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        } finally {
+            console.log(BranchId);
+        }
+    }
+
+    function SelectAllGridLookup(s, e) {
+        BranchGridLookup.gridView.SelectRows();
+        var Hoid = $('#HeadBranch').val();
+        BranchId = "";
+        BranchGridLookup.SetText("");
+        if (Hoid == null || Hoid == "") {
+            //Hoid = "0";
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/MasterPopulate/GetSelectedChildBranchList",
+                data: { "Hoid": Hoid },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    BranchId = [];
+                    Branch_Id = "";
+                    $.each(data, function (i, data) {
+                        BranchId.push(data.BRANCH_ID);
+                        Branch_Id += data.BRANCH_ID + ',';
+                    });
+                    BranchGridLookup.gridView.SelectRows();
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+    function DeSelectAllGridLookup(s, e) {
+        BranchGridLookup.gridView.UnselectRows();
+
+        BranchId = [];
+        Branch_Id = "";
+    }
+    function BindBranches() {
+        var Hoid = $('#HeadBranch').val();
+        BranchId = "";
+        BranchGridLookup.SetText("");
+        if (Hoid == null || Hoid == "") {
+            //Hoid = "0";
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/MasterPopulate/GetChildBranchList",
+                data: { "Hoid": Hoid },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+            BranchGridLookup.GetGridView().Refresh();
+        }
+    }
+
+    // End of Rev 4.0
 </script>
 
 <style>
@@ -524,8 +627,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 33px;
-            right: 13px;
+            top: 8px;
+            right: -3px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -816,6 +919,13 @@
     }
 </style>
 
+@*Rev 4.0*@
+<style>
+    #BranchGridLookup_CC {
+        width: 100%;
+    }
+</style>
+@*End of Rev 4.0*@
 
 <script>
     $(document).ready(function () {
@@ -996,6 +1106,29 @@
                     </div>
 
                 </div>
+                @*Rev 4.0*@
+                <div class="row">
+                    <div class="col-md-3 " id="empIntro">
+                        <label>Head Branch : </label>
+                        <div class="h-branch-select">
+                            <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
+                                @foreach (System.Data.DataRow dr in Model.Tables[3].Rows)
+                                {
+                                    @*<option value=item["BRANCH_ID"]>item["CODE"]</option>*@
+                                    <option value=@dr["BRANCH_ID"]>@dr["CODE"]</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 " id="empIntro">
+                        <label>Branch : </label>
+                        <div>
+                            @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
+                        </div>
+                    </div>
+                </div>
+                @*End of Rev 4.0*@
                 <div class="row">
 
                     <div class="col-md-3" id="empIntro">
@@ -1086,7 +1219,7 @@
                 </div>
                 @*Rev end 2.0*@
 
-            
+
 
             </div>
         </div>
