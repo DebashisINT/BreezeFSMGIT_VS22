@@ -4,6 +4,7 @@
 @*2.0                23-01-2023        2.0.38           Debashis            Multiple contact information to be displayed in the Shops report.Refer: 0025585*@
 @*3.0                24-01-2023        2.0.38           Pallab              Multiple contact information checkbox width issue fix*@
 @*4.0                19/07/2023        V2.0.41          Sanchita            Add Branch parameter in Listing of Master -> Shops report. Mantis : 26135*@
+@*5.0                21/07/2023        V2.0.41          Pallab              FSM Shop listing page parameter design issue fix. Mantis : 26608*@
 @*====================================================== Revision History =================================================================================================*@
 
 @model Models.CounterClass
@@ -214,7 +215,7 @@
                     return;
                 }
             }
-           
+
             arr = [];
 
             $('input.acheckbox:checkbox:checked').each(function () {
@@ -601,8 +602,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 5px;
-            right: 0px;
+            top: 8px;
+            right: -2px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -781,7 +782,6 @@
     /*Rev end 3.0*/
 
     @@media only screen and (max-width: 768px) {
-
         /*.breadCumb > span {
             padding: 9px 10px;
             text-align: center;
@@ -815,13 +815,11 @@
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
-
-
-        <table class="pull-left tblspace smblock mb-3">
-            <tr>
-                @*Rev 4.0*@
-                <td class="w1" id="dtstate">Head Branch : </td>
-                <td id="dtdesg2" style="width:180px;">
+        @*Rev 5.0*@
+        <div class="row">
+            <div class="col-md-3">
+                <label class="" id="dtstate">Head Branch : </label>
+                <div id="dtdesg2">
                     <div class="h-branch-select">
                         <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
                             @foreach (var item in Model.modelbranch)
@@ -830,18 +828,54 @@
                             }
                         </select>
                     </div>
-                </td>
+                </div>
+            </div>
 
-                <td class="w1" id="dtstate">Branch : </td>
-                <td id="dtdesg2" style="width:180px;">
+            <div class="col-md-3">
+                <label class="" id="dtstate">Branch : </label>
+                <div id="dtdesg2">
                     @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
-                </td>
-                @*End of Rev 4.0*@
-                <td class="w1" id="dtstate">State : </td>
-                <td id="dtdesg2" style="width:180px;">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label class="" id="dtstate">State : </label>
+                <div id="dtdesg2">
                     @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
-                </td>
+                </div>
+            </div>
+
+        </div>
+
+        @*Rev end 5.0*@
+
+        <table class="pull-left tblspace smblock mb-3">
+            <tr>
+                @*Rev 5.0*@
                 @*Rev 4.0*@
+                @*<td class="w1" id="dtstate">Head Branch : </td>
+        <td id="dtdesg2" style="width:180px;">
+            <div class="h-branch-select">
+                <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
+                    @foreach (var item in Model.modelbranch)
+                    {
+                        <option value="@item.BRANCH_ID">@item.CODE</option>
+                    }
+                </select>
+            </div>
+        </td>*@
+
+                @*<td class="w1" id="dtstate">Branch : </td>
+        <td id="dtdesg2" style="width:180px;">
+            @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
+        </td>*@
+                @*End of Rev 4.0*@
+                @*<td class="w1" id="dtstate">State : </td>
+        <td id="dtdesg2" style="width:180px;">
+            @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
+        </td>*@
+                @*Rev 4.0*@
+                @*Rev end 5.0*@
             </tr>
             <tr>
                 @*End of Rev 4.0*@
@@ -874,20 +908,20 @@
                 @*Rev 3.0 : replace into div*@
                 @*Rev 2.0 Mantis:0025585*@
                 @*<td class="w10 inputSpacer" style="padding-top: 21px; width: 250px;">
-                        <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
-                    </td>*@
+                    <input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px"><span class="w100">Show Revisit Contact Details</span>
+                </td>*@
                 @*End of Rev 2.0 Mantis:0025585*@
                 @*<td style="padding-top:1px">
-                        <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
-                        <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                            <option value="0">Export to</option>
-                            <option value="1">PDF</option>
-                            <option value="2">XLSX</option>
-                            <option value="3">XLS</option>
-                            <option value="4">RTF</option>
-                            <option value="5">CSV</option>
-                        </select>
-                    </td>*@
+                    <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
+                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                        <option value="0">Export to</option>
+                        <option value="1">PDF</option>
+                        <option value="2">XLSX</option>
+                        <option value="3">XLS</option>
+                        <option value="4">RTF</option>
+                        <option value="5">CSV</option>
+                    </select>
+                </td>*@
                 @*Rev end 3.0*@
             </tr>
 
@@ -898,7 +932,7 @@
             @*Rev 2.0 Mantis:0025585*@
             <div class="col-md-4 pt-2 mb-10-mob">
                 @*<input type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">
-                    <span class="">Show Multiple Contact Details</span>*@
+                <span class="">Show Multiple Contact Details</span>*@
                 <input class="styled-checkbox" type="checkbox" id="IsRevisitContactDetails" name="IsRevisitContactDetails" value="0" style="margin-right:5px">
                 <label for="">Show Multiple Contact Details</label>
             </div>
