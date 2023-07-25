@@ -598,7 +598,10 @@
             $("#txt_phoneno").focus();
             return false;
         }
-        if ($("#txt_ApproxQty").val() == 0 || $("#txt_ApproxQty").val() == null) {
+        // Rev Sanchita
+        //if ($("#txt_ApproxQty").val() == 0 || $("#txt_ApproxQty").val() == null) {
+        if ($("#txt_ApproxQty").val() == '' || $("#txt_ApproxQty").val() == null) {
+            // End of Rev Sanchita
             jAlert("Please enter Approx. Qty (Sqft) !");
             x = false;
             $("#txt_ApproxQty").focus();
