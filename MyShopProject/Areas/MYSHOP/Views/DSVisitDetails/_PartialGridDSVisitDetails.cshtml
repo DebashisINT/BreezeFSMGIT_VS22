@@ -1,4 +1,8 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*#region======================================Revision History=========================================================================*@
+@*1.0   V2.0.41    Debashis     25/07/2023      DS Visit Details - Two Columns Required.Refer: 0026474*@
+@*#endregion===================================End of Revision History==================================================================*@
+
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridDSVisitDetails";
     settings.CallbackRouteValues = new { Action = "GetDSVisitDetailsList", Controller = "DSVisitDetails" };
@@ -134,7 +138,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='REPORTTOUID'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -164,7 +168,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='EMPID'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -193,7 +197,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='EMPNAME'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -246,7 +250,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='LOGIN_DATETIME'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -272,7 +276,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='OUTLETSMAPPED'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -300,7 +304,7 @@
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='RE_VISITED'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -318,16 +322,70 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     });
 
+    //Rev 1.0 Mantis: 0026474
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "QUALIFIEDPRESENT";
+        x.Caption = "Qualified";
+        x.VisibleIndex = 11;
+        if (ViewBag.RetentionColumn != null)
+        {
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='QUALIFIEDPRESENT'");
+            if (row != null && row.Length > 0)
+            {
+                x.Visible = false;
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 100;
+            }
+        }
+        else
+        {
+            x.Visible = true;
+            x.Width = 100;
+        }
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ATTENDANCE";
+        x.Caption = "Present/Absent";
+        x.VisibleIndex = 12;
+        if (ViewBag.RetentionColumn != null)
+        {
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ATTENDANCE'");
+            if (row != null && row.Length > 0)
+            {
+                x.Visible = false;
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 120;
+            }
+        }
+        else
+        {
+            x.Visible = true;
+            x.Width = 120;
+        }
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+    //End of Rev 1.0 Mantis: 0026474
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "DISTANCE_TRAVELLED";
         x.Caption = "Distance Travelled(Km.Mtr)";
-        x.VisibleIndex = 11;
+        x.VisibleIndex = 13;
         x.PropertiesEdit.DisplayFormatString = "0.00";
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='DISTANCE_TRAVELLED'");
-            if (row != null && row.Length > 0) 
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -352,11 +410,11 @@
         //x.Caption = "Avg time spent in the market(HH:MM)";
         x.Caption = "Total time spent in the market(HH:MM)";
         //End of Rev Debashis 0024906
-        x.VisibleIndex = 12;
+        x.VisibleIndex = 14;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='AVGTIMESPENTINMARKET'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -379,7 +437,7 @@
     {
         x.FieldName = "DAYSTTIME";
         x.Caption = "Day Start(HH:MM)";
-        x.VisibleIndex = 13;
+        x.VisibleIndex = 15;
 
         if (ViewBag.RetentionColumn != null)
         {
@@ -405,7 +463,7 @@
     {
         x.FieldName = "DAYENDTIME";
         x.Caption = "Day End(HH:MM)";
-        x.VisibleIndex = 14;
+        x.VisibleIndex = 16;
 
         if (ViewBag.RetentionColumn != null)
         {
@@ -425,9 +483,9 @@
             x.Visible = true;
             x.Width = 130;
         }
-    });    
+    });
     //End of Rev Debashis 0024956
-    
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "AVGSPENTDURATION";
@@ -435,11 +493,11 @@
         //x.Caption = "Avg time spent in OL(CFT-Customer Facing Time)(HH:MM)";
         x.Caption = "Avg time spent in OL(CFT-New&Revisit)(HH:MM)";
         //End of Rev Debashis 0024906
-        x.VisibleIndex = 15;
+        x.VisibleIndex = 17;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='AVGSPENTDURATION'");
-            if (row != null && row.Length > 0)  
+            if (row != null && row.Length > 0)
             {
                 x.Visible = false;
             }
@@ -457,7 +515,16 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
     });
 
-    
+    //Rev 1.0 Mantis: 0026474
+    ///Summary
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "OUTLETSMAPPED").DisplayFormat = "0";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "RE_VISITED").DisplayFormat = "0";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "QUALIFIEDPRESENT").DisplayFormat = "0";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ATTENDANCE").DisplayFormat = "0";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "DISTANCE_TRAVELLED").DisplayFormat = "0.00";
+    //End of Rev 1.0 Mantis: 0026474
+
 }).Bind(Model).GetHtml()
 
 
