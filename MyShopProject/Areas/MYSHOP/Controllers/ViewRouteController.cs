@@ -4,6 +4,9 @@
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
+using DevExpress.Data.Mask;
+using DevExpress.XtraExport;
+using Microsoft.Owin.BuilderProperties;
 using Models;
 using MyShop.Models;
 using SalesmanTrack;
@@ -146,15 +149,45 @@ namespace MyShop.Areas.MYSHOP.Controllers
         //Rev Work close 15.06.2022 0024954: Need to change View Route of FSM Dashboard
         public ActionResult GetParty(string StateID, string TYPE_ID, string PARTY_ID, string IS_Electician)
         {
+            
             List<PartyDashboard> AddressList = new List<PartyDashboard>();
+            // Rev Sanchita
+            
+            PartyDashboard objAddressList = new PartyDashboard();
+            // End of Rev Sanchita
 
             //string newdate = Date.Split('-')[2] + '-' + Date.Split('-')[1] + '-' + Date.Split('-')[0];
 
             Dashboard model = new Dashboard();
             DataTable dtmodellatest = model.GETPartyDashboard(StateID, TYPE_ID, PARTY_ID, IS_Electician, Session["userid"].ToString());
-            AddressList = APIHelperMethods.ToModelList<PartyDashboard>(dtmodellatest);
+            // Rev Sanchita
+            //AddressList = APIHelperMethods.ToModelList<PartyDashboard>(dtmodellatest);
+            // return Json(AddressList);
 
-            return Json(AddressList);
+            if (dtmodellatest != null && dtmodellatest.Rows.Count > 0)
+            {
+                AddressList = (from DataRow dr in dtmodellatest.Rows
+                select new PartyDashboard()
+                {
+                    shop_code = Convert.ToString(dr["shop_code"]),
+                    Shop_Name = Convert.ToString(dr["Shop_Name"]),
+                    Address = Convert.ToString(dr["Address"]),
+                    Shop_Owner = Convert.ToString(dr["Shop_Owner"]),
+                    Shop_Lat = Convert.ToString(dr["Shop_Lat"]),
+                    Shop_Long = Convert.ToString(dr["Shop_Long"]),
+                    Shop_Owner_Contact = Convert.ToString(dr["Shop_Owner_Contact"]),
+                    PARTYSTATUS = Convert.ToString(dr["PARTYSTATUS"]),
+                    MAP_COLOR = Convert.ToString(dr["MAP_COLOR"]),
+                    Shop_CreateUser = Convert.ToString(dr["Shop_CreateUser"]),
+                    state = Convert.ToString(dr["state"])
+                }).ToList();
+            }
+
+            var jsonResult = Json(AddressList, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+
+            // End of Rev Sanchita
         } 
         public ActionResult GetOutlets(string StateID, string PARTY_ID, string PartyStatus, string month, string year)
         {
