@@ -1,6 +1,6 @@
 ﻿@*====================================================== Revision History ==========================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                20-01-2023        V2.0.38           Pallab              25576: Report page design modification *@
+@*1.0                20-01-2023        V2.0.38           Pallab              0025576: Report page design modification *@
 @*2.0                19-07-2023        V2.0.42           Priti               0026135: Branch Parameter is required for various FSM reports *@
 @*====================================================== Revision History ==========================================================*@
 
@@ -807,6 +807,11 @@
             font-size: 12px;
         }
     /*Rev end 1.0*/
+
+    .w200-mob
+    {
+        width: 200px !important;
+    }
 </style>
 
 <div class="breadCumb">
@@ -820,7 +825,7 @@
                     <table class="eqpadtbl mb-4 mx-4">
                         <tr>
                             @*REV 2.0*@
-                            <td class="h-branch-select" style="width:150px;">
+                            <td class="h-branch-select" style="width:175px;">
                                 <label>Head Branch : </label>
                                 <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
                                     @foreach (var item in Model.modelbranch)
@@ -829,7 +834,7 @@
                                     }
                                 </select>
                             </td>
-                            <td class="w150">
+                            <td class="w150 w200-mob">
                                 <label>Branch </label>
                                 <div>
                                     @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
@@ -955,6 +960,10 @@
                                 }).GetHtml()
                                 </div>
                             </td>
+                            
+                        </tr>
+                        <tr>
+                            @*Rev 2.0*@
                             @*Mantis Issue 24593*@
                             <td class="w10 inputSpacer">
                                 @*Rev 1.0*@
@@ -964,8 +973,7 @@
                                 @*Rev end 1.0*@
                             </td>
                             @*End of Mantis Issue 24593*@
-                        </tr>
-                        <tr>
+                            @*Rev end 2.0*@
                             <td style="padding-top: 22px;width:185px;">
                                 <label></label>
                                 <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
