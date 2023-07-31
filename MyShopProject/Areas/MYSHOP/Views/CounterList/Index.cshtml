@@ -817,7 +817,7 @@
     <div class="form_main backBox p-3">
         @*Rev 5.0*@
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="" id="dtstate">Head Branch : </label>
                 <div id="dtdesg2">
                     <div class="h-branch-select">
@@ -831,14 +831,14 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="" id="dtstate">Branch : </label>
                 <div id="dtdesg2">
                     @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="" id="dtstate">State : </label>
                 <div id="dtdesg2">
                     @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })

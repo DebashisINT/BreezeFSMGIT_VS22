@@ -1,6 +1,7 @@
 ﻿@************************************************************************************************************************************
-* 1.0    30-01-2023     2.0.39     Sanchita      View Party' option shall be available in FSM Dashboard along with
-                                                 Dashboard Setting rights. Refer: 25515
+    * 1.0    30-01-2023     2.0.39     Sanchita      View Party' option shall be available in FSM Dashboard along with
+                                                     Dashboard Setting rights. Refer: 25515
+    * 2.0    31-07-2023     2.0.41     Pallab        Caption to be change in view party module Refer: 26640
 * ********************************************************************************************************************************@
 
 @{
@@ -3161,7 +3162,10 @@
     }).GetHtml()
 <div class="mLoader"><img src="~/assests/images/Rainbow.gif" /></div>
 <div class="breadCumb">
-    <span>View Employee on Map</span>
+    @*Rev 2.0*@
+    @*<span>View Employee on Map</span>*@
+    <span>Party on Map</span>
+    @*Rev end 2.0*@
     <div class="crossBtnN"><a href="#" onclick="window.location.href ='../DashboardMenu/FSMDashboard'"><i class="fa fa-times"></i></a></div>
 </div>
 <div class="FullDiv hide">

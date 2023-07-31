@@ -891,6 +891,10 @@
     .cust-margin-top {
         margin-top: 26px !important;
     }
+
+    .w200-mob {
+        width: 200px !important;
+    }
 </style>
 <script>
     $(document).ready(function () {
@@ -1098,7 +1102,7 @@
                     <table class="eqpadtbl mb-4">
                         <tr>
                             @*REV 4.0*@
-                            <td class="h-branch-select" style="width:150px;">
+                            <td class="h-branch-select" style="width:175px;">
                                 <label>Head Branch : </label>
                                 <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
                                     @foreach (var item in Model.modelbranch)
@@ -1107,7 +1111,7 @@
                                     }
                                 </select>
                             </td>
-                            <td class="w150">
+                            <td class="w150 w200-mob">
                                 <label>Branch </label>
                                 <div>
                                     @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
@@ -1179,6 +1183,9 @@
                                 }).GetHtml()
                                 </div>
                             </td>
+                            
+                        </tr>
+                        <tr>
                             @*Rev Debashis*@
                             <td class="w10 inputSpacer" style="padding-top: 21px; width: 150px;">
                                 @*Rev 1.0*@
@@ -1188,8 +1195,6 @@
                                 @*Rev end 1.0*@
                             </td>
                             @*End of Rev Debashis*@
-                        </tr>
-                        <tr>
                             <td style="padding-top: 22px;width:180px;">
                                 <label></label>
                                 <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
