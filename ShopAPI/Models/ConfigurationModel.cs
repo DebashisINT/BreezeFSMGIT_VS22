@@ -13,6 +13,7 @@
 //12.0  V2.0.39     Debashis    02/06/2023      A new parameter has been added.Row: 848
 //13.0  V2.0.40     Debashis    30/06/2023      A new parameter has been added.Row: 851
 //14.0  V2.0.41     Debashis    17/07/2023      A new parameter has been added.Row: 856
+//15.0  V2.0.41     Debashis    08/05/2023      Some new parameters have been added.Row: 860
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -240,6 +241,10 @@ namespace ShopAPI.Models
         //Rev 14.0 Row:856
         public string ShopSyncIntervalInMinutes { get; set; }
         //End of Rev 14.0 Row:856
+        //Rev 15.0 Row:860
+        public bool IsShowWhatsAppIconforVisit { get; set; }
+        public bool IsAutomatedWhatsAppSendforRevisit { get; set; }
+        //End of Rev 15.0 Row:860
     }
 
     public class ConfigurationModelInput
