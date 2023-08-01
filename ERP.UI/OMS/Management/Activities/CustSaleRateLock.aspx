@@ -1,6 +1,7 @@
 ﻿<%--====================================================== Revision History ==========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                13-02-2023        2.0.39           Pallab              25656 : Master module design modification 
+2.0                01-08-2023        2.0.42           Priti               0026649: Four new columns are required in the excel template of "Sale rate lock" module.
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="" Language="C#" MasterPageFile="~/OMS/MasterPage/ERP.Master" AutoEventWireup="true" CodeBehind="CustSaleRateLock.aspx.cs" Inherits="ERP.OMS.Management.Activities.CustSaleRateLock" %>
@@ -1320,7 +1321,13 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
-
+                    <%--Rev 2.0--%>
+                    <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="SUPER_PRICE" Caption="Price to Super" Width="15%">
+                        <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
+                        <PropertiesTextEdit DisplayFormatString="0.00"></PropertiesTextEdit>
+                        <Settings AllowAutoFilterTextInputTimer="False" />
+                    </dxe:GridViewDataTextColumn>
+                   <%-- Rev 2.0 End--%>
                     <dxe:GridViewDataTextColumn VisibleIndex="4" FieldName="DD_PRICE" Caption="Distributor Rate" Width="15%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <PropertiesTextEdit DisplayFormatString="0.00"></PropertiesTextEdit>
@@ -1331,7 +1338,23 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                         <PropertiesTextEdit DisplayFormatString="0.00"></PropertiesTextEdit>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
-
+                    <%--Rev 2.0--%>
+                    <dxe:GridViewDataTextColumn VisibleIndex="6" FieldName="QTY_UNIT_DISTRIBUTOR" Caption="Qty per Unit (Distributor)" Width="15%">
+                        <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
+                        <PropertiesTextEdit DisplayFormatString="0.0000"></PropertiesTextEdit>
+                        <Settings AllowAutoFilterTextInputTimer="False" />
+                    </dxe:GridViewDataTextColumn>
+                    <dxe:GridViewDataTextColumn VisibleIndex="7" FieldName="SCHEME_QTY_DISTRIBUTOR" Caption="Scheme Qty (For Distributor)" Width="15%">
+                        <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
+                        <PropertiesTextEdit DisplayFormatString="0.0000"></PropertiesTextEdit>
+                        <Settings AllowAutoFilterTextInputTimer="False" />
+                    </dxe:GridViewDataTextColumn>
+                    <dxe:GridViewDataTextColumn VisibleIndex="8" FieldName="EFFECTIVE_PRICE" Caption="Effective Price" Width="15%">
+                        <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
+                        <PropertiesTextEdit DisplayFormatString="0.00"></PropertiesTextEdit>
+                        <Settings AllowAutoFilterTextInputTimer="False" />
+                    </dxe:GridViewDataTextColumn>
+                     <%-- Rev 2.0 End--%>
                 </Columns>
                 <SettingsContextMenu Enabled="true"></SettingsContextMenu>
 
