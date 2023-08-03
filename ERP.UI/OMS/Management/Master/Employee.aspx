@@ -7,6 +7,7 @@
    Rev 6.0      Pallab             17/04/2023      V2.0.39     25840: Employee master module employee search popup auto focus add and "cancel" button color change
    Rev 7.0      Pallab             27/06/2023      V2.0.41     26442: Employees module responsive issue fix and make mobile friendly
    Rev 8.0      Pallab             11/07/2023      V2.0.42     26551: Employees module parameter break issue fix for small device
+   Rev 9.0      Pallab             02/08/2023      V2.0.42     26656: "View Log" popup loader and page size options showing outside in the popup issue fix
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -1493,6 +1494,19 @@ padding: 7px;
         }
     }
     /*Rev end 8.0*/
+
+    /*Rev 9.0*/
+    #GvImportDetailsSearch_LPV
+    {
+            left: 43% !important;
+    }
+
+    #GvImportDetailsSearch_DXPagerBottom_PSP
+    {
+            right: 41px !important;
+            left: auto !important;
+    }
+    /*Rev end 9.0*/
     </style>
 
     <script>
