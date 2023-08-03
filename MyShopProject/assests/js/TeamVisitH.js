@@ -3,6 +3,7 @@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
 //@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
 //@* 3.0                07 - 07 - 2023      V2.0.42          Sanchita            FSM Dashboard - Hierarchy Tab - Console error when clicked on Show Data.Refer: 26530*/
+//@* 4.0                03 - 08 - 2023      V2.0.42          Pallab              Clicked state or branch selection without click "show data" button, tab box number data showing, disable click event.Refer: 26663*/
 //====================================================== Revision History ===========================================================
 
 
@@ -224,6 +225,12 @@ function GetBranchValueTVH() {
 }
 
 function cmbBranchChangeTVH() {
+    /*Rev 4.0*/
+    if (!isShowTeamVisitHDataClicked) {
+
+        return; // Disable click event
+    }
+    /*Rev end 4.0*/
     let newBranch = $('#cmbBranchTVH').val();
 
     var isObject = typeof newBranch
@@ -667,6 +674,12 @@ function assignedclick(id, EMPNAME) {
     }
 }
 function cmbStatechangeTVH() {
+    /*Rev 4.0*/
+    if (!isShowTeamVisitHDataClicked) {
+
+        return; // Disable click event
+    }
+    /*Rev end 4.0*/
     settingsid = "1";
 
     for (var i = objsettings.length - 1; i >= 0; i--) {

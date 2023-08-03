@@ -9,6 +9,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 6.0          07-07-2023      V2.0.42     Pallab          FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide. refer: 26529
 7.0          07-07-2023      V2.0.42     Sanchita        FSM Dashboard - Hierarchy Tab - Console error when clicked on Show Data. Refer: 26530
 8.0          10-07-2023      V2.0.42     Pallab          When show data button not clicked, show a message, when box click. Refer: 26538
+9.0          03-08-2023      V2.0.42     Pallab          Clicked state or branch selection without click "show data" button, tab box number data showing, disable click event. Refer: 26663
 ====================================================== Revision History ==============================================-->
 
 @model MyShop.Models.FSMDashBoardFilter
@@ -303,6 +304,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     //    reloadboxdatatv(branchidstv);
     //}
     function cmbBranchChange() {
+        /*Rev 9.0*/
+        if (!isShowVisitDataClicked) {
+
+            return; // Disable click event
+        }
+        /*Rev end 9.0*/
         let newBranch = $('#cmbBranch').val();
 
         var isObject = typeof newBranch
@@ -990,6 +997,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 
 
     function cmbStatechange() {
+        /*Rev 9.0*/
+        if (!isShowVisitDataClicked) {
+
+            return; // Disable click event
+        }
+        /*Rev end 9.0*/
         settingsid = "1";
 
         for (var i = objsettings.length - 1; i >= 0; i--) {
@@ -1174,6 +1187,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     // End of Mantis Issue 24729
     ///Team Visit
     function cmbStatechangeTV() {
+        /*Rev 9.0*/
+        if (!isShowTeamVisitDataClicked) {
+
+            return; // Disable click event
+        }
+        /*Rev end 9.0*/
         settingsid = "1";
 
         for (var i = objsettings.length - 1; i >= 0; i--) {
