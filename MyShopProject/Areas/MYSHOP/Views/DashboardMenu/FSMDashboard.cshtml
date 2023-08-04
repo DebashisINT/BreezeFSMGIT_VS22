@@ -10,6 +10,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 7.0          07-07-2023      V2.0.42     Sanchita        FSM Dashboard - Hierarchy Tab - Console error when clicked on Show Data. Refer: 26530
 8.0          10-07-2023      V2.0.42     Pallab          When show data button not clicked, show a message, when box click. Refer: 26538
 9.0          03-08-2023      V2.0.42     Pallab          Clicked state or branch selection without click "show data" button, tab box number data showing, disable click event. Refer: 26663
+10.0         04-08-2023      V2.0.42     Sanchita        Data not comming in Field Visit and Team Visit tab when Visit tab is off. Mantis : 26672
 ====================================================== Revision History ==============================================-->
 
 @model MyShop.Models.FSMDashBoardFilter
@@ -1580,8 +1581,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         }
     /*Rev end 5.0*/
         var GroupBy = $('#hdnGridEmployeeAttendanceSummaryGroupBy').val();
-        document.getElementById("griddetails").style.display = "none";
-        document.getElementById("gridsummary").style.display = "block";
+        // Rev 10.0
+        //document.getElementById("griddetails").style.display = "none";
+        //document.getElementById("gridsummary").style.display = "block";
+        document.getElementById("griddetailsTeam").style.display = "none";
+        document.getElementById("gridsummaryTeam").style.display = "block";
+        // End of Rev 10.0
 
 
 
@@ -1632,8 +1637,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         elem.removeAttribute('title');
         /*Rev end 5.0*/
         var GroupBy = $('#hdnGridEmployeeAttendanceSummaryGroupBy').val();
-        document.getElementById("griddetails").style.display = "none";
-        document.getElementById("gridsummary").style.display = "block";
+        // Rev 10.0
+        //document.getElementById("griddetails").style.display = "none";
+        //document.getElementById("gridsummary").style.display = "block";
+        document.getElementById("griddetailsTeam").style.display = "none";
+        document.getElementById("gridsummaryTeam").style.display = "block";
+        // End of Rev 10.0
 
         //divBGcolor = $(elem).css('background');
 
@@ -1681,8 +1690,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         }
         /*Rev end 5.0*/
         var GroupBy = $('#hdnGridEmployeeAttendanceSummaryGroupBy').val();
-        document.getElementById("griddetails").style.display = "none";
-        document.getElementById("gridsummary").style.display = "block";
+        // Rev 10.0
+        //document.getElementById("griddetails").style.display = "none";
+        //document.getElementById("gridsummary").style.display = "block";
+        document.getElementById("griddetailsTeam").style.display = "none";
+        document.getElementById("gridsummaryTeam").style.display = "block";
+        // End of Rev 10.0
 
         // divBGcolor = $(elem).css('background');
         divBGcolor = "transparent";
@@ -1758,8 +1771,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     }
     function TrackVisitClickTeamVisit() {
         var GroupBy = $('#hdnGridEmployeeAttendanceSummaryGroupBy').val();
-        document.getElementById("griddetails").style.display = "none";
-        document.getElementById("gridsummary").style.display = "block";
+        // Rev 10.0
+        //document.getElementById("griddetails").style.display = "none";
+        //document.getElementById("gridsummary").style.display = "block";
+        document.getElementById("griddetailsTeam").style.display = "none";
+        document.getElementById("gridsummaryTeam").style.display = "block";
+        // End of Rev 10.0
 
         divBGcolor = "transparent";
 
