@@ -3,6 +3,7 @@
 //@* 1.0                26 - 06 - 2023      2.0.41           Pallab              26413: FSM dashboard tab boxes click event disable, when "show data" button not clicked *@
 //@* 2.0                07 - 07 - 2023      2.0.42           Pallab              FSM dashboard tab data not coming in ITC, when "Employees On Leave" box hide.refer: 26529
 //@* 3.0                03 - 08 - 2023      2.0.42           Pallab              Clicked state or branch selection without click "show data" button, tab box number data showing, disable click event.refer: 26663
+//@* 4.0                04-08-2023          V2.0.42          Sanchita            Data not comming in Field Visit and Team Visit tab when Visit tab is off. Mantis : 26672
 //====================================================== Revision History ===========================================================
 
 $(document).ready(function () {
@@ -282,7 +283,10 @@ function ShowTeamVisitData() {
         obj.action = "AT_WORK";
         obj.rptype = "Summary";
         obj.empid = "";
-        obj.stateid = stateids.join(',');// cmbState.GetValue();
+        // Rev 4.0
+        //obj.stateid = stateids.join(',');// cmbState.GetValue();
+        obj.stateid = stateidsTV.join(',');// cmbState.GetValue();
+        // End of Rev 4.0
 
         var isObject = typeof branchidsTV
         if (isObject == "object") {
@@ -470,25 +474,47 @@ function gridsalesmanclick(degsi) {
             obj.action = "AT_WORK";
             obj.rptype = "Detail";
             obj.empid = "";
-            obj.stateid = stateids.join(','); //cmbState.GetValue();
+            // Rev 4.0
+            //obj.stateid = stateids.join(','); //cmbState.GetValue();
+            obj.stateid = stateidsTV.join(','); //cmbState.GetValue();
+            // End of Rev 4.0
             // Mantis Issue 24729
 
-            var isObject = typeof branchids
+            // Rev 4.0
+            //var isObject = typeof branchids
+            //if (isObject == "object") {
+            //    if (branchids != null && branchids.length > 0) {
+            //        obj.branchid = branchids.join(',');
+            //    } else {
+            //        obj.branchid = "";
+
+            //    }
+            //} else {
+            //    if (branchids != null && branchids.length > 0) {
+            //        obj.branchid = branchids;
+            //    }
+            //    else {
+            //        obj.branchid = "";
+            //    }
+            //}
+
+            var isObject = typeof branchidsTV
             if (isObject == "object") {
-                if (branchids != null && branchids.length > 0) {
-                    obj.branchid = branchids.join(',');
+                if (branchidsTV != null && branchidsTV.length > 0) {
+                    obj.branchid = branchidsTV.join(',');
                 } else {
                     obj.branchid = "";
 
                 }
             } else {
-                if (branchids != null && branchids.length > 0) {
-                    obj.branchid = branchids;
+                if (branchidsTV != null && branchidsTV.length > 0) {
+                    obj.branchid = branchidsTV;
                 }
                 else {
                     obj.branchid = "";
                 }
             }
+            // End of Rev 4.0
             // End of Mantis Issue 24729
             obj.designid = degid;
             objsettings.push(obj);
@@ -521,24 +547,46 @@ function assignedclick(id, EMPNAME) {
         obj.action = "VISITTODAY";
         obj.rptype = "Detail";
         obj.empid = id;
-        obj.stateid = stateids.join(',');//cmbState.GetValue();
+        // Rev 4.0
+        //obj.stateid = stateids.join(',');//cmbState.GetValue();
+        obj.stateid = stateidsTV.join(',');//cmbState.GetValue();
+        // End of Rev 4.0
 
-        var isObject = typeof branchids
+        // Rev 4.0
+        //var isObject = typeof branchids
+        //if (isObject == "object") {
+        //    if (branchids != null && branchids.length > 0) {
+        //        obj.branchid = branchids.join(',');
+        //    } else {
+        //        obj.branchid = "";
+
+        //    }
+        //} else {
+        //    if (branchids != null && branchids.length > 0) {
+        //        obj.branchid = branchids;
+        //    }
+        //    else {
+        //        obj.branchid = "";
+        //    }
+        //}
+
+        var isObject = typeof branchidsTV
         if (isObject == "object") {
-            if (branchids != null && branchids.length > 0) {
-                obj.branchid = branchids.join(',');
+            if (branchidsTV != null && branchidsTV.length > 0) {
+                obj.branchid = branchidsTV.join(',');
             } else {
                 obj.branchid = "";
 
             }
         } else {
-            if (branchids != null && branchids.length > 0) {
-                obj.branchid = branchids;
+            if (branchidsTV != null && branchidsTV.length > 0) {
+                obj.branchid = branchidsTV;
             }
             else {
                 obj.branchid = "";
             }
         }
+        // End of Rev 4.0
 
         //if (branchids != null && branchids.length > 0) {
         //    obj.branchid = branchids.join(',');
@@ -717,7 +765,10 @@ function AtWorkClickTV(elem) {
     $('#collapseTwoTV').addClass('in');
     Type = "Attendance";
     FilterName = "AT_WORK";
-    stateid = stateids.join(',');// cmbState.GetValue();
+    // Rev 4.0
+    //stateid = stateids.join(',');// cmbState.GetValue();
+    stateid = stateidsTV.join(',');// cmbState.GetValue();
+    // End of Rev 4.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees At Work");
 
@@ -745,7 +796,10 @@ function NotLoggedInClickTV(elem) {
     $('#collapseTwoTV').addClass('in');
     Type = "Attendance";
     FilterName = "NOT_LOGIN";
-    stateid = stateids.join(',');//cmbState.GetValue();
+    // Rev 4.0
+    //stateid = stateids.join(',');//cmbState.GetValue();
+    stateid = stateidsTV.join(',');//cmbState.GetValue();
+    // End of Rev 4.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees Not Logged In");
 
@@ -773,7 +827,10 @@ function OnLeaveClickTV(elem) {
     $('#collapseTwoTV').addClass('in');
     Type = "Attendance";
     FilterName = "ON_LEAVE";
-    stateid = stateids.join(',');// cmbState.GetValue();
+    // Rev 4.0
+    //stateid = stateids.join(',');// cmbState.GetValue();
+    stateid = stateidsTV.join(',');// cmbState.GetValue();
+    // End of Rev 4.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Employees On Leave");
     //gridsummarydashboard.Refresh();
@@ -801,7 +858,10 @@ function OnTotalClickTV(elem) {
     $('#collapseTwoTV').addClass('in');
     Type = "Attendance";
     FilterName = "EMP";
-    stateid = stateids.join(',');// cmbState.GetValue();
+    // Rev 4.0
+    //stateid = stateids.join(',');// cmbState.GetValue();
+    stateid = stateidsTV.join(',');// cmbState.GetValue();
+    // End of Rev 4.0
 
     //$("#gridHeadedtext").text("Employee Attendance Summary - Total Employees");
     //gridsummarydashboard.Refresh();
@@ -827,7 +887,10 @@ function shopclickTeam(id, EMPNAME) {
 
 function showMapTV() {
 
-    stateid = stateids.join(',');// cmbState.GetValue();
+    // Rev 4.0
+    //stateid = stateids.join(',');// cmbState.GetValue();
+    stateid = stateidsTV.join(',');// cmbState.GetValue();
+    // End of Rev 4.0
     GetAddressTV(stateid);
     $('#mapTV').removeClass('hide');
 }
