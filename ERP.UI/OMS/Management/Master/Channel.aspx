@@ -1,6 +1,7 @@
 ﻿<%--====================================================== Revision History ===============================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                14-02-2023        V2.0.39          Pallab              25656 : Master module design modification 
+2.0                07-08-2023        V2.0.41          Pallab              26682: FSM Channel module popup design issue fix and "Mapping" icon change
 ====================================================== Revision History ===================================================--%>
 
 <%@ Page Title="Channel" Language="C#" MasterPageFile="~/OMS/MasterPage/ERP.Master" AutoEventWireup="true" Inherits="ERP.OMS.Management.Master.Channel" CodeBehind="Channel.aspx.cs" %>
@@ -629,7 +630,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 
     #marketsGrid_DXPEForm_tcefnew, .dxgvPopupEditForm_PlasticBlue
     {
-        height: 135px !important;
+        height: 160px !important;
     }
     /*Rev end 1.0*/
 
@@ -796,7 +797,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             <dxe:GridViewDataTextColumn HeaderStyle-HorizontalAlign="Center" CellStyle-HorizontalAlign="center" VisibleIndex="1" Width="110px">
                                     <DataItemTemplate>
                                          <a href="javascript:void(0);" onclick="fn_DSTypeMap('<%# Container.KeyValue %>')" class="pad" title="DS Type Mapping">
-                                            <span class='ico deleteColor'><i class='fa fa-sitemap' aria-hidden='true'></i></span></a>
+                                             <%--Rev 2.0 : icon change--%>
+                                             <%--<span class='ico deleteColor'><i class='fa fa-sitemap' aria-hidden='true'></i></span>--%>
+                                             <span class='ico deleteColor'><img src="../../../assests/images/ds-mapping.png" /></span>
+                                             <%--Rev end 2.0--%>
+                                         </a>
                                      </DataItemTemplate>
                                 </dxe:GridViewDataTextColumn>
                             <%--End of Mantis Issue 25017--%>
