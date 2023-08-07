@@ -944,8 +944,8 @@
 
     .btn-excel {
         float: right;
-        margin-right: 38px;
-        margin-top: -4px;
+        margin-right: 10px;
+        margin-top: 2px;
     }
 
     .gridbinded {
@@ -1131,7 +1131,7 @@
 
         <div class="scrooler mTop5">
             <div id="refreshgrid" class="relative">
-                <span class="btn-excel gridbinded"><img src="~/assests/images/excel.png" style="width: 24px; cursor:pointer;" title="Export To Excel" onclick="gridemployeestargetlistexport()" /></span>
+                <span class="btn-excel gridbinded"><img src="/assests/images/excel.png" style="width: 24px; cursor:pointer;" title="Export To Excel" onclick="gridemployeestargetlistexport()" /></span>
                 @{
                     Html.RenderAction("GetEmployeesTargetList", "EmployeesTarget", new { State = "", EmpTypeID = 0, CounterType = 0, Designation = "", SettingMonth = 0, SettingYear = 0, EmpCodeList = "" });
                 }
