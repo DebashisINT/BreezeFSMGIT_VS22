@@ -1416,7 +1416,7 @@
         height: 34px;
     }
 
-    #dtFrom, #dtTo, #FormDate, #toDate, #proj_start_dt {
+    #dtFrom, #dtTo, #FormDate, #toDate, #proj_start_dt, #proj_complete_dt {
         position: relative;
         z-index: 1;
         background: transparent;
@@ -1549,7 +1549,7 @@
         padding-right: 20px;
     }
 
-    #dtFrom_B-1, #dtTo_B-1, #cmbDOJ_B-1, #cmbLeaveEff_B-1, #FormDate_B-1, #toDate_B-1, #proj_start_dt_B-1 {
+    #dtFrom_B-1, #dtTo_B-1, #cmbDOJ_B-1, #cmbLeaveEff_B-1, #FormDate_B-1, #toDate_B-1, #proj_start_dt_B-1, #proj_complete_dt_B-1 {
         background: transparent !important;
         border: none;
         width: 30px;
@@ -1557,11 +1557,12 @@
     }
 
         #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img, #cmbDOJ_B-1 #cmbDOJ_B-1Img, #cmbLeaveEff_B-1 #cmbLeaveEff_B-1Img, #FormDate_B-1 #FormDate_B-1Img, #toDate_B-1 #toDate_B-1Img, #proj_start_dt_B-1 #proj_start_dt_B-1Img {
+        #dtTo_B-1 #dtTo_B-1Img, #cmbDOJ_B-1 #cmbDOJ_B-1Img, #cmbLeaveEff_B-1 #cmbLeaveEff_B-1Img, #FormDate_B-1 #FormDate_B-1Img, #toDate_B-1 #toDate_B-1Img, #proj_start_dt_B-1 #proj_start_dt_B-1Img,
+        #proj_complete_dt_B-1 #proj_complete_dt_B-1Img {
             display: none;
         }
 
-    #FormDate_I, #toDate_I, #proj_start_dt_I {
+    #FormDate_I, #toDate_I, #proj_start_dt_I, #proj_complete_dt_I {
         background: transparent;
     }
 
@@ -1640,6 +1641,18 @@
         background: #094e8c !important;
     }
     /*Rev end 1.0*/
+
+    .pmsModal .modal-content {
+        border-radius: 15px !important;
+    }
+
+    .pmsModal .modal-footer {
+        border-radius: 0 0 15px 15px !important;
+    }
+
+    .modal .modal-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
 
     @@media only screen and (max-width: 768px) {
         .breadCumb {

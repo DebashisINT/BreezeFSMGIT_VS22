@@ -1693,6 +1693,27 @@ padding: 7px;
     {
        z-index: 99999 !important;
     }
+    
+
+    .dxeButtonEdit_PlasticBlue
+    {
+        width: 100%;
+    }
+
+    #txtEmployeefromsuper
+    {
+        margin-bottom: 15px;
+    }
+
+    .jpopup .dxpcLite_PlasticBlue .dxpc-content, .jpopup .dxdpLite_PlasticBlue .dxpc-content
+    {
+        padding: 12px 10px 12px;
+    }
+
+    .btn-default
+    {
+        background-color: #dadada;
+    }
     /*End of Rev 10.0*/
     </style>
 
@@ -2558,7 +2579,7 @@ padding: 7px;
 
     <div class="PopUpArea">
         <dxe:ASPxPopupControl ID="popupsupervisorchange" runat="server" ClientInstanceName="cActivationPopupsupervisor"
-            Width="550px" HeaderText="Supervisor Change" PopupHorizontalAlign="WindowCenter"
+            Width="400px" HeaderText="Supervisor Change" PopupHorizontalAlign="WindowCenter"
             PopupVerticalAlign="WindowCenter" CloseAction="CloseButton"
             Modal="True" ContentStyle-VerticalAlign="Top" EnableHierarchyRecreation="True">
             <ContentCollection>
