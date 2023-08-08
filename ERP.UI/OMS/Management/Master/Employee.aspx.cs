@@ -2,6 +2,7 @@
  * Rev 1.0      Sanchita    07/02/2023      V2.0.36     FSM Employee & User Master - To implement Show button. refer: 25641
  * Rev 2.0      Sanchita    15/02/2023      V2.0.39     A setting required for Employee and User Master module in FSM Portal. 
  * Rev 3.0      Priti       15/02/2023      V2.0.39    	0025676: Employee Import Facility
+ * Rev 4.0      Sanchita    08-08-2023      V2.0.42     FSM - Masters - Organization - Employees - Change Supervisor should be On Demand Search. Mantis: 26700
  *******************************************************************************************************/
 using System;
 using System.Data;
@@ -256,7 +257,9 @@ namespace ERP.OMS.Management.Master
 
             if (!IsPostBack)
             {
-                GetemployeeSupervisor();
+                // Rev 4.0
+                //GetemployeeSupervisor();
+                // End of Rev 4.0
 
                 //Page.ClientScript.RegisterStartupScript(GetType(), "PageLD", "<script>Pageload();</script>");
                 //Initialize Variable
@@ -942,30 +945,64 @@ namespace ERP.OMS.Management.Master
 
         SalesPersontracking ob = new SalesPersontracking();
 
-        public void GetemployeeSupervisor()
+        // Rev 4.0
+        //public void GetemployeeSupervisor()
+        //{
+        //    try
+        //    {
+
+        //        DataTable dtfromtosumervisor = ob.FetchEmployeeFTS("Past", Convert.ToString(Session["userid"]));
+
+        //        fromsuper.DataSource = dtfromtosumervisor;
+        //        fromsuper.DataTextField = "Name";
+        //        fromsuper.DataValueField = "Id";
+        //        fromsuper.DataBind();
+
+        //        DataTable dtfromtosumervisornew = ob.FetchEmployeeFTS("New", Convert.ToString(Session["userid"]));
+        //        tosupervisor.DataSource = dtfromtosumervisornew;
+        //        tosupervisor.DataTextField = "Name";
+        //        tosupervisor.DataValueField = "Id";
+        //        tosupervisor.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Page.ClientScript.RegisterStartupScript(GetType(), "PageLD", ex.Message);
+
+        //    }
+        //}
+
+        public class EmployeeSuperModel
         {
-            try
-            {
-
-                DataTable dtfromtosumervisor = ob.FetchEmployeeFTS("Past", Convert.ToString(Session["userid"]));
-
-                fromsuper.DataSource = dtfromtosumervisor;
-                fromsuper.DataTextField = "Name";
-                fromsuper.DataValueField = "Id";
-                fromsuper.DataBind();
-
-                DataTable dtfromtosumervisornew = ob.FetchEmployeeFTS("New", Convert.ToString(Session["userid"]));
-                tosupervisor.DataSource = dtfromtosumervisornew;
-                tosupervisor.DataTextField = "Name";
-                tosupervisor.DataValueField = "Id";
-                tosupervisor.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "PageLD", ex.Message);
-
-            }
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public string Code { get; set; }
         }
+        [WebMethod]
+        public static object GetOnDemandEmployeefromsuper(string SearchKey, string Action)
+        {
+            List<EmployeeSuperModel> listSuperEmployee = new List<EmployeeSuperModel>();
+            if (HttpContext.Current.Session["userid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("Proc_FTS_ERP_EmployeeList");
+                proc.AddPara("@SearchKey", SearchKey);
+                proc.AddPara("@Action", Action);
+                proc.AddPara("@userid", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                dt = proc.GetTable();
+
+                listSuperEmployee = (from DataRow dr in dt.Rows
+                                select new EmployeeSuperModel()
+                                {
+                                    Id = Convert.ToString(dr["Id"]),
+                                    Name = Convert.ToString(dr["Name"]),
+                                    Code = Convert.ToString(dr["cnt_UCC"])
+                                }).ToList();
+            }
+
+            return listSuperEmployee;
+        }
+        // End of Rev 4.0
 
 
         [WebMethod]
