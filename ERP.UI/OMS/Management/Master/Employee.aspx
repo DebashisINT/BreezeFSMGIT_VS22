@@ -9,6 +9,7 @@
    Rev 8.0      Pallab             11/07/2023      V2.0.42     26551: Employees module parameter break issue fix for small device
    Rev 9.0      Pallab             02/08/2023      V2.0.42     26656: "View Log" popup loader and page size options showing outside in the popup issue fix
    Rev 10.0     Sanchita           08/08/2023      V2.0.42     FSM - Masters - Organization - Employees - Change Supervisor should be On Demand Search. Mantis: 26700  
+   Rev 11.0     Sanchita           09/08/2023      V2.0.42     FSM Portal - Enhance the Export to excel in Employee Master. Mantis : 26708 
  *******************************************************************************************************--%>
 
 <%@ Page Title="Employee" Language="C#" AutoEventWireup="True" Inherits="ERP.OMS.Management.Master.management_master_Employee" CodeBehind="Employee.aspx.cs" MasterPageFile="~/OMS/MasterPage/ERP.Master" %>
@@ -1996,14 +1997,24 @@ padding: 7px;
 
                                 <% if (rights.CanExport)
                                    { %>
-                                <asp:DropDownList ID="drdExport" runat="server" CssClass="btn btn-primary nfc" OnSelectedIndexChanged="cmbExport_SelectedIndexChanged" AutoPostBack="true">
+                               <%--Rev 11.0--%>
+                               <%-- <asp:DropDownList ID="drdExport" runat="server" CssClass="btn btn-primary nfc" OnSelectedIndexChanged="cmbExport_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="0">Export to</asp:ListItem>
                                     <asp:ListItem Value="1">PDF</asp:ListItem>
                                     <asp:ListItem Value="2">XLS</asp:ListItem>
                                     <asp:ListItem Value="3">RTF</asp:ListItem>
                                     <asp:ListItem Value="4">CSV</asp:ListItem>
 
+                                </asp:DropDownList>--%>
+
+                                <asp:DropDownList ID="drdExport" runat="server" CssClass="btn btn-sm btn-primary"
+                                    OnSelectedIndexChanged="cmbExport_SelectedIndexChanged" AutoPostBack="true" OnChange="if(!AvailableExportOption()){return false;}">
+                                    <asp:ListItem Value="0">Export to</asp:ListItem>
+                                    <asp:ListItem Value="1">EXCEL</asp:ListItem>
+                                    <asp:ListItem Value="2">PDF</asp:ListItem>
+                                    <asp:ListItem Value="3">CSV</asp:ListItem>
                                 </asp:DropDownList>
+                                <%--End of Rev 11.0--%>
                                 <% } %>
 
                                 <% if (rights.CanExport)
