@@ -855,7 +855,7 @@ namespace ERP.OMS.Management.Master
             {
                 SqlConnection con = new SqlConnection(Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]));
                 con.Open();
-                string selectQuery = "SELECT Name [Name],Employee_Grade [Grade] , cnt_OtherID [Other ID],DOJ [Joining On],Department [Department], BranchName [Branch],CTC [CTC], ReportTo [Report To], AdditionalReportingHead [Additional Reporting Head], Colleague [Colleague], Colleague1 [Colleague1], Colleague2 [Colleague2], Designation [Designation], Company [Company] from FSMEmployee_Master Where USERID=" + Convert.ToInt32(Session["userid"]) + " order by SRLNO";
+                string selectQuery = "SELECT Name [Name], Code as [Employee Code] ,Employee_Grade [Grade] , cnt_OtherID [Other ID], Company [Company], BranchName [Branch] ,Department [Department], Designation [Designation],CTC [CTC],DOJ [Joining On], ReportTo [Report To], AdditionalReportingHead [Additional Reporting Head], Colleague [Colleague], Colleague1 [Colleague1], Colleague2 [Colleague2] from FSMEmployee_Master Where USERID=" + Convert.ToInt32(Session["userid"]) + " order by cnt_id desc";
                 SqlDataAdapter myCommand = new SqlDataAdapter(selectQuery, con);
 
                 // Create and fill a DataSet.
@@ -942,7 +942,7 @@ namespace ERP.OMS.Management.Master
                 HeaderRow5[0] = GridHeader.ToString();
                 dtReportHeader.Rows.Add(HeaderRow5);
                 DataRow HeaderRow6 = dtReportHeader.NewRow();
-                HeaderRow6[0] = "Customer Outstanding-Detail Report";
+                HeaderRow6[0] = "Employee Master";
                 dtReportHeader.Rows.Add(HeaderRow6);
                 //DataRow HeaderRow7 = dtReportHeader.NewRow();
                 //HeaderRow7[0] = "As On: " + Convert.ToDateTime(ASPxAsOnDate.Date).ToString("dd-MM-yyyy");
