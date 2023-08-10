@@ -233,7 +233,7 @@ namespace ShopAPI.Controllers
                                 attendance_present_count = Convert.ToInt32(ds.Tables[0].Rows[i]["attendance_present_count"]),
                                 attendance_absent_count = Convert.ToInt32(ds.Tables[0].Rows[i]["attendance_absent_count"]),
                                 visit_inactivity_party_count = Convert.ToInt32(ds.Tables[0].Rows[i]["visit_inactivity_party_count"]),
-                                order_inactivity_party_count = Convert.ToInt32(ds.Tables[0].Rows[i]["visit_inactivity_party_count"]),
+                                order_inactivity_party_count = Convert.ToInt32(ds.Tables[0].Rows[i]["order_inactivity_party_count"]),
                                 last_visited_date = Convert.ToString(ds.Tables[0].Rows[i]["last_visited_date"]),
                                 last_order_date = Convert.ToString(ds.Tables[0].Rows[i]["last_order_date"])
                                 //End of Rev 1.0 Row: 857 & Mantis: 0026547
