@@ -3,7 +3,9 @@
 @*1.0                02-02-2023        2.0.38           Pallab              25576: Report page design modification *@
 @*2.0                14-06-2023        2.0.41           Pallab              26337: Attendance Register report parameter design issue fix *@
 @*3.0                19/07/2023        V2.0.41          Sanchita            Add Branch parameter in MIS - Attendance Register. Mantis : 26135*@
-@*====================================================== Revision History ==========================================================*@
+@*4.0                11/08/2023        V2.0.42          Sanchita            Two check box is required to show the first call time & last call time in Attendance Register Report
+     *                                                                      Mantis : 26707
+    @*====================================================== Revision History ==========================================================*@
 
 @model System.Data.DataSet
 
@@ -184,6 +186,10 @@
         var ShowLoginLocation = 0;
         var ShowLogoutLocation = 0;
         //End of Mantise work 0025111
+        // Rev 4.0
+        var ShowFirstCallTime = 0;
+        var ShowLastCallTime = 0;
+        // End of Rev 4.0
 
         e.customArgs["Fromdate"] = dtFrom.GetText();
         e.customArgs["Todate"] = dtTo.GetText();
@@ -216,6 +222,14 @@
             ShowLogoutLocation = 1;
         }
         //End of Mantise work 0025111
+        // Rev 4.0
+        if (document.getElementById("chkShowFirstCallTime").checked) {
+            ShowFirstCallTime = 1;
+        }
+        if (document.getElementById("chkShowLastCallTime").checked) {
+            ShowLastCallTime = 1;
+        }
+        // End of Rev 4.0
         e.customArgs["TotalKMTravelled"] = TotalKMTravelled;
         e.customArgs["SecondarySalesValue"] = SecondarySalesValue;
         e.customArgs["IdleTimeCount"] = IdleTimeCount;
@@ -228,6 +242,10 @@
         // Rev 3.0
         e.customArgs["BranchId"] = BranchId;
         // End of Rev 3.0
+        // Rev 4.0
+        e.customArgs["ShowFirstCallTime"] = ShowFirstCallTime;
+        e.customArgs["ShowLastCallTime"] = ShowLastCallTime;
+        // End of Rev 4.0
     }
 
 
@@ -1202,6 +1220,29 @@
                         </div>
                     </div>
 
+                    @*Rev 4.0*@
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="chkDs">
+                            <input class="styled-checkbox" type="checkbox" id="chkShowFirstCallTime" name="ShowFirstCallTime" value="Boat">
+                            <label for="ShowFirstCallTime"> First Call Time</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="chkDs">
+                            <input class="styled-checkbox" type="checkbox" id="chkShowLastCallTime" name="ShowLastCallTime" value="Boat">
+                            <label for="ShowLastCallTime"> Last Call Time</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="chkDs">
+
+                        </div>
+                    </div>
+                    @*End of Rev 4.0*@
+
                     <div class="col-md-3 pdt-18">
                         <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
                         <select name="ddlSumExport" class="btn btn-sm btn-primary" id="ddlSumExport">
@@ -1209,8 +1250,8 @@
                             @*<option value="1">PDF</option>*@
                             <option value="2">XLSX</option>
                             @*<option value="3">XLS</option>
-                    <option value="4">RTF</option>
-                    <option value="5">CSV</option>*@
+                                <option value="4">RTF</option>
+                                <option value="5">CSV</option>*@
 
                         </select>
                     </div>

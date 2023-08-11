@@ -2,6 +2,8 @@
  * Rev 1.0      Sanchita       V2.0.40      04-05-2023      After Giving Selfie Attendance the Selfie is 
  *                                                          not sync-ed in the Portal. refer: 25962
  * Rev 2.0      Sanchita       V2.0.42      19/07/2023      Add Branch parameter in Listing of MIS - Attendance Register. Mantis : 26135
+ * Rev 3.0      Sanchita       V2.0.42      11/08/2023      Two check box is required to show the first call time & last call time in Attendance Register Report
+ *                                                          Mantis : 26707
  * *****************************************************************************************************/
 using DataAccessLayer;
 using DevExpress.Export;
@@ -270,6 +272,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     // Rev 2.0
                     proc.AddVarcharPara("@BRANCHID", -1, Branch_Id);
                     // End of Rev 2.0
+                    // Rev 3.0
+                    proc.AddVarcharPara("@ShowFirstVisitTime", 500, Convert.ToString(model.ShowFirstCallTime));
+                    proc.AddVarcharPara("@ShowLastVisitTime", 500, Convert.ToString(model.ShowLastCallTime));
+                    // End of Rev 3.0
                     ds = proc.GetDataSet();
                 }
             }
