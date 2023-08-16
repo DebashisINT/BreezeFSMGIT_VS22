@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer;
+﻿/******************************************************************************************************************
+  1.0       16-08-2023        V2.0.42          Sanchita          The enquiry doesn't showing in the listing after modification
+                                                                 Mantis: 26721
+**************************************************************************************************************************/
+using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
 using DevExpress.Utils;
@@ -394,6 +398,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         _apply.Enq_Details = _getenq.Rows[0]["Enq_Details"].ToString();
                         _apply.Provided_By = _getenq.Rows[0]["vend_type"].ToString();
                         _apply.UOM = _getenq.Rows[0]["UOM"].ToString();
+                        // Rev 1.0
+                        _apply.txtDate = _getenq.Rows[0]["txtDate"].ToString();
+                        // End of Rev 1.0
                         //_apply.SUPERVISOR = Convert.ToBoolean(_getenq.Rows[0]["Supervisor"]);
                         //_apply.SALESMAN = Convert.ToBoolean(_getenq.Rows[0]["salesman"]);
                         //_apply.VERIFY = Convert.ToBoolean(_getenq.Rows[0]["verify"]);
