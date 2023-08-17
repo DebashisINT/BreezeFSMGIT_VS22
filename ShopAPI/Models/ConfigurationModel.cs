@@ -13,7 +13,8 @@
 //12.0  V2.0.39     Debashis    02/06/2023      A new parameter has been added.Row: 848
 //13.0  V2.0.40     Debashis    30/06/2023      A new parameter has been added.Row: 851
 //14.0  V2.0.41     Debashis    17/07/2023      A new parameter has been added.Row: 856
-//15.0  V2.0.41     Debashis    08/05/2023      Some new parameters have been added.Row: 860
+//15.0  V2.0.41     Debashis    01/08/2023      Some new parameters have been added.Row: 860
+//16.0  V2.0.41     Debashis    17/08/2023      Some new parameters have been added.Row: 863
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -245,6 +246,10 @@ namespace ShopAPI.Models
         public bool IsShowWhatsAppIconforVisit { get; set; }
         public bool IsAutomatedWhatsAppSendforRevisit { get; set; }
         //End of Rev 15.0 Row:860
+        //Rev 16.0 Row:863
+        public bool IsAllowBackdatedOrderEntry { get; set; }
+        public int Order_Past_Days { get; set; }
+        //End of Rev 16.0 Row:863
     }
 
     public class ConfigurationModelInput
