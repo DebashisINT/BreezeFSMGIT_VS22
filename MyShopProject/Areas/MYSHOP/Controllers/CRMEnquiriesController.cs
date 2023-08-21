@@ -2880,9 +2880,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         {
                             for (int i = 0; i < dt_CRM_IDS.Rows.Count; i++)
                             {
-                                Mssg = "Hi, " + SalesMan_Nm + " Your Admin/Supervisor has assigned an enquiry of " + dt_CRM_IDS.Rows[i]["Customer_Name"].ToString() + ". Please take action on it.";
                                 // Rev 2.0
+                                //Mssg = "Hi, " + SalesMan_Nm + " Your Admin/Supervisor has assigned an enquiry of " + dt_CRM_IDS.Rows[i]["Customer_Name"].ToString() + ". Please take action on it.";
                                 // SendNotification(SalesMan_Phn, Mssg);
+
+                                Mssg = "Hi, " + SalesMan_Nm + " Your Admin/Supervisor has assigned an enquiry of " + dt_CRM_IDS.Rows[i]["Customer_Name"].ToString() + ". Please take action on it. Lead date : "+ dt_CRM_IDS.Rows[i]["LEAD_DATE"].ToString()+". Enquiry Type : "+ dt_CRM_IDS.Rows[i]["vend_type"].ToString()+".";
+                                
                                 lead_date = dt_CRM_IDS.Rows[i]["LEAD_DATE"].ToString();
                                 enquiry_type = dt_CRM_IDS.Rows[i]["vend_type"].ToString();
                                 SendNotification(SalesMan_Phn, Mssg, lead_date, enquiry_type);
