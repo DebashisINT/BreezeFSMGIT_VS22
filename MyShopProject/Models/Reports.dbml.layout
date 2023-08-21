@@ -380,12 +380,6 @@
         <elementListCompartment Id="82129ce2-4355-4314-80aa-f7393f9c3a7c" absoluteBounds="9.14, 4.085, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bdcb3985-9f12-41e6-9978-04fd9ecd4d42" isExpanded="false" absoluteBounds="7, 7.5, 2, 0.45">
-      <DataClassMoniker Name="/ReportsDataContext/ENQUIRIES_LISTING1" />
-      <nestedChildShapes>
-        <elementListCompartment Id="cefddb18-a642-4f23-b091-ad2848596d84" absoluteBounds="7.015, 7.9600000000000009, 1.9700000000000002, 9.8644612630208321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="d5365a51-12f8-44e9-9a85-11f6695d9a88" isExpanded="false" absoluteBounds="11.25, 8.125, 2, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/FTSSTOCKPOSITION_REPORT" />
       <nestedChildShapes>
@@ -570,6 +564,12 @@
       <DataClassMoniker Name="/ReportsDataContext/FTSDSVISITDETAILSHIERARCHYCHANNELWISE_REPORT" />
       <nestedChildShapes>
         <elementListCompartment Id="33d60f48-8c5b-4f9b-92da-8bc412438f92" absoluteBounds="0.51500000000000057, 0.96000000000000085, 1.9700000000000002, 8.3260498046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="95f8ac22-6df5-4380-8f28-23cd39cddba5" isExpanded="false" absoluteBounds="7.125, 7.5, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/ENQUIRIES_LISTING1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9dc72f05-daa4-40ba-9e5d-67dd4789e855" absoluteBounds="7.14, 7.96, 1.9700000000000002, 9.8644612630208321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
