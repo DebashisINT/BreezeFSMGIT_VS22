@@ -15,6 +15,7 @@
 //14.0  V2.0.41     Debashis    17/07/2023      A new parameter has been added.Row: 856
 //15.0  V2.0.41     Debashis    01/08/2023      Some new parameters have been added.Row: 860
 //16.0  V2.0.41     Debashis    17/08/2023      Some new parameters have been added.Row: 863
+//17.0  V2.0.41     Debashis    21/07/2023      A new parameter has been added.Row: 864
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -250,6 +251,9 @@ namespace ShopAPI.Models
         public bool IsAllowBackdatedOrderEntry { get; set; }
         public int Order_Past_Days { get; set; }
         //End of Rev 16.0 Row:863
+        //Rev 17.0 Row:864
+        public bool Show_distributor_scheme_with_Product { get; set; }
+        //End of Rev 17.0 Row:864
     }
 
     public class ConfigurationModelInput
