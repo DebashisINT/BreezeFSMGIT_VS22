@@ -728,6 +728,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
         /****************Save, get, update, Other ************/
         $(document).ready(function () {
             cbtnSaveRecords.Focus();
+            cGridSaleRate.Refresh();
         });
 
         function SaveButtonClick(flag) {
