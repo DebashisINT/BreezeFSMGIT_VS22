@@ -120,7 +120,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Controllers\CityMasterController.cs" />
+    <Compile Include="Areas\MASTER\Controllers\CityMasterController.cs" />
+    <Compile Include="Areas\MASTER\MASTERAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +139,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\MASTER\Views\web.config" />
+    <Content Include="Areas\MASTER\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MASTER\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MASTER\Views\CityMaster\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -166,8 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Models\" />
-    <Folder Include="Areas\Views\" />
+    <Folder Include="Areas\MASTER\Data\" />
     <Folder Include="assests\css\" />
     <Folder Include="assests\images\" />
     <Folder Include="assests\js\" />
