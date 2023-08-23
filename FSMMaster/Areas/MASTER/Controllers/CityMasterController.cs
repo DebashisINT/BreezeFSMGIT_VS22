@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FSMMaster.Areas.Controllers
+namespace FSMMaster.Areas.MASTER.Controllers
 {
     public class CityMasterController : Controller
     {
-        // GET: Controllers/CityMaster
+        // GET: MASTER/CityMaster
         public ActionResult Index()
         {
             return View();
