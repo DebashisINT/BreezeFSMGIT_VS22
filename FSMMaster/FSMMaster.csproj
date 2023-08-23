@@ -138,9 +138,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Controllers\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Controllers\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Controllers\Views\CityMaster\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
