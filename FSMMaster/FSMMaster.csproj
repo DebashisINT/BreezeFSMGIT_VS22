@@ -230,6 +230,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -312,7 +313,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CityMasterModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Masters.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Masters.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -773,6 +780,7 @@
     <Content Include="assests\js\GenericJScript.js" />
     <Content Include="assests\js\gen_validatorv31.js" />
     <Content Include="assests\js\init.js" />
+    <Content Include="Areas\MASTER\Views\CityMaster\PartialCityMasterGridList.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
@@ -1825,6 +1833,14 @@
     <Content Include="Scripts\jAlert-master\src\jAlert.js" />
     <Content Include="Scripts\jAlert-master\src\test.html" />
     <Content Include="Scripts\jAlert-master\vendor\jquery-1.11.3.min.js" />
+    <Content Include="Models\Masters.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Masters.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\Masters.dbml.layout">
+      <DependentUpon>Masters.dbml</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1956,6 +1972,9 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
