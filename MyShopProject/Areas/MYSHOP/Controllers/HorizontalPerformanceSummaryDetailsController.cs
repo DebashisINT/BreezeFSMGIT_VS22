@@ -71,6 +71,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                         h_id = dtbranch.Rows[0]["BRANCH_ID"].ToString();
                     }
+                    else
+                    {
+                        dtbranch = dtbranch.DefaultView.ToTable();
+                        h_id = dtbranch.Rows[0]["BRANCH_ID"].ToString();
+                    }
                 }
                 ds.Tables.Add(dtbranch);
 
