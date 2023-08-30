@@ -33,11 +33,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
             DataTable dt = new DataTable();
             DataTable dt1 = new DataTable();
             DataTable dt2 = new DataTable();
-
+            
             ds.Tables.Add(dt);
             ds.Tables.Add(dt1);
             ds.Tables.Add(dt2);
-
+            
             // Rev 2.0
             string h_id = "";
             DataTable dtbranch = lstuser.GetHeadBranchList(Convert.ToString(Session["userbranchHierarchy"]), "HO");
@@ -57,9 +57,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                     h_id = dtbranch.Rows[0]["BRANCH_ID"].ToString();
                 }
+                else
+                {
+                    dtbranch = dtbranch.DefaultView.ToTable();
+                    h_id = dtbranch.Rows[0]["BRANCH_ID"].ToString();
+                }
             }
             ds.Tables.Add(dtbranch);
-
+            
             //omodel.modelbranch = APIHelperMethods.ToModelList<GetBranch>(dtbranch);
             //string h_id = omodel.modelbranch.First().BRANCH_ID.ToString();
             ViewBag.h_id = h_id;
