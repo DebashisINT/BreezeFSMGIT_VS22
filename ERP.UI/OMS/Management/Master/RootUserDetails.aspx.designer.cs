@@ -4191,6 +4191,42 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkShowAttendanceSummary;
 
         /// <summary>
+        /// divMenuShowAIMarketAssistant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divMenuShowAIMarketAssistant;
+
+        /// <summary>
+        /// chkMenuShowAIMarketAssistant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkMenuShowAIMarketAssistant;
+
+        /// <summary>
+        /// divUsbDebuggingRestricted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divUsbDebuggingRestricted;
+
+        /// <summary>
+        /// chkUsbDebuggingRestricted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkUsbDebuggingRestricted;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>
