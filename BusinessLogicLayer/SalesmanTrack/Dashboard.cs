@@ -1,6 +1,7 @@
 ﻿/******************************************************************************************************************
- * Rev 1.0      27-06-2023      Sanchita V2.0.41     State & Branch selection facility is required in the Order Analytics in Dashboard
+ * Rev 1.0      27-06-2023      Sanchita    V2.0.41     State & Branch selection facility is required in the Order Analytics in Dashboard
  *                                                      Refer: 26309
+ * Rev 2.0      31-08-2023      Sanchita    V2.0.43     FSM - Dashboard - View Party - Enhancement required. Refer: 26753                                                 
  * ******************************************************************************************************************/
 using DataAccessLayer;
 using System;
@@ -231,7 +232,10 @@ namespace BusinessLogicLayer.SalesmanTrack
             return ds;
         }
         //Rev work close 15.06.2022 0024954: Need to change View Route of FSM Dashboard
-        public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string CREATE_USERID = "0")
+        // Rev 2.0
+        //public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string CREATE_USERID = "0")
+        public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string BranchIds, string CREATE_USERID = "0")
+            // End of Rev 2.0
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_DASHBOARDPARTYDETAIL");
@@ -241,6 +245,9 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@PARTY_ID", PARTY_ID);
             proc.AddPara("@IS_Electician", IS_Electician);
             proc.AddPara("@CREATE_USERID", CREATE_USERID);
+            // Rev 2.0
+            proc.AddPara("@BRANCHID", BranchIds);
+            // End of Rev 2.0
             ds = proc.GetTable();
 
             return ds;

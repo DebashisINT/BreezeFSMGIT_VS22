@@ -1,4 +1,9 @@
-﻿using BusinessLogicLayer;
+﻿/******************************************************************************************************
+ * 1.0     31-08-2023       2.0.43      Sanchita     FSM - Dashboard - View Party - Enhancement required. Refer: 26753
+ * ******************************************************************************************************/
+using BusinessLogicLayer;
+using MyShop.Models;
+using SalesmanTrack;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,6 +11,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UtilityLayer;
+// Rev 1.0
+using Models;
+// End of Rev 1.0
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -13,8 +21,41 @@ namespace MyShop.Areas.MYSHOP.Controllers
     {
         //
         // GET: /MYSHOP/ViewParty/
+        // Rev 1.0
+        UserList lstuser = new UserList();
+        EmployeeMasterReport omodel = new EmployeeMasterReport();
+        // End of Rev 1.0
+
         public ActionResult ViewParty()
         {
+            // Rev 1.0
+            DataTable dtbranch = lstuser.GetHeadBranchList(Convert.ToString(Session["userbranchHierarchy"]), "HO");
+            DataTable dtBranchChild = new DataTable();
+            if (dtbranch.Rows.Count > 0)
+            {
+                dtBranchChild = lstuser.GetChildBranch(Convert.ToString(Session["userbranchHierarchy"]));
+                if (dtBranchChild.Rows.Count > 0)
+                {
+                    DataRow dr;
+                    dr = dtbranch.NewRow();
+                    dr[0] = 0;
+                    dr[1] = "All";
+                    dtbranch.Rows.Add(dr);
+                    dtbranch.DefaultView.Sort = "BRANCH_ID ASC";
+                    dtbranch = dtbranch.DefaultView.ToTable();
+                }
+            }
+            omodel.modelbranch = APIHelperMethods.ToModelList<GetBranch>(dtbranch);
+            string h_id = omodel.modelbranch.First().BRANCH_ID.ToString();
+            ViewBag.HeadBranch = omodel.modelbranch;
+            ViewBag.h_id = h_id;
+
+            string IsElectricianRequiredinViewParty = "0";
+            DBEngine obj1 = new DBEngine();
+            IsElectricianRequiredinViewParty = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='IsElectricianRequiredinViewParty'").Rows[0][0]);
+            ViewBag.IsElectricianRequiredinViewParty = IsElectricianRequiredinViewParty;
+            // End of Rev 1.0
+
             return View();
         }
 

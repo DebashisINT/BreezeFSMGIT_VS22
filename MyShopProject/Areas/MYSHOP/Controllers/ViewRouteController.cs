@@ -1,5 +1,6 @@
 ﻿/******************************************************************************************************
- * 1.0                30-01-2023        2.0.38           Sanchita            Distance issue in View route of Nordusk. Refer: 25515
+ * 1.0     30-01-2023       2.0.38      Sanchita     Distance issue in View route of Nordusk. Refer: 25515
+ * 2.0     31-08-2023       2.0.43      Sanchita     FSM - Dashboard - View Party - Enhancement required. Refer: 26753
  * ******************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -147,7 +148,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(LocationList);
         }
         //Rev Work close 15.06.2022 0024954: Need to change View Route of FSM Dashboard
-        public ActionResult GetParty(string StateID, string TYPE_ID, string PARTY_ID, string IS_Electician)
+        // Rev 2.0
+        //public ActionResult GetParty(string StateID, string TYPE_ID, string PARTY_ID, string IS_Electician)
+        public ActionResult GetParty(string StateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string BranchIds)
+            // End of Rev 2.0
         {
             
             List<PartyDashboard> AddressList = new List<PartyDashboard>();
@@ -155,7 +159,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //string newdate = Date.Split('-')[2] + '-' + Date.Split('-')[1] + '-' + Date.Split('-')[0];
 
             Dashboard model = new Dashboard();
-            DataTable dtmodellatest = model.GETPartyDashboard(StateID, TYPE_ID, PARTY_ID, IS_Electician, Session["userid"].ToString());
+            // Rev 2.0
+            //DataTable dtmodellatest = model.GETPartyDashboard(StateID, TYPE_ID, PARTY_ID, IS_Electician, Session["userid"].ToString());
+            DataTable dtmodellatest = model.GETPartyDashboard(StateID, TYPE_ID, PARTY_ID, IS_Electician, BranchIds, Session["userid"].ToString());
+            // End of Rev 2.0
             AddressList = APIHelperMethods.ToModelList<PartyDashboard>(dtmodellatest);
             return Json(AddressList);
         } 
