@@ -676,7 +676,10 @@
         electrician = $("#electSelect").val();
         // Rev 4.0
         //GetAddress(stateid, partyType, partyStatus, electrician);
-        var Branch = BranchId.join(',');
+        var Branch = "";
+        if (BranchId != "" ) {
+            Branch = BranchId.join(',');
+        }
         GetAddress(stateid, partyType, partyStatus, electrician, Branch);
         // End of Rev 4.0
         // $('#map').removeClass('hide');
