@@ -232,10 +232,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             return ds;
         }
         //Rev work close 15.06.2022 0024954: Need to change View Route of FSM Dashboard
-        // Rev 2.0
-        //public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string CREATE_USERID = "0")
-        public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string BranchIds, string CREATE_USERID = "0")
-            // End of Rev 2.0
+        public DataTable GETPartyDashboard(string stateID, string TYPE_ID, string PARTY_ID, string IS_Electician, string CREATE_USERID = "0")
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_DASHBOARDPARTYDETAIL");
@@ -245,9 +242,6 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@PARTY_ID", PARTY_ID);
             proc.AddPara("@IS_Electician", IS_Electician);
             proc.AddPara("@CREATE_USERID", CREATE_USERID);
-            // Rev 2.0
-            proc.AddPara("@BRANCHID", BranchIds);
-            // End of Rev 2.0
             ds = proc.GetTable();
 
             return ds;
