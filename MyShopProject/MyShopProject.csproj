@@ -395,6 +395,7 @@
     </Compile>
     <Compile Include="Areas\MYSHOP\Controllers\UserversionController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewPartyController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ViewPartyHierarchyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewRouteController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\WarehouseMasterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\Work_DashboardReportController.cs" />
@@ -2003,6 +2004,7 @@
     <Content Include="Areas\MYSHOP\Views\OrderSummaryMTD\OrderSummaryMTDGridViewCallback.cshtml" />
     <Content Include="Areas\MYSHOP\Views\OutletRevisitDetails\_PartialGridOutletRevisitDetails.cshtml" />
     <Content Include="Areas\MYSHOP\Views\OutletRevisitDetails\OutletRevisitDetails.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ViewPartyHierarchy\ViewPartyH.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
