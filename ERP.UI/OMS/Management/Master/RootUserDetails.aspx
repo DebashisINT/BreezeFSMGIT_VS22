@@ -14,7 +14,9 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 7.0                31-08-2023       V2.0.43           Sanchita            User wise settings required in Web Portal Front end User Master
                                                                           Show menu for AI Market Assistant
                                                                           USB Debugging Restricted  
-                                                                          Refer: 26768  
+                                                                          Refer: 26768
+8.0                06-09-2023       V2.0.43           Sanchita            A new user wise settings required named as ShowLatLongInOutletMaster
+                                                                          Mantis: 26794
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -3931,6 +3933,19 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             </table>
                         </td>
                         <%--End of Rev 7.0--%>
+                        <%--Rev 8.0--%>
+                        <td id="divShowLatLongInOutletMaster" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkShowLatLongInOutletMaster" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Latitude Longitude in Outlet Master </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <%--End of Rev 8.0--%>
                     </tr>
                     <%--End of Rev 6.0--%>
                     <%--End of Mantis Issue 25207--%>
