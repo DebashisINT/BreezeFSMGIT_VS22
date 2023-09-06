@@ -10,6 +10,8 @@
                                                                           Show menu for AI Market Assistant
                                                                           USB Debugging Restricted  
                                                                           Refer: 26768  
+ * 5.0                06-09-2023       V2.0.43           Sanchita         A new user wise settings required named as ShowLatLongInOutletMaster
+ *                                                                        Refer: 26794 
 *******************************************************************************************************************/
 using System;
 using System.Data;
@@ -2347,6 +2349,17 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 }
                 // End of Rev 4.0
 
+                // Rev 5.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowLatLongInOutletMaster"]) == true)
+                {
+                    chkShowLatLongInOutletMaster.Checked = true;
+                }
+                else
+                {
+                    chkShowLatLongInOutletMaster.Checked = false;
+                }
+                // End of Rev 5.0
+
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
                 if (Convert.ToString(dsUserDetail.Tables[0].Rows[0]["user_AllowAccessIP"]) != "")
@@ -2745,6 +2758,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 int IsMenuShowAIMarketAssistant = 0;
                 int IsUsbDebuggingRestricted = 0;
                 // End of Rev 4.0
+                // Rev 5.0
+                int IsShowLatLongInOutletMaster = 0;
+                // End of Rev 5.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4139,6 +4155,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 else
                     IsUsbDebuggingRestricted = 0;
                 // End of Rev 4.0
+                // Rev 5.0
+                if (chkShowLatLongInOutletMaster.Checked == true)
+                    IsShowLatLongInOutletMaster = 1;
+                else
+                    IsShowLatLongInOutletMaster = 0;
+                // End of Rev 5.0
 
                 String PartyType = hdnPartyType.Value.ToString();
                 //Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master
@@ -4475,6 +4497,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsMenuShowAIMarketAssistant", IsMenuShowAIMarketAssistant);
                             proc.AddPara("@IsUsbDebuggingRestricted", IsUsbDebuggingRestricted);
                             // End of Rev 4.0
+                            // Rev 5.0
+                            proc.AddPara("@IsShowLatLongInOutletMaster", IsShowLatLongInOutletMaster);
+                            // End of Rev 5.0
 
                             DataTable dt = proc.GetTable();
 
@@ -4891,6 +4916,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsMenuShowAIMarketAssistant", IsMenuShowAIMarketAssistant);
                             proc.AddPara("@IsUsbDebuggingRestricted", IsUsbDebuggingRestricted);
                             // End of Rev 4.0
+                            // Rev 5.0
+                            proc.AddPara("@IsShowLatLongInOutletMaster", IsShowLatLongInOutletMaster);
+                            // End of Rev 5.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5303,6 +5331,9 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsMenuShowAIMarketAssistant", IsMenuShowAIMarketAssistant);
                             proc.AddPara("@IsUsbDebuggingRestricted", IsUsbDebuggingRestricted);
                             // End of Rev 4.0
+                            // Rev 5.0
+                            proc.AddPara("@IsShowLatLongInOutletMaster", IsShowLatLongInOutletMaster);
+                            // End of Rev 5.0
 
                             DataTable dt = proc.GetTable();
 
