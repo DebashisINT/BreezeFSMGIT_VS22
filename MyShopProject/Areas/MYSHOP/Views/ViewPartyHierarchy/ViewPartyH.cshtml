@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@*<link rel="stylesheet" type="text/css" href="/assests/fonts/font-awesome/css/font-awesome.min.css" />*@
 <style>
     .dateIn {
         font-size: 10px;
@@ -42,6 +42,26 @@
     }
     .red {
         color: red;
+    }
+
+    /*.marker-icon {
+        position: absolute;
+        top: 10px;
+    }*/
+
+    .marker-icon::before {
+        font-size: 24px !important;
+    }
+
+    .circle-background {
+        background-color: white;
+        width: 40px; /* Adjust the width and height to match your icon size */
+        height: 40px;
+        border-radius: 50%; /* Make it circular */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 2px 2px 5px 0px #11111185;
     }
 </style>
 @*Rev 3.0*@
@@ -705,7 +725,7 @@
 
             success: function (markers) {
                 console.log("ddAray", markers);
-                $(".mLoader").css({ "opacity": "0", "display": "none" });
+                /*$(".mLoader").css({ "opacity": "0", "display": "none" });*/
                 //return false;
                 var data = markers;
                 //console.log(data)
@@ -775,19 +795,22 @@
                         //var pictureLabel = document.createElement("img");
                         //pictureLabel.src = locations[i][7];
                         var data = markers[i];
-                        var icnIm = "";
-                        if (data.MAP_COLOR == "GREEN") {
-                            icnIm = "<img src='/assests/images/mapsMarkerT1Green.png' />"
-                        } else if (data.MAP_COLOR == "RED") {
-                            icnIm = "<img src='/assests/images/mapsMarkerT1Red.png' />"
-                        } else {
-                            icnIm = "<img src='/assests/images/mapsMarkerT1.png' />"
-                        }
-                        if (data.Shop_Name == "GPTPL" || data.Shop_Name == "Meeting" || data.Shop_Name == "Company Name") {
+                        var iconColor = data.PARENT_COLORCODE;
+                        var icnIm = `<i class='fa fa-user' style='color:${iconColor};' aria-hidden='true'></i>`;
 
-                        } else {
-                            strhtml = strhtml + '<li class="userlistItem marker-link clearfix" data-lat="' + data.Shop_Lat + '" data-long="' + data.Shop_Long + '" data-markerid="' + i + '"> ' + '<div class="userIcon">' + icnIm + '</div>' + '<div class="userName">' + data.Shop_Name + '</div>' + '<div class="userNUM">' + data.Shop_Owner_Contact + ' </div>' + '</li>';
-                        }
+                        strhtml = strhtml + '<li class="userlistItem marker-link clearfix" data-lat="' + data.Shop_Lat + '" data-long="' + data.Shop_Long + '" data-markerid="' + i + '"> ' + '<div class="userIcon">' + icnIm + '</div>' + '<div class="userName">' + data.Shop_Name + '</div>' + '<div class="userNUM">' + data.Shop_Owner_Contact + ' </div>' + '</li>';
+                        //if (data.MAP_COLOR == "GREEN") {
+                        //    icnIm = "<img src='/assests/images/mapsMarkerT1Green.png' />"
+                        //} else if (data.MAP_COLOR == "RED") {
+                        //    icnIm = "<img src='/assests/images/mapsMarkerT1Red.png' />"
+                        //} else {
+                        //    icnIm = "<img src='/assests/images/mapsMarkerT1.png' />"
+                        //}
+                        //if (data.Shop_Name == "GPTPL" || data.Shop_Name == "Meeting" || data.Shop_Name == "Company Name") {
+
+                        //} else {
+                        //    strhtml = strhtml + '<li class="userlistItem marker-link clearfix" data-lat="' + data.Shop_Lat + '" data-long="' + data.Shop_Long + '" data-markerid="' + i + '"> ' + '<div class="userIcon">' + icnIm + '</div>' + '<div class="userName">' + data.Shop_Name + '</div>' + '<div class="userNUM">' + data.Shop_Owner_Contact + ' </div>' + '</li>';
+                        //}
                         //console.log(data);
 
                         // user Click infobox
@@ -798,7 +821,7 @@
                             content: boxText,
                             disableAutoPan: false,
                             //maxWidth: 150,
-                            pixelOffset: new google.maps.Size(-100, 0),
+                            pixelOffset: new google.maps.Size(-140, -60),
                             zIndex: null,
                             alignBottom: true,
                             boxClass: "infobox-wrapper",
@@ -807,6 +830,20 @@
                             closeBoxURL: "/assests/pluggins/images/close-btn.png",
                             infoBoxClearance: new google.maps.Size(1, 1)
                         };
+                        var marker = new MarkerWithLabel({
+                            position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
+                            map: map,
+                            icon: '/assests/images/map-icon-bg.png',
+                            
+                            /*labelContent: `<div class="custom-marker"><i class='fa fa-user marker-icon' style='color:${iconColor};' aria-hidden='true'></i></div>`,*/
+                            labelContent: `<div class="custom-marker">
+                                                <div class="circle-background">
+                                                    <i class='fa fa-user marker-icon' style='color:${iconColor};' aria-hidden='true'></i>
+                                                </div>
+                                           </div>`,
+                            labelAnchor: new google.maps.Point(50, 0),
+                            labelClass: "marker-style"
+                        });
                         //var marker = new MarkerWithLabel({
                         //    //title: locations[i][0],
                         //    position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
@@ -817,40 +854,40 @@
                         //    labelAnchor: new google.maps.Point(50, 0),
                         //    labelClass: "marker-style"
                         //});
-                        if (data.MAP_COLOR == "GREEN") {
-                            var marker = new MarkerWithLabel({
-                                //title: locations[i][0],
-                                position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
-                                map: map,
-                                icon: '/assests/images/mapsMarkerT1Green.png',
-                                //labelContent: pictureLabel,
-                                animation: google.maps.Animation.DROP,
-                                labelAnchor: new google.maps.Point(50, 0),
-                                labelClass: "marker-style"
-                            });
-                        } else if (data.MAP_COLOR == "RED") {
-                            var marker = new MarkerWithLabel({
-                                //title: locations[i][0],
-                                position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
-                                map: map,
-                                icon: '/assests/images/mapsMarkerT1Red.png',
-                                //labelContent: pictureLabel,
-                                animation: google.maps.Animation.DROP,
-                                labelAnchor: new google.maps.Point(50, 0),
-                                labelClass: "marker-style"
-                            });
-                        } else {
-                            var marker = new MarkerWithLabel({
-                                //title: locations[i][0],
-                                position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
-                                map: map,
-                                icon: '/assests/images/mapsMarkerT1.png',
-                                //labelContent: pictureLabel,
-                                animation: google.maps.Animation.DROP,
-                                labelAnchor: new google.maps.Point(50, 0),
-                                labelClass: "marker-style"
-                            });
-                        }
+                        //if (data.MAP_COLOR == "GREEN") {
+                        //    var marker = new MarkerWithLabel({
+                        //        //title: locations[i][0],
+                        //        position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
+                        //        map: map,
+                        //        icon: '/assests/images/mapsMarkerT1Green.png',
+                        //        //labelContent: pictureLabel,
+                        //        animation: google.maps.Animation.DROP,
+                        //        labelAnchor: new google.maps.Point(50, 0),
+                        //        labelClass: "marker-style"
+                        //    });
+                        //} else if (data.MAP_COLOR == "RED") {
+                        //    var marker = new MarkerWithLabel({
+                        //        //title: locations[i][0],
+                        //        position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
+                        //        map: map,
+                        //        icon: '/assests/images/mapsMarkerT1Red.png',
+                        //        //labelContent: pictureLabel,
+                        //        animation: google.maps.Animation.DROP,
+                        //        labelAnchor: new google.maps.Point(50, 0),
+                        //        labelClass: "marker-style"
+                        //    });
+                        //} else {
+                        //    var marker = new MarkerWithLabel({
+                        //        //title: locations[i][0],
+                        //        position: new google.maps.LatLng(data.Shop_Lat, data.Shop_Long),
+                        //        map: map,
+                        //        icon: '/assests/images/mapsMarkerT1.png',
+                        //        //labelContent: pictureLabel,
+                        //        animation: google.maps.Animation.DROP,
+                        //        labelAnchor: new google.maps.Point(50, 0),
+                        //        labelClass: "marker-style"
+                        //    });
+                        //}
                         newMarkers.push(marker);
                         // susanta 04.01.2019
                         boxText.innerHTML =
@@ -920,7 +957,7 @@
 
                 }
 
-
+                $(".mLoader").css({ "opacity": "0", "display": "none" });
             },
             error: function () {
 
@@ -1317,7 +1354,20 @@
 
         .userlistItem .userIcon {
             float: left;
+            width: 38px;
+            height: 38px;
+            border-radius: 50px;
+            background: #fff;
+            box-shadow: 1px 1px 10px #1111113d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+            .userlistItem .userIcon .fa-user:before {
+                font-size: 23px;
+                line-height: 22px;
+            }
 
             .userlistItem .userIcon > img {
                 max-width: 40px;
@@ -2766,8 +2816,8 @@
 
     .marker-style {
         text-align: center;
-        width: 34px;
-        height: 34px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         margin-left: -17px !important;
         margin-top: -49px !important;

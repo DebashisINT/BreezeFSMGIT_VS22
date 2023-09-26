@@ -91,11 +91,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
                                PARTYSTATUS = Convert.ToString(dr["PARTYSTATUS"]),
                                MAP_COLOR = Convert.ToString(dr["MAP_COLOR"]),
                                Shop_CreateUser = Convert.ToString(dr["Shop_CreateUser"]),
-                               state = Convert.ToString(dr["state"])
+                               state = Convert.ToString(dr["state"]),
+                               PARENT_COLORCODE = Convert.ToString(dr["PARENT_MAP_COLORCODE"])
                            }).ToList();
             }
 
-            return Json(AddressList);
+            //return Json(AddressList);
+            var jsonResult = Json(AddressList, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         public ActionResult GetType()
