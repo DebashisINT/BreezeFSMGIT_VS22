@@ -411,13 +411,13 @@ namespace ERP.OMS.Management.Store.Master
         protected global::System.Web.UI.WebControls.Label Label24;
 
         /// <summary>
-        /// ddlColorNew control.
+        /// txtColorNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlColorNew;
+        protected global::DevExpress.Web.ASPxButtonEdit txtColorNew;
 
         /// <summary>
         /// hdnColorNew control.
@@ -427,6 +427,15 @@ namespace ERP.OMS.Management.Store.Master
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnColorNew;
+
+        /// <summary>
+        /// calledFromColorNewLookup_hidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField calledFromColorNewLookup_hidden;
 
         /// <summary>
         /// Label25 control.
