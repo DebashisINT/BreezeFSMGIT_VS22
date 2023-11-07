@@ -528,13 +528,22 @@ namespace ERP.OMS.Management.Store.Master
         protected global::System.Web.UI.WebControls.Label Label13;
 
         /// <summary>
-        /// cmbBrand control.
+        /// txtBrand control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cmbBrand;
+        protected global::DevExpress.Web.ASPxButtonEdit txtBrand;
+
+        /// <summary>
+        /// hdnBrand_hidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnBrand_hidden;
 
         /// <summary>
         /// Label16 control.
