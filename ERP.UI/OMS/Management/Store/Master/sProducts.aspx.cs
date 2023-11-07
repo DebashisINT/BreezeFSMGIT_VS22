@@ -400,10 +400,12 @@ namespace ERP.OMS.Management.Store.Master
             dtCmb = oGenericMethod.GetDataTable("select Brand_Id ,Brand_Name from tbl_master_brand where Brand_IsActive=1");
 
             AspxHelper oAspxHelper = new AspxHelper();
-            if (dtCmb.Rows.Count > 0)
-            {
-                oAspxHelper.Bind_Combo(cmbBrand, dtCmb, "Brand_Name", "Brand_Id", "");
-            }
+            // Rev 4.0
+            //if (dtCmb.Rows.Count > 0)
+            //{
+            //    oAspxHelper.Bind_Combo(cmbBrand, dtCmb, "Brand_Name", "Brand_Id", "");
+            //}
+            // End of Rev 4.0
 
         }
 
@@ -798,6 +800,9 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                                 decimal reorder_qty = 0;
                                 Boolean isCapitalGoods = false;
                                 int tdscode = 0;
+                                // Rev 4.0
+                                int ProductBrand = 0;
+                                // End of Rev 4.0
 
                                 if (cmb_tdstcs.Value != null)
                                 {
@@ -903,6 +908,12 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                                     return;
 
                                 }
+                                // Rev 4.0
+                                if (hdnBrand_hidden.Value.ToString() != "")
+                                {
+                                    ProductBrand = Convert.ToInt32(hdnBrand_hidden.Value);
+                                }
+                                // End of Rev 4.0
 
                                 if (HttpContext.Current.Session["userid"] != null)
                                 {
@@ -920,7 +931,10 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                                      autoApply, Convert.ToString(fileName.Value), ProdComponent, Convert.ToString(CmbStatus.SelectedItem.Value), Convert.ToString(HsnLookUp.Text).Trim(),
                                      Convert.ToInt32(AspxServiceTax.Value == null ? 0 : AspxServiceTax.Value),
                                      Convert.ToDecimal(txtPackingQty.Text.Trim()), Convert.ToDecimal(txtpacking.Text.Trim()), Convert.ToInt32(cmbPackingUom.Value != null ? cmbPackingUom.Value : 0),
-                                     isInstall, Convert.ToInt32(cmbBrand.Value == null ? 0 : cmbBrand.Value), isCapitalGoods, tdscode, Convert.ToString(Session["LastFinYear"]), isOldUnit,
+                                     // Rev 4.0
+                                     //isInstall, Convert.ToInt32(cmbBrand.Value == null ? 0 : cmbBrand.Value), isCapitalGoods, tdscode, Convert.ToString(Session["LastFinYear"]), isOldUnit,
+                                     isInstall, ProductBrand, isCapitalGoods, tdscode, Convert.ToString(Session["LastFinYear"]), isOldUnit,
+                                     // End of Rev 4.0
                                      hdnSIMainAccount.Value == null ? "" : Convert.ToString(hdnSIMainAccount.Value), hdnSRMainAccount.Value == null ? "" : Convert.ToString(hdnSRMainAccount.Value),
                                      hdnPIMainAccount.Value == null ? "" : Convert.ToString(hdnPIMainAccount.Value), hdnPRMainAccount.Value == null ? "" : Convert.ToString(hdnPRMainAccount.Value), FurtheranceToBusiness, IsServiceItem, reorder_qty
                                      // Mantis Issue 24299
@@ -1017,7 +1031,9 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                 decimal reorder_qty = 0;
                 Boolean isCapitalGoods = false;
                 int tdscode = 0;
-
+                // Rev 4.0
+                int ProductBrand = 0;
+                // End of Rev 4.0
 
                 if (chkFurtherance.Checked)
                 {
@@ -1149,6 +1165,13 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                 if (Convert.ToString(cmbIsCapitalGoods.SelectedItem.Value) == "1")
                     isCapitalGoods = true;
 
+                // Rev 4.0
+                if (hdnBrand_hidden.Value.ToString() != "")
+                {
+                    ProductBrand = Convert.ToInt32(hdnBrand_hidden.Value);
+                }
+                // End of Rev 4.0
+
                 updtcnt = oStore_MasterBL.UpdateProduct(Convert.ToInt32(WhichType), txtPro_Code.Text, txtPro_Name.Text, txtPro_Description.Text, Convert.ToString(CmbProType.SelectedItem == null ? 0 : CmbProType.SelectedItem.Value),
                  Convert.ToInt32(CmbProClassCode.SelectedItem == null ? 0 : CmbProClassCode.SelectedItem.Value), txtGlobalCode.Text, 1, Convert.ToInt32(CmbTradingLotUnits.SelectedItem == null ? 0 : CmbTradingLotUnits.SelectedItem.Value),
                  1, 1, 1, 1,
@@ -1164,7 +1187,10 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                  autoApply, Convert.ToString(fileName.Value), ProdComponent, Convert.ToString(CmbStatus.SelectedItem.Value), Convert.ToString(HsnLookUp.Text).Trim(),
                  Convert.ToInt32(AspxServiceTax.Value == null ? 0 : AspxServiceTax.Value),
                  Convert.ToDecimal(txtPackingQty.Text.Trim()), Convert.ToDecimal(txtpacking.Text.Trim()), Convert.ToInt32(cmbPackingUom.Value != null ? cmbPackingUom.Value : 0),
-                 isInstall, Convert.ToInt32(cmbBrand.Value == null ? 0 : cmbBrand.Value), isCapitalGoods, tdscode, isOldUnit,
+                 // Rev 4.0
+                 //isInstall, Convert.ToInt32(cmbBrand.Value == null ? 0 : cmbBrand.Value), isCapitalGoods, tdscode, isOldUnit,
+                 isInstall, ProductBrand, isCapitalGoods, tdscode, isOldUnit,
+                 // End of Rev 4.0
                  hdnSIMainAccount.Value == null ? "" : Convert.ToString(hdnSIMainAccount.Value), hdnSRMainAccount.Value == null ? "" : Convert.ToString(hdnSRMainAccount.Value),
                  hdnPIMainAccount.Value == null ? "" : Convert.ToString(hdnPIMainAccount.Value), hdnPRMainAccount.Value == null ? "" : Convert.ToString(hdnPRMainAccount.Value), FurtheranceToBusiness, IsServiceItem, reorder_qty
                  // Mantis Issue 24299
@@ -1386,6 +1412,7 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                     // End of Mantis Issue 25469, 25470
                     // Rev rev 4.0
                     string ColorNew_Desc = Convert.ToString(dtEdit.Rows[0]["ColorNew_Desc"]);
+                    string Brand_Desc = Convert.ToString(dtEdit.Rows[0]["Brand_Desc"]);
                     // End of Rev rev 4.0
 
                     cityGrid.JSProperties["cpEdit"] = sProducts_ID + "~"
@@ -1470,6 +1497,7 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                                                     // End of Mantis Issue 25469, 25470
                                                     // Rev rev 4.0
                                                     + "~" + ColorNew_Desc
+                                                    + "~" + Brand_Desc
                                                     // End of Rev rev 4.0
                                                         ;
                 }
@@ -1630,6 +1658,34 @@ if (!string.IsNullOrEmpty(txtPro_Code.Text.Trim()) && !string.IsNullOrEmpty(txtP
                 listColorNew.Add(lColor);
             }
             return listColorNew;
+        }
+
+        public class Brand
+        {
+            public string Brand_Id { get; set; }
+            public string Brand_Name { get; set; }
+        }
+
+        [WebMethod(EnableSession = true)]
+        public static object GetOnProductBrand(string reqStr)
+        {
+            List<Brand> listBrand = new List<Brand>();
+            BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationSettings.AppSettings["DBConnectionDefault"]);
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_ProductNameSearch");
+            proc.AddPara("@USER_ID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@Action", "SearchByBrand");
+            proc.AddPara("@SearchKey", reqStr);
+            dt = proc.GetTable();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Brand lBrand = new Brand();
+                lBrand.Brand_Id = dr["Brand_Id"].ToString();
+                lBrand.Brand_Name = dr["Brand_Name"].ToString();
+                listBrand.Add(lBrand);
+            }
+            return listBrand;
         }
         // End of Rev rev 4.0
 

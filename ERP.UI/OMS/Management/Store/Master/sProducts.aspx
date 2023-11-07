@@ -186,7 +186,45 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
             }
         }
 
-    </script>
+         function BrandButnClick(s, e) {
+             $('#BrandModel').modal('show');
+             $("#txtBrandSearch").focus();
+         }
+
+         function BrandbtnKeyDown(s, e) {
+             if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+                 $('#BrandModel').modal('show');
+                 $("#txtBrandSearch").focus();
+             }
+         }
+
+         function Brandkeydown(e) {
+
+             var OtherDetails = {}
+             OtherDetails.reqStr = $("#txtBrandSearch").val();
+             if ($.trim($("#txtBrandSearch").val()) == "" || $.trim($("#txtBrandSearch").val()) == null) {
+                 return false;
+             }
+             if (e.code == "Enter" || e.code == "NumpadEnter") {
+                 $("#calledFromAReportHeadLookup_hidden").val("1");
+                 var HeaderCaption = [];
+                 HeaderCaption.push("Name");
+                 if ($("#txtBrandSearch").val() != null && $("#txtBrandSearch").val() != "") {
+                     callonServer("sProducts.aspx/GetOnProductBrand", OtherDetails, "BrandTable", HeaderCaption, "BrandIndex", "SetBrand");
+                 }
+             }
+             else if (e.code == "ArrowDown") {
+                 if ($("input[BrandIndex=0]"))
+                     $("input[BrandIndex=0]").focus();
+             }
+         }
+
+         function SetBrand(Id, Name) {
+             $("#hdnBrand_hidden").val(Id);
+             ctxtBrand.SetText(Name);
+             $('#BrandModel').modal('hide');
+         }
+     </script>
     <%--End of Rev rev 8.0--%>
 
     <style>
@@ -1654,7 +1692,7 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
             // Rev rev 8.0
             //$("#ddlColorNew").val("");
             $("#hdnColorNew").val("");
-            ctxtColorNew.text = "";
+            ctxtColorNew.SetText("");
             $("#txtColorNewSearch").val("");
             ColorNewTable.innerHTML = "";
             // End of Rev rev 8.0
@@ -1740,7 +1778,13 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
             ccmbPackingUom.SetSelectedIndex(-1);
             //packing details End Here
             caspxInstallation.SetValue('0');
-            ccmbBrand.SetValue('');
+            // Rev 8.0
+            //ccmbBrand.SetValue('');
+            $("#hdnBrand_hidden").val("");
+            ctxtBrand.SetText("");
+            $("#txtBrandSearch").val("");
+            BrandTable.innerHTML = "";
+            // End of Rev 8.0
             cmb_tdstcs.SetValue('');
             //cPopup_Empcitys.SetWidth(window.screen.width - 50);
             //cPopup_Empcitys.SetHeight(window.innerHeight.height - 70);
@@ -2322,7 +2366,14 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
                     caspxInstallation.SetValue('0');
                 else
                     caspxInstallation.SetValue('1');
-                ccmbBrand.SetValue(grid.cpEdit.split('~')[45].trim());
+                // Rev 8.0
+                //ccmbBrand.SetValue(grid.cpEdit.split('~')[45].trim());
+
+                $("#hdnBrand_hidden").val(grid.cpEdit.split('~')[45]);
+                ctxtBrand.SetText(grid.cpEdit.split('~')[69]);
+                $("#txtBrandSearch").val("");
+                BrandTable.innerHTML = "";
+                // End of Rev 8.0
 
                 if (grid.cpEdit.split('~')[46] == 'True')
                     ccmbIsCapitalGoods.SetValue('1');
@@ -3696,9 +3747,20 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
                                     <asp:Label ID="Label13" runat="server" Text="Brand" CssClass="newLbl"></asp:Label>
                                 </div>
                                 <div class="Left_Content">
-                                    <dxe:ASPxComboBox ID="cmbBrand" ClientInstanceName="ccmbBrand" ClearButton-DisplayMode="Always" runat="server" TabIndex="16"
+                                    <%--Rev 8.0--%>
+                                    <%--<dxe:ASPxComboBox ID="cmbBrand" ClientInstanceName="ccmbBrand" ClearButton-DisplayMode="Always" runat="server" TabIndex="16"
                                         ValueType="System.String" Width="100%" EnableSynchronization="True" EnableIncrementalFiltering="True" SelectedIndex="1">
-                                    </dxe:ASPxComboBox>
+                                    </dxe:ASPxComboBox>--%>
+
+                                    <dxe:ASPxButtonEdit ID="txtBrand" runat="server" ReadOnly="true" ClientInstanceName="ctxtBrand" TabIndex="8" Width="100%">
+                                            <Buttons>
+                                                <dxe:EditButton>
+                                                </dxe:EditButton>
+                                            </Buttons>
+                                            <ClientSideEvents ButtonClick="function(s,e){BrandButnClick();}" KeyDown="BrandbtnKeyDown" />
+                                        </dxe:ASPxButtonEdit>
+                                    <asp:HiddenField ID="hdnBrand_hidden" runat="server" />
+                                    <%--End of Rev 8.0--%>
                                 </div>
                             </div>
 
@@ -5127,6 +5189,34 @@ Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required
                     <button type="button" id="btnCloseColorNew" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="BrandModel" role="dialog" style="z-index:99999 !important">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Brand</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" onkeydown="Brandkeydown(event)" id="txtBrandSearch"  class="form-control" autofocus width="100%" placeholder="Search By Employee Name" />
+
+                    <div id="BrandTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Brand</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
     </div>
     <%--End of Rev rev 8.0--%>
