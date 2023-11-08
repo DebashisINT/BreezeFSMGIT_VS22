@@ -4,8 +4,9 @@
 @*2.0                14-06-2023        2.0.41           Pallab              26337: Attendance Register report parameter design issue fix *@
 @*3.0                19/07/2023        V2.0.41          Sanchita            Add Branch parameter in MIS - Attendance Register. Mantis : 26135*@
 @*4.0                11/08/2023        V2.0.42          Sanchita            Two check box is required to show the first call time & last call time in Attendance Register Report
-         *                                                                      Mantis : 26707
+     *                                                                      Mantis : 26707
 @*5.0                07-11-2023        V2.0.43          Sanchita            0026895: System will prompt for Branch selection if the Branch hierarchy is activated.
+@*6.0                08-11-2023        V2.0.44          Sanchita            26954 : In Attendance Register Report, Including Inactive users check box implementation is required
 @*====================================================== Revision History ==========================================================*@
 
 @model System.Data.DataSet
@@ -200,6 +201,9 @@
         var ShowFirstCallTime = 0;
         var ShowLastCallTime = 0;
         // End of Rev 4.0
+        // Rev 6.0
+        var ShowInactiveUser = 0;
+        // End of Rev 6.0
 
         e.customArgs["Fromdate"] = dtFrom.GetText();
         e.customArgs["Todate"] = dtTo.GetText();
@@ -240,6 +244,11 @@
             ShowLastCallTime = 1;
         }
         // End of Rev 4.0
+        // Rev 6.0
+        if (document.getElementById("chkShowInactiveUser").checked) {
+            ShowInactiveUser = 1;
+        }
+        // End of Rev 6.0
         e.customArgs["TotalKMTravelled"] = TotalKMTravelled;
         e.customArgs["SecondarySalesValue"] = SecondarySalesValue;
         e.customArgs["IdleTimeCount"] = IdleTimeCount;
@@ -256,6 +265,9 @@
         e.customArgs["ShowFirstCallTime"] = ShowFirstCallTime;
         e.customArgs["ShowLastCallTime"] = ShowLastCallTime;
         // End of Rev 4.0
+        // Rev 6.0
+        e.customArgs["ShowInactiveUser"] = ShowInactiveUser;
+        // End of Rev 6.0
     }
 
 
@@ -1286,7 +1298,10 @@
                     </div>
                     <div class="col-md-3">
                         <div class="chkDs">
-
+                            @*Rev 6.0*@
+                            <input class="styled-checkbox" type="checkbox" id="chkShowInactiveUser" name="ShowInactiveUser" value="Boat">
+                            <label for="ShowInactiveUser"> Show Inactive User(s)</label>
+                            @*End of Rev 6.0*@
                         </div>
                     </div>
                     @*End of Rev 4.0*@
