@@ -786,6 +786,12 @@
     #BranchGridLookup_CC {
         width: 100%;
     }
+
+    @@media only screen and (max-width: 767px) {
+        #refreshgridsalessummary {
+            overflow-x: auto;
+        }
+    }
 </style>
 @*End of Rev 3.0*@
 <script>
@@ -987,7 +993,8 @@
                             </div>
                         </div>
                         @*Rev 3.0*@
-                        <div class="col-md-3 relative for-cust-icon">
+                        @*<div class="col-md-3 relative for-cust-icon">*@
+                        <div class="col-md-3 relative">
                             <label>Head Branch :</label>
                             <div class="h-branch-select">
                                 <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
@@ -1000,7 +1007,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 relative for-cust-icon">
+                        @*<div class="col-md-3 relative for-cust-icon">*@ 
+                        <div class="col-md-3 relative">
                             <label>Branch :</label>
                             <div>
                                 @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })

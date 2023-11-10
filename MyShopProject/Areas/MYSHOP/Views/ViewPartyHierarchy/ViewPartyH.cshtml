@@ -778,6 +778,7 @@
                 else {
                     // Susanta 27.12.2018
 
+                    $(".mLoader").css({ "opacity": "1", "display": "flex" });
                     var map = new google.maps.Map(document.getElementById('map_canvas'), {
                         zoom: 2,
                         scrollwheel: true,
@@ -788,10 +789,13 @@
                     });
                     var i;
                     var newMarkers = [];
+                    var totalMarkers = markers.length;
+                    var markersAdded = 0;
                    // console.log(markers);
                     var strhtml = "";
                     $('#userList').html(strhtml);
-                    for (i = 0; i < markers.length; i++) {
+
+                    for (i = 0; i < totalMarkers; i++) {
                         //var pictureLabel = document.createElement("img");
                         //pictureLabel.src = locations[i][7];
                         var data = markers[i];
@@ -889,43 +893,47 @@
                         //    });
                         //}
                         newMarkers.push(marker);
+                        markersAdded++;
+
+                        
                         // susanta 04.01.2019
-                        boxText.innerHTML =
-                               '<div class="infobox-inner">' +
-                                '<div class="clearfix">' +
-                                    '<div class="infobox-image" style="position: relative">' +
-                                        '<img src="/assests/pluggins/images/man.png" class="profileImage">' +
-                                        //'<span class="desig">ASO</span>' +
-                                   ' </div>' +
-                                    '<div class="statCont clearfix">' +
-                                        '<ul class="list-noStyle hide">' +
-                                            '<li>' +
-                                                '<div class="totalVisit"> 0 </div>' +
-                                                '<div class="text-center"><span class="badge mapBadge">TOTAL VISITS</span></div>' +
-                                            '</li>' +
-                                        '</ul>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="infobox-description">' +
-                                    '<div class="infobox-title"><a href="#">' + data.Shop_Name + ' </a></div>' +
-                                    '<div class="infobox-location"><b>Location :</b> ' + data.Address + ' </div>' +
-                                                           '<div class="infobox-cell"><i class="fa fa-phone"></i> <b> ' + data.Shop_Owner_Contact + ' </b></div>' +
-                                    '</div>' +
-                                '</div>';
+                        //boxText.innerHTML =
+                        //       '<div class="infobox-inner">' +
+                        //        '<div class="clearfix">' +
+                        //            '<div class="infobox-image" style="position: relative">' +
+                        //                '<img src="/assests/pluggins/images/man.png" class="profileImage">' +
+                        //                //'<span class="desig">ASO</span>' +
+                        //           ' </div>' +
+                        //            '<div class="statCont clearfix">' +
+                        //                '<ul class="list-noStyle hide">' +
+                        //                    '<li>' +
+                        //                        '<div class="totalVisit"> 0 </div>' +
+                        //                        '<div class="text-center"><span class="badge mapBadge">TOTAL VISITS</span></div>' +
+                        //                    '</li>' +
+                        //                '</ul>' +
+                        //            '</div>' +
+                        //        '</div>' +
+                        //        '<div class="infobox-description">' +
+                        //            '<div class="infobox-title"><a href="#">' + data.Shop_Name + ' </a></div>' +
+                        //            '<div class="infobox-location"><b>Location :</b> ' + data.Address + ' </div>' +
+                        //                                   '<div class="infobox-cell"><i class="fa fa-phone"></i> <b> ' + data.Shop_Owner_Contact + ' </b></div>' +
+                        //            '</div>' +
+                        //        '</div>';
 
                         //Define the infobox
-                        newMarkers[i].infobox = new InfoBox(infoboxOptions);
-                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                            return function () {
-                                for (h = 0; h < newMarkers.length; h++) {
-                                    newMarkers[h].infobox.close();
-                                }
-                                newMarkers[i].infobox.open(map, this);
-                            }
-                        })(marker, i));
+                        //newMarkers[i].infobox = new InfoBox(infoboxOptions);
+                        //google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        //    return function () {
+                        //        for (h = 0; h < newMarkers.length; h++) {
+                        //            newMarkers[h].infobox.close();
+                        //        }
+                        //        newMarkers[i].infobox.open(map, this);
+                        //    }
+                        //})(marker, i));
 
                     }
                     $('#userList').html(strhtml);
+
 
                     $('.marker-link').on('click', function () {
                         var lat = $(this).data('lat');
@@ -955,9 +963,14 @@
                     ];
                     var markerCluster = new MarkerClusterer(map, newMarkers, { styles: clusterStyles, maxZoom: 15 });
 
-                }
+                    if (markersAdded === totalMarkers) {
+                        // All markers have been added, hide the loader
+                        $(".mLoader").css({ "opacity": "0", "display": "none" });
+                    }
 
+                }
                 $(".mLoader").css({ "opacity": "0", "display": "none" });
+                
             },
             error: function () {
 
