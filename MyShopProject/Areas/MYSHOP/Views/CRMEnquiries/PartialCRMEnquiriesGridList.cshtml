@@ -1204,7 +1204,8 @@
                     if (ViewBag.CanReassign)
                     {
                         EnqRights = EnqRights + "&nbsp;" +
-                  "<a href=\"javascript:void(0);\" onclick=\"OnClickReAssignSalesman('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CRM_ID")) + "')\" class=\"\" title=\"Re-Assign Salesman\"><span class='ico editColor mr-3'><i class='fa fa-share' aria-hidden='true'></i></span></a>";
+                  //"<a href=\"javascript:void(0);\" onclick=\"OnClickReAssignSalesman('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CRM_ID")) + "')\" class=\"\" title=\"Re-Assign Salesman\"><span class='ico editColor mr-3'><i class='fa fa-share' aria-hidden='true'></i></span></a>";
+                  "<a href=\"javascript:void(0);\" onclick=\"OnClickReAssignSalesman('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CRM_ID")) + "')\" class=\"\" title=\"Re-Assign Salesman\"><span class='ico editColor mr-3'><img src=\"../../../assests/images/re-assign-salesman.png\" /></span></a>";
 
                     }
                     EnqRights = EnqRights + "</div>";
