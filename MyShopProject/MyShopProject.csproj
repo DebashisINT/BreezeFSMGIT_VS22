@@ -2005,6 +2005,8 @@
     <Content Include="Areas\MYSHOP\Views\OutletRevisitDetails\_PartialGridOutletRevisitDetails.cshtml" />
     <Content Include="Areas\MYSHOP\Views\OutletRevisitDetails\OutletRevisitDetails.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ViewPartyHierarchy\ViewPartyH.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CRMEnquiries\_BulkEnquiriesImportManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CRMEnquiries\BulkImportLog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
