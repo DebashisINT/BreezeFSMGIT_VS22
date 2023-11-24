@@ -973,18 +973,18 @@
                     <div class="col-md-4" style="padding-top: 20px;">
                         <span></span>
                         <div>
-                            @*@if (ViewBag.CanView)
-                                {*@
-                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
-                            @*}*@
+                            @if (ViewBag.CanView)
+                            {
+                                <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+                            }
 
-                            @*@if (ViewBag.CanExport)
-                                {*@
-                            <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                <option value="0">Export to</option>
-                                <option value="2">XLSX</option>
-                            </select>
-                            @*}*@
+                            @if (ViewBag.CanExport)
+                            {
+                                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                                    <option value="0">Export to</option>
+                                    <option value="2">XLSX</option>
+                                </select>
+                            }
 
                         </div>
                     </div>
@@ -994,32 +994,32 @@
 
                 <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
                     <!-- Button trigger modal -->
-                    @*@if (ViewBag.CanView)
-                        {*@
-                    <button type="button" class="btn btn-success" onclick="ShowPendingEnquiry();">
-                        Pending Enquiry <span id="btnPendingEnquirySpan" class="badge">0</span>
-                    </button>
+                    @if (ViewBag.CanView)
+                    {
+                        <button type="button" class="btn btn-success" onclick="ShowPendingEnquiry();">
+                            Pending Enquiry <span id="btnPendingEnquirySpan" class="badge">0</span>
+                        </button>
 
-                    <button type="button" class="btn btn-success" onclick="ShowInProcessEnquiry();">
-                        In Process Enquiry <span id="btnInProcessEnquirySpan" class="badge">0</span>
-                    </button>
+                        <button type="button" class="btn btn-success" onclick="ShowInProcessEnquiry();">
+                            In Process Enquiry <span id="btnInProcessEnquirySpan" class="badge">0</span>
+                        </button>
 
-                    <button type="button" class="btn btn-success" onclick="ShowNotInterestedEnquiry();">
-                        Not Interested Enquiry <span id="btnNotInterestedEnquirySpan" class="badge">0</span>
-                    </button>
+                        <button type="button" class="btn btn-success" onclick="ShowNotInterestedEnquiry();">
+                            Not Interested Enquiry <span id="btnNotInterestedEnquirySpan" class="badge">0</span>
+                        </button>
 
-                    <button type="button" class="btn btn-success" onclick="ShowAssignedEnquiry();">
-                        Assigned Enquiry <span id="btnAssignedEnquirySpan" class="badge">0</span>
-                    </button>
+                        <button type="button" class="btn btn-success" onclick="ShowAssignedEnquiry();">
+                            Assigned Enquiry <span id="btnAssignedEnquirySpan" class="badge">0</span>
+                        </button>
 
-                    <button type="button" class="btn btn-success" onclick="ShowReassignedEnquiry();">
-                        Reassigned Enquiry <span id="btnReassignedEnquirySpan" class="badge">0</span>
-                    </button>
+                        <button type="button" class="btn btn-success" onclick="ShowReassignedEnquiry();">
+                            Reassigned Enquiry <span id="btnReassignedEnquirySpan" class="badge">0</span>
+                        </button>
 
-                    <button type="button" class="btn btn-success" onclick="ShowHighRiskEnquiry();">
-                        High Risk Enquiry <span id="btnHighRiskEnquirySpan" class="badge">0</span>
-                    </button>
-                    @*}*@
+                        <button type="button" class="btn btn-success" onclick="ShowHighRiskEnquiry();">
+                            High Risk Enquiry <span id="btnHighRiskEnquirySpan" class="badge">0</span>
+                        </button>
+                    }
 
                 </div>
                 <div class="clearfix"></div>
