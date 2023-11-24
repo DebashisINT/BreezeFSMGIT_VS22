@@ -258,6 +258,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\CompetitorStockRegisterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ContentManagementController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CounterListController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\CRMContactController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CRMEnquiriesController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CurrentStockReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CustomerDetailsController.cs" />
@@ -424,6 +425,7 @@
     <Compile Include="Models\ChemistStockistDetailsModel.cs" />
     <Compile Include="Models\ClosingStock.cs" />
     <Compile Include="Models\CollectionRegisterModel.cs" />
+    <Compile Include="Models\CRMContactModel.cs" />
     <Compile Include="Models\CRMEnquiriesModel.cs" />
     <Compile Include="Models\CurrentStockReportModel.cs" />
     <Compile Include="Models\CustomerDetailsModel.cs" />
@@ -2012,6 +2014,8 @@
     <Content Include="Areas\MYSHOP\Views\EnquiryAnalytics\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\EnquiryAnalytics\PartialEnquiryAnalyticsGridList.cshtml" />
     <Content Include="Areas\MYSHOP\Views\EnquiryAnalytics\_EnquiryFromPartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CRMContact\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CRMContact\PartialCRMContactGridList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
