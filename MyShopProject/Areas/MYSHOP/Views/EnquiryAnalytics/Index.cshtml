@@ -917,6 +917,65 @@
     }
     /*End Class badge*/
 
+    .bg-color-1 {
+        background-color: #05916f;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+        .bg-color-1:hover {
+            background-color: #016e54;
+        }
+
+    .bg-color-2 {
+        background-color: #0841a5;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+            .bg-color-2:hover {
+                background-color: #042c72;
+            }
+
+    .bg-color-3 {
+        background-color: #5419cd;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    .bg-color-3:hover {
+        background-color: #3d07ab;
+    }
+
+    .bg-color-4 {
+        background-color: #63a30a;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+        .bg-color-4:hover {
+            background-color: #4a7c04;
+        }
+
+    .bg-color-5 {
+        background-color: #d316a4;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+        .bg-color-5:hover {
+            background-color: #a3077c;
+        }
+
+    .bg-color-6 {
+        background-color: #bd850e;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+        .bg-color-6:hover {
+            background-color: #956706;
+        }
+
 </style>
 
 <div class="breadCumb">
@@ -928,8 +987,8 @@
         <div class="col-md-12">
             <div class="backBox mt-5 px-5">
 
-                <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
-                    <div class="col-md-2 for-cust-icon">
+                <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px; padding-left: 0; padding-right: 0">
+                    <div class="col-md-2 for-cust-icon" style="padding-left: 0;">
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -963,7 +1022,7 @@
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
-                    <div class="col-md-4" style="margin-bottom: 16px;">
+                    <div class="col-md-4" style="">
                         <span>Enquiry From</span>
                         <div>
                             @Html.Action("GetEnquiryFrom", "EnquiryAnalytics")
@@ -975,52 +1034,59 @@
                         <div>
                             @if (ViewBag.CanView)
                             {
-                                <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
                             }
 
                             @if (ViewBag.CanExport)
                             {
-                                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                    <option value="0">Export to</option>
-                                    <option value="2">XLSX</option>
-                                </select>
+                            <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                                <option value="0">Export to</option>
+                                <option value="2">XLSX</option>
+                            </select>
                             }
 
                         </div>
                     </div>
 
+                    <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
+                <div class="col-md-12" style="padding-top: 15px; margin-bottom: 10px; padding-left: 0; padding-right: 0">
                     <!-- Button trigger modal -->
                     @if (ViewBag.CanView)
                     {
-                        <button type="button" class="btn btn-success" onclick="ShowPendingEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-1" onclick="ShowPendingEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="Enquiry has not been Assigned">
                             Pending Enquiry <span id="btnPendingEnquirySpan" class="badge">0</span>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="ShowInProcessEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-2" onclick="ShowInProcessEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="Enquiry having an activity type as In Process">
                             In Process Enquiry <span id="btnInProcessEnquirySpan" class="badge">0</span>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="ShowNotInterestedEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-3" onclick="ShowNotInterestedEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="Enquiry having an activity type as Not interested">
                             Not Interested Enquiry <span id="btnNotInterestedEnquirySpan" class="badge">0</span>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="ShowAssignedEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-4" onclick="ShowAssignedEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="Enquiry which has been assigned">
                             Assigned Enquiry <span id="btnAssignedEnquirySpan" class="badge">0</span>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="ShowReassignedEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-5" onclick="ShowReassignedEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="Enquiry which has been Reassigned">
                             Reassigned Enquiry <span id="btnReassignedEnquirySpan" class="badge">0</span>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="ShowHighRiskEnquiry();">
+                        <button type="button" class="btn btn-success bg-color-6" onclick="ShowHighRiskEnquiry();" data-toggle="tooltip" title="" 
+                                data-placement="top" data-original-title="No Activity Against Enquiry">
                             High Risk Enquiry <span id="btnHighRiskEnquirySpan" class="badge">0</span>
                         </button>
                     }
-
+                    <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
 
