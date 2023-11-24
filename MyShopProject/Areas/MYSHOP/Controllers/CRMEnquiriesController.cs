@@ -289,7 +289,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
+                // Rev Sanchita
+                //return RedirectToAction("Logout", "Login", new { Area = "" });
+                throw ex;
+                // End of Rev Sanchita
 
             }
            
