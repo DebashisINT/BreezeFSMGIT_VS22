@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 10.75" name="Reports">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 11.375" name="Reports">
   <DataContextMoniker Name="/ReportsDataContext" />
   <nestedChildShapes>
     <classShape Id="6f8bddd7-026f-4c14-800e-203cf2368696" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
@@ -570,6 +570,12 @@
       <DataClassMoniker Name="/ReportsDataContext/ENQUIRIES_LISTING1" />
       <nestedChildShapes>
         <elementListCompartment Id="9dc72f05-daa4-40ba-9e5d-67dd4789e855" absoluteBounds="7.14, 7.96, 1.9700000000000002, 9.8644612630208321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b8602880-d10d-4da7-9181-352f875c026a" isExpanded="false" absoluteBounds="0.625, 10.625, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/ENQUIRYANALYTICS_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e20624c6-138d-4118-a8ff-45c2f5011143" absoluteBounds="0.64, 11.085, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
