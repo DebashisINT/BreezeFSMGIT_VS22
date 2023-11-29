@@ -2976,7 +2976,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PhoneNo";
-                x.Caption = "Phone No";
+                x.Caption = "Phone No.";
                 x.VisibleIndex = 4;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
             });
