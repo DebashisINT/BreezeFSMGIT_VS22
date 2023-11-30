@@ -1556,3 +1556,19 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     border-radius: 0px;
     margin: 0;
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1299px)
+{
+    .mainDashBoxes .flex-itm {
+        width: 35%;
+    }
+
+    .backBox {
+        overflow-x: auto !important;
+    }
+
+    .tabs nav ul {
+        flex-flow: nowrap !important;
+        overflow-x: auto !important;
+    }
+}
