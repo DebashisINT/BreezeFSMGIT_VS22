@@ -6,6 +6,7 @@
 @*1.0                10-01-2023        2.0.37           Pallab              Space add in travel points *@
 @*2.0                30-01-2023        2.0.38           Sanchita            Distance issue in View route of Nordusk. Refer: 25515*@
 @*3.0                21-04-2023        2.0.40           Pallab              Console error while trying to export the report into excel for view route in Nordusk. Refer: 25880*@
+@*4.0                30-11-2023        2.0.43           Sanchita            In view route for Nordusk Live, the time not showing. Mantis:     *@
 @*====================================================== Revision History ===========================================================*@
 
 <style>
@@ -3110,8 +3111,10 @@
                 summaryPanel.innerHTML += '<div class="mCont ff">' + response[i].location_name + ' </div>'
                 // Rev 2.0
                 //summaryPanel.innerHTML += '<div><span class="mKm">0 km' + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
-                summaryPanel.innerHTML += '<div><span class="mKm">' + response[i].distance_covered + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
-
+                // Rev 4.0
+                //summaryPanel.innerHTML += '<div><span class="mKm">' + response[i].distance_covered + '</span> <span class="dateIn">' + response[i].frmdt + '</span></div>';
+                summaryPanel.innerHTML += '<div><span class="mKm">' + response[i].distance_covered + '</span> <span class="dateIn">' + response[i].frmdt + ' ' + response[i].onlytime + '</span></div>';
+                // End of Rev 4.0
                 // End of Rev 2.0
                 summaryPanel.innerHTML += '<div class="lnArea">Lat: <span>' + response[i].latitude + '</span> <span>Long: ' + response[i].longitude + '</span></div></li>';
             }
