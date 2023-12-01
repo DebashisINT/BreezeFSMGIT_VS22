@@ -700,6 +700,116 @@
     .mr-5{
         margin-right: 5px;
     }
+
+    .pmsModal .modal-body {
+        padding: 30px;
+    }
+
+        .pmsModal .modal-body .col-md-3, .pmsModal .modal-body .col-md-6, .pmsModal .modal-body .col-md-12 {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .personal-info {
+            background: #f2fffd;
+            padding: 10px 0;
+            border-radius: 15px 15px 15px 15px;
+            border: 2px solid #9eebdd;
+            margin-bottom: 30px;
+        }
+
+    .pmsModal .modal-body select:not(.btn), .pmsModal .modal-body .form-control {
+        border-radius: 6px !important;
+        background: #fff !important;
+    }
+
+        .pmsModal .modal-body .form-control:focus {
+            box-shadow: none !important;
+        }
+
+    .company-info {
+        background: #fff2fc;
+        padding: 10px 0;
+        border-radius: 15px 15px 15px 15px;
+        border: 2px solid #ef70cd;
+        margin-bottom: 30px;
+    }
+
+    .others-info {
+        background: #fff6f1;
+        padding: 10px 0;
+        border-radius: 15px 15px 15px 15px;
+        border: 2px solid #ed935c;
+        margin-bottom: 10px;
+    }
+
+    .section-heading {
+        width: 100%;
+        margin-top: -26px;
+        padding: 0 0 0 10px;
+        margin-bottom: 10px;
+    }
+
+    .personal-info .section-heading h4 {
+        font-size: 16px !important;
+        padding: 6px 15px;
+        background: #10977e;
+        color: #fff;
+        border-radius: 20px 20px;
+        display: inline-block;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .company-info .section-heading h4 {
+        font-size: 16px !important;
+        padding: 6px 15px;
+        background: #971073;
+        color: #fff;
+        border-radius: 20px 20px;
+        display: inline-block;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .others-info .section-heading h4 {
+        font-size: 16px !important;
+        padding: 6px 15px;
+        background: #974310;
+        color: #fff;
+        border-radius: 20px 20px;
+        display: inline-block;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .ml-n15
+    {
+        margin-left: -15px;
+    }
+
+    /* width */
+    .pmsModal .modal-body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    .pmsModal .modal-body::-webkit-scrollbar-track {
+        box-shadow: none;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    /* Handle */
+    .pmsModal .modal-body::-webkit-scrollbar-thumb {
+        background: #b1b1b1;
+        border-radius: 10px;
+    }
+
+        /* Handle on hover */
+        .pmsModal .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #8b8b8b;
+        }
 </style>
 
 <div class="container ">
@@ -847,129 +957,221 @@
             <input type="hidden" id="hdnShopCode" value="" />
             <div class="modal-body inputShrink">
                 <div class="row">
-                    <div class="col-md-3 mb-10">
-                        <label>First Name</label>
-                        <div>
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtPartyCode" })
+
+                    <div class="col-md-12 personal-info">
+                        <div class="section-heading">
+                            <h4>Personal Information</h4>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Last Name </label>
-                        <div>
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtPartyName" })
+
+                        <div class="col-md-3 mb-10">
+                            <label>First Name<em style="color: red">*</em></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtPartyCode" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Company </label>
-                        <div>
-                            <select class="form-control" id="ddlCompany">
-                                <option value="Select">Select</option>
-                            </select>
+                        <div class="col-md-3 mb-10">
+                            <label>Last Name </label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtPartyName" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Job Title</label>
-                        <div>
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtJobTitle" })
+
+                        <div class="col-md-3 mb-10">
+                            <label>Phone<em style="color: red">*</em></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtPhone" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Email</label>
-                        <div>
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtEmail" })
+                        <div class="col-md-3 mb-10">
+                            <label>Email</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtEmail" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Phone</label>
-                        <div>
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtPhone" })
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-6 mb-10">
+                            <label>Address </label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextAreaFor(m => m.FirstName, new { @class = "form-control", @id = "txtcluster" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Address </label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtcluster" })
+                        <div class="col-md-3 mb-10">
+                            <label>Date of Birth</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtDOB" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Assign To </label>
-                        <div>
-                            <select class="form-control" id="ddlStatus">
-                                <option value="Select">Select</option>
-                            </select>
+                        <div class="col-md-3 mb-10">
+                            <label>Date of Anniversary</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtanniversarydate" })
+                            </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Type </label>
-                        <div>
-                            <select class="form-control" id="ddlType">
-                                <option value="Select">Select</option>
-                            </select>
+
+                    <div class="col-md-12 company-info">
+                        <div class="section-heading">
+                            <h4>General Information</h4>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Status </label>
-                        <div>
-                            <select class="form-control" id="ddlStatus">
-                                <option value="Select">Select</option>
-                            </select>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Company </label>
+                            <div>
+                                <select class="form-control" id="ddlCompany">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Source </label>
-                        <div>
-                            <select class="form-control" id="ddlSource">
-                                <option value="Select">Select</option>
-                            </select>
+                        <div class="col-md-3 mb-10">
+                            <label>Job Title</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtJobTitle" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Reference </label>
-                        <div>
-                            <select class="form-control" id="ddlReference">
-                                <option value="Select">Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Remarks (if any)</label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Expected Sales Value</label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Stages</label>
-                        <div>
-                            @*<input type="text" class="form-control" />*@
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-10">
-                        <label>Activities </label>
-                        <div>
-                            <select class="form-control" id="ddlReference">
-                                <option value="Select">Select</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                
-                <div class="mt-15">
-                    <button type="button" class="btn btn-success mr-2" onclick="AddShop('Exit');">Save & Exit</button>
-                    <button type="button" class="btn btn-primary mr-2" onclick="AddShop('New');">Save & New</button>
-                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" onclick="ClearData();">Close</button>
-                </div>
+                        @*<div class="col-md-3 mb-10">
+            <label>Email</label>
+            <div>
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtEmail" })
             </div>
+        </div>
+        <div class="col-md-3 mb-10">
+            <label>Phone</label>
+            <div>
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtPhone" })
+            </div>
+        </div>*@
+                        @*<div class="col-md-3 mb-10">
+            <label>Address </label>
+            <div>
+
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtcluster" })
+            </div>
+        </div>*@
+                        <div class="col-md-3 mb-10">
+                            <label>Assign To<em style="color: red">*</em></label>
+                            <div>
+                                <select class="form-control" id="ddlStatus">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label>Type </label>
+                            <div>
+                                <select class="form-control" id="ddlType">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Status </label>
+                            <div>
+                                <select class="form-control" id="ddlStatus">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Source </label>
+                            <div>
+                                <select class="form-control" id="ddlSource">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Reference </label>
+                            <div>
+                                <select class="form-control" id="ddlReference">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Stages</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @*@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })*@
+                                <select class="form-control" id="txtStages">
+                                    <option value="Select">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        @*<div class="col-md-3 mb-10">
+                            <label>Website</label>
+                            <div>
+                                
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>*@
+
+                        @*<div class="clearfix"></div>*@
+
+                    </div>
+
+
+                    <div class="col-md-12 others-info">
+                        <div class="section-heading">
+                            <h4>Others Information</h4>
+                        </div>
+
+
+
+
+                        <div class="col-md-6 mb-10">
+                            <label>Remarks (if any)</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label>Expected Sales Value</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-10">
+                            <label>Next follow Up Date</label>
+                            <div>
+                                @*<input type="text" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>
+
+
+                        @*<div class="col-md-3 mb-10">
+            <label>Activities </label>
+            <div>
+                <select class="form-control" id="ddlReference">
+                    <option value="Select">Select</option>
+                </select>
+            </div>
+        </div>*@
+                        <div class="clearfix"></div>
+                    </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="mt-15 ml-n15">
+                        <button type="button" class="btn btn-success mr-2" onclick="AddShop('Exit');">Save & Exit</button>
+                        <button type="button" class="btn btn-primary mr-2" onclick="AddShop('New');">Save & New</button>
+                        <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" onclick="ClearData();">Close</button>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
