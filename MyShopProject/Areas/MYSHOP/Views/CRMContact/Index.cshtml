@@ -226,11 +226,11 @@
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             var HeaderCaption = [];
             HeaderCaption.push("User Name");
-            HeaderCaption.push("User Login Id");
-            HeaderCaption.push("Employee Id");
+            //HeaderCaption.push("User Login Id");
+            //HeaderCaption.push("Employee Id");
 
             if ($("#txtReferenceUserSearch").val() != "") {
-                callonServer("../../../Models/ShopAddress.asmx/GetUserList", OtherDetails, "ReferenceUserTable", HeaderCaption, "ReferenceUserIndex", "SetReferenceUser");
+                callonServer("../../../Models/ShopAddress.asmx/GetReferenceList", OtherDetails, "ReferenceUserTable", HeaderCaption, "ReferenceUserIndex", "SetReferenceUser");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -251,8 +251,8 @@
     // End Reference
 
     function ClearData() {
-        $("#hdnShopMode").val('Add');
-        $("#hdnShopId").val('');
+        $("#hdnShopMode").val('ADDCRMCONTACT');
+        $("#hdnShopCode").val('');
 
         $("#btnSaveExit").removeClass('hide');  // Show Save & Exit
         $("#btnSaveNew").removeClass('hide'); // Show Save & New
@@ -280,6 +280,7 @@
         $("#txtExpSalesValue").val('');
         dtNextFollowDate.Clear();
         $("#ddlActive").val('1');
+        SourceChange();
 
     }
 
@@ -348,7 +349,7 @@
         var data = {
             Action: action,
             user_id: $("#hdnUserID").val(),
-            shop_id: $("#hdnShopId").val(),
+            shop_code: $("#hdnShopCode").val(),
             FirstName: $("#txtFirstName").val(),
             LastName: $("#txtLastName").val(),
             PhoneNo: $("#txtPhone").val(),
@@ -380,20 +381,20 @@
                 ) {
                 // Mantis Issue 24603 (Return value "returnValue" added )
                 if (returnValue == "204") {
-                    jAlert("Auto Party Code Not generated. Party not addded.");
+                    jAlert("Auto Contact Code Not generated. Contact not addded.");
                 }
                 else if (returnValue == "205") {
-                    jAlert("Invalid Last Number. Party not addded.");
+                    jAlert("Invalid Last Number. Contact not addded.");
                 }
                 else if (returnValue == "206") {
-                    jAlert("Invalid Shop Type. Party not addded.");
+                    jAlert("Invalid Shop Type. Contact not addded.");
                 }
                 else if (returnValue == "207") {
-                    jAlert("Invalid State Code. Party not addded.");
+                    jAlert("Invalid State Code. Contact not addded.");
                 }
                 else {
-                    //jAlert("Party submitted successfully. Auto Party Code " + returnValue + " generated.");
-                    jAlert("Party submitted successfully.");
+                    //jAlert("Contact submitted successfully. Auto Contact Code " + returnValue + " generated.");
+                    jAlert("Contact submitted successfully.");
                 }
                 // End of Mantis Issue 24603
                 ClearData();
@@ -410,13 +411,13 @@
 
     }
 
-    function OpenCRMContactforEdit(ShopID) {
+    function OpenCRMContactforEdit(ShopCode) {
         var x = "";
         var dt = "";
         $.ajax({
             url: "@Url.Action("EditCRMContact", "CRMContact")",
             async: false,
-            data: { ShopID: ShopID },
+            data: { ShopCode: ShopCode },
             type: 'POST',
             success: function (data) {
 
@@ -427,8 +428,8 @@
                 $("#btnSaveNew").addClass('hide'); // Hide Save & New
 
                 $("#hdnShopMode").val('MODIFYCRMCONTACT');
-                $("#myModalLabel").text("Edit Party");
-                $("#hdnShopId").val(data.shop_id);
+                $("#myModalLabel").text("Edit Contact");
+                $("#hdnShopCode").val(data.shop_code);
 
                 $("#ddlCountry").val(data.CountryID)
                 //CountryChange();
@@ -477,6 +478,7 @@
                 }
 
                 $("#ddlActive").val(data.Active);
+                SourceChange();
 
                 $('#myModal').modal('show');
             },
@@ -485,7 +487,7 @@
         });
     }
 
-    function OnClickDeleteCRMContact(ShopId) {
+    function OnClickDeleteCRMContact(ShopCode) {
         var url = '/CRMContact/DeleteCRMContact/';
 
         jConfirm("Confirm Delete?", "Confirmation Dialog", function (ret) {
@@ -493,7 +495,7 @@
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: JSON.stringify({ 'ShopId': ShopId }),
+                    data: JSON.stringify({ 'ShopCode': ShopCode }),
                     async: false,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -558,6 +560,18 @@
                 error: function () {
                 },
             });
+        }
+    }
+
+    function SourceChange() {
+        var sourcename = $("#ddlSource :selected").text();
+
+        if (sourcename == "Reference") {
+            $("#divReference").removeClass("hide");
+        } else  {
+            $('#hdnReferenceUserID').val('0');
+            ReferenceUserTxt.SetText('');
+            $("#divReference").addClass("hide");
         }
     }
 </script>
@@ -1384,7 +1398,7 @@
 </div>
 
 <input type="hidden" id="hdnShopMode" />
-<input type="hidden" id="hdnShopId" value="" />
+<input type="hidden" id="hdnShopCode" value="" />
 
 <div class="modal fade pmsModal w70 font-pp modalScroll" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -1393,7 +1407,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ClearData();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add Contact</h4>
             </div>
-            @*<input type="hidden" id="hdnShopId" value="" />*@
+            @*<input type="hidden" id="hdnShopCode" value="" />*@
             <div class="modal-body inputShrink">
                 <div class="row">
 
@@ -1530,11 +1544,11 @@
                         <div class="col-md-3 mb-10">
                             <label>Source </label>
                             <div>
-                                @Html.DropDownListFor(m => m.SourceId, new SelectList(Model.SourceList, "SourceId", "SourceName", Model.SourceId), new { @id = "ddlSource", @class = "form-control" })
+                                @Html.DropDownListFor(m => m.SourceId, new SelectList(Model.SourceList, "SourceId", "SourceName", Model.SourceId), new { @id = "ddlSource", @class = "form-control", @onchange = "SourceChange();"  })
                             </div>
                         </div>
 
-                        <div class="col-md-3 mb-10">
+                        <div class="col-md-3 mb-10" id="divReference">
                             <label>Reference </label>
                             <div>
                                 @Html.DevExpress().ButtonEdit(
@@ -1670,8 +1684,8 @@
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
                             <th>User Name</th>
-                            <th>User Login Id</th>
-                            <th>Employee Id</th>
+                            @*<th>User Login Id</th>
+                            <th>Employee Id</th>*@
                         </tr>
                     </table>
                 </div>

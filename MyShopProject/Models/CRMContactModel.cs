@@ -56,7 +56,7 @@ namespace MyShop.Models
         public int SourceId { get; set; }
         public List<SourceList> SourceList { get; set; }
 
-        public int ReferenceId { get; set; }
+        public string ReferenceId { get; set; }
         public List<ReferenceList> ReferenceList { get; set; }
 
         public int StageId { get; set; }
@@ -73,7 +73,7 @@ namespace MyShop.Models
 
     public class AddCrmContactData
     {
-        public int shop_id { get; set; }
+        public String shop_code { get; set; }
         public string user_id { get; set; }
         public string Action { get; set; }
         public String FirstName { get; set; }
@@ -91,7 +91,7 @@ namespace MyShop.Models
         public int StatusId { get; set; }
         public int SourceId { get; set; }
         public string ReferenceName { get; set; }
-        public int ReferenceId { get; set; }
+        public string ReferenceId { get; set; }
         public int StageId { get; set; }
         public String Remarks { get; set; }
         public decimal ExpSalesValue { get; set; }
