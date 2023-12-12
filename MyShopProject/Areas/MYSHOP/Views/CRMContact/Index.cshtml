@@ -97,6 +97,17 @@
             }
         });
 
+        $('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                var desg = $("#drpdesignation").val();
+                var usrtype = $("#ddlusertypes").val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExporRegisterList", "CRMContact", new { type = "_type_" })'
+                window.location.href = url.replace("_type_", selectedValue);
+
+            }
+        });
 
     });
 
@@ -226,7 +237,7 @@
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             var HeaderCaption = [];
             HeaderCaption.push("User Name");
-            //HeaderCaption.push("User Login Id");
+            HeaderCaption.push("User Login Id");
             //HeaderCaption.push("Employee Id");
 
             if ($("#txtReferenceUserSearch").val() != "") {
@@ -252,6 +263,7 @@
 
     function ClearData() {
         $("#hdnShopMode").val('ADDCRMCONTACT');
+        $("#myModalLabel").text("Add Contact");
         $("#hdnShopCode").val('');
 
         $("#btnSaveExit").removeClass('hide');  // Show Save & Exit
@@ -274,6 +286,9 @@
         $("#ddlSource").val('0');
         $('#hdnReferenceUserID').val('0');
         ReferenceUserTxt.SetText('');
+        document.getElementById("ReferenceUserTable").innerHTML = "";
+        $("#txtReferenceUserSearch").val("");
+
         $("#ddlStage").val('0');
 
         $("#txtRemarks").val('');
@@ -571,6 +586,9 @@
         } else  {
             $('#hdnReferenceUserID').val('0');
             ReferenceUserTxt.SetText('');
+            document.getElementById("ReferenceUserTable").innerHTML = "";
+            $("#txtReferenceUserSearch").val("");
+
             $("#divReference").addClass("hide");
         }
     }
@@ -1597,7 +1615,7 @@
                             <label>Expected Sales Value</label>
                             <div>
                                 @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue" })
+                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue", @maxlength = "18" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
@@ -1684,8 +1702,8 @@
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
                             <th>User Name</th>
-                            @*<th>User Login Id</th>
-                            <th>Employee Id</th>*@
+                            <th>User Login Id</th>
+                            @*<th>Employee Id</th>*@
                         </tr>
                     </table>
                 </div>

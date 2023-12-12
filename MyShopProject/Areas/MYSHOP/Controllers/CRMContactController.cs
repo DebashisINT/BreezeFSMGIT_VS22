@@ -376,5 +376,213 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ExporRegisterList(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return GridViewExtension.ExportToPdf(GetDoctorBatchGridViewSettings(), GetCRMContactDetails(""));
+                case 2:
+                    return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), GetCRMContactDetails(""));
+                case 3:
+                    return GridViewExtension.ExportToXls(GetDoctorBatchGridViewSettings(), GetCRMContactDetails(""));
+                case 4:
+                    return GridViewExtension.ExportToRtf(GetDoctorBatchGridViewSettings(), GetCRMContactDetails(""));
+                case 5:
+                    return GridViewExtension.ExportToCsv(GetDoctorBatchGridViewSettings(), GetCRMContactDetails(""));
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        private GridViewSettings GetDoctorBatchGridViewSettings()
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "gridCRMContact";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "Contact Details";
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "SEQ";
+                x.Caption = "Sr. No";
+                x.VisibleIndex = 1;
+                x.Width = 20;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_FirstName";
+                x.Caption = "First Name";
+                x.VisibleIndex = 2;
+                x.Width = 200;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_LastName";
+                x.Caption = "Last Name";
+                x.VisibleIndex = 3;
+                x.Width = 200;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Owner_Contact";
+                x.Caption = "Phone";
+                x.VisibleIndex = 4;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Owner_Email";
+                x.Caption = "Email";
+                x.VisibleIndex = 5;
+                x.Width = 150;
+            });
+            //Mantis Issue 24928
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Address";
+                x.Caption = "Address";
+                x.VisibleIndex = 6;
+                x.Width = 250;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_DOB";
+                x.Caption = "Date of Birth";
+                x.VisibleIndex = 7;
+                x.Width = 100;
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+            });
+            //End of Mantis Issue 24928
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_date_aniversary";
+                x.Caption = "Date of Anniversary";
+                x.VisibleIndex = 8;
+                x.Width = 150;
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_CompanyName";
+                x.Caption = "Company";
+                x.VisibleIndex = 9;
+                x.Width = 150;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_JobTitle";
+                x.Caption = "Job Title";
+                x.VisibleIndex = 10;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_CreateUserName";
+                x.Caption = "Assign To";
+                x.VisibleIndex = 11;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_TypeName";
+                x.Caption = "Type";
+                x.VisibleIndex = 12;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_StatusName";
+                x.Caption = "Status";
+                x.VisibleIndex = 13;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_SourceName";
+                x.Caption = "Source";
+                x.VisibleIndex = 14;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_ReferenceName";
+                x.Caption = "Reference";
+                x.VisibleIndex = 15;
+                x.Width = 150;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_StageName";
+                x.Caption = "Stages";
+                x.VisibleIndex = 16;
+                x.Width = 100;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Remarks";
+                x.Caption = "Remarks";
+                x.VisibleIndex = 17;
+                x.Width = 250;
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Amount";
+                x.Caption = "Expected Sales Value";
+                x.VisibleIndex = 18;
+                x.Width = 100;
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_NextFollowupDate";
+                x.Caption = "Next follow Up Date";
+                x.VisibleIndex = 19;
+                x.Width = 200;
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_Entity_Status";
+                x.Caption = "Active";
+                x.VisibleIndex = 20;
+                x.Width = 100;
+            });
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
+        }
+
     }
 }
