@@ -170,6 +170,7 @@
     // Assign To
     function UserButnClick(s, e) {
         $('#UserSearchModel').modal('show');
+        $("#txtUserSearch").focus();
     }
 
     function User_KeyDown(s, e) {
@@ -216,6 +217,7 @@
     // Reference
     function ReferenceUserButnClick(s, e) {
         $('#ReferenceUserSearchModel').modal('show');
+        $("#txtReferenceUserSearch").focus();
     }
 
     function ReferenceUser_KeyDown(s, e) {
@@ -342,8 +344,8 @@
         }
 
         var dob = null;
-        if (dtFrom.GetText() != null && dtFrom.GetText() != "01-01-0100") {
-            dob = dtFrom.GetText();
+        if (dtDOB.GetText() != null && dtDOB.GetText() != "01-01-0100") {
+            dob = dtDOB.GetText();
         }
 
         var date_aniversary = null;
@@ -612,6 +614,34 @@
         $('#ReferenceUserSearchModel').on('hidden.bs.modal', function () {
             // Enable body scroll when inner modal is closed
             $('body').css('overflow', 'hidden');
+        });
+    });
+
+    //function ReportToButnClick(s, e) {
+    //    $('#UserSearchModel').modal('show');
+    //    $("#txtUserSearch").focus();
+    //}
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#txtExpSalesValue').on('input', function () {
+            var inputValue = $(this).val().replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for the dot
+            var parts = inputValue.split('.');
+
+            // Allow up to 15 digits before the decimal
+            if (parts[0].length > 15) {
+                parts[0] = parts[0].substring(0, 15);
+            }
+
+            // Limit decimals to 2
+            if (parts[1] && parts[1].length > 2) {
+                parts[1] = parts[1].substring(0, 2);
+            }
+
+            // Combine the integer and decimal parts with only one decimal point
+            var sanitizedValue = parts.length > 1 ? parts[0] + '.' + parts.slice(1).join('') : parts[0];
+            $(this).val(sanitizedValue);
         });
     });
 </script>
@@ -1328,6 +1358,25 @@
     .btn-clr-3 {
         background-color: #af5a14 !important;
     }
+
+    .btn-clr-4 {
+        background-color: #60064a !important;
+    }
+
+    #UserSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog {
+        width: 42%;
+    }
+
+    #popup_message {
+        text-align: center !important;
+        padding: 0 !important;
+    }
+    #popup_container {
+        font-size: 14px !important;
+    }
+    #popup_panel {
+        margin-left: 0 !important;
+    }
 </style>
 
 <div class="container ">
@@ -1335,7 +1384,7 @@
         <div class="col-md-12">
             <div class="backBox mt-5 px-4 pb-4">
                 <div class="row">
-                    <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
+                    <div class="col-md-12" style="padding-top: 15px;margin-bottom: 20px;">
                         <!-- Button trigger modal -->
                         @*@if (ViewBag.CanAdd)
                             {*@
@@ -1665,7 +1714,9 @@
                             <label>Expected Sales Value</label>
                             <div>
                                 @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue" })
+                                @*@Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue" })*@
+                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue", type = "text" })
+                                @Html.ValidationMessageFor(m => m.ExpSalesValue, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
