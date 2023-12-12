@@ -85,16 +85,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 SourceList = APIHelperMethods.ToModelList<SourceList>(ds.Tables[4]);
                 Dtls.SourceList = SourceList;
 
-                // Reference
-                List<ReferenceList> ReferenceList = new List<ReferenceList>();
-                ReferenceList = APIHelperMethods.ToModelList<ReferenceList>(ds.Tables[5]);
-                Dtls.ReferenceList = ReferenceList;
-
                 // Stage
                 List<StageList> StageList = new List<StageList>();
-                StageList = APIHelperMethods.ToModelList<StageList>(ds.Tables[6]);
+                StageList = APIHelperMethods.ToModelList<StageList>(ds.Tables[5]);
                 Dtls.StageList = StageList;
 
+                // Reference
+                //List<ReferenceList> ReferenceList = new List<ReferenceList>();
+                //ReferenceList = APIHelperMethods.ToModelList<ReferenceList>(ds.Tables[5]);
+                //Dtls.ReferenceList = ReferenceList;
 
             }
 
@@ -228,7 +227,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ReportsDataContext dc = new ReportsDataContext(connectionString);
                 var q = from d in dc.CRM_CONTACT_LISTINGs
                         where d.USERID == Convert.ToInt32(Userid)
-                        orderby d.SEQ
+                        orderby d.SEQ descending
                         select d;
                 return q;
             }
@@ -237,7 +236,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ReportsDataContext dc = new ReportsDataContext(connectionString);
                 var q = from d in dc.CRM_CONTACT_LISTINGs
                         where d.USERID == Convert.ToInt32(Userid) && d.SEQ == 11111111119
-                        orderby d.SEQ
+                        orderby d.SEQ descending
                         select d;
                 return q;
             }
@@ -274,7 +273,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 string Userid = Convert.ToString(Session["userid"]);
                 ProcedureExecute proc = new ProcedureExecute("PRC_FTSInsertUpdateCRMContact");
                 proc.AddPara("@ACTION", data.Action);
-                proc.AddPara("@ShopID", data.shop_id);
+                proc.AddPara("@ShopCode", data.shop_code);
                 proc.AddPara("@FirstName", data.FirstName);
                 proc.AddPara("@LastName", data.LastName);
                 proc.AddPara("@PhoneNo", data.PhoneNo);
@@ -306,7 +305,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
         }
 
-        public ActionResult EditCRMContact(String ShopID)
+        public ActionResult EditCRMContact(String ShopCode)
         {
             try
             {
@@ -315,12 +314,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 DataTable dt = new DataTable();
                 ProcedureExecute proc = new ProcedureExecute("PRC_FTSInsertUpdateCRMContact");
                 proc.AddPara("@ACTION", "EDITCRMCONTACT");
-                proc.AddPara("@ShopID", ShopID);
+                proc.AddPara("@ShopCode", ShopCode);
                 dt = proc.GetTable();
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    ret.shop_id = Convert.ToInt32(dt.Rows[0]["Shop_ID"].ToString());
+                    ret.shop_code = dt.Rows[0]["shop_code"].ToString();
                     ret.FirstName = dt.Rows[0]["Shop_FirstName"].ToString();
                     ret.LastName = dt.Rows[0]["Shop_LastName"].ToString();
                     ret.PhoneNo = dt.Rows[0]["Shop_Owner_Contact"].ToString();
@@ -336,7 +335,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     ret.StatusId = Convert.ToInt32(dt.Rows[0]["Shop_CRMStatusID"].ToString());
                     ret.SourceId = Convert.ToInt32(dt.Rows[0]["Shop_CRMSourceID"].ToString());
                     ret.ReferenceName = dt.Rows[0]["REFERENCE_NAME"].ToString();
-                    ret.ReferenceId = Convert.ToInt32(dt.Rows[0]["Shop_CRMReferenceID"].ToString());
+                    ret.ReferenceId = dt.Rows[0]["Shop_CRMReferenceID"].ToString();
                     ret.StageId = Convert.ToInt32(dt.Rows[0]["Shop_CRMStageID"].ToString());
                     ret.Remarks = dt.Rows[0]["Remarks"].ToString();
                     ret.ExpSalesValue = Convert.ToDecimal(dt.Rows[0]["Amount"].ToString());
@@ -353,7 +352,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteCRMContact(string ShopId)
+        public JsonResult DeleteCRMContact(string ShopCode)
         {
             string output_msg = string.Empty;
             try
@@ -361,7 +360,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 DataTable dt = new DataTable();
                 ProcedureExecute proc = new ProcedureExecute("PRC_FTSInsertUpdateCRMContact");
                 proc.AddPara("@ACTION", "DELETECRMCONTACT");
-                proc.AddPara("@ShopID", ShopId);
+                proc.AddPara("@ShopCode", ShopCode);
                 dt = proc.GetTable();
 
                 if (dt != null && dt.Rows.Count > 0)

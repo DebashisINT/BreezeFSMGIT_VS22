@@ -163,6 +163,35 @@ namespace MyShop.Models
             return listUser;
         }
 
+        // Rev Sanchita
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetReferenceList(string SearchKey)
+        {
+            List<UsersModel> listUser = new List<UsersModel>();
+            if (HttpContext.Current.Session["userid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_FTSInsertUpdateCRMContact");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                proc.AddPara("@ACTION", "GETREFERENCELIST");
+                DataTable Shop = proc.GetTable();
+                listUser = (from DataRow dr in Shop.Rows
+                            select new UsersModel()
+                            {
+                                USER_NAME = dr["REF_NAME"].ToString(),
+                                USER_ID = Convert.ToString(dr["REF_ID"]),
+                            }).ToList();
+            }
+
+            return listUser;
+        }
+        // End of Rev Sanchita
+
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object GetEmployeeList(string SearchKey)

@@ -6,7 +6,7 @@
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridCRMContact";
-    settings.KeyFieldName = "CRM_ID";
+    settings.KeyFieldName = "SHOP_CODE";
     settings.CallbackRouteValues = new { Action = "PartialCRMContactGridList", Controller = "CRMContact" };
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
 
@@ -42,9 +42,9 @@
         x.SetDataItemTemplateContent(tc =>
         {
             ViewContext.Writer.Write(
-                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenCRMContactforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "Shop_Id")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenCRMContactforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "Shop_Code")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
                 "" +
-                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteCRMContact('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "Shop_Id")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteCRMContact('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "Shop_Code")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
             );
         });
 
@@ -100,13 +100,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 150;
         }
     });
     settings.Columns.Add(column =>
@@ -125,13 +125,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 150;
         }
     });
     settings.Columns.Add(column =>
@@ -175,13 +175,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 200;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 200;
         }
     });
     settings.Columns.Add(column =>
@@ -200,13 +200,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 250;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 250;
         }
     });
     settings.Columns.Add(column =>
@@ -227,13 +227,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 150;
+                column.Width = 100;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 150;
+            column.Width = 100;
         }
     });
     settings.Columns.Add(column =>
@@ -254,13 +254,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 150;
+                column.Width = 120;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 150;
+            column.Width = 120;
         }
     });
     settings.Columns.Add(column =>
@@ -279,7 +279,7 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
@@ -304,13 +304,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 150;
         }
     });
     settings.Columns.Add(column =>
@@ -329,13 +329,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 150;
         }
     });
     settings.Columns.Add(column =>
@@ -429,13 +429,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 100;
+                column.Width = 150;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 100;
+            column.Width = 150;
         }
     });
     settings.Columns.Add(column =>
@@ -479,13 +479,13 @@
             else
             {
                 column.Visible = true;
-                column.Width = 150;
+                column.Width = 200;
             }
         }
         else
         {
             column.Visible = true;
-            column.Width = 150;
+            column.Width = 200;
         }
     });
     settings.Columns.Add(column =>

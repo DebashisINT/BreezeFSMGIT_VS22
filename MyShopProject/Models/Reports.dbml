@@ -2775,7 +2775,7 @@
     <Type Name="CRM_CONTACT_LISTING">
       <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SEQ" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Shop_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Shop_Code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Shop_FirstName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="Shop_LastName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="Shop_Owner_Contact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />

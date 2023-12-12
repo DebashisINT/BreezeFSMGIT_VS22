@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 11.375" name="Reports">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 11.5" name="Reports">
   <DataContextMoniker Name="/ReportsDataContext" />
   <nestedChildShapes>
     <classShape Id="6f8bddd7-026f-4c14-800e-203cf2368696" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
@@ -578,10 +578,10 @@
         <elementListCompartment Id="aaaf5073-8c02-42f1-b543-a8bdaaf9e162" absoluteBounds="0.515, 11.085, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4e65899f-1891-4ba7-814b-f525fa93070b" isExpanded="false" absoluteBounds="2.625, 10.625, 2, 0.45">
+    <classShape Id="80248973-f364-4abb-9f99-660265c5d0b1" isExpanded="false" absoluteBounds="2.75, 10.75, 2, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/CRM_CONTACT_LISTING" />
       <nestedChildShapes>
-        <elementListCompartment Id="26df29e5-cc5a-4660-90a8-f523ee371022" absoluteBounds="2.64, 11.085, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f3c19277-dea0-4ebc-bbda-d6ac5b06a54a" absoluteBounds="2.765, 11.21, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

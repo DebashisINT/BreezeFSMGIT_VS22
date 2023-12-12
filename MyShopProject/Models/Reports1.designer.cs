@@ -46291,7 +46291,7 @@ namespace MyShop.Models
 		
 		private System.Nullable<int> _SEQ;
 		
-		private System.Nullable<int> _Shop_ID;
+		private string _Shop_Code;
 		
 		private string _Shop_FirstName;
 		
@@ -46367,18 +46367,18 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shop_ID", DbType="Int")]
-		public System.Nullable<int> Shop_ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shop_Code", DbType="VarChar(100)")]
+		public string Shop_Code
 		{
 			get
 			{
-				return this._Shop_ID;
+				return this._Shop_Code;
 			}
 			set
 			{
-				if ((this._Shop_ID != value))
+				if ((this._Shop_Code != value))
 				{
-					this._Shop_ID = value;
+					this._Shop_Code = value;
 				}
 			}
 		}
