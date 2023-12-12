@@ -46329,7 +46329,7 @@ namespace MyShop.Models
 		
 		private string _Shop_NextFollowupDate;
 		
-		private System.Nullable<bool> _Shop_Entity_Status;
+		private string _Shop_Entity_Status;
 		
 		public CRM_CONTACT_LISTING()
 		{
@@ -46671,8 +46671,8 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shop_Entity_Status", DbType="Bit")]
-		public System.Nullable<bool> Shop_Entity_Status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shop_Entity_Status", DbType="VarChar(10)")]
+		public string Shop_Entity_Status
 		{
 			get
 			{
