@@ -105,10 +105,8 @@
                 $('#ddlAppIds').prop("selectedIndex", 0);
                 var url = '@Url.Action("ExporRegisterList", "CRMContact", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
-
             }
         });
-
     });
 
     function OnStartCallback(s, e) {
@@ -237,7 +235,7 @@
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             var HeaderCaption = [];
             HeaderCaption.push("User Name");
-            HeaderCaption.push("User Login Id");
+            HeaderCaption.push("Phone");
             //HeaderCaption.push("Employee Id");
 
             if ($("#txtReferenceUserSearch").val() != "") {
@@ -288,7 +286,6 @@
         ReferenceUserTxt.SetText('');
         document.getElementById("ReferenceUserTable").innerHTML = "";
         $("#txtReferenceUserSearch").val("");
-
         $("#ddlStage").val('0');
 
         $("#txtRemarks").val('');
@@ -592,6 +589,31 @@
             $("#divReference").addClass("hide");
         }
     }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#myModal').on('show.bs.modal', function () {
+            // Disable body scroll when main modal is opened
+            $('body').css('overflow', 'hidden');
+        });
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            // Enable body scroll when main modal is closed
+            $('body').css('overflow', 'auto');
+        });
+
+        $('#UserSearchModel').on('hidden.bs.modal', function () {
+            // Enable body scroll when inner modal is closed
+            $('body').css('overflow', 'hidden');
+        });
+
+        $('#ReferenceUserSearchModel').on('hidden.bs.modal', function () {
+            // Enable body scroll when inner modal is closed
+            $('body').css('overflow', 'hidden');
+        });
+    });
 </script>
 
 <style>
@@ -1278,12 +1300,40 @@
         .pmsModal .modal-body::-webkit-scrollbar-thumb:hover {
             background: #8b8b8b;
         }
+
+    #dtDOB_DDD_PW-1, #dtAnniversarydate_DDD_PW-1, #dtNextFollowDate_DDD_PW-1 {
+        left: -25px !important;
+    }
+
+    #dtDOB_DDD_C_FNP_PW-1, #dtNextFollowDate_DDD_C_FNP_PW-1 {
+        left: 45px !important;
+    }
+
+    #dtAnniversarydate_DDD_C_FNP_PW-1 {
+        left: 30px !important;
+        /*top: 0;*/
+    }
+
+    body.modal-open {
+        overflow: hidden;
+    }
+
+    .btn-clr-1 {
+        background-color: #313ec7 !important;
+    }
+
+    .btn-clr-2 {
+        background-color: #040e7c !important;
+    }
+    .btn-clr-3 {
+        background-color: #af5a14 !important;
+    }
 </style>
 
 <div class="container ">
     <div class="row">
         <div class="col-md-12">
-            <div class="backBox mt-5 px-5">
+            <div class="backBox mt-5 px-4 pb-4">
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
                         <!-- Button trigger modal -->
@@ -1295,13 +1345,13 @@
                         @*}*@
                         @*@if (ViewBag.CanAssign)
                             {*@
-                        <button type="button" class="btn btn-info" onclick="BulkAssign();">
+                        <button type="button" class="btn btn-info btn-clr-1" onclick="BulkAssign();">
                             Bulk Assign
                         </button>
                         @*}*@
                         @*@if (ViewBag.CanReassign)
                             {*@
-                        <button type="button" class="btn btn-primary" onclick="BulkReAssign();">
+                        <button type="button" class="btn btn-primary btn-clr-2" onclick="BulkReAssign();">
                             Bulk Re-Assign
                         </button>
 
@@ -1309,15 +1359,15 @@
 
                         @*@if (ViewBag.CanBulkUpdate)
                             {*@
-                        <button type="button" class="btn btn-info" onclick="DownloadFormat();">
+                        <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
                             Download Format
                         </button>
 
-                        <button type="button" class="btn btn-primary" onclick="BulkImportContactPopOpen();">
+                        <button type="button" class="btn btn-primary btn-clr-4" onclick="BulkImportContactPopOpen();">
                             Import File
                         </button>
 
-                        <button type="button" class="btn btn-primary" onclick="BulkImportLogPopOpen();">
+                        <button type="button" class="btn btn-primary btn-clr-5" onclick="BulkImportLogPopOpen();">
                             View Log
                         </button>
                         @*}*@
@@ -1615,7 +1665,7 @@
                             <label>Expected Sales Value</label>
                             <div>
                                 @*<input type="text" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue", @maxlength = "18" })
+                                @Html.TextBoxFor(m => m.ExpSalesValue, new { @class = "form-control allow_decimal numbersOnly", @id = "txtExpSalesValue" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
@@ -1660,7 +1710,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
+<div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog w-50">
         <!-- Modal content-->
         <div class="modal-content">
@@ -1687,7 +1737,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade pmsModal w70" id="ReferenceUserSearchModel" role="dialog">
+<div class="modal fade pmsModal w70" id="ReferenceUserSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog w-50">
         <!-- Modal content-->
         <div class="modal-content">
@@ -1702,7 +1752,7 @@
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
                             <th>User Name</th>
-                            <th>User Login Id</th>
+                            <th>Phone</th>
                             @*<th>Employee Id</th>*@
                         </tr>
                     </table>
