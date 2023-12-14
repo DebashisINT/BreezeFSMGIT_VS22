@@ -556,24 +556,8 @@
             start = start.split('-')[1] + '-' + start.split('-')[0] + '-' + start.split('-')[2];
             end = end.split('-')[1] + '-' + end.split('-')[0] + '-' + end.split('-')[2];
 
-            Is_PageLoad = "1";
+            gridCRMContact.Refresh();
 
-            $.ajax({
-                url: "@Url.Action("GetCRMContactListing", "CRMContact")",
-                async: false,
-                data: {
-                    Fromdate: dtFrom.GetText(),
-                    Todate: dtTo.GetText(),
-                    Is_PageLoad: Is_PageLoad
-                },
-                type: 'POST',
-                success: function (data) {
-                    gridCRMContact.Refresh();
-                    gridCRMContact.Refresh();
-                },
-                error: function () {
-                },
-            });
         }
     }
 
@@ -591,7 +575,132 @@
             $("#divReference").addClass("hide");
         }
     }
+    function DownloadFormat() {
+        var url = '@Url.Action("DownloadFormat", "CRMContact")'
+        window.location.href = url;
+    }
 
+    function ImportContactPopOpen() {
+        $("#myImportModal").modal('show');
+    }
+
+    function ImportLogPopOpen() {
+        var d = new Date();
+
+        dtLogFrom_Import.SetValue(d);
+        dtLogTo_Import.SetValue(d);
+
+        pcModalImportViewMode.Show();
+    }
+
+    function CRMContactImportUserLog() {
+        var url = '/CRMContact/CRMContactImportUserLog/';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ 'Fromdt': dtLogFrom_Import.GetText(), 'ToDate': dtLogTo_Import.GetText() }),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "True") {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("ContactImportLog", "CRMContact")",
+                        success: function (response) {
+                            if (response) {
+                                pcModalTemplateContactImportLogMode.Show();
+                                gridContactImportLog.Refresh();
+                                gridContactImportLog.Refresh();
+                            }
+                        }
+                    });
+                }
+                else {
+                    jAlert(response);
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function ExportImportLogGrid() {
+        var url = '@Url.Action("ExportImportLogGrid", "CRMContact", new { type = "_type_" })'
+        window.location.href = url.replace("_type_", 3);
+    }
+
+    function ClickToImportCRMContact() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod").val();
+        if ($('#fileprod').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("ImportExcel", "CRMContact")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportModal").toggle();
+                        $("#myImportModal").modal('hide');
+                        GridShow();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ContactImportLog", "CRMContact")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateContactImportLogMode.Show();
+                                    gridContactImportLog.Refresh();
+                                    gridContactImportLog.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
 </script>
 
 <script>
@@ -1355,6 +1464,7 @@
     .btn-clr-2 {
         background-color: #040e7c !important;
     }
+
     .btn-clr-3 {
         background-color: #af5a14 !important;
     }
@@ -1371,11 +1481,17 @@
         text-align: center !important;
         padding: 0 !important;
     }
+
     #popup_container {
         font-size: 14px !important;
     }
+
     #popup_panel {
         margin-left: 0 !important;
+    }
+
+    #myImportModal .modal-body {
+        border-radius: 0 0 20px 20px;
     }
 </style>
 
@@ -1412,11 +1528,11 @@
                             Download Format
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-clr-4" onclick="BulkImportContactPopOpen();">
+                        <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportContactPopOpen();">
                             Import File
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-clr-5" onclick="BulkImportLogPopOpen();">
+                        <button type="button" class="btn btn-primary btn-clr-5" onclick="ImportLogPopOpen();">
                             View Log
                         </button>
                         @*}*@
@@ -1661,7 +1777,7 @@
                         <div class="col-md-3 mb-10">
                             <label>Source </label>
                             <div>
-                                @Html.DropDownListFor(m => m.SourceId, new SelectList(Model.SourceList, "SourceId", "SourceName", Model.SourceId), new { @id = "ddlSource", @class = "form-control", @onchange = "SourceChange();"  })
+                                @Html.DropDownListFor(m => m.SourceId, new SelectList(Model.SourceList, "SourceId", "SourceName", Model.SourceId), new { @id = "ddlSource", @class = "form-control", @onchange = "SourceChange();" })
                             </div>
                         </div>
 
@@ -1815,3 +1931,84 @@
         </div>
     </div>
 </div>
+<div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For CRM Contact</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ClickToImportCRMContact();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalTemplateContactImportLogMode";
+        settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Import Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("ContactImportLog", new List<CRMContactImportLogModel>());
+            ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportImportLogGrid();'>Export</button>");
+        });
+
+        //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalImportViewMode";
+            settings.Width = 300;
+            //settings.Height = 220;
+            //settings.ScrollBars.v
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Import CRM Contact Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("_CRMContactImportManualLogView");
+            });
+
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+        }).GetHtml()

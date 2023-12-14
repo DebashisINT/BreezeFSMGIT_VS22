@@ -142,4 +142,31 @@ namespace MyShop.Models
         public String StageId { get; set; }
         public String StageName { get; set; }
     }
+
+    public class CRMContactImportLogModel
+    {
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String Phone { get; set; }
+        public String Email { get; set; }
+        public String Address { get; set; }
+        public String DateofBirth { get; set; }
+        public String DateofAnniversary { get; set; }
+        public String Company { get; set; }
+        public String JobTitle { get; set; }
+        public String AssignTo { get; set; }
+        public String Type { get; set; }
+        public String Status { get; set; }
+		public String Source { get; set; }
+		public String Reference { get; set; }
+		public String Stages { get; set; }
+		public String Remarks { get; set; }
+		public Decimal ExpectedSalesValue { get; set; }
+		public String NextfollowUpDate { get; set; }
+		public String Active { get; set; }
+		public String ImportStatus { get; set; }
+		public String ImportMsg { get; set; }
+        public String ImportDate { get; set; }
+		public String CreateUser { get; set; }
+    }
 }

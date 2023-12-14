@@ -2016,6 +2016,7 @@
     <Content Include="Areas\MYSHOP\Views\EnquiryAnalytics\_EnquiryFromPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\CRMContact\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\CRMContact\PartialCRMContactGridList.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CRMContact\_CRMContactImportManualLogView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

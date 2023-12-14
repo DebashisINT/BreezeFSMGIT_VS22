@@ -8,6 +8,8 @@
 @*6.0                27/01/2023        V2.0.38          Sanchita            Assign to DD is not showing while making shop from Portal. Refer: 25606*@
 @*7.0                02/02/2023        V2.0.38          Pallab              Add party popup scroll position issue fix*@
 @*8.0                24/04/2023        V2.0.39          Pallab              Party List module all search popup auto focus add and "cancel" button color change. Refer: 25899*@
+@*9.0               14/12/2023         V2.0.44          Sanchita            Assign to DD field is not working while modifying any shop & try to update
+                                                                            with different Distributor. mantis: 27102 *@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1142,6 +1144,9 @@
             traditional: true,
             success: function (data) {
                 var status = "<select id='ddlddShopType' class = 'form-control'>";
+                // Rev 9.0
+                status = status + '<option value=0>Select</option> </select>';
+                // End of Rev 9.0
                 for (var i = 0; i < data.length; i++) {
                     status = status + '<option value=' + data[i].id + '>' + data[i].name + '</option>';
                 }
@@ -2799,9 +2804,8 @@
     }
     /*Rev end 8.0*/
 
-    .dxgvControl_PlasticBlue a
-    {
-        margin:0 3px;
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
     }
 
     .mTop5, .lblmTop8 {
@@ -3159,7 +3163,7 @@
             $('#txtNewAssignUserAreaRouteBeatSearch').focus();
         })
     });
-        /*Rev end 8.0*/
+    /*Rev end 8.0*/
 </script>
 <div class="breadCumb">
     <span>Party List</span>
@@ -3497,7 +3501,7 @@
                             </div>
                         </div>
                         @*Rev end 3.0*@
-                                           <div
+                        <div
                             <div class="clear"></div>
                         </div>
 
@@ -3967,49 +3971,49 @@
 
 
 
-                    @*End of Mantis Issue 24571*@
+                        @*End of Mantis Issue 24571*@
 
 
 
 
-                    <!--<div class="col-md-3">
-                    <label>Assign to User <span class="red">*</span></label>
-                    <div>-->
-                    @*<select class="form-control">
-                            <option>Select</option>
-                        </select>*@
-                    @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
-                    @*@Html.DevExpress().ButtonEdit(
-                        settings =>
-                        {
-                            settings.Name = "UserTxt";
-                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                            settings.Text = Model.AssignedTo;
-                            settings.ReadOnly = true;
-                            settings.Properties.Buttons.Add("...");
-                            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-                            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
-
-                        }).GetHtml()*@
-
-                    @*<input type="hidden" id="txtContact_hidden">*@
-                    <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-                        </div>
-                    </div>-->
-                    <!--<div class="col-md-3">
-                    <label>Party Location Lat </label>
-                    <div>-->
-                    @*<input type="text" class="form-control" />*@
-                    <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Party Location Long</label>
+                        <!--<div class="col-md-3">
+                        <label>Assign to User <span class="red">*</span></label>
                         <div>-->
-                    @*<input type="text" class="form-control" />*@
-                    <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+                        @*<select class="form-control">
+                                <option>Select</option>
+                            </select>*@
+                        @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
+                        @*@Html.DevExpress().ButtonEdit(
+                            settings =>
+                            {
+                                settings.Name = "UserTxt";
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                settings.Text = Model.AssignedTo;
+                                settings.ReadOnly = true;
+                                settings.Properties.Buttons.Add("...");
+                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+                            }).GetHtml()*@
+
+                        @*<input type="hidden" id="txtContact_hidden">*@
+                        <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+                            </div>
+                        </div>-->
+                        <!--<div class="col-md-3">
+                        <label>Party Location Lat </label>
+                        <div>-->
+                        @*<input type="text" class="form-control" />*@
+                        <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
+                            </div>
                         </div>
-                    </div>-->
+                        <div class="col-md-3">
+                            <label>Party Location Long</label>
+                            <div>-->
+                        @*<input type="text" class="form-control" />*@
+                        <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+                            </div>
+                        </div>-->
                         <div class="clear"></div>
 
 
@@ -4018,8 +4022,8 @@
                         <label>Party Status </label>
                         <div id="Citydiv">-->
                         @*<select class="form-control">
-                        <option>Select</option>
-                        </select>*@
+                            <option>Select</option>
+                            </select>*@
                         <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
                             </div>
                         </div>-->
@@ -4027,8 +4031,8 @@
                         <label>Group/Beat </label>
                         <div id="Citydiv">-->
                         @*<select class="form-control">
-                        <option>Select</option>
-                        </select>*@
+                            <option>Select</option>
+                            </select>*@
                         <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
                             </div>
                         </div>-->
@@ -4249,18 +4253,25 @@
                 //settings.Height = 220;
                 //settings.ScrollBars.v
                 settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Import Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("GetPartyImportLog", new List<partyDetailsModel>());
+                    settings.Name = "pcModalTemplateImportLogMode";
+                    settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Import Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("GetPartyImportLog", new List<partyDetailsModel>());
                     //ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportLogGrid();'>Export</button>");
                 });
 
@@ -4270,23 +4281,27 @@
     @Html.DevExpress().PopupControl(
             settings =>
             {
-                settings.Name = "pcModalTemplateReAssignShopLogMode";
-                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                //settings.Height = 220;
-                //settings.ScrollBars.v
-                settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Re-assign Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("GetReAssignShopUserLog", new List<ReAssignShopModel>());
+                    settings =>
+    {
+                        settings.Name = "pcModalTemplateReAssignShopLogMode";
+                    settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Re-assign Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("GetReAssignShopUserLog", new List<ReAssignShopModel>());
                     ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGrid();'>Export</button>");
                 });
 
@@ -4296,23 +4311,27 @@
     @Html.DevExpress().PopupControl(
             settings =>
             {
-                settings.Name = "pcModalTemplateReAssignShopLogModeGroupBeat";
-                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                //settings.Height = 220;
-                //settings.ScrollBars.v
-                settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Re-assign Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("GetReAssignShopGroupBeatLog", new List<ReAssignShopGroupBeatModel>());
+                    settings =>
+    {
+                        settings.Name = "pcModalTemplateReAssignShopLogModeGroupBeat";
+                    settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Re-assign Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("GetReAssignShopGroupBeatLog", new List<ReAssignShopGroupBeatModel>());
                     ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignLogGroupBeatGrid();'>Export</button>");
                 });
 
@@ -4322,23 +4341,27 @@
     @Html.DevExpress().PopupControl(
             settings =>
             {
-                settings.Name = "pcModalTemplateReAssignShopManualLogMode";
-                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                //settings.Height = 220;
-                //settings.ScrollBars.v
-                settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Re-assign Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("ReAssignShopUserManualLog", new List<ReAssignShopModelLog>());
+                    settings =>
+    {
+                        settings.Name = "pcModalTemplateReAssignShopManualLogMode";
+                    settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Re-assign Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("ReAssignShopUserManualLog", new List<ReAssignShopModelLog>());
                     ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid();'>Export</button>");
                 });
 
@@ -4349,23 +4372,27 @@
     @Html.DevExpress().PopupControl(
             settings =>
             {
-                settings.Name = "pcModalTemplateReAssignShopManualGroupBeatLogMode";
-                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                //settings.Height = 220;
-                //settings.ScrollBars.v
-                settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Re-assign Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("ReAssignShopGroupBeatManualLog", new List<ReAssignShopGroupBeatModelLog>());
+                    settings =>
+    {
+                        settings.Name = "pcModalTemplateReAssignShopManualGroupBeatLogMode";
+                    settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Re-assign Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("ReAssignShopGroupBeatManualLog", new List<ReAssignShopGroupBeatModelLog>());
                     ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignGroupBeatManualLogGrid();'>Export</button>");
                 });
 
@@ -4532,15 +4559,25 @@
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Re-assigned User Log";
-            settings.Modal = true;
-            settings.AutoUpdatePosition = true;
-            settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
+            settings =>
             {
-                Html.RenderPartial("_ShopReassignManualLogView");
+                settings.Name = "pcModalImportLogViewMode";
+                settings.Width = 300;
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assigned User Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("_ShopReassignManualLogView");
             });
 
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
@@ -4561,11 +4598,25 @@
             settings.Modal = true;
             settings.AutoUpdatePosition = true;
             settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
+            settings =>
             {
-                Html.RenderPartial("_ShopReassignGroupBeatManualLogView");
+                settings.Name = "pcModalImportGroupBeatLogViewMode";
+                settings.Width = 300;
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assigned Beat/Party Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("_ShopReassignGroupBeatManualLogView");
             });
 
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
@@ -4977,9 +5028,25 @@
             settings.Top = 50;
             settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
             settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
+            settings =>
             {
-                Html.RenderPartial("_ShopReassignManualLogView_AreaRouteBeat");
+                settings.Name = "pcModalImportLogViewMode_AreaRouteBeat";
+                settings.Width = 300;
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Re-assigned Area/Route/Beat Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("_ShopReassignManualLogView_AreaRouteBeat");
             });
 
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
@@ -4988,23 +5055,27 @@
     @Html.DevExpress().PopupControl(
             settings =>
             {
-                settings.Name = "pcModalTemplateReAssignShopManualLogMode_AreaRouteBeat";
-                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                //settings.Height = 220;
-                //settings.ScrollBars.v
-                settings.AllowDragging = true;
-                settings.CloseAction = CloseAction.CloseButton;
-                settings.CloseOnEscape = true;
-                settings.PopupAnimationType = AnimationType.None;
-                settings.HeaderText = "Re-assign Area/Beat/Route Log";
-                settings.Modal = true;
-                settings.AutoUpdatePosition = true;
-                settings.Top = 50;
-                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-                settings.SetContent(() =>
+                settings =>
                 {
-                    Html.RenderPartial("ReAssignShopUserManualLog_AreaRouteBeat", new List<ReAssignShopModelLog>());
+                    settings =>
+    {
+                        settings.Name = "pcModalTemplateReAssignShopManualLogMode_AreaRouteBeat";
+                    settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                           //settings.Height = 220;
+                                           //settings.ScrollBars.v
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.CloseOnEscape = true;
+                    settings.PopupAnimationType = AnimationType.None;
+                    settings.HeaderText = "Re-assign Area/Beat/Route Log";
+                    settings.Modal = true;
+                    settings.AutoUpdatePosition = true;
+                    settings.Top = 50;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("ReAssignShopUserManualLog_AreaRouteBeat", new List<ReAssignShopModelLog>());
                     ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportReAssignManualLogGrid_AreaRouteBeat();'>Export</button>");
                 });
 
@@ -5024,15 +5095,25 @@
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
             settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Bulk Update Party Log";
-            settings.Modal = true;
-            settings.AutoUpdatePosition = true;
-            settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
+            settings =>
             {
-                Html.RenderPartial("_BulkModifyManualLogView");
+                settings.Name = "pcModalBulkModifyViewMode";
+                settings.Width = 300;
+                //settings.Height = 220;
+                //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Bulk Update Party Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("_BulkModifyManualLogView");
             });
 
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
@@ -5041,23 +5122,27 @@
     @Html.DevExpress().PopupControl(
         settings =>
         {
-            settings.Name = "pcModalTemplateBulkModifyLog";
-            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
-                                    //settings.Height = 220;
-                                    //settings.ScrollBars.v
-            settings.AllowDragging = true;
-            settings.CloseAction = CloseAction.CloseButton;
-            settings.CloseOnEscape = true;
-            settings.PopupAnimationType = AnimationType.None;
-            settings.HeaderText = "Bulk Update Log";
-            settings.Modal = true;
-            settings.AutoUpdatePosition = true;
-            settings.Top = 50;
-            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-            settings.SetContent(() =>
+            settings =>
             {
-                Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
+                settings =>
+{
+                    settings.Name = "pcModalTemplateBulkModifyLog";
+                settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                       //settings.Height = 220;
+                                       //settings.ScrollBars.v
+                settings.AllowDragging = true;
+                settings.CloseAction = CloseAction.CloseButton;
+                settings.CloseOnEscape = true;
+                settings.PopupAnimationType = AnimationType.None;
+                settings.HeaderText = "Bulk Update Log";
+                settings.Modal = true;
+                settings.AutoUpdatePosition = true;
+                settings.Top = 50;
+                settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+                settings.SetContent(() =>
+                {
+                    Html.RenderPartial("BulkModifyLog", new List<BulkModifyPartyLog>());
             ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
             });
 
