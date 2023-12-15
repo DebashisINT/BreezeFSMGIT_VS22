@@ -320,6 +320,16 @@
             return
         }
 
+        if ($("#txtPhone").val() == "0" || $("#txtPhone").val().substring(0,1) == "0" ) {
+            jAlert("Phone no cannot start with zero.", "Alert", function () {
+                setTimeout(function () {
+                    $("#txtPhone").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
         var mail = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if ($("#txtEmail").val() != "") {
             if (!mail.test($("#txtEmail").val().trim())) {
@@ -1848,6 +1858,7 @@
                                     deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                    deSettings.Properties.MinDate = DateTime.Now;
                                 }).GetHtml()
 
 
