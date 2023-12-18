@@ -230,6 +230,7 @@
     <Compile Include="Controllers\BreakageMaterialsDetectionInfoController.cs" />
     <Compile Include="Controllers\BreakageMaterialsInfoController.cs" />
     <Compile Include="Controllers\BSController.cs" />
+    <Compile Include="Controllers\CallLogInformationsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ChemistActivityController.cs" />
     <Compile Include="Controllers\CityListController.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Models\BillingModel.cs" />
     <Compile Include="Models\BreakageMaterialsDetectionInfoModel.cs" />
     <Compile Include="Models\BSList.cs" />
+    <Compile Include="Models\CallLogInformationsModel.cs" />
     <Compile Include="Models\ChatModal.cs" />
     <Compile Include="Models\ChemistActivitModel.cs" />
     <Compile Include="Models\CityList.cs" />
