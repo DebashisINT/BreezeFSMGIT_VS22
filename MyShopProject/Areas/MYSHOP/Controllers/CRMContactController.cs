@@ -687,17 +687,22 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         dtExcelData.Columns.Add("Reference", typeof(string));
                         dtExcelData.Columns.Add("Stages", typeof(string));
                         dtExcelData.Columns.Add("Remarks", typeof(string));
-                        dtExcelData.Columns.Add("ExpectedSalesValue", typeof(string));
+                        dtExcelData.Columns.Add("ExpectedSalesValue", typeof(decimal));
                         dtExcelData.Columns.Add("NextfollowUpDate", typeof(string));
                         dtExcelData.Columns.Add("Active", typeof(string));
 
                         foreach (DataRow row in dt.Select("[First Name*]<>'' ") )
                         {
-                            
+                            if(Convert.ToString(row["Expected Sales Value"]) == "")
+                            {
+                                row["Expected Sales Value"] = "0";
+                            }
+
+
                             dtExcelData.Rows.Add(Convert.ToString(row["First Name*"]), Convert.ToString(row["Last Name"]), Convert.ToString(row["Phone*"]), Convert.ToString(row["Email"]), Convert.ToString(row["Address"]),
-                            Convert.ToString(row["Date of Birth"]), Convert.ToString(row["Date of Anniversary"]), Convert.ToString(row["Company"]), Convert.ToString(row["Job Title"]), Convert.ToString(row["Assign To*"]),
-                            Convert.ToString(row["Type"]), Convert.ToString(row["Status"]), Convert.ToString(row["Source"]), Convert.ToString(row["Reference"]), Convert.ToString(row["Stages"]), 
-                            Convert.ToString(row["Remarks"]), Convert.ToString(row["Expected Sales Value"]), Convert.ToString(row["Next follow Up Date"]), Convert.ToString(row["Active"]));
+                            Convert.ToString(row["Date of Birth (dd-mm-yyyy)"]), Convert.ToString(row["Date of Anniversary (dd-mm-yyyy)"]), Convert.ToString(row["Company"]), Convert.ToString(row["Job Title"]), Convert.ToString(row["Assign To* (Login Id)"]),
+                            Convert.ToString(row["Type"]), Convert.ToString(row["Status"]), Convert.ToString(row["Source"]), Convert.ToString(row["Reference (Login Id/Phone No)"]), Convert.ToString(row["Stages"]), 
+                            Convert.ToString(row["Remarks"]), Convert.ToString(row["Expected Sales Value"]), Convert.ToString(row["Next follow Up Date (dd-mm-yyyy)"]), Convert.ToString(row["Active"]));
 
                         }
                         
@@ -714,9 +719,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             dtCmb = proc.GetTable();
 
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-
+                            throw new Exception(ex.Message);
                         }
                     }
                 }
