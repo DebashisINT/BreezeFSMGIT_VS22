@@ -91,9 +91,32 @@
                 start = start.split('-')[1] + '-' + start.split('-')[0] + '-' + start.split('-')[2];
                 end = end.split('-')[1] + '-' + end.split('-')[0] + '-' + end.split('-')[2];
 
+                var obj = {};
+                obj.start = start;
+                obj.end = end;
+                //obj.EnquiryFromDesc = EnquiryFromDesc;
+
                 Is_PageLoad = "1";
                 gridCRMContact.Refresh();
                 gridCRMContact.Refresh();
+
+                setTimeout(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/CRMContact/GetTotalContactsCount",
+                        data: JSON.stringify(obj),
+                        async: false,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            $("#btnShowTotalContacts").text(response.TotalContacts);
+                        },
+                        error: function (response) {
+                            jAlert("Please try again later");
+                        }
+                    });
+                }, 1000)
+
             }
         });
 
@@ -1589,6 +1612,15 @@
                         <button type="button" class="btn btn-primary btn-clr-5" onclick="ImportLogPopOpen();">
                             View Log
                         </button>
+                        @*}*@
+
+                         @*@if (ViewBag.CanView)
+                        {*@
+                        <button type="button" class="btn btn-success bg-color-1" data-toggle="tooltip" title=""
+                                data-placement="top" data-original-title="Show Total Contacts">
+                            Total Contacts <span id="btnShowTotalContacts" class="badge">0</span>
+                        </button>
+
                         @*}*@
 
                     </div>

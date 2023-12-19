@@ -65,6 +65,8 @@ namespace MyShop.Models
         public String Remarks { get; set; }
         public decimal ExpSalesValue { get; set; }
         public String NextFollowDate { get; set; }
+
+        public Int64 TotalContacts { get; set; }
     }
     public class GetContactFrom
     {
