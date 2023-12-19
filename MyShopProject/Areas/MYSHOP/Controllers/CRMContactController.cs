@@ -1081,5 +1081,37 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return settings;
         }
 
+        public JsonResult GetTotalContactsCount(string start, string end)
+        {
+            CRMContactModel dtl = new CRMContactModel();
+            try
+            {
+                DataSet ds = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_FTSContactListingShow");
+                proc.AddPara("@Action", "GETTOTALCONTACTSCOUNT");
+                //proc.AddPara("@ToDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                //proc.AddPara("@Fromdate", DateTime.Now.ToString("yyyy-MM-dd"));
+                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                //proc.AddPara("@ENQUIRIESFROM", EnquiryFromDesc);
+                ds = proc.GetDataSet();
+
+
+                int TotalContacts = 0;
+               
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    TotalContacts = Convert.ToInt32(item["cnt_TotalContacts"]);
+                    
+                }
+
+                dtl.TotalContacts = TotalContacts;
+                
+            }
+            catch
+            {
+            }
+            return Json(dtl);
+        }
+
     }
 }
