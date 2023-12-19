@@ -2143,12 +2143,12 @@
 
 
         .flotting-right-btn li .hoverMenu {
-            margin-right: -120px;
+            margin-right: -106px;
             transition: all 0.5s;
         }
 
         .flotting-right-btn li.view-party-hierarchywise .hoverMenu {
-            margin-right: -175px;
+            margin-right: -162px;
             transition: all 0.5s;
         }
 
@@ -2272,6 +2272,83 @@
 }
 
     /* Handle on hover */
-.multiselect-container.dropdown-menu::-webkit-scrollbar-thumb:hover {
+/*.multiselect-container.dropdown-menu::-webkit-scrollbar-thumb:hover {
     background: #8b8b8b;
 }
+
+.state-selection .dropdown-toggle {
+    background: #11c795 !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.branch-selection .dropdown-toggle {
+    background: #e3aa40 !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.state-selection .btn-default .caret, .branch-selection .btn-default .caret {
+    border-top-color: #fff;
+}*/
+
+.multiselect-container .checkbox input[type="checkbox"]:checked {
+    background-color: #333 !important;
+    border-color: #333 !important;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    background-color: #333 !important;
+}
+
+
+.flotting-right-btn li {
+    /*list-style: none;
+    display: inline-block;
+    margin: 10px;*/
+    position: relative;
+}
+
+    .flotting-right-btn li .pointer {
+        /*position: relative;
+        display: inline-block;
+        cursor: pointer;*/
+    }
+
+        .flotting-right-btn li .pointer .tooltip-customize {
+            position: absolute;
+            top: 14%;
+            left: -106px;
+            transform: translateX(-50%);
+            background-color: #e3f4ff;
+            color: #444;
+            padding: 5px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none;
+            z-index: 9999;
+            width: 195px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif !important;
+            letter-spacing: normal;
+            cursor: default;
+            line-height: 20px;
+        }
+
+            .flotting-right-btn li .pointer .tooltip-customize::before {
+                content: '';
+                position: absolute;
+                top: 40%;
+                right: -15px;
+                margin-top: -5px;
+                border-width: 8px;
+                border-style: solid;
+                border-color: transparent transparent transparent #e3f4ff;
+            }
+
+    .flotting-right-btn li:hover .pointer .tooltip-customize {
+        opacity: 1;
+    }

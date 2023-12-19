@@ -70,7 +70,17 @@
 </style>
 
 
-
+<script>
+    $(function () {
+        $("#step7").tooltip({
+            show: { effect: "slideDown", duration: 0 }, // Adjust the duration
+            position: {
+                my: "left top",
+                at: "right+5 top-5"
+            }
+        });
+    });
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -80,11 +90,11 @@
             @*<span>Employee Attendance Summary/*Add to check*/</span>*@
                 }
             <ul class="mapShowlist clearfix">
-                <li class="relative">
+                <li class="relative state-selection">
                     @Html.Action("DashboardStateCombobox")
                 </li>
                 @*Mantis Issue 24729*@
-                <li class="relative">
+                <li class="relative branch-selection">
 
                     @Html.Action("DashboardBranchCombobox")
 
@@ -100,7 +110,8 @@
                     {
                         //Rev Sanchita
                         //<li title="Click to get route details of Employees with Map " id="step7">
-                <li title="Click to get party details with Map " id="step7">
+                @*<li title="Click to get party details with Map " id="step7">*@
+                <li id="step7">
                     <div class="pointer hoverMenu rut" onclick="ShowViewParty();">
                         <span class="text ">
                             View Party
@@ -110,7 +121,7 @@
                     <div class="icon-img">
                         <img src="/assests/images/view-party.png" alt="">
                     </div>
-                        @*<img src="/assests/images/view-party-wt.png" alt="">*@
+                    <div class="tooltip-customize" title="Click to get Employee Outlet">Click to get Employee Outlet</div>
                     </div>
                 </li>
                     }
@@ -184,7 +195,7 @@
                 <li title="Click to get Employee Outlet " id="step7">
                     <div class="pointer hoverMenu rut" onclick="ShowViewEMPOutlet();">
                         <span class="text ">
-                            Emp Outlet
+                            Employee Outlet
                             @*<span class="arrr"></span>*@
                         </span>
                         @*<span class="lni lni-users "></span>*@
