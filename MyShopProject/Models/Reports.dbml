@@ -2797,4 +2797,27 @@
       <Column Name="Shop_Entity_Status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.OUTLETWISECALLLOGGING_REPORT" Member="OUTLETWISECALLLOGGING_REPORTs">
+    <Type Name="OUTLETWISECALLLOGGING_REPORT">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CALLDATE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EMPID" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EMPName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ASMReporting" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="VisitType" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="VisitRevisitTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MDDName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MDDCode" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="OutletName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="OutletCode" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OwnerName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CALL_DATE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="CALL_TIME" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CALL_DURATION" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="CalLCount" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
