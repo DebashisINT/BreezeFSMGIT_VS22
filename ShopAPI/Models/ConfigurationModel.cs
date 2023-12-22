@@ -19,6 +19,7 @@
 //18.0  V2.0.42     Debashis    06/10/2023      Some new parameters have been added.Row: 871
 //19.0  V2.0.42     Debashis    16/11/2023      Some new parameters have been added.Row: 879
 //20.0  V2.0.42     Debashis    04/12/2023      A new parameter has been added.Row: 866
+//21.0  V2.0.42     Debashis    22/12/2023      Some new parameters have been added.Row: 891
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -275,6 +276,10 @@ namespace ShopAPI.Models
         //Rev 20.0 Row:866
         public int MultiVisitIntervalInMinutes { get; set; }
         //End of Rev 20.0 Row:866
+        //Rev 21.0 Row:891
+        public bool IsGPSRouteSync { get; set; }
+        public bool IsSyncBellNotificationInApp { get; set; }
+        //End of Rev 21.0 Row:891
     }
 
     public class ConfigurationModelInput
