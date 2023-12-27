@@ -2807,7 +2807,7 @@
       <Column Name="Category" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="ASMReporting" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="VisitType" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="VisitRevisitTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VisitRevisitTime" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="MDDName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="MDDCode" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="OutletName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />

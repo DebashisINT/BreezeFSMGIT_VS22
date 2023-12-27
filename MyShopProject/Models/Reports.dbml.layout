@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.875, 11.375" name="Reports">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.375, 11.375" name="Reports">
   <DataContextMoniker Name="/ReportsDataContext" />
   <nestedChildShapes>
     <classShape Id="6f8bddd7-026f-4c14-800e-203cf2368696" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
@@ -584,10 +584,10 @@
         <elementListCompartment Id="c823c463-2e61-4219-83e6-7b0e1738977e" absoluteBounds="2.64, 11.085, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="27901f44-1177-4db3-9ccd-83bbed89d6e3" absoluteBounds="13.625, 0.75, 2, 4.4631168619791666">
+    <classShape Id="6c4ff247-ca10-4bb1-aebd-2d771d283c3b" absoluteBounds="14.125, 0.75, 2, 4.4631168619791666">
       <DataClassMoniker Name="/ReportsDataContext/OUTLETWISECALLLOGGING_REPORT" />
       <nestedChildShapes>
-        <elementListCompartment Id="033f75c5-37cb-4b85-8dd7-5b0c2eced81e" absoluteBounds="13.64, 1.21, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7a7c6079-cf42-4ab1-b93f-390de01da169" absoluteBounds="14.14, 1.21, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

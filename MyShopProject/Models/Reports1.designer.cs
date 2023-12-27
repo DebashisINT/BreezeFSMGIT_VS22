@@ -46716,7 +46716,7 @@ namespace MyShop.Models
 		
 		private string _VisitType;
 		
-		private System.Nullable<System.DateTime> _VisitRevisitTime;
+		private string _VisitRevisitTime;
 		
 		private string _MDDName;
 		
@@ -46870,8 +46870,8 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VisitRevisitTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> VisitRevisitTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VisitRevisitTime", DbType="NVarChar(20)")]
+		public string VisitRevisitTime
 		{
 			get
 			{
