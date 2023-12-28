@@ -232,13 +232,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 60;
+                            x.ExportWidth = 50;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 60;
+                        x.ExportWidth = 50;
                     }
                 });
             
@@ -257,13 +257,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                          else
                          {
                              x.Visible = true;
-                             x.Width = 100;
+                             x.ExportWidth = 100;
                          }
                      }
                      else
                      {
                          x.Visible = true;
-                         x.Width = 100;
+                         x.ExportWidth = 100;
                      }
                  });
 
@@ -282,13 +282,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 180;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 180;
                     }
                 });
 
@@ -307,13 +307,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 150;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 150;
                     }
                 });
 
@@ -332,13 +332,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 120;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 120;
+                        x.ExportWidth = 120;
                     }
                 });
 
@@ -357,13 +357,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 120;
                     }
                 });
 
@@ -384,13 +384,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 120;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 120;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -409,13 +409,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -434,13 +434,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 120;
                     }
                 });
 
@@ -459,13 +459,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 200;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 200;
+                        x.ExportWidth = 120;
                     }
 
                 });
@@ -485,13 +485,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 120;
                     }
                 });
 
@@ -510,13 +510,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 200;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 200;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -535,13 +535,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -560,13 +560,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 120;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 120;
                     }
                 });
 
@@ -585,13 +585,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -610,13 +610,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 120;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 120;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -635,13 +635,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 120;
+                            x.ExportWidth = 100;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 120;
+                        x.ExportWidth = 100;
                     }
                 });
 
@@ -660,13 +660,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         else
                         {
                             x.Visible = true;
-                            x.Width = 100;
+                            x.ExportWidth = 80;
                         }
                     }
                     else
                     {
                         x.Visible = true;
-                        x.Width = 100;
+                        x.ExportWidth = 80;
                     }
                 });
 

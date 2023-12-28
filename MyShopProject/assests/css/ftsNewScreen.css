@@ -506,7 +506,7 @@ ul{
     font-size: 14px;
     /*rev Pallab 25455 */
     /*margin-top: -107px;*/
-    margin-top: -135px;
+    margin-top: -125px;
     /*rev end Pallab 25455 */
     margin-bottom: 0;
     margin-right: -10px;
@@ -1583,6 +1583,8 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     border-radius: 0px;
     margin: 0;
 }
+
+
 
 @media only screen and (min-width: 768px) and (max-width: 1299px)
 {

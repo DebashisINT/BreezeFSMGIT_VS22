@@ -50,6 +50,16 @@
             }
         });
 
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#txtFirstName').focus();
+        });
+        $('#UserSearchModel').on('shown.bs.modal', function () {
+            $('#txtUserSearch').focus();
+        });
+        $('#ReferenceUserSearchModel').on('shown.bs.modal', function () {
+            $('#txtReferenceUserSearch').focus();
+        });
+
         //$('#ddlAppIds').on('change', function () {
         //    if ($("#ddlAppIds option:selected").index() > 0) {
         //        var selectedValue = $(this).val();
@@ -808,12 +818,13 @@
 
 <style>
     .pmsModal .modal-header {
-        background: #094e8c !important;
+        /*background: #094e8c !important;*/
         background-image: none !important;
         padding: 11px 20px;
         border: none;
         border-radius: 15px 15px 0 0 !important;
         color: #fff;
+        background: linear-gradient(to right, #1f5fbf, #11998e) !important;
     }
 
     .pmsModal .modal-content {
@@ -825,13 +836,25 @@
     }
 
     .pmsModal.w70 .modal-dialog {
-        width: 70%;
+        width: 90% !important;
     }
+
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            padding-top: 56px !important;
+        }
+        #UserSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog {
+            padding-top: 100px !important;
+        }
+        }
+
+
 
     #myModal label {
         font-weight: 500;
-        margin-top: 5px;
+        margin-top: 3px;
         margin-bottom: 2px;
+        font-size: 13px;
     }
 
     .red {
@@ -868,12 +891,12 @@
     }
 
     .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
-        height: 34px;
+        height: 30px;
         padding: 3px 12px;
     }
 
     .modalScroll .modal-body {
-        max-height: 75vh !important;
+        max-height: 88vh !important;
         overflow-y: auto;
         border-radius: 0 0 15px 15px !important;
     }
@@ -949,7 +972,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 9px;
+        bottom: 7px;
         right: 20px;
         z-index: 0;
         cursor: pointer;
@@ -1040,6 +1063,7 @@
         position: relative;
         z-index: 1;
         background-color: transparent;
+        height: 30px !important;
     }
 
     #ddlShowReport:focus-visible {
@@ -1113,7 +1137,7 @@
 
     .dxeButtonEdit_PlasticBlue {
         border-radius: 5px;
-        height: 34px;
+        height: 30px;
     }
 
     #dtFrom, #dtTo, #FormDate, #toDate, #appcbl_frm_dt {
@@ -1271,6 +1295,7 @@
     .for-cust-icon {
         position: relative;
         /*z-index: 1;*/
+        width: 150px;
     }
 
     .pad-md-18 {
@@ -1333,6 +1358,7 @@
 
     .btn {
         height: 34px;
+        border-radius: 50px;
     }
     /*Rev end 1.0*/
     /*Rev start 3.0*/
@@ -1371,11 +1397,11 @@
     /*End of Rev 4.0*/
 
     .mt-15 {
-        margin-top: 15px;
+        margin-top: 5px;
     }
 
     .mb-10 {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
     .mr-5 {
@@ -1384,6 +1410,7 @@
 
     .pmsModal .modal-body {
         padding: 30px;
+        padding-bottom: 15px;
     }
 
         .pmsModal .modal-body .col-md-3, .pmsModal .modal-body .col-md-6, .pmsModal .modal-body .col-md-12 {
@@ -1392,10 +1419,10 @@
         }
 
     .personal-info {
-        background: #f2fffd;
+        background: #f9f9f9;
         padding: 10px 0;
-        border-radius: 15px 15px 15px 15px;
-        border: 2px solid #9eebdd;
+        border-radius: 10px;
+        border: 1px dashed #8f8f8f;
         margin-bottom: 30px;
     }
 
@@ -1409,63 +1436,85 @@
         }
 
     .company-info {
-        background: #fff2fc;
+        background: #f9f9f9 !important;
         padding: 10px 0;
-        border-radius: 15px 15px 15px 15px;
-        border: 2px solid #ef70cd;
+        border-radius: 10px;
+        border: 1px dashed #8f8f8f;
         margin-bottom: 30px;
     }
 
     .others-info {
-        background: #fff6f1;
+        background: #f9f9f9 !important;
         padding: 10px 0;
-        border-radius: 15px 15px 15px 15px;
-        border: 2px solid #ed935c;
-        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px dashed #8f8f8f;
+        margin-bottom: 30px;
     }
 
     .section-heading {
         width: 100%;
-        margin-top: -26px;
+        margin-top: -24px;
         padding: 0 0 0 10px;
         margin-bottom: 10px;
     }
 
     .personal-info .section-heading h4 {
-        font-size: 16px !important;
-        padding: 6px 15px;
+        font-size: 14px !important;
+        padding: 6px 15px 6px 10px;
         background: #10977e;
         color: #fff;
-        border-radius: 20px 20px;
+        /*border-radius: 20px 20px;*/
         display: inline-block;
         margin: 0;
         font-weight: 400;
+        position: relative;
     }
 
     .company-info .section-heading h4 {
-        font-size: 16px !important;
+        /*font-size: 16px !important;
         padding: 6px 15px;
         background: #971073;
         color: #fff;
         border-radius: 20px 20px;
         display: inline-block;
         margin: 0;
+        font-weight: 400;*/
+
+        font-size: 14px !important;
+        padding: 6px 15px 6px 10px;
+        background: #971073;
+        color: #fff;
+        /*border-radius: 20px 20px;*/
+        display: inline-block;
+        margin: 0;
         font-weight: 400;
+        position: relative;
     }
 
     .others-info .section-heading h4 {
-        font-size: 16px !important;
+        /*font-size: 16px !important;
         padding: 6px 15px;
         background: #974310;
         color: #fff;
         border-radius: 20px 20px;
         display: inline-block;
         margin: 0;
+        font-weight: 400;*/
+
+        font-size: 14px !important;
+        padding: 6px 15px 6px 10px;
+        background: #974310;
+        color: #fff;
+        /*border-radius: 20px 20px;*/
+        display: inline-block;
+        margin: 0;
         font-weight: 400;
+        position: relative;
     }
 
     .ml-n15 {
-        margin-left: -15px;
+        margin-right: -18px;
+        text-align: end;
     }
 
     /* width */
@@ -1510,31 +1559,37 @@
 
     .btn-clr-1 {
         background-color: #313ec7 !important;
-        
+
     }
 
     .btn-clr-2 {
-        background-color: #040e7c !important;
-        
+        background-color: #ff6a00 !important;
     }
 
     .btn-clr-3 {
-        background-color: #af5a14 !important;
-        
+        background-color: #0ead7f !important;
     }
 
     .btn-clr-4 {
-        background-color: #60064a !important;
-        
+        background-color: #86a113 !important;
     }
+
+    .bg-color-6 {
+        background-color: #bd1c68 !important;
+    }
+
+        .bg-color-6 .badge {
+            background-color: #fff !important;
+            padding: 4px 7px;
+            color: #111;
+        }
 
     .btn {
         margin-right: 5px;
+        padding: 4px 10px;
     }
 
-    #UserSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog {
-        width: 42%;
-    }
+    
 
     #popup_message {
         text-align: center !important;
@@ -1566,6 +1621,125 @@
     .validationDiv {
         margin-bottom: 10px;
     }
+
+    .btn-radius {
+        border-radius: 50px;
+        /*float:left;*/
+    }
+
+    .add-btn .btn-icon {
+        border-radius: 50px;
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        background: #0d4d91;
+        line-height: 22px;
+    }
+
+    .add-btn {
+        padding: 6px 10px 6px 6px !important;
+        background-color: #f8666f !important;
+        border-color: #f8666f !important;
+    }
+
+    .col-md-1, .col-md-2, .col-md-4 {
+        padding-right: 8px !important;
+        padding-left: 8px !important;
+    }
+
+    .calendar-icon {
+        right: 14px !important;
+    }
+
+    .personal-info .section-heading h4:before {
+        content: "";
+        position: absolute;
+        right: -11px;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 11px solid #10977e;
+        border-top: 12px solid transparent;
+        border-bottom: 14px solid transparent;
+    }
+
+    .company-info .section-heading h4:before {
+        content: "";
+        position: absolute;
+        right: -11px;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 11px solid #971073;
+        border-top: 12px solid transparent;
+        border-bottom: 14px solid transparent;
+    }
+
+    .others-info .section-heading h4:before {
+        content: "";
+        position: absolute;
+        right: -11px;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 11px solid #974310;
+        border-top: 12px solid transparent;
+        border-bottom: 14px solid transparent;
+    }
+
+    /*.personal-info .section-heading h4:after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 1px solid white;
+        border-top: 14px solid transparent;
+        border-bottom: 14px solid transparent;
+    }*/
+
+    .personal-info .section-heading h4 .bulet, .company-info .section-heading h4 .bulet, .others-info .section-heading h4 .bulet {
+        position: absolute;
+        right: 0px;
+        top: 11px;
+        background: #fff;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 2px rgb(26, 128, 44);
+    }
+
+    .company-info .section-heading h4 .bulet {
+        box-shadow: 0px 0px 1px 2px rgb(81 5 61) !important;
+    }
+
+    .others-info .section-heading h4 .bulet {
+        box-shadow: 0px 0px 1px 2px rgb(99 39 3) !important;
+    }
+
+    #btnshow, #ddlAppIds {
+        height: 30px;
+    }
+
+    #ddlAppIds {
+        padding: 2px 10px !important;
+    }
+
+    #UserSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog {
+        width: 42% !important;
+    }
+
+        .container {
+            width: 88%;
+        }
+
+    @@media (min-width: 1200px) {
+        .container {
+            width: 88%;
+        }
+    }
+
 </style>
 
 <div class="breadCumb">
@@ -1579,53 +1753,55 @@
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 20px;">
                         <!-- Button trigger modal -->
-                        @*@if (ViewBag.CanAdd)
-                            {*@
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
-                            Add New
+                        @if (ViewBag.CanAdd)
+                        {
+                        <button type="button" class="btn btn-success btn-radius add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Contact
                         </button>
-                        @*}*@
-                        @*@if (ViewBag.CanAssign)
-                            {*@
-                        <button type="button" class="btn btn-info btn-clr-1" onclick="BulkAssign();">
+                        }
+                        @if (ViewBag.CanAssign)
+                        {
+                        <button type="button" class="btn btn-info btn-radius btn-clr-1" onclick="BulkAssign();">
                             Bulk Assign
                         </button>
-                        @*}*@
-                        @*@if (ViewBag.CanReassign)
-                            {*@
-                        <button type="button" class="btn btn-primary btn-clr-2" onclick="BulkReAssign();">
+                        }
+                        @if (ViewBag.CanReassign)
+                        {
+                        <button type="button" class="btn btn-primary btn-radius btn-clr-2" onclick="BulkReAssign();">
                             Bulk Re-Assign
                         </button>
 
-                        @*}*@
+                        }
 
-                        @*@if (ViewBag.CanBulkUpdate)
-                            {*@
-                        <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
+                        @if (ViewBag.CanBulkUpdate)
+                        {
+                        <button type="button" class="btn btn-info btn-radius btn-clr-3" onclick="DownloadFormat();">
                             Download Format
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportContactPopOpen();">
+                        <button type="button" class="btn btn-primary btn-radius btn-clr-4" onclick="ImportContactPopOpen();">
                             Import File
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-clr-5" onclick="ImportLogPopOpen();">
+                        <button type="button" class="btn btn-primary btn-radius btn-clr-5" onclick="ImportLogPopOpen();">
                             View Log
                         </button>
-                        @*}*@
+                        }
 
-                         @*@if (ViewBag.CanView)
-                        {*@
-                        <button type="button" class="btn btn-success bg-color-1" data-toggle="tooltip" title=""
-                                data-placement="top" data-original-title="Show Total Contacts">
-                            Total Contacts <span id="btnShowTotalContacts" class="badge">0</span>
-                        </button>
+                        @if (ViewBag.CanView)
+                        {
+                    <button type="button" class="btn btn-success btn-radius bg-color-6">
+                        Total Contact (s) <span id="btnShowTotalContacts" class="badge">0</span>
+                    </button>
 
-                        @*}*@
+                        }
+
+
+
 
                     </div>
                     <div class="clear"></div>
-                    <div class="col-md-2 for-cust-icon">
+                    <div class="col-md-1 for-cust-icon" style="padding-left: 15px !important;">
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -1642,7 +1818,7 @@
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
-                    <div class="col-md-2 for-cust-icon">
+                    <div class="col-md-1 for-cust-icon">
                         <span>To Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -1659,7 +1835,7 @@
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
-                    <div class="col-md-4" style="margin-bottom: 16px;">
+                    <div class="col-md-2" style="margin-bottom: 16px;">
                         <span>Contact(s) From</span>
                         <div>
                             @*@Html.Action("GetContactFrom", "CRMContact")*@
@@ -1670,16 +1846,16 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4" style="padding-top: 20px;">
+                    <div class="col-md-3" style="padding-top: 20px;">
                         <span></span>
                         <div>
                             @*@if (ViewBag.CanView)
-                                {*@
+                {*@
                             <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
                             @*}*@
 
                             @*@if (ViewBag.CanExport)
-                                {*@
+                {*@
                             <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
                                 <option value="0">Export to</option>
                                 <option value="2">XLSX</option>
@@ -1732,7 +1908,8 @@
 
                     <div class="col-md-12 personal-info">
                         <div class="section-heading">
-                            <h4>Personal Information</h4>
+                            <h4>Personal Information <span class="bulet"></span></h4>
+                            
                         </div>
 
                         <div class="col-md-3 mb-10">
@@ -1808,9 +1985,10 @@
                         <div class="clearfix"></div>
                     </div>
 
+                    @*<div class="col-md-12 company-info">*@
                     <div class="col-md-12 company-info">
                         <div class="section-heading">
-                            <h4>General Information</h4>
+                            <h4>General Information <span class="bulet"></span></h4>
                         </div>
 
                         <div class="col-md-3 mb-10">
@@ -1902,9 +2080,10 @@
                     </div>
 
 
-                    <div class="col-md-12 others-info">
+                    @*<div class="col-md-12 others-info">*@
+                    <div class="col-md-12 others-info mb-3">
                         <div class="section-heading">
-                            <h4>Others Information</h4>
+                            <h4>Others Information <span class="bulet"></span></h4>
                         </div>
 
                         <div class="col-md-3 mb-10">
