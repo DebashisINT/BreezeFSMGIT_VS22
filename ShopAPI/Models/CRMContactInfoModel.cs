@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 05/12/2023
-//Purpose : Save & Fetch List CRM Contact.Row: 880 to 885
+//Purpose : Save & Fetch List CRM Contact.Row: 880 to 884 & 898
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -104,6 +104,11 @@ namespace ShopAPI.Models
     {
         public string session_token { get; set; }
         public int created_by { get; set; }
+        public List<Companynamelist> company_name_list { get; set; }
+    }
+
+    public class Companynamelist
+    {
         public string company_name { get; set; }
     }
 

@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 05/12/2023
-//Purpose : Save & Fetch List CRM Contact.Row: 880 to 885
+//Purpose : Save & Fetch List CRM Contact.Row: 880 to 884 & 898
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -286,43 +286,60 @@ namespace ShopAPI.Controllers
         public HttpResponseMessage CRMCompanySave(CRMCompanySaveInput model)
         {
             CRMCompanySaveOutput odata = new CRMCompanySaveOutput();
+            List<Companynamelist> Lview = new List<Companynamelist>();
             try
             {
                 string token = string.Empty;
                 string versionname = string.Empty;
                 String tokenmatch = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
 
-                DataTable dt = new DataTable();
-                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
-                SqlCommand sqlcmd = new SqlCommand();
-                SqlConnection sqlcon = new SqlConnection(con);
-                sqlcon.Open();
-
-                sqlcmd = new SqlCommand("PRC_APICRMCONTACTINFO", sqlcon);
-                sqlcmd.Parameters.AddWithValue("@ACTION", "CRMCOMPANYSAVE");
-                sqlcmd.Parameters.AddWithValue("@USERID", model.created_by);
-                sqlcmd.Parameters.AddWithValue("@COMPANYNAME", model.company_name);
-
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
-                da.Fill(dt);
-                sqlcon.Close();
-
-                if (dt.Rows.Count > 0)
+                if (!ModelState.IsValid)
                 {
-                    odata.status = "200";
-                    odata.message = "Success";
+                    odata.status = "213";
+                    odata.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, odata);
                 }
                 else
                 {
-                    odata.status = "205";
-                    odata.message = "No Data Found";
+                    foreach (var s2 in model.company_name_list)
+                    {
+                        Lview.Add(new Companynamelist()
+                        {
+                            company_name = s2.company_name
+                        });
+                    }
+                    string JsonXML = XmlConversion.ConvertToXml(Lview, 0);
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+
+                    sqlcmd = new SqlCommand("PRC_APICRMCONTACTINFO", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "CRMCOMPANYSAVE");
+                    sqlcmd.Parameters.AddWithValue("@USERID", model.created_by);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        odata.status = "200";
+                        odata.message = "Success";
+                    }
+                    else
+                    {
+                        odata.status = "205";
+                        odata.message = "No Data Found";
+                    }
+
+                    var message = Request.CreateResponse(HttpStatusCode.OK, odata);
+                    return message;
                 }
-
-                var message = Request.CreateResponse(HttpStatusCode.OK, odata);
-                return message;
             }
-
             catch (Exception ex)
             {
                 odata.status = "209";
