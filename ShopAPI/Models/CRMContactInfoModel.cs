@@ -104,6 +104,11 @@ namespace ShopAPI.Models
     {
         public string session_token { get; set; }
         public int created_by { get; set; }
+        public List<Companynamelist> company_name_list { get; set; }
+    }
+
+    public class Companynamelist
+    {
         public string company_name { get; set; }
     }
 
