@@ -2143,12 +2143,12 @@
 
 
         .flotting-right-btn li .hoverMenu {
-            margin-right: -106px;
+            margin-right: -115px;
             transition: all 0.5s;
         }
 
         .flotting-right-btn li.view-party-hierarchywise .hoverMenu {
-            margin-right: -162px;
+            margin-right: -171px;
             transition: all 0.5s;
         }
 
@@ -2307,6 +2307,7 @@
     display: inline-block;
     margin: 10px;*/
     position: relative;
+    z-index: 99;
 }
 
     .flotting-right-btn li .pointer {
@@ -2315,12 +2316,14 @@
         cursor: pointer;*/
     }
 
-        .flotting-right-btn li .pointer .tooltip-customize {
+        .flotting-right-btn li .tooltip-customize {
             position: absolute;
-            top: 14%;
-            left: -106px;
+            /*top: 14%;
+            left: -106px;*/
+            bottom: 46px;
+            left: 38px;
             transform: translateX(-50%);
-            background-color: #e3f4ff;
+            background-color: #c4fbec;
             color: #444;
             padding: 5px;
             border-radius: 5px;
@@ -2328,7 +2331,7 @@
             transition: opacity 0.2s ease-in-out;
             pointer-events: none;
             z-index: 9999;
-            width: 195px;
+            width: 220px;
             text-align: center;
             font-size: 12px;
             font-weight: 500;
@@ -2338,17 +2341,17 @@
             line-height: 20px;
         }
 
-            .flotting-right-btn li .pointer .tooltip-customize::before {
+            .flotting-right-btn li .tooltip-customize::before {
                 content: '';
                 position: absolute;
-                top: 40%;
-                right: -15px;
-                margin-top: -5px;
+                bottom: -15px;
+                left: 50%;
+                transform: translate(-50%, 0);
                 border-width: 8px;
                 border-style: solid;
-                border-color: transparent transparent transparent #e3f4ff;
+                border-color: #c4fbec transparent transparent transparent;
             }
 
-    .flotting-right-btn li:hover .pointer .tooltip-customize {
+    .flotting-right-btn li:hover .tooltip-customize {
         opacity: 1;
     }

@@ -36,10 +36,10 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "SEQ";
-        x.Caption = "Serial";
+        x.Caption = "Sl.";
         x.VisibleIndex = 1;
-        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
         if (ViewBag.RetentionColumn != null)
         {
             System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SEQ'");
@@ -50,13 +50,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 60;
+                x.Width = 50;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 60;
+            x.Width = 50;
         }
     });
     settings.Columns.Add(x =>
@@ -98,13 +98,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 110;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 110;
         }
     });
 
@@ -123,13 +123,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 200;
+                x.Width = 190;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 200;
+            x.Width = 190;
         }
     });
 
@@ -173,13 +173,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 120;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 120;
         }
     });
 
@@ -200,13 +200,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 200;
+                x.Width = 100;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 200;
+            x.Width = 100;
         }
     });
 
@@ -225,13 +225,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 120;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 120;
         }
     });
 
@@ -250,13 +250,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 150;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 150;
         }
     });
 
@@ -275,13 +275,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 250;
+                x.Width = 120;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 250;
+            x.Width = 120;
         }
 
     });
@@ -301,13 +301,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 150;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 150;
         }
     });
 
@@ -326,13 +326,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 250;
+                x.Width = 110;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 250;
+            x.Width = 110;
         }
     });
 
@@ -426,13 +426,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 170;
+                x.Width = 80;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 170;
+            x.Width = 80;
         }
     });
 
@@ -451,13 +451,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 150;
+                x.Width = 100;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 150;
+            x.Width = 100;
         }
     });
 
@@ -476,13 +476,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 130;
+                x.Width = 75;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 130;
+            x.Width = 75;
         }
     });
 
