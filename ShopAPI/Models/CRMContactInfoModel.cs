@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 05/12/2023
-//Purpose : Save & Fetch List CRM Contact.Row: 880 to 885
+//Purpose : Save & Fetch List CRM Contact.Row: 880 to 884 & 898
 #endregion===================================End of Revision History==================================================
 
 using System;
