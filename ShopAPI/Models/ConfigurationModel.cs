@@ -20,6 +20,7 @@
 //19.0  V2.0.42     Debashis    16/11/2023      Some new parameters have been added.Row: 879
 //20.0  V2.0.42     Debashis    04/12/2023      A new parameter has been added.Row: 866
 //21.0  V2.0.42     Debashis    22/12/2023      Some new parameters have been added.Row: 891
+//22.0  V2.0.44     Debashis    05/01/2024      A new parameter has been added.Row: 899 & Refer: 0027139
 #endregion===================================End of Revision History==================================================
 using System;
 using System.Collections.Generic;
@@ -280,6 +281,9 @@ namespace ShopAPI.Models
         public bool IsGPSRouteSync { get; set; }
         public bool IsSyncBellNotificationInApp { get; set; }
         //End of Rev 21.0 Row:891
+        //Rev 22.0 Row: 899 & Refer: 0027139
+        public bool IsShowCustomerLocationShare { get; set; }
+        //End of Rev 22.0 Row: 899 & Refer: 0027139
     }
 
     public class ConfigurationModelInput
