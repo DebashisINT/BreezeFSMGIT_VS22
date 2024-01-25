@@ -4,7 +4,7 @@
  * Rev 3.0     Sanchita    V2.0.40     05/05/2023      Downloaded excel showing blank data while exporting the Product Master in FSM Portal
  *                                                      Refer: 26041
  * Rev 4.0     Sanchita    V2.0.43     06/11/2023      On demand search is required in Product Master & Projection Entry. Mantis: 26858    
- * Rev 5.0     Sanchita    V2.0.45     25/01/2024      FSM product master - Filter completed project dropdown did not move- Eurobond. Mantis: 27209    
+ * Rev 5.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour Search - saved colurs not showing ticked. Mantis: 27211    
  * *****************************************************************************************************************************/
 using System;
 using System.Data;
