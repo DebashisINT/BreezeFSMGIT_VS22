@@ -6,6 +6,8 @@
     Mantis: 26617*@
 @*3.0                16-10-2023         v2.0.43         Sanchita            On demand search is required in Product Master & Projection Entry
                                                                              Mantis: 26858*@
+@*4.0                25-01-2024         v2.0.45         Sanchita            Filter completed project dropdown did not move- Eurobond
+                                                                            Mantis: 27209*@
 @*====================================================== Revision History ===================================================*@
 
 @using MyShop.Models;
@@ -1842,6 +1844,14 @@
             width: 100% !important;
         }
     }
+
+    /*Rev 4.0*/
+    .completeprojectlist {
+        max-height: 360px;
+        overflow-x: auto;
+        margin-bottom: 10px;
+    }
+    /*End of Rev 4.0*/
 </style>
 
 
@@ -1922,7 +1932,8 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                @*Rev 4.0 [class completeprojectlist added] *@
+                                                <div class="col-sm-12 completeprojectlist ">
                                                     <ul class="mainFilterList" id="slItemsP">
                                                     </ul>
                                                 </div>
