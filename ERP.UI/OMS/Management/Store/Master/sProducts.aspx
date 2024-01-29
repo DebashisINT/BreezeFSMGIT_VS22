@@ -175,10 +175,18 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
 
             if (e.code == "Enter" || e.code == "NumpadEnter") {
                 // Rev 9.0
-                if($("#jsonColor").text() != ''){
+                if ($("#jsonColor").text() != '') {
                     arrMultiPopup = [];
                     var ColorNewObj = new Object();
                     ColorNewArr = JSON.parse($("#jsonColor").text());
+                    ColorNewObj.Name = "ColorNewSource";
+                    ColorNewObj.ArraySource = ColorNewArr;
+                    arrMultiPopup.push(ColorNewObj);
+                }
+                else {
+                    arrMultiPopup = [];
+                    var ColorNewArr = new Array();
+                    var ColorNewObj = new Object();
                     ColorNewObj.Name = "ColorNewSource";
                     ColorNewObj.ArraySource = ColorNewArr;
                     arrMultiPopup.push(ColorNewObj);
@@ -1708,6 +1716,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
             $("#txtColorNewSearch").val("");
             ColorNewTable.innerHTML = "";
             // End of Rev rev 8.0
+            // Rev 9.0
+            $("#jsonColor").text("");
+            // End of Rev 9.0
             $("#ddlSizeNew").val("");
             $("#ddlGenderNew").val("");
 
@@ -2169,6 +2180,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                 $("#txtColorNewSearch").val("");
                 ColorNewTable.innerHTML = "";
                 // End of Rev rev 8.0
+                // Rev 9.0
+                $("#jsonColor").text("");
+                // End of Rev 9.0
                 $("#ddlSizeNew").val("");
                 $("#ddlGenderNew").val("");
 
@@ -2199,7 +2213,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     $("#hdnColorNew").val(ProdColorNew);
                     ctxtColorNew.SetText(grid.cpEdit.split('~')[68]);
                     // End of Rev rev 8.0
-                    
+                    // Rev 9.0
+                    $("#jsonColor").text(grid.cpEdit.split('~')[70]);
+                // End of Rev 9.0
                 }
                 else {
                     ProdColorNew = '';
@@ -2214,11 +2230,11 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     $("#hdnColorNew").val("");
                     ctxtColorNew.SetText("");
                     // End of Rev rev 8.0
-                  
+                    // Rev 9.0
+                    $("#jsonColor").text("");
+                    // End of Rev 9.0
                 }
-                // Rev 9.0
-                $("#jsonColor").text(grid.cpEdit.split('~')[70]);
-                // End of Rev 9.0
+                
 
                 // Rev rev 8.0
                 //$("#ddlColorNew").multiselect('refresh');
