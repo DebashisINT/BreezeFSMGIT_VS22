@@ -15,22 +15,13 @@ namespace ERP.OMS.Management.ToolsUtilities
     {
 
         /// <summary>
-        /// hdPassstrength control.
+        /// panel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdPassstrength;
-
-        /// <summary>
-        /// panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panel1;
+        protected global::System.Web.UI.WebControls.Panel panel2;
 
         /// <summary>
         /// TxtOldPassword control.
