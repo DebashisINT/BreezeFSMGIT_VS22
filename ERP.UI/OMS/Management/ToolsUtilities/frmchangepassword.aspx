@@ -6,15 +6,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-
-
-
     <script language="javascript" type="text/javascript">
         function BtnCancel_Click() {
             location.href = '/OMS/Management/ProjectMainPage.aspx';
         }
-       
-
         $(document).ready(function () {
 
 
@@ -86,22 +81,21 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <h3>Change Password</h3>
-        </div>
-
+    <div class="breadCumb">
+            <span>Change Password</span>
+            <div class="crossBtnN"><a href="../master/Root_User.aspx"><i class="fa fa-times"></i></a></div>
     </div>
-    <div class="form_main">
-        <table class="TableMain100" style="text-align: left;">
-            <asp:HiddenField ID="hdPassstrength" runat="server" />
+    <div class="container">
+        <table class="TableMain100 mt-5 " style="text-align: left;">
+
             <tr>
                 <td style="text-align: left;">
                     <br />
-                    <asp:Panel ID="panel1" BorderColor="white" BorderWidth="1px" runat="server" Width="100%">
+                    <div class="backBox p-5">
+                    <asp:Panel ID="panel2" BorderColor="white" BorderWidth="1px" runat="server" Width="400px">
                         <table>
                             <tr>
-                                <td class="Ecoheadtxt" width="200px">Old Password :
+                                <td class="Ecoheadtxt pt-3" width="200px">Old Password :&nbsp;<em style="color: red">*</em>
                                 </td>
                                 <td style="text-align: left">
                                     <asp:TextBox ID="TxtOldPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
@@ -112,7 +106,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="Ecoheadtxt">New Password :
+                                <td class="Ecoheadtxt pt-3">New Password :&nbsp;<em style="color: red">*</em>
                                 </td>
                                 <td style="text-align: left">
                                     <asp:TextBox ID="TxtNewPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
@@ -124,7 +118,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="Ecoheadtxt">Confirm Password :
+                                <td class="Ecoheadtxt pt-3">Confirm Password :&nbsp;<em style="color: red">*</em>
                                 </td>
                                 <td style="text-align: left">
                                     <asp:TextBox ID="TxtConfirmPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
@@ -133,7 +127,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>
+                                <td class="Ecoheadtxt pt-5">
                                     <asp:Button ID="BtnSave" runat="server" Text="Update" class="btn btn-primary" OnClick="BtnSave_Click"
                                         ValidationGroup="a" />
                                     <input id="BtnCancel" type="button" value="Cancel" class="btn btn-danger" onclick="BtnCancel_Click()" />
@@ -161,9 +155,11 @@
                             </tr>
                         </table>
                     </asp:Panel>
+                        </div>
                     <br />
                 </td>
             </tr>
         </table>
     </div>
+
 </asp:Content>
