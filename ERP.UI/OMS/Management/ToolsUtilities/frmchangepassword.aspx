@@ -92,7 +92,7 @@
                 <td style="text-align: left;">
                     <br />
                     <div class="backBox p-5">
-                    <asp:Panel ID="panel2" BorderColor="white" BorderWidth="1px" runat="server" Width="400px">
+                    <asp:Panel ID="panel2" BorderColor="white" BorderWidth="1px" runat="server">
                         <table>
                             <tr>
                                 <td class="Ecoheadtxt pt-3" width="200px">Old Password :&nbsp;<em style="color: red">*</em>
