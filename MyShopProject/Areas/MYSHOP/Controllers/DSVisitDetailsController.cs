@@ -1,7 +1,7 @@
 ﻿#region======================================Revision History=========================================================================
 //1.0   V2.0.41    Debashis     25/07/2023      DS Visit Details - Two Columns Required.Refer: 0026474
 //2.0   V2.0.41    Debashis     09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
-//3.0   V2 .0.44    Debashis    27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
+//3.0   V2 .0.44   Debashis     27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
 #endregion===================================End of Revision History==================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
