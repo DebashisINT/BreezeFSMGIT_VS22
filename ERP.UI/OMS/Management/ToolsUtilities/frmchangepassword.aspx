@@ -62,9 +62,9 @@
 
                 if (no == 4) {
                     $("#meter").animate({ width: '200px' }, 300);
-                    meter.style.backgroundColor = "#00FF40";
+                    meter.style.backgroundColor = "#00c531";
                     document.getElementById("pass_type").innerHTML = "Strong";
-                    document.getElementById("pass_type").style.color = "#00FF40";
+                    document.getElementById("pass_type").style.color = "#00c531";
                 }
             }
 
@@ -95,10 +95,10 @@
                     <asp:Panel ID="panel2" BorderColor="white" BorderWidth="1px" runat="server">
                         <table>
                             <tr>
-                                <td class="Ecoheadtxt pt-3" width="200px">Old Password :&nbsp;<em style="color: red">*</em>
+                                <td class="Ecoheadtxt" width="200px" style="padding-bottom: 10px;">Old Password :&nbsp;<em style="color: red">*</em>
                                 </td>
-                                <td style="text-align: left">
-                                    <asp:TextBox ID="TxtOldPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
+                                <td style="text-align: left; padding-bottom: 10px;" >
+                                    <asp:TextBox ID="TxtOldPassword" runat="server" CssClass="EcoheadCon form-control" TextMode="Password" MaxLength="20"
                                         Width="160px"></asp:TextBox>
                                 </td>
                                 <td>
@@ -106,10 +106,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="Ecoheadtxt pt-3">New Password :&nbsp;<em style="color: red">*</em>
+                                <td class="Ecoheadtxt" style="padding-bottom: 10px;">New Password :&nbsp;<em style="color: red">*</em>
                                 </td>
-                                <td style="text-align: left">
-                                    <asp:TextBox ID="TxtNewPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
+                                <td style="text-align: left;  padding-bottom: 10px;">
+                                    <asp:TextBox ID="TxtNewPassword" runat="server" CssClass="EcoheadCon form-control" TextMode="Password" MaxLength="20"
                                         Width="160px"></asp:TextBox>
                                 </td>
                                 <td>
@@ -118,10 +118,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="Ecoheadtxt pt-3">Confirm Password :&nbsp;<em style="color: red">*</em>
+                                <td class="Ecoheadtxt">Confirm Password :&nbsp;<em style="color: red">*</em>
                                 </td>
                                 <td style="text-align: left">
-                                    <asp:TextBox ID="TxtConfirmPassword" runat="server" CssClass="EcoheadCon" TextMode="Password" MaxLength="20"
+                                    <asp:TextBox ID="TxtConfirmPassword" runat="server" CssClass="EcoheadCon form-control" TextMode="Password" MaxLength="20"
                                         Width="160px"></asp:TextBox>
                                 </td>
                             </tr>
