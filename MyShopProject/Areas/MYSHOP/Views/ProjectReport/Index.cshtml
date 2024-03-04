@@ -1898,6 +1898,17 @@
         .dxgvHSDC > div {
             width: 100% !important;
         }
+
+        .pmsModal.w70 .modal-dialog {
+            width: 96%;
+        }
+        #proj_start_dt_DDD_PW-1 {
+            left: 15px !important;
+        }
+
+        #dtFrom_B-1, #dtTo_B-1, #cmbDOJ_B-1, #cmbLeaveEff_B-1, #FormDate_B-1, #toDate_B-1, #proj_start_dt_B-1, #proj_complete_dt_B-1 {
+            padding: 10px 12px !important;
+        }
     }
 
     /*Rev 4.0*/
@@ -1907,6 +1918,15 @@
         margin-bottom: 10px;
     }
     /*End of Rev 4.0*/
+    /*Rev 5.0*/
+    .usersearch-btn {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        background: transparent;
+        font-size: 18px;
+    }
+    /*End of Rev 5.0*/
 </style>
 
 
@@ -2507,7 +2527,7 @@
             <div class="modal-body">
                 <input type="text" class="form-control mb-3" onkeydown="ShopUserkeydown(event)" id="txtShopUserSearch" autofocus style="width:100%" placeholder="Search By Customer Name" />
                 @*Rev 5.0*@
-                <button type="button" class="btn btn-secondary" onclick="ShopUserOnClick();">Search</button>
+                <button type="button" class="btn btn-secondary usersearch-btn" onclick="ShopUserOnClick();"><i class="fa fa-search" style="cursor:pointer"></i></button>
                 @*End of Rev 5.0*@
                 <div id="ShopUserTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
