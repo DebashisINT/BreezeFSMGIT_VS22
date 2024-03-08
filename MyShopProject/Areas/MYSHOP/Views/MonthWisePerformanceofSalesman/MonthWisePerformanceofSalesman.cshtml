@@ -1,8 +1,12 @@
-﻿@*====================================================== Revision History ==========================================================*@
+﻿@*====================================================== Revision History ====================================================================================*@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                31-01-2023        2.0.38           Pallab              25576: Report page design modification *@
-@*2.0                07/02/2024        V2.0.45          Sanchita            System is loading while click on the employee selection parameter in Monthly performance report for Sales Personnel. Mantis: 27227 [On Demand Search of Employee done.] *@
-@*====================================================== Revision History ==========================================================*@
+@*2.0                07/02/2024        V2.0.45          Sanchita            System is loading while click on the employee selection
+                                                                            parameter in Monthly performance report for Sales Personnel.
+                                                                            Mantis: 27227 [On Demand Search of Employee done.] *@
+@*3.0                08/03/2024        v2.0.45          Debashis            Monthly Performance report for Sales Personnel is taking huge time to generate the data.
+                                                                            Now it has been taken care of.Refer: 0027302*@
+@*====================================================== Revision History ====================================================================================*@
 
 @model System.Data.DataSet
 @{
@@ -45,7 +49,7 @@
           //    jAlert("Please Select Employee.");
           //    SingleEmpGridLookup.focus();
           //}
-            
+
             empId = $('#hdnEmployeeID').val();
             console.log($('#hdnEmployeeID').val());
 
@@ -59,6 +63,9 @@
                 is_pageload = "1";
                 gridMonthsalesmanView.Refresh();
             }
+            //Rev 3.0
+            gridMonthsalesmanView.Refresh();
+            //End of Rev 3.0
         });
 
         $('#ddlSumExport').on('change', function () {
@@ -825,11 +832,11 @@
                             </div>
                         </td>
                         <td class="w150 col-md-3 hidden" id="empIntro">
-                                <label>Product(s)</label>
-                                <div>
-                                    @Html.Action("GetProductList", "MasterPopulate")
-                                </div>
-                            </td>
+                            <label>Product(s)</label>
+                            <div>
+                                @Html.Action("GetProductList", "MasterPopulate")
+                            </div>
+                        </td>
                         <td style="padding-top: 22px;width:250px;" class="col-md-3">
                             <label></label>
                             <button type="button" id="btnshow" class="btn btn-success btnwidth">Show</button>
