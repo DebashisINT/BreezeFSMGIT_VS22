@@ -32,6 +32,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ClsDropDownlistNameSpace;
 using ClsDropDownlistNameSpace;
+using ERP.Models;
 
 namespace ERP.OMS.Management.Store.Master
 {
@@ -556,28 +557,62 @@ namespace ERP.OMS.Management.Store.Master
             DataTable dtFillGrid = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("FSM_FetchProductsList");
             proc.AddPara("@Products", Convert.ToString(txtProduct_hidden.Value));
+            // Rev Sanchita
+            proc.AddPara("@User_id", Convert.ToInt32(Session["userid"]));
+            // End of Rev Sanchita
             dtFillGrid = proc.GetTable();
             // End of Rev 2.0
 
             AspxHelper oAspxHelper = new AspxHelper();
-            if (dtFillGrid.Rows.Count > 0)
+            // Rev Sanchita
+            //if (dtFillGrid.Rows.Count > 0)
+            //{
+            //    // Rev 3.0
+            //    Session["Master_ProductDetails"] = dtFillGrid;
+            //    // End of Rev 3.0
+            //    cityGrid.DataSource = dtFillGrid;
+            //    cityGrid.DataBind();
+            //}
+            //else
+            //{
+            //    // Rev 3.0
+            //    Session["Master_ProductDetails"] = null;
+            //    // End of Rev 3.0
+            //    cityGrid.DataSource = null;
+            //    cityGrid.DataBind();
+            //}
+
+            cityGrid.JSProperties["cpLoadData"] = "Success";
+            // End of Rev Sanchita
+        }
+
+        // Rev Sanchita
+        protected void EntityServerModelogDataSource_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
+        {
+            e.KeyExpression = "sProducts_ID";
+            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
+             string IsFilter = Convert.ToString(hfIsFilter.Value);
+            
+            ERPDataClassesDataContext dc1 = new ERPDataClassesDataContext(connectionString);
+
+            if (IsFilter == "Y")
             {
-                // Rev 3.0
-                Session["Master_ProductDetails"] = dtFillGrid;
-                // End of Rev 3.0
-                cityGrid.DataSource = dtFillGrid;
-                cityGrid.DataBind();
+                var q = from d in dc1.FSMProduct_Masters
+                        where d.USERID == Convert.ToInt64(HttpContext.Current.Session["userid"].ToString())
+                        orderby d.sProducts_ID descending
+                        select d;
+                e.QueryableSource = q;
             }
             else
             {
-                // Rev 3.0
-                Session["Master_ProductDetails"] = null;
-                // End of Rev 3.0
-                cityGrid.DataSource = null;
-                cityGrid.DataBind();
-
+                var q = from d in dc1.FSMProduct_Masters
+                        where d.sProducts_ID == 0
+                        select d;
+                e.QueryableSource = q;
             }
         }
+        // End of Rev Sanchita
+
 
         //bind service tax
         protected void BindServiceTax()
