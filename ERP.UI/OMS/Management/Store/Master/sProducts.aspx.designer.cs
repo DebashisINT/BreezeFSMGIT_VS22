@@ -96,6 +96,15 @@ namespace ERP.OMS.Management.Store.Master
         protected global::DevExpress.Web.ASPxGridView cityGrid;
 
         /// <summary>
+        /// EntityServerlogModeDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Data.Linq.LinqServerModeDataSource EntityServerlogModeDataSource;
+
+        /// <summary>
         /// ASPxPopupControl2 control.
         /// </summary>
         /// <remarks>

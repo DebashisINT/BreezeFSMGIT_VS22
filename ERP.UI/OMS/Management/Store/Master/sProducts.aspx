@@ -13,6 +13,10 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
 
+<%--Rev Sanchita--%>
+<%@ Register Assembly="DevExpress.Web.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Data.Linq" TagPrefix="dx" %>
+<%--End of Rev Sanchita--%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../../../Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
     <script src="../../../../Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
@@ -2103,6 +2107,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     ctxtPro_Name.GetInputElement().readOnly = false;
                     //................CODE ABOVE UPDATED BY sAM ON 18102016.................................................
                     cPopup_Empcitys.Hide();
+                    // Rev Sanchita
+                    grid.Refresh();
+                    // End of Rev Sanchita
                 }
                 else if (grid.cpinsert == 'fail') {
                     jAlert("Mandatory Fields Require")
@@ -2490,6 +2497,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                 if (grid.cpUpdate == 'Success') {
                     jAlert('Saved Successfully');
                     cPopup_Empcitys.Hide();
+                    // Rev Sanchita
+                    grid.Refresh();
+                    // End of Rev Sanchita
                 }
                 else {
                     jAlert("Error on Updation\n'Please Try again!!'")
@@ -2528,6 +2538,15 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     //cPopup_Empcitys.Hide();
                 }
             }
+
+            // Rev Sanchita
+            if (grid.cpLoadData != null) {
+                if (grid.cpLoadData == 'Success') {
+                    grid.Refresh();
+                }
+            }
+            grid.cpLoadData = null;
+            // End of Rev Sanchita
         }
         $(function () {
             $('#ddlColorNew, #ddlSizeNew,  #ddlGenderNew').multiselect({
@@ -3031,8 +3050,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
             <%--End debjyoti 22-12-2016--%>
 
 
+            <%--Rev Sanchita [ DataSourceID="EntityServerlogModeDataSource"  added]--%>
             <div class="GridViewArea">
-                <dxe:ASPxGridView ID="cityGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="grid"
+                <dxe:ASPxGridView ID="cityGrid" runat="server" AutoGenerateColumns="False" ClientInstanceName="grid" DataSourceID="EntityServerlogModeDataSource"
                     KeyFieldName="sProducts_ID" Width="100%" OnHtmlRowCreated="cityGrid_HtmlRowCreated"
                     OnHtmlEditFormCreated="cityGrid_HtmlEditFormCreated" OnCustomCallback="cityGrid_CustomCallback"
                     CssClass="pull-left" SettingsBehavior-AllowFocusedRow="true" SettingsDataSecurity-AllowEdit="false"
@@ -3040,7 +3060,12 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     <SettingsSearchPanel Visible="True" Delay="7000" />
                     <Settings ShowGroupPanel="True" ShowStatusBar="Hidden" ShowFilterRow="true" ShowFilterRowMenu="True" />
                     <Columns>
-
+                        <%--Rev Sanchita--%>
+                        <dxe:GridViewDataTextColumn FieldName="sProducts_ID" Visible="false" ShowInCustomizationForm="false" SortOrder="Descending" Width="0">
+                                <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
+                                <Settings AllowAutoFilterTextInputTimer="False" />
+                            </dxe:GridViewDataTextColumn>
+                        <%--End of Rev Sanchita--%>
                         <dxe:GridViewDataTextColumn Caption="Short Name (Code)" FieldName="sProducts_Code" ReadOnly="True"
                             Visible="True" VisibleIndex="0" FixedStyle="Left" Width="15%">
                             <EditFormSettings Visible="True" />
@@ -3210,6 +3235,10 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     <ClientSideEvents EndCallback="function (s, e) {grid_EndCallBack();}" />
                 </dxe:ASPxGridView>
             </div>
+            <%--Rev Sanchita--%>
+            <dx:linqservermodedatasource id="EntityServerlogModeDataSource" runat="server" onselecting="EntityServerModelogDataSource_Selecting"
+                    contexttypename="ERPDataClassesDataContext" tablename="FTS_Final_Display" />
+            <%--End of Rev Sanchita--%>
             <div class="PopUpArea">
 
                 <%--Packing Details popup--%>

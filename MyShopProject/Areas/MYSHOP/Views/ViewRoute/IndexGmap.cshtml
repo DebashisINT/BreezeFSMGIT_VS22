@@ -7,6 +7,7 @@
 @*2.0                30-01-2023        2.0.38           Sanchita            Distance issue in View route of Nordusk. Refer: 25515*@
 @*3.0                21-04-2023        2.0.40           Pallab              Console error while trying to export the report into excel for view route in Nordusk. Refer: 25880*@
 @*4.0                30-11-2023        2.0.43           Sanchita            Time is not showing in the left panel of View Route. Mantis: 27062    *@
+@*5.0                12-03-2024        2.0.43           Sanchita            Google Map has not loaded while click on the View Route. Mantis:     *@
 @*====================================================== Revision History ===========================================================*@
 
 <style>
@@ -2893,7 +2894,10 @@
                                                 '<div class="totalVisit"> ' + data.Total_Visit + ' </div>' +
                                                 '<div class="text-center"><span class="badge mapBadge">TOTAL VISITS</span></div>' +
                                             '</li>' +
-                                            '<li><div class="btnrouteCont"><a class="btn btn-danger btn-xs" href="#" onclick=locationclick("' + data.User_Id + '","' + data.SalesMan.replace('  ', '&nbsp;').replace(' ', '&nbsp;') + '");>View Route</a></div></li>' +
+                                            // Rev 5.0
+                                            //'<li><div class="btnrouteCont"><a class="btn btn-danger btn-xs" href="#" onclick=locationclick("' + data.User_Id + '","' + data.SalesMan.replace('  ', '&nbsp;').replace(' ', '&nbsp;') + '");>View Route11</a></div></li>' +
+                                            '<li><div class="btnrouteCont"><a class="btn btn-danger btn-xs" href="#" onclick=locationclick("' + data.User_Id + '","' + data.SalesMan.replaceAll('  ', '&nbsp;').replaceAll(' ', '&nbsp;') + '");>View Route11</a></div></li>' +
+                                            // End of Rev 5.0
                                         '</ul>' +
                                     '</div>' +
                                 '</div>' +
