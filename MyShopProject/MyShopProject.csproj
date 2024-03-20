@@ -398,6 +398,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\MYSHOP\Controllers\UserversionController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ViewGeographyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewPartyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewPartyHierarchyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewRouteController.cs" />
@@ -550,6 +551,7 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UserversioningUsages.cs" />
     <Compile Include="Models\Userwiseattendance.cs" />
+    <Compile Include="Models\ViewGeographyModel.cs" />
     <Compile Include="Models\VisitDurationsmonthly.cs" />
     <Compile Include="Models\Visitshopsmonthly.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
@@ -2026,6 +2028,8 @@
     <Content Include="Areas\MYSHOP\Views\OutletWiseCallLogging\Report.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ProductMaster\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ProductMaster\_PartialProductGrid.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ViewGeography\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ViewGeography\_PartyTypeList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
