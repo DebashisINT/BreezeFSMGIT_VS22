@@ -590,5 +590,11 @@
         <elementListCompartment Id="f25e002c-401e-4d3a-a48c-32e67783e3f9" absoluteBounds="9.14, 8.585, 1.9700000000000002, 8.3260498046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="5acdeba2-e0db-48fb-b94d-86881b86e60c" isExpanded="false" absoluteBounds="5, 10.625, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/FTS_ProductMasterList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1f34994-9b07-431b-bbde-49683d9caa0a" absoluteBounds="5.015, 11.085, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

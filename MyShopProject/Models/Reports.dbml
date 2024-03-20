@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FSM_ITC" Class="ReportsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=3.7.30.86,1480\SQLEXPRESS;Initial Catalog=FSM_ITC;User ID=sa;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSM_ITCConnectionString9" Provider="System.Data.SqlClient" />
   <Table Name="dbo.FTSDASHBOARD_REPORT" Member="FTSDASHBOARD_REPORTs">
     <Type Name="FTSDASHBOARD_REPORT">
       <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -2823,6 +2822,24 @@
       <Column Name="QUALIFIEDPRESENT" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OUTLETEMPSEX" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="GENDERDESC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FTS_ProductMasterList" Member="FTS_ProductMasterLists">
+    <Type Name="FTS_ProductMasterList">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sProducts_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sProducts_Code" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="sProducts_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="sProducts_Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ProductClass_Code" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductClass_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Brand_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Brand_Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Size_Name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="sProduct_Price" Type="System.Decimal" DbType="Decimal(18,5)" CanBeNull="true" />
+      <Column Name="sProduct_MRP" Type="System.Decimal" DbType="Decimal(18,5)" CanBeNull="true" />
+      <Column Name="sProduct_Status" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="UOM_Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
