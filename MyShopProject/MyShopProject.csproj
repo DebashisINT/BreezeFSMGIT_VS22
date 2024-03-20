@@ -354,6 +354,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\PrimaryFundPlanController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PrimarySalesOrderController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\PriorityMasterController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ProductMasterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ProjectReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\QualifiedAttendanceReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\QuotationApprovalController.cs" />
@@ -503,6 +504,7 @@
     <Compile Include="Models\PrimaryFundPlanModel.cs" />
     <Compile Include="Models\PrimarySalesOrderModel.cs" />
     <Compile Include="Models\PriorityMasterModel.cs" />
+    <Compile Include="Models\ProductMasterModel.cs" />
     <Compile Include="Models\ProjectReportModel.cs" />
     <Compile Include="Models\QuotationApprovalModel.cs" />
     <Compile Include="Models\QuotationDetailsModel.cs" />
@@ -2022,6 +2024,8 @@
     <Content Include="Areas\MYSHOP\Views\CRMContact\ContactImportLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\OutletWiseCallLogging\PartialGetOutletWiseCallLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\OutletWiseCallLogging\Report.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ProductMaster\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ProductMaster\_PartialProductGrid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
