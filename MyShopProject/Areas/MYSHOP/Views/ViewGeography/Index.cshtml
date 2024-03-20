@@ -42,7 +42,7 @@
         margin-right: 5px;
     }
 </style>
-<script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/raw/master/json2.js"></script>
+@*<script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/raw/master/json2.js"></script>*@
 
 
 <meta name="google" content="notranslate" />
@@ -62,11 +62,14 @@
 
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
-@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>
-<script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
+@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" defer></script>
+
 <script src="~/assests/pluggins/gmapCustomize/markerclusterer_packed.js"></script>
-<script src="~/assests/pluggins/gmapCustomize/markerwithlabel_packed.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>*@
+@*<script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
+
+    <script src="~/assests/pluggins/gmapCustomize/markerwithlabel_packed.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>*@
 
 <style type="text/css">
     /* set the size of the datepicker search control for Order Date*/
@@ -1998,7 +2001,7 @@
         display: none;
     }
 
-    #mapid {
+    #mapid, #mapid-gmapmarker {
         height: 100vh;
     }
 
@@ -2101,7 +2104,7 @@
         cursor: pointer;
     }
 
-    .FullDiv {
+    .FullDiv-heatmap, .FullDiv-gmapmarker {
         position: fixed;
         top: 0;
         bottom: 0;
@@ -2463,6 +2466,31 @@
         padding-right: 8px;
     }
     /*Rev end 1.0*/
+
+
+    #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: "Roboto", "sans-serif";
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
+    #floating-panel {
+        background-color: #fff;
+        border: 1px solid #999;
+        left: 25%;
+        padding: 5px;
+        position: absolute;
+        top: 10px;
+        z-index: 5;
+    }
 </style>
 
 <script>
@@ -2678,50 +2706,206 @@
         BranchGridLookup.GetGridView().Refresh();
     }
 
-    function locationclick() {
-        //stateid = [];
-        ////var STids = StateId.split(',');
-        //for (var i = 0; i < StateId.length; i++) {
-        //    stateid.push(StateId[i]);
-        //}
+    var BranchId = [];
 
-        //branchid = [];
-        ////var BRids = BranchId.split(',');
-        //for (var i = 0; i < BranchId.length; i++) {
-        //    branchid.push(BranchId[i]);
-        //}
-
-        //partytypeid = [];
-        ////var PRids = PartyTypeId.split(',');
-        //for (var i = 0; i < PartyTypeId.length; i++) {
-        //    partytypeid.push(partytypeid[i]);
-        //}
+    @*function locationclick() {
 
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        
-       
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetOutlets", "ViewGeography")",
+            data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid  },
+            success: function (response) {
+
+            }
+        });
+
+
+    }*@
+
+
+
+
+    /*Marker code start*/
+    const markers = [];
+
+    function locationclick() {
+
+        $('.FullDiv-gmapmarker').removeClass('hide');
+
+        var map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
+            zoom: 6,
+            center: { lat: 22.600, lng: 88.431 }, // Set default center
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+
+        const stateid = StateId.join(',');
+        const branchid = BranchId.join(',');
+        const partytypeid = PartyTypeId.join(',');
+
+        const data = {
+        'stateid': stateid,
+        'branchid': branchid,
+        'partytypeid': partytypeid
+        };
+
+        const url = "@Url.Action("GetOutlets", "ViewGeography")";
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+        })
+        .then(data => {
+            console.log("gmap-data", data);
+        data.forEach(markerData => {
+            addMarkerWithInfo(markerData);
+        });
+
+
+            var clusterStyles = [
+                {
+                    url: '/assests/pluggins/images/cluster.png',
+                    height: 50,
+                    width: 50
+
+                }
+            ];
+
+
+            const markerCluster = new MarkerClusterer(map, markers, { styles: clusterStyles, maxZoom: 15 });
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+function addMarkerWithInfo(markerData) {
+    const marker = new google.maps.Marker({
+        position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
+        map: map,
+        title: markerData.Shop_Name
+    });
+
+    const infowindow = new google.maps.InfoWindow({
+        content: `<h3>${markerData.Shop_Name}</h3><p>${markerData.Address}</p>`
+    });
+
+    marker.addListener('click', () => {
+        infowindow.open(map, marker);
+    });
+
+    markers.push(marker);
+}
+    /*Marker code end*/
+
+    /*heatmap code start*/
+    let map, heatmap;
+
+    function showheatmapclick() {
+
+        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+
+        $('.FullDiv-heatmap').removeClass('hide');
+
         $.ajax({
             type: "POST",
             //url: "Url.Action("GetEmployeesTargetByCode", "EmployeesTarget")",
             url: "@Url.Action("GetOutlets", "ViewGeography")",
             data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid  },
             success: function (response) {
-                CRMpcControl.SetContentHtml(response);
-                //MVCxClientUtils.FinalizeCallback();
-                //CRMpcControl.SetHeaderText('Activities');
-                //CRMpcControl.Show();
+                // Parse JSON response
+                console.log("heatmap", response);
+                var heatmapData = [];
+                response.forEach(function (outlet) {
+                    var latLng = new google.maps.LatLng(parseFloat(outlet.Shop_Lat), parseFloat(outlet.Shop_Long));
+                    heatmapData.push(latLng);
+                });
+
+                // Initialize map and heatmap layer
+                var map = new google.maps.Map(document.getElementById("mapid"), {
+                    zoom: 13,
+                    center: { lat: 22.600, lng: 88.431 },
+                    mapTypeId: "satellite",
+                });
+
+                var heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatmapData,
+                    map: map,
+                });
+
+                // Event listeners for the buttons
+                $("#change-gradient").click(function () {
+                    const gradient = [
+                        "rgba(0, 255, 255, 0)",
+                        "rgba(0, 255, 255, 1)",
+                        "rgba(0, 191, 255, 1)",
+                        "rgba(0, 127, 255, 1)",
+                        "rgba(0, 63, 255, 1)",
+                        "rgba(0, 0, 255, 1)",
+                        "rgba(0, 0, 223, 1)",
+                        "rgba(0, 0, 191, 1)",
+                        "rgba(0, 0, 159, 1)",
+                        "rgba(0, 0, 127, 1)",
+                        "rgba(63, 0, 91, 1)",
+                        "rgba(127, 0, 63, 1)",
+                        "rgba(191, 0, 31, 1)",
+                        "rgba(255, 0, 0, 1)",
+                    ];
+
+                    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+                });
+
+                $("#change-opacity").click(function () {
+                    heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
+                });
+
+                $("#change-radius").click(function () {
+                    heatmap.set("radius", heatmap.get("radius") ? null : 20);
+                });
+
+
+                var bounds = new google.maps.LatLngBounds();
+                heatmapData.forEach(function (latLng) {
+                    bounds.extend(latLng);
+                });
+                map.fitBounds(bounds);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
             }
         });
 
-        //var url = '@Url.Action("GetOutlets", "ViewGeography")?stateid=' + StateId + 'branchid=' + BranchId + 'partytypeid=' + PartyTypeId;
-       // CRMpcControl.SetContentUrl(url);
-        //MVCxClientUtils.FinalizeCallback();
-       // CRMpcControl.SetHeaderText('Show Route');
-       // CRMpcControl.Show();
-
     }
+
+    /*heatmap code end*/
+
+    $(document).ready(function () {
+        $('#heatmap-container').click(function () {
+            $(this).parent('.FullDiv-heatmap').addClass('hide');
+        });
+    });
+
+    $(document).ready(function () {
+        $('#gmapmarker-container').click(function () {
+            $(this).parent('.FullDiv-gmapmarker').addClass('hide');
+        });
+    });
+
+
 </script>
 
 
@@ -2729,6 +2913,26 @@
     <span>View Outlets</span>
     <div class="crossBtnN"><a href="#" onclick="window.location.href ='../DashboardMenu/FSMDashboard'"><i class="fa fa-times"></i></a></div>
 </div>
+
+@*google map part*@
+<div class="FullDiv-gmapmarker hide">
+    <div id="gmapmarker-container" class="closeFullMap"><i class="fa fa-close"></i></div>
+
+    <div id="mapid-gmapmarker"></div>
+</div>
+
+@*heatmap part*@
+<div class="FullDiv-heatmap hide">
+    <div id="heatmap-container" class="closeFullMap"><i class="fa fa-close"></i></div>
+    <div id="floating-panel">
+
+        <button id="change-gradient">Change gradient</button>
+        <button id="change-radius">Change radius</button>
+        <button id="change-opacity">Change opacity</button>
+    </div>
+    <div id="mapid"></div>
+</div>
+
 
 <div class="container mt-5 mb-4">
     <div class="backBox p-4">
@@ -2748,9 +2952,9 @@
                         </div>
                     </td>
                     @*<td class="w10 inputSpacer">
-                        <input class="styled-checkbox" type="checkbox" id="IsBarnchAll" name="IsBarnchAll" onchange="CheckBranchAESelection()" value="0">
-                        <label for="">Select All Branch</label>
-                    </td>*@
+                            <input class="styled-checkbox" type="checkbox" id="IsBarnchAll" name="IsBarnchAll" onchange="CheckBranchAESelection()" value="0">
+                            <label for="">Select All Branch</label>
+                        </td>*@
                     <td style="width: 150px;">
                         <label>Party Type</label>
                         <div>
@@ -2761,7 +2965,7 @@
                     <td style="padding-top: 22px;">
                         <label></label>
                         <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="locationclick()" tabindex=4>Show in Google Map</button>
-                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" tabindex=4>Show in Heatmap</button>
+                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="showheatmapclick()" tabindex=4>Show in Heatmap</button>
                     </td>
                 </tr>
             </table>
