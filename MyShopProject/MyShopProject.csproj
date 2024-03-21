@@ -399,6 +399,7 @@
     </Compile>
     <Compile Include="Areas\MYSHOP\Controllers\UserversionController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewGeographyController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ViewGeotrackController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewPartyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewPartyHierarchyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewRouteController.cs" />
@@ -552,6 +553,7 @@
     <Compile Include="Models\UserversioningUsages.cs" />
     <Compile Include="Models\Userwiseattendance.cs" />
     <Compile Include="Models\ViewGeographyModel.cs" />
+    <Compile Include="Models\ViewGeotrackModel.cs" />
     <Compile Include="Models\VisitDurationsmonthly.cs" />
     <Compile Include="Models\Visitshopsmonthly.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
@@ -2030,6 +2032,7 @@
     <Content Include="Areas\MYSHOP\Views\ProductMaster\_PartialProductGrid.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ViewGeography\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ViewGeography\_PartyTypeList.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ViewGeotrack\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
