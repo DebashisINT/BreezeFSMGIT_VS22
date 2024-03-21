@@ -2501,9 +2501,9 @@
         var lookup = ASPxClientControl.GetControlCollection().GetByName("StateGridLookup");
         lookup.GetGridView().Refresh();
 
-        $("#drpstate").chosen({
-            width: "100%"
-        })
+        //$("#drpstate").chosen({
+        //    width: "100%"
+        //})
     });
 
 </script>
@@ -2521,41 +2521,41 @@
         PartyTypeGridLookup.gridView.GetSelectedFieldValues("SHOP_TYPEID", GetSelectedFieldValuesCallbackPartyType);
     }
 
-    function DeSelectAllGridLookup(s, e) {
-        BranchGridLookup.gridView.UnselectRows();
+    //function DeSelectAllGridLookup(s, e) {
+    //    BranchGridLookup.gridView.UnselectRows();
 
-        BranchId = [];
-        Baranch_Id = "";
-    }
-    function SelectAllGridLookup(s, e) {
-        BranchGridLookup.gridView.SelectRows();
+    //    BranchId = [];
+    //    Baranch_Id = "";
+    //}
+    //function SelectAllGridLookup(s, e) {
+    //    BranchGridLookup.gridView.SelectRows();
 
-        BranchId = "";
-        BranchGridLookup.SetText("");
-        //rev Pratik
+    //    BranchId = "";
+    //    BranchGridLookup.SetText("");
+    //    //rev Pratik
 
-        $.ajax({
-            type: 'POST',
-            url: "/EmpList/GetBranchListSelectAll",
-            //data: { "Hoid": Hoid },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                BranchId = [];
-                Branch_Id = "";
-                $.each(data, function (i, data) {
-                    BranchId.push(data.BRANCH_ID);
-                    Branch_Id += data.BRANCH_ID + ',';
-                });
-                BranchGridLookup.gridView.SelectRows();
-            },
-            error: function () {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: "/EmpList/GetBranchListSelectAll",
+    //        //data: { "Hoid": Hoid },
+    //        dataType: "json",
+    //        async: false,
+    //        success: function (data) {
+    //            BranchId = [];
+    //            Branch_Id = "";
+    //            $.each(data, function (i, data) {
+    //                BranchId.push(data.BRANCH_ID);
+    //                Branch_Id += data.BRANCH_ID + ',';
+    //            });
+    //            BranchGridLookup.gridView.SelectRows();
+    //        },
+    //        error: function () {
 
-            }
-        });
+    //        }
+    //    });
 
 
-    }
+    //}
 
     function GetSelectedFieldValuesCallbackPartyType(values) {
 
@@ -2592,7 +2592,7 @@
 
         $.ajax({
             type: 'POST',
-            url: "/ViewGrography/GetPartyTypeListSelectAll",
+            url: "/ViewGeography/GetPartyTypeListSelectAll",
             //data: { "Hoid": Hoid },
             dataType: "json",
             async: false,
@@ -2664,38 +2664,33 @@
         var Hoid = $('#HeadBranch').val();
         BranchId = "";
         BranchGridLookup.SetText("");
-        if (Hoid == null || Hoid == "") {
-            return false;
-        }
-        else {
-            $.ajax({
-                type: 'POST',
-                url: "/MasterPopulate/GetSelectedChildBranchList",
-                data: { "Hoid": Hoid },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    BranchId = [];
-                    Branch_Id = "";
-                    $.each(data, function (i, data) {
-                        BranchId.push(data.BRANCH_ID);
-                        Branch_Id += data.BRANCH_ID + ',';
-                    });
-                    BranchGridLookup.gridView.SelectRows();
-                },
-                error: function () {
-                }
-            });
-        }
+        $.ajax({
+            type: 'POST',
+            url: "/MasterPopulate/GetSelectedChildBranchList",
+            data: { "Hoid": Hoid },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                BranchId = [];
+                Branch_Id = "";
+                $.each(data, function (i, data) {
+                    BranchId.push(data.BRANCH_ID);
+                    Branch_Id += data.BRANCH_ID + ',';
+                });
+                BranchGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
     }
     function DeSelectAllGridLookup(s, e) {
         BranchGridLookup.gridView.UnselectRows();
-        $('#hdnEmployeeAEId').val('')
-        $('#hdnEmployeeWDId').val('')
-        $('#hdnEmployeeDSId').val('')
-        EmployeeTxt.SetText('')
-        EmployeeWDTxt.SetText('')
-        EmployeeDSTxt.SetText('')
+        //$('#hdnEmployeeAEId').val('')
+        //$('#hdnEmployeeWDId').val('')
+        //$('#hdnEmployeeDSId').val('')
+        //EmployeeTxt.SetText('')
+        //EmployeeWDTxt.SetText('')
+        //EmployeeDSTxt.SetText('')
         BranchId = [];
         Branch_Id = "";
     }
@@ -2734,61 +2729,78 @@
 
     function locationclick() {
 
-        $('.FullDiv-gmapmarker').removeClass('hide');
+        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
 
-        var map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
-            zoom: 6,
-            center: { lat: 22.600, lng: 88.431 }, // Set default center
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-        });
-
-        const stateid = StateId.join(',');
-        const branchid = BranchId.join(',');
-        const partytypeid = PartyTypeId.join(',');
-
-        const data = {
-        'stateid': stateid,
-        'branchid': branchid,
-        'partytypeid': partytypeid
-        };
-
-        const url = "@Url.Action("GetOutlets", "ViewGeography")";
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        if (stateid == '') {
+            jAlert("Please select State.");
+            flag = false;
+            return;
         }
-        return response.json();
-        })
-        .then(data => {
-            console.log("gmap-data", data);
-        data.forEach(markerData => {
-            addMarkerWithInfo(markerData);
-        });
+        else if (partytypeid == '') {
+            jAlert("Please select Party Type.");
+            flag = false;
+            return;
+        }
+        else {
+
+            $('.FullDiv-gmapmarker').removeClass('hide');
+
+            var map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
+                zoom: 6,
+                center: { lat: 22.600, lng: 88.431 }, // Set default center
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            });
+
+            const stateid = StateId.join(',');
+            const branchid = BranchId.join(',');
+            const partytypeid = PartyTypeId.join(',');
+
+            const data = {
+                'stateid': stateid,
+                'branchid': branchid,
+                'partytypeid': partytypeid
+            };
+
+            const url = "@Url.Action("GetOutlets", "ViewGeography")";
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("gmap-data", data);
+                    data.forEach(markerData => {
+                        addMarkerWithInfo(markerData);
+                    });
 
 
-            var clusterStyles = [
-                {
-                    url: '/assests/pluggins/images/cluster.png',
-                    height: 50,
-                    width: 50
+                    var clusterStyles = [
+                        {
+                            url: '/assests/pluggins/images/cluster.png',
+                            height: 50,
+                            width: 50
 
-                }
-            ];
+                        }
+                    ];
 
 
-            const markerCluster = new MarkerClusterer(map, markers, { styles: clusterStyles, maxZoom: 15 });
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+                    const markerCluster = new MarkerClusterer(map, markers, { styles: clusterStyles, maxZoom: 15 });
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
 }
 
 function addMarkerWithInfo(markerData) {
@@ -2819,76 +2831,88 @@ function addMarkerWithInfo(markerData) {
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
 
-        $('.FullDiv-heatmap').removeClass('hide');
+        if (stateid == '') {
+            jAlert("Please select State.");
+            flag = false;
+            return;
+        }
+        else if (partytypeid == '') {
+            jAlert("Please select Party Type.");
+            flag = false;
+            return;
+        }
+        else {
 
-        $.ajax({
-            type: "POST",
-            //url: "Url.Action("GetEmployeesTargetByCode", "EmployeesTarget")",
-            url: "@Url.Action("GetOutlets", "ViewGeography")",
-            data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid  },
-            success: function (response) {
-                // Parse JSON response
-                console.log("heatmap", response);
-                var heatmapData = [];
-                response.forEach(function (outlet) {
-                    var latLng = new google.maps.LatLng(parseFloat(outlet.Shop_Lat), parseFloat(outlet.Shop_Long));
-                    heatmapData.push(latLng);
-                });
+            $('.FullDiv-heatmap').removeClass('hide');
 
-                // Initialize map and heatmap layer
-                var map = new google.maps.Map(document.getElementById("mapid"), {
-                    zoom: 13,
-                    center: { lat: 22.600, lng: 88.431 },
-                    mapTypeId: "satellite",
-                });
+            $.ajax({
+                type: "POST",
+                //url: "Url.Action("GetEmployeesTargetByCode", "EmployeesTarget")",
+                url: "@Url.Action("GetOutlets", "ViewGeography")",
+                data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid },
+                success: function (response) {
+                    // Parse JSON response
+                    console.log("heatmap", response);
+                    var heatmapData = [];
+                    response.forEach(function (outlet) {
+                        var latLng = new google.maps.LatLng(parseFloat(outlet.Shop_Lat), parseFloat(outlet.Shop_Long));
+                        heatmapData.push(latLng);
+                    });
 
-                var heatmap = new google.maps.visualization.HeatmapLayer({
-                    data: heatmapData,
-                    map: map,
-                });
+                    // Initialize map and heatmap layer
+                    var map = new google.maps.Map(document.getElementById("mapid"), {
+                        zoom: 13,
+                        center: { lat: 22.600, lng: 88.431 },
+                        mapTypeId: "satellite",
+                    });
 
-                // Event listeners for the buttons
-                $("#change-gradient").click(function () {
-                    const gradient = [
-                        "rgba(0, 255, 255, 0)",
-                        "rgba(0, 255, 255, 1)",
-                        "rgba(0, 191, 255, 1)",
-                        "rgba(0, 127, 255, 1)",
-                        "rgba(0, 63, 255, 1)",
-                        "rgba(0, 0, 255, 1)",
-                        "rgba(0, 0, 223, 1)",
-                        "rgba(0, 0, 191, 1)",
-                        "rgba(0, 0, 159, 1)",
-                        "rgba(0, 0, 127, 1)",
-                        "rgba(63, 0, 91, 1)",
-                        "rgba(127, 0, 63, 1)",
-                        "rgba(191, 0, 31, 1)",
-                        "rgba(255, 0, 0, 1)",
-                    ];
+                    var heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: heatmapData,
+                        map: map,
+                    });
 
-                    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
-                });
+                    // Event listeners for the buttons
+                    $("#change-gradient").click(function () {
+                        const gradient = [
+                            "rgba(0, 255, 255, 0)",
+                            "rgba(0, 255, 255, 1)",
+                            "rgba(0, 191, 255, 1)",
+                            "rgba(0, 127, 255, 1)",
+                            "rgba(0, 63, 255, 1)",
+                            "rgba(0, 0, 255, 1)",
+                            "rgba(0, 0, 223, 1)",
+                            "rgba(0, 0, 191, 1)",
+                            "rgba(0, 0, 159, 1)",
+                            "rgba(0, 0, 127, 1)",
+                            "rgba(63, 0, 91, 1)",
+                            "rgba(127, 0, 63, 1)",
+                            "rgba(191, 0, 31, 1)",
+                            "rgba(255, 0, 0, 1)",
+                        ];
 
-                $("#change-opacity").click(function () {
-                    heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
-                });
+                        heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+                    });
 
-                $("#change-radius").click(function () {
-                    heatmap.set("radius", heatmap.get("radius") ? null : 20);
-                });
+                    $("#change-opacity").click(function () {
+                        heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
+                    });
+
+                    $("#change-radius").click(function () {
+                        heatmap.set("radius", heatmap.get("radius") ? null : 20);
+                    });
 
 
-                var bounds = new google.maps.LatLngBounds();
-                heatmapData.forEach(function (latLng) {
-                    bounds.extend(latLng);
-                });
-                map.fitBounds(bounds);
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-
+                    var bounds = new google.maps.LatLngBounds();
+                    heatmapData.forEach(function (latLng) {
+                        bounds.extend(latLng);
+                    });
+                    map.fitBounds(bounds);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
     }
 
     /*heatmap code end*/
@@ -2939,13 +2963,13 @@ function addMarkerWithInfo(markerData) {
         <div>
             <table class="pdtable mb-4">
                 <tr>
-                    <td style="width: 150px;">
-                        <label>State</label>
+                    <td style="width: 200px;">
+                        <label>State <span class="red">*</span></label>
                         <div>
                             @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
                         </div>
                     </td>
-                    <td style="width: 150px;">
+                    <td style="width: 200px;">
                         <label>Branch</label>
                         <div>
                             @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
@@ -2955,8 +2979,8 @@ function addMarkerWithInfo(markerData) {
                             <input class="styled-checkbox" type="checkbox" id="IsBarnchAll" name="IsBarnchAll" onchange="CheckBranchAESelection()" value="0">
                             <label for="">Select All Branch</label>
                         </td>*@
-                    <td style="width: 150px;">
-                        <label>Party Type</label>
+                    <td style="width: 200px;">
+                        <label>Party Type <span class="red">*</span></label>
                         <div>
                             @Html.Action("GetPartyTypeList", "ViewGeography")
                         </div>

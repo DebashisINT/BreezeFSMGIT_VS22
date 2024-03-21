@@ -47,6 +47,16 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 if (dtbranch.Rows.Count > 0)
                 {
                     dtBranchChild = lstuser.GetChildBranch(Convert.ToString(Session["userbranchHierarchy"]));
+                    if (dtBranchChild.Rows.Count > 0)
+                    {
+                        DataRow dr;
+                        dr = dtbranch.NewRow();
+                        dr[0] = 0;
+                        dr[1] = "All";
+                        dtbranch.Rows.Add(dr);
+                        dtbranch.DefaultView.Sort = "BRANCH_ID ASC";
+                        dtbranch = dtbranch.DefaultView.ToTable();
+                    }
                 }
                 model.modelbranch = APIHelperMethods.ToModelList<GetUsersBranch>(dtbranch);
                 string h_id = model.modelbranch.First().BRANCH_ID.ToString();
