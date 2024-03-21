@@ -51,8 +51,8 @@
 @*<link href="~/assests/media.css" rel="stylesheet" />*@
 <link href="~/Scripts/Charts/styles.css" rel="stylesheet" />
 @*<link href="~/Content/media.css" rel="stylesheet" />*@
-<link href="~/assests/pluggins/LightBox/lightbox.css" rel="stylesheet" />
-<script src="~/assests/pluggins/LightBox/lightbox.js"></script>
+@*<link href="~/assests/pluggins/LightBox/lightbox.css" rel="stylesheet" />
+<script src="~/assests/pluggins/LightBox/lightbox.js"></script>*@
 <script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
 @*<link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
@@ -2169,7 +2169,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        opacity: 0;
+        opacity: .8;
     }
 
     .excExportMap {
@@ -2471,7 +2471,7 @@
     #floating-panel {
         position: absolute;
         top: 10px;
-        left: 25%;
+        left: 35%;
         z-index: 5;
         background-color: #fff;
         padding: 5px;
@@ -2725,82 +2725,115 @@
 
 
     /*Marker code start*/
-    const markers = [];
+    // Define an array to store all markers
+/*let map = null;*/
+let markers = [];
+let cachedData = null;
 
-    function locationclick() {
+let lastStateid = null;
+let lastBranchid = null;
+let lastPartytypeid = null;
 
-        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+function locationclick() {
+    const stateid = StateId.join(',');
+    const branchid = BranchId.join(',');
+    const partytypeid = PartyTypeId.join(',');
 
-        if (stateid == '') {
-            jAlert("Please select State.");
-            flag = false;
-            return;
+    if (stateid == '' || partytypeid == '') {
+        jAlert("Please select State and Party Type.");
+        return;
+    }
+
+    $('.FullDiv-gmapmarker').removeClass('hide');
+
+    // Show loader before fetching data
+    showLoader();
+
+    // Check if parameters have changed
+    if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
+        // If parameters have changed, clear cached data and fetch new data
+        cachedData = null;
+    }
+
+    if (cachedData) {
+        showMarkers(cachedData);
+        hideLoader();
+    } else {
+        fetchData(stateid, branchid, partytypeid);
+    }
+
+    // Update last parameters
+    lastStateid = stateid;
+    lastBranchid = branchid;
+    lastPartytypeid = partytypeid;
+}
+
+function fetchData(stateid, branchid, partytypeid) {
+    const data = {
+        'stateid': stateid,
+        'branchid': branchid,
+        'partytypeid': partytypeid
+    };
+
+    const url = "@Url.Action("GetOutlets", "ViewGeography")";
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        else if (partytypeid == '') {
-            jAlert("Please select Party Type.");
-            flag = false;
-            return;
-        }
-        else {
+        return response.json();
+    })
+    .then(data => {
+        cachedData = data;
+        showMarkers(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    })
+    .finally(() => {
+        hideLoader();
+    });
+}
 
-            $('.FullDiv-gmapmarker').removeClass('hide');
+function showLoader() {
+    $('#gmap-loader').removeClass('hide');
+}
 
-            var map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
-                zoom: 6,
-                center: { lat: 22.600, lng: 88.431 }, // Set default center
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-            });
+function hideLoader() {
+    $('#gmap-loader').addClass('hide');
+}
 
-            const stateid = StateId.join(',');
-            const branchid = BranchId.join(',');
-            const partytypeid = PartyTypeId.join(',');
+function showMarkers(data) {
+    clearMarkers();
 
-            const data = {
-                'stateid': stateid,
-                'branchid': branchid,
-                'partytypeid': partytypeid
-            };
+    if (!map) {
+        map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
+            zoom: 6,
+            center: { lat: 22.600, lng: 88.431 }, // Set default center
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+    }
 
-            const url = "@Url.Action("GetOutlets", "ViewGeography")";
+    data.forEach(markerData => {
+        addMarkerWithInfo(markerData);
+    });
 
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("gmap-data", data);
-                    data.forEach(markerData => {
-                        addMarkerWithInfo(markerData);
-                    });
+    
+}
 
+function clearMarkers() {
+    markers.forEach(marker => {
+        marker.setMap(null);
+    });
 
-                    var clusterStyles = [
-                        {
-                            url: '/assests/pluggins/images/cluster.png',
-                            height: 50,
-                            width: 50
-
-                        }
-                    ];
-
-
-                    const markerCluster = new MarkerClusterer(map, markers, { styles: clusterStyles, maxZoom: 15 });
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-        }
+    markers = [];
 }
 
 function addMarkerWithInfo(markerData) {
@@ -2820,6 +2853,8 @@ function addMarkerWithInfo(markerData) {
 
     markers.push(marker);
 }
+
+
     /*Marker code end*/
 
     /*heatmap code start*/
@@ -2844,6 +2879,7 @@ function addMarkerWithInfo(markerData) {
         else {
 
             $('.FullDiv-heatmap').removeClass('hide');
+            showLoader();
 
             $.ajax({
                 type: "POST",
@@ -2869,6 +2905,7 @@ function addMarkerWithInfo(markerData) {
                     var heatmap = new google.maps.visualization.HeatmapLayer({
                         data: heatmapData,
                         map: map,
+
                     });
 
                     // Event listeners for the buttons
@@ -2907,6 +2944,8 @@ function addMarkerWithInfo(markerData) {
                         bounds.extend(latLng);
                     });
                     map.fitBounds(bounds);
+
+                    hideLoader();
                 },
                 error: function (xhr, status, error) {
                     console.error("Error:", error);
@@ -2933,8 +2972,11 @@ function addMarkerWithInfo(markerData) {
 </script>
 
 
+<div id="gmap-loader" class="mLoader hide"><img src="/assests/images/Rainbow.gif" /></div>
+
+
 <div class="breadCumb">
-    <span>View Outlets</span>
+    <span>View Geography</span>
     <div class="crossBtnN"><a href="#" onclick="window.location.href ='../DashboardMenu/FSMDashboard'"><i class="fa fa-times"></i></a></div>
 </div>
 
