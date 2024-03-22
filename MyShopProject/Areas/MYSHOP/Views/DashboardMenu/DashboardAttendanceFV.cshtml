@@ -2,6 +2,7 @@
 @*1.0                06-01-2023        2.0.37           Pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
 @*2.0                24-04-2023        2.0.39           Pallab              25896: Console error after click "Not Logged In" box in FSM dashboard Team Visit - Hierarchy tab *@
 @*3.0                21-03-2024        2.0.46           Sanchita            A new dashboard floating menu is required as "View Geography".Mantis: 27322    *@
+@*4.0                21-03-2024        2.0.46           Sanchita            A new dashboard floating icon is required as "View Geotrack"..Mantis: 27323    *@
 
 @model List<MyShop.Models.DashboardSettingMapped>
 
@@ -231,6 +232,22 @@
                         </li>
                     }
                     @*End of Rev 3.0*@
+                    @*Rev 4.0*@
+                    @if (Model.Where(x => x.DetailsName == "View Geotrack").Count() > 0)
+                    {
+                        <li id="step7" class="view-party-hierarchywise">
+                            <div class="pointer hoverMenu rut" onclick="ShowViewGeotrack();">
+                                <span class="text ">
+                                    View Geotrack
+                                </span>
+                                <div class="icon-img">
+                                    <img src="/assests/images/emp-outlet.png" alt="">
+                                </div>
+                            </div>
+                            <div class="tooltip-customize" title="Click to get User Location on Map">Click to get User Location on Map</div>
+                        </li>
+                    }
+                    @*End of Rev 4.0*@
                 </ul>
             </div>
         </div>

@@ -12,6 +12,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 9.0          03-08-2023      V2.0.42     Pallab          Clicked state or branch selection without click "show data" button, tab box number data showing, disable click event. Refer: 26663
 10.0         04-08-2023      V2.0.42     Sanchita        Data not comming in Field Visit and Team Visit tab when Visit tab is off. Mantis : 26672
 11.0         21-03-2024      V2.0.46     Sanchita        A new dashboard floating menu is required as "View Geography". Mantis: 27322
+12.0         21-03-2024      V2.0.46     Sanchita        A new dashboard floating icon is required as "View Geotrack"..Mantis: 27323 
 ====================================================== Revision History ==============================================-->
 
 @model MyShop.Models.FSMDashBoardFilter
@@ -2295,6 +2296,17 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 
     }
     // End of Rev 11.0
+    // Rev 12.0
+    function ShowViewGeotrack() {
+        var apiAccess = 0;
+        if (apiAccess == 0) {
+            window.location.href = '../ViewGeotrack/Index';
+        } else if (apiAccess == 1) {
+            //window.location.href = '../ViewRoute/Index';
+        }
+
+    }
+    // End of Rev 12.0
 
 </script>
 
