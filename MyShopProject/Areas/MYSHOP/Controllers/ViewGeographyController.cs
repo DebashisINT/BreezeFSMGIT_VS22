@@ -38,10 +38,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewGeographyModel model = new ViewGeographyModel();
                 string userid = Session["userid"].ToString();
 
-                //DataTable dtstate = lstuser.GetStateList(userid);
-                //model.modelstates = APIHelperMethods.ToModelList<GetUsersState>(dtstate);
-
-
                 DataTable dtbranch = lstuser.GetHeadBranchList(Convert.ToString(Session["userbranchHierarchy"]), "HO");
                 DataTable dtBranchChild = new DataTable();
                 if (dtbranch.Rows.Count > 0)
@@ -61,9 +57,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 model.modelbranch = APIHelperMethods.ToModelList<GetUsersBranch>(dtbranch);
                 string h_id = model.modelbranch.First().BRANCH_ID.ToString();
                 ViewBag.h_id = h_id;
-
-                //DataTable dtpartytype = GetPartyTypeList();
-                //model.modelpartytypes = APIHelperMethods.ToModelList<GetPartyType>(dtpartytype);
 
                 return View(model);
 
@@ -126,10 +119,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             List<OutletList> AddressList = new List<OutletList>();
 
-            //string newdate = Date.Split('-')[2] + '-' + Date.Split('-')[1] + '-' + Date.Split('-')[0];
-
             ViewGeographyModel model = new ViewGeographyModel();
             string userid = Session["userid"].ToString();
+            if (branchid == "")
+            {
+                branchid = Convert.ToString(Session["userbranchHierarchy"]);
+            }
 
             DataTable dtmodellatest = new DataTable();
 

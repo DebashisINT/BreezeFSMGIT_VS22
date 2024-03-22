@@ -70,10 +70,10 @@
 <script src="~/assests/pluggins/choosen/choosen.min.js"></script>
 <script src="~/Scripts/SearchPopup.js"></script>
 
-@*<link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
+<link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
     <link href="~/assests/pluggins/openstreetmap/MarkerCluster.css" rel="stylesheet" />
     <script src="~/assests/pluggins/openstreetmap/leaflet.js"></script>
-    <script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>*@
+    <script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>
 
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
@@ -2598,12 +2598,6 @@
     }
     function DeSelectAllGridLookup(s, e) {
         BranchGridLookup.gridView.UnselectRows();
-        //$('#hdnEmployeeAEId').val('')
-        //$('#hdnEmployeeWDId').val('')
-        //$('#hdnEmployeeDSId').val('')
-        //EmployeeTxt.SetText('')
-        //EmployeeWDTxt.SetText('')
-        //EmployeeDSTxt.SetText('')
         BranchId = [];
         Branch_Id = "";
     }
@@ -2615,26 +2609,6 @@
     }
 
     var BranchId = [];
-
-    @*function locationclick() {
-
-        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GetOutlets", "ViewGeotrack")",
-            data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid  },
-            success: function (response) {
-
-            }
-        });
-
-
-    }*@
-
-
     var empId = [];
 
     function EmployeeButnClick(s, e) {
@@ -2683,15 +2657,24 @@
 
 
     /*Marker code start*/
-    const markers = [];
+    markers = [];
+    let cachedData = null;
 
-    function locationclick() {
+    let lastStateid = null;
+    let lastBranchid = null;
+    let lastempId = null;
+    let lastfromdate = null;
+    let lasttodate = null;
 
-        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        empId = $('#hdnEmployeeID').val();
-        fromdate = dtFrom.GetText();
-        todate = dtTo.GetText();
+    function ShowGoogleMapClick() {
+
+        //stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        //branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+        const stateid = StateId.join(',');
+        const branchid = BranchId.join(',');
+        const empId = $('#hdnEmployeeID').val();
+        const fromdate = dtFrom.GetText();
+        const todate = dtTo.GetText();
 
         if (stateid == '') {
             jAlert("Please select State.");
@@ -2709,6 +2692,11 @@
         }
         else if (todate == '') {
             jAlert("Please select To Date.");
+            flag = false;
+            return;
+        }
+        else if ((dtTo.GetDate() - dtFrom.GetDate()) / (1000 * 60 * 60 * 24) > 31) {
+            jAlert("Searching days must be within 31 days.");
             flag = false;
             return;
         }
@@ -2716,85 +2704,125 @@
 
             $('.FullDiv-gmapmarker').removeClass('hide');
 
-            var map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
-                zoom: 6,
-                center: { lat: 22.600, lng: 88.431 }, // Set default center
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-            });
+            // Show loader before fetching data
+            showLoader();
 
-            const stateid = StateId.join(',');
-            const branchid = BranchId.join(',');
-            const partytypeid = PartyTypeId.join(',');
+            // Check if parameters have changed
+            if (stateid !== lastStateid || branchid !== lastBranchid || empId !== lastempId || fromdate != lastfromdate || todate != lasttodate ) {
+                // If parameters have changed, clear cached data and fetch new data
+                cachedData = null;
+            }
 
-            const data = {
-                'stateid': stateid,
-                'branchid': branchid,
-                'partytypeid': partytypeid
-            };
+            if (cachedData) {
+                showMarkers(cachedData);
+                hideLoader();
+            } else {
+                fetchData(stateid, branchid, empId, fromdate, todate);
+            }
 
-            const url = "@Url.Action("GetUserRoutes", "ViewGeotrack")";
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("gmap-data", data);
-                    data.forEach(markerData => {
-                        addMarkerWithInfo(markerData);
-                    });
-
-
-                    var clusterStyles = [
-                        {
-                            url: '/assests/pluggins/images/cluster.png',
-                            height: 50,
-                            width: 50
-
-                        }
-                    ];
-
-
-                    const markerCluster = new MarkerClusterer(map, markers, { styles: clusterStyles, maxZoom: 15 });
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+            // Update last parameters
+            lastStateid = stateid;
+            lastBranchid = branchid;
+            lastempId = empId;
+            lastfromdate = fromdate;
+            lasttodate = todate;
         }
 }
 
-function addMarkerWithInfo(markerData) {
-    const marker = new google.maps.Marker({
-        position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
-        map: map,
-        title: markerData.Shop_Name
-    });
+    function fetchData(stateid, branchid, empId, fromdate, todate) {
+    const data = {
+        'stateid': stateid,
+        'branchid': branchid,
+        'empId': empId,
+        'fromdate': fromdate,
+        'todate': todate
+    };
 
-    const infowindow = new google.maps.InfoWindow({
-        content: `<h3>${markerData.Shop_Name}</h3><p>${markerData.Address}</p>`
-    });
+    const url = "@Url.Action("GetUserRoutes", "ViewGeotrack")";
 
-    marker.addListener('click', () => {
-        infowindow.open(map, marker);
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        cachedData = data;
+        showMarkers(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    })
+    .finally(() => {
+        hideLoader();
     });
-
-    markers.push(marker);
 }
+
+function showLoader() {
+    $('#gmap-loader').removeClass('hide');
+}
+
+function hideLoader() {
+    $('#gmap-loader').addClass('hide');
+}
+
+function showMarkers(data) {
+    clearMarkers();
+
+    if (!map) {
+        map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
+            zoom: 6,
+            center: { lat: 22.600, lng: 88.431 }, // Set default center
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+    }
+
+    data.forEach(markerData => {
+        addMarkerWithInfo(markerData);
+    });
+
+
+}
+
+function clearMarkers() {
+    markers.forEach(marker => {
+        marker.setMap(null);
+    });
+
+    markers = [];
+}
+
+    function addMarkerWithInfo(markerData) {
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(markerData.Visit_Lat), lng: parseFloat(markerData.Visit_Long) },
+            map: map,
+            title: markerData.SalesMan
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+            content: `<h3>${markerData.SalesMan}</h3><p>${markerData.SalesMan}</p>`
+        });
+
+        marker.addListener('click', () => {
+            infowindow.open(map, marker);
+        });
+
+        markers.push(marker);
+    }
+
     /*Marker code end*/
 
     /*heatmap code start*/
     let map, heatmap;
 
-    function showheatmapclick() {
+    function ShowHeatMapClick() {
 
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
@@ -2821,21 +2849,27 @@ function addMarkerWithInfo(markerData) {
             flag = false;
             return;
         }
+        else if ((dtTo.GetDate() - dtFrom.GetDate()) / (1000 * 60 * 60 * 24) > 31) {
+            jAlert("Searching days must be within 31 days.");
+            flag = false;
+            return;
+        }
         else {
 
             $('.FullDiv-heatmap').removeClass('hide');
+            showLoader();
 
             $.ajax({
                 type: "POST",
                 //url: "Url.Action("GetEmployeesTargetByCode", "EmployeesTarget")",
                 url: "@Url.Action("GetUserRoutes", "ViewGeotrack")",
-                data: { 'stateid': stateid, 'branchid': branchid, 'empId': empId, 'dtFrom': fromdate, 'dtTo': todate },
+                data: { 'stateid': stateid, 'branchid': branchid, 'empId': empId, 'fromdate': fromdate, 'todate': todate },
                 success: function (response) {
                     // Parse JSON response
                     console.log("heatmap", response);
                     var heatmapData = [];
                     response.forEach(function (outlet) {
-                        var latLng = new google.maps.LatLng(parseFloat(outlet.Shop_Lat), parseFloat(outlet.Shop_Long));
+                        var latLng = new google.maps.LatLng(parseFloat(outlet.Visit_Lat), parseFloat(outlet.Visit_Long));
                         heatmapData.push(latLng);
                     });
 
@@ -2887,6 +2921,8 @@ function addMarkerWithInfo(markerData) {
                         bounds.extend(latLng);
                     });
                     map.fitBounds(bounds);
+
+                    hideLoader();
                 },
                 error: function (xhr, status, error) {
                     console.error("Error:", error);
@@ -3007,20 +3043,21 @@ function addMarkerWithInfo(markerData) {
                                 }).GetHtml()
                         </div>
                     </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top: 22px;">
-                            <label></label>
-                            <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="locationclick()" tabindex=4>Show in Google Map</button>
-                        </td>
-                         <td style="padding-top: 22px;">
-                            <label></label>
-                            <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="showheatmapclick()" tabindex=4>Show in Heatmap</button>
-                        </td>
-                    </tr>
+                </tr>
+                <tr>
+                    <td style="padding-top: 22px;">
+                        <label></label>
+                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show in Google Map</button>
+                    </td>
+                    <td style="padding-top: 22px;">
+                        <label></label>
+                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show in Heatmap</button>
+                    </td>
+                </tr>
                 </tr>
             </table>
         </div>
+        <div id="map_box"><div id="map_canvas" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>
     </div>
 </div>
 
