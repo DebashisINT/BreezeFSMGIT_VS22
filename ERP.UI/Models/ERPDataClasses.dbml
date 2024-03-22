@@ -1564,4 +1564,18 @@
       <Column Name="pRet_MainAccount" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.PRODUCTSPECIALPRICELIST" Member="PRODUCTSPECIALPRICELISTs">
+    <Type Name="PRODUCTSPECIALPRICELIST">
+      <Column Name="SEQ" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SlNo" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SPECIALPRICEID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BRANCH_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BRANCH" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PRODUCT_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="PRODUCTCODE" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="PRODUCTNAME" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SPECIALPRICE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

@@ -523,6 +523,13 @@
     <Compile Include="OMS\Management\Activities\LeaveSuccessPage.aspx.designer.cs">
       <DependentUpon>LeaveSuccessPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OMS\Management\Activities\SpecialPriceUpload.aspx.cs">
+      <DependentUpon>SpecialPriceUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OMS\Management\Activities\SpecialPriceUpload.aspx.designer.cs">
+      <DependentUpon>SpecialPriceUpload.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OMS\Management\Attendance\allEmpAttRecords.aspx.cs">
       <DependentUpon>allEmpAttRecords.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2524,6 +2531,7 @@
     <Content Include="OMS\Management\Activities\JS\SearchPopupDatatable.js" />
     <Content Include="OMS\Management\Activities\leaveapproval.aspx" />
     <Content Include="OMS\Management\Activities\LeaveSuccessPage.aspx" />
+    <Content Include="OMS\Management\Activities\SpecialPriceUpload.aspx" />
     <Content Include="OMS\Management\Attendance\allEmpAttRecords.aspx" />
     <Content Include="OMS\Management\Attendance\AttendanceChartReport.aspx" />
     <Content Include="OMS\Management\Attendance\AttendanceMonthwise.aspx" />
@@ -3174,11 +3182,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7665</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7669/</IISUrl>
+          <IISUrl>http://localhost:7666/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
