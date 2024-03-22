@@ -41,6 +41,9 @@
         width: 13px;
         margin-right: 5px;
     }
+    .red {
+        color: red;
+    }
 </style>
 @*<script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/raw/master/json2.js"></script>*@
 
@@ -55,10 +58,10 @@
 <script src="~/assests/pluggins/LightBox/lightbox.js"></script>*@
 <script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
-@*<link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
+<link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
     <link href="~/assests/pluggins/openstreetmap/MarkerCluster.css" rel="stylesheet" />
     <script src="~/assests/pluggins/openstreetmap/leaflet.js"></script>
-    <script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>*@
+    <script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>
 
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
@@ -2521,61 +2524,19 @@
         PartyTypeGridLookup.gridView.GetSelectedFieldValues("SHOP_TYPEID", GetSelectedFieldValuesCallbackPartyType);
     }
 
-    //function DeSelectAllGridLookup(s, e) {
-    //    BranchGridLookup.gridView.UnselectRows();
-
-    //    BranchId = [];
-    //    Baranch_Id = "";
-    //}
-    //function SelectAllGridLookup(s, e) {
-    //    BranchGridLookup.gridView.SelectRows();
-
-    //    BranchId = "";
-    //    BranchGridLookup.SetText("");
-    //    //rev Pratik
-
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: "/EmpList/GetBranchListSelectAll",
-    //        //data: { "Hoid": Hoid },
-    //        dataType: "json",
-    //        async: false,
-    //        success: function (data) {
-    //            BranchId = [];
-    //            Branch_Id = "";
-    //            $.each(data, function (i, data) {
-    //                BranchId.push(data.BRANCH_ID);
-    //                Branch_Id += data.BRANCH_ID + ',';
-    //            });
-    //            BranchGridLookup.gridView.SelectRows();
-    //        },
-    //        error: function () {
-
-    //        }
-    //    });
-
-
-    //}
-
     function GetSelectedFieldValuesCallbackPartyType(values) {
 
         try {
             PartyTypeId = [];
-            //rev Pratik
             PartyType_Id = "";
-            //End of rev Pratik
             for (var i = 0; i < values.length; i++) {
                 PartyTypeId.push(values[i]);
-                //rev Pratik
                 PartyType_Id += values[i] + ',';
-                //End of rev Pratik
             }
 
         } finally {
             console.log(PartyTypeId);
         }
-
-
     }
 
     function DeSelectAllPartyTypeGridLookup(s, e) {
@@ -2685,12 +2646,6 @@
     }
     function DeSelectAllGridLookup(s, e) {
         BranchGridLookup.gridView.UnselectRows();
-        //$('#hdnEmployeeAEId').val('')
-        //$('#hdnEmployeeWDId').val('')
-        //$('#hdnEmployeeDSId').val('')
-        //EmployeeTxt.SetText('')
-        //EmployeeWDTxt.SetText('')
-        //EmployeeDSTxt.SetText('')
         BranchId = [];
         Branch_Id = "";
     }
@@ -2703,156 +2658,136 @@
 
     var BranchId = [];
 
-    @*function locationclick() {
-
-        stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-        partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GetOutlets", "ViewGeography")",
-            data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid  },
-            success: function (response) {
-
-            }
-        });
-
-
-    }*@
-
-
-
 
     /*Marker code start*/
     // Define an array to store all markers
-/*let map = null;*/
-let markers = [];
-let cachedData = null;
+    /*let map = null;*/
+    const markers = [];
+    let cachedData = null;
 
-let lastStateid = null;
-let lastBranchid = null;
-let lastPartytypeid = null;
+    let lastStateid = null;
+    let lastBranchid = null;
+    let lastPartytypeid = null;
 
-function locationclick() {
-    const stateid = StateId.join(',');
-    const branchid = BranchId.join(',');
-    const partytypeid = PartyTypeId.join(',');
+    function ShowGoogleMapClick() {
+        const stateid = StateId.join(',');
+        const branchid = BranchId.join(',');
+        const partytypeid = PartyTypeId.join(',');
 
-    if (stateid == '' || partytypeid == '') {
-        jAlert("Please select State and Party Type.");
-        return;
-    }
-
-    $('.FullDiv-gmapmarker').removeClass('hide');
-
-    // Show loader before fetching data
-    showLoader();
-
-    // Check if parameters have changed
-    if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
-        // If parameters have changed, clear cached data and fetch new data
-        cachedData = null;
-    }
-
-    if (cachedData) {
-        showMarkers(cachedData);
-        hideLoader();
-    } else {
-        fetchData(stateid, branchid, partytypeid);
-    }
-
-    // Update last parameters
-    lastStateid = stateid;
-    lastBranchid = branchid;
-    lastPartytypeid = partytypeid;
-}
-
-function fetchData(stateid, branchid, partytypeid) {
-    const data = {
-        'stateid': stateid,
-        'branchid': branchid,
-        'partytypeid': partytypeid
-    };
-
-    const url = "@Url.Action("GetOutlets", "ViewGeography")";
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        if (stateid == '' || partytypeid == '') {
+            jAlert("Please select State and Party Type.");
+            return;
         }
-        return response.json();
-    })
-    .then(data => {
-        cachedData = data;
-        showMarkers(data);
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    })
-    .finally(() => {
-        hideLoader();
-    });
-}
 
-function showLoader() {
-    $('#gmap-loader').removeClass('hide');
-}
+        $('.FullDiv-gmapmarker').removeClass('hide');
 
-function hideLoader() {
-    $('#gmap-loader').addClass('hide');
-}
+        // Show loader before fetching data
+        showLoader();
 
-function showMarkers(data) {
-    clearMarkers();
+        // Check if parameters have changed
+        if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
+            // If parameters have changed, clear cached data and fetch new data
+            cachedData = null;
+        }
 
-    if (!map) {
-        map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
-            zoom: 6,
-            center: { lat: 22.600, lng: 88.431 }, // Set default center
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        if (cachedData) {
+            showMarkers(cachedData);
+            hideLoader();
+        } else {
+            fetchData(stateid, branchid, partytypeid);
+        }
+
+        // Update last parameters
+        lastStateid = stateid;
+        lastBranchid = branchid;
+        lastPartytypeid = partytypeid;
+    }
+
+    function fetchData(stateid, branchid, partytypeid) {
+        const data = {
+            'stateid': stateid,
+            'branchid': branchid,
+            'partytypeid': partytypeid
+        };
+
+        const url = "@Url.Action("GetOutlets", "ViewGeography")";
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            cachedData = data;
+            showMarkers(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        })
+        .finally(() => {
+            hideLoader();
         });
     }
 
-    data.forEach(markerData => {
-        addMarkerWithInfo(markerData);
-    });
+    function showLoader() {
+        $('#gmap-loader').removeClass('hide');
+    }
+
+    function hideLoader() {
+        $('#gmap-loader').addClass('hide');
+    }
+
+    function showMarkers(data) {
+        clearMarkers();
+
+        if (!map) {
+            map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
+                zoom: 6,
+                center: { lat: 22.600, lng: 88.431 }, // Set default center
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            });
+        }
+
+        data.forEach(markerData => {
+            addMarkerWithInfo(markerData);
+        });
 
     
-}
+    }
 
-function clearMarkers() {
-    markers.forEach(marker => {
-        marker.setMap(null);
-    });
+    function clearMarkers() {
+        markers.forEach(marker => {
+            marker.setMap(null);
+        });
 
-    markers = [];
-}
+        markers = [];
+    }
 
-function addMarkerWithInfo(markerData) {
-    const marker = new google.maps.Marker({
-        position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
-        map: map,
-        title: markerData.Shop_Name
-    });
+    function addMarkerWithInfo(markerData) {
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
+            map: map,
+            title: markerData.Shop_Name
+        });
 
-    const infowindow = new google.maps.InfoWindow({
-        content: `<h3>${markerData.Shop_Name}</h3><p>${markerData.Address}</p>`
-    });
+        const infowindow = new google.maps.InfoWindow({
+            content: `<h3>${markerData.Shop_Name}</h3><p>${markerData.Address}</p>`
+        });
 
-    marker.addListener('click', () => {
-        infowindow.open(map, marker);
-    });
+        marker.addListener('click', () => {
+            infowindow.open(map, marker);
+        });
 
-    markers.push(marker);
-}
+        markers.push(marker);
+    }
 
 
     /*Marker code end*/
@@ -2860,7 +2795,7 @@ function addMarkerWithInfo(markerData) {
     /*heatmap code start*/
     let map, heatmap;
 
-    function showheatmapclick() {
+    function ShowHeatMapClick() {
 
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
@@ -2883,7 +2818,6 @@ function addMarkerWithInfo(markerData) {
 
             $.ajax({
                 type: "POST",
-                //url: "Url.Action("GetEmployeesTargetByCode", "EmployeesTarget")",
                 url: "@Url.Action("GetOutlets", "ViewGeography")",
                 data: { 'stateid': stateid, 'branchid': branchid, 'partytypeid': partytypeid },
                 success: function (response) {
@@ -3017,10 +2951,6 @@ function addMarkerWithInfo(markerData) {
                             @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
                         </div>
                     </td>
-                    @*<td class="w10 inputSpacer">
-                            <input class="styled-checkbox" type="checkbox" id="IsBarnchAll" name="IsBarnchAll" onchange="CheckBranchAESelection()" value="0">
-                            <label for="">Select All Branch</label>
-                        </td>*@
                     <td style="width: 200px;">
                         <label>Party Type <span class="red">*</span></label>
                         <div>
@@ -3030,11 +2960,12 @@ function addMarkerWithInfo(markerData) {
 
                     <td style="padding-top: 22px;">
                         <label></label>
-                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="locationclick()" tabindex=4>Show in Google Map</button>
-                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="showheatmapclick()" tabindex=4>Show in Heatmap</button>
+                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show in Google Map</button>
+                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show in Heatmap</button>
                     </td>
                 </tr>
             </table>
         </div>
+        <div id="map_box"><div id="map_canvas" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>
     </div>
 </div>

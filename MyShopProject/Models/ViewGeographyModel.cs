@@ -43,17 +43,9 @@ namespace MyShop.Models
 
     public class OutletList
     {
-      //  public string shop_code { get; set; }
         public string Shop_Name { get; set; }
         public string Address { get; set; }
-       // public string Shop_Owner { get; set; }
         public string Shop_Lat { get; set; }
         public string Shop_Long { get; set; }
-       // public string Shop_Owner_Contact { get; set; }
-       // public string PARTYSTATUS { get; set; }
-       // public string MAP_COLOR { get; set; }
-       // public string Shop_CreateUser { get; set; }
-     //   public string state { get; set; }
-      //  public string PARENT_COLORCODE { get; set; }
     }
 }

@@ -122,7 +122,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         //    }
         //}
 
-        public ActionResult GetUserRoutes(string stateid, string branchid, string empId,string dtFrom, string dtTo)
+        public ActionResult GetUserRoutes(string stateid, string branchid, string empId,string fromdate, string todate)
         {
             List<UserRuoteList> AddressList = new List<UserRuoteList>();
 
@@ -133,18 +133,23 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             DataTable dtmodellatest = new DataTable();
 
-            if (dtFrom == null)
+            if (fromdate == null)
             {
-                dtFrom = DateTime.Now.ToString("dd-MM-yyyy");
+                fromdate = DateTime.Now.ToString("dd-MM-yyyy");
             }
 
-            if (dtTo == null)
+            if (todate == null)
             {
-                dtTo = DateTime.Now.ToString("dd-MM-yyyy");
+                todate = DateTime.Now.ToString("dd-MM-yyyy");
             }
 
-            string datfrmat = dtFrom.Split('-')[2] + '-' + dtFrom.Split('-')[1] + '-' + dtFrom.Split('-')[0];
-            string dattoat = dtTo.Split('-')[2] + '-' + dtTo.Split('-')[1] + '-' + dtTo.Split('-')[0];
+            string datfrmat = fromdate.Split('-')[2] + '-' + fromdate.Split('-')[1] + '-' + fromdate.Split('-')[0];
+            string dattoat = todate.Split('-')[2] + '-' + todate.Split('-')[1] + '-' + todate.Split('-')[0];
+
+            if (branchid == "")
+            {
+                branchid = Convert.ToString(Session["userbranchHierarchy"]);
+            }
 
             ProcedureExecute proc = new ProcedureExecute("FTS_VIEWGEOTRACK");
             proc.AddPara("@ACTION", "GETUSERROUTE");
