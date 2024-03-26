@@ -2819,7 +2819,25 @@
 
     function addMarkerWithInfo(markerData) {
 
-        const customMarkerImage = '/assests/images/red-dot.png';
+        /*const customMarkerImage = '/assests/images/red-dot.png';*/
+
+        let customMarkerImage = '';
+
+        if (markerData.Shop_PartyId == 1) {
+            customMarkerImage = '/assests/images/red-dot.png';
+        }
+        else if (markerData.Shop_PartyId == 2) {
+            customMarkerImage = '/assests/images/green-dot.png';
+        }
+        else if (markerData.Shop_PartyId == 3) {
+            customMarkerImage = '/assests/images/orange-dot.png';
+        }
+        else if (markerData.Shop_PartyId == 4) {
+            customMarkerImage = '/assests/images/pink-dot.png';
+        }
+        else {
+            customMarkerImage = '/assests/images/blue-dot.png';
+        }
 
         const marker = new google.maps.Marker({
             position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
@@ -2827,7 +2845,7 @@
             title: markerData.Shop_Name,
             icon: {
                 url: customMarkerImage, 
-                scaledSize: new google.maps.Size(5, 5) 
+                scaledSize: new google.maps.Size(8, 8) 
             }
         });
 
@@ -3052,13 +3070,7 @@
 
 </script>
 
-<script>
-    map = new google.maps.Map(document.getElementById("view-page-map"), {
-        zoom: 13,
-        center: { lat: 22.600, lng: 88.431 },
 
-    });
-</script>
 
 
 <div id="gmap-loader" class="mLoader hide"><img src="/assests/images/Rainbow.gif" /></div>
