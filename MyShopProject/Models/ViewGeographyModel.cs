@@ -47,5 +47,6 @@ namespace MyShop.Models
         public string Address { get; set; }
         public string Shop_Lat { get; set; }
         public string Shop_Long { get; set; }
+        public string Shop_PartyId { get; set; }
     }
 }
