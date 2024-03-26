@@ -66,7 +66,7 @@
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" ></script>
 
 <script src="~/assests/pluggins/gmapCustomize/markerclusterer_packed.js"></script>
 @*<script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
@@ -2494,7 +2494,56 @@
         top: 10px;
         z-index: 5;
     }
+
+    .selected-shop-type-box {
+        background-color: #fff;
+        position: absolute;
+        bottom: 20px;
+        padding: 5px;
+        z-index: 5;
+        left: 10%;
+    }
+
+    #legend {
+        background: #fff;
+        padding: 10px;
+        right: 10px !important;
+        bottom: 210px !important;
+        width: 140px !important;
+        left: auto !important;
+    }
+
+        #legend > div {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+            #legend > h4 {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+        .color-lbl {
+            font-size: 16px;
+            margin-left: 5px;
+        }
+
+    .selected-shop-type-box
+    {
+        display: flex;
+        align-items: center;
+    }
+
+        .selected-shop-type-box ul {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+        }
 </style>
+
+
+
 
 <script>
     var Is_PageLoad = "0";
@@ -2659,10 +2708,12 @@
     var BranchId = [];
 
 
+    
+
     /*Marker code start*/
     // Define an array to store all markers
     /*let map = null;*/
-    markers = [];
+     let markers = [];
     let cachedData = null;
 
     let lastStateid = null;
@@ -2670,6 +2721,10 @@
     let lastPartytypeid = null;
 
     function ShowGoogleMapClick() {
+
+        
+        showLoader();
+
         const stateid = StateId.join(',');
         const branchid = BranchId.join(',');
         const partytypeid = PartyTypeId.join(',');
@@ -2681,12 +2736,9 @@
 
         $('.FullDiv-gmapmarker').removeClass('hide');
 
-        // Show loader before fetching data
-        showLoader();
-
-        // Check if parameters have changed
+        
         if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
-            // If parameters have changed, clear cached data and fetch new data
+            
             cachedData = null;
         }
 
@@ -2737,21 +2789,15 @@
         });
     }
 
-    function showLoader() {
-        $('#gmap-loader').removeClass('hide');
-    }
-
-    function hideLoader() {
-        $('#gmap-loader').addClass('hide');
-    }
+    
 
     function showMarkers(data) {
         clearMarkers();
-
+        var india = { lat: 20.5937, lng: 78.9629 };
         if (!map) {
             map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
                 zoom: 6,
-                center: { lat: 22.600, lng: 88.431 }, // Set default center
+                center: india,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
             });
         }
@@ -2772,10 +2818,17 @@
     }
 
     function addMarkerWithInfo(markerData) {
+
+        const customMarkerImage = '/assests/images/red-dot.png';
+
         const marker = new google.maps.Marker({
             position: { lat: parseFloat(markerData.Shop_Lat), lng: parseFloat(markerData.Shop_Long) },
             map: map,
-            title: markerData.Shop_Name
+            title: markerData.Shop_Name,
+            icon: {
+                url: customMarkerImage, 
+                scaledSize: new google.maps.Size(5, 5) 
+            }
         });
 
         const infowindow = new google.maps.InfoWindow({
@@ -2792,14 +2845,26 @@
 
     /*Marker code end*/
 
+    function showLoader() {
+        $('#gmap-loader').removeClass('hide');
+    }
+
+    function hideLoader() {
+        $('#gmap-loader').addClass('hide');
+    }
+
     /*heatmap code start*/
     let map, heatmap;
 
     function ShowHeatMapClick() {
-
+        showLoader();
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
+
+        partytypeName = PartyTypeGridLookup.gridView.currentSelectionState.InputText;
+
+        console.log("partytypeName", partytypeName);
 
         if (stateid == '') {
             jAlert("Please select State.");
@@ -2814,7 +2879,29 @@
         else {
 
             $('.FullDiv-heatmap').removeClass('hide');
-            showLoader();
+
+            var ulElement = document.querySelector('.selected-shop-type-box ul');
+            ulElement.innerHTML = '';
+
+            // Split the selected names into an array if they are comma-separated
+            var selectedNamesArray = partytypeName.split(', ');
+
+            // Create an empty array to hold the list items
+            var listItems = [];
+
+            // Loop through the array of selected names and create li elements for each name
+            selectedNamesArray.forEach(function (name, index) {
+                // Add each name wrapped in li tags to the listItems array
+                listItems.push('<li>' + name.trim() + '</li>');
+                // If it's not the last name, add a non-breaking space
+                if (index < selectedNamesArray.length - 1) {
+                    listItems.push(',&nbsp;');
+                }
+            });
+
+            // Set the inner HTML of the ul element to the joined listItems array
+            ulElement.innerHTML = listItems.join('');
+            
 
             $.ajax({
                 type: "POST",
@@ -2828,41 +2915,101 @@
                         var latLng = new google.maps.LatLng(parseFloat(outlet.Shop_Lat), parseFloat(outlet.Shop_Long));
                         heatmapData.push(latLng);
                     });
-
+                    var india = { lat: 20.5937, lng: 78.9629 };
                     // Initialize map and heatmap layer
                     var map = new google.maps.Map(document.getElementById("mapid"), {
-                        zoom: 13,
-                        center: { lat: 22.600, lng: 88.431 },
-                        mapTypeId: "satellite",
+                        zoom: 5,
+                        center: india,
+                        mapTypeId: google.maps.MapTypeId.HYBRID,
+                        scrollwheel: true,
                     });
+
+                    // Create a LatLngBounds object to store the bounds
+                    var bounds = new google.maps.LatLngBounds();
+
+                    // Add each data point to the heatmap and extend the bounds
+                    heatmapData.forEach(function (latLng) {
+                        bounds.extend(latLng);
+                    });
+
+                    
 
                     var heatmap = new google.maps.visualization.HeatmapLayer({
                         data: heatmapData,
                         map: map,
-
+                        maxIntensity: 10,
+                        
                     });
+
+                    // Fit the map to the bounds of India
+                    map.fitBounds(bounds);
+
+                    // Manually set the center of the map to India
+                    map.setCenter(india);
+
+                    // Create a legend for the heatmap
+                    /*var legend = document.getElementById('legend');*/
+                    var gradient = [
+                        { color: "rgba(255, 0, 0, 1)", label: "High" },
+                        { color: "rgba(255, 170, 0, 1)", label: "Medium" },
+                        { color: "rgba(244, 227, 0, 1)", label: "Low" },
+                        { color: "rgba(102, 255, 0, 1)", label: "Very Low" }
+                    ];
+
+                    var legend = document.getElementById('legend');
+                    if (!legend) {
+                        
+                        legend = document.createElement('div');
+                        legend.id = 'legend';
+                        document.body.appendChild(legend); 
+                        // Define legend styles
+                        legend.style.position = 'absolute';
+                        legend.style.bottom = '30px';
+                        legend.style.left = '30px';
+                        legend.style.backgroundColor = '#fff';
+                        legend.style.padding = '10px';
+                        legend.style.border = '1px solid #000';
+                        legend.style.fontFamily = 'Arial, sans-serif';
+                        // Add initial legend content
+                        legend.innerHTML = '<h4>Density</h4>';
+                        gradient.forEach(function (item) {
+                            var div = document.createElement('div');
+                            div.innerHTML = '<div class="legend-lbl-box"><div style="width: 20px; height: 20px; background-color: ' + item.color + ';"></div> ' + '<div class="color-lbl">' + item.label + '</div></div>';
+                            legend.appendChild(div);
+                        });
+                    }
+
+                    // Function to update legend content
+                    function updateLegend(newGradient) {
+                        var legendContent = '<h4>Density</h4>';
+                        newGradient.forEach(function (item) {
+                            legendContent += '<div class="legend-lbl-box"><div style="width: 20px; height: 20px; background-color: ' + item.color + ';"></div> ' + '<div class="color-lbl">' + item.label + '</div></div>';
+                        });
+                        legend.innerHTML = legendContent;
+                    }
+
+                    // Initial legend setup
+                    updateLegend(gradient);
+                    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend); // Position the legend
 
                     // Event listeners for the buttons
-                    $("#change-gradient").click(function () {
-                        const gradient = [
-                            "rgba(0, 255, 255, 0)",
-                            "rgba(0, 255, 255, 1)",
-                            "rgba(0, 191, 255, 1)",
-                            "rgba(0, 127, 255, 1)",
-                            "rgba(0, 63, 255, 1)",
-                            "rgba(0, 0, 255, 1)",
-                            "rgba(0, 0, 223, 1)",
-                            "rgba(0, 0, 191, 1)",
-                            "rgba(0, 0, 159, 1)",
-                            "rgba(0, 0, 127, 1)",
-                            "rgba(63, 0, 91, 1)",
-                            "rgba(127, 0, 63, 1)",
-                            "rgba(191, 0, 31, 1)",
-                            "rgba(255, 0, 0, 1)",
-                        ];
+                    //$("#change-gradient").click(function () {
+                    //    const gradient = [
+                    //        "rgba(0, 255, 255, 1)",
+                    //        "rgba(0, 127, 255, 1)",
+                    //        "rgba(0, 63, 255, 1)",
+                    //        "rgba(0, 0, 255, 1)",
+                    //        "rgba(0, 0, 191, 1)",
+                    //        "rgba(0, 0, 159, 1)",
+                    //        "rgba(0, 0, 127, 1)",
+                    //        "rgba(63, 0, 91, 1)",
+                    //        "rgba(127, 0, 63, 1)",
+                    //        "rgba(191, 0, 31, 1)",
+                    //        "rgba(255, 0, 0, 1)",
+                    //    ];
 
-                        heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
-                    });
+                    //    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+                    //});
 
                     $("#change-opacity").click(function () {
                         heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
@@ -2905,6 +3052,14 @@
 
 </script>
 
+<script>
+    map = new google.maps.Map(document.getElementById("view-page-map"), {
+        zoom: 13,
+        center: { lat: 22.600, lng: 88.431 },
+
+    });
+</script>
+
 
 <div id="gmap-loader" class="mLoader hide"><img src="/assests/images/Rainbow.gif" /></div>
 
@@ -2926,11 +3081,19 @@
     <div id="heatmap-container" class="closeFullMap"><i class="fa fa-close"></i></div>
     <div id="floating-panel">
 
-        <button id="change-gradient">Change gradient</button>
+        @*<button id="change-gradient">Change gradient</button>*@
         <button id="change-radius">Change radius</button>
         <button id="change-opacity">Change opacity</button>
+
+
     </div>
+
+    <div class="selected-shop-type-box">
+        <h4>Selected Shop: </h4>
+                <ul></ul>
+        </div>
     <div id="mapid"></div>
+    <div id="legend" class="heatmap-labels"></div>
 </div>
 
 
@@ -2966,6 +3129,6 @@
                 </tr>
             </table>
         </div>
-        <div id="map_box"><div id="map_canvas" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>
+        @*<div id="map_box"><div id="view-page-map" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>*@
     </div>
 </div>
