@@ -16,6 +16,9 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
+using System.Configuration;
+using System.Data.OleDb;
+using System.IO;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -220,6 +223,145 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
 
             return Json(output, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DownloadFormat()
+        {
+            string FileName = "ProductsMasterList.xlsx";
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "image/jpeg";
+            response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
+            response.TransmitFile(Server.MapPath("~/Commonfolder/ProductsMasterList.xlsx"));
+            response.Flush();
+            response.End();
+
+            return null;
+        }
+
+        public ActionResult ImportExcel()
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        String extension = Path.GetExtension(fname);
+                        fname = DateTime.Now.Ticks.ToString() + extension;
+                        fname = Path.Combine(Server.MapPath("~/Temporary/"), fname);
+                        file.SaveAs(fname);
+                        Import_To_Grid(fname, extension, file);
+                    }
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+
+        public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        {
+            Boolean Success = false;
+            Int32 HasLog = 0;
+
+            if (file.FileName.Trim() != "")
+            {
+                if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
+                {
+                    DataTable dt = new DataTable();
+                    string conString = string.Empty;
+                    conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    conString = string.Format(conString, FilePath);
+                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    {
+                        excel_con.Open();
+                        string sheet1 = "PRODUCTLIST$"; //ī;
+
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                        {
+                            oda.Fill(dt);
+                        }
+                        excel_con.Close();
+                    }
+
+                    // }
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        //Mantis Issue 24674
+                        //** New Datatable included to resolve no. format for Phone numbers. State and Contact blank check was implemented to filter out blank rows from the excel Sheet. **//
+                        DataTable dtExcelData = new DataTable();
+                        dtExcelData.Columns.Add("Item Code", typeof(string));
+                        dtExcelData.Columns.Add("Item Name", typeof(string));
+                        dtExcelData.Columns.Add("Item Class/Category", typeof(string));
+                        dtExcelData.Columns.Add("Item Brand", typeof(string));
+                        dtExcelData.Columns.Add("Item Strangth", typeof(string));
+                        dtExcelData.Columns.Add("Item Price", typeof(decimal));
+                        dtExcelData.Columns.Add("Item MRP", typeof(decimal));
+                        dtExcelData.Columns.Add("Item Status", typeof(string));
+                        dtExcelData.Columns.Add("Item Unit", typeof(string));
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (Convert.ToString(row["Item Code*"]) != "" && Convert.ToString(row["Item Name*"]) != "")
+                            {
+
+                                if (Convert.ToString(row["Item Price*"]) == "")
+                                    row["Item Price*"] = "0.00";
+
+                                if (Convert.ToString(row["Item MRP*"]) == "")
+                                    row["Item MRP*"] = "0.00";
+
+
+                                dtExcelData.Rows.Add(Convert.ToString(row["Item Code*"]), Convert.ToString(row["Item Name*"]), 
+                                                Convert.ToString(row["Item Class/Category*"]), 
+                                                Convert.ToString(row["Item Brand*"]), Convert.ToString(row["Item Strangth*"]),
+                                                Convert.ToString(row["Item Price*"]), Convert.ToString(row["Item MRP*"]), 
+                                                Convert.ToString(row["Item Status (Active/Dormant)*"]), Convert.ToString(row["Item Unit*"]));
+                            }
+
+                        }
+                        
+                        try
+                        {
+                           TempData["ProductImportLog"] = dtExcelData;
+                           TempData.Keep();
+
+                            DataTable dtCmb = new DataTable();
+                            ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+                            proc.AddPara("@ACTION", "IMPORTPRODUCT");
+                            proc.AddPara("@IMPORT_TABLE", dtExcelData);
+                            proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
+                            dtCmb = proc.GetTable();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+            }
+            return HasLog;
         }
 
         public ActionResult ExporProductMasterList(int type)
