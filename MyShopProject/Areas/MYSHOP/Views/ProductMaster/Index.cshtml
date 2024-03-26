@@ -444,7 +444,9 @@
         right: 36px !important;
         left: auto !important;
     }
-    
+    #myImportProductModal .modal-body {
+        border-radius: 0 0 20px 20px;
+    }
 </style>
 
 <script>
@@ -661,10 +663,88 @@
                     }
                 });
         });
-
-
-
     }
+
+     function DownloadFormat() {
+        var url = '@Url.Action("DownloadFormat", "ProductMaster")'
+        window.location.href = url;
+    }
+
+    function ImportProductPopOpen() {
+        $("#myImportProductModal").modal('show');
+    }
+
+    function ChekEmpSettingsUpload() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod").val();
+        if ($('#fileprod').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("ImportExcel", "ProductMaster")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportProductModal").toggle();
+                        $("#myImportProductModal").modal('hide');
+                        //GridShow();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("GetPartyImportLog", "ProductMaster")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateImportLogMode.Show();
+                                    gridTemplateImportLogList.Refresh();
+                                    gridTemplateImportLogList.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+
 </script>
 
 <div class="breadCumb">
@@ -687,7 +767,7 @@
                     <button type="button" id="btnDownloadFormat" class="btn btn-success btnwidth" onclick="DownloadFormat()">Download Format</button>
                 </td>
                 <td style="">
-                    <button type="button" id="btnImport" class="btn btn-success btnwidth" onclick="Import()">Import(Add/Update)</button>
+                    <button type="button" id="btnImport" class="btn btn-success btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
                 </td>
                 <td style="">
                     <button type="button" id="btnShowData" class="btn btn-success btnwidth" onclick="ShowData()">Show Data</button>
@@ -701,6 +781,38 @@
                 @{
                     Html.RenderAction("_PartialProductGrid", "ProductMaster",new {Ispageload = "0"});
                 }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myImportProductModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For Products</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
