@@ -2781,6 +2781,7 @@ function showMarkers(data) {
             zoom: 6,
             center: { lat: 22.600, lng: 88.431 }, // Set default center
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: true,
         });
     }
 
@@ -2800,19 +2801,26 @@ function clearMarkers() {
 }
 
     function addMarkerWithInfo(markerData) {
+
+        const customMarkerImage = '/assests/images/red-dot.png';
+
         const marker = new google.maps.Marker({
             position: { lat: parseFloat(markerData.Visit_Lat), lng: parseFloat(markerData.Visit_Long) },
             map: map,
-            title: markerData.SalesMan
+            title: markerData.SalesMan,
+            icon: {
+                url: customMarkerImage,
+                scaledSize: new google.maps.Size(8, 8)
+            }
         });
 
-        const infowindow = new google.maps.InfoWindow({
-            content: `<h3>${markerData.SalesMan}</h3><p>${markerData.SalesMan}</p>`
-        });
+        //const infowindow = new google.maps.InfoWindow({
+        //    content: `<h3>${markerData.SalesMan}</h3><p>${markerData.SalesMan}</p>`
+        //});
 
-        marker.addListener('click', () => {
-            infowindow.open(map, marker);
-        });
+        //marker.addListener('click', () => {
+        //    infowindow.open(map, marker);
+        //});
 
         markers.push(marker);
     }
