@@ -440,10 +440,12 @@
     #popup_ok, #popup_cancel {
         border-radius: 4px !important;
     }
+
     #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
         right: 36px !important;
         left: auto !important;
     }
+
     #myImportProductModal .modal-body {
         border-radius: 0 0 20px 20px;
     }
@@ -724,17 +726,17 @@
                         //$("#myImportProductModal").toggle();
                         $("#myImportProductModal").modal('hide');
                         //GridShow();
-                        $.ajax({
-                            type: "POST",
-                            url: "@Url.Action("GetPartyImportLog", "ProductMaster")",
-                            success: function (response) {
-                                if (response) {
-                                    pcModalTemplateImportLogMode.Show();
-                                    gridTemplateImportLogList.Refresh();
-                                    gridTemplateImportLogList.Refresh();
-                                }
-                            }
-                        });
+                        //$.ajax({
+                         //   type: "POST",
+                         //   url: "@Url.Action("GetPartyImportLog", "ProductMaster")",
+                         //   success: function (response) {
+                         //       if (response) {
+                         //           pcModalTemplateImportLogMode.Show();
+                         //           gridTemplateImportLogList.Refresh();
+                        //            gridTemplateImportLogList.Refresh();
+                        //        }
+                        //    }
+                        //});
                     });
 
                 },
@@ -743,6 +745,50 @@
                 }
             });
         }
+    }
+
+    function ImportLogPopOpen() {
+        var d = new Date();
+
+        dtLogFrom.SetValue(d);
+        dtLogTo.SetValue(d);
+
+        pcModalImportViewMode.Show();
+    }
+
+    function ProductImportUserLog() {
+     var url = '/ProductMaster/ProductImportLog/';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ 'Fromdt': dtLogFrom.GetText(), 'ToDate': dtLogTo.GetText() }),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "True") {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("ImportLog", "ProductMaster")",
+                        success: function (response) {
+                            if (response) {
+                                //$("#ReAssignedModal_AreaRouteBeat").modal('hide');
+                                pcModalTemplateImportLog.Show();
+                                gridProductImportLog.Refresh();
+                                gridProductImportLog.Refresh();
+                            }
+                        }
+                    });
+                }
+                else {
+                    jAlert(response);
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
     }
 
 </script>
@@ -770,8 +816,12 @@
                     <button type="button" id="btnImport" class="btn btn-success btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
                 </td>
                 <td style="">
+                    <button type="button" id="btnShowImportLog" class="btn btn-success btnwidth" onclick="ImportLogPopOpen()">View Log</button>
+                </td>
+                <td style="">
                     <button type="button" id="btnShowData" class="btn btn-success btnwidth" onclick="ShowData()">Show Data</button>
                 </td>
+
             </tr>
             <tr></tr>
         </table>
@@ -779,13 +829,64 @@
         <div class="scrooler">
             <div id="refreshgrid">
                 @{
-                    Html.RenderAction("_PartialProductGrid", "ProductMaster",new {Ispageload = "0"});
+                    Html.RenderAction("_PartialProductGrid", "ProductMaster", new { Ispageload = "0" });
                 }
             </div>
         </div>
 
     </div>
 </div>
+
+@Html.DevExpress().PopupControl(
+           settings =>
+           {
+               settings.Name = "pcModalImportViewMode";
+               settings.Width = 300;
+               //settings.Height = 220;
+               //settings.ScrollBars.v
+               settings.AllowDragging = true;
+               settings.CloseAction = CloseAction.CloseButton;
+               settings.CloseOnEscape = true;
+               settings.PopupAnimationType = AnimationType.None;
+               settings.HeaderText = "Bulk Update Party Log";
+               settings.Modal = true;
+               settings.AutoUpdatePosition = true;
+               settings.Top = 50;
+               settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+               settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+               settings.SetContent(() =>
+               {
+                   Html.RenderPartial("_ProductImportManualLogView");
+               });
+
+               // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+           }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalTemplateImportLog";
+            settings.Width = 1000; //System.Web.UI.WebControls.Unit.Percentage(80);
+                                    //settings.Height = 220;
+                                    //settings.ScrollBars.v
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Product Import Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("ImportLog", new List<ProductImportLog>());
+            //ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
+            });
+
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+        }).GetHtml()
 
 <div id="myImportProductModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">
@@ -873,7 +974,7 @@
                             <div><label>Item Price <span class="red">*</span></label></div>
                             <div>
                                 @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtProductPrice" })
-                                
+
                             </div>
 
                             <label>Item Status <span class="red">*</span></label>
@@ -882,16 +983,18 @@
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer" style="width: 476px;">
-
-                <div>
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveProduct()">Save</button>
                 </div>
+                <div class="modal-footer" style="width: 476px;">
 
+                    <div>
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveProduct()">Save</button>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
+        </div>
+        <input type="hidden" id="hdnProductID" />
     </div>
-    <input type="hidden" id="hdnProductID" />
-</div>
+
+
