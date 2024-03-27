@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using iTextSharp.text.log;
 using System.Globalization;
+using DocumentFormat.OpenXml.Office.Word;
 
 namespace ERP.OMS.Management.Activities
 {
@@ -168,22 +169,21 @@ namespace ERP.OMS.Management.Activities
 
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
-        public static string DeleteSaleRateLock(string SaleRateLockID)
+        public static string DeleteSpecialPrice(string SPECIALPRICEID)
         {
             try
             {
-                // BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
-
-                ProcedureExecute proc = new ProcedureExecute("PRC_SaleRateLock");
-                proc.AddVarcharPara("@SaleRateLockID", 50, SaleRateLockID);
-                proc.AddVarcharPara("@Action", 4000, "delete");
+                ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+                proc.AddVarcharPara("@SPECIALPRICEID", 50, SPECIALPRICEID);
+                proc.AddVarcharPara("@Action", 4000, "DeleteSpecialPrice");
+                proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
                 DataTable dtSaleRateLock = proc.GetTable();
                 if (dtSaleRateLock.Rows.Count > 0)
                 {
-                    if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-999")
+                    if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "1")
                     {
-                        return "-999";
+                        return "1";
                     }
                     else if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-998")
                     {
@@ -192,6 +192,42 @@ namespace ERP.OMS.Management.Activities
                     else
                     {
                         return "0";
+                    }
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Error occured";
+            }
+        }
+
+
+        [WebMethod(EnableSession = true)]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static string UpdateSpecialPrice(string SPECIALPRICEID, string SPECIALPRICE)
+        {
+            try
+            {
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+                ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+                proc.AddVarcharPara("@SPECIALPRICEID", 50, SPECIALPRICEID);
+                proc.AddDecimalPara("@SPECIALPRICE", 2, 18, Convert.ToDecimal(SPECIALPRICE));
+                proc.AddVarcharPara("@Action", 4000, "UpdateSpecialPrice");
+                proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                DataTable dtSaleRateLock = proc.GetTable();
+                if (dtSaleRateLock.Rows.Count > 0)
+                {
+                    if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-11")
+                    {
+                        return "-11";
+                    }
+                    else
+                    {
+                        return "1";
                     }
                 }
                 else
@@ -220,10 +256,10 @@ namespace ERP.OMS.Management.Activities
         }
         protected void CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
-            string returnPara = Convert.ToString(e.Parameter);           
+            string returnPara = Convert.ToString(e.Parameter);
 
             string strProduct_hiddenID = (Convert.ToString(txtProduct_hidden.Value) == "") ? "0" : Convert.ToString(txtProduct_hidden.Value);
-            Task PopulateStockTrialDataTask = new Task(() => GetSpecialPriceUploaddata( strProduct_hiddenID));
+            Task PopulateStockTrialDataTask = new Task(() => GetSpecialPriceUploaddata(strProduct_hiddenID));
             PopulateStockTrialDataTask.RunSynchronously();
         }
         public void GetSpecialPriceUploaddata(string Products)
@@ -236,8 +272,7 @@ namespace ERP.OMS.Management.Activities
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@COMPANYID", Convert.ToString(Session["LastCompany"]));
                 cmd.Parameters.AddWithValue("@FINYEAR", Convert.ToString(Session["LastFinYear"]));
-                cmd.Parameters.AddWithValue("@Products", Products);          
-               
+                cmd.Parameters.AddWithValue("@Products", Products);
                 cmd.Parameters.AddWithValue("@USERID", Convert.ToInt32(Session["userid"]));
                 cmd.Parameters.AddWithValue("@ACTION", hFilterType.Value);
                 cmd.CommandTimeout = 0;
@@ -261,34 +296,26 @@ namespace ERP.OMS.Management.Activities
 
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
-        public static List<SaleRateLock> GetSaleRateLock(string SaleRateLockID)
+        public static List<SPECIALPRICE> GetSpecialPrice(string SPECIALPRICEID)
         {
-            List<SaleRateLock> listSaleRateLock = new List<SaleRateLock>();
+            List<SPECIALPRICE> listSaleRateLock = new List<SPECIALPRICE>();
             if (HttpContext.Current.Session["userid"] != null)
             {
-                // BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+                ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+                proc.AddVarcharPara("@Action", 50, "GetSpecialPrice");
+                proc.AddVarcharPara("@SPECIALPRICEID", 10, SPECIALPRICEID);
+                DataTable dtSPECIALPRICE = proc.GetTable();
 
-                ProcedureExecute proc = new ProcedureExecute("PRC_SaleRateLock");
-                proc.AddVarcharPara("@Action", 50, "GetSaleRateLockDetails");
-                proc.AddVarcharPara("@SaleRateLockID", 10, SaleRateLockID);
-                DataTable dtSaleRateLock = proc.GetTable();
-
-                listSaleRateLock = (from DataRow dr in dtSaleRateLock.Rows
-                                    select new SaleRateLock()
+                listSaleRateLock = (from DataRow dr in dtSPECIALPRICE.Rows
+                                    select new SPECIALPRICE()
                                     {
-                                        CustomerID = dr["CustomerID"].ToString(),
-                                        CustomerName = dr["CustName"].ToString(),
-                                        ProductID = Convert.ToString(dr["ProductID"]),
-                                        Products_Name = Convert.ToString(dr["Products_Name"]),
-                                        DiscSalesPrice = dr["DiscSalesPrice"].ToString(),
-                                        MinSalePrice = dr["MinSalePrice"].ToString(),
-                                        Disc = Convert.ToString(dr["Disc"]),
-                                        ValidFrom = Convert.ToString(dr["ValidFrom"]),
-                                        ValidUpto = Convert.ToString(dr["ValidUpto"]),
-                                        IsInUse = Convert.ToString(dr["IsInUse"]),
-                                        FixRate = Convert.ToString(dr["FixedRate"]),
-                                        Scheme = Convert.ToString(dr["Scheme"])
+
+                                        ProductID = Convert.ToString(dr["PRODUCT_ID"]),
+                                        Products_Name = Convert.ToString(dr["sProducts_Name"]),
+                                        SPECIAL_PRICE = dr["SPECIAL_PRICE"].ToString(),
+                                        PRODUCT_CODE = dr["PRODUCT_CODE"].ToString(),
+                                        branch_description = dr["branch_description"].ToString(),
                                     }).ToList();
             }
 
@@ -296,46 +323,20 @@ namespace ERP.OMS.Management.Activities
 
         }
 
-        protected void EntityServerModeDataProduct_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
+        
+
+      
+        public class SPECIALPRICE
         {
-            e.KeyExpression = "Products_ID";
+            public int SPECIALPRICEID { get; set; }
+            public string PRODUCT_CODE { get; set; }
+            public string SPECIAL_PRICE { get; set; }
+            public string ProductID { get; set; }
+            public string Products_Name { get; set; }
 
-            //string connectionString = ConfigurationManager.ConnectionStrings["crmConnectionString"].ConnectionString;
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
-
-            ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
-
-            string Userid = Convert.ToString(HttpContext.Current.Session["userid"]);
-            BusinessLogicLayer.DBEngine BEngine = new BusinessLogicLayer.DBEngine();
-
-            var q = from d in dc.v_Product_SaleRateLocks
-                    orderby d.Products_ID descending
-                    select d;
-
-            e.QueryableSource = q;
+            public string branch_description { get; set; }
 
         }
-
-        protected void EntityServerModeData_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
-        {
-            e.KeyExpression = "cnt_internalid";
-
-            //string connectionString = ConfigurationManager.ConnectionStrings["crmConnectionString"].ConnectionString;
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
-
-            ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
-
-            string Userid = Convert.ToString(HttpContext.Current.Session["userid"]);
-            BusinessLogicLayer.DBEngine BEngine = new BusinessLogicLayer.DBEngine();
-
-            var q = from d in dc.v_SaleRateLock_customerDetails
-                    orderby d.Name //descending
-                    select d;
-            e.QueryableSource = q;
-
-        }
-
-       
         public class SaleRateLock
         {
             public int SaleRateLockID { get; set; }
@@ -487,14 +488,13 @@ namespace ERP.OMS.Management.Activities
                 string FolderPath = ConfigurationManager.AppSettings["FolderPath"];
                 string FilePath = Server.MapPath("~/Temporary/") + FileName;
                 fileprod.SaveAs(FilePath);
-                HasLog=Import_To_Grid(FilePath, Extension, "No");
+                HasLog = Import_To_Grid(FilePath, Extension, "No");
 
                 File.Delete(FilePath);
             }
 
-            if(HasLog==false)
+            if (HasLog == false)
             {
-                //ScriptManager.RegisterStartupScript(this, GetType(), UniqueID, "jAlert('invalid File')", true);
                 Page.ClientScript.RegisterStartupScript(GetType(), "PageScript", "<script language='javascript'>jAlert('invalid File!'); </script>");
 
             }
@@ -542,16 +542,6 @@ namespace ERP.OMS.Management.Activities
                             }
                             else
                             {
-                                //dt.Rows.Add();
-                                //int i = 0;
-                                //foreach (Cell cell in row.Descendants<Cell>())
-                                //{
-                                //    if (cell.CellValue != null)
-                                //    {
-                                //        dt.Rows[dt.Rows.Count - 1][i] = GetValue(doc, cell);
-                                //    }
-                                //    i++;
-                                //}
                                 DataRow tempRow = dt.NewRow();
                                 int columnIndex = 0;
                                 foreach (Cell cell in row.Descendants<Cell>())
@@ -587,17 +577,17 @@ namespace ERP.OMS.Management.Activities
                     }
 
                     if (dt != null && dt.Rows.Count > 0)
-                    {                       
+                    {
 
                         foreach (DataRow row in dt.Rows)
                         {
                             loopcounter++;
                             try
-                            {                                
+                            {
                                 string BRANCH = Convert.ToString(row["BRANCH"]);
                                 string PRODUCTCODE = Convert.ToString(row["PRODUCTCODE"]);
                                 string PRODUCTNAME = Convert.ToString(row["PRODUCTNAME"]);
-                                string SPECIALPRICE = Convert.ToString(row["SPECIALPRICE"]);                                
+                                string SPECIALPRICE = Convert.ToString(row["SPECIALPRICE"]);
 
                                 DataSet dt2 = InsertSpecialPriceDataFromExcel(BRANCH, PRODUCTCODE, PRODUCTNAME, SPECIALPRICE
                                        );
@@ -612,17 +602,17 @@ namespace ERP.OMS.Management.Activities
                                     }
                                 }
 
-                                //if (!HasLog)
-                                //{
-                                //    string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                //    int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, FirstName, UserId, Session["FileName"].ToString(), description, "Failed");
-                                //}
+                                if (!HasLog)
+                                {
+                                    string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Failed");
+                                }
 
-                                //else
-                                //{
-                                //    string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                //    int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, FirstName, UserId, Session["FileName"].ToString(), description, "Success");
-                                //}
+                                else
+                                {
+                                    string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Success");
+                                }
 
 
 
@@ -631,8 +621,7 @@ namespace ERP.OMS.Management.Activities
                             {
                                 Success = false;
                                 HasLog = false;
-                                // string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                //int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, "", "", Session["FileName"].ToString(), ex.Message.ToString(), "Failed");
+
                             }
 
                         }
@@ -642,42 +631,49 @@ namespace ERP.OMS.Management.Activities
                         ScriptManager.RegisterStartupScript(this, GetType(), UniqueID, "jAlert('invalid File')", true);
                     }
 
-                    //DataTable dtCmb = new DataTable();
-                    //ProcedureExecute proc = new ProcedureExecute("PRC_SaleRateLock");
-                    //proc.AddPara("@Action", "InsertImportData");
-                    //proc.AddPara("@UDT_PRODUCTRATE", dt);
-                    //// proc.AddPara("@user_Id", Convert.ToInt32(HttpContext.Current.Session["userid"]));
-                    //dtCmb = proc.GetTable();
 
-                    //Session["Datlog"] = dtCmb;
-                    ////ScriptManager.RegisterStartupScript(this, this.GetType(), "popup", "jAlert('Successfully imported.');", true);
-                    //if (dtCmb != null && dtCmb.Rows.Count > 0)
-                    //{
-                    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "popup", "jAlert('Successfully imported.', 'Alert', function (r) {if (r == true) {  OpenProductRateLogModal();} });", true);
-                    //}
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), UniqueID, "jAlert('invalid File')", true);
                 }
 
-                
+
             }
             return HasLog;
+        }
+        public int InsertSpecialPriceImportLOg(string PRODUCTCODE, string SPECIALPRICE, string BRANCH, string description, string status)
+        {
+
+            int i;
+            ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+            proc.AddVarcharPara("@action", 150, "InsertSpecialPriceImportLOg");
+            proc.AddVarcharPara("@BRANCH", 200, BRANCH);
+            proc.AddVarcharPara("@PRODUCTCODE", 200, PRODUCTCODE);
+            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);
+            proc.AddVarcharPara("@decription", 150, description);
+            proc.AddVarcharPara("@status", 150, status);
+            proc.AddIntegerPara("@UserId", Convert.ToInt32(Session["userid"]));
+            i = proc.RunActionQuery();
+
+            return i;
         }
         public DataSet InsertSpecialPriceDataFromExcel(string BRANCH, string PRODUCTCODE, string PRODUCTNAME, string SPECIALPRICE)
         {
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
-            proc.AddVarcharPara("@Action", 100, "InsertEmployeeDataFromExcel");
+            proc.AddVarcharPara("@Action", 100, "InsertSpecialPriceDataFromExcel");
             proc.AddIntegerPara("@UserId", Convert.ToInt32(Session["userid"]));
             proc.AddVarcharPara("@BRANCH", 200, BRANCH);
             proc.AddVarcharPara("@PRODUCTCODE", 200, PRODUCTCODE);
             proc.AddVarcharPara("@PRODUCTNAME", 200, PRODUCTNAME);
-            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);            
+            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);
             ds = proc.GetDataSet();
             return ds;
         }
+
+
+
         public static int? GetColumnIndexFromName(string columnName)
         {
             //return columnIndex;

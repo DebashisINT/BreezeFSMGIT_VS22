@@ -87,6 +87,60 @@ namespace ERP.OMS.Management.Activities
         protected global::DevExpress.Data.Linq.LinqServerModeDataSource EntityServerModeDataSource;
 
         /// <summary>
+        /// txtBRANCH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtBRANCH;
+
+        /// <summary>
+        /// txtPRODUCTCODE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtPRODUCTCODE;
+
+        /// <summary>
+        /// txtPRODUCTNAME control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtPRODUCTNAME;
+
+        /// <summary>
+        /// txtSPECIALPRICE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtSPECIALPRICE;
+
+        /// <summary>
+        /// btnSaveRecords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSaveRecords;
+
+        /// <summary>
+        /// btncancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btncancel;
+
+        /// <summary>
         /// CallbackPanel control.
         /// </summary>
         /// <remarks>
@@ -123,13 +177,13 @@ namespace ERP.OMS.Management.Activities
         protected global::System.Web.UI.WebControls.HiddenField hdnProdId;
 
         /// <summary>
-        /// HiddenSaleRateLockID control.
+        /// HiddenSPECIALPRICEID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenSaleRateLockID;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenSPECIALPRICEID;
 
         /// <summary>
         /// Hiddenvalidfrom control.

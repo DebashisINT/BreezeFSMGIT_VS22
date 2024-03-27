@@ -756,7 +756,7 @@
             cCallbackPanel.PerformCallback("");
         }
         function CallbackPanelEndCall(s, e) {
-            cGrdOrder.Refresh();
+            cGridSpecialPriceUpload.Refresh();
         }
         function ShowLogData(haslog) {
             $('#btnViewLog').click();
@@ -802,89 +802,19 @@
         //});
 
         function SaveButtonClick(flag) {
-            $("#MandatorysCustName").hide();
-            $("#MandatorysProductName").hide();
-            $("#MandatorysDiscount").hide();
-            $("#MandatorysFromdt").hide();
-            $("#MandatorysTodt").hide();
-            $("#MandatorysAmount").hide();
-
-            var product = [];
-            var Entity = [];
-
-            if (document.getElementById("chkAll").checked == false) {
-                //if (ctxtCustName.GetText() == "") {
-                //    $("#MandatorysCustName").show();
-                //    ctxtCustName.Focus();
-                //    return false;
-                //}
-                if (clookup_Entity.gridView.GetSelectedKeysOnPage() == null) {
-                    clookup_Entity.gridView.Focus();
-                    return false;
-                }
-                else {
-                    $("#hdnCustId").val(clookup_Entity.gridView.GetSelectedKeysOnPage());
-                    Entity = clookup_Entity.gridView.GetSelectedKeysOnPage();
-                }
-            }
-            else {
-                $("#hdnCustId").val(0);
-                Entity.push(0);
-            }
-
-            if (document.getElementById("chkAllProduct").checked == false) {
-                //if (ctxtProductName.GetText() == "") {
-                //    $("#MandatorysProductName").show();
-                //    ctxtProductName.Focus();
-                //    return false;
-                //}
-                if (clookup_Product.gridView.GetSelectedKeysOnPage() == null) {
-                    clookup_Product.gridView.Focus();
-                    return false;
-                }
-                else {
-                    product = clookup_Product.gridView.GetSelectedKeysOnPage();
-                    $("#hdnProdId").val(clookup_Product.gridView.GetSelectedKeysOnPage());
-                }
-            }
-            else {
-                product.push(0);
-                $("#hdnProdId").val(0);
-            }
-            //if (ctxtDiscount.GetValue() == "") {
-            //    $("#MandatorysDiscount").show();
-            //    ctxtDiscount.Focus();
-            //    return false;
-            //}
-            if (ctxtAmount.GetValue() == "0.00") {
-                $("#MandatorysAmount").show();
-                ctxtAmount.Focus();
+          
+            if (ctxtSPECIALPRICE.GetValue() == "0.00") {
+                $("#MandatorysSPECIALPRICE").show();
+                ctxtSPECIALPRICE.Focus();
                 return false;
             }
-
-            if (cFormDate.GetValue() == "") {
-                $("#MandatorysFromdt").show();
-                cFormDate.Focus();
-                return false;
-            }
-            if (cToDate.GetValue() == "") {
-                $("#MandatorysTodt").show();
-                cToDate.Focus();
-                return false;
-            }
-            //if (cbtnSaveRecords.GetText() == "Update") {
-            //    flag = "update";
-            //}
-
-            //"CustID": $.trim($("#hdnCustId").val()), "ProductID": $.trim($("#hdnProdId").val())
-
+          
             $.ajax({
                 type: "POST",
-                url: "/OMS/Management/Activities/CustSaleRateLock.aspx/addSaleRateLock",
+                url: "/OMS/Management/Activities/SpecialPriceUpload.aspx/UpdateSpecialPrice",
                 data: JSON.stringify({
-                    "SaleRateLockID": $.trim($("#HiddenSaleRateLockID").val()), "CustID": Entity, "ProductID": product, "DiscSalesPrice": ctxtAmount.GetValue(),
-                    "MinSalePrice": ctxtMinSalePrice.GetValue(), "discount": ctxtDiscount.GetValue(), "fromdt": cFormDate.GetDate(), "todate": cToDate.GetDate(),
-                    "action": flag, "FixRate": ctxtFixRate.GetValue(), "SCHEME": ctxtScheme.GetValue()
+                    "SPECIALPRICEID": $.trim($("#HiddenSPECIALPRICEID").val()),
+                    "SPECIALPRICE": ctxtSPECIALPRICE.GetValue()
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -892,54 +822,67 @@
                 async: false,
                 success: function (msg) {
                     if (msg.d) {
-                        if (flag == "Insert") {
-                            if (msg.d == "-12") {
-                                jAlert("From date cannot be greater than to date");
-                                $("#MandatorysFromdt").show();
-                                return false;
-                            }
-                            if (msg.d == "-11") {
-                                jAlert("Product already is in sale");
-                                return false;
-                            }
-                            if (msg.d == "-13") {
-                                jAlert("From date and to date is same");
-                                return false;
-                            }
-                            else {
-                                jAlert("Added Successfully");
-                                $("#entry").hide();
-                                $("#view").show();
-                                $("#lblheading").html("Sale Rate Lock");
-                                $("#divAddButton").show();
-                                $("#divcross").hide();
-                                clear();
-                                cGridSaleRate.Refresh();
-                                return false;
-                            }
+                        if (msg.d == "1") 
+                        {
+                            jAlert("Updated Successfully");
+                            $("#entry").hide();
+                            $("#view").show();
+                            $("#TblSearch").show(); 
+                            $("#lblheading").html("Special Price Upload");
+                            $("#divAddButton").show();
+                            $("#divcross").hide();
+                            clear();
+                            cGridSpecialPriceUpload.Refresh();
+                            return false;
                         }
-                        if (flag == "update") {
-                            if (msg.d == "-12") {
-                                jAlert("From date cannot be greater than to date");
-                                $("#MandatorysFromdt").show();
-                                return false;
-                            }
-                            if (msg.d == "-11") {
-                                jAlert("Product already is in sale");
-                                return false;
-                            }
-                            else {
-                                $("#entry").hide();
-                                $("#view").show();
-                                $("#lblheading").html("Sale Rate Lock");
-                                $("#divAddButton").show();
-                                $("#divcross").hide();
-                                cGridSaleRate.Refresh();
-                                $("#txtCustName_B0").show();
-                                clear();
-                                return false;
-                            }
-                        }
+                        //if (flag == "Insert") {
+                        //    if (msg.d == "-12") {
+                        //        jAlert("From date cannot be greater than to date");
+                        //        $("#MandatorysFromdt").show();
+                        //        return false;
+                        //    }
+                        //    if (msg.d == "-11") {
+                        //        jAlert("Product already is in sale");
+                        //        return false;
+                        //    }
+                        //    if (msg.d == "-13") {
+                        //        jAlert("From date and to date is same");
+                        //        return false;
+                        //    }
+                        //    else {
+                        //        jAlert("Added Successfully");
+                        //        $("#entry").hide();
+                        //        $("#view").show();
+                        //        $("#lblheading").html("Sale Rate Lock");
+                        //        $("#divAddButton").show();
+                        //        $("#divcross").hide();
+                        //        clear();
+                        //        cGridSpecialPriceUpload.Refresh();
+                        //        return false;
+                        //    }
+                        //}
+                        //if (flag == "update") {
+                        //    if (msg.d == "-12") {
+                        //        jAlert("From date cannot be greater than to date");
+                        //        $("#MandatorysFromdt").show();
+                        //        return false;
+                        //    }
+                        //    if (msg.d == "-11") {
+                        //        jAlert("Product already is in sale");
+                        //        return false;
+                        //    }
+                        //    else {
+                        //        $("#entry").hide();
+                        //        $("#view").show();
+                        //        $("#lblheading").html("Sale Rate Lock");
+                        //        $("#divAddButton").show();
+                        //        $("#divcross").hide();
+                        //        cGridSpecialPriceUpload.Refresh();
+                        //        $("#txtCustName_B0").show();
+                        //        clear();
+                        //        return false;
+                        //    }
+                        //}
                     }
                 },
                 error: function (response) {
@@ -949,15 +892,15 @@
 
         }
 
-        function SaleRateCustomButtonClick(s, e) {
+        function SpecialPriceCustomButtonClick(s, e) {
             var id = s.GetRowKey(e.visibleIndex);
             if (e.buttonID == 'CustomBtnEdit') {
                 if (id != "") {
-                    document.getElementById('HiddenSaleRateLockID').value = id;
+                    document.getElementById('HiddenSPECIALPRICEID').value = id;
                     $.ajax({
                         type: "POST",
-                        url: "/OMS/Management/Activities/CustSaleRateLock.aspx/GetSaleRateLock",
-                        data: JSON.stringify({ "SaleRateLockID": id }),
+                        url: "/OMS/Management/Activities/SpecialPriceUpload.aspx/GetSpecialPrice",
+                        data: JSON.stringify({ "SPECIALPRICEID": id }),
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -972,8 +915,8 @@
                     if (confirm("Are you sure to delete")) {
                         $.ajax({
                             type: "POST",
-                            url: "/OMS/Management/Activities/CustSaleRateLock.aspx/DeleteSaleRateLock",
-                            data: JSON.stringify({ "SaleRateLockID": id }),
+                            url: "/OMS/Management/Activities/SpecialPriceUpload.aspx/DeleteSpecialPrice",
+                            data: JSON.stringify({ "SPECIALPRICEID": id }),
                             dataType: "json",
                             contentType: "application/json; charset=utf-8",
                             global: false,
@@ -984,9 +927,9 @@
                                         jAlert("Already is in used.Unable to delete");
                                         return false;
                                     }
-                                    if (msg.d == "-999") {
+                                    if (msg.d == "1") {
                                         jAlert("Deleted Successfuly");
-                                        cGridSaleRate.Refresh();
+                                        cGridSpecialPriceUpload.Refresh();
                                         return false;
                                     }
                                 }
@@ -1000,54 +943,20 @@
 
         function OnSuccess(data) {
             //alert(data);
-            for (var i = 0; i < data.d.length; i++) {
-                if (data.d[i].IsInUse == "1") {
-                    jAlert("Already is in used.Unable to delete");
-                    return false;
-                }
-
-                if (data.d[i].CustomerID == "0") {
-                    clookup_Entity.SetEnabled(false);
-                    document.getElementById("chkAll").checked = true;
-                }
-                else {
-                    clookup_Entity.SetValue(data.d[i].CustomerID);
-                    document.getElementById("chkAll").checked = false;
-                }
-
-                if (data.d[i].ProductID == "0") {
-                    clookup_Product.SetEnabled(false);
-                    document.getElementById("chkAllProduct").checked = true;
-                }
-                else {
-                    clookup_Product.SetValue(data.d[i].ProductID);
-                    document.getElementById("chkAllProduct").checked = false;
-                }
-
-                // ctxtCustName.SetText(data.d[i].CustomerName);
-                document.getElementById('hdnCustId').value = data.d[i].CustomerID;
-                //ctxtProductName.SetText(data.d[i].Products_Name);
+            for (var i = 0; i < data.d.length; i++) {                
                 document.getElementById('hdnProdId').value = data.d[i].ProductID;
-                ctxtMinSalePrice.SetValue(data.d[i].MinSalePrice);
-                ctxtDiscount.SetValue(data.d[i].Disc);
-                ctxtAmount.SetValue(data.d[i].DiscSalesPrice);
-                ctxtFixRate.SetValue(data.d[i].FixRate);
-                var frmdt = new Date(data.d[i].ValidFrom);
-                cFormDate.SetDate(frmdt);
-                var todt = new Date(data.d[i].ValidUpto);
-                cToDate.SetDate(todt);
-                // ctxtCustName.Focus();
-                //ctxtCustName.SetButtonVisible(0);
-                ctxtScheme.SetText(data.d[i].Scheme);
-                $("#txtCustName_B0").hide();
-
+                ctxtBRANCH.SetValue(data.d[i].branch_description);
+                ctxtPRODUCTCODE.SetValue(data.d[i].PRODUCT_CODE);
+                ctxtPRODUCTNAME.SetValue(data.d[i].Products_Name);
+                ctxtSPECIALPRICE.SetValue(data.d[i].SPECIAL_PRICE);          
 
             }
             $("#entry").show();
             $("#view").hide();
             $("#divAddButton").hide();
             $("#divcross").show();
-            $("#lblheading").html("Modify Sale Rate Lock");
+            $("#lblheading").html("Modify Special Price Upload");
+            $("#TblSearch").hide(); 
             //cbtnSaveRecords.SetText("Update");
         }
 
@@ -1067,47 +976,26 @@
             clear();
             $("#entry").hide();
             $("#view").show();
-            $("#lblheading").html("Sale Rate Lock");
-            $("#divAddButton").show();
-            //cbtnSaveRecords.Focus()
+            $("#TblSearch").show(); 
+            $("#lblheading").html("Special Price Upload");
+            $("#divAddButton").show();           
             $("#divcross").hide();
-            $("#txtCustName_B0").show();
+            
+
         }
 
-        function clear() {
-            //ctxtCustName.SetText("");
-            document.getElementById('hdnCustId').value = "";
-            // ctxtProductName.SetText("");
-            document.getElementById('hdnProdId').value = "";
-            ctxtMinSalePrice.SetValue("0.00");
-            ctxtDiscount.SetValue("0.00");
-            ctxtAmount.SetValue("0.00");
-            ctxtFixRate.SetValue("0.00");
-            var frmdt = new Date($.trim($("#Hiddenvalidfrom").val()));
-            cFormDate.SetDate(frmdt);
-            var todt = new Date($.trim($("#Hiddenvalidupto").val()));
-            cToDate.SetDate(todt);
-            //cbtnSaveRecords.SetText("S&#818;ave");
-            $("#MandatorysCustName").hide();
-            $("#MandatorysProductName").hide();
-            $("#MandatorysDiscount").hide();
-            $("#MandatorysFromdt").hide();
-            $("#MandatorysTodt").hide();
-            $("#MandatorysAmount").hide();
-            clookup_Entity.SetEnabled(true);
-            clookup_Product.SetEnabled(true);
-            document.getElementById("chkAll").checked = false;
-            document.getElementById("chkAllProduct").checked = false;
-            ctxtScheme.SetText("");
-            clookup_Entity.gridView.UnselectRows();
-            clookup_Product.gridView.UnselectRows()
+        function clear() {           
+            ctxtBRANCH.SetValue("");
+            ctxtPRODUCTCODE.SetValue("");
+            ctxtPRODUCTNAME.SetValue("");
+            ctxtSPECIALPRICE.SetValue("0.00");    
         }
 
         $(document).ready(function () {
             console.log('ready');
             $('.navbar-minimalize').click(function () {
                 console.log('clicked');
-                // cGridSaleRate.Refresh();
+                // cGridSpecialPriceUpload.Refresh();
                 cgridProductRate.Refresh();
             });
         });
@@ -1191,7 +1079,7 @@
                             }
                             if (msg.d == "-999") {
                                 jAlert("Deleted Successfuly");
-                                cGridSaleRate.Refresh();
+                                cGridSpecialPriceUpload.Refresh();
                                 return false;
                             }
                         }
@@ -1306,7 +1194,7 @@
                 DataSourceID="EntityServerModeDataSource" SettingsDataSecurity-AllowEdit="false" SettingsDataSecurity-AllowInsert="false" SettingsDataSecurity-AllowDelete="false" OnCustomCallback="GridSaleRate_CustomCallback">
 
                 <SettingsSearchPanel Visible="True" Delay="5000" />
-                <ClientSideEvents CustomButtonClick="SaleRateCustomButtonClick" RowClick="gridRowclick" />
+                <ClientSideEvents CustomButtonClick="SpecialPriceCustomButtonClick" RowClick="gridRowclick" />
                 <SettingsBehavior ConfirmDelete="True" />
                 <Columns>
                     <dxe:GridViewDataTextColumn Visible="False" FieldName="SPECIALPRICEID" SortOrder="Descending">
@@ -1358,9 +1246,49 @@
             <dx:LinqServerModeDataSource ID="EntityServerModeDataSource" runat="server" OnSelecting="EntityServerModeDataSource_Selecting"
                 ContextTypeName="ERPDataClassesDataContext" TableName="PRODUCTSPECIALPRICELIST" />
         </div>
+        <div id="entry" style="display: none">
+        <div style="background: #f5f4f3; padding: 17px 0; margin-bottom: 0px; border-radius: 4px; border: 1px solid #ccc;" class="clearfix">
+        
+        <div class="col-md-2">
+            <label>BRANCH</label>
+            <dxe:ASPxTextBox ID="txtBRANCH" ClientInstanceName="ctxtBRANCH" runat="server" ReadOnly="true">                
+            </dxe:ASPxTextBox>
+        </div>
+        <div class="col-md-2">
+            <label>PRODUCT CODE</label>
+            <dxe:ASPxTextBox ID="txtPRODUCTCODE" ClientInstanceName="ctxtPRODUCTCODE" runat="server" ReadOnly="true">                
+            </dxe:ASPxTextBox>
+              
+        </div>
+        <div class="col-md-2">
+            <label>PRODUCT NAME</label>
+            <dxe:ASPxTextBox ID="txtPRODUCTNAME" ClientInstanceName="ctxtPRODUCTNAME" runat="server" TabIndex="4">              
+            </dxe:ASPxTextBox>           
+        </div>
+        <div class="col-md-2">
+            <label>SPECIAL PRICE</label>
+            <dxe:ASPxTextBox ID="txtSPECIALPRICE" ClientInstanceName="ctxtSPECIALPRICE" runat="server" TabIndex="5">
+                <MaskSettings Mask="&lt;0..999999999&gt;.&lt;00..99&gt;" AllowMouseWheel="false" />              
+            </dxe:ASPxTextBox>
+            <span id="MandatorysSPECIALPRICE" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
+                title="Mandatory"></span>
+        </div>
+        <div class="clearfix"></div>      
 
     </div>
+    <div class="clearfix"></div>
+    <div style="padding: 15px 10px 10px 0px;">
+        <dxe:ASPxButton ID="btnSaveRecords" TabIndex="7" ClientInstanceName="cbtnSaveRecords" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
+            <ClientSideEvents Click="function(s, e) {SaveButtonClick('Insert');}" />
+        </dxe:ASPxButton>
+        <dxe:ASPxButton ID="btncancel" TabIndex="8" ClientInstanceName="cbtncancel" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
+            <ClientSideEvents Click="function(s, e) {cancel();}" />
+        </dxe:ASPxButton>
+
     </div>
+</div>
+    </div>
+   
     <dxe:ASPxCallbackPanel runat="server" ID="CallbackPanel" ClientInstanceName="cCallbackPanel" OnCallback="CallbackPanel_Callback">
         <PanelCollection>
             <dxe:PanelContent runat="server">
@@ -1372,10 +1300,10 @@
     <asp:HiddenField ID="hFilterType" runat="server" />
     <asp:HiddenField ID="hdnCustId" runat="server" />
     <asp:HiddenField ID="hdnProdId" runat="server" />
-    <asp:HiddenField ID="HiddenSaleRateLockID" runat="server" />
+    <asp:HiddenField ID="HiddenSPECIALPRICEID" runat="server" />
     <asp:HiddenField ID="Hiddenvalidfrom" runat="server" />
     <asp:HiddenField ID="Hiddenvalidupto" runat="server" />
-    <!--Customer Modal -->
+   <%-- <!--Customer Modal -->
     <div class="modal fade" id="CustModel" role="dialog">
         <div class="modal-dialog">
 
@@ -1406,7 +1334,7 @@
             </div>
 
         </div>
-    </div>
+    </div>--%>
     <!--Product Modal -->
     <div class="modal fade" id="ProductModel" role="dialog">
         <div class="modal-dialog">
