@@ -2033,6 +2033,8 @@
     <Content Include="Areas\MYSHOP\Views\ViewGeography\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ViewGeography\_PartyTypeList.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ViewGeotrack\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ProductMaster\_ProductImportManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ProductMaster\ImportLog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

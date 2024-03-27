@@ -19,6 +19,8 @@ using DevExpress.Web;
 using System.Configuration;
 using System.Data.OleDb;
 using System.IO;
+using DocumentFormat.OpenXml.EMMA;
+using Models;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -474,6 +476,80 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.SettingsExport.BottomMargin = 20;
 
             return settings;
+        }
+
+        [HttpPost]
+        public JsonResult ProductImportLog(string Fromdt, String ToDate)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                string datfrmat = Fromdt.Split('-')[2] + '-' + Fromdt.Split('-')[1] + '-' + Fromdt.Split('-')[0];
+                string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+                proc.AddPara("@ACTION", "GETPRODUCTIMPORTLOG");
+                proc.AddPara("@FromDate", datfrmat);
+                proc.AddPara("@ToDate", dattoat);
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TempData["ProductImportLog"] = dt;
+                    TempData.Keep();
+                    output_msg = "True";
+                }
+                else
+                {
+                    output_msg = "Log not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ImportLog()
+        {
+            List<ProductImportLog> list = new List<ProductImportLog>();
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = (DataTable)TempData["ProductImportLog"];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    ProductImportLog data = null;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        data = new ProductImportLog();
+                        data.ItemCode = Convert.ToString(row["ItemCode"]);
+                        data.ItemName = Convert.ToString(row["ItemName"]);
+                        data.ItemClass = Convert.ToString(row["ItemClass"]);
+                        data.ItemBrand = Convert.ToString(row["ItemBrand"]);
+                        data.ItemStrangth = Convert.ToString(row["ItemStrangth"]);
+                        data.ItemPrice = Convert.ToDecimal(row["ItemPrice"]);
+                        data.ItemMRP = Convert.ToDecimal(row["ItemMRP"]);
+                        data.ItemStatus = Convert.ToString(row["ItemStatus"]);
+
+                        data.ItemUnit = Convert.ToString(row["ItemUnit"]);
+                        data.ImportStatus = Convert.ToString(row["ImportStatus"]);
+                        data.ImportMsg = Convert.ToString(row["ImportMsg"]);
+                        data.ImportDate = Convert.ToDateTime(row["ImportDate"]);
+                        data.UpdatedBy = Convert.ToString(row["UpdatedBy"]);
+
+                        list.Add(data);
+                    }
+                    TempData["ProductImportLog"] = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            TempData.Keep();
+            return PartialView(list);
         }
     }
     

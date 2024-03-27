@@ -38,6 +38,7 @@ namespace MyShop.Models
         public List<string> ProductStatusIds { get; set; }
         public Int32 ProductStatusId { get; set; }
         public List<ProductStatusList> ProductStatusList { get; set; }
+      
     }
 
     public class ProductClassList
@@ -68,4 +69,25 @@ namespace MyShop.Models
         public Int64 ProductStatusId { get; set; }
         public string ProductStatusName { get; set; }
     }
+
+    public class ProductImportLog
+    {
+        public string ItemCode { get; set; }
+        public string ItemName { get; set; }
+        public string ItemClass { get; set; }
+        public string ItemBrand { get; set; }
+        public string ItemStrangth { get; set; }
+        public decimal ItemPrice { get; set; }
+        public decimal ItemMRP { get; set; }
+        public string ItemStatus { get; set; }
+        public string ItemUnit { get; set; }
+
+        public string ImportStatus { get; set; }
+        public string ImportMsg { get; set; }
+
+        public DateTime ImportDate { get; set; }
+        public string UpdatedBy { get; set; }
+
+    }
+
 }
