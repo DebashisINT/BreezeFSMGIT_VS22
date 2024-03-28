@@ -684,6 +684,7 @@
             arrMultiPopup.push(ProductObj);
         })
         function ProductButnClick(s, e) {
+            $("#txtProduct_hidden").val("");
             $("#ProductTable").empty();
             var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th><th>Min Sale Price</th></tr></table>";
             $("#ProductTable").html(html);
@@ -1166,7 +1167,7 @@
                 <div class="dis-flex">
                     <span id="divImportButton">
                      <%--   <button type="button" onclick="getDownloadTemplateSettings();" class="btn btn-info">Download Template</button>--%>
-                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" />
+                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False"/>
                         <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-danger">Import (Add/Update)</button>
                     </span>
 
@@ -1262,7 +1263,7 @@
         </div>
         <div class="col-md-2">
             <label>PRODUCT NAME</label>
-            <dxe:ASPxTextBox ID="txtPRODUCTNAME" ClientInstanceName="ctxtPRODUCTNAME" runat="server" TabIndex="4">              
+            <dxe:ASPxTextBox ID="txtPRODUCTNAME" ClientInstanceName="ctxtPRODUCTNAME" runat="server"  ReadOnly="true">              
             </dxe:ASPxTextBox>           
         </div>
         <div class="col-md-2">
@@ -1296,7 +1297,7 @@
         </PanelCollection>
         <ClientSideEvents EndCallback="CallbackPanelEndCall" />
     </dxe:ASPxCallbackPanel>
-
+     <asp:HiddenField ID="hfIsFilter" runat="server" />
     <asp:HiddenField ID="hFilterType" runat="server" />
     <asp:HiddenField ID="hdnCustId" runat="server" />
     <asp:HiddenField ID="hdnProdId" runat="server" />

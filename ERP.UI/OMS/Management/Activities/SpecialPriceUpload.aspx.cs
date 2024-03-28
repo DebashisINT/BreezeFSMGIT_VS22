@@ -244,15 +244,27 @@ namespace ERP.OMS.Management.Activities
         protected void EntityServerModeDataSource_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
         {
             e.KeyExpression = "SPECIALPRICEID";
-            //string connectionString = ConfigurationManager.ConnectionStrings["crmConnectionString"].ConnectionString;
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
             int User_id = Convert.ToInt32(Session["userid"]);
-            ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
-            var q = from d in dc.PRODUCTSPECIALPRICELISTs
-                    where d.USERID == User_id
-                    orderby d.SEQ descending
-                    select d;
-            e.QueryableSource = q;
+            string IsFilter = Convert.ToString(hfIsFilter.Value);
+            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
+            if (IsFilter == "Y")
+            {
+                
+                ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
+                var q = from d in dc.PRODUCTSPECIALPRICELISTs
+                        where d.USERID == User_id
+                        orderby d.SEQ descending
+                        select d;
+                e.QueryableSource = q;
+            }
+            else
+            { 
+                ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
+                var q = from d in dc.PRODUCTSPECIALPRICELISTs
+                        where d.SEQ == 0
+                        select d;
+                e.QueryableSource = q;
+            }
         }
         protected void CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
