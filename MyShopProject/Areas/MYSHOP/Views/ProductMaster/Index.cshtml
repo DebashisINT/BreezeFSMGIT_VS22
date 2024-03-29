@@ -449,6 +449,46 @@
     #myImportProductModal .modal-body {
         border-radius: 0 0 20px 20px;
     }
+
+    .btn-primary {
+        background-color: #09527b;
+    }
+
+    .btn-info {
+        background-color: #1eadb9;
+    }
+
+    .btn-warning {
+        background-color: #bf822c;
+    }
+
+    .btn-view-log {
+        background: #7919a9;
+        color: #fff;
+    }
+
+        .btn-view-log:hover {
+            color: #fff;
+            background: #440662;
+        }
+
+        .btn-show {
+            background: #011a9d;
+            color: #fff;
+        }
+
+            .btn-show:hover {
+                color: #fff;
+                background: #031366;
+            }
+
+    .tblspace > tbody > tr > td {
+        padding-right: 10px;
+    }
+
+    .btn:focus {
+        color: #fff;
+    }
 </style>
 
 <script>
@@ -794,7 +834,7 @@
 </script>
 
 <div class="breadCumb">
-    <span>Products</span>
+    <span>FMCG Products</span>
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
@@ -810,16 +850,16 @@
                     </select>
                 </td>
                 <td style="">
-                    <button type="button" id="btnDownloadFormat" class="btn btn-success btnwidth" onclick="DownloadFormat()">Download Format</button>
+                    <button type="button" id="btnDownloadFormat" class="btn btn-info btnwidth" onclick="DownloadFormat()">Download Format</button>
                 </td>
                 <td style="">
-                    <button type="button" id="btnImport" class="btn btn-success btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
+                    <button type="button" id="btnImport" class="btn btn-warning btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
                 </td>
                 <td style="">
-                    <button type="button" id="btnShowImportLog" class="btn btn-success btnwidth" onclick="ImportLogPopOpen()">View Log</button>
+                    <button type="button" id="btnShowImportLog" class="btn btn-view-log btnwidth" onclick="ImportLogPopOpen()">View Log</button>
                 </td>
                 <td style="">
-                    <button type="button" id="btnShowData" class="btn btn-success btnwidth" onclick="ShowData()">Show Data</button>
+                    <button type="button" id="btnShowData" class="btn btn-show btnwidth" onclick="ShowData()">Show Data</button>
                 </td>
 
             </tr>
@@ -984,7 +1024,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="width: 476px;">
+                <div class="modal-footer" style="">
 
                     <div>
                         <button type="button" id="btnSave" class="btn btn-success" onclick="SaveProduct()">Save</button>

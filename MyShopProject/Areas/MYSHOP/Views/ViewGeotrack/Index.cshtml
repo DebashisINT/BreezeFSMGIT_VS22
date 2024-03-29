@@ -2506,6 +2506,23 @@
         top: 10px;
         z-index: 5;
     }
+
+    .selected-shop-type-box {
+        background-color: #fff;
+        position: absolute;
+        top: 10px;
+        padding: 10px 15px;
+        z-index: 5;
+        left: 16%;
+    }
+
+    .selected-shop-type-box h5
+    {
+        margin: 0;
+
+    }
+
+
 </style>
 
 <script>
@@ -2658,6 +2675,9 @@
 
     /*Marker code start*/
     markers = [];
+
+    let polylines = [];
+
     let cachedData = null;
 
     let lastStateid = null;
@@ -2789,7 +2809,9 @@ function showMarkers(data) {
         addMarkerWithInfo(markerData);
     });
 
-
+    // Set the user name in the h4 element
+    const salesmanName = data.length > 0 ? data[0].SalesMan : ""; 
+    document.querySelector('.selected-shop-type-box h5').textContent = `User name: ${salesmanName}`;
 }
 
 function clearMarkers() {
@@ -2885,7 +2907,8 @@ function clearMarkers() {
                     var map = new google.maps.Map(document.getElementById("mapid"), {
                         zoom: 13,
                         center: { lat: 22.600, lng: 88.431 },
-                        mapTypeId: "satellite",
+                        mapTypeId: google.maps.MapTypeId.HYBRID,
+                        scrollwheel: true,
                     });
 
                     var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -2958,14 +2981,16 @@ function clearMarkers() {
 
 
 <div class="breadCumb">
-    <span>View Outlets</span>
+    <span>View Geotrack</span>
     <div class="crossBtnN"><a href="#" onclick="window.location.href ='../DashboardMenu/FSMDashboard'"><i class="fa fa-times"></i></a></div>
 </div>
 
 @*google map part*@
 <div class="FullDiv-gmapmarker hide">
     <div id="gmapmarker-container" class="closeFullMap"><i class="fa fa-close"></i></div>
-
+    <div class="selected-shop-type-box">
+        <h5></h5>
+    </div>
     <div id="mapid-gmapmarker"></div>
 </div>
 
@@ -2974,10 +2999,12 @@ function clearMarkers() {
     <div id="heatmap-container" class="closeFullMap"><i class="fa fa-close"></i></div>
     <div id="floating-panel">
 
-        <button id="change-gradient">Change gradient</button>
+        @*<button id="change-gradient">Change gradient</button>*@
         <button id="change-radius">Change radius</button>
         <button id="change-opacity">Change opacity</button>
     </div>
+
+    
     <div id="mapid"></div>
 </div>
 
@@ -3055,17 +3082,17 @@ function clearMarkers() {
                 <tr>
                     <td style="padding-top: 22px;">
                         <label></label>
-                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show in Google Map</button>
+                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show with Google Map</button>
                     </td>
                     <td style="padding-top: 22px;">
                         <label></label>
-                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show in Heatmap</button>
+                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show with Heatmap</button>
                     </td>
                 </tr>
                 </tr>
             </table>
         </div>
-        <div id="map_box"><div id="map_canvas" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>
+        @*<div id="map_box"><div id="map_canvas" style="border: 3px solid #dedede; width: 100%;  height: 400px; margin-top: 0px;"></div></div>*@
     </div>
 </div>
 
