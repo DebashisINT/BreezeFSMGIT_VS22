@@ -2142,7 +2142,7 @@
         position: absolute;
         width: 30px;
         height: 30px;
-        background: #ff3939;
+        background: #fff;
         top: 17px;
         right: 68px;
         z-index: 11;
@@ -2151,12 +2151,17 @@
         line-height: 31px;
         border-radius: 50%;
         cursor: pointer;
-        opacity: 0.5;
+        opacity: 1;
     }
 
         .closeFullMap:hover {
             opacity: 1;
         }
+
+    .fa.fa-close
+    {
+        color: black;
+    }
 </style>
 
 <style>
@@ -2488,21 +2493,23 @@
     #floating-panel {
         background-color: #fff;
         border: 1px solid #999;
-        left: 25%;
+        left: 14%;
         padding: 5px;
         position: absolute;
         top: 10px;
         z-index: 5;
     }
 
-    .selected-shop-type-box {
+    .selected-shop-type-box, .selectedshop-type-box-gmap {
         background-color: #fff;
         position: absolute;
-        bottom: 20px;
+        top: 10px;
         padding: 5px;
         z-index: 5;
-        left: 10%;
+        left: 30%;
     }
+
+    
 
     #legend {
         background: #fff;
@@ -2529,17 +2536,52 @@
             margin-left: 5px;
         }
 
-    .selected-shop-type-box
-    {
+    .selected-shop-type-box, .selectedshop-type-box-gmap {
         display: flex;
-        align-items: center;
+        /*align-items: center;*/
+        flex-direction: column;
     }
 
-        .selected-shop-type-box ul {
+        .selected-shop-type-box h4, .selectedshop-type-box-gmap h4 {
+            margin: 0;
+        }
+
+        .selected-shop-type-box ul, .selectedshop-type-box-gmap ul {
             margin-bottom: 0;
             display: flex;
             align-items: center;
+            flex-flow: wrap;
+            width: 880px;
         }
+
+    .legend-marker {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    #legend-container {
+        position: absolute;
+        bottom: 20px; /* Adjust as needed */
+        left: 20px; /* Adjust as needed */
+        background-color: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 1000; /* Ensure it's above the map */
+    }
+
+    #legend {
+        margin-top: 10px;
+    }
+
+    .legend-marker {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        border: 1px solid #ccc;
+    }
 </style>
 
 
@@ -2733,6 +2775,41 @@
             jAlert("Please select State and Party Type.");
             return;
         }
+        partytypeName = PartyTypeGridLookup.gridView.currentSelectionState.InputText;
+        console.log("partytypeName", partytypeName);
+
+        var ulElement = document.querySelector('.selectedshop-type-box-gmap ul');
+        ulElement.innerHTML = '';
+
+        // Split the selected names into an array if they are comma-separated
+        var selectedNamesArray = partytypeName.split(', ');
+
+        // Create an empty array to hold the list items
+        var listItems = [];
+
+        var colorMap = {
+            'Shop': '#f60712',
+            'Prime Partner': '#088a08',
+            'Direct Distributor': '#e6640d',
+            'Diamond': '#a00aae',
+            'Electrician': 'blue',
+            'Prime Partner - WS': 'blue',
+            'Prime Partner - Project': 'blue'
+        };
+
+        
+        selectedNamesArray.forEach(function (name, index) {
+            var color = colorMap[name.trim()] || 'black'; 
+            
+            listItems.push('<li>' + name.trim() + '<span style="display:inline-block; width:10px; height:10px; background-color:' + color + '; margin-left:5px;"></span></li>');
+            
+            if (index < selectedNamesArray.length - 1) {
+                listItems.push('&nbsp;&nbsp;');
+            }
+        });
+
+        ulElement.innerHTML = listItems.join('');
+
 
         $('.FullDiv-gmapmarker').removeClass('hide');
 
@@ -2799,6 +2876,7 @@
                 zoom: 6,
                 center: india,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                scrollwheel: true,
             });
         }
 
@@ -2808,6 +2886,7 @@
 
     
     }
+
 
     function clearMarkers() {
         markers.forEach(marker => {
@@ -2829,10 +2908,10 @@
         else if (markerData.Shop_PartyId == 2) {
             customMarkerImage = '/assests/images/green-dot.png';
         }
-        else if (markerData.Shop_PartyId == 3) {
+        else if (markerData.Shop_PartyId == 4) {
             customMarkerImage = '/assests/images/orange-dot.png';
         }
-        else if (markerData.Shop_PartyId == 4) {
+        else if (markerData.Shop_PartyId == 5) {
             customMarkerImage = '/assests/images/pink-dot.png';
         }
         else {
@@ -3084,7 +3163,10 @@
 @*google map part*@
 <div class="FullDiv-gmapmarker hide">
     <div id="gmapmarker-container" class="closeFullMap"><i class="fa fa-close"></i></div>
-
+    <div class="selectedshop-type-box-gmap">
+        <h4>Selected Party: </h4>
+        <ul></ul>
+    </div>
     <div id="mapid-gmapmarker"></div>
 </div>
 
@@ -3101,7 +3183,7 @@
     </div>
 
     <div class="selected-shop-type-box">
-        <h4>Selected Shop: </h4>
+        <h4>Selected Party: </h4>
                 <ul></ul>
         </div>
     <div id="mapid"></div>
@@ -3135,8 +3217,8 @@
 
                     <td style="padding-top: 22px;">
                         <label></label>
-                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show in Google Map</button>
-                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show in Heatmap</button>
+                        <button type="button" id="btnshowGoogleMap" class="btn btn-success btnwidth" onclick="ShowGoogleMapClick()" tabindex=4>Show with Google Map</button>
+                        <button type="button" id="btnshowHeatmap" class="btn btn-success btnwidth" onclick="ShowHeatMapClick()" tabindex=4>Show with Heatmap</button>
                     </td>
                 </tr>
             </table>

@@ -1716,6 +1716,11 @@ padding: 7px;
         background-color: #dadada;
     }
     /*End of Rev 10.0*/
+
+    #divModalBodyBranchMap
+    {
+            max-height: 350px !important;
+    }
     </style>
 
     <script>
