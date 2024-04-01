@@ -33,13 +33,13 @@ namespace ERP.OMS.Management.Activities
         protected global::System.Web.UI.WebControls.Button btndownload;
 
         /// <summary>
-        /// txtEmployee control.
+        /// txtProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButtonEdit txtEmployee;
+        protected global::DevExpress.Web.ASPxButtonEdit txtProduct;
 
         /// <summary>
         /// txtProduct_hidden control.
@@ -141,6 +141,51 @@ namespace ERP.OMS.Management.Activities
         protected global::DevExpress.Web.ASPxButton btncancel;
 
         /// <summary>
+        /// ddlBRANCH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBRANCH;
+
+        /// <summary>
+        /// txtProductNameAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButtonEdit txtProductNameAdd;
+
+        /// <summary>
+        /// txtSPECIALPRICEAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtSPECIALPRICEAdd;
+
+        /// <summary>
+        /// btnSaveRecordsAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSaveRecordsAdd;
+
+        /// <summary>
+        /// btncancelAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btncancelAdd;
+
+        /// <summary>
         /// CallbackPanel control.
         /// </summary>
         /// <remarks>
@@ -195,6 +240,15 @@ namespace ERP.OMS.Management.Activities
         protected global::System.Web.UI.WebControls.HiddenField HiddenSPECIALPRICEID;
 
         /// <summary>
+        /// HiddenProductID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenProductID;
+
+        /// <summary>
         /// Hiddenvalidfrom control.
         /// </summary>
         /// <remarks>
@@ -213,6 +267,15 @@ namespace ERP.OMS.Management.Activities
         protected global::System.Web.UI.WebControls.HiddenField Hiddenvalidupto;
 
         /// <summary>
+        /// GvImportDetailsSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView GvImportDetailsSearch;
+
+        /// <summary>
         /// fileprod control.
         /// </summary>
         /// <remarks>
@@ -229,32 +292,5 @@ namespace ERP.OMS.Management.Activities
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnimportxls;
-
-        /// <summary>
-        /// grid_RateLog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView grid_RateLog;
-
-        /// <summary>
-        /// exporter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridViewExporter exporter;
-
-        /// <summary>
-        /// drdExport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drdExport;
     }
 }
