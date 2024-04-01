@@ -540,7 +540,55 @@
             }
         }
     </style>
+    <script>
+        function AddProductButnClick(s, e) {
+            $("#AddProductTable").empty();
+            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th></tr></table>";
+            $("#AddProductTable").html(html);
+            setTimeout(function () { $("#txtAddProdSearch").focus(); }, 500);
+            $('#txtAddProdSearch').val('');
+            $('#AddProductModel').modal('show');
+        }
+        function AddProductKeyDown(s, e) {
+            if (e.htmlEvent.key == "Enter" || e.htmlEvent.key == "NumpadEnter") {
+                //shouldCheck = 0;
+                s.OnButtonClick(0);
+            }
+        }
+        function Addprodkeydown(e) {
+            var OtherDetails = {}
+            if ($.trim($("#txtAddProdSearch").val()) == "" || $.trim($("#txtAddProdSearch").val()) == null) {
+                return false;
+            }
+            OtherDetails.SearchKey = $("#txtAddProdSearch").val();
+            if (e.code == "Enter" || e.code == "NumpadEnter") {
+                var HeaderCaption = [];
+                HeaderCaption.push("Product Name");
+                HeaderCaption.push("Product Description");
+                
+                if ($("#txtAddProdSearch").val() != '') {
+                    callonServer("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
+                }
+            }
+            else if (e.code == "ArrowDown") {
+                if ($("input[AddProdIndex=0]"))
+                    $("input[AddProdIndex=0]").focus();
+            }
+        }
+        function SetProduct(Id, Name) {
+            if (Id) {
+                $('#AddProductModel').modal('hide');
+                SetProdNametxt(Id, Name);
+            }
+        }
+        function SetProdNametxt(id, name) {
+            ctxtProductNameAdd.SetText(name);
+            var varproductid = id.split("||@||")[0];
+            var minsaleprice = id.split("||@||")[1];
+            document.getElementById('HiddenProductID').value = varproductid;
 
+        }
+    </script>
     <script>
         /***Short cut key handling***/
         document.onkeydown = function (e) {
@@ -797,19 +845,74 @@
 
     </script>
     <script type="text/javascript">
-        /****************Save, get, update, Other ************/
-        //$(document).ready(function () {
-        //    cbtnSaveRecords.Focus();
-        //});
+        function AddSaveButtonClick(flag) {
+
+            var ProductID = $("#HiddenProductID").val();
+            var BRANCH = $("#ddlBRANCH").val();
+
+            if (ProductID == "0") {
+                $("#AddMandatorysProduct").show();
+                ctxtProductNameAdd.Focus();
+                return false;
+            }
+            if (BRANCH == "0") {
+                $("#AddMandatorysBRANCH").show();
+                $("#ddlBRANCH").Focus();
+                return false;
+            }
+            if (ctxtSPECIALPRICEAdd.GetValue() == "0.00") {
+                $("#AddMandatorysSPECIALPRICE").show();
+                ctxtSPECIALPRICEAdd.Focus();
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/OMS/Management/Activities/SpecialPriceUpload.aspx/InsertSpecialPrice",
+                data: JSON.stringify({
+                    "ProductID": ProductID,
+                    "BRANCH": BRANCH,
+                    "SPECIALPRICE": ctxtSPECIALPRICEAdd.GetValue()
+
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                global: false,
+                async: false,
+                success: function (msg) {
+                    if (msg.d) {
+                        if (msg.d == "1") {
+                            jAlert("Save Successfully");
+                            $("#entry").hide();
+                            $("#view").show();
+                            $("#TblSearch").show();
+                            $("#lblheading").html("Special Price Upload");
+                            $("#divAddButton").show();
+                            $("#divcross").hide();                           
+                            $("#AddSPECIALPRICE").hide();
+                            $("#divImportButton").show();
+                            clear();
+                            cGridSpecialPriceUpload.Refresh();
+                            return false;
+                        }
+
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+
+        }
 
         function SaveButtonClick(flag) {
-          
+
             if (ctxtSPECIALPRICE.GetValue() == "0.00") {
                 $("#MandatorysSPECIALPRICE").show();
                 ctxtSPECIALPRICE.Focus();
                 return false;
             }
-          
+
             $.ajax({
                 type: "POST",
                 url: "/OMS/Management/Activities/SpecialPriceUpload.aspx/UpdateSpecialPrice",
@@ -823,12 +926,11 @@
                 async: false,
                 success: function (msg) {
                     if (msg.d) {
-                        if (msg.d == "1") 
-                        {
+                        if (msg.d == "1") {
                             jAlert("Updated Successfully");
                             $("#entry").hide();
                             $("#view").show();
-                            $("#TblSearch").show(); 
+                            $("#TblSearch").show();
                             $("#lblheading").html("Special Price Upload");
                             $("#divAddButton").show();
                             $("#divcross").hide();
@@ -836,54 +938,7 @@
                             cGridSpecialPriceUpload.Refresh();
                             return false;
                         }
-                        //if (flag == "Insert") {
-                        //    if (msg.d == "-12") {
-                        //        jAlert("From date cannot be greater than to date");
-                        //        $("#MandatorysFromdt").show();
-                        //        return false;
-                        //    }
-                        //    if (msg.d == "-11") {
-                        //        jAlert("Product already is in sale");
-                        //        return false;
-                        //    }
-                        //    if (msg.d == "-13") {
-                        //        jAlert("From date and to date is same");
-                        //        return false;
-                        //    }
-                        //    else {
-                        //        jAlert("Added Successfully");
-                        //        $("#entry").hide();
-                        //        $("#view").show();
-                        //        $("#lblheading").html("Sale Rate Lock");
-                        //        $("#divAddButton").show();
-                        //        $("#divcross").hide();
-                        //        clear();
-                        //        cGridSpecialPriceUpload.Refresh();
-                        //        return false;
-                        //    }
-                        //}
-                        //if (flag == "update") {
-                        //    if (msg.d == "-12") {
-                        //        jAlert("From date cannot be greater than to date");
-                        //        $("#MandatorysFromdt").show();
-                        //        return false;
-                        //    }
-                        //    if (msg.d == "-11") {
-                        //        jAlert("Product already is in sale");
-                        //        return false;
-                        //    }
-                        //    else {
-                        //        $("#entry").hide();
-                        //        $("#view").show();
-                        //        $("#lblheading").html("Sale Rate Lock");
-                        //        $("#divAddButton").show();
-                        //        $("#divcross").hide();
-                        //        cGridSpecialPriceUpload.Refresh();
-                        //        $("#txtCustName_B0").show();
-                        //        clear();
-                        //        return false;
-                        //    }
-                        //}
+
                     }
                 },
                 error: function (response) {
@@ -944,12 +999,12 @@
 
         function OnSuccess(data) {
             //alert(data);
-            for (var i = 0; i < data.d.length; i++) {                
+            for (var i = 0; i < data.d.length; i++) {
                 document.getElementById('hdnProdId').value = data.d[i].ProductID;
                 ctxtBRANCH.SetValue(data.d[i].branch_description);
                 ctxtPRODUCTCODE.SetValue(data.d[i].PRODUCT_CODE);
                 ctxtPRODUCTNAME.SetValue(data.d[i].Products_Name);
-                ctxtSPECIALPRICE.SetValue(data.d[i].SPECIAL_PRICE);          
+                ctxtSPECIALPRICE.SetValue(data.d[i].SPECIAL_PRICE);
 
             }
             $("#entry").show();
@@ -957,19 +1012,20 @@
             $("#divAddButton").hide();
             $("#divcross").show();
             $("#lblheading").html("Modify Special Price Upload");
-            $("#TblSearch").hide(); 
-            //cbtnSaveRecords.SetText("Update");
+            $("#TblSearch").hide();
+            $("#AddSPECIALPRICE").hide();
+            $("#divImportButton").hide();
         }
 
         function OnAddButtonClick() {
             $("#divAddButton").hide();
-            $("#entry").show();
+            $("#entry").hide();
             $("#view").hide();
-            $("#lblheading").html("Add Sale Rate Lock");
+            $("#lblheading").html("Add Special Price Upload");
             $("#divcross").show();
-            //  ctxtCustName.Focus();
-            //ctxtCustName.SetButtonVisible(1);
-            $("#txtCustName_B0").show();
+            $("#AddSPECIALPRICE").show();
+            $("#TblSearch").hide();
+            $("#divImportButton").hide();
             clear();
         }
 
@@ -977,19 +1033,35 @@
             clear();
             $("#entry").hide();
             $("#view").show();
-            $("#TblSearch").show(); 
+            $("#TblSearch").show();
+            $("#divImportButton").show();
             $("#lblheading").html("Special Price Upload");
-            $("#divAddButton").show();           
+            $("#divAddButton").show();
             $("#divcross").hide();
-            
+            $("#AddSPECIALPRICE").hide();
 
         }
+        function cancelAdd() {
+            clear();
+            $("#entry").hide();
+            $("#view").show();
+            $("#TblSearch").show();
+            $("#divImportButton").show();
+            $("#lblheading").html("Special Price Upload");
+            $("#divAddButton").show();
+            $("#divcross").hide();
+            $("#AddSPECIALPRICE").hide();
 
-        function clear() {           
+        }
+        
+        function clear() {
             ctxtBRANCH.SetValue("");
             ctxtPRODUCTCODE.SetValue("");
             ctxtPRODUCTNAME.SetValue("");
-            ctxtSPECIALPRICE.SetValue("0.00");    
+            ctxtSPECIALPRICE.SetValue("0.00");
+            ctxtProductNameAdd.SetValue("");
+            ctxtSPECIALPRICEAdd.SetValue("0.00");
+
         }
 
         $(document).ready(function () {
@@ -1162,18 +1234,21 @@
     <div id="divcross" runat="server" class="crossBtn hide" style="display: none; margin-left: 50px;"><a href="#" onclick="cancel()"><i class="fa fa-times"></i></a></div>
 
     <div class="container clearfix backBox mt-5 mb-4 py-3">
-        <div id="TblSearch" class="py-3">
+        <div class="py-3">
             <div class="clearfix">
                 <div class="dis-flex">
-                    <span id="divImportButton">
-                     <%--   <button type="button" onclick="getDownloadTemplateSettings();" class="btn btn-info">Download Template</button>--%>
-                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False"/>
-                        <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-danger">Import (Add/Update)</button>
-                    </span>
+                    <div id="divAddButton">
+                        <a href="javascript:void(0);" onclick="OnAddButtonClick()" class="btn btn-success btn-radius"><span><u>A</u>dd New</span> </a>
+                    </div>
+                    <div id="divImportButton">
+                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False" />
+                        <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-danger" >Import (Add/Update)</button>
+                        <button type="button" class="btn btn-warning btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
 
-                    <label>Product(s)</label>
-                    <div style="position: relative">
-                        <dxe:ASPxButtonEdit ID="txtEmployee" runat="server" ReadOnly="true" ClientInstanceName="ctxtProductName">
+                    </div>
+                    <div id="TblSearch" class="dis-flex">
+                        <label>Product(s)</label>
+                        <dxe:ASPxButtonEdit ID="txtProduct" runat="server" ReadOnly="true" ClientInstanceName="ctxtProductName">
                             <Buttons>
                                 <dxe:EditButton>
                                 </dxe:EditButton>
@@ -1181,8 +1256,8 @@
                             <ClientSideEvents ButtonClick="function(s,e){ProductButnClick();}" KeyDown="ProductKeyDown" />
                         </dxe:ASPxButtonEdit>
                         <asp:HiddenField ID="txtProduct_hidden" runat="server" />
+                        <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
                     </div>
-                    <a href="javascript:void(0);" onclick="ShowData()" class="btn btn-show"><span>Show Data</span> </a>
 
 
                 </div>
@@ -1248,48 +1323,95 @@
                 ContextTypeName="ERPDataClassesDataContext" TableName="PRODUCTSPECIALPRICELIST" />
         </div>
         <div id="entry" style="display: none">
-        <div style="background: #f5f4f3; padding: 17px 0; margin-bottom: 0px; border-radius: 4px; border: 1px solid #ccc;" class="clearfix">
-        
-        <div class="col-md-2">
-            <label>BRANCH</label>
-            <dxe:ASPxTextBox ID="txtBRANCH" ClientInstanceName="ctxtBRANCH" runat="server" ReadOnly="true">                
-            </dxe:ASPxTextBox>
-        </div>
-        <div class="col-md-2">
-            <label>PRODUCT CODE</label>
-            <dxe:ASPxTextBox ID="txtPRODUCTCODE" ClientInstanceName="ctxtPRODUCTCODE" runat="server" ReadOnly="true">                
-            </dxe:ASPxTextBox>
-              
-        </div>
-        <div class="col-md-2">
-            <label>PRODUCT NAME</label>
-            <dxe:ASPxTextBox ID="txtPRODUCTNAME" ClientInstanceName="ctxtPRODUCTNAME" runat="server"  ReadOnly="true">              
-            </dxe:ASPxTextBox>           
-        </div>
-        <div class="col-md-2">
-            <label>SPECIAL PRICE</label>
-            <dxe:ASPxTextBox ID="txtSPECIALPRICE" ClientInstanceName="ctxtSPECIALPRICE" runat="server" TabIndex="5">
-                <MaskSettings Mask="&lt;0..999999999&gt;.&lt;00..99&gt;" AllowMouseWheel="false" />              
-            </dxe:ASPxTextBox>
-            <span id="MandatorysSPECIALPRICE" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
-                title="Mandatory"></span>
-        </div>
-        <div class="clearfix"></div>      
+            <div style="background: #f5f4f3; padding: 17px 0; margin-bottom: 0px; border-radius: 4px; border: 1px solid #ccc;" class="clearfix">
 
-    </div>
-    <div class="clearfix"></div>
-    <div style="padding: 15px 10px 10px 0px;">
-        <dxe:ASPxButton ID="btnSaveRecords" TabIndex="7" ClientInstanceName="cbtnSaveRecords" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
-            <ClientSideEvents Click="function(s, e) {SaveButtonClick('Insert');}" />
-        </dxe:ASPxButton>
-        <dxe:ASPxButton ID="btncancel" TabIndex="8" ClientInstanceName="cbtncancel" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
-            <ClientSideEvents Click="function(s, e) {cancel();}" />
-        </dxe:ASPxButton>
+                <div class="col-md-2">
+                    <label>BRANCH</label>
+                    <dxe:ASPxTextBox ID="txtBRANCH" ClientInstanceName="ctxtBRANCH" runat="server" ReadOnly="true">
+                    </dxe:ASPxTextBox>
+                </div>
+                <div class="col-md-2">
+                    <label>PRODUCT CODE</label>
+                    <dxe:ASPxTextBox ID="txtPRODUCTCODE" ClientInstanceName="ctxtPRODUCTCODE" runat="server" ReadOnly="true">
+                    </dxe:ASPxTextBox>
 
+                </div>
+                <div class="col-md-2">
+                    <label>PRODUCT NAME</label>
+                    <dxe:ASPxTextBox ID="txtPRODUCTNAME" ClientInstanceName="ctxtPRODUCTNAME" runat="server" ReadOnly="true">
+                    </dxe:ASPxTextBox>
+                </div>
+                <div class="col-md-2">
+                    <label>SPECIAL PRICE</label>
+                    <dxe:ASPxTextBox ID="txtSPECIALPRICE" ClientInstanceName="ctxtSPECIALPRICE" runat="server" TabIndex="5">
+                        <MaskSettings Mask="&lt;0..999999999&gt;.&lt;00..99&gt;" AllowMouseWheel="false" />
+                    </dxe:ASPxTextBox>
+                    <span id="MandatorysSPECIALPRICE" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
+                        title="Mandatory"></span>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div style="padding: 15px 10px 10px 0px;">
+                <dxe:ASPxButton ID="btnSaveRecords" TabIndex="7" ClientInstanceName="cbtnSaveRecords" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                    <ClientSideEvents Click="function(s, e) {SaveButtonClick('Insert');}" />
+                </dxe:ASPxButton>
+                <dxe:ASPxButton ID="btncancel" TabIndex="8" ClientInstanceName="cbtncancel" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                    <ClientSideEvents Click="function(s, e) {cancel();}" />
+                </dxe:ASPxButton>
+
+            </div>
+        </div>
+
+        <div id="AddSPECIALPRICE" style="display: none">
+            <div style="background: #f5f4f3; padding: 17px 0; margin-bottom: 0px; border-radius: 4px; border: 1px solid #ccc;" class="clearfix">
+
+                <div class="col-md-2">
+                    <label>BRANCH</label>
+                    <asp:DropDownList ID="ddlBRANCH" runat="server" CssClass="sml" Width="100%"></asp:DropDownList>
+                    <span id="AddMandatorysBRANCH" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
+                        title="Mandatory"></span>
+                </div>
+                <div class="col-md-2">
+                    <label>Product(s)</label>
+                    <div style="position: relative">
+                        <dxe:ASPxButtonEdit ID="txtProductNameAdd" runat="server" ReadOnly="true" ClientInstanceName="ctxtProductNameAdd">
+                            <Buttons>
+                                <dxe:EditButton>
+                                </dxe:EditButton>
+                            </Buttons>
+                            <ClientSideEvents ButtonClick="function(s,e){AddProductButnClick();}" KeyDown="AddProductKeyDown" />
+                        </dxe:ASPxButtonEdit>
+                        <span id="AddMandatorysProduct" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
+                            title="Mandatory"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <label>SPECIAL PRICE</label>
+                    <dxe:ASPxTextBox ID="txtSPECIALPRICEAdd" ClientInstanceName="ctxtSPECIALPRICEAdd" runat="server">
+                        <MaskSettings Mask="&lt;0..999999999&gt;.&lt;00..99&gt;" AllowMouseWheel="false" />
+                    </dxe:ASPxTextBox>
+                    <span id="AddMandatorysSPECIALPRICE" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
+                        title="Mandatory"></span>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div style="padding: 15px 10px 10px 0px;">
+                <dxe:ASPxButton ID="btnSaveRecordsAdd" ClientInstanceName="cbtnSaveRecordsAdd" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                    <ClientSideEvents Click="function(s, e) {AddSaveButtonClick('Insert');}" />
+                </dxe:ASPxButton>
+                <dxe:ASPxButton ID="btncancelAdd" ClientInstanceName="cbtncancelAdd" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                    <ClientSideEvents Click="function(s, e) {cancelAdd();}" />
+                </dxe:ASPxButton>
+
+            </div>
+        </div>
     </div>
-</div>
-    </div>
-   
+
     <dxe:ASPxCallbackPanel runat="server" ID="CallbackPanel" ClientInstanceName="cCallbackPanel" OnCallback="CallbackPanel_Callback">
         <PanelCollection>
             <dxe:PanelContent runat="server">
@@ -1297,45 +1419,15 @@
         </PanelCollection>
         <ClientSideEvents EndCallback="CallbackPanelEndCall" />
     </dxe:ASPxCallbackPanel>
-     <asp:HiddenField ID="hfIsFilter" runat="server" />
+    <asp:HiddenField ID="hfIsFilter" runat="server" />
     <asp:HiddenField ID="hFilterType" runat="server" />
     <asp:HiddenField ID="hdnCustId" runat="server" />
     <asp:HiddenField ID="hdnProdId" runat="server" />
     <asp:HiddenField ID="HiddenSPECIALPRICEID" runat="server" />
+    <asp:HiddenField ID="HiddenProductID" runat="server" />
     <asp:HiddenField ID="Hiddenvalidfrom" runat="server" />
     <asp:HiddenField ID="Hiddenvalidupto" runat="server" />
-   <%-- <!--Customer Modal -->
-    <div class="modal fade" id="CustModel" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Customer Search</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" onkeydown="Customerkeydown(event)" id="txtCustSearch" autofocus width="100%" placeholder="Search By Customer Name,Unique Id and Phone No." />
-
-                    <div id="CustomerTable">
-                        <table border='1' width="100%" class="dynamicPopupTbl">
-                            <tr class="HeaderStyle">
-                                <th class="hide">id</th>
-                                <th>Customer Name</th>
-                                <th>Unique Id</th>
-                                <th>Address</th>
-                                <th>Type</th>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>--%>
+   
     <!--Product Modal -->
     <div class="modal fade" id="ProductModel" role="dialog">
         <div class="modal-dialog">
@@ -1347,15 +1439,14 @@
                     <h4 class="modal-title">Product Search</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" onkeydown="prodkeydown(event)" id="txtProdSearch" autofocus width="100%" placeholder="Search By Product Name or Description" />
+                    <input type="text" onkeydown="prodkeydown(event)" id="txtProdSearch" class="form-control" autofocus width="100%" placeholder="Search By Product Name or Description" />
 
                     <div id="ProductTable">
                         <table border='1' width="100%" class="dynamicPopupTbl">
                             <tr class="HeaderStyle">
                                 <th class="hide">id</th>
                                 <th>Product Name</th>
-                                <th>Product Description</th>
-                                <th>Min Sale Price</th>
+                                <th>Product Description</th>                                
                             </tr>
                         </table>
                     </div>
@@ -1369,6 +1460,107 @@
 
         </div>
     </div>
+
+    <div class="modal fade" id="AddProductModel" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Product Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" onkeydown="Addprodkeydown(event)" id="txtAddProdSearch" class="form-control" autofocus width="100%" placeholder="Search By Product Name or Description" />
+
+                    <div id="AddProductTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">id</th>
+                                <th>Product Name</th>
+                                <th>Product Description</th>
+                               
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <%--<button type="button" id="btnAddSaveProduct" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>--%>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSS" role="dialog">
+    <div class="modal-dialog fullWidth">           
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Special Price Upload Log</h4>
+            </div>
+            <div class="modal-body">
+                <dxe:ASPxGridView ID="GvImportDetailsSearch" runat="server" AutoGenerateColumns="False" SettingsBehavior-AllowSort="true"
+                    ClientInstanceName="cGvImportDetailsSearch" KeyFieldName="LOGID" Width="100%" OnDataBinding="GvImportDetailsSearch_DataBinding" Settings-VerticalScrollBarMode="Auto" Settings-VerticalScrollableHeight="400">
+
+                    <SettingsBehavior ConfirmDelete="false" ColumnResizeMode="NextColumn" />
+                    <Styles>
+                        <Header SortingImageSpacing="5px" ImageSpacing="5px"></Header>
+                        <FocusedRow HorizontalAlign="Left" VerticalAlign="Top" CssClass="gridselectrow"></FocusedRow>
+                        <LoadingPanel ImageSpacing="10px"></LoadingPanel>
+                        <FocusedGroupRow CssClass="gridselectrow"></FocusedGroupRow>
+                        <Footer CssClass="gridfooter"></Footer>
+                    </Styles>
+                    <Columns>
+                        <dxe:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="LOGID" Caption="LogID" SortOrder="Descending">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                        </dxe:GridViewDataTextColumn>
+                        <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="CREATED_ON" Caption="Date" Width="10%">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                        </dxe:GridViewDataTextColumn>
+
+                        <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="sProducts_Code" Caption="Product Code" Width="10%">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                        </dxe:GridViewDataTextColumn>
+                        <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="LOOPCOUNTER" Caption="Row Number" Width="13%">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                        </dxe:GridViewDataTextColumn>
+                        <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="sProducts_Name" Width="8%" Caption="Product Name">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                        </dxe:GridViewDataTextColumn>
+                        <dxe:GridViewDataTextColumn VisibleIndex="4" FieldName="FILENAME" Width="14%" Caption="File Name">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy"></PropertiesTextEdit>
+                        </dxe:GridViewDataTextColumn>
+                        <dxe:GridViewDataTextColumn VisibleIndex="5" FieldName="DESCRIPTION" Caption="Description" Width="10%" Settings-AllowAutoFilter="False">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                        </dxe:GridViewDataTextColumn>
+
+                        <dxe:GridViewDataTextColumn VisibleIndex="5" FieldName="STATUS" Caption="Status" Width="14%" Settings-AllowAutoFilter="False">
+                            <CellStyle Wrap="True" CssClass="gridcellleft"></CellStyle>
+                        </dxe:GridViewDataTextColumn>
+                    </Columns>
+                    <Settings ShowGroupPanel="True" ShowStatusBar="Visible" ShowFilterRow="true" ShowFilterRowMenu="true" />
+                    <SettingsSearchPanel Visible="false" />
+                    <SettingsPager NumericButtonCount="200" PageSize="200" ShowSeparators="True" Mode="ShowPager">
+                        <PageSizeItemSettings Visible="true" ShowAllItem="false" Items="200,400,600" />
+                        <FirstPageButton Visible="True">
+                        </FirstPageButton>
+                        <LastPageButton Visible="True">
+                        </LastPageButton>
+                    </SettingsPager>
+                </dxe:ASPxGridView>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
     <div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
         <div class="modal-dialog ">
@@ -1392,7 +1584,7 @@
                                         <div class="pTop10  mTop5" style="margin-top: 10px;">
                                             <%--<input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary">--%>
                                         </div>
-                                        <asp:Button runat="server" ID="btnimportxls" OnClick="ImportExcel" Text="Import (Add/Update)" OnClientClick="return ChekprodUpload();" CssClass="btn btn-primary" />
+                                        <asp:Button runat="server" ID="btnimportxls" OnClick="ImportExcel" Text="Import (Add/Update)" OnClientClick="return ChekprodUpload();" CssClass="btn btn-primary" UseSubmitBehavior="False"/>
                                     </div>
                                 </div>
                             </div>
@@ -1408,120 +1600,8 @@
     </div>
 
 
-   <%-- <div id="myModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Download Excel Template For Product Rate</h4>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <div class="">
-                            <div class="row">
-                                <div>
-                                    <div class="clearfix ">
-                                        <div class="col-lg-12 lblmTop8">
-                                            <label><b>State</b></label>
-                                            <div class="iminentSpan">
-                                                <dxe:ASPxComboBox ID="CmbState" ClientInstanceName="cCmbState" runat="server" ValueType="System.String"
-                                                    Width="100%" EnableSynchronization="True" DropDownStyle="DropDown">
-                                                    <ClientSideEvents EndCallback="CmbState_EndCallback"></ClientSideEvents>
-                                                </dxe:ASPxComboBox>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 mTop5" style="margin-top: 10px;">
-                                            <button type="button" onclick="getTemplateByStaten();" class="btn btn-success mTop5">Download Now</button>     
-                                            <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>--%>
+  
 
 
-    <div id="RateImportLogModal" class="modal fade pmsModal w70" data-backdrop="static" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Product Rate Import Log</h4>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <div class="">
-                            <div class="row">
-                                <div>
-                                    <div class="clearfix ">
-                                        <div class="col-lg-12">
-                                            <dxe:ASPxGridView runat="server" KeyFieldName="SEQ" ClientInstanceName="cgridproducts" ID="grid_RateLog"
-                                                Width="100%" SettingsBehavior-AllowSort="false" SettingsBehavior-AllowDragDrop="false" SettingsPager-Mode="ShowAllRecords"
-                                                OnCustomCallback="ProductRateLog_Callback" OnDataBinding="grid_RateLog_DataBinding"
-                                                Settings-ShowFooter="false" AutoGenerateColumns="False" Settings-VerticalScrollableHeight="300" Settings-VerticalScrollBarMode="Visible">
-                                                <SettingsBehavior AllowDragDrop="False" AllowSort="False"></SettingsBehavior>
-                                                <SettingsPager Visible="false"></SettingsPager>
-                                                <Columns>
-                                                    <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="STATE" Width="100" ReadOnly="true" Caption="State">
-                                                        <Settings AutoFilterCondition="Contains" />
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="Code" ReadOnly="true" Caption="Product Code" Width="100">
-                                                        <Settings AutoFilterCondition="Contains" />
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="Description" ReadOnly="true" Width="100" Caption="Product Description">
-                                                        <Settings AutoFilterCondition="Contains" />
-
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn Caption="Price to Distributor" FieldName="DistributorPrice" Width="70" VisibleIndex="4">
-                                                        <PropertiesTextEdit DisplayFormatString="0.00">
-                                                            <MaskSettings Mask="<0..999999999999>.<0..99>" AllowMouseWheel="false" />
-                                                        </PropertiesTextEdit>
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn Caption="Price to Retailer" FieldName="RetailerPrice" Width="70" VisibleIndex="5">
-                                                        <PropertiesTextEdit DisplayFormatString="0.00">
-                                                            <MaskSettings Mask="<0..999999999999>.<0..99>" AllowMouseWheel="false" />
-                                                        </PropertiesTextEdit>
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn VisibleIndex="6" FieldName="Status" ReadOnly="true" Width="100" Caption="Status">
-                                                        <Settings AutoFilterCondition="Contains" />
-                                                    </dxe:GridViewDataTextColumn>
-                                                    <dxe:GridViewDataTextColumn VisibleIndex="7" FieldName="Reason" ReadOnly="true" Width="100" Caption="Reason">
-                                                        <Settings AutoFilterCondition="Contains" />
-                                                    </dxe:GridViewDataTextColumn>
-                                                </Columns>
-                                                <Settings ShowFilterRow="true" ShowFilterRowMenu="true" />
-                                                <SettingsDataSecurity AllowEdit="true" />
-                                            </dxe:ASPxGridView>
-
-                                            <dxe:ASPxGridViewExporter ID="exporter" runat="server" GridViewID="grid_RateLog" Landscape="false" PaperKind="A4" PageHeader-Font-Size="Larger" PageHeader-Font-Bold="true">
-                                            </dxe:ASPxGridViewExporter>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <asp:DropDownList ID="drdExport" runat="server" CssClass="btn btn-sm btn-primary" OnChange="if(!AvailableExportOption()){return false;}" OnSelectedIndexChanged="cmbExport_SelectedIndexChanged" AutoPostBack="true">
-                        <asp:ListItem Value="0">Export to</asp:ListItem>
-                        <asp:ListItem Value="1">PDF</asp:ListItem>
-                        <asp:ListItem Value="2">XLS</asp:ListItem>
-                        <asp:ListItem Value="3">RTF</asp:ListItem>
-                        <asp:ListItem Value="4">CSV</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-            </div>
-
-        </div>
-    </div>
+   
 </asp:Content>

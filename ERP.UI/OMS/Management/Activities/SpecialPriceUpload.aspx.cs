@@ -23,45 +23,27 @@ using System.Threading.Tasks;
 using iTextSharp.text.log;
 using System.Globalization;
 using DocumentFormat.OpenXml.Office.Word;
+using BusinessLogicLayer;
+using ClsDropDownlistNameSpace;
+using static ERP.OMS.Management.Activities.SpecialPriceUpload;
 
 namespace ERP.OMS.Management.Activities
 {
     public partial class SpecialPriceUpload : System.Web.UI.Page
     {
         BusinessLogicLayer.GenericMethod oGenericMethod;
-
+        BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationSettings.AppSettings["DBConnectionDefault"]);
+        clsDropDownList oclsDropDownList = new clsDropDownList();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                string[,] Data  = oDBEngine.GetFieldValue("tbl_master_branch", "branch_id, branch_description ", null, 2, "branch_description");               
+                oclsDropDownList.AddDataToDropDownList(Data, ddlBRANCH);
             }
         }
 
-        [WebMethod(EnableSession = true)]
-        public static object GetCustomer(string SearchKey)
-        {
-            List<CustomerModel> listCust = new List<CustomerModel>();
-            if (HttpContext.Current.Session["userid"] != null)
-            {
-                SearchKey = SearchKey.Replace("'", "''");
-                // BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
-
-                DataTable cust = oDBEngine.GetDataTable(" select top 10 cnt_internalid ,uniquename ,Name ,Billing,Type   from v_SaleRateLock_customerDetails where uniquename like '%" + SearchKey + "%' or Name like '%" + SearchKey + "%'   order by Name");
-
-                listCust = (from DataRow dr in cust.Rows
-                            select new CustomerModel()
-                            {
-                                id = dr["cnt_internalid"].ToString(),
-                                Na = dr["Name"].ToString(),
-                                UId = Convert.ToString(dr["uniquename"]),
-                                add = Convert.ToString(dr["Billing"]),
-                                TYPE = Convert.ToString(dr["Type"])
-                            }).ToList();
-            }
-
-            return listCust;
-        }
+     
 
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
@@ -90,83 +72,7 @@ namespace ERP.OMS.Management.Activities
             return listCust;
         }
 
-        [WebMethod(EnableSession = true)]
-        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
-        public static string addSaleRateLock(string SaleRateLockID, List<String> CustID, List<String> ProductID, string DiscSalesPrice, string MinSalePrice, string discount, string fromdt, string todate, string action, string FixRate, String SCHEME)
-        {
-            try
-            {
-                DateTime fdt = Convert.ToDateTime(fromdt);
-                DateTime tdt = Convert.ToDateTime(todate);
-                if (fdt > tdt)
-                {
-                    return "-12";
-                }
-                else if (fdt == tdt)
-                {
-                    return "-13";
-                }
-                else
-                {
-                    DataTable dtvalue = new DataTable();
-                    //dtvalue = null;
-                    //if (dtvalue == null)
-                    //{
-                    dtvalue.Columns.Add("Entity", typeof(String));
-                    dtvalue.Columns.Add("Product", typeof(String));
-                    //}
-
-                    foreach (String item in CustID)
-                    {
-                        foreach (String prod in ProductID)
-                        {
-                            dtvalue.Rows.Add(new Object[] { item, prod.Split('|')[0].ToString() });
-                        }
-                    }
-
-                    //List<String> ProductList = ProductID.Split(',');
-                    //BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                    BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
-
-
-                    ProcedureExecute proc = new ProcedureExecute("PRC_SaleRateLock");
-                    proc.AddVarcharPara("@SaleRateLockID", 50, SaleRateLockID);
-                    //proc.AddVarcharPara("@CustomerID", 50, CustID);
-                    // proc.AddIntegerPara("@ProductID", Convert.ToInt32(ProductID));
-                    proc.AddDecimalPara("@DiscSalesPrice", 2, 18, Convert.ToDecimal(DiscSalesPrice));
-                    proc.AddIntegerPara("@ApprovedBy", Convert.ToInt32(HttpContext.Current.Session["userid"]));
-                    proc.AddVarcharPara("@ValidFrom", 50, fdt.ToString("yyyy-MM-dd HH:mm:ss"));
-                    proc.AddVarcharPara("@ValidUpto", 50, tdt.ToString("yyyy-MM-dd HH:mm:ss"));
-                    proc.AddDecimalPara("@MinSalePrice", 2, 18, Convert.ToDecimal(MinSalePrice));
-                    proc.AddDecimalPara("@Disc", 2, 18, Convert.ToDecimal(discount));
-                    proc.AddVarcharPara("@Action", 4000, action);
-                    proc.AddDecimalPara("@FixedRate", 2, 18, Convert.ToDecimal(FixRate));
-                    proc.AddVarcharPara("@SCHEME", 300, SCHEME);
-                    proc.AddPara("@UDT_RATELIST", dtvalue);
-                    DataTable dtSaleRateLock = proc.GetTable();
-                    if (dtSaleRateLock.Rows.Count > 0)
-                    {
-                        if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-11")
-                        {
-                            return "-11";
-                        }
-                        else
-                        {
-                            return "1";
-                        }
-                    }
-                    else
-                    {
-                        return "0";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return "Error occured";
-            }
-        }
-
+       
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static string DeleteSpecialPrice(string SPECIALPRICEID)
@@ -204,7 +110,42 @@ namespace ERP.OMS.Management.Activities
                 return "Error occured";
             }
         }
+        [WebMethod(EnableSession = true)]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static string InsertSpecialPrice( string ProductID,string BRANCH,string SPECIALPRICE)
+        {
+            try
+            {
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+                ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+                proc.AddVarcharPara("@Action", 4000, "InsertSpecialPrice");             
+                proc.AddDecimalPara("@SPECIALPRICE", 2, 18, Convert.ToDecimal(SPECIALPRICE));
+                proc.AddIntegerPara("@ProductID", Convert.ToInt32(ProductID));
+                proc.AddIntegerPara("@BranchId", Convert.ToInt32(BRANCH));
+                proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
 
+                DataTable dtSaleRateLock = proc.GetTable();
+                if (dtSaleRateLock.Rows.Count > 0)
+                {
+                    if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-11")
+                    {
+                        return "-11";
+                    }
+                    else
+                    {
+                        return "1";
+                    }
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Error occured";
+            }
+        }
 
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
@@ -492,6 +433,7 @@ namespace ERP.OMS.Management.Activities
 
         protected void ImportExcel(object sender, EventArgs e)
         {
+            string fName = string.Empty;
             Boolean HasLog = false;
             if (fileprod.HasFile)
             {
@@ -500,6 +442,33 @@ namespace ERP.OMS.Management.Activities
                 string FolderPath = ConfigurationManager.AppSettings["FolderPath"];
                 string FilePath = Server.MapPath("~/Temporary/") + FileName;
                 fileprod.SaveAs(FilePath);
+
+                string fileExtension = Path.GetExtension(FileName);
+
+                if (fileExtension.ToUpper() != ".XLS" && fileExtension.ToUpper() != ".XLSX")
+                {
+                    Page.ClientScript.RegisterStartupScript(GetType(), "PageScript", "<script language='javascript'>jAlert('Uploaded file format not supported by the system');</script>");
+                    return;
+                }
+
+                if (fileExtension.Equals(".xlsx"))
+                {
+                    fName = FileName.Replace(".xlsx", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".xlsx");
+                }
+
+                else if (fileExtension.Equals(".xls"))
+                {
+                    fName = FileName.Replace(".xls", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".xls");
+                }
+
+                else if (fileExtension.Equals(".csv"))
+                {
+                    fName = FileName.Replace(".csv", DateTime.Now.ToString("ddMMyyyyhhmmss") + ".csv");
+                }
+
+                Session["FileName"] = fName;
+
+
                 HasLog = Import_To_Grid(FilePath, Extension, "No");
 
                 File.Delete(FilePath);
@@ -617,13 +586,13 @@ namespace ERP.OMS.Management.Activities
                                 if (!HasLog)
                                 {
                                     string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Failed");
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Failed", Session["FileName"].ToString(), loopcounter);
                                 }
 
                                 else
                                 {
                                     string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Success");
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Success", Session["FileName"].ToString(), loopcounter);
                                 }
 
 
@@ -654,7 +623,7 @@ namespace ERP.OMS.Management.Activities
             }
             return HasLog;
         }
-        public int InsertSpecialPriceImportLOg(string PRODUCTCODE, string SPECIALPRICE, string BRANCH, string description, string status)
+        public int InsertSpecialPriceImportLOg(string PRODUCTCODE, string SPECIALPRICE, string BRANCH, string description, string status, string FileName,int loopcounter)
         {
 
             int i;
@@ -665,6 +634,8 @@ namespace ERP.OMS.Management.Activities
             proc.AddPara("@SPECIALPRICE", SPECIALPRICE);
             proc.AddVarcharPara("@decription", 150, description);
             proc.AddVarcharPara("@status", 150, status);
+            proc.AddVarcharPara("@FileName", 500, FileName);
+            proc.AddPara("@loopcounter",loopcounter);
             proc.AddIntegerPara("@UserId", Convert.ToInt32(Session["userid"]));
             i = proc.RunActionQuery();
 
@@ -679,7 +650,7 @@ namespace ERP.OMS.Management.Activities
             proc.AddVarcharPara("@BRANCH", 200, BRANCH);
             proc.AddVarcharPara("@PRODUCTCODE", 200, PRODUCTCODE);
             proc.AddVarcharPara("@PRODUCTNAME", 200, PRODUCTNAME);
-            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);
+            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);           
             ds = proc.GetDataSet();
             return ds;
         }
@@ -718,87 +689,16 @@ namespace ERP.OMS.Management.Activities
             return value;
         }
 
-        protected void gridProductRate_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+      
+        protected void GvImportDetailsSearch_DataBinding(object sender, EventArgs e)
         {
-
-        }
-
-        protected void ProductRateServerModeDataSource_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
-        {
-            e.KeyExpression = "ID";
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
-            ERPDataClassesDataContext dc = new ERPDataClassesDataContext(connectionString);
-            var q = from d in dc.v_ProductRates
-                    orderby d.ID descending
-                    select d;
-            e.QueryableSource = q;
-        }
-
-        protected void grid_RateLog_DataBinding(object sender, EventArgs e)
-        {
-            if (Session["Datlog"] != null)
-            {
-                grid_RateLog.DataSource = (DataTable)Session["Datlog"];
-            }
-        }
-
-        protected void ProductRateLog_Callback(object sender, ASPxGridViewCustomCallbackEventArgs e)
-        {
-            if (Session["Datlog"] != null)
-            {
-                DataTable ComponentTable = (DataTable)Session["Datlog"];
-                grid_RateLog.Selection.CancelSelection();
-                grid_RateLog.DataSource = ComponentTable;
-                grid_RateLog.DataBind();
-            }
-            else
-            {
-                grid_RateLog.Selection.CancelSelection();
-                grid_RateLog.DataSource = null;
-                grid_RateLog.DataBind();
-            }
-        }
-
-        protected void cmbExport_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Int32 Filter = int.Parse(Convert.ToString(drdExport.SelectedItem.Value));
-            string filename = "Product Rate Import Log";
-            exporter.FileName = filename;
-            exporter.PageHeader.Left = "Product Rate Import Log";
-            exporter.PageFooter.Center = "[Page # of Pages #]";
-            exporter.PageFooter.Right = "[Date Printed]";
-            switch (Filter)
-            {
-                case 1:
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        exporter.WritePdf(stream);
-                        WriteToResponse("Area", true, "pdf", stream);
-                    }
-                    break;
-                case 2:
-                    exporter.WriteXlsToResponse();
-                    break;
-                case 3:
-                    exporter.WriteRtfToResponse();
-                    break;
-                case 4:
-                    exporter.WriteCsvToResponse();
-                    break;
-            }
-        }
-
-        protected void WriteToResponse(string fileName, bool saveAsFile, string fileFormat, MemoryStream stream)
-        {
-            if (Page == null || Page.Response == null) return;
-            string disposition = saveAsFile ? "attachment" : "inline";
-            Page.Response.Clear();
-            Page.Response.Buffer = false;
-            Page.Response.AppendHeader("Content-Type", string.Format("application/{0}", fileFormat));
-            Page.Response.AppendHeader("Content-Transfer-Encoding", "binary");
-            Page.Response.AppendHeader("Content-Disposition", string.Format("{0}; filename={1}.{2}", disposition, HttpUtility.UrlEncode(fileName).Replace("+", "%20"), fileFormat));
-            if (stream.Length > 0)
-                Page.Response.BinaryWrite(stream.ToArray());
+            string fileName = Convert.ToString(Session["FileName"]);
+            BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+            ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+            proc.AddVarcharPara("@Action", 50, "GetSpecialPriceLOG");
+            proc.AddVarcharPara("@FileName", 500, fileName);
+            DataTable dt2 = proc.GetTable();
+            GvImportDetailsSearch.DataSource = dt2;
         }
     }
 }
