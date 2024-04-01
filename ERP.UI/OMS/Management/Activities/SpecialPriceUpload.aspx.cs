@@ -64,8 +64,8 @@ namespace ERP.OMS.Management.Activities
                             {
                                 id = dr["SPRODUCTSID"].ToString(),
                                 Na = dr["Products_Name"].ToString(),
-                                Des = Convert.ToString(dr["Products_Description"]),
-                                MinSalePrice = Convert.ToString(dr["sProduct_MinSalePrice"])
+                                Des = Convert.ToString(dr["Products_Description"])
+                               // MinSalePrice = Convert.ToString(dr["sProduct_MinSalePrice"])
                             }).ToList();
             }
 
@@ -312,7 +312,7 @@ namespace ERP.OMS.Management.Activities
             public string id { get; set; }
             public string Na { get; set; }
             public string Des { get; set; }
-            public string MinSalePrice { get; set; }
+           // public string MinSalePrice { get; set; }
         }
 
         public class CustomerModel
