@@ -202,7 +202,7 @@
                 /* padding: 10px 0; */
                 border-radius: 4px;
                 text-align: center;
-                line-height: 19px;
+                line-height: 18px;
                 z-index: 0;
             }
 
@@ -415,7 +415,7 @@
             opacity: .5;
         }
 
-        #EmployeeTable {
+        #AddProductTable , #ProductTable {
             margin-top: 10px;
         }
 
@@ -520,6 +520,83 @@
             height: 220px !important;
         }
         /*Rev end 1.0*/
+
+        #divAddButton, #divImportButton
+        {
+            margin-right: 8px;
+        }
+
+        #divImportButton .btn
+        {
+            margin-right: 8px;
+        }
+
+        #txtProduct
+        {
+            margin-right: 8px;
+            margin-left: 5px;
+        }
+
+
+        .btn-primary {
+        background-color: #09527b;
+    }
+
+    .btn-info {
+        background-color: #1eadb9;
+    }
+
+    .btn-warning {
+        background-color: #bf822c;
+    }
+
+    .btn-view-log {
+        background: #7919a9;
+        color: #fff;
+    }
+
+        .btn-view-log:hover {
+            color: #fff;
+            background: #440662;
+        }
+
+        .btn-show {
+            background: #011a9d;
+            color: #fff;
+        }
+
+            .btn-show:hover {
+                color: #fff;
+                background: #031366;
+            }
+
+    /*.tblspace > tbody > tr > td {
+        padding-right: 10px;
+    }*/
+
+    .btn:focus {
+        color: #fff;
+    }
+
+    .btn-default
+    {
+        background-color: #e8e8e8 !important;
+    }
+
+    .btn-default:focus
+    {
+        color: #111 !important;
+    }
+
+    .btn:focus
+    {
+        outline: none;
+    }
+
+    #modalSS .modal-dialog
+    {
+            width: 850px !important;
+    }
 
         @media only screen and (max-width: 768px) {
             .breadCumb {
@@ -1241,9 +1318,9 @@
                         <a href="javascript:void(0);" onclick="OnAddButtonClick()" class="btn btn-success btn-radius"><span><u>A</u>dd New</span> </a>
                     </div>
                     <div id="divImportButton">
-                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-primary" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False" />
-                        <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-danger" >Import (Add/Update)</button>
-                        <button type="button" class="btn btn-warning btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
+                        <asp:Button ID="btndownload" runat="server" CssClass="btn btn-info" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False" />
+                        <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-warning" >Import (Add/Update)</button>
+                        <button type="button" class="btn btn-view-log btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
 
                     </div>
                     <div id="TblSearch" class="dis-flex">
@@ -1277,24 +1354,24 @@
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
 
-                    <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="BRANCH" Caption="Branch" Width="200px">
+                    <dxe:GridViewDataTextColumn VisibleIndex="1" FieldName="BRANCH" Caption="Branch" Width="20%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
-                    <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="PRODUCTCODE" Caption="Item Code" Width="300px">
+                    <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="PRODUCTCODE" Caption="Item Code" Width="25%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
-                    <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="PRODUCTNAME" Caption="Item Name" Width="300px">
+                    <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="PRODUCTNAME" Caption="Item Name" Width="30%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
-                    <dxe:GridViewDataTextColumn VisibleIndex="4" FieldName="SPECIALPRICE" Caption="Spcial Price" Width="200px">
+                    <dxe:GridViewDataTextColumn VisibleIndex="4" FieldName="SPECIALPRICE" Caption="Spcial Price" Width="15%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
 
-                    <dxe:GridViewCommandColumn VisibleIndex="5" Width="130px" ButtonType="Image" Caption="Actions" HeaderStyle-HorizontalAlign="Center">
+                    <dxe:GridViewCommandColumn VisibleIndex="5" Width="10%" ButtonType="Image" Caption="Actions" HeaderStyle-HorizontalAlign="Center">
                         <CustomButtons>
                             <dxe:GridViewCommandColumnCustomButton ID="CustomBtnEdit" meta:resourcekey="GridViewCommandColumnCustomButtonResource1" Image-ToolTip="Edit" Styles-Style-CssClass="pad">
                                 <Image Url="/assests/images/Edit.png"></Image>
@@ -1357,7 +1434,7 @@
                 <dxe:ASPxButton ID="btnSaveRecords" TabIndex="7" ClientInstanceName="cbtnSaveRecords" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
                     <ClientSideEvents Click="function(s, e) {SaveButtonClick('Insert');}" />
                 </dxe:ASPxButton>
-                <dxe:ASPxButton ID="btncancel" TabIndex="8" ClientInstanceName="cbtncancel" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                <dxe:ASPxButton ID="btncancel" TabIndex="8" ClientInstanceName="cbtncancel" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-danger" UseSubmitBehavior="False">
                     <ClientSideEvents Click="function(s, e) {cancel();}" />
                 </dxe:ASPxButton>
 
@@ -1367,7 +1444,7 @@
         <div id="AddSPECIALPRICE" style="display: none">
             <div style="background: #f5f4f3; padding: 17px 0; margin-bottom: 0px; border-radius: 4px; border: 1px solid #ccc;" class="clearfix">
 
-                <div class="col-md-2">
+                <div class="col-md-2 h-branch-select">
                     <label>BRANCH</label>
                     <asp:DropDownList ID="ddlBRANCH" runat="server" CssClass="sml" Width="100%"></asp:DropDownList>
                     <span id="AddMandatorysBRANCH" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
@@ -1404,7 +1481,7 @@
                 <dxe:ASPxButton ID="btnSaveRecordsAdd" ClientInstanceName="cbtnSaveRecordsAdd" runat="server" AutoPostBack="False" Text="S&#818;ave" CssClass="btn btn-primary" UseSubmitBehavior="False">
                     <ClientSideEvents Click="function(s, e) {AddSaveButtonClick('Insert');}" />
                 </dxe:ASPxButton>
-                <dxe:ASPxButton ID="btncancelAdd" ClientInstanceName="cbtncancelAdd" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-primary" UseSubmitBehavior="False">
+                <dxe:ASPxButton ID="btncancelAdd" ClientInstanceName="cbtncancelAdd" runat="server" AutoPostBack="False" Text="C&#818;ancel" CssClass="btn btn-danger" UseSubmitBehavior="False">
                     <ClientSideEvents Click="function(s, e) {cancelAdd();}" />
                 </dxe:ASPxButton>
 
