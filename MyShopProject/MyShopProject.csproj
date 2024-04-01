@@ -256,6 +256,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\ClosingStockController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CollectionRegisterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CompetitorStockRegisterController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\ConfigureLeaderboardController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ContentManagementController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CounterListController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CRMContactController.cs" />
@@ -429,6 +430,7 @@
     <Compile Include="Models\ChemistStockistDetailsModel.cs" />
     <Compile Include="Models\ClosingStock.cs" />
     <Compile Include="Models\CollectionRegisterModel.cs" />
+    <Compile Include="Models\ConfigueLeaderboardModel.cs" />
     <Compile Include="Models\CRMContactModel.cs" />
     <Compile Include="Models\CRMEnquiriesModel.cs" />
     <Compile Include="Models\CurrentStockReportModel.cs" />
@@ -2035,6 +2037,8 @@
     <Content Include="Areas\MYSHOP\Views\ViewGeotrack\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ProductMaster\_ProductImportManualLogView.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ProductMaster\ImportLog.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ConfigureLeaderboard\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\ConfigureLeaderboard\_PartialPointConfiguration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
