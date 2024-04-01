@@ -811,7 +811,7 @@
         function ProductButnClick(s, e) {
             $("#txtProduct_hidden").val("");
             $("#ProductTable").empty();
-            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th><th>Min Sale Price</th></tr></table>";
+            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th></tr></table>";
             $("#ProductTable").html(html);
             setTimeout(function () { $("#txtProdSearch").focus(); }, 500);
             $('#txtProdSearch').val('');
@@ -837,7 +837,7 @@
                 var HeaderCaption = [];
                 HeaderCaption.push("Product Name");
                 HeaderCaption.push("Product Description");
-                HeaderCaption.push("Min Sale Price");
+                
                 if ($("#txtProdSearch").val() != '') {
                     //callonServer("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "ProductTable", HeaderCaption, "ProdIndex", "SetSelectedValues");
                     callonServerM("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "ProductTable", HeaderCaption, "ProdIndex", "SetSelectedValues", "ProductSource");
