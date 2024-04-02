@@ -1008,6 +1008,7 @@
                             $("#entry").hide();
                             $("#view").show();
                             $("#TblSearch").show();
+                            $("#divImportButton").show();
                             $("#lblheading").html("Special Price Upload");
                             $("#divAddButton").show();
                             $("#divcross").hide();
@@ -1063,6 +1064,7 @@
                                     if (msg.d == "1") {
                                         jAlert("Deleted Successfuly");
                                         cGridSpecialPriceUpload.Refresh();
+                                    
                                         return false;
                                     }
                                 }
@@ -1644,7 +1646,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                    <h4 class="modal-title">Import Excel Template For Product Stock</h4>
+                    <h4 class="modal-title">Import Excel Template For Special Price Upload</h4>
                 </div>
                 <div class="modal-body">
                     <div>
