@@ -29,6 +29,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
         // GET: MYSHOP/ProductMaster
         public ActionResult Index()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/ProductMaster/Index");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+
             ProductMasterModel Dtls = new ProductMasterModel();
 
             DataSet ds = new DataSet();
@@ -67,6 +75,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public PartialViewResult _PartialProductGrid(string id, ProductMasterModel model)
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/ProductMaster/Index");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
             proc.AddPara("@ACTION", "GETPRODUCTMASTERLISTDATA");

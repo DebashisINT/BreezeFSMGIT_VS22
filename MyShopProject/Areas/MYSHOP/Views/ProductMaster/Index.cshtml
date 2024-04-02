@@ -840,29 +840,40 @@
     <div class="form_main backBox p-3">
         <table class="pull-left tblspace smblock mt-4 mb-3 ">
             <tr>
-                <td style="">
-                    <button type="button" id="btnAdd" class="btn btn-success btnwidth" onclick="AddNew()">Add New</button>
-                </td>
-                <td style="">
-                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                        <option value="0">Export to</option>
-                        <option value="2">XLSX</option>
-                    </select>
-                </td>
-                <td style="">
-                    <button type="button" id="btnDownloadFormat" class="btn btn-info btnwidth" onclick="DownloadFormat()">Download Format</button>
-                </td>
-                <td style="">
-                    <button type="button" id="btnImport" class="btn btn-warning btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
-                </td>
-                <td style="">
-                    <button type="button" id="btnShowImportLog" class="btn btn-view-log btnwidth" onclick="ImportLogPopOpen()">View Log</button>
-                </td>
-                <td style="">
-                    <button type="button" id="btnShowData" class="btn btn-show btnwidth" onclick="ShowData()">Show Data</button>
-                </td>
-
-            </tr>
+                @if (ViewBag.CanAdd)
+                {
+                    <td style="">
+                        <button type="button" id="btnAdd" class="btn btn-success btnwidth" onclick="AddNew()">Add New</button>
+                    </td>
+                }
+                @if (ViewBag.CanExport)
+                {
+                    <td style="">
+                        <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                            <option value="0">Export to</option>
+                            <option value="2">XLSX</option>
+                        </select>
+                    </td>
+                }
+                @if (ViewBag.CanAdd)
+                {
+                    <td style="">
+                        <button type="button" id="btnDownloadFormat" class="btn btn-info btnwidth" onclick="DownloadFormat()">Download Format</button>
+                    </td>
+                    <td style="">
+                        <button type="button" id="btnImport" class="btn btn-warning btnwidth" onclick="ImportProductPopOpen()">Import(Add/Update)</button>
+                    </td>
+                    <td style="">
+                        <button type="button" id="btnShowImportLog" class="btn btn-view-log btnwidth" onclick="ImportLogPopOpen()">View Log</button>
+                    </td>
+                }
+                @if (ViewBag.CanView)
+                {
+                    <td style="">
+                        <button type="button" id="btnShowData" class="btn btn-show btnwidth" onclick="ShowData()">Show Data</button>
+                    </td>
+                }
+                </tr>
             <tr></tr>
         </table>
         <br />
