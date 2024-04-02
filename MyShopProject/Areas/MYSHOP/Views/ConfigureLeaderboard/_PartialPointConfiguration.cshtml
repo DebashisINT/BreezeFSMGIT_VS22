@@ -18,6 +18,7 @@
     settings.Settings.ShowGroupPanel = true;
     settings.SettingsContextMenu.EnableColumnMenu = DefaultBoolean.True;
 
+
     settings.Settings.ShowFooter = true;
     settings.SettingsContextMenu.EnableFooterMenu = DefaultBoolean.True;
 
@@ -33,7 +34,8 @@
     {
         x.FieldName = "pointID";
         x.Caption = "Serial";
-        x.Width = 50;
+        //x.Width = 20;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
 
     });
@@ -43,7 +45,8 @@
         x.FieldName = "POINT_SECTION";
         x.Caption = "Section";
 
-        x.Width = 250;
+        //x.Width = 250;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
     });
 
 
@@ -51,9 +54,9 @@
     {
         x.FieldName = "POINT_VALUE";
         x.Caption = "Point Value";
-        x.Width = 250;
+        //x.Width = 250;
 
-
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
 
 
     });
@@ -61,9 +64,9 @@
     {
         x.FieldName = "IS_ACTIVE";
         x.Caption = "Active";
-        x.Width = 250;
+        //x.Width = 250;
 
-
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
 
@@ -71,7 +74,8 @@
     {
         x.Caption = "Action";
         x.VisibleIndex = 15;
-        x.Width = 200;
+        //x.Width = 200;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.SetDataItemTemplateContent(c =>
@@ -81,7 +85,7 @@
             ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditConfiguration('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Edit.png' /></a>");
 
 
-          //  ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteTConveyance('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Delete.png' </a>");
+            //  ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteTConveyance('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Delete.png' </a>");
 
         });
 

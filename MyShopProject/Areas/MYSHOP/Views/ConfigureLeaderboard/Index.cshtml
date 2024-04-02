@@ -406,9 +406,24 @@
         color: red;
     }
 
+    .active-checkbox
+    {
+        display: flex;
+        margin-top: 30px;
+    }
+
+    input[type="radio"], input[type="checkbox"]
+    {
+        margin-left: 5px;
+    }
+
+    #forTopSpaceControl .btn
+    {
+        margin-right: 5px;
+    }
+
     /*Rev end 1.0*/
     @@media only screen and (max-width: 768px) {
-
         .breadCumb > span {
             padding: 9px 12px;
         }
@@ -560,7 +575,7 @@
     }
 </script>
 <div class="breadCumb">
-    <span>Configure Leaderboard </span>
+    <span>Leaderboard Settings </span>
 </div>
 <div class="container">
     <div class="backBox p-3">
@@ -584,7 +599,7 @@
                 </div>
             </div>
             
-            <div class="col-md-1 mb-3">
+            <div class="col-md-1 mb-3 active-checkbox">
                 <label>Active</label>
                 <div>
 
