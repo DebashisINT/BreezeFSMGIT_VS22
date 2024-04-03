@@ -1,8 +1,9 @@
 ﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                20-01-2023        2.0.38           Pallab              25576: Report page design modification *@
-@*2.0                30-01-2023        2.0.39           Sanchita            View Party' option shall be available in FSM Dashboard along with
+@*Rev Number   DATE          VERSION          DEVELOPER     CHANGES*@
+@*1.0          20-01-2023    2.0.38           Pallab        25576: Report page design modification *@
+@*2.0          30-01-2023    2.0.39           Sanchita      View Party' option shall be available in FSM Dashboard along with
     Dashboard Setting rights. Refer: 25515 *@
+@*3.0          03-04-2024    V2.0.46          Sanchita      0027314: The Google API key should store in the database with a new table.
 @*====================================================== Revision History ==========================================================*@
 
 @{
@@ -621,7 +622,10 @@
 
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>
+@*Rev 3.0*@
+@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>*@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleAPIKey"></script>
+@*End of Rev 3.0*@
 <script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
 <script src="~/assests/pluggins/gmapCustomize/markerclusterer_packed.js"></script>
 <script src="~/assests/pluggins/gmapCustomize/markerwithlabel_packed.js"></script>
@@ -2721,45 +2725,52 @@
         };
 
         $(document).ready(function () {
-            StatePopulate();
+            // Rev 3.0
+            if (@ViewBag.HasGoogleAPIKey== 0) {
+                StatePopulate();
+                jAlert("Please configure Google Map Key from System Settings to view map.");
+            } else {
+                // End of Rev 3.0
+                StatePopulate();
+                setTimeout(function () {
+                    $("#ddlState").val('15');
+                }, 600);
+                setTimeout(function () {
+                    showMap();
+                }, 600);
 
-            setTimeout(function () {
-                $("#ddlState").val('15');
-            }, 600);
-            setTimeout(function () {
-                showMap();
-            }, 600);
+                $('.eventToggler').click(function () {
+                    $(this).parent('.dropSectionuser').toggleClass('open');
+                    if ($('.dropSectionuser').hasClass('open')) {
+                        $('.eventToggler').text('>');
+                    } else {
+                        $('.eventToggler').text('<');
+                    }
+                });
+                var now = new Date();
+                var yesterday = addDays(now, -0);
+                dtTo.SetValue(yesterday);
+                dtTo.SetMaxDate(yesterday);
 
-            $('.eventToggler').click(function () {
-                $(this).parent('.dropSectionuser').toggleClass('open');
-                if ($('.dropSectionuser').hasClass('open')) {
-                    $('.eventToggler').text('>');
-                } else {
-                    $('.eventToggler').text('<');
-                }
-            });
-            var now = new Date();
-            var yesterday = addDays(now, -0);
-            dtTo.SetValue(yesterday);
-            dtTo.SetMaxDate(yesterday);
+                $('.closeFullMap').click(function () {
 
-            $('.closeFullMap').click(function () {
-
-                $(this).parent('.FullDiv').addClass('hide');
-            });
-            $('.leftFloakToggle').click(function () {
-                var pdiv = $(this).parent('.leftFloak');
-                if ($('.leftFloakToggle').parent().hasClass('open')) {
-                   //console.log('remove')
-                   $('.leftFloak').removeClass('open');
-                   $('.leftFloakToggle> span').removeClass('lnr lnr-chevron-left').addClass('lnr lnr-chevron-right');
-                } else {
-                    //console.log('add')
-                    $('.leftFloak').addClass('open');
-                    $('.leftFloakToggle> span').removeClass('lnr lnr-chevron-right').addClass('lnr lnr-chevron-left');
-                }
-            });
-
+                    $(this).parent('.FullDiv').addClass('hide');
+                });
+                $('.leftFloakToggle').click(function () {
+                    var pdiv = $(this).parent('.leftFloak');
+                    if ($('.leftFloakToggle').parent().hasClass('open')) {
+                        //console.log('remove')
+                        $('.leftFloak').removeClass('open');
+                        $('.leftFloakToggle> span').removeClass('lnr lnr-chevron-left').addClass('lnr lnr-chevron-right');
+                    } else {
+                        //console.log('add')
+                        $('.leftFloak').addClass('open');
+                        $('.leftFloakToggle> span').removeClass('lnr lnr-chevron-right').addClass('lnr lnr-chevron-left');
+                    }
+                });
+                // Rev 3.0
+            }
+            // End of Rev 3.0
         });
 
         function showMap() {
@@ -3068,8 +3079,16 @@
             });
         }
 
-        function filter() {
-            showMap();
+    function filter() {
+            // Rev 3.0
+            // showMap();
+            if (@ViewBag.HasGoogleAPIKey== 0) {
+                jAlert("Please configure Google Map Key from System Settings to view map.");
+            }
+            else {
+                showMap();
+            }
+            // End of Rev 3.0
         }
 
 

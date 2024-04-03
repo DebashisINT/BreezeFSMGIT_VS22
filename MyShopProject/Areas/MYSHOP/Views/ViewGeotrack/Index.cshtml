@@ -1,6 +1,8 @@
 ﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*Rev Number   DATE          VERSION          DEVELOPER           CHANGES*@
 @*Written by  Sanchita  on 20-03-2024  for  2.0.46    27323: A new dashboard floating icon is required as "View Geotrack". *@
+
+@*1.0          03-04-2024    V2.0.46           Sanchita           0027314: The Google API key should store in the database with a new table.
 @*====================================================== Revision History ==========================================================*@
 
 
@@ -41,6 +43,7 @@
         width: 13px;
         margin-right: 5px;
     }
+
     .red {
         color: red;
     }
@@ -71,14 +74,17 @@
 <script src="~/Scripts/SearchPopup.js"></script>
 
 <link href="~/assests/pluggins/openstreetmap/leaflet.css" rel="stylesheet" />
-    <link href="~/assests/pluggins/openstreetmap/MarkerCluster.css" rel="stylesheet" />
-    <script src="~/assests/pluggins/openstreetmap/leaflet.js"></script>
-    <script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>
+<link href="~/assests/pluggins/openstreetmap/MarkerCluster.css" rel="stylesheet" />
+<script src="~/assests/pluggins/openstreetmap/leaflet.js"></script>
+<script src="~/assests/pluggins/openstreetmap/leaflet.markercluster.js"></script>
 
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" defer></script>
+@*Rev 1.0*@
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" defer></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleAPIKey&libraries=visualization" defer></script>
+@*End of Rev 1.0*@
 
 <script src="~/assests/pluggins/gmapCustomize/markerclusterer_packed.js"></script>
 @*<script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
@@ -2516,13 +2522,9 @@
         left: 16%;
     }
 
-    .selected-shop-type-box h5
-    {
-        margin: 0;
-
-    }
-
-
+        .selected-shop-type-box h5 {
+            margin: 0;
+        }
 </style>
 
 <script>
@@ -2688,6 +2690,13 @@
 
     function ShowGoogleMapClick() {
 
+        // Rev 1.0
+        if (@ViewBag.HasGoogleAPIKey== 0) {
+            jAlert("Please configure Google Map Key from System Settings to view map.");
+            return;
+        }
+        // End of Rev 1.0
+
         //stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         //branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         const stateid = StateId.join(',');
@@ -2810,7 +2819,7 @@ function showMarkers(data) {
     });
 
     // Set the user name in the h4 element
-    const salesmanName = data.length > 0 ? data[0].SalesMan : ""; 
+    const salesmanName = data.length > 0 ? data[0].SalesMan : "";
     document.querySelector('.selected-shop-type-box h5').textContent = `User name: ${salesmanName}`;
 }
 
@@ -2853,6 +2862,12 @@ function clearMarkers() {
     let map, heatmap;
 
     function ShowHeatMapClick() {
+        // Rev 1.0
+        if (@ViewBag.HasGoogleAPIKey== 0) {
+            jAlert("Please configure Google Map Key from System Settings to view map.");
+            return;
+        }
+        // End of Rev 1.0
 
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
@@ -3004,7 +3019,7 @@ function clearMarkers() {
         <button id="change-opacity">Change opacity</button>
     </div>
 
-    
+
     <div id="mapid"></div>
 </div>
 

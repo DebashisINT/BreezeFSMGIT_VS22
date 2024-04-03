@@ -1,5 +1,7 @@
 ﻿/*******************************************************************************************************************
  * Written  by  Sanchita  V2.0.46  20/03/2024   0027322: A new dashboard floating menu is required as "View Geography".
+ * 
+ * 1.0      03-04-2024    V2.0.46       Sanchita        0027314: The Google API key should store in the database with a new table.
  ********************************************************************************************************************/
 using SalesmanTrack;
 using System;
@@ -57,6 +59,16 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 model.modelbranch = APIHelperMethods.ToModelList<GetUsersBranch>(dtbranch);
                 string h_id = model.modelbranch.First().BRANCH_ID.ToString();
                 ViewBag.h_id = h_id;
+
+                // Rev 1.0
+                CommonBL cbl = new CommonBL();
+                ViewBag.GoogleAPIKey = cbl.GetSystemSettingsResult("GoogleMapKey");
+
+                if (ViewBag.GoogleAPIKey != "")
+                    ViewBag.HasGoogleAPIKey = 1;
+                else
+                    ViewBag.HasGoogleAPIKey = 0;
+                // End of Rev 1.0
 
                 return View(model);
 
