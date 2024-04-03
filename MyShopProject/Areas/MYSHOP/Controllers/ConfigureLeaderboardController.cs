@@ -26,7 +26,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
         // GET: MYSHOP/ConfigureLeaderboard
         public ActionResult Index()
         {
-            try { 
+            try {
+
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/ConfigureLeaderboard/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+                
                 string userid = Convert.ToString(Session["userid"]);
 
                 DataTable dt = new DataTable();
@@ -49,7 +55,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public ActionResult ConfigurationPartial()
         {
-            try { 
+            try {
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/ConfigureLeaderboard/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+               
                 DataSet ds = new DataSet();
                 ProcedureExecute proc = new ProcedureExecute("PRC_FSMLEADERBOARDMASTER");
                 proc.AddPara("@Action", "GETPOINTSLISTING");

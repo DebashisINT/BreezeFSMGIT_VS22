@@ -80,10 +80,10 @@
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.SetDataItemTemplateContent(c =>
         {
-
-
-            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditConfiguration('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Edit.png' /></a>");
-
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditConfiguration('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Edit.png' /></a>");
+            }
 
             //  ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteTConveyance('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pointID")) + "')\"><img src='/assests/images/Delete.png' </a>");
 
