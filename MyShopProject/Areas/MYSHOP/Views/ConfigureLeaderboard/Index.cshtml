@@ -610,20 +610,24 @@
             
             <div class="col-md-4 mb-3 mt-4" style="padding-top: 7px;" id="forTopSpaceControl">
                 <label>&nbsp;</label>
-                
-                <button type="button" id="btnshow" class="btn btn-success " tabindex=4>Add</button>
-                @*<button type="button" id="btnEdit" class="btn btn-success " tabindex=5>Update</button>*@
+                @if (ViewBag.CanAdd)
+                {
+                    <button type="button" id="btnshow" class="btn btn-success " tabindex=4>Add</button>
+                }
+
                 <button type="button" id="btnclear" class="btn btn-danger " tabindex=6>Cancel</button>
+                @if (ViewBag.CanExport)
+                {
+                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" tabindex=7>
+                        <option value="0">Export to</option>
+                        <option value="1">PDF</option>
+                        <option value="2">XLSX</option>
+                        <option value="3">XLS</option>
+                        <option value="4">RTF</option>
+                        <option value="5">CSV</option>
 
-                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" tabindex=7>
-                    <option value="0">Export to</option>
-                    <option value="1">PDF</option>
-                    <option value="2">XLSX</option>
-                    <option value="3">XLS</option>
-                    <option value="4">RTF</option>
-                    <option value="5">CSV</option>
-
-                </select>
+                    </select>
+                }
             </div>
             <div class="col-md-12"></div>
 
