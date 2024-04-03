@@ -1,6 +1,8 @@
 ﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*Rev Number  DATE           VERSION         DEVELOPER       CHANGES*@
 @*Written by  Sanchita  on 20-03-2024  for  2.0.46    0027322: A new dashboard floating menu is required as "View Geography". *@
+
+@*1.0          03-04-2024    V2.0.46         Sanchita        0027314: The Google API key should store in the database with a new table.
 @*====================================================== Revision History ==========================================================*@
 
 
@@ -66,7 +68,10 @@
 
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaCnT4LaIBF8iYIFQX_vVQ_F5bt6gPq5Q"></script>*@
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" ></script>
+@*Rev 1.0*@
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ4Nmy1GZfatgrBlqjyo0qjLw1dWAz-xI&libraries=visualization" ></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleAPIKey&libraries=visualization"></script>
+@*End of Rev 1.0*@
 
 <script src="~/assests/pluggins/gmapCustomize/markerclusterer_packed.js"></script>
 @*<script src="~/assests/pluggins/gmapCustomize/infobox.js"></script>
@@ -2750,7 +2755,7 @@
     var BranchId = [];
 
 
-    
+
 
     /*Marker code start*/
     // Define an array to store all markers
@@ -2763,9 +2768,14 @@
     let lastPartytypeid = null;
 
     function ShowGoogleMapClick() {
-
+        // Rev 1.0
+        if (@ViewBag.HasGoogleAPIKey== 0) {
+            jAlert("Please configure Google Map Key from System Settings to view map since the setting 'Is show Google Map' is on.");
+            return;
+        }
         
-        showLoader();
+        //showLoader();
+        // End of Rev 1.0
 
         const stateid = StateId.join(',');
         const branchid = BranchId.join(',');
@@ -2775,6 +2785,11 @@
             jAlert("Please select State and Party Type.");
             return;
         }
+
+        // Rev 1.0
+        showLoader();
+        // End of Rev 1.0
+
         partytypeName = PartyTypeGridLookup.gridView.currentSelectionState.InputText;
         console.log("partytypeName", partytypeName);
 
@@ -2797,12 +2812,12 @@
             'Prime Partner - Project': 'blue'
         };
 
-        
+
         selectedNamesArray.forEach(function (name, index) {
-            var color = colorMap[name.trim()] || 'black'; 
-            
+            var color = colorMap[name.trim()] || 'black';
+
             listItems.push('<li>' + name.trim() + '<span style="display:inline-block; width:10px; height:10px; background-color:' + color + '; margin-left:5px;"></span></li>');
-            
+
             if (index < selectedNamesArray.length - 1) {
                 listItems.push('&nbsp;&nbsp;');
             }
@@ -2813,9 +2828,9 @@
 
         $('.FullDiv-gmapmarker').removeClass('hide');
 
-        
+
         if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
-            
+
             cachedData = null;
         }
 
@@ -2866,7 +2881,7 @@
         });
     }
 
-    
+
 
     function showMarkers(data) {
         clearMarkers();
@@ -2884,7 +2899,7 @@
             addMarkerWithInfo(markerData);
         });
 
-    
+
     }
 
 
@@ -2923,8 +2938,8 @@
             map: map,
             title: markerData.Shop_Name,
             icon: {
-                url: customMarkerImage, 
-                scaledSize: new google.maps.Size(8, 8) 
+                url: customMarkerImage,
+                scaledSize: new google.maps.Size(8, 8)
             }
         });
 
@@ -2954,7 +2969,15 @@
     let map, heatmap;
 
     function ShowHeatMapClick() {
-        showLoader();
+        // Rev 1.0
+        if (@ViewBag.HasGoogleAPIKey== 0) {
+            jAlert("Please configure Google Map Key from System Settings to view map since the setting 'Is show Google Map' is on.");
+            return;
+        }
+        
+        //showLoader();
+        // End of Rev 1.0
+
         stateid = JSON.stringify(StateId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         branchid = JSON.stringify(BranchId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
         partytypeid = JSON.stringify(PartyTypeId).replaceAll('"', '').replaceAll('[', '').replaceAll(']', '');
@@ -2974,8 +2997,12 @@
             return;
         }
         else {
-
+            
             $('.FullDiv-heatmap').removeClass('hide');
+
+            // Rev 1.0
+            showLoader();
+            // End of Rev 1.0
 
             var ulElement = document.querySelector('.selected-shop-type-box ul');
             ulElement.innerHTML = '';
@@ -2998,7 +3025,7 @@
 
             // Set the inner HTML of the ul element to the joined listItems array
             ulElement.innerHTML = listItems.join('');
-            
+
 
             $.ajax({
                 type: "POST",
@@ -3029,13 +3056,13 @@
                         bounds.extend(latLng);
                     });
 
-                    
+
 
                     var heatmap = new google.maps.visualization.HeatmapLayer({
                         data: heatmapData,
                         map: map,
                         maxIntensity: 10,
-                        
+
                     });
 
                     // Fit the map to the bounds of India
@@ -3055,10 +3082,10 @@
 
                     var legend = document.getElementById('legend');
                     if (!legend) {
-                        
+
                         legend = document.createElement('div');
                         legend.id = 'legend';
-                        document.body.appendChild(legend); 
+                        document.body.appendChild(legend);
                         // Define legend styles
                         legend.style.position = 'absolute';
                         legend.style.bottom = '30px';
