@@ -5,6 +5,7 @@
 //4.0   V2.0.42     Debashis    06/10/2023      One new parameter has been added.Row: 867 & 873
 //5.0   V2.0.43     Debashis    22/12/2023      Some new parameters have been added.Row: 892 & 895
 //6.0   V2.0.45     Debashis    14/03/2024      One new method has been added.Row: 902 & Refer: 0027309
+//7.0   V2.0.45     Debashis    03/04/2024      One new method has been added.Row: 914
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -958,7 +959,10 @@ namespace ShopAPI.Controllers
                             shop_id = s2.shop_id,
                             shop_updated_lat= s2.shop_updated_lat,
                             shop_updated_long= s2.shop_updated_long,
-                            shop_updated_address= s2.shop_updated_address
+                            shop_updated_address= s2.shop_updated_address,
+                            //Rev 7.0 Row: 914
+                            pincode= s2.pincode
+                            //End of Rev 7.0 Row: 914
                         });
                     }
 

@@ -6,7 +6,9 @@
 //5.0   V2.0.42     Debashis    06/10/2023      One new parameter has been added.Row: 867,870 & 873
 //6.0   V2.0.43     Debashis    22/12/2023      Some new parameters have been added.Row: 892,895 & 898
 //7.0   V2.0.45     Debashis    14/03/2024      Some new parameters have been added.Row: 902 & Refer: 0027309
+//8.0   V2.0.45     Debashis    03/04/2024      One new parameter has been added.Row: 914
 #endregion===================================End of Revision History==================================================
+
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
@@ -774,6 +776,9 @@ namespace ShopAPI.Models
         public string shop_updated_lat { get; set; }
         public string shop_updated_long { get; set; }
         public string shop_updated_address { get; set; }
+        //Rev 8.0 Row: 914
+        public string pincode { get; set; }
+        //End of Rev 8.0 Row: 914
     }
 
     public class ITCShopAddressEditOutput

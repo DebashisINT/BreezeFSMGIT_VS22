@@ -23,6 +23,8 @@
 //22.0  V2.0.44     Debashis    05/01/2024      A new parameter has been added.Row: 899 & Refer: 0027139
 //23.0  V2.0.44     Debashis    20/02/2024      A new parameter has been added.Row: 900 & Refer: 0027245
 //24.0  V2.0.45     Debashis    14/03/2024      Some new parameters have been added.Row: 901 & Refer: 0027279,0027285 & 0027282
+//25.0  V2.0.45     Debashis    03/04/2024      Some new parameters have been added.Row: 903
+//26.0  V2.0.44     Debashis    03/04/2024      A new parameter has been added.Row: 904
 #endregion===================================End of Revision History==============================================================
 using System;
 using System.Collections.Generic;
@@ -294,6 +296,13 @@ namespace ShopAPI.Models
         public bool ShowPartyWithCreateOrder { get; set; }
         public bool Allow_past_days_for_apply_reimbursement { get; set; }
         //End of Rev 24.0 Row: 901 & Refer: 0027279,0027285 & 0027282
+        //Rev 25.0 Row: 903
+        public string loc_k { get; set; }
+        public string firebase_k { get; set; }
+        //End of Rev 25.0 Row: 903
+        //Rev 26.0 Row: 904
+        public bool IsShowLeaderBoard { get; set; }
+        //End of Rev 26.0 Row: 904
     }
 
     public class ConfigurationModelInput
