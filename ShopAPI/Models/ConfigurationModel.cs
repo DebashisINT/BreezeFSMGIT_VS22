@@ -294,7 +294,7 @@ namespace ShopAPI.Models
         //Rev 24.0 Row: 901 & Refer: 0027279,0027285 & 0027282
         public bool ShowPartyWithGeoFence { get; set; }
         public bool ShowPartyWithCreateOrder { get; set; }
-        public bool Allow_past_days_for_apply_reimbursement { get; set; }
+        public string Allow_past_days_for_apply_reimbursement { get; set; }
         //End of Rev 24.0 Row: 901 & Refer: 0027279,0027285 & 0027282
         //Rev 25.0 Row: 903
         public string loc_k { get; set; }
