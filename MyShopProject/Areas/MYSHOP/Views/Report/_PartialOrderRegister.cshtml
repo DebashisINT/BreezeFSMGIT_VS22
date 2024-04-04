@@ -1,4 +1,8 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*====================================================== Revision History ==========================================================*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                04-04-2024        V2 .0.46          Sanchita            0027345: Two checkbox required in parameter for Order register report. *@
+@*====================================================== Revision History ==========================================================*@
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridorderregister";
 
@@ -190,6 +194,32 @@
         });
     }
     //End of Mantis Issue 24593
+    // Rev 1.0
+    if (ViewBag.IsShowMRP == 1)
+    {
+        settings.Columns.Add(x =>
+        {
+            x.FieldName = "MRP";
+            x.Caption = "MRP";
+            x.VisibleIndex = 20;
+            x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            x.Width = 100;
+            x.PropertiesEdit.DisplayFormatString = "0.00";
+        });
+    }
+    if (ViewBag.IsShowDiscount == 1)
+    {
+        settings.Columns.Add(x =>
+        {
+            x.FieldName = "DISCOUNT";
+            x.Caption = "Discount";
+            x.VisibleIndex = 21;
+            x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            x.Width = 100;
+            x.PropertiesEdit.DisplayFormatString = "0.00";
+        });
+    }
+    // End of Rev 1.0
 
 
     //Rev Debashis Mantis: 0025365
