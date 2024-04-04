@@ -2728,7 +2728,9 @@
             // Rev 3.0
             if (@ViewBag.HasGoogleAPIKey== 0) {
                 StatePopulate();
+                $(".mLoader").css({ "opacity": "0", "display": "none" });
                 jAlert("Please configure Google Map Key from System Settings to view map.");
+                return;
             } else {
                 // End of Rev 3.0
                 StatePopulate();
