@@ -386,6 +386,7 @@ namespace ShopAPI.Controllers
                 {
                     oview = APIHelperMethods.ToModelList<ITCProdMastLists>(dt);
                     omodel.status = "200";
+                    omodel.message = "Success";
                     omodel.product_list = oview;
                 }
                 else
@@ -430,6 +431,7 @@ namespace ShopAPI.Controllers
                 {
                     oview = APIHelperMethods.ToModelList<ITCProdRateLists>(dt);
                     omodel.status = "200";
+                    omodel.message = "Success";
                     omodel.product_rate_list = oview;
                 }
                 else
