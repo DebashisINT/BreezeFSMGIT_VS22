@@ -28,6 +28,7 @@ namespace MyShop.Models
         public string Visit_Lat { get; set; }
         public string Visit_Long { get; set; }
         public string User_Id { get; set; }
+        public decimal Distance_Covered { get; set; }
 
         //public string PARTYSTATUS { get; set; }
         //public string MAP_COLOR { get; set; }
