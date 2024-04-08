@@ -2183,18 +2183,25 @@
         justify-content: center;
         align-items: center;
         opacity: .8;
+        flex-direction: column;
     }
 
-    .excExportMap {
-        display: inline-block;
-        padding: 2px 3px;
-        background: #fff;
-        border-radius: 3px;
-        width: 20px;
-        /* height: 10px; */
-        float: right;
-        cursor: pointer;
-    }
+        .mLoader h4{
+            font-size: 30px;
+            color: #111;
+            margin-top: 20px;
+        }
+
+        .excExportMap {
+            display: inline-block;
+            padding: 2px 3px;
+            background: #fff;
+            border-radius: 3px;
+            width: 20px;
+            /* height: 10px; */
+            float: right;
+            cursor: pointer;
+        }
 
         .excExportMap > img {
             max-width: 100%;
@@ -2545,6 +2552,7 @@
         display: flex;
         /*align-items: center;*/
         flex-direction: column;
+        box-shadow: 1px 1px 4px #11111185;
     }
 
         .selected-shop-type-box h4, .selectedshop-type-box-gmap h4 {
@@ -2761,7 +2769,7 @@
     // Define an array to store all markers
     /*let map = null;*/
      let markers = [];
-    let cachedData = null;
+    /*let cachedData = null;*/
 
     let lastStateid = null;
     let lastBranchid = null;
@@ -2790,6 +2798,9 @@
         showLoader();
         // End of Rev 1.0
 
+        AllPartyTypeName = PartyTypeGridLookup.gridView.itemTexts;
+        console.log("allpartytypename", AllPartyTypeName);
+
         partytypeName = PartyTypeGridLookup.gridView.currentSelectionState.InputText;
         console.log("partytypeName", partytypeName);
 
@@ -2802,19 +2813,34 @@
         // Create an empty array to hold the list items
         var listItems = [];
 
-        var colorMap = {
-            'Shop': '#f60712',
-            'Prime Partner': '#088a08',
-            'Direct Distributor': '#e6640d',
-            'Diamond': '#a00aae',
-            'Electrician': 'blue',
-            'Prime Partner - WS': 'blue',
-            'Prime Partner - Project': 'blue'
-        };
+        //var colorMap = {
+        //    'Shop': '#f60712',
+        //    'Prime Partner': '#088a08',
+        //    'Direct Distributor': '#e6640d',
+        //    'Diamond': '#a00aae',
+        //    'Electrician': 'blue',
+        //    'Prime Partner - WS': 'blue',
+        //    'Prime Partner - Project': 'blue'
+        //};
+
+
+        var colorMap = {};
+
+        var fixedColors = ['#f60712', '#088a08', '#e6640d', '#a00aae'];
+
+        AllPartyTypeName.forEach(function (name, index) {
+            if (index < fixedColors.length) {
+                colorMap[name] = fixedColors[index];
+            } else {
+                colorMap[name] = 'blue';
+            }
+        });
+
+        console.log(colorMap);
 
 
         selectedNamesArray.forEach(function (name, index) {
-            var color = colorMap[name.trim()] || 'black';
+            var color = colorMap[name.trim()] || 'blue';
 
             listItems.push('<li>' + name.trim() + '<span style="display:inline-block; width:10px; height:10px; background-color:' + color + '; margin-left:5px;"></span></li>');
 
@@ -2828,23 +2854,24 @@
 
         $('.FullDiv-gmapmarker').removeClass('hide');
 
+        fetchData(stateid, branchid, partytypeid);
 
-        if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
+        //if (stateid !== lastStateid || branchid !== lastBranchid || partytypeid !== lastPartytypeid) {
 
-            cachedData = null;
-        }
+        //    cachedData = null;
+        //}
 
-        if (cachedData) {
-            showMarkers(cachedData);
-            hideLoader();
-        } else {
-            fetchData(stateid, branchid, partytypeid);
-        }
+        //if (cachedData) {
+        //    showMarkers(cachedData);
+        //    hideLoader();
+        //} else {
+        //    fetchData(stateid, branchid, partytypeid);
+        //}
 
         // Update last parameters
-        lastStateid = stateid;
-        lastBranchid = branchid;
-        lastPartytypeid = partytypeid;
+        //lastStateid = stateid;
+        //lastBranchid = branchid;
+        //lastPartytypeid = partytypeid;
     }
 
     function fetchData(stateid, branchid, partytypeid) {
@@ -2870,7 +2897,7 @@
             return response.json();
         })
         .then(data => {
-            cachedData = data;
+            /*cachedData = data;*/
             showMarkers(data);
         })
         .catch(error => {
@@ -2881,7 +2908,7 @@
         });
     }
 
-
+    let currentInfowindow = null;
 
     function showMarkers(data) {
         clearMarkers();
@@ -2923,10 +2950,10 @@
         else if (markerData.Shop_PartyId == 2) {
             customMarkerImage = '/assests/images/green-dot.png';
         }
-        else if (markerData.Shop_PartyId == 4) {
+        else if (markerData.Shop_PartyId == 3) {
             customMarkerImage = '/assests/images/orange-dot.png';
         }
-        else if (markerData.Shop_PartyId == 5) {
+        else if (markerData.Shop_PartyId == 4) {
             customMarkerImage = '/assests/images/pink-dot.png';
         }
         else {
@@ -2948,7 +2975,14 @@
         });
 
         marker.addListener('click', () => {
+            // Close the previously opened infowindow, if any
+            if (currentInfowindow) {
+                currentInfowindow.close();
+            }
+            // Open the infowindow for the clicked marker
             infowindow.open(map, marker);
+            // Set the current infowindow to the one that's just been opened
+            currentInfowindow = infowindow;
         });
 
         markers.push(marker);
@@ -3179,7 +3213,10 @@
 
 
 
-<div id="gmap-loader" class="mLoader hide"><img src="/assests/images/Rainbow.gif" /></div>
+<div id="gmap-loader" class="mLoader hide">
+    <img src="/assests/images/Rainbow.gif" />
+    <h4>Data is loading, Please Wait</h4>
+</div>
 
 
 <div class="breadCumb">

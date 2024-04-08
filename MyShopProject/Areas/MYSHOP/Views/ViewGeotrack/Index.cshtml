@@ -2190,8 +2190,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        opacity: 0;
+        opacity: .8;
+        flex-direction: column;
     }
+
+        .mLoader h4 {
+            font-size: 30px;
+            color: #111;
+            margin-top: 20px;
+        }
 
     .excExportMap {
         display: inline-block;
@@ -2513,17 +2520,30 @@
         z-index: 5;
     }
 
-    .selected-shop-type-box {
+    .selected-employee-box {
         background-color: #fff;
         position: absolute;
         top: 10px;
         padding: 10px 15px;
         z-index: 5;
         left: 16%;
+        box-shadow: 1px 1px 4px #11111185;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
     }
 
-        .selected-shop-type-box h5 {
+        .selected-employee-box h5, .selected-employee-box h6 {
             margin: 0;
+            font-size: 16px;
+        }
+
+        .selected-employee-box h5 {
+            margin-right: 15px;
+        }
+
+        .selected-employee-box h6 span, .selected-employee-box h5 span {
+            color: #1521C3;
         }
 </style>
 
@@ -2653,6 +2673,8 @@
             HeaderCaption.push("Employee Name");
             HeaderCaption.push("Employee Code");
 
+
+
             if ($("#txtEmployeeSearch").val() != "") {
                 callonServer("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee");
             }
@@ -2671,12 +2693,21 @@
             $('#EmployeeSearchModel').modal('hide');
             EmployeeTxt.SetText(Name);
             EmployeeTxt.SetFocus();
+
+
+            /*document.querySelector('.selected-employee-box h5 span').textContent = `${Name}`;*/
+
+            const name = `${Name}`; // Replace "yourName" with the actual name variable you have
+            const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+
+            document.querySelector('.selected-employee-box h5 span').textContent = capitalizedName;
+
         }
     }
 
 
     /*Marker code start*/
-    markers = [];
+    let markers = [];
 
     let polylines = [];
 
@@ -2805,6 +2836,8 @@ function hideLoader() {
 function showMarkers(data) {
     clearMarkers();
 
+    let totalDistance = 0;
+
     if (!map) {
         map = new google.maps.Map(document.getElementById("mapid-gmapmarker"), {
             zoom: 6,
@@ -2816,11 +2849,24 @@ function showMarkers(data) {
 
     data.forEach(markerData => {
         addMarkerWithInfo(markerData);
+
+        totalDistance += parseFloat(markerData.Distance_Covered) || 0;
     });
 
-    // Set the user name in the h4 element
-    const salesmanName = data.length > 0 ? data[0].SalesMan : "";
-    document.querySelector('.selected-shop-type-box h5').textContent = `User name: ${salesmanName}`;
+    // Display the total distance covered
+    //const totalDistanceText = totalDistance > 0 ? `${totalDistance.toFixed(2)} km` : `0 km`;
+    //console.log("Total Distance Covered:", totalDistanceText);
+
+    //document.querySelector('.selected-employee-box h6').textContent = `Total Distance Covered: ${totalDistanceText}`;
+
+
+    const totalDistanceText = totalDistance.toFixed(2); // Format the total distance to two decimal places
+    const totalDistanceSpan = document.querySelector('.selected-employee-box h6 span'); // Select the span element
+    totalDistanceSpan.textContent = `${totalDistanceText} km`;
+
+    
+    //const salesmanName = data[0].SalesMan;
+    //document.querySelector('.selected-employee-box h5').textContent = `User name: ${salesmanName}`;
 }
 
 function clearMarkers() {
@@ -2994,6 +3040,10 @@ function clearMarkers() {
 
 </script>
 
+<div id="gmap-loader" class="mLoader hide">
+    <img src="/assests/images/Rainbow.gif" />
+    <h4>Data is loading, Please Wait</h4>
+</div>
 
 <div class="breadCumb">
     <span>View Geotrack</span>
@@ -3003,9 +3053,11 @@ function clearMarkers() {
 @*google map part*@
 <div class="FullDiv-gmapmarker hide">
     <div id="gmapmarker-container" class="closeFullMap"><i class="fa fa-close"></i></div>
-    <div class="selected-shop-type-box">
-        <h5></h5>
+    <div class="selected-employee-box">
+        <h5>User Name: <span></span></h5>
+        <h6>Total Distance Covered: <span></span></h6>
     </div>
+
     <div id="mapid-gmapmarker"></div>
 </div>
 
