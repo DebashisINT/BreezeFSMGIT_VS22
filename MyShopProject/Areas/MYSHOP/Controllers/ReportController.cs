@@ -154,6 +154,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             try
             {
                 // Rev 2.0
+                ViewBag.IsShowMRP = model.IsShowMRP;
+                ViewBag.IsShowDiscount = model.IsShowDiscount;
+
                 TempData["IsShowMRP"] = model.IsShowMRP;
                 TempData.Keep();
 
