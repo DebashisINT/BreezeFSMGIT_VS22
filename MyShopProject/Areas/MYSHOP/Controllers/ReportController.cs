@@ -154,9 +154,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
             try
             {
                 // Rev 2.0
-                ViewBag.IsShowMRP = model.IsShowMRP ;
-                ViewBag.IsShowDiscount = model.IsShowDiscount;
-
                 TempData["IsShowMRP"] = model.IsShowMRP;
                 TempData.Keep();
 
@@ -451,7 +448,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.FieldName = "QUANTITY";
                 column.PropertiesEdit.DisplayFormatString = "0.00";
             });
+            // Rev 2.0
+            if (TempData["IsShowMRP"].ToString() == "1")
+            {
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "MRP";
+                    column.FieldName = "MRP";
+                    column.PropertiesEdit.DisplayFormatString = "0.00";
+                });
+            }
 
+            if (TempData["IsShowDiscount"].ToString() == "1")
+            {
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "Discount";
+                    column.FieldName = "DISCOUNT";
+                    column.PropertiesEdit.DisplayFormatString = "0.00";
+                });
+            }
+            // End of Rev 2.0
             settings.Columns.Add(column =>
             {
                 column.Caption = "Rate";
@@ -488,27 +505,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 });
             }
             //End of Mantis Issue 24593
-            // Rev Sanchita
-            if (TempData["IsShowMRP"].ToString() == "1")
-            {
-                settings.Columns.Add(column =>
-                {
-                    column.Caption = "MRP";
-                    column.FieldName = "MRP";
-                    column.PropertiesEdit.DisplayFormatString = "0.00";
-                });
-            }
-
-            if (TempData["IsShowDiscount"].ToString() == "1")
-            {
-                settings.Columns.Add(column =>
-                {
-                    column.Caption = "Discount";
-                    column.FieldName = "DISCOUNT";
-                    column.PropertiesEdit.DisplayFormatString = "0.00";
-                });
-            }
-            // End of Rev Sanchita
+            
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
             settings.SettingsExport.RightMargin = 20;
