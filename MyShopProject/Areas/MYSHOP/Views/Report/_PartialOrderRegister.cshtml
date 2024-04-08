@@ -145,7 +145,7 @@
     });
 
     // Rev 1.0
-    if (TempData["IsShowMRP"].ToString() == "1" && TempData["IsShowDiscount"].ToString() == "1")
+    if (ViewBag.IsShowMRP == 1 && ViewBag.IsShowDiscount == 1)
     {
         settings.Columns.Add(x =>
         {
@@ -216,7 +216,7 @@
         }
         //End of Mantis Issue 24593
     }
-    else if (TempData["IsShowMRP"].ToString() == "1")
+    else if (ViewBag.IsShowMRP == 1)
     {
         settings.Columns.Add(x =>
         {
@@ -278,7 +278,7 @@
         }
         //End of Mantis Issue 24593
     }
-    else if (TempData["IsShowDiscount"].ToString() == "1" )
+    else if (ViewBag.IsShowDiscount ==1)
     {
         settings.Columns.Add(x =>
         {
