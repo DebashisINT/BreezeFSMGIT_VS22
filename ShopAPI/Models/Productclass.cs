@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //1.0   V2.0.41     Debashis    21/08/2023      Some new parameters have been added.Row: 865
-//2.0   V2.0.45     Debashis    03/04/2024      Some new parameters have been added.Row: 909 & 910
+//2.0   V2.0.45     Debashis    03/04/2024      Some new parameters have been added.Row: 909,910 & 916
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -166,6 +166,7 @@ namespace ShopAPI.Models
         public string category_name { get; set; }
         public long watt_id { get; set; }
         public string watt_name { get; set; }
+        public string UOM { get; set; }
     }
 
     public class ITCProdRateListInput
