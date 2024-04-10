@@ -523,6 +523,20 @@
     <Compile Include="OMS\Management\Activities\LeaveSuccessPage.aspx.designer.cs">
       <DependentUpon>LeaveSuccessPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OMS\Management\Activities\ProductsBranchMap.aspx.cs">
+      <DependentUpon>ProductsBranchMap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OMS\Management\Activities\ProductsBranchMap.aspx.designer.cs">
+      <DependentUpon>ProductsBranchMap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OMS\Management\Activities\ProductsBranchMapList.aspx.cs">
+      <DependentUpon>ProductsBranchMapList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OMS\Management\Activities\ProductsBranchMapList.aspx.designer.cs">
+      <DependentUpon>ProductsBranchMapList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OMS\Management\Activities\SpecialPriceUpload.aspx.cs">
       <DependentUpon>SpecialPriceUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2531,6 +2545,8 @@
     <Content Include="OMS\Management\Activities\JS\SearchPopupDatatable.js" />
     <Content Include="OMS\Management\Activities\leaveapproval.aspx" />
     <Content Include="OMS\Management\Activities\LeaveSuccessPage.aspx" />
+    <Content Include="OMS\Management\Activities\ProductsBranchMap.aspx" />
+    <Content Include="OMS\Management\Activities\ProductsBranchMapList.aspx" />
     <Content Include="OMS\Management\Activities\SpecialPriceUpload.aspx" />
     <Content Include="OMS\Management\Attendance\allEmpAttRecords.aspx" />
     <Content Include="OMS\Management\Attendance\AttendanceChartReport.aspx" />

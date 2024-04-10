@@ -290,22 +290,7 @@ namespace ERP.OMS.Management.Activities
             public string branch_description { get; set; }
 
         }
-        public class SaleRateLock
-        {
-            public int SaleRateLockID { get; set; }
-            public string CustomerID { get; set; }
-            public string CustomerName { get; set; }
-            public string ProductID { get; set; }
-            public string Products_Name { get; set; }
-            public string DiscSalesPrice { get; set; }
-            public string MinSalePrice { get; set; }
-            public string Disc { get; set; }
-            public string ValidFrom { get; set; }
-            public string ValidUpto { get; set; }
-            public string IsInUse { get; set; }
-            public string FixRate { get; set; }
-            public string Scheme { get; set; }
-        }
+       
 
         public class PosProductModel
         {
@@ -315,14 +300,7 @@ namespace ERP.OMS.Management.Activities
            // public string MinSalePrice { get; set; }
         }
 
-        public class CustomerModel
-        {
-            public string id { get; set; }
-            public string Na { get; set; }
-            public string UId { get; set; }
-            public string add { get; set; }
-            public string TYPE { get; set; }
-        }
+       
 
         protected void btndownload_Click(object sender, EventArgs e)
         {
