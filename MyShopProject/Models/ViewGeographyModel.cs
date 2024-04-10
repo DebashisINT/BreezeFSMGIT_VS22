@@ -48,5 +48,6 @@ namespace MyShop.Models
         public string Shop_Lat { get; set; }
         public string Shop_Long { get; set; }
         public Int32 Shop_PartyId { get; set; }
+        public string Color_Code { get; set; }
     }
 }

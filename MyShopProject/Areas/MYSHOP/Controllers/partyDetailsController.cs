@@ -2152,12 +2152,28 @@ namespace MyShop.Areas.MYSHOP.Controllers
         public JsonResult PartyDelete(string ShopCode)
         {
             string output_msg = string.Empty;
+            // Rev Sanchita
+            string image_name = string.Empty;
+            // End of Rev Sanchita
             try
             {
                 DataTable dt = obj.PartyDelate(ShopCode);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     output_msg = dt.Rows[0]["MSG"].ToString();
+                    // Rev Sanchita
+                    if (dt.Columns.Contains("SHOP_IMAGE"))
+                    {
+                        //string sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/CommonFolder/");
+                        String Path = System.Configuration.ConfigurationManager.AppSettings["Path"];
+
+                        if (System.IO.File.Exists(Path + Convert.ToString(dt.Rows[0]["SHOP_IMAGE"])))
+                        {
+                            // SAVE THE FILES IN THE FOLDER.
+                            System.IO.File.Delete(Path + Convert.ToString(dt.Rows[0]["SHOP_IMAGE"]));
+                        }
+                    }
+                    // End of Rev Sanchita
                 }
             }
             catch (Exception ex)
