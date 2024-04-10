@@ -1825,6 +1825,11 @@
         window.location.href = url.replace("_type_", 3);
     }
     // End of Rev 4.0
+    // Rev Sanchita
+    function ReAssignUserLogPopOpen() {
+        pcModalImportLogViewMode.Show();
+    }
+    // End of Rev Sanchita
 </script>
 
 <script>
@@ -3193,25 +3198,30 @@
                         <button type="button" class="btn btn-primary" onclick="ReAssignUserLogPopOpen();">
                             Re-assigned User Log
                         </button>
+                        @*Rev Sanchita*@
+                        @*<button type="button" class="btn btn-primary" onclick="BulkDelete();">
+                            Bulk Delete
+                        </button>*@
+                        @*End of Rev Sanchita*@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-                                Re-assigned Beat/Group
-                            </button>
-                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-                                Re-assigned Beat/Group Log
-                            </button>*@
+            Re-assigned Beat/Group
+        </button>
+        <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+            Re-assigned Beat/Group Log
+        </button>*@
                         @if (ViewBag.CanReassignedBeatParty)
                         {
-                        <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-                            Re-assigned Beat/Party
-                        </button>
+                            <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
+                                Re-assigned Beat/Party
+                            </button>
                         }
                         @if (ViewBag.CanReassignedBeatPartyLog)
                         {
-                        <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-                            Re-assigned Beat/Party Log
-                        </button>
+                            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+                                Re-assigned Beat/Party Log
+                            </button>
                         }
                         @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*End of Mantis Issue 25133*@
@@ -3219,15 +3229,15 @@
                         @*Mantis Issue 25545*@
                         @if (ViewBag.CanReassignedAreaRouteBeat)
                         {
-                        <button type="button" class="btn btn-success" onclick="ReAssignAreaRouteBeatPopOpen();">
-                            Re-assigned Area/Route/Beat
-                        </button>
+                            <button type="button" class="btn btn-success" onclick="ReAssignAreaRouteBeatPopOpen();">
+                                Re-assigned Area/Route/Beat
+                            </button>
                         }
                         @if (ViewBag.CanReassignedAreaRouteBeatLog)
                         {
-                        <button type="button" class="btn btn-primary" onclick="ReAssignAreaRouteBeatUserLogPopOpen();">
-                            Re-assigned Area/Route/Beat Log
-                        </button>
+                            <button type="button" class="btn btn-primary" onclick="ReAssignAreaRouteBeatUserLogPopOpen();">
+                                Re-assigned Area/Route/Beat Log
+                            </button>
                         }
                         @*End of Mantis Issue 25545*@
                         @*Rev 4.0*@
@@ -4588,6 +4598,32 @@
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
         }).GetHtml()
     @*End of Mantis Issue 25133*@
+    @*Rev Sanchita*@
+    @Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalMassDelete";
+        settings.Width = 300;
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Mass Delete";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("_ShopReassignManualLogView");
+        });
+
+        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+    }).GetHtml()
+    @*End of Rev Sanchita*@
     <div id="ReAssignedShopListModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
         <div class="modal-dialog " style="width: 90%;">
             <div class="modal-content">

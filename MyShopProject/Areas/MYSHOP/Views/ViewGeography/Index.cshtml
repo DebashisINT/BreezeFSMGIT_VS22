@@ -2944,16 +2944,32 @@
 
         let customMarkerImage = '';
 
-        if (markerData.Shop_PartyId == 1) {
+        //if (markerData.Shop_PartyId == 1) {
+        //    customMarkerImage = '/assests/images/red-dot.png';
+        //}
+        //else if (markerData.Shop_PartyId == 2) {
+        //    customMarkerImage = '/assests/images/green-dot.png';
+        //}
+        //else if (markerData.Shop_PartyId == 3) {
+        //    customMarkerImage = '/assests/images/orange-dot.png';
+        //}
+        //else if (markerData.Shop_PartyId == 4) {
+        //    customMarkerImage = '/assests/images/pink-dot.png';
+        //}
+        //else {
+        //    customMarkerImage = '/assests/images/blue-dot.png';
+        //}
+
+        if (markerData.Color_Code == '#f60712') {
             customMarkerImage = '/assests/images/red-dot.png';
         }
-        else if (markerData.Shop_PartyId == 2) {
+        else if (markerData.Color_Code == '#088a08') {
             customMarkerImage = '/assests/images/green-dot.png';
         }
-        else if (markerData.Shop_PartyId == 3) {
+        else if (markerData.Color_Code == '#e6640d') {
             customMarkerImage = '/assests/images/orange-dot.png';
         }
-        else if (markerData.Shop_PartyId == 4) {
+        else if (markerData.Color_Code == '#a00aae') {
             customMarkerImage = '/assests/images/pink-dot.png';
         }
         else {
