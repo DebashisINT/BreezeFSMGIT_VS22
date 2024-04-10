@@ -1721,6 +1721,17 @@ padding: 7px;
     {
             max-height: 350px !important;
     }
+
+    #drdExport
+    {
+        padding: 7px 10px !important;
+    border-radius: 4px !important;
+    }
+
+    #btnViewLog.btn-warning
+    {
+        background: #b6d206 !important;
+    }
     </style>
 
     <script>
