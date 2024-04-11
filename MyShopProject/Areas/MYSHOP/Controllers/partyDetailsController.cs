@@ -1,6 +1,7 @@
 ﻿/*************************************************************************************************************
 Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
-Rev 2.0     Sanchita   V2.0.44    19/12/2023      Beat related tab will be added in the security roles of Parties. Mantis: 27080     
+Rev 2.0     Sanchita   V2.0.44    19/12/2023      Beat related tab will be added in the security roles of Parties. Mantis: 27080  
+Rev 3.0     Sanchita   V2.0.46    11/04/2024      0027348: FSM: Master > Contact > Parties [Delete Facility]     
 *****************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -2152,28 +2153,32 @@ namespace MyShop.Areas.MYSHOP.Controllers
         public JsonResult PartyDelete(string ShopCode)
         {
             string output_msg = string.Empty;
-            // Rev Sanchita
+            // Rev 3.0
             string image_name = string.Empty;
-            // End of Rev Sanchita
+            // End of Rev 3.0
             try
             {
                 DataTable dt = obj.PartyDelate(ShopCode);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     output_msg = dt.Rows[0]["MSG"].ToString();
-                    // Rev Sanchita
+                    // Rev 3.0
                     if (dt.Columns.Contains("SHOP_IMAGE"))
                     {
                         //string sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/CommonFolder/");
-                        String Path = System.Configuration.ConfigurationManager.AppSettings["Path"];
+                        //String Path = System.Configuration.ConfigurationManager.AppSettings["Path"];
+                        String SiteURL = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
 
-                        if (System.IO.File.Exists(Path + Convert.ToString(dt.Rows[0]["SHOP_IMAGE"])))
+                        foreach (DataRow item in dt.Rows)
                         {
-                            // SAVE THE FILES IN THE FOLDER.
-                            System.IO.File.Delete(Path + Convert.ToString(dt.Rows[0]["SHOP_IMAGE"]));
+                            if (System.IO.File.Exists(SiteURL + Convert.ToString(item["SHOP_IMAGE"])))
+                            {
+                                // SAVE THE FILES IN THE FOLDER.
+                                System.IO.File.Delete(SiteURL + Convert.ToString(item["SHOP_IMAGE"]));
+                            }
                         }
                     }
-                    // End of Rev Sanchita
+                    // End of Rev 3.0
                 }
             }
             catch (Exception ex)
