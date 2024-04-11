@@ -6,6 +6,7 @@
 //5.0   V2.0.43     Debashis    22/12/2023      Some new parameters have been added.Row: 892 & 895
 //6.0   V2.0.45     Debashis    14/03/2024      One new method has been added.Row: 902 & Refer: 0027309
 //7.0   V2.0.45     Debashis    03/04/2024      One new method has been added.Row: 914
+//8.0   V2.0.45     Debashis    11/04/2024      One new method has been added.Row: 917 & 918
 #endregion===================================End of Revision History==================================================
 using ShopAPI.Models;
 using System;
@@ -290,6 +291,9 @@ namespace ShopAPI.Controllers
                 sqlcmd.Parameters.AddWithValue("@assign_to", omm.assign_to);
                 sqlcmd.Parameters.AddWithValue("@saved_from_status", omm.saved_from_status);
                 //End of Rev 5.0 Row: 892
+                //Rev 8.0 Row: 917
+                sqlcmd.Parameters.AddWithValue("@isFromCRM", omm.isFromCRM);
+                //End of Rev 8.0 Row: 917
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -438,6 +442,9 @@ namespace ShopAPI.Controllers
                 sqlcmd.Parameters.AddWithValue("@assign_to", omm.assign_to);
                 sqlcmd.Parameters.AddWithValue("@saved_from_status", omm.saved_from_status);
                 //End of Rev 5.0 Row: 895
+                //Rev 8.0 Row: 918
+                sqlcmd.Parameters.AddWithValue("@isFromCRM", omm.isFromCRM);
+                //End of Rev 8.0 Row: 918
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
