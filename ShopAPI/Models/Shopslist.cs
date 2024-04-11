@@ -7,6 +7,7 @@
 //6.0   V2.0.43     Debashis    22/12/2023      Some new parameters have been added.Row: 892,895 & 898
 //7.0   V2.0.45     Debashis    14/03/2024      Some new parameters have been added.Row: 902 & Refer: 0027309
 //8.0   V2.0.45     Debashis    03/04/2024      One new parameter has been added.Row: 914
+//9.0   V2.0.45     Debashis    11/04/2024      One new method has been added.Row: 917 & 918
 #endregion===================================End of Revision History==================================================
 
 using System.ComponentModel.DataAnnotations;
@@ -345,6 +346,9 @@ namespace ShopAPI.Models
         public string assign_to { get; set; }
         public string saved_from_status { get; set; }
         //End of Rev 6.0 Row: 892 & 895
+        //Rev 9.0 Row: 917 & 918
+        public bool isFromCRM { get; set; }
+        //End of Rev 9.0 Row: 917 & 918
     }
 
     public class AllShopTypelistsOutput

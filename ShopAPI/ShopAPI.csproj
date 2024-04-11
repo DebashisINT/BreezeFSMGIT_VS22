@@ -268,6 +268,7 @@
     <Compile Include="Controllers\JobCustomerController.cs" />
     <Compile Include="Controllers\KnowYourStateController.cs" />
     <Compile Include="Controllers\LeadEnquiryDetailsController.cs" />
+    <Compile Include="Controllers\LeaderboardInfoController.cs" />
     <Compile Include="Controllers\LeadTypeController.cs" />
     <Compile Include="Controllers\LeaveApprovalController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
@@ -393,6 +394,7 @@
     <Compile Include="Models\ITCOrderWithProductDetailModel.cs" />
     <Compile Include="Models\JobCustomerModel.cs" />
     <Compile Include="Models\LeadEnquiryDetailsModel.cs" />
+    <Compile Include="Models\LeaderboardInfoModel.cs" />
     <Compile Include="Models\LeadTypeModel.cs" />
     <Compile Include="Models\LeaveApprovalRecord.cs" />
     <Compile Include="Models\Leavetype.cs" />
