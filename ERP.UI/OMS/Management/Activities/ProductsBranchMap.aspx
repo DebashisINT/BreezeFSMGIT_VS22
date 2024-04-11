@@ -622,7 +622,14 @@
         }
        
         $(function () {
-            cBranchComponentPanel.PerformCallback('BindComponentGrid' + '~' + 'All');
+            if ($("#hdAddOrEdit").val() != "Edit") {
+                cBranchComponentPanel.PerformCallback('BindComponentGrid' + '~' + 'All');
+            }
+            else {
+                $("#lblheading").html("Modify Branch Wise Product Mapping");
+                gridbranchLookup.SetEnabled(false);
+            }
+            
 
         });
         function selectAll() {
@@ -640,7 +647,9 @@
         /* --------------Product----------------------*/
 
         $(function () {
-            cProductComponentPanel.PerformCallback('BindProductGrid');
+            if ($("#hdAddOrEdit").val() != "Edit") {
+                cProductComponentPanel.PerformCallback('BindProductGrid');
+            }
 
         });
         function selectAllProduct() {
@@ -1009,7 +1018,8 @@
     </dxe:ASPxCallbackPanel>
 
 
-
+     <asp:HiddenField runat="server" ID="hdAddOrEdit" />
+     <asp:HiddenField runat="server" ID="hdnPageEditId" />
 
 
 

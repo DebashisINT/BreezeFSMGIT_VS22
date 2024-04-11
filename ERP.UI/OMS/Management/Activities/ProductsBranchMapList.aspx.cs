@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DataAccessLayer;
+using System.Web.Services;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 
 namespace ERP.OMS.Management.Activities
 {
@@ -15,8 +18,13 @@ namespace ERP.OMS.Management.Activities
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+            if (!IsPostBack)
+            {
+                
+            }
         }
+       
         protected void EntityServerModeDataSource_Selecting(object sender, DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs e)
         {
             e.KeyExpression = "PRODUCTBRANCHMAP_ID";
@@ -74,6 +82,44 @@ namespace ERP.OMS.Management.Activities
             catch (Exception ex)
             {
 
+            }
+        }
+
+        [WebMethod(EnableSession = true)]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static string DeleteProductsBranchMap(string MAPID)
+        {
+            try
+            {
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+                ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
+                proc.AddVarcharPara("@PRODUCTBRANCHMAP_ID", 50, MAPID);
+                proc.AddVarcharPara("@Action", 100, "Delete");
+                proc.AddIntegerPara("@UserId", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                DataTable dtSaleRateLock = proc.GetTable();
+                if (dtSaleRateLock.Rows.Count > 0)
+                {
+                    if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "1")
+                    {
+                        return "1";
+                    }
+                    else if (dtSaleRateLock.Rows[0]["Insertmsg"].ToString() == "-998")
+                    {
+                        return "-998";
+                    }
+                    else
+                    {
+                        return "0";
+                    }
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Error occured";
             }
         }
     }
