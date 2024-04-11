@@ -41,12 +41,201 @@ namespace ERP.OMS.Management.Activities
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string MAPID = "";
             if (!IsPostBack)
             {
-                Session["SI_ComponentData_Branch"] = null;
+                Session["ComponentData_Branch"] = null;
+                Session["ComponentData_Product"] = null;
+                
+                if (Convert.ToString(Request.QueryString["key"]) != "ADD")
+                {
+                    hdAddOrEdit.Value = "Edit";
+                    MAPID = Convert.ToString(Request.QueryString["key"]);
+                    hdnPageEditId.Value = MAPID;
+                    MAPDetails(MAPID);
+                }
+                else
+                {
+                    hdAddOrEdit.Value = "Add";
+                    hdnPageEditId.Value = "0";
+                }
             }
         }
+        public void MAPDetails(string MAPID)
+        {
+            DataSet dsBranchMapEditDetails = GetDetailsOfBranchMAP(MAPID);
 
+            //----------------------------Branch Bind-----------------------------
+            DataTable BranchMap = dsBranchMapEditDetails.Tables[0];
+            if (BranchMap.Rows.Count > 0)
+            {
+                Session["ComponentData_Branch"] = BranchMap;
+                lookup_branch.DataSource = BranchMap;
+                lookup_branch.DataBind();
+            }
+            else
+            {
+                Session["ComponentData_Branch"] = BranchMap;
+                lookup_branch.DataSource = null;
+                lookup_branch.DataBind();
+            }
+            lookup_branch.GridView.Selection.CancelSelection();
+
+            //----------------------------Branch Bind End-----------------------------
+
+            //----------------------------ParentEMP Bind-----------------------------
+            DataTable ParentEMPMap = dsBranchMapEditDetails.Tables[1];
+            
+            if (ParentEMPMap.Rows.Count > 0)
+            {
+                Session["ComponentData_ParentEmp"] = ParentEMPMap;
+                gridParentEmpLookup.DataSource = ParentEMPMap;
+                gridParentEmpLookup.DataBind();
+            }
+            else
+            {
+                Session["ComponentData_ParentEmp"] = ParentEMPMap;
+                gridParentEmpLookup.DataSource = null;
+                gridParentEmpLookup.DataBind();
+            }
+            gridParentEmpLookup.GridView.Selection.CancelSelection();
+            //----------------------------ParentEMP Bind End-----------------------------
+
+
+            //----------------------------ChildEMP Bind-----------------------------
+            DataTable ChildEMPMap = dsBranchMapEditDetails.Tables[2];
+
+            if (ChildEMPMap.Rows.Count > 0)
+            {
+                Session["ComponentData_ParentEmp"] = ChildEMPMap;
+                ChildParentEmpLookup.DataSource = ChildEMPMap;
+                ChildParentEmpLookup.DataBind();
+            }
+            else
+            {
+                Session["ComponentData_ParentEmp"] = ChildEMPMap;
+                ChildParentEmpLookup.DataSource = null;
+                ChildParentEmpLookup.DataBind();
+            }
+            ChildParentEmpLookup.GridView.Selection.CancelSelection();
+            //----------------------------ChildEMP Bind End-----------------------------
+
+
+
+
+
+            //----------------------------Products Bind-----------------------------
+            DataTable ProductsMap = dsBranchMapEditDetails.Tables[3];
+            if (ProductsMap.Rows.Count > 0)
+            {
+                Session["ComponentData_Product"] = ProductsMap;
+                gridProductLookup.DataSource = ProductsMap;
+                gridProductLookup.DataBind();
+            }
+            else
+            {
+                Session["ComponentData_Product"] = ProductsMap;
+                gridProductLookup.DataSource = null;
+                gridProductLookup.DataBind();
+            }
+            gridProductLookup.GridView.Selection.CancelSelection();
+            //----------------------------Products Bind End-----------------------------
+
+            DataTable Mapdetails = dsBranchMapEditDetails.Tables[4];
+            if (Mapdetails != null && Mapdetails.Rows.Count > 0)
+            {
+                string BRANCH_ID = Convert.ToString(Mapdetails.Rows[0]["BRANCH_ID"]);
+                string PARENTEMP_INTERNALID = Convert.ToString(Mapdetails.Rows[0]["PARENTEMP_INTERNALID"]);
+                string CHILDEMP_INTERNALID = Convert.ToString(Mapdetails.Rows[0]["CHILDEMP_INTERNALID"]);
+                string PRODUCT_ID = Convert.ToString(Mapdetails.Rows[0]["PRODUCT_ID"]);
+
+                if (!String.IsNullOrEmpty(BRANCH_ID))
+                {
+                    string[] eachBRANCH_ID = BRANCH_ID.Split(',');
+                    if (eachBRANCH_ID.Length > 1)
+                    {
+                        foreach (string val in eachBRANCH_ID)
+                        {
+                            lookup_branch.GridView.Selection.SelectRowByKey(Convert.ToInt32(val));
+                        }
+                    }
+                    else if (eachBRANCH_ID.Length == 1)
+                    {
+                        foreach (string val in eachBRANCH_ID)
+                        {
+                            lookup_branch.GridView.Selection.SelectRowByKey(Convert.ToInt32(val));
+                        }
+                    }
+                }
+                if (!String.IsNullOrEmpty(PARENTEMP_INTERNALID))
+                {
+                    string[] eachPARENTEMP_INTERNALID = PARENTEMP_INTERNALID.Split(',');
+                    if (eachPARENTEMP_INTERNALID.Length > 1)
+                    {
+                        foreach (string val in eachPARENTEMP_INTERNALID)
+                        {
+                            gridParentEmpLookup.GridView.Selection.SelectRowByKey((val).Trim());
+                        }
+                    }
+                    else if (eachPARENTEMP_INTERNALID.Length == 1)
+                    {
+                        foreach (string val in eachPARENTEMP_INTERNALID)
+                        {
+                            gridParentEmpLookup.GridView.Selection.SelectRowByKey((val).Trim());
+                        }
+                    }
+                }
+                if (!String.IsNullOrEmpty(CHILDEMP_INTERNALID))
+                {
+                    string[] eachCHILDEMP_INTERNALID = CHILDEMP_INTERNALID.Split(',');
+                    if (eachCHILDEMP_INTERNALID.Length > 1)
+                    {
+                        foreach (string val in eachCHILDEMP_INTERNALID)
+                        {
+                            ChildParentEmpLookup.GridView.Selection.SelectRowByKey((val).Trim());
+                        }
+                    }
+                    else if (eachCHILDEMP_INTERNALID.Length == 1)
+                    {
+                        foreach (string val in eachCHILDEMP_INTERNALID)
+                        {
+                            ChildParentEmpLookup.GridView.Selection.SelectRowByKey((val).Trim());
+                        }
+                    }
+                }
+                if (!String.IsNullOrEmpty(PRODUCT_ID))
+                {
+                    string[] eachPRODUCT_ID = PRODUCT_ID.Split(',');
+                    if (eachPRODUCT_ID.Length > 1)
+                    {
+                        foreach (string val in eachPRODUCT_ID)
+                        {
+                            gridProductLookup.GridView.Selection.SelectRowByKey(Convert.ToInt32(val));
+                        }
+                    }
+                    else if (eachPRODUCT_ID.Length == 1)
+                    {
+                        foreach (string val in eachPRODUCT_ID)
+                        {
+                            gridProductLookup.GridView.Selection.SelectRowByKey(Convert.ToInt32(val));
+                        }
+                    }
+                }
+            }
+
+
+
+
+        }
+        public DataSet GetDetailsOfBranchMAP(string MAPID)
+        {
+            DataSet ds = new DataSet();
+            ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
+            proc.AddVarcharPara("@Action", 100, "FETCHBRANCHMAP");
+            proc.AddBigIntegerPara("@PRODUCTBRANCHMAP_ID", Convert.ToInt32(MAPID));
+            ds = proc.GetDataSet();
+            return ds;
+        }
         #region Branch Populate
         protected void Componentbranch_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
         {
@@ -60,13 +249,13 @@ namespace ERP.OMS.Management.Activities
                     ComponentTable = GetBranch(Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]), Hoid);
                     if (ComponentTable.Rows.Count > 0)
                     {
-                        Session["SI_ComponentData_Branch"] = ComponentTable;
+                        Session["ComponentData_Branch"] = ComponentTable;
                         lookup_branch.DataSource = ComponentTable;
                         lookup_branch.DataBind();
                     }
                     else
                     {
-                        Session["SI_ComponentData_Branch"] = ComponentTable;
+                        Session["ComponentData_Branch"] = ComponentTable;
                         lookup_branch.DataSource = null;
                         lookup_branch.DataBind();
                     }
@@ -79,7 +268,7 @@ namespace ERP.OMS.Management.Activities
                     ComponentTable = proc.GetTable();
                     if (ComponentTable.Rows.Count > 0)
                     {
-                        Session["SI_ComponentData_Branch"] = ComponentTable;
+                        Session["ComponentData_Branch"] = ComponentTable;
                         lookup_branch.DataSource = ComponentTable;
                         lookup_branch.DataBind();
                     }
@@ -97,13 +286,13 @@ namespace ERP.OMS.Management.Activities
 
             //    if (ComponentTable.Rows.Count > 0)
             //    {
-            //        Session["SI_ComponentData_Branch"] = ComponentTable;
+            //        Session["ComponentData_Branch"] = ComponentTable;
             //        lookup_branch.DataSource = ComponentTable;
             //        lookup_branch.DataBind();
             //    }
             //    else
             //    {
-            //        Session["SI_ComponentData_Branch"] = ComponentTable;
+            //        Session["ComponentData_Branch"] = ComponentTable;
             //        lookup_branch.DataSource = null;
             //        lookup_branch.DataBind();
             //    }
@@ -129,13 +318,14 @@ namespace ERP.OMS.Management.Activities
         }
         protected void lookup_branch_DataBinding(object sender, EventArgs e)
         {
-            if (Session["SI_ComponentData_Branch"] != null)
+            if (Session["ComponentData_Branch"] != null)
             {
-                lookup_branch.DataSource = (DataTable)Session["SI_ComponentData_Branch"];
+                lookup_branch.DataSource = (DataTable)Session["ComponentData_Branch"];
             }
         }
-        #endregion      
+        #endregion Branch Populate   
 
+        #region Product Populate
         protected void ProductComponentPanel_Callback(object sender, CallbackEventArgsBase e)
         {
             if (e.Parameter.Split('~')[0] == "BindProductGrid")
@@ -169,7 +359,9 @@ namespace ERP.OMS.Management.Activities
                 gridProductLookup.DataSource = (DataTable)Session["ComponentData_Product"];
             }
         }
+        #endregion Product Populate
 
+        #region Parent Employee Populate
         protected void ParentEmpComponentPanel_Callback(object sender, CallbackEventArgsBase e)
         {
             if (e.Parameter.Split('~')[0] == "BindParentEmpgrid")
@@ -213,85 +405,9 @@ namespace ERP.OMS.Management.Activities
                 gridParentEmpLookup.DataSource = (DataTable)Session["ComponentData_ParentEmp"];
             }
         }
-        protected void CallbackPanel_Callback(object sender, CallbackEventArgsBase e)
-        {
-            string returnPara = Convert.ToString(e.Parameter);
+        #endregion Parent Employee Populate
 
-            string BranchComponent = "";
-            string BRANCH_ID = "";
-            List<object> BranchList = lookup_branch.GridView.GetSelectedFieldValues("ID");
-            foreach (object Brnch in BranchList)
-            {
-                BranchComponent += "," + Brnch;
-            }
-            BRANCH_ID = BranchComponent.TrimStart(',');
-
-            string PRODUCT_ID = "";
-            string PRODUCTS = "";
-            List<object> PRODUCTSList = gridProductLookup.GridView.GetSelectedFieldValues("SPRODUCTS_ID");
-            foreach (object PRODUCT in PRODUCTSList)
-            {
-                PRODUCTS += "," + PRODUCT;
-            }
-            PRODUCT_ID = PRODUCTS.TrimStart(',');
-
-
-            string ParentEMP_ID = "";
-            string ParentEMP = "";
-            List<object> ParentEMPIDList = gridParentEmpLookup.GridView.GetSelectedFieldValues("cnt_internalId");
-            foreach (object Parent in ParentEMPIDList)
-            {                
-                ParentEMP += "," + Parent;
-            }
-            ParentEMP_ID = ParentEMP.TrimStart(',');
-
-
-            string ChildEMP_ID = "";
-            string ChildEMP = "";
-            List<object> ChildEMPIDList = ChildParentEmpLookup.GridView.GetSelectedFieldValues("cnt_internalId");
-            foreach (object child in ChildEMPIDList)
-            {
-                ChildEMP += "," + child;
-            }
-            ChildEMP_ID = ChildEMP.TrimStart(',');
-
-
-            try
-            {
-                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
-                ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
-                proc.AddVarcharPara("@Action", 100, "INSERT");
-                proc.AddVarcharPara("@PRODUCTID", 4000, PRODUCT_ID);
-                proc.AddVarcharPara("@BRANCHID", 4000, BRANCH_ID);
-                proc.AddVarcharPara("@ParentEMPID", 4000, ParentEMP_ID);
-                proc.AddVarcharPara("@ChildEMPID", 4000, ChildEMP_ID);
-                proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
-                DataTable dt = proc.GetTable();
-                if (dt.Rows.Count > 0)
-                {
-                    if (dt.Rows[0]["Success"].ToString() == "True"
-)
-                    {
-                        CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "1";
-                    }
-                    else if (dt.Rows[0]["Success"].ToString() == "-10")
-                    {
-                        CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "-10";
-                    }
-                   
-                }
-                else
-                {
-                    CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "-10";
-                }
-
-            }
-            catch
-            {
-
-            }
-        }
-
+        #region Child Employee Populate
         protected void ChildEmpComponentPanel_Callback(object sender, CallbackEventArgsBase e)
         {
             if (e.Parameter.Split('~')[0] == "BindChildEmpGrid")
@@ -377,6 +493,93 @@ namespace ERP.OMS.Management.Activities
             }
         }
 
-       
+        #endregion Child Employee Populate
+
+
+        #region Data Save
+        protected void CallbackPanel_Callback(object sender, CallbackEventArgsBase e)
+        {
+            string returnPara = Convert.ToString(e.Parameter);
+
+            string BranchComponent = "";
+            string BRANCH_ID = "";
+            List<object> BranchList = lookup_branch.GridView.GetSelectedFieldValues("ID");
+            foreach (object Brnch in BranchList)
+            {
+                BranchComponent += "," + Brnch;
+            }
+            BRANCH_ID = BranchComponent.TrimStart(',');
+
+            string PRODUCT_ID = "";
+            string PRODUCTS = "";
+            List<object> PRODUCTSList = gridProductLookup.GridView.GetSelectedFieldValues("SPRODUCTS_ID");
+            foreach (object PRODUCT in PRODUCTSList)
+            {
+                PRODUCTS += "," + PRODUCT;
+            }
+            PRODUCT_ID = PRODUCTS.TrimStart(',');
+
+
+            string ParentEMP_ID = "";
+            string ParentEMP = "";
+            List<object> ParentEMPIDList = gridParentEmpLookup.GridView.GetSelectedFieldValues("cnt_internalId");
+            foreach (object Parent in ParentEMPIDList)
+            {
+                ParentEMP += "," + Parent;
+            }
+            ParentEMP_ID = ParentEMP.TrimStart(',');
+
+
+            string ChildEMP_ID = "";
+            string ChildEMP = "";
+            List<object> ChildEMPIDList = ChildParentEmpLookup.GridView.GetSelectedFieldValues("cnt_internalId");
+            foreach (object child in ChildEMPIDList)
+            {
+                ChildEMP += "," + child;
+            }
+            ChildEMP_ID = ChildEMP.TrimStart(',');
+
+
+            string ActionType =Convert.ToString(hdAddOrEdit.Value);
+            string MAPID = Convert.ToString(hdnPageEditId.Value);
+
+            try
+            {
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+                ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
+                proc.AddVarcharPara("@Action", 100, ActionType);
+                proc.AddIntegerPara("@PRODUCTBRANCHMAP_ID", Convert.ToInt32(MAPID));
+                proc.AddVarcharPara("@PRODUCTID", 4000, PRODUCT_ID);
+                proc.AddVarcharPara("@BRANCHID", 4000, BRANCH_ID);
+                proc.AddVarcharPara("@ParentEMPID", 4000, ParentEMP_ID);
+                proc.AddVarcharPara("@ChildEMPID", 4000, ChildEMP_ID);
+                proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                DataTable dt = proc.GetTable();
+                if (dt.Rows.Count > 0)
+                {
+                    if (dt.Rows[0]["Success"].ToString() == "True"
+)
+                    {
+                        CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "1";
+                    }
+                    else if (dt.Rows[0]["Success"].ToString() == "-10")
+                    {
+                        CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "-10";
+                    }
+
+                }
+                else
+                {
+                    CallbackPanel.JSProperties["cpSaveSuccessOrFail"] = "-10";
+                }
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        #endregion Data Save
     }
 }

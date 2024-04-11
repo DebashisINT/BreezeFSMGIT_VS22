@@ -42,6 +42,24 @@ namespace ERP.OMS.Management.Activities
         protected global::DevExpress.Web.ASPxGridView GridProductBranchMap;
 
         /// <summary>
+        /// CustomBtnEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.GridViewCommandColumnCustomButton CustomBtnEdit;
+
+        /// <summary>
+        /// CustomBtnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.GridViewCommandColumnCustomButton CustomBtnDelete;
+
+        /// <summary>
         /// EntityServerModeDataSource control.
         /// </summary>
         /// <remarks>

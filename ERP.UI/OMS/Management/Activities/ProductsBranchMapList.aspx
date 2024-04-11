@@ -685,8 +685,77 @@
             cGridProductBranchMap.Refresh();
         }
         function OnAddButtonClick() {
-            var url = 'ProductsBranchMap.aspx?id=' + 'ADD';           
+            var url = 'ProductsBranchMap.aspx?key=' + 'ADD';           
             window.location.href = url;
+        }
+
+        function GridProductBranchCustomButtonClick(s, e) {
+        var id = s.GetRowKey(e.visibleIndex);
+        if (e.buttonID == 'CustomBtnEdit') {
+            if (id != "") {
+                var url = 'ProductsBranchMap.aspx?key=' + id;
+                window.location.href = url;
+
+                //document.getElementById('HiddenSPECIALPRICEID').value = id;
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/OMS/Management/Activities/ProductsBranchMapList.aspx/GetSpecialPrice",
+                //    data: JSON.stringify({ "MAPID": id }),
+                //    dataType: "json",
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    global: false,
+                //    async: false,
+                //    success: OnSuccess
+                //});
+            }
+        }
+        if (e.buttonID == 'CustomBtnDelete') {
+            if (id != "") {
+                if (confirm("Are you sure to delete")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/OMS/Management/Activities/ProductsBranchMapList.aspx/DeleteProductsBranchMap",
+                        data: JSON.stringify({ "MAPID": id }),
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        global: false,
+                        async: false,
+                        success: function (msg) {
+                            if (msg.d) {
+                                if (msg.d == "-998") {
+                                    jAlert("Already is in used.Unable to delete");
+                                    return false;
+                                }
+                                if (msg.d == "1") {
+                                    jAlert("Deleted Successfuly");
+                                    cGridProductBranchMap.Refresh();
+                            
+                                    return false;
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+        }
+        }
+
+        function gridRowclick(s, e) {
+            $('#cGridProductBranchMap').find('tr').removeClass('rowActive');
+            $('.floatedBtnArea').removeClass('insideGrid');            
+            $(s.GetRow(e.visibleIndex)).find('.floatedBtnArea').addClass('insideGrid');
+            $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+            setTimeout(function () {              
+                var lists = $(s.GetRow(e.visibleIndex)).find('.floatedBtnArea a');               
+                $.each(lists, function (index, value) {                  
+                    setTimeout(function () {
+                        console.log(value);
+                        $(value).css({ 'opacity': '1' });
+                    }, 100);
+                });
+            }, 200);
         }
     </script>
 </asp:Content>
@@ -727,7 +796,7 @@
                 DataSourceID="EntityServerModeDataSource" SettingsDataSecurity-AllowEdit="false" SettingsDataSecurity-AllowInsert="false" SettingsDataSecurity-AllowDelete="false">
 
                 <SettingsSearchPanel Visible="True" Delay="5000" />
-                <%-- <ClientSideEvents CustomButtonClick="SpecialPriceCustomButtonClick" RowClick="gridRowclick" />--%>
+                 <ClientSideEvents CustomButtonClick="GridProductBranchCustomButtonClick" RowClick="gridRowclick" />
                 <SettingsBehavior ConfirmDelete="True" />
                 <Columns>
                     <dxe:GridViewDataTextColumn Visible="False" FieldName="PRODUCTBRANCHMAP_ID" SortOrder="Descending">
@@ -770,7 +839,7 @@
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>--%>
-                    <%--<dxe:GridViewCommandColumn VisibleIndex="5" Width="130px" ButtonType="Image" Caption="Actions" HeaderStyle-HorizontalAlign="Center">
+                    <dxe:GridViewCommandColumn VisibleIndex="5" Width="130px" ButtonType="Image" Caption="Actions" HeaderStyle-HorizontalAlign="Center">
                         <CustomButtons>
                             <dxe:GridViewCommandColumnCustomButton ID="CustomBtnEdit" meta:resourcekey="GridViewCommandColumnCustomButtonResource1" Image-ToolTip="Edit" Styles-Style-CssClass="pad">
                                 <Image Url="/assests/images/Edit.png"></Image>
@@ -781,7 +850,7 @@
                                 <Image Url="/assests/images/Delete.png" ToolTip="Delete"></Image>
                             </dxe:GridViewCommandColumnCustomButton>
                         </CustomButtons>
-                    </dxe:GridViewCommandColumn>--%>
+                    </dxe:GridViewCommandColumn>
                 </Columns>
                 <SettingsContextMenu Enabled="true"></SettingsContextMenu>
 
