@@ -9,6 +9,7 @@
 @*7.0                02/02/2023        V2.0.38          Pallab              Add party popup scroll position issue fix*@
 @*8.0                24/04/2023        V2.0.39          Pallab              Party List module all search popup auto focus add and "cancel" button color change. Refer: 25899*@
 @*9.0               15/01/2023         V2.0.45          Sanchita            Assign to DD field not working. Mantis 27102 *@
+@*10.0               11/04/2024          V2.0.46         Sanchita             0027348: FSM: Master > Contact > Parties [Delete Facility]*@
 @*====================================================== Revision History ===========================================================*@
 
 @using MyShop.Models;
@@ -1565,6 +1566,40 @@
         });
     }
 
+    /*Rev 10.0*/
+    function MassDeleteShop() {
+        var ShopCode = $('#hdnMassDeleteShopID').val();
+        var url = '/partyDetails/PartyDelete/';
+
+        jConfirm("Confirm Delete?", "Confirmation Dialog", function (ret) {
+            if (ret == true) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify({ 'ShopCode': ShopCode }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "Delete Succesfully.") {
+                            jAlert("Successfully Deleted.");
+                            $("#MassDeleteShopModal").modal('hide');
+                            GridShow();
+                        }
+                        else {
+                            jAlert(response);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        });
+    }
+    /*End of Rev 10.0*/
+
     function ImportPartyPopOpen() {
         $("#myImportModal").modal('show');
     }
@@ -1825,11 +1860,11 @@
         window.location.href = url.replace("_type_", 3);
     }
     // End of Rev 4.0
-    // Rev Sanchita
-    function ReAssignUserLogPopOpen() {
-        pcModalImportLogViewMode.Show();
+    // Rev 10.0
+    function MassDeleteShopPopOpen() {
+        $("#MassDeleteShopModal").modal('show');
     }
-    // End of Rev Sanchita
+    // End of Rev 10.0
 </script>
 
 <script>
@@ -2930,11 +2965,21 @@
         })
     })
     var ProdArr = new Array();
+    /*Rev 10.0*/
+    var MassDeleteShopArr = new Array();
+    /* End of Rev 10.0*/
     $(document).ready(function () {
         var ProdObj = new Object();
         ProdObj.Name = "EmployeeSource";
         ProdObj.ArraySource = ProdArr;
         arrMultiPopup.push(ProdObj);
+
+        /* Rev 10.0*/
+        var MassDeleteShopObj = new Object();
+        MassDeleteShopObj.Name = "MassDeleteShopSource";
+        MassDeleteShopObj.ArraySource = MassDeleteShopArr;
+        arrMultiPopup.push(MassDeleteShopObj);
+        /* End of Rev 10.0*/
     })
 
     function EmployeeButnClick(s, e) {
@@ -2993,6 +3038,18 @@
                 $('#hdnEmployeeId').val('');
             }
         }
+        // Rev 10.0
+        if (ArrName == 'MassDeleteShopSource') {
+            var key = Id;
+
+            if (key != null && key != '') {
+                $('#hdnMassDeleteShopID').val(Id);
+                $('#MassDeleteShopModel').modal('hide');
+                MassDeleteShopTxt.SetText(Name);
+                MassDeleteShopTxt.SetFocus();
+            }
+        }
+        // End of Rev 10.0
     }
 </script>
 
@@ -3138,7 +3195,45 @@
             $("#txtNewAssignGroupBeatSearch").focus();
         }
     }
+    // Rev 10.0
+    function MassDeleteShopButnClick(s, e) {
+        $('#MassDeleteShopModel').modal('show');
+        $("#txtMassDeleteShopSearch").focus();
+    }
 
+    function MassDeleteShop_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#MassDeleteShopModel').modal('show');
+            $("#txtMassDeleteShopSearch").focus();
+        }
+    }
+
+    function MassDeleteShopskeydown(e) {
+
+        var OtherDetails = {}
+        OtherDetails.SearchKey = $("#txtMassDeleteShopSearch").val();
+
+        if ($.trim($("#txtMassDeleteShopSearch").val()) == "" || $.trim($("#txtMassDeleteShopSearch").val()) == null) {
+            return false;
+        }
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            $("#calledFromMassDeleteShopLookup_hidden").val("1");
+            var HeaderCaption = [];
+            HeaderCaption.push("Shop Name");
+            HeaderCaption.push("Location");
+            HeaderCaption.push("Shop Type");
+            if ($("#txtMassDeleteShopSearch").val() != null && $("#txtMassDeleteShopSearch").val() != "") {
+                callonServerM("../../../Models/ShopAddress.asmx/GetShopListForMassDelete", OtherDetails, "MassDeleteShopTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "MassDeleteShopSource");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[MassDeleteShopIndex=0]"))
+                $("input[MassDeleteShopIndex=0]").focus();
+        }
+    }
+
+    // End of Rev 10.0
 
 </script>
 @*End of Mantis Issue 25133*@
@@ -3198,11 +3293,7 @@
                         <button type="button" class="btn btn-primary" onclick="ReAssignUserLogPopOpen();">
                             Re-assigned User Log
                         </button>
-                        @*Rev Sanchita*@
-                        @*<button type="button" class="btn btn-primary" onclick="BulkDelete();">
-                            Bulk Delete
-                        </button>*@
-                        @*End of Rev Sanchita*@
+                        
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
@@ -3254,6 +3345,11 @@
                             </button>
                         }
                         @*End of Rev 4.0*@
+                        @*Rev 10.0*@
+                        <button type="button" class="btn btn-danger" onclick="MassDeleteShopPopOpen();">
+                            Mass Delete
+                        </button>
+                        @*End of Rev 10.0*@
                     </div>
                     <div class="clear"></div>
                     <div class="col-md-2" style="margin-bottom: 16px;">
@@ -4548,6 +4644,80 @@
     </div>
     @*End of Mantis Issue 25133*@
 
+    @*Rev 10.0*@
+    <div id="MassDeleteShopModal" class="modal fade pmsModal w25" data-backdrop="static" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <h4 class="modal-title">Mass Delete Shop</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Select Shop</label>
+                            <div>
+                                @*@Html.DropDownListFor(m => m.activeReAssgnUserid, new SelectList(Model.ActiveReassgnUseridList, "UserID", "username", Model.OldUserid), new { @id = "ddlNewAssignUser", @class = "form-control" })*@
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "MassDeleteShopTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){MassDeleteShopButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){MassDeleteShop_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                @*<input type="hidden" id="txtContact_hidden">*@
+                                <input type="hidden" id="hdnMassDeleteShopID">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="MassDeleteShop();">Delete Shop</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade pmsModal w50" id="MassDeleteShopModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Shop Search</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" onkeydown="MassDeleteShopskeydown(event)" id="txtMassDeleteShopSearch" autofocus style="width: 100%" placeholder="Search By Shop Name or Shop Code" />
+                    <div id="MassDeleteShopTable">
+                        <table border='1' width="100%" class="dynamicPopupTbl">
+                            <tr class="HeaderStyle">
+                                <th class="hide">Shop_Code</th>
+                                <th>Shop Name</th>
+                                <th>Location</th>
+                                <th>Shop Type</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnOkformultiselection btn btn-danger" onclick="DeSelectAll('MassDeleteShopSource')">Deselect All</button>
+                    <button type="button" class="btnOkformultiselection  btn btn-success" data-dismiss="modal" onclick="OKPopup('MassDeleteShopSource')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*End of Rev 10.0*@
+
     @Html.DevExpress().PopupControl(
         settings =>
         {
@@ -4598,32 +4768,7 @@
             // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
         }).GetHtml()
     @*End of Mantis Issue 25133*@
-    @*Rev Sanchita*@
-    @Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "pcModalMassDelete";
-        settings.Width = 300;
-        //settings.Height = 220;
-        //settings.ScrollBars.v
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Mass Delete";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.Top = 50;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
-        settings.SetContent(() =>
-        {
-            Html.RenderPartial("_ShopReassignManualLogView");
-        });
-
-        // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
-    }).GetHtml()
-    @*End of Rev Sanchita*@
+    
     <div id="ReAssignedShopListModal" class="modal fade pmsModal w90 new-popup-width" data-backdrop="static" role="dialog">
         <div class="modal-dialog " style="width: 90%;">
             <div class="modal-content">
