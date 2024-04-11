@@ -1862,6 +1862,10 @@
     // End of Rev 4.0
     // Rev 10.0
     function MassDeleteShopPopOpen() {
+        document.getElementById('MassDeleteShopTable').innerHTML = '';
+        MassDeleteShopTxt.SetText('');
+        $("#txtMassDeleteShopSearch").val('');
+
         $("#MassDeleteShopModal").modal('show');
     }
     // End of Rev 10.0
