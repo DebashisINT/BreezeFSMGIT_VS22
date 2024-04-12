@@ -1865,6 +1865,7 @@
         document.getElementById('MassDeleteShopTable').innerHTML = '';
         MassDeleteShopTxt.SetText('');
         $("#txtMassDeleteShopSearch").val('');
+        $('#hdnMassDeleteShopID').val('');
 
         $("#MassDeleteShopModal").modal('show');
     }
@@ -3350,7 +3351,7 @@
                         }
                         @*End of Rev 4.0*@
                         @*Rev 10.0*@
-                        @if (ViewBag.ShopDeleteWithAllTransactions=="1")
+                        @if (ViewBag.CanDelete)
                         {
                         <button type="button" class="btn btn-danger" onclick="MassDeleteShopPopOpen();">
                             Mass Delete
