@@ -159,6 +159,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewBag.CanReassignedAreaRouteBeat = rights.CanReassignedAreaRouteBeat;
                 ViewBag.CanReassignedAreaRouteBeatLog = rights.CanReassignedAreaRouteBeatLog;
                 // End of Rev 2.0
+                // Rev 3.0
+                CommonBL cbl = new CommonBL();
+                ViewBag.CanDelete = rights.CanDelete;
+                ViewBag.ShopDeleteWithAllTransactions = cbl.GetSystemSettingsResult("ShopDeleteWithAllTransactions");
+                // End of Rev 3.0
 
                 return View(Dtls);
             }
@@ -177,6 +182,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             // Rev 1.0
             ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
             // End of Rev 1.0
+            // Rev 3.0
+            ViewBag.CanDelete = rights.CanDelete;
+            // End of Rev 3.0
+
             return PartialView(GetDataDetails(Is_PageLoad));
         }
 
