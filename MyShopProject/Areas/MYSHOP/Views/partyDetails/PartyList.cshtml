@@ -3350,9 +3350,12 @@
                         }
                         @*End of Rev 4.0*@
                         @*Rev 10.0*@
+                        @if (ViewBag.ShopDeleteWithAllTransactions=="1")
+                        {
                         <button type="button" class="btn btn-danger" onclick="MassDeleteShopPopOpen();">
                             Mass Delete
                         </button>
+                        }
                         @*End of Rev 10.0*@
                     </div>
                     <div class="clear"></div>
