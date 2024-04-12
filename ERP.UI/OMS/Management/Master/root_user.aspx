@@ -1557,11 +1557,11 @@
                                                 <%--<a href="javascript:ShowHideFilter('s');" class="btn btn-primary"><span>Show Filter</span></a>--%>
                                                 <% if (IsFaceDetectionOn)
                                                    { %>
-                                                <a href="javascript:void(0);" onclick="AddAssignParty()" class="btn btn-success hide"><span>Assign Party</span> </a>
+                                                <a href="javascript:void(0);" onclick="AddAssignParty()" class="btn btn-warning hide"><span>Assign Party</span> </a>
 
-                                                <a href="javascript:void(0);" onclick="UnAssignParty()" class="btn btn-success hide"><span>Un-Assign Party</span> </a>
+                                                <a href="javascript:void(0);" onclick="UnAssignParty()" class="btn btn-warning hide"><span>Un-Assign Party</span> </a>
 
-                                                <a href="javascript:void(0);" onclick="ShowAssignParty()" class="btn btn-success"><span>Assign Party</span> </a>
+                                                <a href="javascript:void(0);" onclick="ShowAssignParty()" class="btn btn-warning"><span>Assign Party</span> </a>
                                                 <%} %>
 
                                                 <%--Rev 3.0--%>
