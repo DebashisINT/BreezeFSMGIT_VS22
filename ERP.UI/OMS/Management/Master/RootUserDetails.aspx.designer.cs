@@ -4263,6 +4263,42 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsCallLogHistoryActivated;
 
         /// <summary>
+        /// divIsShowMenuCRMContacts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsShowMenuCRMContacts;
+
+        /// <summary>
+        /// chkIsShowMenuCRMContacts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsShowMenuCRMContacts;
+
+        /// <summary>
+        /// divIsCheckBatteryOptimization control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsCheckBatteryOptimization;
+
+        /// <summary>
+        /// chkIsCheckBatteryOptimization control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsCheckBatteryOptimization;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

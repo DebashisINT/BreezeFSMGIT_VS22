@@ -19,6 +19,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                                           Mantis: 26794
 9.0                19-12-2023       V2.0.44           Sanchita            Call log facility is required in the FSM App - IsCallLogHistoryActivated” - 
                                                                           User Account - Add User master settings. Mantis: 27063
+7.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -3961,6 +3962,32 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             </table>
                         </td>
                         <%--End of Rev 9.0--%>
+                        <%--Rev 7.0--%>
+                        <td id="divIsShowMenuCRMContacts" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkIsShowMenuCRMContacts" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Show Menu CRM Contacts </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="divIsCheckBatteryOptimization" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkIsCheckBatteryOptimization" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Check Battery Optimization </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <%--End of Rev 7.0--%>
                     </tr>
                     <%--End of Rev 6.0--%>
                     <%--End of Mantis Issue 25207--%>
