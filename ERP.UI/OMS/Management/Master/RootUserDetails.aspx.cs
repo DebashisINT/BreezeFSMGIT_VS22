@@ -15,6 +15,8 @@
  * 6.0                19-12-2023       V2.0.44           Sanchita         Call log facility is required in the FSM App - IsCallLogHistoryActivated” - 
                                                                           User Account - Add User master settings. Mantis: 27063
  * 7.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
+ * 8.0                17-04-2024       V2.0.47           Priti            0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
+ *                                                                        0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
 *******************************************************************************************************************/
 using System;
 using System.Data;
@@ -91,7 +93,7 @@ namespace ERP.OMS.Management.Master
                     }
                     ShowData(Id);
                     //Mantis Issue 24408,24364
-                    UserWiseSetings();
+                    //UserWiseSetings();
                     //End of Mantis Issue 24408,24364
                     //    txtusername.Enabled = false;
 
@@ -105,7 +107,7 @@ namespace ERP.OMS.Management.Master
                         Response.Redirect("/OMS/Management/master/root_user.aspx");
                     }
                     ShowData(Id);
-                    UserWiseSetings();
+                   // UserWiseSetings();
                 }
                 //Rev work close 26.04.2022 Mantise ID:0024856: Copy feature add in User master
                 else
@@ -2392,7 +2394,24 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                     chkIsCheckBatteryOptimization.Checked = false;
                 }
                 // End of Rev 7.0
-
+                //REV 8.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ShowUserwisePartyWithGeoFence"]) == true)
+                {
+                    chkShowPartyWithGeoFence.Checked = true;
+                }
+                else
+                {
+                    chkShowPartyWithGeoFence.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ShowUserwisePartyWithCreateOrder"]) == true)
+                {
+                    chkShowPartyWithCreateOrder.Checked = true;
+                }
+                else
+                {
+                    chkShowPartyWithCreateOrder.Checked = false;
+                }
+                //REV 8.0 END
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
                 if (Convert.ToString(dsUserDetail.Tables[0].Rows[0]["user_AllowAccessIP"]) != "")
@@ -2801,6 +2820,11 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 int IsShowMenuCRMContacts = 0;
                 int IsCheckBatteryOptimization = 0;
                 // End of Rev 7.0
+                // Rev 8.0
+                int ShowUserwisePartyWithGeoFence = 0;
+                int ShowUserwisePartyWithCreateOrder = 0;
+                // End of Rev 8.0
+
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4219,6 +4243,23 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                     IsCheckBatteryOptimization = 0;
                 // End of Rev 7.0
 
+                // Rev 8.0
+                if (chkShowPartyWithGeoFence.Checked == true)
+                    ShowUserwisePartyWithGeoFence = 1;
+                else
+                    ShowUserwisePartyWithGeoFence = 0;
+
+                if (chkShowPartyWithCreateOrder.Checked == true)
+                    ShowUserwisePartyWithCreateOrder = 1;
+                else
+                    ShowUserwisePartyWithCreateOrder = 0;
+                // End of Rev 8.0
+               
+
+               
+
+
+
                 String PartyType = hdnPartyType.Value.ToString();
                 //Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master
                 //if (Id == "Add")
@@ -4564,6 +4605,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsShowMenuCRMContacts", IsShowMenuCRMContacts);
                             proc.AddPara("@IsCheckBatteryOptimization", IsCheckBatteryOptimization);
                             // End of Rev 7.0
+
+                            // Rev 8.0
+                            proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
+                            proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
+                            // End of Rev 8.0
+
 
                             DataTable dt = proc.GetTable();
 
@@ -4990,7 +5037,10 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsShowMenuCRMContacts", IsShowMenuCRMContacts);
                             proc.AddPara("@IsCheckBatteryOptimization", IsCheckBatteryOptimization);
                             // End of Rev 7.0
-
+                            // Rev 8.0
+                            proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
+                            proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
+                            // End of Rev 8.0
                             DataTable dt = proc.GetTable();
 
 
@@ -5412,7 +5462,10 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@IsShowMenuCRMContacts", IsShowMenuCRMContacts);
                             proc.AddPara("@IsCheckBatteryOptimization", IsCheckBatteryOptimization);
                             // End of Rev 7.0
-
+                            // Rev 8.0
+                            proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
+                            proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
+                            // End of Rev 8.0
                             DataTable dt = proc.GetTable();
 
 
@@ -7387,6 +7440,30 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                         }
                     }
                     // End of Rev 7.0
+                    //Rev 8.0
+                    else if (Convert.ToString(dr["key"]) == "ShowPartyWithCreateOrder")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divShowPartyWithCreateOrder.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divShowPartyWithCreateOrder.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "divShowPartyWithGeoFence")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divShowPartyWithGeoFence.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divShowPartyWithGeoFence.Style.Add("display", "none");
+                        }
+                    }
+                    //Rev 8.0 End
                 }
             }
         }

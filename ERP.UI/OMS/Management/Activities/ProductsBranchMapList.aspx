@@ -523,7 +523,7 @@
         /*Rev end 1.0*/
 
         #divAddButton, #divImportButton {
-            margin-right: 8px;
+            margin-right: 15px;
         }
 
             #divImportButton .btn {
@@ -799,7 +799,7 @@
     <div class="container clearfix backBox mt-5 mb-4 py-3">
         <div class="py-3">
             <div class="clearfix">
-                <div class="dis-flex justify-content-between">
+                <div class="dis-flex ">
                     <div class="left-btns">
                         <div id="divAddButton">
                             <a href="javascript:void(0);" onclick="OnAddButtonClick()" class="btn btn-success btn-radius"><span><u>A</u>dd New</span> </a>
