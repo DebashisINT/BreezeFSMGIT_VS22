@@ -67,6 +67,10 @@ namespace MyShop.Models
         public String NextFollowDate { get; set; }
 
         public Int64 TotalContacts { get; set; }
+        
+        // Rev Sanchita
+        public String Pincode { get; set; }
+        // End of Rev Sanchita
     }
     public class GetContactFrom
     {
@@ -99,6 +103,10 @@ namespace MyShop.Models
         public decimal ExpSalesValue { get; set; }
         public String NextFollowDate { get; set; }
         public int Active { get; set; }
+        // Rev Sanchita
+        public String Pincode { get; set; }
+        public string WhatsappNo { get; set; }
+        // End of Rev Sanchita
     }
 
 
@@ -170,5 +178,9 @@ namespace MyShop.Models
 		public String ImportMsg { get; set; }
         public String ImportDate { get; set; }
 		public String CreateUser { get; set; }
+        // Rev Sanchita
+        public String Pincode { get; set; }
+        public String WhatsappNo { get; set; }
+        // End of rev Sanchita
     }
 }

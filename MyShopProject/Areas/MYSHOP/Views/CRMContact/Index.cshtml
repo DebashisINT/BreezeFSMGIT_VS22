@@ -140,6 +140,22 @@
                 window.location.href = url.replace("_type_", selectedValue);
             }
         });
+
+        // Rev Sanchita
+        $('.numbersOnly').keyup(function () {
+            if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+
+        $(".allow_decimal").on("input", function (evt) {
+            var self = $(this);
+            self.val(self.val().replace(/[^0-9\.]/g, ''));
+            if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
+        // End of Rev Sanchita
     });
 
     function OnStartCallback(s, e) {
@@ -327,6 +343,10 @@
         $("#txtExpSalesValue").val('');
         dtNextFollowDate.Clear();
         $("#ddlActive").val('1');
+        // Rev Sanchita
+        $("#txtPincode").val('');
+        $("#txtWhatsappNo").val('');
+        // End of Rev Sanchita
         SourceChange();
 
     }
@@ -425,7 +445,11 @@
             Remarks: $("#txtRemarks").val(),
             ExpSalesValue: $("#txtExpSalesValue").val(),
             NextFollowDate: NextFollowDate,
-            Active: $("#ddlActive").val()
+            Active: $("#ddlActive").val(),
+            // Rev Sanchita
+            Pincode: $("#txtPincode").val(),
+            WhatsappNo: $("#txtWhatsappNo").val()
+            // End of Rev Sanchita
         }
 
 
@@ -496,7 +520,7 @@
                 $("#txtPhone").val(data.PhoneNo);
                 $("#txtEmail").val(data.Email);
                 $("#txtAddress").val(data.Address);
-
+                
                 if (data.DOB != "") {
                     var d = new Date(data.DOB);
                     dtDOB.SetDate(d);
@@ -535,6 +559,10 @@
                 }
 
                 $("#ddlActive").val(data.Active);
+                // Rev Sanchita
+                $("#txtPincode").val(data.Pincode);
+                $("#txtWhatsappNo").val(data.WhatsappNo);
+                // End of Rev Sanchita
                 SourceChange();
 
                 $('#myModal').modal('show');
@@ -777,24 +805,24 @@
 
 <script>
     $(document).ready(function () {
-        $('#txtExpSalesValue').on('input', function () {
-            var inputValue = $(this).val().replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for the dot
-            var parts = inputValue.split('.');
+        //$('#txtExpSalesValue').on('input', function () {
+        //    var inputValue = $(this).val().replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for the dot
+        //    var parts = inputValue.split('.');
 
-            // Allow up to 15 digits before the decimal
-            if (parts[0].length > 15) {
-                parts[0] = parts[0].substring(0, 15);
-            }
+        //    // Allow up to 15 digits before the decimal
+        //    if (parts[0].length > 15) {
+        //        parts[0] = parts[0].substring(0, 15);
+        //    }
 
-            // Limit decimals to 2
-            if (parts[1] && parts[1].length > 2) {
-                parts[1] = parts[1].substring(0, 2);
-            }
+        //    // Limit decimals to 2
+        //    if (parts[1] && parts[1].length > 2) {
+        //        parts[1] = parts[1].substring(0, 2);
+        //    }
 
-            // Combine the integer and decimal parts with only one decimal point
-            var sanitizedValue = parts.length > 1 ? parts[0] + '.' + parts.slice(1).join('') : parts[0];
-            $(this).val(sanitizedValue);
-        });
+        //    // Combine the integer and decimal parts with only one decimal point
+        //    var sanitizedValue = parts.length > 1 ? parts[0] + '.' + parts.slice(1).join('') : parts[0];
+        //    $(this).val(sanitizedValue);
+        //});
     });
 </script>
 
@@ -806,6 +834,7 @@
             $(this).val(sanitizedValue);
         });
     });
+    
 </script>
 
 <script>
@@ -1913,7 +1942,7 @@
                     <div class="col-md-12 personal-info">
                         <div class="section-heading">
                             <h4>Personal Information <span class="bulet"></span></h4>
-                            
+
                         </div>
 
                         <div class="col-md-3 mb-10">
@@ -1932,13 +1961,13 @@
                         <div class="col-md-3 mb-10">
                             <label>Phone<em style="color: red">*</em></label>
                             <div>
-                                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control numbersOnly", @id = "txtPhone" })
+                                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control ", @id = "txtPhone", pattern = @"^([+][0-9]{9,11})$" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
                             <label>Email</label>
                             <div>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control numbersOnly", @id = "txtEmail" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control ", @id = "txtEmail" })
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -1950,6 +1979,25 @@
                                 @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
                             </div>
                         </div>
+
+                        @*Rev Sanchita*@
+                        <div class="col-md-3 mb-10">
+                            <label>Pincode</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control numbersOnly", @id = "txtPincode" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-10">
+                            <label>Whatsapp Number</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control numbersOnly", @id = "txtWhatsappNo" })
+                            </div>
+                        </div>
+                       
+                        <div class="clearfix"></div>
+                        @*End of Rev Sanchita*@
+
                         <div class="col-md-3 mb-10">
                             <label>Date of Birth</label>
                             <div class="date-select">
@@ -2004,7 +2052,7 @@
                         <div class="col-md-3 mb-10">
                             <label>Job Title</label>
                             <div>
-                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control numbersOnly", @id = "txtJobTitle" })
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control ", @id = "txtJobTitle" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
@@ -2029,7 +2077,8 @@
 
                         </div>
                         <div class="col-md-3 mb-10">
-                            <label>Type </label>
+                            @*Rev Sanchita [caption "Type" change to "Contact Type" ] *@
+                            <label>Contact Type </label>
                             <div>
                                 @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TypeList, "TypeId", "TypeName", Model.TypeId), new { @id = "ddlType", @class = "form-control" })
                             </div>
