@@ -1961,7 +1961,7 @@
                         <div class="col-md-3 mb-10">
                             <label>Phone<em style="color: red">*</em></label>
                             <div>
-                                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control ", @id = "txtPhone", pattern = @"^([+][0-9]{9,11})$" })
+                                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control numbersOnly ", @id = "txtPhone" })
                             </div>
                         </div>
                         <div class="col-md-3 mb-10">
