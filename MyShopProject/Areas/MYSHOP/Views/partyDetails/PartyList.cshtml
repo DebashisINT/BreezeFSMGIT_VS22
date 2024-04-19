@@ -1870,6 +1870,79 @@
         $("#MassDeleteShopModal").modal('show');
     }
     // End of Rev 10.0
+
+    // Rev Sanchita
+    function BulkDeleteParty() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod_BulkDelete").val();
+        if ($('#fileprod_BulkDelete').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod_BulkDelete").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("BulkDeleteParty", "partyDetails")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportModal").toggle();
+                        $("#myImportModal").modal('hide');
+                        GridShow();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("BulkModifyLog", "partyDetails")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateBulkModifyLog.Show();
+                                    gridBulkModifyLog.Refresh();
+                                    gridBulkModifyLog.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+    // End of Rev Sanchita
 </script>
 
 <script>
@@ -4682,6 +4755,12 @@
                                 @*<input type="hidden" id="txtContact_hidden">*@
                                 <input type="hidden" id="hdnMassDeleteShopID">
                             </div>
+
+                            @*Rev Sanchita*@
+                            <label class="uplabel mb-4">Select File to Bulk Delete</label>
+                            <div><input type="file" id="fileprod_BulkDelete" accept=".xls,.xlsx"></div>
+                            <div class="pTop10  mTop5 mt-4"><input type="submit" value="Bulk Delete" onclick="return BulkDeleteParty();" id="btndeletexls" class="btn btn-primary"></div>
+                            @*End of Rev Sanchita*@
                         </div>
                     </div>
                     <div class="row">
