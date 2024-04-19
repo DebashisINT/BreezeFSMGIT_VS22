@@ -395,6 +395,17 @@
         }
 
         // Rev 1.0
+
+        if ($("#txtWhatsappNo").val() == "0" || $("#txtWhatsappNo").val().substring(0, 1) == "0") {
+            jAlert("Whatsapp Number cannot start with zero.", "Alert", function () {
+                setTimeout(function () {
+                    $("#txtWhatsappNo").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
         // if "+" is given in txtWhatsappNo no then "+" should be as the first digit
         if ($("#txtWhatsappNo").val().indexOf("+") != -1 && $("#txtWhatsappNo").val().substring(0, 1) != "+" ) {
             jAlert("The '+' sign in Whatsapp Number should be only in the start position.", "Alert", function () {
