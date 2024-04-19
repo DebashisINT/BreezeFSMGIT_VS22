@@ -2238,6 +2238,117 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
 
+        // Rev Sanchita
+        public ActionResult BulkDeleteParty()
+        {
+
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        String extension = Path.GetExtension(fname);
+                        fname = DateTime.Now.Ticks.ToString() + extension;
+                        fname = Path.Combine(Server.MapPath("~/Temporary/"), fname);
+                        file.SaveAs(fname);
+                        BulkDelete_To_Grid(fname, extension, file);
+                    }
+                    return Json("Shop deleted Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+
+        }
+
+        public Int32 BulkDelete_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        {
+            Boolean Success = false;
+            Int32 HasLog = 0;
+
+            if (file.FileName.Trim() != "")
+            {
+                if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
+                {
+                    DataTable dt = new DataTable();
+                    string conString = string.Empty;
+                    conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    conString = string.Format(conString, FilePath);
+                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    {
+                        excel_con.Open();
+                        string sheet1 = "List$"; //ī;
+
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                        {
+                            oda.Fill(dt);
+                        }
+                        excel_con.Close();
+                    }
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        DataTable dtExcelData = new DataTable();
+                        dtExcelData.Columns.Add("Shop_Code", typeof(string));
+                        dtExcelData.Columns.Add("Retailer", typeof(string));
+                        dtExcelData.Columns.Add("Party_Status", typeof(string));
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (Convert.ToString(row["Shop_Code"]) != "")
+                            {
+                                dtExcelData.Rows.Add(Convert.ToString(row["Shop_Code"]), "","");
+                            }
+
+                        }
+                        try
+                        {
+                            //TempData["BulkModifyPartyLog"] = dtExcelData;
+                            //TempData.Keep();
+
+                            DataTable dtCmb = new DataTable();
+                            ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
+                            proc.AddPara("@BULKMODIFYPARTY_TABLE", dtExcelData);
+                            proc.AddPara("@ACTION", "BulkDelete");
+                            proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
+                            dtCmb = proc.GetTable();
+
+                            TempData["BulkDeletePartyLog"] = dtCmb;
+                            TempData.Keep();
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                }
+            }
+            return HasLog;
+        }
+        // End of Rev Sanchita
+
         public ActionResult GetReAssignShopUserLog()
         {
             List<ReAssignShopModel> list = new List<ReAssignShopModel>();

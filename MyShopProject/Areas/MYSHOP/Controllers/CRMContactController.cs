@@ -1,6 +1,7 @@
 ﻿/***************************************************************************************
  * Written by Sanchita on 24/11/2023 for V2.0.43    A new design page is required as Contact (s) under CRM menu. 
  *                                                  Mantis: 27034 
+ * 1.0      v2.0.47      19/04/2024      Sanchita    0027384: Contact Module issues in Portal
  ****************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -294,11 +295,11 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc.AddPara("@NextFollowDate", NextFollowDate);
                 proc.AddPara("@Active", data.Active);
                 proc.AddPara("@user_id", data.user_id);
-                // Rev Sanchita
+                // Rev 1.0
                 proc.AddPara("@Login_UserId", Convert.ToInt32(Session["userid"]));
                 proc.AddPara("@Pincode", data.Pincode);
                 proc.AddPara("@WhatsappNo", data.WhatsappNo);
-                // End of Rev Sanchita
+                // End of Rev 1.0
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 int k = proc.RunActionQuery();
                 rtrnvalue = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
@@ -346,10 +347,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     ret.ExpSalesValue = Convert.ToDecimal(dt.Rows[0]["Amount"].ToString());
                     ret.NextFollowDate = dt.Rows[0]["Shop_NextFollowupDate"].ToString();
                     ret.Active = Convert.ToInt32(dt.Rows[0]["Entity_Status"]);
-                    // Rev Sanchita
+                    // Rev 1.0
                     ret.Pincode = dt.Rows[0]["Pincode"].ToString();
                     ret.WhatsappNo = dt.Rows[0]["WhatsappNoForCustomer"].ToString();
-                    // End of Rev Sanchita
+                    // End of Rev 1.0
                 }
                 return Json(ret, JsonRequestBehavior.AllowGet);
             }
@@ -459,7 +460,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Width = 250;
             });
 
-            // Rev Sanchita
+            // Rev 1.0
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Shop_Pincode";
@@ -474,7 +475,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.VisibleIndex = 8;
                 x.Width = 250;
             });
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             settings.Columns.Add(x =>
             {
@@ -592,7 +593,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
             });
 
-            // Rev Sanchita
+            // Rev 1.0
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Shop_Entered_On";
@@ -629,7 +630,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.VisibleIndex = 25;
                 x.Width = 100;
             });
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             settings.Columns.Add(x =>
             {
@@ -754,10 +755,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         dtExcelData.Columns.Add("ExpectedSalesValue", typeof(decimal));
                         dtExcelData.Columns.Add("NextfollowUpDate", typeof(string));
                         dtExcelData.Columns.Add("Active", typeof(string));
-                        // Rev Sanchita
+                        // Rev 1.0
                         dtExcelData.Columns.Add("Pincode", typeof(string));
                         dtExcelData.Columns.Add("WhatsappNo", typeof(string));
-                        // End of Rev Sanchita
+                        // End of Rev 1.0
 
                         foreach (DataRow row in dt.Select("[First Name*]<>'' ") )
                         {
@@ -840,10 +841,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             data.ImportMsg = Convert.ToString(row["ImportMsg"]);
                             data.ImportDate = Convert.ToString(row["ImportDate"]);
                             data.CreateUser = Convert.ToString(row["CreateUser"]);
-                            // Rev Sanchita
+                            // Rev 1.0
                             data.Pincode = Convert.ToString(row["Pincode"]);
                             data.WhatsappNo = Convert.ToString(row["WhatsappNo"]);
-                            // End of Rev Sanchita
+                            // End of Rev 1.0
 
                             list.Add(data);
                         }
@@ -980,7 +981,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
             });
 
-            // Rev Sanchita
+            // Rev 1.0
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Pincode";
@@ -995,7 +996,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.VisibleIndex = 7;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
             });
-            // End of Rev Sanchita
+            // End of Rev 1.0
 
             settings.Columns.Add(x =>
             {
