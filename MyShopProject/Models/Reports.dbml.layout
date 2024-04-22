@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.375, 11.375" name="Reports">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.5, 19.125" name="Reports">
   <DataContextMoniker Name="/ReportsDataContext" />
   <nestedChildShapes>
     <classShape Id="6f8bddd7-026f-4c14-800e-203cf2368696" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
@@ -594,6 +594,12 @@
       <DataClassMoniker Name="/ReportsDataContext/CRM_CONTACT_LISTING" />
       <nestedChildShapes>
         <elementListCompartment Id="81ee5ff7-b803-4b84-b86b-fbc4fd878f37" absoluteBounds="2.765, 11.085, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="77b55b48-cecc-477c-8d88-b4223fc892a0" absoluteBounds="14.25, 1.75, 2, 17.155011393229167">
+      <DataClassMoniker Name="/ReportsDataContext/FSM_SHOPLIST_REPORT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="be404d69-6921-46a3-b57f-0a0c44ac65fd" absoluteBounds="14.265, 2.21, 1.9700000000000002, 16.595011393229164" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
