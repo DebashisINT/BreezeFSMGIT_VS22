@@ -8,6 +8,7 @@
 //7.0   V2.0.45     Debashis    14/03/2024      Some new parameters have been added.Row: 902 & Refer: 0027309
 //8.0   V2.0.45     Debashis    03/04/2024      One new parameter has been added.Row: 914
 //9.0   V2.0.45     Debashis    11/04/2024      One new method has been added.Row: 917 & 918
+//10.0  V2.0.45     Debashis    23/04/2025      One new method has been added.Row: 921
 #endregion===================================End of Revision History==================================================
 
 using System.ComponentModel.DataAnnotations;
@@ -190,6 +191,9 @@ namespace ShopAPI.Models
         public int assign_to { get; set; }
         public string saved_from_status { get; set; }
         //End of Rev 6.0 Row: 898
+        //Rev 10.0 Row: 921
+        public string remarks { get; set; }
+        //End of Rev 10.0 Row: 921
     }
 
     public class ArealistsOutput
