@@ -417,7 +417,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "SEQ";
                 x.Caption = "Sr. No";
                 x.VisibleIndex = 1;
-                x.Width = 20;
+                x.ExportWidth = 20;
             });
 
             settings.Columns.Add(x =>
@@ -425,7 +425,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_FirstName";
                 x.Caption = "First Name";
                 x.VisibleIndex = 2;
-                x.Width = 200;
+                x.ExportWidth = 200;
             });
 
             settings.Columns.Add(x =>
@@ -433,7 +433,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_LastName";
                 x.Caption = "Last Name";
                 x.VisibleIndex = 3;
-                x.Width = 200;
+                x.ExportWidth = 200;
             });
 
             settings.Columns.Add(x =>
@@ -441,7 +441,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Owner_Contact";
                 x.Caption = "Phone";
                 x.VisibleIndex = 4;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -449,7 +449,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Owner_Email";
                 x.Caption = "Email";
                 x.VisibleIndex = 5;
-                x.Width = 150;
+                x.ExportWidth = 150;
             });
             //Mantis Issue 24928
             settings.Columns.Add(x =>
@@ -457,7 +457,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Address";
                 x.Caption = "Address";
                 x.VisibleIndex = 6;
-                x.Width = 250;
+                x.ExportWidth = 250;
             });
 
             // Rev 1.0
@@ -466,14 +466,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Pincode";
                 x.Caption = "Pincode";
                 x.VisibleIndex = 7;
-                x.Width = 250;
+                x.ExportWidth = 250;
             });
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Shop_WhatsappNoForCustomer";
                 x.Caption = "Whatsapp Number";
                 x.VisibleIndex = 8;
-                x.Width = 250;
+                x.ExportWidth = 250;
             });
             // End of Rev 1.0
 
@@ -482,7 +482,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_DOB";
                 x.Caption = "Date of Birth";
                 x.VisibleIndex = 9;
-                x.Width = 100;
+                x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -493,7 +493,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_date_aniversary";
                 x.Caption = "Date of Anniversary";
                 x.VisibleIndex = 10;
-                x.Width = 150;
+                x.ExportWidth = 150;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -504,7 +504,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_CompanyName";
                 x.Caption = "Company";
                 x.VisibleIndex = 11;
-                x.Width = 150;
+                x.ExportWidth = 150;
             });
 
             settings.Columns.Add(x =>
@@ -512,7 +512,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_JobTitle";
                 x.Caption = "Job Title";
                 x.VisibleIndex = 12;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -520,7 +520,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_CreateUserName";
                 x.Caption = "Assign To";
                 x.VisibleIndex = 13;
-                x.Width = 100;
+                x.ExportWidth = 120;
             });
 
             settings.Columns.Add(x =>
@@ -528,7 +528,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_TypeName";
                 x.Caption = "Type";
                 x.VisibleIndex = 14;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -536,7 +536,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_StatusName";
                 x.Caption = "Status";
                 x.VisibleIndex = 15;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -544,7 +544,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_SourceName";
                 x.Caption = "Source";
                 x.VisibleIndex = 16;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -552,7 +552,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_ReferenceName";
                 x.Caption = "Reference";
                 x.VisibleIndex = 17;
-                x.Width = 150;
+                x.ExportWidth = 150;
             });
 
             settings.Columns.Add(x =>
@@ -560,7 +560,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_StageName";
                 x.Caption = "Stages";
                 x.VisibleIndex = 18;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.Columns.Add(x =>
@@ -568,7 +568,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Remarks";
                 x.Caption = "Remarks";
                 x.VisibleIndex = 19;
-                x.Width = 250;
+                x.ExportWidth = 250;
             });
 
             settings.Columns.Add(x =>
@@ -576,7 +576,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Amount";
                 x.Caption = "Expected Sales Value";
                 x.VisibleIndex = 20;
-                x.Width = 100;
+                x.ExportWidth = 150;
                 x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                 x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
@@ -587,7 +587,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_NextFollowupDate";
                 x.Caption = "Next follow Up Date";
                 x.VisibleIndex = 21;
-                x.Width = 200;
+                x.ExportWidth = 200;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -599,7 +599,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Entered_On";
                 x.Caption = "Created Date";
                 x.VisibleIndex = 22;
-                x.Width = 100;
+                x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -609,7 +609,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Entered_ByName";
                 x.Caption = "Created By";
                 x.VisibleIndex = 23;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
 
@@ -618,7 +618,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_LastUpdated_On";
                 x.Caption = "Modified Date";
                 x.VisibleIndex = 24;
-                x.Width = 100;
+                x.ExportWidth = 120;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -628,7 +628,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_LastUpdated_ByName";
                 x.Caption = "Modified By";
                 x.VisibleIndex = 25;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
             // End of Rev 1.0
 
@@ -637,7 +637,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "Shop_Entity_Status";
                 x.Caption = "Active";
                 x.VisibleIndex = 26;
-                x.Width = 100;
+                x.ExportWidth = 100;
             });
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
@@ -1048,7 +1048,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "AssignTo";
                 x.Caption = "Assign To";
                 x.VisibleIndex = 12;
-                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(120);
             });
 
             settings.Columns.Add(x =>
@@ -1104,7 +1104,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.FieldName = "ExpectedSalesValue";
                 x.Caption = "ExpectedSalesValue";
                 x.VisibleIndex = 19;
-                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
             });
 
             settings.Columns.Add(x =>
