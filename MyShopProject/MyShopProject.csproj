@@ -2039,6 +2039,9 @@
     <Content Include="Areas\MYSHOP\Views\ProductMaster\ImportLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ConfigureLeaderboard\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\ConfigureLeaderboard\_PartialPointConfiguration.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\_BulkDeleteManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\_MassDeleteManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\partyDetails\MassDeleteLog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
