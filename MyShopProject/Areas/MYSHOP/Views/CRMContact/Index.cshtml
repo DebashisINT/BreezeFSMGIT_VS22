@@ -156,7 +156,7 @@
         });
 
         $('#txtPhone').attr('maxlength', 20);
-        //$('#txtExpSalesValue').attr('maxlength', 18);
+        $('#txtExpSalesValue').attr('maxlength', 14);
         $('#txtWhatsappNo').attr('maxlength', 20);
 
         $(".allow_decimal").on("input", function (evt) {
@@ -395,7 +395,6 @@
         }
 
         // Rev 1.0
-
         if ($("#txtWhatsappNo").val() == "0" || $("#txtWhatsappNo").val().substring(0, 1) == "0") {
             jAlert("Whatsapp Number cannot start with zero.", "Alert", function () {
                 setTimeout(function () {
@@ -845,8 +844,8 @@
             var parts = inputValue.split('.');
 
             // Allow up to 15 digits before the decimal
-            if (parts[0].length > 15) {
-                parts[0] = parts[0].substring(0, 15);
+            if (parts[0].length > 14) {
+                parts[0] = parts[0].substring(0, 14);
             }
 
             // Limit decimals to 2

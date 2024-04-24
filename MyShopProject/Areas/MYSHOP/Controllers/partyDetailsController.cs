@@ -2158,6 +2158,92 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return settings;
         }
 
+        // Rev 3.0
+        public ActionResult DownloadMassDeleteFormat()
+        {
+            string FileName = "PartyDelete.xlsx";
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "image/jpeg";
+            response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
+            response.TransmitFile(Server.MapPath("~/Commonfolder/PartyDelete.xlsx"));
+            response.Flush();
+            response.End();
+
+            return null;
+        }
+
+        [HttpPost]
+        public JsonResult MassDeletePartyLog(string Fromdt, String ToDate)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                string datfrmat = Fromdt.Split('-')[2] + '-' + Fromdt.Split('-')[1] + '-' + Fromdt.Split('-')[0];
+                string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
+                proc.AddPara("@ACTION", "GetMassDeletePartyLog");
+                proc.AddPara("@FromDate", Fromdt);
+                proc.AddPara("@ToDate", ToDate);
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TempData["MassDeletePartyLog"] = dt;
+                    TempData.Keep();
+                    output_msg = "True";
+                }
+                else
+                {
+                    output_msg = "Log not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult MassDeleteLog()
+        {
+            List<BulkModifyPartyLog> list = new List<BulkModifyPartyLog>();
+            DataTable dt = new DataTable();
+            try
+            {
+                if (TempData["MassDeletePartyLog"] != null)
+                {
+                    dt = (DataTable)TempData["MassDeletePartyLog"];
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        BulkModifyPartyLog data = null;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            data = new BulkModifyPartyLog();
+                            data.Shop_Code = Convert.ToString(row["Shop_Code"]);
+                            data.Reason = Convert.ToString(row["Reason"]);
+                            data.UpdateOn = Convert.ToString(row["UpdateOn"]);
+                            data.UpdatedBy = Convert.ToString(row["UpdatedBy"]);
+
+                            list.Add(data);
+                        }
+                    }
+                    TempData["BulkModifyPartyLog"] = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            TempData.Keep();
+            return PartialView(list);
+        }
+
+        // End of Rev 3.0
+
         [HttpPost]
         public JsonResult PartyDelete(string ShopCode)
         {
@@ -2239,7 +2325,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         }
 
         // Rev Sanchita
-        public ActionResult BulkDeleteParty()
+        public ActionResult MassDeleteImportParty()
         {
 
             // Checking no of files injected in Request object  
