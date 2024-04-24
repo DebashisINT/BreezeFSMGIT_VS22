@@ -418,7 +418,7 @@
             return
         }
 
-        if (  $("#txtWhatsappNo").val().length != 10 ) {
+        if ($("#txtWhatsappNo").val()!="" &&  $("#txtWhatsappNo").val().length != 10 ) {
             jAlert("Whatsapp Number should be of 10 digits only.", "Alert", function () {
                 setTimeout(function () {
                     $("#txtWhatsappNo").focus();
@@ -530,16 +530,30 @@
                 else if (returnValue == "207") {
                     jAlert("Invalid State Code. Contact not addded.");
                 }
+                // Rev 1.0
+                else if (returnValue == "-208") {
+                    jAlert("Duplicate Contact No exists. Contact not addded.");
+                }
+                // End of Rev 1.0
                 else {
                     //jAlert("Contact submitted successfully. Auto Contact Code " + returnValue + " generated.");
                     jAlert("Contact submitted successfully.");
+                    // Rev 1.0
+                    ClearData();
+                    if (values == "Exit") {
+                        $('#myModal').modal('hide');
+                    }
+                    GridShow();
+                    // End of Rev 1.0
                 }
                 // End of Mantis Issue 24603
-                ClearData();
-                if (values == "Exit") {
-                    $('#myModal').modal('hide');
-                }
-                GridShow();
+                // Rev 1.0
+                //ClearData();
+                //if (values == "Exit") {
+                //    $('#myModal').modal('hide');
+                //}
+                //GridShow();
+                // End of Rev 1.0
                 //gridPartyDetails.Refresh();
                 //gridPartyDetails.Refresh();
             },
