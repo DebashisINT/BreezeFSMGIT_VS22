@@ -881,8 +881,8 @@
             var parts = inputValue.split('.');
 
             // Allow up to 15 digits before the decimal
-            if (parts[0].length > 14) {
-                parts[0] = parts[0].substring(0, 14);
+            if (parts[0].length > 11) {
+                parts[0] = parts[0].substring(0, 11);
             }
 
             // Limit decimals to 2
