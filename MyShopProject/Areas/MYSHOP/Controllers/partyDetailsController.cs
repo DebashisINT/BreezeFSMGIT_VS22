@@ -2186,8 +2186,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 DataTable dt = new DataTable();
                 ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
                 proc.AddPara("@ACTION", "GetMassDeletePartyLog");
-                proc.AddPara("@FromDate", Fromdt);
-                proc.AddPara("@ToDate", ToDate);
+                proc.AddPara("@FromDate", datfrmat);
+                proc.AddPara("@ToDate", dattoat);
                 dt = proc.GetTable();
 
                 if (dt != null && dt.Rows.Count > 0)
@@ -2223,7 +2223,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         foreach (DataRow row in dt.Rows)
                         {
                             data = new BulkModifyPartyLog();
-                            data.Shop_Code = Convert.ToString(row["Shop_Code"]);
+                            data.Shop_Code = Convert.ToString(row["Shop_Id"]);
                             data.Reason = Convert.ToString(row["Reason"]);
                             data.UpdateOn = Convert.ToString(row["UpdateOn"]);
                             data.UpdatedBy = Convert.ToString(row["UpdatedBy"]);
@@ -2242,6 +2242,91 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return PartialView(list);
         }
 
+        public ActionResult ExportMassDeleteLogGrid(int type)
+        {
+            ViewData["MassDeletePartyLog"] = TempData["MassDeletePartyLog"];
+
+            TempData.Keep();
+
+            if (ViewData["MassDeletePartyLog"] != null)
+            {
+                switch (type)
+                {
+                    case 1:
+                        return GridViewExtension.ExportToPdf(GetMassDeleteLogGrid(ViewData["MassDeletePartyLog"]), ViewData["MassDeletePartyLog"]);
+                    //break;
+                    case 2:
+                        return GridViewExtension.ExportToXlsx(GetMassDeleteLogGrid(ViewData["MassDeletePartyLog"]), ViewData["MassDeletePartyLog"]);
+                    //break;
+                    case 3:
+                        return GridViewExtension.ExportToXlsx(GetMassDeleteLogGrid(ViewData["MassDeletePartyLog"]), ViewData["MassDeletePartyLog"]);
+                    //break;
+                    case 4:
+                        return GridViewExtension.ExportToRtf(GetMassDeleteLogGrid(ViewData["MassDeletePartyLog"]), ViewData["MassDeletePartyLog"]);
+                    //break;
+                    case 5:
+                        return GridViewExtension.ExportToCsv(GetMassDeleteLogGrid(ViewData["MassDeletePartyLog"]), ViewData["MassDeletePartyLog"]);
+                    default:
+                        break;
+                }
+            }
+            return null;
+        }
+
+        private GridViewSettings GetMassDeleteLogGrid(object datatable)
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "MassDeleteLog";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "Mass Delete Party Log";
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Shop_ID";
+                x.Caption = "Shop Code";
+                x.VisibleIndex = 1;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "Reason";
+                x.Caption = "Reason";
+                x.VisibleIndex = 10;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UpdateOn";
+                x.Caption = "Update On";
+                x.VisibleIndex = 11;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm tt";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm tt";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UpdatedBy";
+                x.Caption = "Updated By";
+                x.VisibleIndex = 12;
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+            });
+
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
+        }
         // End of Rev 3.0
 
         [HttpPost]
@@ -2396,15 +2481,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     if (dt != null && dt.Rows.Count > 0)
                     {
                         DataTable dtExcelData = new DataTable();
-                        dtExcelData.Columns.Add("Shop_Code", typeof(string));
-                        dtExcelData.Columns.Add("Retailer", typeof(string));
-                        dtExcelData.Columns.Add("Party_Status", typeof(string));
-
+                        dtExcelData.Columns.Add("SHOP_ID", typeof(string));
+                       
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (Convert.ToString(row["Shop_Code"]) != "")
+                            if (Convert.ToString(row["Outlet ID"]) != "")
                             {
-                                dtExcelData.Rows.Add(Convert.ToString(row["Shop_Code"]), "","");
+                                dtExcelData.Rows.Add(Convert.ToString(row["Outlet ID"]));
                             }
 
                         }
@@ -2415,7 +2498,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_FTSBulkModifyParty");
-                            proc.AddPara("@BULKMODIFYPARTY_TABLE", dtExcelData);
+                            proc.AddPara("@BULKDELETEPARTY_TABLE", dtExcelData);
                             proc.AddPara("@ACTION", "BulkDelete");
                             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
