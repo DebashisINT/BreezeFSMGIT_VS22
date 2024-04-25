@@ -1995,6 +1995,13 @@
             }
         });
     }
+
+    function ExportMassDeleteLogGrid() {
+        var url = '@Url.Action("ExportMassDeleteLogGrid", "partyDetails", new { type = "_type_" })'
+        window.location.href = url.replace("_type_", 3);
+    }
+
+
     // End of Rev 10.0
 </script>
 
@@ -5466,7 +5473,7 @@
     settings =>
     {
         settings.Name = "pcModalTemplateMassDeleteLog";
-        settings.Width = 800; //System.Web.UI.WebControls.Unit.Percentage(80);
+        settings.Width = 780; //System.Web.UI.WebControls.Unit.Percentage(80);
                                 //settings.Height = 220;
                                 //settings.ScrollBars.v
         settings.AllowDragging = true;
@@ -5482,7 +5489,7 @@
         settings.SetContent(() =>
         {
             Html.RenderPartial("MassDeleteLog", new List<BulkModifyPartyLog>());
-        ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportBulkModifyLogGrid();'>Export</button>");
+        ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportMassDeleteLogGrid();'>Export</button>");
         });
 
         // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
