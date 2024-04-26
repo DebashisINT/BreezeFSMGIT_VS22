@@ -22,6 +22,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 10.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
 11.0                17-04-2024       V2.0.47           Priti               0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
                                                                           0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
+12.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
 ====================================================== Revision History ==========================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -3999,7 +4000,46 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             </table>
                         </td>
                          <%--Rev 11.0 END--%>
+                        <%--Rev 12.0--%>
+                        <td id="divAdditionalinfoRequiredforContactListing" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkAdditionalinfoRequiredforContactListing" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Additional Information Required for Contact Listing  </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <%--End of Rev 12.0--%>
                     </tr>
+                    <%--Rev 12.0--%>
+                    <tr>
+                        <td id="divAdditionalinfoRequiredforContactAdd" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkAdditionalinfoRequiredforContactAdd" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Additional Information Required for Contact Add  </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divContactAddresswithGeofence" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkContactAddresswithGeofence" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Contact Address with Geofence </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <%--End of Rev 12.0--%>
 
                 </table>
                 <div class="clear"></div>
