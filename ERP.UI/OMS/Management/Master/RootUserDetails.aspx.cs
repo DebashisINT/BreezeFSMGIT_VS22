@@ -17,7 +17,8 @@
  * 7.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
  * 8.0                17-04-2024       V2.0.47           Priti            0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
  *                                                                        0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
-*******************************************************************************************************************/
+ * 9.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
+ *******************************************************************************************************************/
 using System;
 using System.Data;
 using System.Web;
@@ -2412,6 +2413,32 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                     chkShowPartyWithCreateOrder.Checked = false;
                 }
                 //REV 8.0 END
+                // Rev 9.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["AdditionalinfoRequiredforContactListing"]) == true)
+                {
+                    chkAdditionalinfoRequiredforContactListing.Checked = true;
+                }
+                else
+                {
+                    chkAdditionalinfoRequiredforContactListing.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["AdditionalinfoRequiredforContactAdd"]) == true)
+                {
+                    chkAdditionalinfoRequiredforContactAdd.Checked = true;
+                }
+                else
+                {
+                    chkAdditionalinfoRequiredforContactAdd.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ContactAddresswithGeofence"]) == true)
+                {
+                    chkContactAddresswithGeofence.Checked = true;
+                }
+                else
+                {
+                    chkContactAddresswithGeofence.Checked = false;
+                }
+                // End of Rev 9.0
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
                 if (Convert.ToString(dsUserDetail.Tables[0].Rows[0]["user_AllowAccessIP"]) != "")
@@ -2824,6 +2851,11 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 int ShowUserwisePartyWithGeoFence = 0;
                 int ShowUserwisePartyWithCreateOrder = 0;
                 // End of Rev 8.0
+                // Rev 9.0
+                int AdditionalinfoRequiredforContactListing = 0;
+                int AdditionalinfoRequiredforContactAdd = 0;
+                int ContactAddresswithGeofence = 0;
+                // End of Rev 9.0
 
 
                 if (chkIsActive.Checked == true)
@@ -4254,9 +4286,23 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 else
                     ShowUserwisePartyWithCreateOrder = 0;
                 // End of Rev 8.0
-               
 
-               
+                // Rev 9.0
+                if (chkAdditionalinfoRequiredforContactListing.Checked == true)
+                    AdditionalinfoRequiredforContactListing = 1;
+                else
+                    AdditionalinfoRequiredforContactListing = 0;
+
+                if (chkAdditionalinfoRequiredforContactAdd.Checked == true)
+                    AdditionalinfoRequiredforContactAdd = 1;
+                else
+                    AdditionalinfoRequiredforContactAdd = 0;
+
+                if (chkContactAddresswithGeofence.Checked == true)
+                    ContactAddresswithGeofence = 1;
+                else
+                    ContactAddresswithGeofence = 0;
+                // End of Rev 9.0
 
 
 
@@ -4610,6 +4656,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
                             proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
                             // End of Rev 8.0
+
+                            // Rev 9.0
+                            proc.AddPara("@AdditionalinfoRequiredforContactListing", AdditionalinfoRequiredforContactListing);
+                            proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
+                            proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
+                            // End of Rev 9.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5041,6 +5093,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
                             proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
                             // End of Rev 8.0
+                            // Rev 9.0
+                            proc.AddPara("@AdditionalinfoRequiredforContactListing", AdditionalinfoRequiredforContactListing);
+                            proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
+                            proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
+                            // End of Rev 9.0
+
                             DataTable dt = proc.GetTable();
 
 
@@ -5466,6 +5524,12 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@ShowUserwisePartyWithGeoFence", ShowUserwisePartyWithGeoFence);
                             proc.AddPara("@ShowUserwisePartyWithCreateOrder", ShowUserwisePartyWithCreateOrder);
                             // End of Rev 8.0
+                            // Rev 9.0
+                            proc.AddPara("@AdditionalinfoRequiredforContactListing", AdditionalinfoRequiredforContactListing);
+                            proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
+                            proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
+                            // End of Rev 9.0
+
                             DataTable dt = proc.GetTable();
 
 
@@ -7464,6 +7528,47 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                         }
                     }
                     //Rev 8.0 End
+                    // Rev 9.0
+                    else if (Convert.ToString(dr["key"]) == "AdditionalinfoRequiredforContactListing")
+                    {
+                        chkAdditionalinfoRequiredforContactListing.Checked = true;
+                        
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divAdditionalinfoRequiredforContactListing.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divAdditionalinfoRequiredforContactListing.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "AdditionalinfoRequiredforContactAdd")
+                    {
+                        chkAdditionalinfoRequiredforContactAdd.Checked = true;
+
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divAdditionalinfoRequiredforContactAdd.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divAdditionalinfoRequiredforContactAdd.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "ContactAddresswithGeofence")
+                    {
+                        chkContactAddresswithGeofence.Checked = true;
+                        
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divContactAddresswithGeofence.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divContactAddresswithGeofence.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 9.0
                 }
             }
         }

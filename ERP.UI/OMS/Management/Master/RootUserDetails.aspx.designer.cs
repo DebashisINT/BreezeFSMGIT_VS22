@@ -4317,7 +4317,7 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkShowPartyWithGeoFence;
 
         /// <summary>
-        /// divShowPartyWithCreateOrder  control.
+        /// divShowPartyWithCreateOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -4333,6 +4333,60 @@ namespace ERP.OMS.Management.Master
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxCheckBox chkShowPartyWithCreateOrder;
+
+        /// <summary>
+        /// divAdditionalinfoRequiredforContactListing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divAdditionalinfoRequiredforContactListing;
+
+        /// <summary>
+        /// chkAdditionalinfoRequiredforContactListing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkAdditionalinfoRequiredforContactListing;
+
+        /// <summary>
+        /// divAdditionalinfoRequiredforContactAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divAdditionalinfoRequiredforContactAdd;
+
+        /// <summary>
+        /// chkAdditionalinfoRequiredforContactAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkAdditionalinfoRequiredforContactAdd;
+
+        /// <summary>
+        /// divContactAddresswithGeofence control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divContactAddresswithGeofence;
+
+        /// <summary>
+        /// chkContactAddresswithGeofence control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkContactAddresswithGeofence;
 
         /// <summary>
         /// btnUpdate control.
