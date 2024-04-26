@@ -18,7 +18,7 @@
  * 8.0                17-04-2024       V2.0.47           Priti            0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
  *                                                                        0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
  * 9.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
- *******************************************************************************************************************/
+ *********************************************************************************************************************************/
 using System;
 using System.Data;
 using System.Web;
