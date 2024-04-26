@@ -23,7 +23,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 11.0                17-04-2024       V2.0.47           Priti               0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
                                                                           0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
 12.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
-====================================================== Revision History ==========================================================--%>
+====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
     Inherits="ERP.OMS.Management.Master.management_master_RootUserDetails" CodeBehind="RootUserDetails.aspx.cs" %>
