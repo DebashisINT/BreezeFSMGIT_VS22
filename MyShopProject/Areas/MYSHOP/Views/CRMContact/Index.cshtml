@@ -518,21 +518,9 @@
             success: function (returnValue
                 ) {
                 // Mantis Issue 24603 (Return value "returnValue" added )
-                if (returnValue == "204") {
-                    jAlert("Auto Contact Code Not generated. Contact not addded.");
-                }
-                else if (returnValue == "205") {
-                    jAlert("Invalid Last Number. Contact not addded.");
-                }
-                else if (returnValue == "206") {
-                    jAlert("Invalid Shop Type. Contact not addded.");
-                }
-                else if (returnValue == "207") {
-                    jAlert("Invalid State Code. Contact not addded.");
-                }
                 // Rev 1.0
-                else if (returnValue == "-208") {
-                    jAlert("Duplicate Contact No exists. Contact not addded.");
+                if (returnValue == "-208") {
+                    jAlert("Duplicate Contact No exists.");
                 }
                 // End of Rev 1.0
                 else {

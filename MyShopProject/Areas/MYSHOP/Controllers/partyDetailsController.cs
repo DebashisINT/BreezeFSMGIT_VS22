@@ -2409,7 +2409,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
 
-        // Rev Sanchita
+        // Rev 3.0
         public ActionResult MassDeleteImportParty()
         {
 
@@ -2516,7 +2516,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             return HasLog;
         }
-        // End of Rev Sanchita
+        // End of Rev 3.0
 
         public ActionResult GetReAssignShopUserLog()
         {
