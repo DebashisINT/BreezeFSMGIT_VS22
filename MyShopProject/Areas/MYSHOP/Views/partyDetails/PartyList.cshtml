@@ -2998,6 +2998,53 @@
     #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
         left: -55px !important;
     }
+
+    .btn-mass-dlt-imp-log {
+        background: #874a03;
+        color: #fff;
+        transition: all .3s;
+    }
+
+        .btn-mass-dlt-imp-log:hover {
+            background: #bf6905;
+            color: #fff;
+        }
+
+    .btn-info {
+        background-color: #0698c4 !important;
+        transition: all .3s;
+    }
+        .btn-info:hover {
+            background-color: #21b9e7 !important;
+        }
+    .btn-danger {
+        background-color: #dd1d17 !important;
+        transition: all .3s;
+    }
+        .btn-danger:hover {
+            background-color: #f9413b !important;
+        }
+
+    .btn-success {
+        background-color: #1ba749 !important;
+        transition: all .3s;
+    }
+
+        .btn-success:hover {
+            background-color: #27d560 !important;
+        }
+
+    .btn-primary {
+        background-color: #033868 !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #01519a !important;
+    }
+
+    .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
+        padding: 7px 10px 10px !important;
+    }
 </style>
 
 <script>
@@ -3472,7 +3519,7 @@
                         @*Rev 4.0*@
                         @if (ViewBag.CanBulkUpdate)
                         {
-                            <button type="button" class="btn btn-success" onclick="DownloadTemplate();">
+                            <button type="button" class="btn btn-info" onclick="DownloadTemplate();">
                                 Download Template
                             </button>
                             <button type="button" class="btn btn-success" onclick="BulkModifyPopOpen();">
@@ -3495,7 +3542,7 @@
                             <button type="button" class="btn btn-danger" onclick="MassDeleteImportShopPopOpen();">
                                 Mass Delete Import
                             </button>
-                            <button type="button" class="btn btn-danger" onclick="MassDeleteShopLogPopOpen();">
+                            <button type="button" class="btn btn-mass-dlt-imp-log" onclick="MassDeleteShopLogPopOpen();">
                                 View Mass Delete Import Log
                             </button>
                         }
