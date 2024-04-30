@@ -302,7 +302,10 @@
 
     function addPageRetention(visibleColumn) {
         $.ajax({
-            url: "@Url.Action("PageRetention", "EnquiriesController")",
+            // Rev 1.0
+            //url: "@Url.Action("PageRetention", "EnquiriesController")",
+            url: "@Url.Action("PageRetention", "EnquiryAnalytics")",
+            // End of Rev 1.0
             async: false,
         data: { Columns: visibleColumn },
         type: 'POST',
