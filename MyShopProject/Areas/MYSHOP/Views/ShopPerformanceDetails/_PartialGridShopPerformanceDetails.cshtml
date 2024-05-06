@@ -1,4 +1,9 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*====================================================== Revision History ===========================================================*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                03-05-2024        V2 .0.47         Priti               0027407: "Party Status" - needs to add in the following reports. *@
+@*====================================================== Revision History ===========================================================*@
+
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridShopPerformanceDetailsList";
     settings.CallbackRouteValues = new { Action = "GetShopPerformanceDetailsPartial", Controller = "ShopPerformanceDetails" };
@@ -29,7 +34,7 @@
         x.Caption = "Date";
         x.VisibleIndex = 1;
         x.Width = 120;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -43,7 +48,7 @@
         x.Caption = "State Name";
         x.VisibleIndex = 2;
         x.Width = 100;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
 
@@ -55,7 +60,7 @@
         x.Width = 200;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
 
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
 
@@ -65,7 +70,7 @@
         x.Caption = "Designation";
         x.VisibleIndex = 4;
         x.Width = 100;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
 
@@ -77,7 +82,7 @@
         x.Width = 200;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
 
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
 
@@ -100,7 +105,7 @@
         x.VisibleIndex = 7;
         x.Width = 120;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
 
 
@@ -110,7 +115,7 @@
         x.Caption = "Brand";
         x.VisibleIndex = 8;
         x.Width = 150;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
     });
 
@@ -120,7 +125,7 @@
         x.Caption = "Category";
         x.VisibleIndex = 9;
         x.Width = 100;
-      //  x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+        //  x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
 
     });
 
@@ -130,7 +135,7 @@
         x.Caption = "Strength";
         x.VisibleIndex = 10;
         x.Width = 100;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
     });
 
@@ -150,7 +155,7 @@
         x.Caption = "Product";
         x.VisibleIndex = 12;
         x.Width = 300;
-       // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
     });
 
@@ -183,6 +188,16 @@
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     });
+
+    //Rev 1.0
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PARTYSTATUS";
+        x.Caption = "Party Status";
+        x.VisibleIndex = 16;
+        x.Width = 100;
+    });
+    //Rev 1.0 End
 
     ///Summary
     settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Product_Qty");
