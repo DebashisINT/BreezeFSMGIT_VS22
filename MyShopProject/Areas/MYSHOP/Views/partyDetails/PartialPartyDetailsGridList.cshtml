@@ -1,4 +1,8 @@
-﻿@Html.DevExpress().GridView(settings =>
+﻿@*====================================================== Revision History ===========================================================*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+@*1.0                03-05-2024        V2 .0.47         Priti               0027407: "Party Status" - needs to add in the following reports. *@
+@*====================================================== Revision History ===========================================================*@
+@Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridPartyDetails";
     settings.KeyFieldName = "ID";
@@ -261,7 +265,7 @@
         {
             string Temp = Convert.ToString(DataBinder.Eval(c.DataItem, "OutletStatus"));
             if (Temp == "Active")
-                // x.CellStyle.BackColor = 
+                // x.CellStyle.BackColor =
                 //x.CellStyle.ForeColor = System.Drawing.Color.Green;
                 ViewContext.Writer.Write("<span style=\"color:Green\">" + c.Text + "</span>");
             else
@@ -334,12 +338,20 @@
         x.VisibleIndex = 33;
         x.Width = 100;
     });
-
+    //Rev 1.0
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PARTYSTATUS";
+        x.Caption = "Party Status";
+        x.VisibleIndex = 34;
+        x.Width = 100;
+    });
+    //Rev 1.0 End
     settings.Columns.Add(x =>
     {
         x.FieldName = "CreateOn";
         x.Caption = "Created On";
-        x.VisibleIndex = 34;
+        x.VisibleIndex = 35;
         x.Width = 100;
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy HH:mm:ss";
@@ -351,7 +363,7 @@
     {
         x.FieldName = "CreateBy";
         x.Caption = "Created By";
-        x.VisibleIndex = 35;
+        x.VisibleIndex = 36;
         x.Width = 100;
     });
 
@@ -359,7 +371,7 @@
     {
         x.FieldName = "UpdateOn";
         x.Caption = "Updated On";
-        x.VisibleIndex = 36;
+        x.VisibleIndex = 37;
         x.Width = 100;
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy HH:mm:ss";
@@ -370,7 +382,7 @@
     {
         x.FieldName = "UpdateBy";
         x.Caption = "Updated By";
-        x.VisibleIndex = 37;
+        x.VisibleIndex = 38;
         x.Width = 100;
     });
 
@@ -391,7 +403,7 @@
             //    "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteForm('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Delete\"><img src=\"../../../assests/images/Delete.png\" /></a></div>"
             //);
 
-            if (ViewBag.CanDelete )
+            if (ViewBag.CanDelete)
             {
                 ViewContext.Writer.Write(
                     "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Modify\"><img src=\"../../../assests/images/Edit.png\" /></a>" +
@@ -406,7 +418,7 @@
                 ViewContext.Writer.Write(
                     "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Modify\"><img src=\"../../../assests/images/Edit.png\" /></a>" +
                      "" +
-                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Change Status\"><img src=\"../../../assests/images/change-status.png\" /></a>" 
+                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Change Status\"><img src=\"../../../assests/images/change-status.png\" /></a>"
                 );
             }
             // End of Rev Sanchita
@@ -422,7 +434,7 @@
 
 
         x.Caption = "Action";
-        x.VisibleIndex = 38;
+        x.VisibleIndex = 39;
         //x.Width = 50;
         //x.SetDataItemTemplateContent(c =>
         //{floatedBtnArea
