@@ -4,7 +4,7 @@
 @*2.0                23-01-2023        2.0.38           Debashis            Multiple contact information to be displayed in the Shops report.Refer: 0025585*@
 @*3.0		         13-02-2023   	   V2.0.39		    PRITI			    0025663:Last Visit fields shall be available in Outlet Reports*@
 @*4.0                19/07/2023        V2.0.41          Sanchita            Add Branch parameter in Listing of Master -> Shops report. Mantis : 26135*@
-@*5.0                22/01/2024        V2.0.45          Sanchita            Supervisor name column is required in Shops report. Mantis: 27199
+@*5.0                22/01/2024        V2.0.45          Sanchita            Supervisor name column is required in Shops report. Mantis: 27199*@
 @*6.0                03-05-2024        V2 .0.47         Priti               0027407: "Party Status" - needs to add in the following reports. *@
 @*====================================================== Revision History ===========================================================*@
 
@@ -751,13 +751,13 @@
 
 
     //Rev 6.0
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "PARTYSTATUS";
-        x.Caption = "Party Status";
-        x.VisibleIndex = 68;
-        x.Width = 100;
-    });
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "PARTYSTATUS";
+    //    x.Caption = "Party Status";
+    //    x.VisibleIndex = 68;
+    //    x.Width = 100;
+    //});
     //Rev 6.0 End
 
     ///Summary
