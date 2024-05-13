@@ -8,7 +8,8 @@ Rev 5.0     Pallab      V2.0.39     18/04/2023      Dropdown window is not showi
 Rev 6.0     Pallab      V2.0.39     25/04/2023      Products module all search popup auto focus add and "cancel" button color change. Refer: 25914
 Rev 7.0     Sanchita    V2.0.40     16/05/2023      Product MRP & Discount percentage import facility required while importing Product Master. Refer: 25785
 Rev 8.0     Sanchita    V2.0.43     06/11/2023      On demand search is required in Product Master & Projection Entry. Mantis: 26858
-Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour Search - saved colurs not showing ticked. Mantis: 27211    
+Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour Search - saved colurs not showing ticked. Mantis: 27211
+Rev 10.0    Priti       V2.0.47     13/05/2024      Color code Save issue in product master # Eurobond Portal. Mantis: 27211    
 -------------------------------------------------------------------------------------------------------------------------- --%>
 <%@ Page Title="Products" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master"
     Inherits="ERP.OMS.Management.Store.Master.management_master_Store_sProducts" CodeBehind="sProducts.aspx.cs" %>
@@ -32,6 +33,7 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
 
     <script type="text/javascript">
 
+        
         function PopupproductHide()
         {
             jAlert('Products Imported Successfully.', "Alert", function () {
@@ -66,12 +68,20 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
         // Rev 4.0
 
         var ProductArr = new Array();
+        //var ColorArr = new Array();
+
         $(document).ready(function () {
             var ProductObj = new Object();
             ProductObj.Name = "ProductSource";
-            ProductObj.ArraySource = ProductArr;
+            ProductObj.ArraySource = ProductArr ;
             arrMultiPopup.push(ProductObj);
             $("#hfIsFilter").val("N");
+
+            //var ColorNewObj = new Object();
+            //ColorNewObj.Name = "ColorNewSource";
+            //ColorNewObj.ArraySource = ColorArr;
+            //arrMultiPopup.push(ColorNewObj);
+
         })
 
         function ProductButnClick(s, e) {
@@ -127,6 +137,12 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     $("#hdnColorNew").val(Id);
                     ctxtColorNew.SetText(Name);
                     $('#ColorNewModel').modal('hide');
+                    //if ($("#jsonColor").text() != '') {                      
+
+                    //    $("#jsonColor").val(Id);
+                    //}
+
+
                 }
                 else {
                     $("#hdnColorNew").val('');
@@ -178,24 +194,28 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
             }
 
             if (e.code == "Enter" || e.code == "NumpadEnter") {
-                // Rev 9.0
-                if ($("#jsonColor").text() != '') {
-                    arrMultiPopup = [];
-                    var ColorNewObj = new Object();
-                    ColorNewArr = JSON.parse($("#jsonColor").text());
-                    ColorNewObj.Name = "ColorNewSource";
-                    ColorNewObj.ArraySource = ColorNewArr;
-                    arrMultiPopup.push(ColorNewObj);
-                }
-                else {
-                    arrMultiPopup = [];
-                    var ColorNewArr = new Array();
-                    var ColorNewObj = new Object();
-                    ColorNewObj.Name = "ColorNewSource";
-                    ColorNewObj.ArraySource = ColorNewArr;
-                    arrMultiPopup.push(ColorNewObj);
-                }
-               // End of Rev 9.0
+
+                // Rev 10.0
+               // // Rev 9.0
+               // if ($("#jsonColor").text() != '') {
+               //     arrMultiPopup = [];
+               //     var ColorNewObj = new Object();
+               //         ColorNewArr = JSON.parse($("#jsonColor").text());
+               //     ColorNewObj.Name = "ColorNewSource";
+               //     ColorNewObj.ArraySource = ColorNewArr;
+               //     arrMultiPopup.push(ColorNewObj);
+
+               // }
+               // else {
+               //     arrMultiPopup = [];
+               //     //var ColorNewArr = new Array();
+               //     var ColorNewObj = new Object();
+               //     ColorNewObj.Name = "ColorNewSource";
+               //     ColorNewObj.ArraySource = ColorNewArr;
+               //     arrMultiPopup.push(ColorNewObj);
+               // }
+                //// End of Rev 9.0
+                 // Rev 10.0 End
 
                 $("#calledFromColorNewLookup_hidden").val("1");
                 var HeaderCaption = [];
@@ -2071,7 +2091,7 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
         }
 
         function fn_Editcity(keyValue) {
-          
+             ColorNewArr = new Array();
             cbtnSave_citys.SetVisible(true);
            // document.getElementById('btnUdf').disabled = false;
             cPopup_Empcitys.SetHeaderText('Modify Products');
@@ -2101,6 +2121,9 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
          
             if (grid.cpinsert != null) {
                 if (grid.cpinsert == 'Success') {
+
+                     ColorNewArr = new Array();
+                    console.log('abc', ColorNewArr.length);
                     jAlert('Saved Successfully');
                     //alert('Saved Successfully');
                     //................CODE  UPDATED BY sAM ON 18102016.................................................
@@ -2222,7 +2245,16 @@ Rev 9.0     Sanchita    V2.0.45     25/01/2024      FSM Product Master - Colour 
                     // End of Rev rev 8.0
                     // Rev 9.0
                     $("#jsonColor").text(grid.cpEdit.split('~')[70]);
-                // End of Rev 9.0
+                    // End of Rev 9.0
+                    // Rev 10.0
+                    arrMultiPopup = [];  
+                    ColorNewArr=JSON.parse($("#jsonColor").text()); 
+                    var ColorNewObj = new Object();
+                    ColorNewObj.Name = "ColorNewSource";
+                    ColorNewObj.ArraySource = ColorNewArr;
+                    arrMultiPopup.push(ColorNewObj);
+                    // Rev 10.0 End
+               
                 }
                 else {
                     ProdColorNew = '';
