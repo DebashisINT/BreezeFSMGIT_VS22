@@ -207,7 +207,15 @@
         x.VisibleIndex = 20;
         x.Width = 100;
     });
-
+    //Rev 1.0
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PARTYSTATUS";
+        x.Caption = "Party Status";
+        x.VisibleIndex = 20;
+        x.Width = 100;
+    });
+    //Rev 1.0 End
     // Mantis Issue 25421
     settings.Columns.Add(x =>
     {
@@ -338,15 +346,7 @@
         x.VisibleIndex = 33;
         x.Width = 100;
     });
-    //Rev 1.0
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "PARTYSTATUS";
-        x.Caption = "Party Status";
-        x.VisibleIndex = 34;
-        x.Width = 100;
-    });
-    //Rev 1.0 End
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "CreateOn";

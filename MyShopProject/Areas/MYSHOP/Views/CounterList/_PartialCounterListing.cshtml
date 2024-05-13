@@ -44,6 +44,16 @@
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
     });
 
+    //Rev 6.0
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PARTYSTATUS";
+        x.Caption = "Party Status";
+        x.VisibleIndex = 2;
+        x.Width = 100;
+    });
+    //Rev 6.0 End
+
     //Rev Debashis -- 0024576
     settings.Columns.Add(x =>
     {
@@ -750,15 +760,7 @@
     //REV 3.0 END
 
 
-    //Rev 6.0
-    //settings.Columns.Add(x =>
-    //{
-    //    x.FieldName = "PARTYSTATUS";
-    //    x.Caption = "Party Status";
-    //    x.VisibleIndex = 68;
-    //    x.Width = 100;
-    //});
-    //Rev 6.0 End
+
 
     ///Summary
     settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "Shoptype"); ;
