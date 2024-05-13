@@ -3,60 +3,12 @@
   "WorkspaceRootPath": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E0403CE7-71F7-4D02-85D1-1EE7125C1E75}|DataAccessLayer\\DataAccessLayer.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\dataaccesslayer\\procedureexecute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0403CE7-71F7-4D02-85D1-1EE7125C1E75}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\procedureexecute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|d:\\git\\github\\breezefsmgit_vs22\\myshopproject\\areas\\myshop\\views\\systemsettings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\systemsettings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmcontact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmcontact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\controllers\\crmcontactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\crmcontactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|d:\\git\\github\\breezefsmgit_vs22\\myshopproject\\areas\\myshop\\controllers\\productmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\productmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|d:\\git\\github\\breezefsmgit_vs22\\businesslogiclayer\\accounthead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\accounthead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|d:\\git\\github\\breezefsmgit_vs22\\myshopproject\\areas\\myshop\\views\\productmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\productmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|d:\\git\\github\\breezefsmgit_vs22\\myshopproject\\areas\\myshop\\views\\partydetails\\partylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\partylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\partydetails\\_massdeletemanuallogview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\_massdeletemanuallogview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\partydetails\\massdeletelog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\massdeletelog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\controllers\\partydetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\partydetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmcontact\\partialcrmcontactgridlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmcontact\\partialcrmcontactgridlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\models\\shopaddress.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\models\\shopaddress.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmenquiries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmenquiries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\models\\crmcontactmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\models\\crmcontactmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\controllers\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,189 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProductMasterController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ProductMasterController.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ProductMasterController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ProductMasterController.cs",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ProductMasterController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAhwB8AAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T06:47:04.566Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "_MassDeleteManualLogView.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAwDEAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "ViewState": "AQIAACgDAAAAAAAAAAAYwDgDAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-23T13:36:45.74Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PartyList.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
-              "ViewState": "AQIAAEYVAAAAAAAAAAAAwFcVAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-19T10:50:49.207Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PartialCRMContactGridList.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
-              "ViewState": "AQIAAB0BAAAAAAAAAAAAwDsBAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-23T06:53:55.558Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CRMContactModel.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\CRMContactModel.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Models\\CRMContactModel.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\CRMContactModel.cs",
-              "RelativeToolTip": "MyShopProject\\Models\\CRMContactModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T11:18:56.379Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CRMContactController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\CRMContactController.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\CRMContactController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\CRMContactController.cs",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\CRMContactController.cs",
-              "ViewState": "AQIAADYBAAAAAAAAAAAMwEUBAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T10:46:31.18Z",
+              "WhenOpened": "2024-05-13T06:54:07.477Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
-              "ViewState": "AQIAAGoDAAAAAAAAAAAYwG0DAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-19T10:23:01.759Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProcedureExecute.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\DataAccessLayer\\ProcedureExecute.cs",
-              "RelativeDocumentMoniker": "DataAccessLayer\\ProcedureExecute.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\DataAccessLayer\\ProcedureExecute.cs",
-              "RelativeToolTip": "DataAccessLayer\\ProcedureExecute.cs",
-              "ViewState": "AQIAADEDAAAAAAAAAAAAADYDAAAMAAAA",
+              "Title": "SystemsettingsController.cs",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\SystemsettingsController.cs",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\SystemsettingsController.cs",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\SystemsettingsController.cs",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\SystemsettingsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T10:47:39.445Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-24T07:18:47.638Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AccountHead.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\BusinessLogicLayer\\AccountHead.cs",
-              "RelativeDocumentMoniker": "BusinessLogicLayer\\AccountHead.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\BusinessLogicLayer\\AccountHead.cs",
-              "RelativeToolTip": "BusinessLogicLayer\\AccountHead.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAuwB0AAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T07:20:31.797Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "partyDetailsController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\partyDetailsController.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\partyDetailsController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\partyDetailsController.cs",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\partyDetailsController.cs",
-              "ViewState": "AQIAAKgIAAAAAAAAAAAmwLkIAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T11:53:40.057Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MassDeleteLog.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
-              "ViewState": "AQIAACgAAAAAAAAAAAAAwEoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-23T14:02:14.348Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
-              "ViewState": "AQIAAMAIAAAAAAAAAADwv8oIAABVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-19T10:28:37.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ShopAddress.asmx.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\ShopAddress.asmx.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Models\\ShopAddress.asmx.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\ShopAddress.asmx.cs",
-              "RelativeToolTip": "MyShopProject\\Models\\ShopAddress.asmx.cs",
-              "ViewState": "AQIAAKYBAAAAAAAAAAAmwL8BAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-23T10:31:52.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-13T06:53:32.8Z"
             }
           ]
         }
