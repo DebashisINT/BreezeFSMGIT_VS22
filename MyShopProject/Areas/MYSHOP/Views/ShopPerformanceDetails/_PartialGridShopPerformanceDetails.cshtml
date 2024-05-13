@@ -107,13 +107,21 @@
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
-
+    //Rev 1.0
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PARTYSTATUS";
+        x.Caption = "Party Status";
+        x.VisibleIndex = 8;
+        x.Width = 100;
+    });
+    //Rev 1.0 End
 
     settings.Columns.Add(x =>
     {
         x.FieldName = "Brand_Name";
         x.Caption = "Brand";
-        x.VisibleIndex = 8;
+        x.VisibleIndex = 9;
         x.Width = 150;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
@@ -123,7 +131,7 @@
     {
         x.FieldName = "Category";
         x.Caption = "Category";
-        x.VisibleIndex = 9;
+        x.VisibleIndex = 10;
         x.Width = 100;
         //  x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
 
@@ -133,7 +141,7 @@
     {
         x.FieldName = "Strength";
         x.Caption = "Strength";
-        x.VisibleIndex = 10;
+        x.VisibleIndex = 11;
         x.Width = 100;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
@@ -143,7 +151,7 @@
     {
         x.FieldName = "Order_ID";
         x.Caption = "Order No.";
-        x.VisibleIndex = 11;
+        x.VisibleIndex = 12;
         x.Width = 150;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -153,7 +161,7 @@
     {
         x.FieldName = "sProducts_Name";
         x.Caption = "Product";
-        x.VisibleIndex = 12;
+        x.VisibleIndex = 13;
         x.Width = 300;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
@@ -163,7 +171,7 @@
     {
         x.FieldName = "Product_Qty";
         x.Caption = "Qty";
-        x.VisibleIndex = 13;
+        x.VisibleIndex = 14;
         x.Width = 100;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -173,7 +181,7 @@
     {
         x.FieldName = "Product_Rate";
         x.Caption = "Rate";
-        x.VisibleIndex = 14;
+        x.VisibleIndex = 15;
         x.Width = 100;
         // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
@@ -183,21 +191,13 @@
     {
         x.FieldName = "Product_Price";
         x.Caption = "Value";
-        x.VisibleIndex = 15;
+        x.VisibleIndex = 16;
         x.Width = 100;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     });
 
-    //Rev 1.0
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "PARTYSTATUS";
-        x.Caption = "Party Status";
-        x.VisibleIndex = 16;
-        x.Width = 100;
-    });
-    //Rev 1.0 End
+
 
     ///Summary
     settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Product_Qty");
