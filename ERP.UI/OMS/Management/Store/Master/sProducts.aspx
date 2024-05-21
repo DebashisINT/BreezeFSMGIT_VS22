@@ -3116,7 +3116,6 @@ Rev 10.0    Priti       V2.0.47     13/05/2024      Color code Save issue in pro
                             <Settings AllowAutoFilterTextInputTimer="False" />
                             <Settings AutoFilterCondition="Contains" />
                         </dxe:GridViewDataTextColumn>
-
                         <dxe:GridViewDataTextColumn Caption="Brand" FieldName="Brand_Name" ReadOnly="True" Width="15%"
                             Visible="True" VisibleIndex="3">
                             <Settings AutoFilterCondition="Contains" />
@@ -3124,22 +3123,18 @@ Rev 10.0    Priti       V2.0.47     13/05/2024      Color code Save issue in pro
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>
 
-
-<%--                        <dxe:GridViewDataTextColumn Caption="Inventory" FieldName="sProduct_IsInventory" ReadOnly="True"
+                        <%--<dxe:GridViewDataTextColumn Caption="Inventory" FieldName="sProduct_IsInventory" ReadOnly="True"
                             Visible="True" VisibleIndex="3" Width="80px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-
-                      <%--  <dxe:GridViewDataTextColumn Caption="Service Item?" FieldName="Is_ServiceItem" ReadOnly="True"
+                        <%--  <dxe:GridViewDataTextColumn Caption="Service Item?" FieldName="Is_ServiceItem" ReadOnly="True"
                             Visible="True" VisibleIndex="3" Width="80px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
                         <%--<dxe:GridViewDataTextColumn Caption="Class Name" FieldName="ProductClass_Name" ReadOnly="True"
                             Visible="True" FixedStyle="Left" VisibleIndex="4">
                             <Settings AutoFilterCondition="Contains" />
@@ -3152,59 +3147,55 @@ Rev 10.0    Priti       V2.0.47     13/05/2024      Color code Save issue in pro
                             </PropertiesComboBox>
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataComboBoxColumn>
-
+                        <dxe:GridViewDataTextColumn Caption="Status" FieldName="sProduct_Status" ReadOnly="True" Width="15%"
+                            Visible="True" VisibleIndex="5">
+                            <Settings AutoFilterCondition="Contains" />
+                            <EditFormSettings Visible="True" />
+                            <Settings AllowAutoFilterTextInputTimer="False" />
+                        </dxe:GridViewDataTextColumn>
+                       
 
                         <%--  <dxe:GridViewDataTextColumn Caption="HSN Code" FieldName="HSNCODE" ReadOnly="True"
                             Visible="True" FixedStyle="Left" VisibleIndex="5">
                             <EditFormSettings Visible="True" />
                             <Settings AutoFilterCondition="Contains" />
                         </dxe:GridViewDataTextColumn>--%>
-
-             <%--           <dxe:GridViewDataComboBoxColumn Caption="HSN/SAC" FieldName="HSNCODE" VisibleIndex="5">
+                        <%--           <dxe:GridViewDataComboBoxColumn Caption="HSN/SAC" FieldName="HSNCODE" VisibleIndex="5">
                             <PropertiesComboBox EnableSynchronization="False" EnableIncrementalFiltering="True"
                                 ValueType="System.String" DataSourceID="SqlHSNDataSource" TextField="Code" ValueField="Code">
                             </PropertiesComboBox>
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataComboBoxColumn>--%>
-
-                <%--        <dxe:GridViewDataTextColumn Caption="Capital Goods?" FieldName="sProduct_IsCapitalGoods" ReadOnly="True"
+                        <%--        <dxe:GridViewDataTextColumn Caption="Capital Goods?" FieldName="sProduct_IsCapitalGoods" ReadOnly="True"
                             Visible="True" VisibleIndex="6">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-               <%--         <dxe:GridViewDataTextColumn Caption="Sales Invoice Ledger" FieldName="sInv_MainAccount" ReadOnly="True"
+                        <%--         <dxe:GridViewDataTextColumn Caption="Sales Invoice Ledger" FieldName="sInv_MainAccount" ReadOnly="True"
                             Visible="True" VisibleIndex="7" Width="160px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-                   <%--     <dxe:GridViewDataTextColumn Caption="Sales Return Ledger" FieldName="sRet_MainAccount" ReadOnly="True"
+                        <%--     <dxe:GridViewDataTextColumn Caption="Sales Return Ledger" FieldName="sRet_MainAccount" ReadOnly="True"
                             Visible="True" VisibleIndex="8" Width="160px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-
-              <%--          <dxe:GridViewDataTextColumn Caption="Purchase Invoice Ledger" FieldName="pInv_MainAccount" ReadOnly="True"
+                        <%--          <dxe:GridViewDataTextColumn Caption="Purchase Invoice Ledger" FieldName="pInv_MainAccount" ReadOnly="True"
                             Visible="True" VisibleIndex="9" Width="160px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-
-<%--                        <dxe:GridViewDataTextColumn Caption="Purchase Return Ledger" FieldName="pRet_MainAccount" ReadOnly="True"
+                        <%--                        <dxe:GridViewDataTextColumn Caption="Purchase Return Ledger" FieldName="pRet_MainAccount" ReadOnly="True"
                             Visible="True" VisibleIndex="10" Width="160px">
                             <Settings AutoFilterCondition="Contains" />
                             <EditFormSettings Visible="True" />
                             <Settings AllowAutoFilterTextInputTimer="False" />
                         </dxe:GridViewDataTextColumn>--%>
-
-
                         <dxe:GridViewDataTextColumn ReadOnly="True" CellStyle-HorizontalAlign="Center" Width="10%">
                             <HeaderStyle HorizontalAlign="Center" />
 
@@ -4862,8 +4853,7 @@ Rev 10.0    Priti       V2.0.47     13/05/2024      Color code Save issue in pro
             SelectCommand="select distinct sProducts_HsnCode Code  from master_sproducts where sProducts_HsnCode<>''  union all select  distinct SERVICE_CATEGORY_CODE   from Master_sProducts MP inner join TBL_MASTER_SERVICE_TAX sac on MP.sProducts_serviceTax=sac.TAX_ID "></asp:SqlDataSource>
 
 
-
-
+        
 
         <dxe:ASPxLoadingPanel ID="LoadingPanel" runat="server" ClientInstanceName="LoadingPanel" ContainerElementID="ProductMainContaint"
             Modal="True">
