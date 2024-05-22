@@ -5,6 +5,7 @@
 //3.0   V2.0.43     Sanchita    07-11-2023      0026895: System will prompt for Branch selection if the Branch hierarchy is activated.
 //4.0   V2.0.45     Sanchita    22/01/2024      Supervisor name column is required in Shops report. Mantis: 27199
 //5.0   V2.0.47     Priti       19/04/2024      System is getting logged out while trying to export the Shops data into excel. Mantis: 0027324
+//6.0   V2.0.47     Sanchita    22-05-2024      0027405: Colum Chooser Option needs to add for the following Modules.
 #endregion===================================End of Revision History==================================================================
 using System;
 using System.Collections.Generic;
@@ -785,7 +786,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public IEnumerable ShopsDetails(string Is_PageLoad)
         {
-         
+            // Rev 6.0
+            DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "SHOPS");
+            if (dtColmn != null && dtColmn.Rows.Count > 0)
+            {
+                ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+            }
+            // End of Rev 6.0
+
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string Userid = Convert.ToString(Session["userid"]);
 
@@ -811,5 +819,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
 
         }
+
+        // Rev 6.0
+        public ActionResult PageRetention(List<String> Columns)
+        {
+            try
+            {
+                String Col = "";
+                int i = 1;
+                if (Columns != null && Columns.Count > 0)
+                {
+                    Col = string.Join(",", Columns);
+                }
+                int k = objshop.InsertPageRetention(Col, Session["userid"].ToString(), "SHOPS");
+
+                return Json(k, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+        // End of Rev 6.0
     }
 }
