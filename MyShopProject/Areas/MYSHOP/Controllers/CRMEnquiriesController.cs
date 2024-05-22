@@ -80,10 +80,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
             ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
             // End of Rev 3.0
             // Get Salesmanlist
+            // Rev Sanchita
             DataTable dtSals = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_CRUD_ENQUIRIES");
-            proc.AddPara("@ACTION_TYPE", "GetSalesmanlist");
-            dtSals = proc.GetTable();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_CRUD_ENQUIRIES");
+            //proc.AddPara("@ACTION_TYPE", "GetSalesmanlist");
+            //dtSals = proc.GetTable();
+            // End of Rev Sanchita
 
             List<SalesmanUserAssign> Salesmanlist = new List<SalesmanUserAssign>();
             Salesmanlist = APIHelperMethods.ToModelList<SalesmanUserAssign>(dtSals);
