@@ -4389,6 +4389,78 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkContactAddresswithGeofence;
 
         /// <summary>
+        /// divIsCRMPhonebookSyncEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsCRMPhonebookSyncEnable;
+
+        /// <summary>
+        /// chkIsCRMPhonebookSyncEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsCRMPhonebookSyncEnable;
+
+        /// <summary>
+        /// divIsCRMSchedulerEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsCRMSchedulerEnable;
+
+        /// <summary>
+        /// chkIsCRMSchedulerEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsCRMSchedulerEnable;
+
+        /// <summary>
+        /// divIsCRMAddEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsCRMAddEnable;
+
+        /// <summary>
+        /// chkIsCRMAddEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsCRMAddEnable;
+
+        /// <summary>
+        /// divIsCRMEditEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsCRMEditEnable;
+
+        /// <summary>
+        /// chkIsCRMEditEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsCRMEditEnable;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>
