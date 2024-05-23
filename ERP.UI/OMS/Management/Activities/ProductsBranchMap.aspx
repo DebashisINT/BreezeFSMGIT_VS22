@@ -600,6 +600,11 @@ Rev Number DATE              VERSION          DEVELOPER           CHANGES
             width: 850px !important;
         }
 
+        #gridProductLookup_DDD_PW-1
+        {
+            left: -300px !important;
+        }
+
         @media only screen and (max-width: 768px) {
             .breadCumb {
                 padding: 0 18%;
