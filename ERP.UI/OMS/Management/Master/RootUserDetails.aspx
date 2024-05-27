@@ -23,6 +23,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 11.0                17-04-2024       V2.0.47           Priti               0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
                                                                           0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
 12.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
+13.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4038,6 +4039,30 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 </tr>
                             </table>
                         </td>
+                        <%--Rev 13.0--%>
+                        <td id="divIsShowAddressInParty" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkIsShowAddressInParty" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Is Show Address In Party ? </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td id="divIsShowUpdateInvoiceDetails" runat="server">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <dxe:ASPxCheckBox ID="chkIsShowUpdateInvoiceDetails" runat="server" Text="">
+                                        </dxe:ASPxCheckBox>
+                                    </td>
+                                    <td>Is Show Update Invoice Details ? </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <%--End of Rev 13.0--%>
                     </tr>
                     <%--End of Rev 12.0--%>
 

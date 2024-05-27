@@ -18,6 +18,7 @@
  * 8.0                17-04-2024       V2.0.47           Priti            0027372: ShowPartyWithCreateOrder setting shall be available User wise setting also
  *                                                                        0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
  * 9.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
+ * 10.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27474, 27477 * 
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2439,6 +2440,25 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                     chkContactAddresswithGeofence.Checked = false;
                 }
                 // End of Rev 9.0
+                // Rev 10.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowAddressInParty"]) == true)
+                {
+                    chkIsShowAddressInParty.Checked = true;
+                }
+                else
+                {
+                    chkIsShowAddressInParty.Checked = false;
+                }
+
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowUpdateInvoiceDetails"]) == true)
+                {
+                    chkIsShowUpdateInvoiceDetails.Checked = true;
+                }
+                else
+                {
+                    chkIsShowUpdateInvoiceDetails.Checked = false;
+                }
+                // End of Rev 10.0
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
                 if (Convert.ToString(dsUserDetail.Tables[0].Rows[0]["user_AllowAccessIP"]) != "")
@@ -2856,6 +2876,10 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 int AdditionalinfoRequiredforContactAdd = 0;
                 int ContactAddresswithGeofence = 0;
                 // End of Rev 9.0
+                // Rev 10.0
+                int IsShowAddressInParty = 0;
+                int IsShowUpdateInvoiceDetails = 0;
+                // End of Rev 10.0
 
 
                 if (chkIsActive.Checked == true)
@@ -4303,7 +4327,17 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                 else
                     ContactAddresswithGeofence = 0;
                 // End of Rev 9.0
+                // Rev 10.0
+                if (chkIsShowAddressInParty.Checked == true)
+                    IsShowAddressInParty = 1;
+                else
+                    IsShowAddressInParty = 0;
 
+                if (chkIsShowUpdateInvoiceDetails.Checked == true)
+                    IsShowUpdateInvoiceDetails = 1;
+                else
+                    IsShowUpdateInvoiceDetails = 0;
+                // End of Rev 10.0
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4662,6 +4696,10 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
                             proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
                             // End of Rev 9.0
+                            // Rev 10.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 10.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5098,6 +5136,11 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
                             proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
                             // End of Rev 9.0
+                            // Rev 10.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 10.0
+
 
                             DataTable dt = proc.GetTable();
 
@@ -5529,6 +5572,11 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                             proc.AddPara("@AdditionalinfoRequiredforContactAdd", AdditionalinfoRequiredforContactAdd);
                             proc.AddPara("@ContactAddresswithGeofence", ContactAddresswithGeofence);
                             // End of Rev 9.0
+                            // Rev 10.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 10.0
+
 
                             DataTable dt = proc.GetTable();
 
@@ -7569,6 +7617,34 @@ string pageAccess = oDBEngine.CheckPageAccessebility("root_user.aspx");
                         }
                     }
                     // End of Rev 9.0
+                    // Rev 10.0
+                    else if (Convert.ToString(dr["key"]) == "IsShowAddressInParty")
+                    {
+                        chkIsShowAddressInParty.Checked = true;
+
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowAddressInParty.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowAddressInParty.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "IsShowUpdateInvoiceDetails")
+                    {
+                        //chkIsShowUpdateInvoiceDetails.Checked = true;
+
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowUpdateInvoiceDetails.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowUpdateInvoiceDetails.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 10.0
                 }
             }
         }
