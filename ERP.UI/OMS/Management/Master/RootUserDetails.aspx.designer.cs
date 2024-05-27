@@ -4461,6 +4461,42 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsCRMEditEnable;
 
         /// <summary>
+        /// divIsShowAddressInParty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsShowAddressInParty;
+
+        /// <summary>
+        /// chkIsShowAddressInParty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsShowAddressInParty;
+
+        /// <summary>
+        /// divIsShowUpdateInvoiceDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsShowUpdateInvoiceDetails;
+
+        /// <summary>
+        /// chkIsShowUpdateInvoiceDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsShowUpdateInvoiceDetails;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>
