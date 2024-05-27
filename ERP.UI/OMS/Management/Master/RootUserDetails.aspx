@@ -25,6 +25,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 12.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
 13.0                21-05-2024       V2.0.47           Pallab             0027479: Add user settings page checkbox design modification
 14.0                22-05-2024       V2.0.47           Priti               0027467: Some changes are required in CRM Modules
+13.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4229,6 +4230,30 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             </table>
                                         </td>
                                         <%--Rev 14.0 End--%>
+                                        <%--Rev 15.0--%>
+                                        <td id="divIsShowAddressInParty" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsShowAddressInParty" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Show Address In Party ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td id="divIsShowUpdateInvoiceDetails" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsShowUpdateInvoiceDetails" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Show Update Invoice Details ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 15.0--%>
                                     </tr>
                                 </table>
                             </div>

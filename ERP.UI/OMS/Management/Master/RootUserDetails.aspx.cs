@@ -19,6 +19,7 @@
  *                                                                        0027374: ShowPartyWithGeoFence setting shall be available User wise setting also
  * 9.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
  * 10.0               22-05-2024       V2.0.47           Priti            0027467: Some changes are required in CRM Modules
+ * 11.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27474, 27477 *
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2475,7 +2476,25 @@ namespace ERP.OMS.Management.Master
                     chkIsCRMEditEnable.Checked = false;
                 }
                 // End of Rev 10.0
+                // Rev 11.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowAddressInParty"]) == true)
+                {
+                    chkIsShowAddressInParty.Checked = true;
+                }
+                else
+                {
+                    chkIsShowAddressInParty.Checked = false;
+                }
 
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowUpdateInvoiceDetails"]) == true)
+                {
+                    chkIsShowUpdateInvoiceDetails.Checked = true;
+                }
+                else
+                {
+                    chkIsShowUpdateInvoiceDetails.Checked = false;
+                }
+                // End of Rev 11.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2894,13 +2913,17 @@ namespace ERP.OMS.Management.Master
                 int AdditionalinfoRequiredforContactAdd = 0;
                 int ContactAddresswithGeofence = 0;
                 // End of Rev 9.0
-
+                
                 // Rev 10.0
                 int IsCRMPhonebookSyncEnable = 0;
                 int IsCRMSchedulerEnable = 0;
                 int IsCRMAddEnable = 0;
                 int IsCRMEditEnable = 0;
                 // End of Rev 10.0
+                // Rev 11.0
+                int IsShowAddressInParty = 0;
+                int IsShowUpdateInvoiceDetails = 0;
+                // End of Rev 11.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4383,10 +4406,20 @@ namespace ERP.OMS.Management.Master
                 else
                 {
                     IsCRMEditEnable = 0;
-                }                   
+                }
 
                 // End of Rev 10.0
+                // Rev 11.0
+                if (chkIsShowAddressInParty.Checked == true)
+                    IsShowAddressInParty = 1;
+                else
+                    IsShowAddressInParty = 0;
 
+                if (chkIsShowUpdateInvoiceDetails.Checked == true)
+                    IsShowUpdateInvoiceDetails = 1;
+                else
+                    IsShowUpdateInvoiceDetails = 0;
+                // End of Rev 11.0
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4752,6 +4785,10 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsCRMAddEnable", IsCRMAddEnable);
                             proc.AddPara("@IsCRMEditEnable", IsCRMEditEnable);
                             // End of Rev 10.0
+                            // Rev 11.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 11.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5195,6 +5232,11 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsCRMAddEnable", IsCRMAddEnable);
                             proc.AddPara("@IsCRMEditEnable", IsCRMEditEnable);
                             // End of Rev 10.0
+                            // Rev 11.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 11.0
+
                             DataTable dt = proc.GetTable();
 
 
@@ -5631,6 +5673,11 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsCRMAddEnable", IsCRMAddEnable);
                             proc.AddPara("@IsCRMEditEnable", IsCRMEditEnable);
                             // End of Rev 10.0
+                            // Rev 11.0
+                            proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
+                            proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
+                            // End of Rev 11.0
+
                             DataTable dt = proc.GetTable();
 
 
@@ -7716,6 +7763,34 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // Rev 10.0 End
+                    // Rev 11.0
+                    else if (Convert.ToString(dr["key"]) == "IsShowAddressInParty")
+                    {
+                        chkIsShowAddressInParty.Checked = true;
+
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowAddressInParty.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowAddressInParty.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "IsShowUpdateInvoiceDetails")
+                    {
+                        //chkIsShowUpdateInvoiceDetails.Checked = true;
+
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowUpdateInvoiceDetails.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowUpdateInvoiceDetails.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 11.0
                 }
             }
         }
