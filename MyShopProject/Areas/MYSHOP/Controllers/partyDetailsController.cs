@@ -1,7 +1,8 @@
 ﻿/*************************************************************************************************************
 Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
 Rev 2.0     Sanchita   V2.0.44    19/12/2023      Beat related tab will be added in the security roles of Parties. Mantis: 27080  
-Rev 3.0     Sanchita   V2.0.46    11/04/2024      0027348: FSM: Master > Contact > Parties [Delete Facility]     
+Rev 3.0     Sanchita   V2.0.46    11/04/2024      0027348: FSM: Master > Contact > Parties [Delete Facility]    
+Rev 4.0     Sanchita   V2.0.47    29/05/2024      0027405: Colum Chooser Option needs to add for the following Modules   
 *****************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -193,6 +194,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string Userid = Convert.ToString(Session["userid"]);
+            // Rev 4.0
+            DataTable dtColmn = obj.GetPageRetention(Session["userid"].ToString(), "PARTY LIST");
+            if (dtColmn != null && dtColmn.Rows.Count > 0)
+            {
+                ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+            }
+            // End of Rev 4.0
+
             if (Is_PageLoad != "Ispageload")
             {
                 ReportsDataContext dc = new ReportsDataContext(connectionString);
@@ -3842,5 +3851,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
             return Json(ActiveGroupBeat, JsonRequestBehavior.AllowGet);
         }
+
+        // Rev 4.0
+        public ActionResult PageRetention(List<String> Columns)
+        {
+            try
+            {
+                String Col = "";
+                int i = 1;
+                if (Columns != null && Columns.Count > 0)
+                {
+                    Col = string.Join(",", Columns);
+                }
+                int k = obj.InsertPageRetention(Col, Session["userid"].ToString(), "PARTY LIST");
+
+                return Json(k, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+        // End of Rev 4.0
     }
 }

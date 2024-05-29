@@ -517,7 +517,7 @@
     // End of Rev 4.0
 </script>
 
-@*Rev Sanchita*@
+@*Rev 7.0*@
 <script>
     function onShowChooserClick(s, e) {
         UpdateCustomizationWindowVisibility();
@@ -525,6 +525,7 @@
     var visibleColumn = [];
     function grid_CustomizationWindowCloseUp(s, e) {
         UpdateButtonText();
+        visibleColumn = [];
 
         for (var i = 0; i <= gridCounterList.GetColumnsCount() ; i++) {
             if (gridCounterList.GetColumn(i) != null) {
@@ -569,7 +570,7 @@
 
 </script>
 
-@*End of Rev Sanchita*@
+@*End of Rev 7.0*@
 
 <link href="~/Content/media.css" rel="stylesheet" />
 
@@ -1023,7 +1024,7 @@
         <br />
 
         <div class="scrooler">
-            @*Rev Sanchita*@
+            @*Rev 7.0*@
             <div class="options">
                 <div class="options-item">
                     @Html.DevExpress().Button(settings =>
@@ -1035,7 +1036,7 @@
                 }).GetHtml()
                 </div>
             </div>
-            @*End of Rev Sanchita*@
+            @*End of Rev 7.0*@
             <div id="refreshgrid">
                 @{
                     // Rev 4.0 [ BranchId = Model.BranchId added]
