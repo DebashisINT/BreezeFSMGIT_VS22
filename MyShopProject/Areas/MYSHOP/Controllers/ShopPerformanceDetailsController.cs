@@ -1,6 +1,7 @@
 ﻿/**************************************************************************************************
  * 1.0      Sanchita    V2.0.38     02/02/2023      Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True"
  *                                                  then data in portal shall be populated based on Hierarchy Only. Refer: 25504
+ * 2.0      Sanchita    V2.0.47     29/05/2024      0027405: Colum Chooser Option needs to add for the following Modules                                                 
  * ****************************************************************************************************/
 using BusinessLogicLayer.SalesmanTrack;
 using DevExpress.Web;
@@ -122,6 +123,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 // Rev 1.0
                 string Userid = Convert.ToString(Session["userid"]);
                 // End of Rev 1.0
+
+                // Rev 2.0
+                DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "SHOP WISE PERFORMANCE - DETAIL");
+                if (dtColmn != null && dtColmn.Rows.Count > 0)
+                {
+                    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+                }
+                // End of Rev 2.0
+
 
                 if (model.Ispageload == "1")
                 {
@@ -312,5 +322,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             return settings;
         }
-	}
+
+        // Rev 2.0
+        public ActionResult PageRetention(List<String> Columns)
+        {
+            try
+            {
+                String Col = "";
+                int i = 1;
+                if (Columns != null && Columns.Count > 0)
+                {
+                    Col = string.Join(",", Columns);
+                }
+                int k = objshop.InsertPageRetention(Col, Session["userid"].ToString(), "SHOP WISE PERFORMANCE - DETAIL");
+
+                return Json(k, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+        // End of Rev 2.0
+    }
 }

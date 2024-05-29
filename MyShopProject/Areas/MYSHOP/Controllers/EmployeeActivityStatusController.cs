@@ -1,5 +1,6 @@
 ﻿#region======================================Revision History===============================================================================================
 //1.0   V2.0.44     Pallab      18/01/2024      Compact column width required in the Employee Activity Status report grid excel export.Refer: 0027196
+//2.0   V2.0.47     Sanchita    29/05/2024      0027405: Colum Chooser Option needs to add for the following Modules
 #endregion===================================End of Revision History========================================================================================
 using BusinessLogicLayer.SalesmanTrack;
 using BusinessLogicLayer.SalesTrackerReports;
@@ -146,6 +147,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string userID = Convert.ToString(Session["userid"]);
+
+            // Rev 2.0
+            DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "EMPLOYEE ACTIVITY STATUS");
+            if (dtColmn != null && dtColmn.Rows.Count > 0)
+            {
+                ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+            }
+            // End of Rev 2.0
 
             if (Is_PageLoad != "Ispageload")
             {
@@ -511,5 +520,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             return settings;
         }
+
+        // Rev 2.0
+        public ActionResult PageRetention(List<String> Columns)
+        {
+            try
+            {
+                String Col = "";
+                int i = 1;
+                if (Columns != null && Columns.Count > 0)
+                {
+                    Col = string.Join(",", Columns);
+                }
+                int k = objshop.InsertPageRetention(Col, Session["userid"].ToString(), "EMPLOYEE ACTIVITY STATUS");
+
+                return Json(k, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+        // End of Rev 2.0
     }
 }
