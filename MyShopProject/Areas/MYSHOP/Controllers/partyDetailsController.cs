@@ -3,6 +3,7 @@ Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is r
 Rev 2.0     Sanchita   V2.0.44    19/12/2023      Beat related tab will be added in the security roles of Parties. Mantis: 27080  
 Rev 3.0     Sanchita   V2.0.46    11/04/2024      0027348: FSM: Master > Contact > Parties [Delete Facility]    
 Rev 4.0     Sanchita   V2.0.47    29/05/2024      0027405: Colum Chooser Option needs to add for the following Modules   
+Rev 5.0     Sanchita   V2.0.47    30/05/2024      Mass Delete related tabs will be added in the security roles of Parties. Mantis: 27489
 *****************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -160,6 +161,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewBag.CanReassignedAreaRouteBeat = rights.CanReassignedAreaRouteBeat;
                 ViewBag.CanReassignedAreaRouteBeatLog = rights.CanReassignedAreaRouteBeatLog;
                 // End of Rev 2.0
+                // Rev 5.0
+                ViewBag.CanMassDelete = rights.CanMassDelete;
+                ViewBag.CanMassDeleteDownloadImport = rights.CanMassDeleteDownloadImport;
+                // End of Rev 5.0
                 // Rev 3.0
                 CommonBL cbl = new CommonBL();
                 ViewBag.ShopDeleteWithAllTransactions = cbl.GetSystemSettingsResult("ShopDeleteWithAllTransactions");
