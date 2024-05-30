@@ -65,6 +65,10 @@ namespace EntityLayer.CommonELS
         public bool CanReassignedAreaRouteBeatLog { get; set; }
 
         // End of Rev 2.0
+        // Rev 3.0
+        public bool CanMassDelete { get; set; }
+        public bool CanMassDeleteDownloadImport { get; set; }
+        // End of Rev 3.0
     }
     public  class RightEL
     {
