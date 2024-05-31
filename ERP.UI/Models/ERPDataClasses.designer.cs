@@ -587,14 +587,6 @@ namespace ERP.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<PRODUCTSPECIALPRICELIST> PRODUCTSPECIALPRICELISTs
-		{
-			get
-			{
-				return this.GetTable<PRODUCTSPECIALPRICELIST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PRODUCTBRANCHMAPLIST> PRODUCTBRANCHMAPLISTs
 		{
 			get
@@ -608,6 +600,14 @@ namespace ERP.Models
 			get
 			{
 				return this.GetTable<FSMProduct_Master>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PRODUCTSPECIALPRICELIST> PRODUCTSPECIALPRICELISTs
+		{
+			get
+			{
+				return this.GetTable<PRODUCTSPECIALPRICELIST>();
 			}
 		}
 	}
@@ -24047,195 +24047,6 @@ namespace ERP.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCTSPECIALPRICELIST")]
-	public partial class PRODUCTSPECIALPRICELIST
-	{
-		
-		private System.Nullable<int> _SEQ;
-		
-		private System.Nullable<long> _USERID;
-		
-		private System.Nullable<long> _SlNo;
-		
-		private System.Nullable<long> _SPECIALPRICEID;
-		
-		private System.Nullable<long> _BRANCH_ID;
-		
-		private string _BRANCH;
-		
-		private System.Nullable<long> _PRODUCT_ID;
-		
-		private string _PRODUCTCODE;
-		
-		private string _PRODUCTNAME;
-		
-		private System.Nullable<decimal> _SPECIALPRICE;
-		
-		public PRODUCTSPECIALPRICELIST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
-		public System.Nullable<int> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="BigInt")]
-		public System.Nullable<long> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SlNo", DbType="BigInt")]
-		public System.Nullable<long> SlNo
-		{
-			get
-			{
-				return this._SlNo;
-			}
-			set
-			{
-				if ((this._SlNo != value))
-				{
-					this._SlNo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPECIALPRICEID", DbType="BigInt")]
-		public System.Nullable<long> SPECIALPRICEID
-		{
-			get
-			{
-				return this._SPECIALPRICEID;
-			}
-			set
-			{
-				if ((this._SPECIALPRICEID != value))
-				{
-					this._SPECIALPRICEID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH_ID", DbType="BigInt")]
-		public System.Nullable<long> BRANCH_ID
-		{
-			get
-			{
-				return this._BRANCH_ID;
-			}
-			set
-			{
-				if ((this._BRANCH_ID != value))
-				{
-					this._BRANCH_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH", DbType="VarChar(200)")]
-		public string BRANCH
-		{
-			get
-			{
-				return this._BRANCH;
-			}
-			set
-			{
-				if ((this._BRANCH != value))
-				{
-					this._BRANCH = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_ID", DbType="BigInt")]
-		public System.Nullable<long> PRODUCT_ID
-		{
-			get
-			{
-				return this._PRODUCT_ID;
-			}
-			set
-			{
-				if ((this._PRODUCT_ID != value))
-				{
-					this._PRODUCT_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTCODE", DbType="VarChar(80)")]
-		public string PRODUCTCODE
-		{
-			get
-			{
-				return this._PRODUCTCODE;
-			}
-			set
-			{
-				if ((this._PRODUCTCODE != value))
-				{
-					this._PRODUCTCODE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTNAME", DbType="VarChar(100)")]
-		public string PRODUCTNAME
-		{
-			get
-			{
-				return this._PRODUCTNAME;
-			}
-			set
-			{
-				if ((this._PRODUCTNAME != value))
-				{
-					this._PRODUCTNAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPECIALPRICE", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> SPECIALPRICE
-		{
-			get
-			{
-				return this._SPECIALPRICE;
-			}
-			set
-			{
-				if ((this._SPECIALPRICE != value))
-				{
-					this._SPECIALPRICE = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCTBRANCHMAPLIST")]
 	public partial class PRODUCTBRANCHMAPLIST
 	{
@@ -25113,6 +24924,213 @@ namespace ERP.Models
 				if ((this._sProduct_Status != value))
 				{
 					this._sProduct_Status = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCTSPECIALPRICELIST")]
+	public partial class PRODUCTSPECIALPRICELIST
+	{
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<long> _USERID;
+		
+		private System.Nullable<long> _SlNo;
+		
+		private System.Nullable<long> _SPECIALPRICEID;
+		
+		private System.Nullable<long> _BRANCH_ID;
+		
+		private string _BRANCH;
+		
+		private System.Nullable<long> _PRODUCT_ID;
+		
+		private string _PRODUCTCODE;
+		
+		private string _PRODUCTNAME;
+		
+		private System.Nullable<decimal> _SPECIALPRICE;
+		
+		private string _Employee_Name;
+		
+		public PRODUCTSPECIALPRICELIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="BigInt")]
+		public System.Nullable<long> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SlNo", DbType="BigInt")]
+		public System.Nullable<long> SlNo
+		{
+			get
+			{
+				return this._SlNo;
+			}
+			set
+			{
+				if ((this._SlNo != value))
+				{
+					this._SlNo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPECIALPRICEID", DbType="BigInt")]
+		public System.Nullable<long> SPECIALPRICEID
+		{
+			get
+			{
+				return this._SPECIALPRICEID;
+			}
+			set
+			{
+				if ((this._SPECIALPRICEID != value))
+				{
+					this._SPECIALPRICEID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH_ID", DbType="BigInt")]
+		public System.Nullable<long> BRANCH_ID
+		{
+			get
+			{
+				return this._BRANCH_ID;
+			}
+			set
+			{
+				if ((this._BRANCH_ID != value))
+				{
+					this._BRANCH_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH", DbType="VarChar(200)")]
+		public string BRANCH
+		{
+			get
+			{
+				return this._BRANCH;
+			}
+			set
+			{
+				if ((this._BRANCH != value))
+				{
+					this._BRANCH = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_ID", DbType="BigInt")]
+		public System.Nullable<long> PRODUCT_ID
+		{
+			get
+			{
+				return this._PRODUCT_ID;
+			}
+			set
+			{
+				if ((this._PRODUCT_ID != value))
+				{
+					this._PRODUCT_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTCODE", DbType="VarChar(80)")]
+		public string PRODUCTCODE
+		{
+			get
+			{
+				return this._PRODUCTCODE;
+			}
+			set
+			{
+				if ((this._PRODUCTCODE != value))
+				{
+					this._PRODUCTCODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTNAME", DbType="VarChar(100)")]
+		public string PRODUCTNAME
+		{
+			get
+			{
+				return this._PRODUCTNAME;
+			}
+			set
+			{
+				if ((this._PRODUCTNAME != value))
+				{
+					this._PRODUCTNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPECIALPRICE", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> SPECIALPRICE
+		{
+			get
+			{
+				return this._SPECIALPRICE;
+			}
+			set
+			{
+				if ((this._SPECIALPRICE != value))
+				{
+					this._SPECIALPRICE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Employee_Name", DbType="NVarChar(500)")]
+		public string Employee_Name
+		{
+			get
+			{
+				return this._Employee_Name;
+			}
+			set
+			{
+				if ((this._Employee_Name != value))
+				{
+					this._Employee_Name = value;
 				}
 			}
 		}

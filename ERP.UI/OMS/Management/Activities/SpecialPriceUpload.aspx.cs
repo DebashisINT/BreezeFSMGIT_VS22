@@ -26,6 +26,7 @@ using DocumentFormat.OpenXml.Office.Word;
 using BusinessLogicLayer;
 using ClsDropDownlistNameSpace;
 using static ERP.OMS.Management.Activities.SpecialPriceUpload;
+using static ERP.OMS.Management.Master.management_master_Employee;
 
 namespace ERP.OMS.Management.Activities
 {
@@ -38,11 +39,44 @@ namespace ERP.OMS.Management.Activities
         {
             if (!IsPostBack)
             {
-                string[,] Data  = oDBEngine.GetFieldValue("tbl_master_branch", "branch_id, branch_description ", null, 2, "branch_description");               
-                oclsDropDownList.AddDataToDropDownList(Data, ddlBRANCH);
+                //string[,] Data  = oDBEngine.GetFieldValue("tbl_master_branch", "branch_id, branch_description ", null, 2, "branch_description");               
+                //oclsDropDownList.AddDataToDropDownList(Data, ddlBRANCH);
+
+                //Data = oDBEngine.GetFieldValue("tbl_master_Designation", "deg_id, deg_designation ", null, 2, "deg_designation");               
+                //oclsDropDownList.AddDataToDropDownList(Data, cmbDesg);
+                PageLoadBind();
             }
         }
 
+
+        public void PageLoadBind()
+        {
+            ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+            proc.AddVarcharPara("@Action", 200, "ALLPAGELOADDATA");
+            DataSet dt = proc.GetDataSet();
+
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+                ddlBRANCH.DataSource = dt.Tables[0];
+                ddlBRANCH.DataBind();
+            }
+            else
+            {
+                ddlBRANCH.DataSource = null ;
+                ddlBRANCH.DataBind();
+            }
+
+            if (dt.Tables[1].Rows.Count > 0)
+            {
+                cmbDesg.DataSource = dt.Tables[1];
+                cmbDesg.DataBind();
+            }
+            else
+            {
+                cmbDesg.DataSource = null;
+                cmbDesg.DataBind();
+            }
+        }
      
 
         [WebMethod(EnableSession = true)]
@@ -72,7 +106,32 @@ namespace ERP.OMS.Management.Activities
             return listCust;
         }
 
-       
+        [WebMethod(EnableSession = true)]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static object GetEmployee(string SearchKey,string DesignationId)
+        {
+            List<EmployeeModel> listEmployee = new List<EmployeeModel>();
+            if (HttpContext.Current.Session["userid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
+                proc.AddVarcharPara("@Action", 4000, "GetEmployee");
+                proc.AddPara("@DesignationId", Convert.ToInt32(DesignationId));
+                proc.AddPara("@SearchKey", SearchKey);
+                dt = proc.GetTable();
+
+                listEmployee = (from DataRow dr in dt.Rows
+                                select new EmployeeModel()
+                                {
+                                    id = Convert.ToString(dr["cnt_internalId"]),
+                                    Employee_Code = Convert.ToString(dr["cnt_UCC"]),
+                                    Employee_Name = Convert.ToString(dr["Employee_Name"])
+                                }).ToList();
+            }
+
+            return listEmployee;
+        }
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static string DeleteSpecialPrice(string SPECIALPRICEID)
@@ -112,7 +171,7 @@ namespace ERP.OMS.Management.Activities
         }
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
-        public static string InsertSpecialPrice( string ProductID,string BRANCH,string SPECIALPRICE)
+        public static string InsertSpecialPrice( string ProductID,string BRANCH,string SPECIALPRICE, string DesignationId, string EMPINTERNALID)
         {
             try
             {
@@ -123,6 +182,9 @@ namespace ERP.OMS.Management.Activities
                 proc.AddIntegerPara("@ProductID", Convert.ToInt32(ProductID));
                 proc.AddIntegerPara("@BranchId", Convert.ToInt32(BRANCH));
                 proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                proc.AddIntegerPara("@DesignationId", Convert.ToInt32(DesignationId));
+                proc.AddVarcharPara("@EMPINTERNALID", 100, EMPINTERNALID); 
+
 
                 DataTable dtSaleRateLock = proc.GetTable();
                 if (dtSaleRateLock.Rows.Count > 0)
@@ -269,6 +331,8 @@ namespace ERP.OMS.Management.Activities
                                         SPECIAL_PRICE = dr["SPECIAL_PRICE"].ToString(),
                                         PRODUCT_CODE = dr["PRODUCT_CODE"].ToString(),
                                         branch_description = dr["branch_description"].ToString(),
+                                        deg_designation = dr["deg_designation"].ToString(),
+                                        Employee_Name = dr["Employee_Name"].ToString(),
                                     }).ToList();
             }
 
@@ -289,8 +353,12 @@ namespace ERP.OMS.Management.Activities
 
             public string branch_description { get; set; }
 
+            public string deg_designation { get; set; }
+            public string Employee_Name { get; set; }
+
+
         }
-       
+
 
         public class PosProductModel
         {
