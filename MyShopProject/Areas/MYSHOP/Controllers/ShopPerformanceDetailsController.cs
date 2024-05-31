@@ -204,6 +204,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         private GridViewSettings GetShopPerDetailsGridViewSettings()
         {
+            // Rev 2.0
+            DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "SHOP WISE PERFORMANCE - DETAIL");
+            if (dtColmn != null && dtColmn.Rows.Count > 0)
+            {
+                ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+            }
+            // End of Rev 2.0
+
             var settings = new GridViewSettings();
             settings.Name = "Shop Performance Details";
             // settings.CallbackRouteValues = new { Controller = "Employee", Action = "ExportEmployee" };
@@ -216,6 +224,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Date";
                 column.FieldName = "Orderdate";
                 column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Orderdate'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -223,6 +250,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "State Name";
                 column.FieldName = "StateName";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='StateName'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -230,12 +275,49 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Employee Name";
                 column.FieldName = "EmployeeName";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='EmployeeName'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
+
             });
             settings.Columns.Add(column =>
             {
                 column.Caption = "Designation";
                 column.FieldName = "deg_designation";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='deg_designation'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -243,12 +325,49 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Shop Name";
                 column.FieldName = "Shop_Name";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Shop_Name'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
             {
                 column.Caption = "Code";
                 column.FieldName = "ENTITYCODE";
+
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -256,6 +375,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Shop Type";
                 column.FieldName = "Typename";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Typename'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -263,6 +400,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Brand";
                 column.FieldName = "Brand_Name";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Brand_Name'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -270,6 +425,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Category";
                 column.FieldName = "Category";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Category'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -277,6 +450,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Strength";
                 column.FieldName = "Strength";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Strength'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -284,6 +475,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Order No.";
                 column.FieldName = "Order_ID";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Order_ID'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -291,6 +500,24 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Product";
                 column.FieldName = "sProducts_Name";
 
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='sProducts_Name'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -298,6 +525,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Qty";
                 column.FieldName = "Product_Qty";
                 column.PropertiesEdit.DisplayFormatString = "0.00";
+
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Product_Qty'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -305,6 +551,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Rate";
                 column.FieldName = "Product_Rate";
                 column.PropertiesEdit.DisplayFormatString = "0.00";
+
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Product_Rate'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.Columns.Add(column =>
@@ -312,6 +577,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 column.Caption = "Value";
                 column.FieldName = "Product_Price";
                 column.PropertiesEdit.DisplayFormatString = "0.00";
+
+                // Rev 2.0
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Product_Price'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+                // End of Rev 2.0
             });
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
