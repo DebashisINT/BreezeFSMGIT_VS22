@@ -20,6 +20,7 @@
  * 9.0                16-04-2024       V2.0.47           Sanchita         0027369: The mentioned settings are required in the User master in FSM
  * 10.0               22-05-2024       V2.0.47           Priti            0027467: Some changes are required in CRM Modules
  * 11.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27474, 27477 *
+ * 12.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27502 *
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2495,6 +2496,16 @@ namespace ERP.OMS.Management.Master
                     chkIsShowUpdateInvoiceDetails.Checked = false;
                 }
                 // End of Rev 11.0
+                // Rev 12.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsSpecialPriceWithEmployee"]) == true)
+                {
+                    chkIsSpecialPriceWithEmployee.Checked = true;
+                }
+                else
+                {
+                    chkIsSpecialPriceWithEmployee.Checked = false;
+                }
+                // End of Rev 12.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2924,6 +2935,9 @@ namespace ERP.OMS.Management.Master
                 int IsShowAddressInParty = 0;
                 int IsShowUpdateInvoiceDetails = 0;
                 // End of Rev 11.0
+                // Rev 12.0
+                int IsSpecialPriceWithEmployee = 0;
+                // End of Rev 12.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4420,6 +4434,12 @@ namespace ERP.OMS.Management.Master
                 else
                     IsShowUpdateInvoiceDetails = 0;
                 // End of Rev 11.0
+                // Rev 12.0
+                if (chkIsSpecialPriceWithEmployee.Checked == true)
+                    IsSpecialPriceWithEmployee = 1;
+                else
+                    IsSpecialPriceWithEmployee = 0;
+                // End of Rev 12.0
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4789,6 +4809,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
                             proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
                             // End of Rev 11.0
+                            // Rev 12.0
+                            proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
+                            // End of Rev 12.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5236,6 +5259,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
                             proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
                             // End of Rev 11.0
+                            // Rev 12.0
+                            proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
+                            // End of Rev 12.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5677,6 +5703,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowAddressInParty", IsShowAddressInParty);
                             proc.AddPara("@IsShowUpdateInvoiceDetails", IsShowUpdateInvoiceDetails);
                             // End of Rev 11.0
+                            // Rev 12.0
+                            proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
+                            // End of Rev 12.0
 
                             DataTable dt = proc.GetTable();
 
@@ -7791,6 +7820,19 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // End of Rev 11.0
+                    // Rev 12.0
+                    else if (Convert.ToString(dr["key"]) == "IsSpecialPriceWithEmployee")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsSpecialPriceWithEmployee.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsSpecialPriceWithEmployee.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 12.0
                 }
             }
         }

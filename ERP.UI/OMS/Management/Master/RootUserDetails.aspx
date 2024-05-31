@@ -25,7 +25,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 12.0                16-04-2024       V2.0.47           Sanchita            0027369: The mentioned settings are required in the User master in FSM
 13.0                21-05-2024       V2.0.47           Pallab             0027479: Add user settings page checkbox design modification
 14.0                22-05-2024       V2.0.47           Priti               0027467: Some changes are required in CRM Modules
-13.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
+15.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
+16.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27502 
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4254,6 +4255,21 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             </table>
                                         </td>
                                         <%--End of Rev 15.0--%>
+                                        <%--Rev 16.0--%>
+                                     </tr>
+                                     <tr>
+                                        <td id="divIsSpecialPriceWithEmployee" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsSpecialPriceWithEmployee" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Special Price With Employee ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 16.0--%>
                                     </tr>
                                 </table>
                             </div>
