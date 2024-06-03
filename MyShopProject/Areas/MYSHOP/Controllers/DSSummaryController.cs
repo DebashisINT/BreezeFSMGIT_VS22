@@ -1,7 +1,8 @@
 ﻿#region======================================Revision History=========================================================================
-//1.0   V2 .0.41    Debashis    09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
-//2.0   V2 .0.44    Debashis    27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
-//3.0   V2.0.45     Debashis    12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
+//1.0   V2.0.41    Debashis    09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
+//2.0   V2.0.44    Debashis    27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
+//3.0   V2.0.45    Debashis    12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
+//4.0   V2.0.47    Debashis    03/06/2024      A new coloumn shall be added in the below mentioned reports.Refer: 0027402
 #endregion===================================End of Revision History==================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
@@ -186,18 +187,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //{
                 //    dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id);
                 //}
-                if (model.is_pageload == "1")
-                {
+                //Rev 4.0 Mantis: 0027402
+                //if (model.is_pageload == "1")                
+                //{
+                    //End of Rev 4.0 Mantis: 0027402
                     double days = (Convert.ToDateTime(ToDate) - Convert.ToDateTime(FromDate)).TotalDays;
                     if (days <= 35)
                     {
-                        dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id);
+                        //Rev 4.0 Mantis: 0027402
+                        //dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id);
+                        dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id,Is_PageLoad);
+                        //End of Rev 4.0 Mantis: 0027402
                     }
-                }
+                    //Rev 4.0 Mantis: 0027402
+                //}
+                //End of Rev 4.0 Mantis: 0027402
                 //End of Mantis Issue 24791
                 //dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id);
                 //End of Mantis Issue 24728
-                
+
                 return PartialView("_PartialGridDSSummary", LGetDSSummary(Is_PageLoad));
             }
             catch
@@ -207,7 +215,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
 
         }
-        public DataTable GetDSSummary(string Employee, string start_date, string end_date, string Branch_Id)
+        //Rev 4.0 Mantis: 0027402
+        //public DataTable GetDSSummary(string Employee, string start_date, string end_date, string Branch_Id)
+        public DataTable GetDSSummary(string Employee, string start_date, string end_date, string Branch_Id, string IsPageLoad)
+        //End of Rev 4.0 Mantis: 0027402
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_FTSDSSUMMARY_REPORT");
@@ -215,6 +226,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             proc.AddPara("@TODATE", end_date);
             proc.AddPara("@BRANCHID", Branch_Id);
             proc.AddPara("@EMPID", Employee);
+            //Rev 4.0 Mantis: 0027402
+            proc.AddPara("@ISPAGELOAD", IsPageLoad);
+            //End of Rev 4.0 Mantis: 0027402
             proc.AddPara("@USERID", Convert.ToInt32(Session["userid"]));
             ds = proc.GetTable();
             return ds;
@@ -666,6 +680,33 @@ namespace MyShop.Areas.MYSHOP.Controllers
             });
             //End of Rev 2.0 Mantis: 0027276
 
+            //Rev 4.0 Mantis: 0027402
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "ORDER_VALUE";
+                x.Caption = "Order Value";
+                x.VisibleIndex = 13;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ORDER_VALUE'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                }
+
+            });
+            //End of Rev 4.0 Mantis: 0027402
+
             //settings.Columns.Add(column =>
             //{
             //    column.Caption = "Distance Travelled(Km.Mtr)";
@@ -675,7 +716,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "DISTANCE_TRAVELLED";
                 x.Caption = "Distance Travelled(Km.Mtr)";
-                x.VisibleIndex = 13;
+                x.VisibleIndex = 14;
                 //rev Pratik
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 //End of rev Pratik
@@ -711,7 +752,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "AVGTIMESPENTINMARKET";
                 x.Caption = "Avg time spent in the market(HH:MM)";
-                x.VisibleIndex = 14;
+                x.VisibleIndex = 15;
                 //x.Width = 180;
                 // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
                 if (ViewBag.RetentionColumn != null)
@@ -744,7 +785,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 x.FieldName = "AVGSPENTDURATION";
                 x.Caption = "Avg time spent in OL(CFT-Customer Facing Time)(HH:MM)";
-                x.VisibleIndex = 15;
+                x.VisibleIndex = 16;
                 //x.Width = 180;
                 // x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
                 if (ViewBag.RetentionColumn != null)
