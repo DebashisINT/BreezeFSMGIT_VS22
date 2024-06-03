@@ -2,6 +2,7 @@
 Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
 Rev 2.0     Sanchita   V2.0.44    19/12/2023      Beat related tab will be added in the security roles of Parties. Mantis: 27080  
 Rev 3.0     Sanchita   V2.0.47    30/05/2024      Mass Delete related tabs will be added in the security roles of Parties. Mantis: 27489
+Rev 4.0     Sanchita   V2.0.47    03/06/2024      27500: Attendance/ Leave Clear tab need to add in security Role of "Users"
 *****************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.MenuBLS;
@@ -303,6 +304,9 @@ namespace ERP.OMS.Management.Master
                         // Rev 3.0
                         || model.CanMassDelete || model.CanMassDeleteDownloadImport
                         // End of Rev 3.0
+                        // Rev 4.0
+                        || model.CanAttendanceLeaveClear
+                        // End of Rev 4.0
                         )
                     // End of Rev 2.0
                     // End of Rev 1.0
@@ -648,6 +652,20 @@ namespace ERP.OMS.Management.Master
                             }
                         }
                         // End of Rev 3.0
+                        // Rev 4.0
+                        if (model.CanAttendanceLeaveClear)
+                        {
+                            if (!string.IsNullOrWhiteSpace(TempString))
+                            {
+                                TempString += "|32";
+                            }
+                            else
+                            {
+                                TempString += "32";
+                            }
+                        }
+                        // End of Rev 4.0
+
                         TempString = model.MenuId + "^" + TempString;
                     }
 
