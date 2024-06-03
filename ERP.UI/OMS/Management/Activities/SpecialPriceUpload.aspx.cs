@@ -1,4 +1,8 @@
-﻿using ClosedXML.Excel;
+﻿//====================================================== Revision History ================================================================
+//Rev Number DATE               VERSION          DEVELOPER              CHANGES
+//1.0        03-06-2024         2.0.47            Priti               	0027493: Modification in ITC special price upload module.
+//====================================================== Revision History ================================================================
+using ClosedXML.Excel;
 using DataAccessLayer;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
@@ -39,12 +43,7 @@ namespace ERP.OMS.Management.Activities
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                //string[,] Data  = oDBEngine.GetFieldValue("tbl_master_branch", "branch_id, branch_description ", null, 2, "branch_description");               
-                //oclsDropDownList.AddDataToDropDownList(Data, ddlBRANCH);
-
-                //Data = oDBEngine.GetFieldValue("tbl_master_Designation", "deg_id, deg_designation ", null, 2, "deg_designation");               
-                //oclsDropDownList.AddDataToDropDownList(Data, cmbDesg);
+            {            
                 PageLoadBind();
             }
         }
@@ -107,6 +106,7 @@ namespace ERP.OMS.Management.Activities
             return listCust;
         }
 
+        //Rev 1.0
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static object GetEmployee(string SearchKey,string DesignationId)
@@ -133,6 +133,8 @@ namespace ERP.OMS.Management.Activities
 
             return listEmployee;
         }
+        //Rev 1.0 End
+
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static string DeleteSpecialPrice(string SPECIALPRICEID)
@@ -183,9 +185,10 @@ namespace ERP.OMS.Management.Activities
                 proc.AddIntegerPara("@ProductID", Convert.ToInt32(ProductID));
                 proc.AddIntegerPara("@BranchId", Convert.ToInt32(BRANCH));
                 proc.AddIntegerPara("@USERID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                //Rev 1.0 
                 proc.AddIntegerPara("@DesignationId", Convert.ToInt32(DesignationId));
-                proc.AddVarcharPara("@EMPINTERNALID", 100, EMPINTERNALID); 
-
+                proc.AddVarcharPara("@EMPINTERNALID", 100, EMPINTERNALID);
+                //Rev 1.0 End
 
                 DataTable dtSaleRateLock = proc.GetTable();
                 if (dtSaleRateLock.Rows.Count > 0)
@@ -616,8 +619,9 @@ namespace ERP.OMS.Management.Activities
                                 string PRODUCTCODE = Convert.ToString(row["ITEM CODE"]);
                                 string PRODUCTNAME = Convert.ToString(row["ITEM NAME"]);
                                 string SPECIALPRICE = Convert.ToString(row["SPECIAL PRICE"]);
+                                //Rev 1.0 
                                 string USERLOGINID = Convert.ToString(row["USER LOGIN ID"]);
-
+                                //Rev 1.0 End
                                 DataSet dt2 = InsertSpecialPriceDataFromExcel(BRANCH, PRODUCTCODE, PRODUCTNAME, SPECIALPRICE, USERLOGINID
                                        );
 
@@ -684,7 +688,9 @@ namespace ERP.OMS.Management.Activities
             proc.AddVarcharPara("@status", 150, status);
             proc.AddVarcharPara("@FileName", 500, FileName);
             proc.AddPara("@loopcounter",loopcounter);
+            //Rev 1.0 
             proc.AddVarcharPara("@USERLOGINID", 200, USERLOGINID);
+            //Rev 1.0 End
             proc.AddIntegerPara("@UserId", Convert.ToInt32(Session["userid"]));
             i = proc.RunActionQuery();
 

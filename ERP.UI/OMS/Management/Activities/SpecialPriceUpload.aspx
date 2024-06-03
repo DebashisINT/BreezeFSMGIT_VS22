@@ -1,4 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/OMS/MasterPage/ERP.Master" AutoEventWireup="true" CodeBehind="SpecialPriceUpload.aspx.cs" Inherits="ERP.OMS.Management.Activities.SpecialPriceUpload" %>
+﻿<%--====================================================== Revision History ================================================================
+Rev Number DATE               VERSION          DEVELOPER           CHANGES
+//1.0        03-06-2024        2.0.47          Priti               	0027493: Modification in ITC special price upload module.
+====================================================== Revision History ================================================================--%>
+<%@ Page Title="" Language="C#" MasterPageFile="~/OMS/MasterPage/ERP.Master" AutoEventWireup="true" CodeBehind="SpecialPriceUpload.aspx.cs" Inherits="ERP.OMS.Management.Activities.SpecialPriceUpload" %>
 
 <%@ Register Assembly="DevExpress.Web.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
     Namespace="DevExpress.Data.Linq" TagPrefix="dx" %>
@@ -1029,9 +1033,10 @@
                     "ProductID": ProductID,
                     "BRANCH": BRANCH,
                     "SPECIALPRICE": ctxtSPECIALPRICEAdd.GetValue(),
+                    <%--  Rev 1.0 --%>
                     "DesignationId": document.getElementById("cmbDesg").value,
                     "EMPINTERNALID": $("#txtEmployee_hidden").val()
-
+                    <%--  Rev 1.0 End--%>
 
                 }),
                 contentType: "application/json; charset=utf-8",
@@ -1445,10 +1450,12 @@
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
+                   <%-- Rev 1.0--%>
                     <dxe:GridViewDataTextColumn VisibleIndex="2" FieldName="Employee_Name" Caption="Employee" Width="30%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
                     </dxe:GridViewDataTextColumn>
+                   <%--  Rev 1.0 End--%>
                     <dxe:GridViewDataTextColumn VisibleIndex="3" FieldName="PRODUCTCODE" Caption="Item Code" Width="25%">
                         <CellStyle Wrap="False" CssClass="gridcellleft"></CellStyle>
                         <Settings AllowAutoFilterTextInputTimer="False" />
@@ -1498,6 +1505,7 @@
                     <dxe:ASPxTextBox ID="txtBRANCH" ClientInstanceName="ctxtBRANCH" runat="server" ReadOnly="true">
                     </dxe:ASPxTextBox>
                 </div>
+                <%--  Rev 1.0 --%>
                 <div class="col-md-2">
                     <label>DESIGNATION</label>
                     <div style="position: relative">
@@ -1505,6 +1513,7 @@
                         </dxe:ASPxTextBox>
                     </div>
                 </div>
+                 
                 <div class="col-md-2">
                     <label>EMPLOYEE</label>
                     <div style="position: relative">
@@ -1512,6 +1521,7 @@
                         </dxe:ASPxTextBox>
                     </div>
                 </div>
+                 <%--  Rev 1.0 End--%>
                 <div class="col-md-2">
                     <label>PRODUCT CODE</label>
                     <dxe:ASPxTextBox ID="txtPRODUCTCODE" ClientInstanceName="ctxtPRODUCTCODE" runat="server" ReadOnly="true">
@@ -1555,6 +1565,7 @@
                     <span id="AddMandatorysBRANCH" class="fa fa-exclamation-circle iconRed" style="color: red; position: absolute; display: none; right: -11px; top: 24px;"
                         title="Mandatory"></span>
                 </div>
+                <%--  Rev 1.0 --%>
                 <div class="col-md-3  h-branch-select">
                     <label>Designation</label>
                     <div style="position: relative">
@@ -1575,7 +1586,7 @@
                         <asp:HiddenField ID="txtEmployee_hidden" runat="server" />
                     </div>
                 </div>
-
+                <%--  Rev 1.0 End--%>
                 <div class="col-md-2">
                     <label>Product(s)</label>
                     <div style="position: relative">
