@@ -596,6 +596,36 @@
             width: 850px !important;
         }
 
+        #EmployeeTableTbl_length label, #AddProductTableTbl_length label
+        {
+                display: flex;
+                align-items: center;
+        }
+
+        #EmployeeTableTbl_filter input, #AddProductTableTbl_filter input
+        {
+            height: 30px;
+            box-shadow: none;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            padding: 0 5px;
+        }
+
+        #EmployeeTable {
+            margin-top: 10px !important;
+        }
+
+        #EmployeeTableTbl_length label select, #AddProductTableTbl_length label select
+        {
+                margin: 0 5px;
+        }
+
+        #EmployeeModel .modal-dialog
+        {
+            width: 50% !important;
+        }
+
         @media only screen and (max-width: 768px) {
             .breadCumb {
                 padding: 0 18%;
