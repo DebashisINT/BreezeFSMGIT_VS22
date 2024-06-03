@@ -1,11 +1,12 @@
-﻿#region======================================Revision History=========================================================================
-//1.0   V2.0.41    Debashis     25/07/2023      DS Visit Details - Two Columns Required.Refer: 0026474
-//2.0   V2.0.41    Debashis     09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
-//3.0   V2 .0.44   Debashis     27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
-//4.0   V2 .0.45   Debashis     29/03/2024      In DS Visit Details Report a new coloumn required 'New Outlets Visited' as like DS Visit
-//                                              Summary report.Refer: 0027328
+﻿#region======================================Revision History=======================================================================================================
+//1.0   V2.0.41    Debashis     25/07/2023     DS Visit Details - Two Columns Required.Refer: 0026474
+//2.0   V2.0.41    Debashis     09/08/2023     A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
+//3.0   V2 .0.44   Debashis     27/02/2024     'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
+//4.0   V2 .0.45   Debashis     29/03/2024     In DS Visit Details Report a new coloumn required 'New Outlets Visited' as like DS Visit
+//                                             Summary report.Refer: 0027328
 //5.0   V2.0.47    Debashis    03/06/2024      A new coloumn shall be added in the below mentioned reports.Refer: 0027402
-#endregion===================================End of Revision History==================================================================
+//6.0   V2.0.47    Debashis    03/06/2024      The respective Sales Value coloumn in the below mentioned reports shall be replaced with “Delivery value”.Refer: 0027499
+#endregion===================================End of Revision History================================================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
 using DataAccessLayer;
@@ -767,7 +768,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "SALE_VALUE";
-                x.Caption = "Sale Value";
+                //Rev 6.0 Mantis: 0027402
+                //x.Caption = "Sale Value";
+                x.Caption = "Delivery Value";
+                //End of Rev 6.0 Mantis: 0027402
                 x.VisibleIndex = 19;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)

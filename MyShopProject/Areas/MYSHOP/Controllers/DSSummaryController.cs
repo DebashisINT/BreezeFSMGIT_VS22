@@ -1,9 +1,10 @@
-﻿#region======================================Revision History=========================================================================
+﻿#region======================================Revision History===================================================================================================
 //1.0   V2.0.41    Debashis    09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
 //2.0   V2.0.44    Debashis    27/02/2024      'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276
 //3.0   V2.0.45    Debashis    12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
 //4.0   V2.0.47    Debashis    03/06/2024      A new coloumn shall be added in the below mentioned reports.Refer: 0027402
-#endregion===================================End of Revision History==================================================================
+//5.0   V2.0.47    Debashis    03/06/2024      The respective Sales Value coloumn in the below mentioned reports shall be replaced with “Delivery value”.Refer: 0027499
+#endregion===================================End of Revision History============================================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
 using DataAccessLayer;
@@ -657,7 +658,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "SALE_VALUE";
-                x.Caption = "Sale Value";
+                //Rev 5.0 Mantis: 0027402
+                //x.Caption = "Sale Value";
+                x.Caption = "Delivery Value";
+                //End of Rev 5.0 Mantis: 0027402
                 x.VisibleIndex = 12;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)

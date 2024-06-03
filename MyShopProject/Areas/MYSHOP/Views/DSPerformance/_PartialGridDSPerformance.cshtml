@@ -5,6 +5,8 @@
 @*2.0                12-04-2024        V2.0.45          Debashis            The above mentioned two DS types need to be considered in the below reports.
                                                                             Refer: 0027360*@
 @*3.0                03-06-2024        V2.0.47          Debashis            A new coloumn shall be added in the below mentioned reports.Refer: 0027402*@
+@*4.0                03-06-2024        V2.0.47          Debashis            The respective Sales Value coloumn in the below mentioned reports shall be replaced 
+                                                                            with “Delivery value”.Refer: 0027499*@
 @*====================================================== Revision History ===================================================================================*@
 
 @Html.DevExpress().GridView(settings =>
@@ -522,7 +524,10 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "SALE_VALUE";
-        x.Caption = "Total Sales Value";
+        //Rev 4.0 Mantis: 0027402
+        //x.Caption = "Total Sales Value";
+        x.Caption = "Total Delivery Value";
+        //End of Rev 4.0 Mantis: 0027402
         x.VisibleIndex = 17;
         //rev Pratik
         x.PropertiesEdit.DisplayFormatString = "0.00";
