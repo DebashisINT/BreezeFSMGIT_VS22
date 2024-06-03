@@ -27,6 +27,7 @@ using BusinessLogicLayer;
 using ClsDropDownlistNameSpace;
 using static ERP.OMS.Management.Activities.SpecialPriceUpload;
 using static ERP.OMS.Management.Master.management_master_Employee;
+using Microsoft.Ajax.Utilities;
 
 namespace ERP.OMS.Management.Activities
 {
@@ -615,8 +616,9 @@ namespace ERP.OMS.Management.Activities
                                 string PRODUCTCODE = Convert.ToString(row["ITEM CODE"]);
                                 string PRODUCTNAME = Convert.ToString(row["ITEM NAME"]);
                                 string SPECIALPRICE = Convert.ToString(row["SPECIAL PRICE"]);
+                                string USERLOGINID = Convert.ToString(row["USER LOGIN ID"]);
 
-                                DataSet dt2 = InsertSpecialPriceDataFromExcel(BRANCH, PRODUCTCODE, PRODUCTNAME, SPECIALPRICE
+                                DataSet dt2 = InsertSpecialPriceDataFromExcel(BRANCH, PRODUCTCODE, PRODUCTNAME, SPECIALPRICE, USERLOGINID
                                        );
 
 
@@ -632,13 +634,13 @@ namespace ERP.OMS.Management.Activities
                                 if (!HasLog)
                                 {
                                     string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Failed", Session["FileName"].ToString(), loopcounter);
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Failed", Session["FileName"].ToString(), loopcounter, USERLOGINID);
                                 }
 
                                 else
                                 {
                                     string description = Convert.ToString(dt2.Tables[0].Rows[0]["MSG"]);
-                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Success", Session["FileName"].ToString(), loopcounter);
+                                    int loginsert = InsertSpecialPriceImportLOg(PRODUCTCODE, SPECIALPRICE, BRANCH, description, "Success", Session["FileName"].ToString(), loopcounter, USERLOGINID);
                                 }
 
 
@@ -669,7 +671,7 @@ namespace ERP.OMS.Management.Activities
             }
             return HasLog;
         }
-        public int InsertSpecialPriceImportLOg(string PRODUCTCODE, string SPECIALPRICE, string BRANCH, string description, string status, string FileName,int loopcounter)
+        public int InsertSpecialPriceImportLOg(string PRODUCTCODE, string SPECIALPRICE, string BRANCH, string description, string status, string FileName,int loopcounter,string USERLOGINID)
         {
 
             int i;
@@ -682,12 +684,13 @@ namespace ERP.OMS.Management.Activities
             proc.AddVarcharPara("@status", 150, status);
             proc.AddVarcharPara("@FileName", 500, FileName);
             proc.AddPara("@loopcounter",loopcounter);
+            proc.AddVarcharPara("@USERLOGINID", 200, USERLOGINID);
             proc.AddIntegerPara("@UserId", Convert.ToInt32(Session["userid"]));
             i = proc.RunActionQuery();
 
             return i;
         }
-        public DataSet InsertSpecialPriceDataFromExcel(string BRANCH, string PRODUCTCODE, string PRODUCTNAME, string SPECIALPRICE)
+        public DataSet InsertSpecialPriceDataFromExcel(string BRANCH, string PRODUCTCODE, string PRODUCTNAME, string SPECIALPRICE,string USERLOGINID)
         {
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
@@ -696,7 +699,8 @@ namespace ERP.OMS.Management.Activities
             proc.AddVarcharPara("@BRANCH", 200, BRANCH);
             proc.AddVarcharPara("@PRODUCTCODE", 200, PRODUCTCODE);
             proc.AddVarcharPara("@PRODUCTNAME", 200, PRODUCTNAME);
-            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);           
+            proc.AddPara("@SPECIALPRICE", SPECIALPRICE);
+            proc.AddVarcharPara("@USERLOGINID", 200, USERLOGINID);
             ds = proc.GetDataSet();
             return ds;
         }
