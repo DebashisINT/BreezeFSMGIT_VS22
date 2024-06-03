@@ -1377,7 +1377,7 @@
                     <div id="divImportButton">
                         <asp:Button ID="btndownload" runat="server" CssClass="btn btn-info" OnClick="btndownload_Click" Text="Download Format" UseSubmitBehavior="False" />
                         <button type="button" onclick="ImportUpdatePopOpenProductStock();" class="btn btn-warning">Import (Add/Update)</button>
-                        <button type="button" class="btn btn-view-log btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();">View Log</button>
+                        <button type="button" class="btn btn-view-log btn-radius " data-toggle="modal" data-target="#modalSS" id="btnViewLog" onclick="ViewLogData();" >View Log</button>
 
                     </div>
                     <div id="TblSearch" class="dis-flex">
@@ -1755,9 +1755,10 @@
                                             <asp:FileUpload runat="server" ID="fileprod" accept=".xls,.xlsx" />
                                         </div>
                                         <div class="pTop10  mTop5" style="margin-top: 10px;">
-                                            <%--<input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary">--%>
+                                            <%--<input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary">OnClientClick="return ChekprodUpload();"--%>
                                         </div>
-                                        <asp:Button runat="server" ID="btnimportxls" OnClick="ImportExcel" Text="Import (Add/Update)" OnClientClick="return ChekprodUpload();" CssClass="btn btn-primary" />
+                                        <asp:Button runat="server" ID="btnimportxls" OnClick="ImportExcel" Text="Import (Add/Update)"  CssClass="btn btn-primary" UseSubmitBehavior="false" />
+                                    
                                     </div>
                                 </div>
                             </div>
