@@ -41,7 +41,7 @@ namespace ShopAPI.Models
         public string opportunity_status_name { get; set; }
         public string opportunity_created_date { get; set; }
         public string opportunity_created_time { get; set; }
-        public DateTime opportunity_created_date_time { get; set; }        
+        public string opportunity_created_date_time { get; set; }        
         public List<OpportunityProductLists> opportunity_product_list { get; set; }
     }
 
