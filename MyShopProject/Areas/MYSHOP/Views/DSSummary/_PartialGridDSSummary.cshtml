@@ -5,6 +5,7 @@
 @*2.0                27-02-2024        V2 .0.44         Debashis            'Sale Value' Field required in DS Visit Details/DS Visit Summary.Refer: 0027276*@
 @*3.0                12-04-2024        V2.0.45          Debashis            The above mentioned two DS types need to be considered in the below reports.
                                                                             Refer: 0027360*@
+@*4.0                03-06-2024        V2.0.47          Debashis            A new coloumn shall be added in the below mentioned reports.Refer: 0027402*@
 @*====================================================== Revision History ===================================================================================*@
 
 @Html.DevExpress().GridView(settings =>
@@ -414,11 +415,38 @@
     });
     //End of Rev 2.0 Mantis: 0027276
 
+    //Rev 4.0 Mantis: 0027402
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ORDER_VALUE";
+        x.Caption = "Order Value";
+        x.VisibleIndex = 13;
+        x.PropertiesEdit.DisplayFormatString = "0.00";
+        if (ViewBag.RetentionColumn != null)
+        {
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ORDER_VALUE'");
+            if (row != null && row.Length > 0)  /// Check now
+            {
+                x.Visible = false;
+            }
+            else
+            {
+                x.Visible = true;
+            }
+        }
+        else
+        {
+            x.Visible = true;
+        }
+
+    });
+    //End of Rev 4.0 Mantis: 0027402
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "DISTANCE_TRAVELLED";
         x.Caption = "Distance Travelled(Km.Mtr)";
-        x.VisibleIndex = 13;
+        x.VisibleIndex = 14;
         //rev Pratik
         x.PropertiesEdit.DisplayFormatString = "0.00";
         //End of rev Pratik
@@ -449,7 +477,7 @@
     {
         x.FieldName = "AVGTIMESPENTINMARKET";
         x.Caption = "Avg time spent in the market(HH:MM)";
-        x.VisibleIndex = 14;
+        x.VisibleIndex = 15;
         //x.Width = 220;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
@@ -477,7 +505,7 @@
     {
         x.FieldName = "AVGSPENTDURATION";
         x.Caption = "Avg time spent in OL(CFT-Customer Facing Time)(HH:MM)";
-        x.VisibleIndex = 15;
+        x.VisibleIndex = 16;
         //x.Width = 320;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         if (ViewBag.RetentionColumn != null)
