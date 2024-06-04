@@ -27,6 +27,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 14.0                22-05-2024       V2.0.47           Priti               0027467: Some changes are required in CRM Modules
 15.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
 16.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27502 
+17.0                03-06-2024      V2.0.47            Sanchita           Some global settings are required for CRM Opportunity module. Mantis: 27481   
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4270,6 +4271,41 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             </table>
                                         </td>
                                         <%--End of Rev 16.0--%>
+                                        <%--Rev 17.0--%>
+                                         <td id="divIsShowCRMOpportunity" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsShowCRMOpportunity" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Show CRM Opportunity ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                          <td id="divIsEditEnableforOpportunity" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsEditEnableforOpportunity" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Edit Enable for Opportunity ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td id="divIsDeleteEnableforOpportunity" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsDeleteEnableforOpportunity" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Delete Enable for Opportunity ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                         <%--End of Rev 17.0--%>
                                     </tr>
                                 </table>
                             </div>
