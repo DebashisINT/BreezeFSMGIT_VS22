@@ -4515,6 +4515,60 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsSpecialPriceWithEmployee;
 
         /// <summary>
+        /// divIsShowCRMOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsShowCRMOpportunity;
+
+        /// <summary>
+        /// chkIsShowCRMOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsShowCRMOpportunity;
+
+        /// <summary>
+        /// divIsEditEnableforOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsEditEnableforOpportunity;
+
+        /// <summary>
+        /// chkIsEditEnableforOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsEditEnableforOpportunity;
+
+        /// <summary>
+        /// divIsDeleteEnableforOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsDeleteEnableforOpportunity;
+
+        /// <summary>
+        /// chkIsDeleteEnableforOpportunity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsDeleteEnableforOpportunity;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

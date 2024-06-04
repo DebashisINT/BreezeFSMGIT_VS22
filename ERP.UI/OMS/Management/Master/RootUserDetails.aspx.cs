@@ -21,6 +21,7 @@
  * 10.0               22-05-2024       V2.0.47           Priti            0027467: Some changes are required in CRM Modules
  * 11.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27474, 27477 *
  * 12.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27502 *
+ * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2506,6 +2507,32 @@ namespace ERP.OMS.Management.Master
                     chkIsSpecialPriceWithEmployee.Checked = false;
                 }
                 // End of Rev 12.0
+                // Rev 13.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowCRMOpportunity"]) == true)
+                {
+                    chkIsShowCRMOpportunity.Checked = true;
+                }
+                else
+                {
+                    chkIsShowCRMOpportunity.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsEditEnableforOpportunity"]) == true)
+                {
+                    chkIsEditEnableforOpportunity.Checked = true;
+                }
+                else
+                {
+                    chkIsEditEnableforOpportunity.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsDeleteEnableforOpportunity"]) == true)
+                {
+                    chkIsDeleteEnableforOpportunity.Checked = true;
+                }
+                else
+                {
+                    chkIsDeleteEnableforOpportunity.Checked = false;
+                }
+                // End of Rev 13.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2938,6 +2965,11 @@ namespace ERP.OMS.Management.Master
                 // Rev 12.0
                 int IsSpecialPriceWithEmployee = 0;
                 // End of Rev 12.0
+                // Rev 13.0
+                int IsShowCRMOpportunity = 0;
+                int IsEditEnableforOpportunity = 0;
+                int IsDeleteEnableforOpportunity = 0;
+                // End of Rev 13.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4440,6 +4472,20 @@ namespace ERP.OMS.Management.Master
                 else
                     IsSpecialPriceWithEmployee = 0;
                 // End of Rev 12.0
+                // Rev 13.0
+                if (chkIsShowCRMOpportunity.Checked == true)
+                    IsShowCRMOpportunity = 1;
+                else
+                    IsShowCRMOpportunity = 0;
+                if (chkIsEditEnableforOpportunity.Checked == true)
+                    IsEditEnableforOpportunity = 1;
+                else
+                    IsEditEnableforOpportunity = 0;
+                if (chkIsDeleteEnableforOpportunity.Checked == true)
+                    IsDeleteEnableforOpportunity = 1;
+                else
+                    IsDeleteEnableforOpportunity = 0;
+                // End of Rev 13.0
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4812,6 +4858,11 @@ namespace ERP.OMS.Management.Master
                             // Rev 12.0
                             proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
                             // End of Rev 12.0
+                            // Rev 13.0
+                            proc.AddPara("@IsShowCRMOpportunity", IsShowCRMOpportunity);
+                            proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
+                            proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
+                            // End of Rev 13.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5262,6 +5313,11 @@ namespace ERP.OMS.Management.Master
                             // Rev 12.0
                             proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
                             // End of Rev 12.0
+                            // Rev 13.0
+                            proc.AddPara("@IsShowCRMOpportunity", IsShowCRMOpportunity);
+                            proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
+                            proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
+                            // End of Rev 13.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5706,6 +5762,12 @@ namespace ERP.OMS.Management.Master
                             // Rev 12.0
                             proc.AddPara("@IsSpecialPriceWithEmployee", IsSpecialPriceWithEmployee);
                             // End of Rev 12.0
+                            // Rev 13.0
+                            proc.AddPara("@IsShowCRMOpportunity", IsShowCRMOpportunity);
+                            proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
+                            proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
+                            // End of Rev 13.0
+
 
                             DataTable dt = proc.GetTable();
 
@@ -7833,6 +7895,41 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // End of Rev 12.0
+                    // Rev 13.0
+                    else if (Convert.ToString(dr["key"]) == "IsShowCRMOpportunity")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowCRMOpportunity.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowCRMOpportunity.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "IsEditEnableforOpportunity")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsEditEnableforOpportunity.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsEditEnableforOpportunity.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "IsSpecialPriceWithEmployee")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsSpecialPriceWithEmployee.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsSpecialPriceWithEmployee.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 13.0
                 }
             }
         }
