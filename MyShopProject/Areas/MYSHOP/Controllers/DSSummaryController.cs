@@ -4,6 +4,7 @@
 //3.0   V2.0.45    Debashis    12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
 //4.0   V2.0.47    Debashis    03/06/2024      A new coloumn shall be added in the below mentioned reports.Refer: 0027402
 //5.0   V2.0.47    Debashis    03/06/2024      The respective Sales Value coloumn in the below mentioned reports shall be replaced with “Delivery value”.Refer: 0027499
+//6.0   V2.0.47    Debashis    10/06/2024      Add a new column at the end named as “Total CDM Days" in selected date range.Refer: 0027496
 #endregion===================================End of Revision History============================================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
@@ -812,6 +813,34 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
 
             });
+            //Rev 6.0 Mantis: 0027496
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOTALCDMDAYS";
+                x.Caption = "Total CDM Days";
+                x.VisibleIndex = 17;
+                x.PropertiesEdit.DisplayFormatString = "0";
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='TOTALCDMDAYS'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 180;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 180;
+                }
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            });
+            //End of Rev 6.0 Mantis: 0027496
             //rev Pratik
             //settings.Columns.Add(x =>
             //{
@@ -951,7 +980,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //    }
 
             //});
-            
+
             //settings.Columns.Add(x =>
             //{
             //    x.FieldName = "STATE";
