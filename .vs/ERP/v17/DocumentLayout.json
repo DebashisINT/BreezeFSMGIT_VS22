@@ -3,56 +3,12 @@
   "WorkspaceRootPath": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\areas\\lms\\lmsarearegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\areas\\lms\\lmsarearegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\areas\\master\\masterarearegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\areas\\master\\masterarearegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\areas\\lms\\views\\topics\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\areas\\lms\\views\\topics\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\areas\\lms\\controllers\\topicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\areas\\lms\\controllers\\topicscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|d:\\git\\github\\breezefsmgit_vs22\\myshopproject\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\areas\\master\\controllers\\citymastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\areas\\master\\controllers\\citymastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\areas\\master\\controllers\\countrymastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\areas\\master\\controllers\\countrymastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\models\\countrymastermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\models\\countrymastermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|d:\\git\\github\\breezefsmgit_vs22\\fsmmaster\\models\\citymastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D25820D-7528-4594-86C7-F3BC16D39A02}|FSMMaster\\FSMMaster.csproj|solutionrelative:fsmmaster\\models\\citymastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\controllers\\shoplistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\shoplistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,175 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MASTERAreaRegistration.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\MASTERAreaRegistration.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\Areas\\MASTER\\MASTERAreaRegistration.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\MASTERAreaRegistration.cs",
-              "RelativeToolTip": "FSMMaster\\Areas\\MASTER\\MASTERAreaRegistration.cs",
+              "DocumentIndex": 0,
+              "Title": "LoginModel.cs",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Models\\LoginModel.cs",
+              "RelativeDocumentMoniker": "LMS\\Models\\LoginModel.cs",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Models\\LoginModel.cs",
+              "RelativeToolTip": "LMS\\Models\\LoginModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:42:57.862Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\App_Start\\RouteConfig.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "MyShopProject\\App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAAwB4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:40:48.058Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Web.config",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Web.config",
-              "RelativeDocumentMoniker": "FSMMaster\\Web.config",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Web.config",
-              "RelativeToolTip": "FSMMaster\\Web.config",
-              "ViewState": "AQIAAMcAAAAAAAAAAAAUwOYAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-06-11T06:32:09.153Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Web.config",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Web.config",
-              "RelativeDocumentMoniker": "LMS\\Web.config",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Web.config",
-              "RelativeToolTip": "LMS\\Web.config",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-06-11T06:31:38.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "LMS\\App_Start\\RouteConfig.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "LMS\\App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAAwA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:25:55.501Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Views\\Topics\\Index.cshtml",
-              "RelativeDocumentMoniker": "LMS\\Areas\\LMS\\Views\\Topics\\Index.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Views\\Topics\\Index.cshtml",
-              "RelativeToolTip": "LMS\\Areas\\LMS\\Views\\Topics\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-11T06:23:23.918Z",
+              "WhenOpened": "2024-06-11T08:12:07.809Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LMSAreaRegistration.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\LMSAreaRegistration.cs",
-              "RelativeDocumentMoniker": "LMS\\Areas\\LMS\\LMSAreaRegistration.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\LMSAreaRegistration.cs",
-              "RelativeToolTip": "LMS\\Areas\\LMS\\LMSAreaRegistration.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAxwBEAAAAcAAAA",
+              "Title": "ShopListController.cs",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
+              "ViewState": "AQIAADwBAAAAAAAAAAAIwFsBAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:22:26.306Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\App_Start\\RouteConfig.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "FSMMaster\\App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:41:19.722Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TopicsController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Controllers\\TopicsController.cs",
-              "RelativeDocumentMoniker": "LMS\\Areas\\LMS\\Controllers\\TopicsController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Controllers\\TopicsController.cs",
-              "RelativeToolTip": "LMS\\Areas\\LMS\\Controllers\\TopicsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:23:07.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CountryMasterController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\Controllers\\CountryMasterController.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\Areas\\MASTER\\Controllers\\CountryMasterController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\Controllers\\CountryMasterController.cs",
-              "RelativeToolTip": "FSMMaster\\Areas\\MASTER\\Controllers\\CountryMasterController.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAwwHAAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:11:22.017Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "CityMasterController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\Controllers\\CityMasterController.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\Areas\\MASTER\\Controllers\\CityMasterController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Areas\\MASTER\\Controllers\\CityMasterController.cs",
-              "RelativeToolTip": "FSMMaster\\Areas\\MASTER\\Controllers\\CityMasterController.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAAC8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:10:49.47Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CountryMasterModels.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Models\\CountryMasterModels.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\Models\\CountryMasterModels.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Models\\CountryMasterModels.cs",
-              "RelativeToolTip": "FSMMaster\\Models\\CountryMasterModels.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAAAA0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:10:04.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CityMasterModel.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Models\\CityMasterModel.cs",
-              "RelativeDocumentMoniker": "FSMMaster\\Models\\CityMasterModel.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\FSMMaster\\Models\\CityMasterModel.cs",
-              "RelativeToolTip": "FSMMaster\\Models\\CityMasterModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T06:10:02.46Z",
+              "WhenOpened": "2024-06-11T07:50:03.15Z",
               "EditorCaption": ""
             }
           ]
