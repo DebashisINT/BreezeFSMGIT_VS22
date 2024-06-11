@@ -7,6 +7,7 @@
 @*3.0                03-06-2024        V2.0.47          Debashis            A new coloumn shall be added in the below mentioned reports.Refer: 0027402*@
 @*4.0                03-06-2024        V2.0.47          Debashis            The respective Sales Value coloumn in the below mentioned reports shall be replaced 
                                                                             with “Delivery value”.Refer: 0027499*@
+@*5.0                11-06-2024        V2.0.47          Debashis            Add a new column at the end named as “Total CDM Days" in selected date range.Refer: 0027508*@
 @*====================================================== Revision History ===================================================================================*@
 
 @Html.DevExpress().GridView(settings =>
@@ -511,13 +512,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 320;
+                x.Width = 330;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 320;
+            x.Width = 330;
         }
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
     });
@@ -544,22 +545,50 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 130;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 130;
         }
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
     });
+    //Rev 5.0 Mantis: 0027508
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "TOTALCDMDAYS";
+        x.Caption = "Total CDM Days";
+        x.VisibleIndex = 18;
+        x.PropertiesEdit.DisplayFormatString = "0";
+        if (ViewBag.RetentionColumn != null)
+        {
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='TOTALCDMDAYS'");
+            if (row != null && row.Length > 0)  /// Check now
+            {
+                x.Visible = false;
+            }
+            else
+            {
+                x.Visible = true;
+                x.Width = 110;
+            }
+        }
+        else
+        {
+            x.Visible = true;
+            x.Width = 110;
+        }
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+    //End of Rev 5.0 Mantis: 0027508
     //Rev 3.0 Mantis: 0027402
     settings.Columns.Add(x =>
     {
         x.FieldName = "ORDER_VALUE";
         x.Caption = "Total Order Value";
-        x.VisibleIndex = 18;
+        x.VisibleIndex = 19;
         x.PropertiesEdit.DisplayFormatString = "0.00";
         if (ViewBag.RetentionColumn != null)
         {
@@ -571,15 +600,18 @@
             else
             {
                 x.Visible = true;
+                x.Width = 120;
             }
         }
         else
         {
             x.Visible = true;
+            x.Width = 120;
         }
 
     });
     //End of Rev 3.0 Mantis: 0027402
+    
     //rev Pratik
     //settings.Columns.Add(x =>
     //{
