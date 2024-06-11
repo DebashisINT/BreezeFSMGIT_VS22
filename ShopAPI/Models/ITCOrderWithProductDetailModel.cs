@@ -2,6 +2,7 @@
 //Written By : Debashis Talukder On 03/04/2024
 //Purpose: For ITC New Order.Row: 911 to 912
 //1.0   V2.0.47     Debashis    06/06/2024      Some new parameters have been added.Row: 938 to 940
+//2.0   V2.0.47     Debashis    11/06/2024      Some new parameters have been added.Row: 942 to 944
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -37,6 +38,11 @@ namespace ShopAPI.Models
         public string product_name { get; set; }
         public decimal submitedQty { get; set; }
         public decimal submitedSpecialRate { get; set; }
+        //Rev 2.0 Row: 942
+        public decimal total_amt { get; set; }
+        public decimal mrp { get; set; }
+        public decimal itemPrice { get; set; }
+        //End of Rev 2.0 Row: 942
     }
     public class ITCOrderWithProductDetailSaveOutput
     {
@@ -74,6 +80,11 @@ namespace ShopAPI.Models
         public string product_name { get; set; }
         public decimal submitedQty { get; set; }
         public decimal submitedSpecialRate { get; set; }
+        //Rev 2.0 Row: 944
+        public decimal total_amt { get; set; }
+        public decimal mrp { get; set; }
+        public decimal itemPrice { get; set; }
+        //End of Rev 2.0 Row: 944
     }
 
     public class ITCOrderWithProductDetailEditOutput
@@ -146,5 +157,10 @@ namespace ShopAPI.Models
         public string product_name { get; set; }
         public decimal submitedQty { get; set; }
         public decimal submitedSpecialRate { get; set; }
+        //Rev 2.0 Row: 943
+        public decimal total_amt { get; set; }
+        public decimal mrp { get; set; }
+        public decimal itemPrice { get; set; }
+        //End of Rev 2.0 Row: 943
     }
 }

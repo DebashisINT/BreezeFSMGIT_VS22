@@ -2,6 +2,7 @@
 //Written By : Debashis Talukder On 03/04/2024
 //Purpose: For ITC New Order.Row: 911 to 912
 //1.0   V2.0.47     Debashis    06/06/2024      Some new methods & parameters have been added.Row: 938 to 940
+//2.0   V2.0.47     Debashis    11/06/2024      Some new parameters have been added.Row: 942 to 944
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
@@ -43,7 +44,12 @@ namespace ShopAPI.Controllers
                             product_id = s2.product_id,
                             product_name = s2.product_name,
                             submitedQty = s2.submitedQty,
-                            submitedSpecialRate = s2.submitedSpecialRate
+                            submitedSpecialRate = s2.submitedSpecialRate,
+                            //Rev 2.0 Row: 942
+                            total_amt = s2.total_amt,
+                            mrp=s2.mrp,
+                            itemPrice=s2.itemPrice
+                            //End of Rev 2.0 Row: 942
                         });
                     }
 
@@ -125,7 +131,12 @@ namespace ShopAPI.Controllers
                             product_id = s2.product_id,
                             product_name = s2.product_name,
                             submitedQty = s2.submitedQty,
-                            submitedSpecialRate = s2.submitedSpecialRate
+                            submitedSpecialRate = s2.submitedSpecialRate,
+                            //Rev 2.0 Row: 944
+                            total_amt = s2.total_amt,
+                            mrp = s2.mrp,
+                            itemPrice = s2.itemPrice
+                            //End of Rev 2.0 Row: 944
                         });
                     }
 
@@ -292,7 +303,12 @@ namespace ShopAPI.Controllers
                                         product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
                                         product_name = Convert.ToString(ds.Tables[1].Rows[j]["product_name"]),
                                         submitedQty = Convert.ToDecimal(ds.Tables[1].Rows[j]["submitedQty"]),
-                                        submitedSpecialRate = Convert.ToDecimal(ds.Tables[1].Rows[j]["submitedSpecialRate"])
+                                        submitedSpecialRate = Convert.ToDecimal(ds.Tables[1].Rows[j]["submitedSpecialRate"]),
+                                        //Rev 2.0 Row: 943
+                                        total_amt = Convert.ToDecimal(ds.Tables[1].Rows[j]["total_amt"]),
+                                        mrp = Convert.ToDecimal(ds.Tables[1].Rows[j]["mrp"]),
+                                        itemPrice = Convert.ToDecimal(ds.Tables[1].Rows[j]["itemPrice"])
+                                        //End of Rev 2.0 Row: 943
                                     });
                                 }
                             }
