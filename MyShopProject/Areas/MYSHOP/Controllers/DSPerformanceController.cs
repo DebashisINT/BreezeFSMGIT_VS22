@@ -1,8 +1,9 @@
 ﻿#region======================================Revision History===================================================================================================
-//1.0   V2 .0.41    Debashis    09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
-//2.0   V2.0.45     Debashis    12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
+//1.0   V2 .0.41    Debashis   09/08/2023      A coloumn named as Gender needs to be added in all the ITC reports.Refer: 0026680
+//2.0   V2.0.45     Debashis   12/04/2024      The above mentioned two DS types need to be considered in the below reports.Refer: 0027360
 //3.0   V2.0.47    Debashis    03/06/2024      A new coloumn shall be added in the below mentioned reports.Refer: 0027402
 //4.0   V2.0.47    Debashis    03/06/2024      The respective Sales Value coloumn in the below mentioned reports shall be replaced with “Delivery value”.Refer: 0027499
+//5.0   V2.0.47    Debashis    11/06/2024      Add a new column at the end named as “Total CDM Days" in selected date range.Refer: 0027508
 #endregion===================================End of Revision History============================================================================================
 
 using BusinessLogicLayer.SalesTrackerReports;
@@ -803,12 +804,41 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
             });
 
+            //Rev 5.0 Mantis: 0027508
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOTALCDMDAYS";
+                x.Caption = "Total CDM Days";
+                x.VisibleIndex = 18;
+                x.PropertiesEdit.DisplayFormatString = "0";
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='TOTALCDMDAYS'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                        x.Width = 180;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                    x.Width = 180;
+                }
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            });
+            //End of Rev 5.0 Mantis: 0027508
+
             //Rev 3.0 Mantis: 0027402
             settings.Columns.Add(x =>
             {
                 x.FieldName = "ORDER_VALUE";
                 x.Caption = "Total Order Value";
-                x.VisibleIndex = 18;
+                x.VisibleIndex = 19;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
                 if (ViewBag.RetentionColumn != null)
                 {
@@ -829,6 +859,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             });
             //End of Rev 3.0 Mantis: 0027402
+            
             //Rev Pratik
             //settings.Columns.Add(x =>
             //{
