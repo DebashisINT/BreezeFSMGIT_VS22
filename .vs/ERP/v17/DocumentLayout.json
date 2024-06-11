@@ -1,14 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\",
+  "WorkspaceRootPath": "D:\\GITHUB\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\controllers\\shoplistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\controllers\\shoplistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\github\\breezefsmgit_vs22\\lms\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoginModel.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Models\\LoginModel.cs",
-              "RelativeDocumentMoniker": "LMS\\Models\\LoginModel.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Models\\LoginModel.cs",
-              "RelativeToolTip": "LMS\\Models\\LoginModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "D:\\GITHUB\\BreezeFSMGIT_VS22\\LMS\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "LMS\\Controllers\\LoginController.cs",
+              "ToolTip": "D:\\GITHUB\\BreezeFSMGIT_VS22\\LMS\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "LMS\\Controllers\\LoginController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T08:12:07.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ShopListController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
-              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
-              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Controllers\\ShopListController.cs",
-              "ViewState": "AQIAADwBAAAAAAAAAAAIwFsBAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T07:50:03.15Z",
+              "WhenOpened": "2024-06-11T11:01:02.738Z",
               "EditorCaption": ""
             }
           ]

@@ -16,7 +16,7 @@ namespace LMS
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Topics", action = "Index", id = UrlParameter.Optional },
+                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
                 new string[] { "LMS.Controllers" }
             );
         }
