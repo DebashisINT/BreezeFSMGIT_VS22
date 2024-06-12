@@ -1,1 +1,12 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LMSMaster">
+  <DataContextMoniker Name="/LMSMasterDataContext" />
+  <nestedChildShapes>
+    <classShape Id="90e544b6-7536-4b19-9fef-68043f5fa986" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/LMSMasterDataContext/LMS_TOPICSMASTER_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="55e76821-ddc5-4af9-bdec-614666931a18" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
