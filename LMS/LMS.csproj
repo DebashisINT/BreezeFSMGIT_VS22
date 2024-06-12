@@ -304,6 +304,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\LMS\Controllers\LMSCategoryController.cs" />
     <Compile Include="Areas\LMS\Controllers\TopicsController.cs" />
     <Compile Include="Areas\LMS\LMSAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -788,6 +789,8 @@
     <Content Include="assests\js\GenericJScript.js" />
     <Content Include="assests\js\gen_validatorv31.js" />
     <Content Include="assests\js\init.js" />
+    <Content Include="Areas\LMS\Views\LMSCategory\Index.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSCategory\PartialCategorylisting.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
