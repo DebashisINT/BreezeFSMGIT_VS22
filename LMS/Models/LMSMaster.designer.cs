@@ -22,6 +22,7 @@ namespace LMS.Models
 	using System;
 	
 	
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="FSM_ITC")]
 	public partial class LMSMasterDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -53,6 +54,167 @@ namespace LMS.Models
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<LMS_TOPICSMASTER_LISTING> LMS_TOPICSMASTER_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<LMS_TOPICSMASTER_LISTING>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_TOPICSMASTER_LISTING")]
+	public partial class LMS_TOPICSMASTER_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<long> _TOPICID;
+		
+		private string _TOPICNAME;
+		
+		private string _TOPICBASEDON;
+		
+		private string _TOPICSTATUS;
+		
+		private string _CREATEDBY;
+		
+		private System.Nullable<System.DateTime> _CREATEDON;
+		
+		public LMS_TOPICSMASTER_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICID", DbType="BigInt")]
+		public System.Nullable<long> TOPICID
+		{
+			get
+			{
+				return this._TOPICID;
+			}
+			set
+			{
+				if ((this._TOPICID != value))
+				{
+					this._TOPICID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICNAME", DbType="NVarChar(300)")]
+		public string TOPICNAME
+		{
+			get
+			{
+				return this._TOPICNAME;
+			}
+			set
+			{
+				if ((this._TOPICNAME != value))
+				{
+					this._TOPICNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICBASEDON", DbType="NVarChar(300)")]
+		public string TOPICBASEDON
+		{
+			get
+			{
+				return this._TOPICBASEDON;
+			}
+			set
+			{
+				if ((this._TOPICBASEDON != value))
+				{
+					this._TOPICBASEDON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICSTATUS", DbType="NVarChar(10)")]
+		public string TOPICSTATUS
+		{
+			get
+			{
+				return this._TOPICSTATUS;
+			}
+			set
+			{
+				if ((this._TOPICSTATUS != value))
+				{
+					this._TOPICSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="NVarChar(50)")]
+		public string CREATEDBY
+		{
+			get
+			{
+				return this._CREATEDBY;
+			}
+			set
+			{
+				if ((this._CREATEDBY != value))
+				{
+					this._CREATEDBY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDON
+		{
+			get
+			{
+				return this._CREATEDON;
+			}
+			set
+			{
+				if ((this._CREATEDON != value))
+				{
+					this._CREATEDON = value;
+				}
+			}
 		}
 	}
 }
