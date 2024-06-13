@@ -83,14 +83,18 @@ namespace LMS.Areas.LMS.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditCountry(string id)
+        public JsonResult EditCategory(string id)
         {
             DataTable output = new DataTable();
-            output = obj.EditCountry(id);
+            output = obj.EditCategory(id);
 
             if (output.Rows.Count > 0)
             {
-                return Json(new { name = Convert.ToString(output.Rows[0]["cou_country"]) }, JsonRequestBehavior.AllowGet);
+                return Json(new {
+                    NAME = Convert.ToString(output.Rows[0]["CATEGORYNAME"]) ,
+                    DESCRIPTION = Convert.ToString(output.Rows[0]["CATEGORYDESCRIPTION"]),
+                    STATUS = Convert.ToString(output.Rows[0]["CATEGORYSTATUS"])
+                }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -102,7 +106,7 @@ namespace LMS.Areas.LMS.Controllers
         public JsonResult Delete(string ID)
         {
             int output = 0;
-            output = obj.Deletecountry(ID);
+            output = obj.DeleteCategory(ID);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
     }

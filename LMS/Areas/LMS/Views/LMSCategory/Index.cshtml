@@ -474,10 +474,10 @@
         else if ($("#txtCategoryDescription").val().trim() == "") {
             jAlert('Enter Category Description to proceed.');
             return false;
-        }       
+        }
         else {
 
-            var _status = document.getElementById("chkStatus");         
+            var _status = document.getElementById("chkStatus");
 
             if (_status.checked == true) {
                 _status = "1";
@@ -503,28 +503,35 @@
             });
         }
     }
+
      function EditClick(ID) {
          $("#hdnID").val(ID);
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("EditCategory", "LMSCategory")",
-            data: { id: ID },
-            success: function (response) {
-
-                if (response.code == "") {
-                    jAlert('No data found');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditCategory", "LMSCategory")",
+                data: { id: ID },
+                success: function (response) {
+                    if (response.code == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        $("#txtCategoryName").val(response.NAME);
+                        $("#txtCategoryDescription").val(response.DESCRIPTION);
+                            if (response.STATUS == "True" )
+                            {
+                                $("#chkStatus").prop("checked",true);
+                            }
+                            else
+                            {
+                                $("#chkStatus").prop("checked",false);
+                            }
+                                
+                            
+                            $("#CategoryModal").modal('show');
+                    }
                 }
-                else {
-                    $("#txtCategoryName").val(response.name);
-                    $("#CategoryModal").modal('show');
-
-                }
-            }
-        });
-
-
-    }
+            });
+        }
 
      function DeleteClick(ID) {
         $("#hdnID").val(ID);
@@ -547,10 +554,8 @@
                     }
                 });
         });
-
-
-
     }
+
 </script>
 <div class="breadCumb">
     <span>Category</span>
@@ -612,7 +617,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div><input type="checkbox" id="chkStatus" class="form-control" checked /><label>Active</label></div>                          
+                            <div><input type="checkbox" id="chkStatus" class="form-control" checked /><label>Active</label></div>
                         </div>
                     </div>
                 </div>

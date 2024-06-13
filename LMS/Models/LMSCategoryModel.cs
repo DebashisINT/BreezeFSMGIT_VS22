@@ -59,27 +59,27 @@ namespace LMS.Models
             }
         }
 
-        public int Deletecountry(string countryID)
+        public int DeleteCategory(string CategoryId)
         {
             int i;
             int rtrnvalue = 0;
-            ProcedureExecute proc = new ProcedureExecute("prc_CheckMasterData");
-            proc.AddNVarcharPara("@action", 100, "country");
-            proc.AddNVarcharPara("@id", 30, countryID);
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMS_CATEGORYMASTER");
+            proc.AddNVarcharPara("@action", 50, "DELETE");
+            proc.AddNVarcharPara("@ID", 30, CategoryId);
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
             rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
             return rtrnvalue;
         }
 
-        public DataTable EditCountry(string ID)
+        public DataTable EditCategory(string ID)
         {
             ProcedureExecute proc;
             int rtrnvalue = 0;
             DataTable dt = new DataTable();
             try
             {
-                using (proc = new ProcedureExecute("PRC_COUNTRYMASTER"))
+                using (proc = new ProcedureExecute("PRC_LMS_CATEGORYMASTER"))
                 {
                     proc.AddVarcharPara("@ID", 100, ID);
                     proc.AddVarcharPara("@ACTION", 100, "EDIT");
