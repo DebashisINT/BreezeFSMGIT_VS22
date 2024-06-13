@@ -63,6 +63,14 @@ namespace LMS.Models
 				return this.GetTable<LMS_TOPICSMASTER_LISTING>();
 			}
 		}
+		
+		public System.Data.Linq.Table<LMS_CATEGORYMASTERLIST> LMS_CATEGORYMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<LMS_CATEGORYMASTERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_TOPICSMASTER_LISTING")]
@@ -213,6 +221,195 @@ namespace LMS.Models
 				if ((this._CREATEDON != value))
 				{
 					this._CREATEDON = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CATEGORYMASTERLIST")]
+	public partial class LMS_CATEGORYMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _CATEGORYID;
+		
+		private string _CATEGORYNAME;
+		
+		private string _CATEGORYDESCRIPTION;
+		
+		private string _CATEGORYSTATUS;
+		
+		private string _CreateDate;
+		
+		private string _CreateUser;
+		
+		private string _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		public LMS_CATEGORYMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CATEGORYID", DbType="Int")]
+		public System.Nullable<int> CATEGORYID
+		{
+			get
+			{
+				return this._CATEGORYID;
+			}
+			set
+			{
+				if ((this._CATEGORYID != value))
+				{
+					this._CATEGORYID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CATEGORYNAME", DbType="NVarChar(250)")]
+		public string CATEGORYNAME
+		{
+			get
+			{
+				return this._CATEGORYNAME;
+			}
+			set
+			{
+				if ((this._CATEGORYNAME != value))
+				{
+					this._CATEGORYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CATEGORYDESCRIPTION", DbType="NVarChar(300)")]
+		public string CATEGORYDESCRIPTION
+		{
+			get
+			{
+				return this._CATEGORYDESCRIPTION;
+			}
+			set
+			{
+				if ((this._CATEGORYDESCRIPTION != value))
+				{
+					this._CATEGORYDESCRIPTION = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CATEGORYSTATUS", DbType="NVarChar(50)")]
+		public string CATEGORYSTATUS
+		{
+			get
+			{
+				return this._CATEGORYSTATUS;
+			}
+			set
+			{
+				if ((this._CATEGORYSTATUS != value))
+				{
+					this._CATEGORYSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="NVarChar(50)")]
+		public string CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="NVarChar(50)")]
+		public string ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
 				}
 			}
 		}

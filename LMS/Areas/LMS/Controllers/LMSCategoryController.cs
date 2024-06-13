@@ -1,7 +1,9 @@
-﻿using System;
+﻿using LMS.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -12,11 +14,12 @@ namespace LMS.Areas.LMS.Controllers
     public class LMSCategoryController : Controller
     {
         // GET: LMS/LMSCategory
+        LMSCategoryModel obj = new LMSCategoryModel();
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult PartialGridList(CountryMasterModels model)
+        public ActionResult PartialGridList(LMSCategoryModel model)
         {
             try
             {
@@ -33,7 +36,7 @@ namespace LMS.Areas.LMS.Controllers
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
-                sqlcmd = new SqlCommand("PRC_COUNTRYMASTER", sqlcon);
+                sqlcmd = new SqlCommand("PRC_LMS_CATEGORYMASTER", sqlcon);
                 sqlcmd.Parameters.Add("@ACTION", "GETLISTINGDETAILS");
                 sqlcmd.Parameters.Add("@USER_ID", Userid);
                 sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
@@ -41,7 +44,8 @@ namespace LMS.Areas.LMS.Controllers
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
                 sqlcon.Close();
-                return PartialView("PartialCountryList", LGetCountryDetailsList(Is_PageLoad));
+                return PartialView("PartialCategorylisting", LGetCountryDetailsList(Is_PageLoad));
+                
             }
             catch
             {
@@ -55,8 +59,8 @@ namespace LMS.Areas.LMS.Controllers
             string Userid = Convert.ToString(Session["userid"]);
             if (Is_PageLoad != "Ispageload")
             {
-                MastersDataContext dc = new MastersDataContext(connectionString);
-                var q = from d in dc.CountryMasterLists
+                LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                var q = from d in dc.LMS_CATEGORYMASTERLISTs
                         where d.USERID == Convert.ToInt32(Userid)
                         orderby d.SEQ ascending
                         select d;
@@ -64,19 +68,18 @@ namespace LMS.Areas.LMS.Controllers
             }
             else
             {
-                MastersDataContext dc = new MastersDataContext(connectionString);
-                var q = from d in dc.CountryMasterLists
-                        where d.USERID == Convert.ToInt32(Userid)
-                        orderby d.SEQ ascending
+                LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                var q = from d in dc.LMS_CATEGORYMASTERLISTs
+                        where d.SEQ == 0
                         select d;
                 return q;
             }
         }
-        public JsonResult SaveCountry(string name, string id)
+        public JsonResult SaveCategory(string name, string id,string description, string ActiveStatus)
         {
             int output = 0;
             string Userid = Convert.ToString(Session["userid"]);
-            output = obj.SaveCountry(name, Userid, id);
+            output = obj.SaveCategory(name, Userid, id, description, ActiveStatus);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
