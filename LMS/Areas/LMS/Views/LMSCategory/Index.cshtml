@@ -567,8 +567,16 @@
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
                     Category
                 </button>
+                <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                    <option value="0">Export to Excel</option>
+                    <option value="1">PDF</option>
+                    <option value="2">XLS</option>
+                    <option value="3">RTF</option>
+                    <option value="4">CSV</option>
+                </select>
             </div>
-            <div class="col-md-12" style="padding-top: 13px;">
+            @*<div class="col-md-12" style="padding-top: 13px;">
                 <span></span>
                 <div>
                     <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
@@ -580,7 +588,7 @@
                         <option value="4">CSV</option>
                     </select>
                 </div>
-            </div>
+            </div>*@
         </div>
         <div class="clearfix"></div>
         <div class="scrooler">
