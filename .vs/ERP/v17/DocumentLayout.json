@@ -1,10 +1,82 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GITHUB\\BreezeFSMGIT_VS22\\",
+  "WorkspaceRootPath": "D:\\Projects\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\github\\breezefsmgit_vs22\\lms\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\projects\\breezefsmgit_vs22\\lms\\assests\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\assests\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\projects\\breezefsmgit_vs22\\lms\\areas\\lms\\views\\lmscategory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\areas\\lms\\views\\lmscategory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|d:\\projects\\breezefsmgit_vs22\\erp.ui\\oms\\management\\activities\\specialpriceupload.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|solutionrelative:erp.ui\\oms\\management\\activities\\specialpriceupload.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\dashboardsetting\\_dashboardsettinglist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\dashboardsetting\\_dashboardsettinglist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\partydetails\\partylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\partylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\erp.ui\\oms\\management\\master\\rootuserdetails.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|solutionrelative:erp.ui\\oms\\management\\master\\rootuserdetails.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\dashboardsetting\\_dashboardsettingbyid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\dashboardsetting\\_dashboardsettingbyid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\dashboardsetting\\dashboardsetting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\dashboardsetting\\dashboardsetting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\systemsettings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\systemsettings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\erp.ui\\oms\\management\\activities\\productsbranchmap.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|solutionrelative:erp.ui\\oms\\management\\activities\\productsbranchmap.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\horizontalattendance\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\horizontalattendance\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmcontact\\partialcrmcontactgridlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmcontact\\partialcrmcontactgridlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\partydetails\\_massdeletemanuallogview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\_massdeletemanuallogview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmcontact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmcontact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\businesslogiclayer\\accounthead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\accounthead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\productmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\productmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\partydetails\\massdeletelog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\partydetails\\massdeletelog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\models\\shopaddress.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\models\\shopaddress.asmx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|D:\\Projects\\BreezeFSMGIT_VS22\\myshopproject\\areas\\myshop\\views\\crmenquiries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{227AA681-ED62-4841-A858-48839794576A}|MyShopProject\\MyShopProject.csproj|solutionrelative:myshopproject\\areas\\myshop\\views\\crmenquiries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,15 +91,233 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "D:\\GITHUB\\BreezeFSMGIT_VS22\\LMS\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "LMS\\Controllers\\LoginController.cs",
-              "ToolTip": "D:\\GITHUB\\BreezeFSMGIT_VS22\\LMS\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "LMS\\Controllers\\LoginController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T11:01:02.738Z",
+              "Title": "main.js",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\LMS\\assests\\js\\main.js",
+              "RelativeDocumentMoniker": "LMS\\assests\\js\\main.js",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\LMS\\assests\\js\\main.js",
+              "RelativeToolTip": "LMS\\assests\\js\\main.js",
+              "ViewState": "AQIAAAoAAAAAAAAAAAASwBIAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-14T13:46:33.851Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Views\\LMSCategory\\Index.cshtml",
+              "RelativeDocumentMoniker": "LMS\\Areas\\LMS\\Views\\LMSCategory\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Views\\LMSCategory\\Index.cshtml",
+              "RelativeToolTip": "LMS\\Areas\\LMS\\Views\\LMSCategory\\Index.cshtml",
+              "ViewState": "AQIAADwCAAAAAAAAAAAAAD8CAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-14T12:38:06.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SpecialPriceUpload.aspx",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Activities\\SpecialPriceUpload.aspx",
+              "RelativeDocumentMoniker": "ERP.UI\\OMS\\Management\\Activities\\SpecialPriceUpload.aspx",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Activities\\SpecialPriceUpload.aspx",
+              "RelativeToolTip": "ERP.UI\\OMS\\Management\\Activities\\SpecialPriceUpload.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-03T11:06:02.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_DashBoardSettingList.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingList.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingList.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingList.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingList.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-14T11:04:20.917Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DashBoardSetting.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\DashBoardSetting.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\DashBoardSetting.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\DashBoardSetting.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\DashBoardSetting.cshtml",
+              "ViewState": "AQIAAEICAAAAAAAAAAAUwB0CAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-14T11:03:31.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RootUserDetails.aspx",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Master\\RootUserDetails.aspx",
+              "RelativeDocumentMoniker": "ERP.UI\\OMS\\Management\\Master\\RootUserDetails.aspx",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Master\\RootUserDetails.aspx",
+              "RelativeToolTip": "ERP.UI\\OMS\\Management\\Master\\RootUserDetails.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-05-14T11:01:38.097Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PartyList.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\PartyList.cshtml",
+              "ViewState": "AQIAANsCAAAAAAAAAAAewOgCAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-19T10:50:49.207Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_DashBoardSettingByID.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingByID.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingByID.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingByID.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\DashboardSetting\\_DashBoardSettingByID.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAcwDcAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-14T11:04:28.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ProductsBranchMap.aspx",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Activities\\ProductsBranchMap.aspx",
+              "RelativeDocumentMoniker": "ERP.UI\\OMS\\Management\\Activities\\ProductsBranchMap.aspx",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Activities\\ProductsBranchMap.aspx",
+              "RelativeToolTip": "ERP.UI\\OMS\\Management\\Activities\\ProductsBranchMap.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-05-13T11:16:41.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\Systemsettings\\Index.cshtml",
+              "ViewState": "AQIAABQDAAAAAAAAAAAAAB8DAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-10T12:38:30.423Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\HorizontalAttendance\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\HorizontalAttendance\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\HorizontalAttendance\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\HorizontalAttendance\\Index.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAswA0AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-10T08:59:07.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PartialCRMContactGridList.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\PartialCRMContactGridList.cshtml",
+              "ViewState": "AQIAAB0BAAAAAAAAAAAAwDsBAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-23T06:53:55.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMContact\\Index.cshtml",
+              "ViewState": "AQIAAGoDAAAAAAAAAAAYwG0DAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-19T10:23:01.759Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_MassDeleteManualLogView.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\_MassDeleteManualLogView.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAwDEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-23T13:36:45.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\ProductMaster\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-24T07:18:47.638Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AccountHead.cs",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\BusinessLogicLayer\\AccountHead.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\AccountHead.cs",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\BusinessLogicLayer\\AccountHead.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\AccountHead.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAuwB0AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T07:20:31.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MassDeleteLog.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\partyDetails\\MassDeleteLog.cshtml",
+              "ViewState": "AQIAACgAAAAAAAAAAAAAwEoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-23T14:02:14.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
+              "RelativeToolTip": "MyShopProject\\Areas\\MYSHOP\\Views\\CRMEnquiries\\Index.cshtml",
+              "ViewState": "AQIAAMAIAAAAAAAAAADwv8oIAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-19T10:28:37.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ShopAddress.asmx.cs",
+              "DocumentMoniker": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\ShopAddress.asmx.cs",
+              "RelativeDocumentMoniker": "MyShopProject\\Models\\ShopAddress.asmx.cs",
+              "ToolTip": "D:\\Projects\\BreezeFSMGIT_VS22\\MyShopProject\\Models\\ShopAddress.asmx.cs",
+              "RelativeToolTip": "MyShopProject\\Models\\ShopAddress.asmx.cs",
+              "ViewState": "AQIAAKYBAAAAAAAAAAAmwL8BAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-23T10:31:52.714Z"
             }
           ]
         }
