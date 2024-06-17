@@ -431,7 +431,7 @@
 
     .modal-content {
         border: none;
-        border-radius: 10px;
+        border-radius: 16px;
     }
 
     .modal-header .modal-title {
@@ -564,10 +564,13 @@
     .mrtop-6 {
         margin-top: 6px;
     }
-
-    #myModalReAssignSalesman .modal-dialog {
-        max-width: 32%;
+    @@media screen and (min-width: 768px)
+    {
+        #AddTopicModal .modal-dialog {
+            width: 48% !important;
+        }
     }
+    
 
     .btn-default {
         background-color: #dbdbdb;
@@ -989,6 +992,7 @@
 
             Is_PageLoad = "1";
             gridLMSTopic.Refresh();
+            gridLMSTopic.Refresh();
 
 
             setTimeout(function () {
@@ -1075,6 +1079,7 @@
                 var tabNameText = data[0].tabNameText;
                 var rightTabNameText = data[0].rightTabNameText;
                 var searchPlaceholderText = data[0].searchPlaceholderText;
+                lblBasedOn.innerText = "Select " + tabNameText;
 
                 var settings1 = {
                     "dataArray": data,
@@ -1259,7 +1264,7 @@
                 </div>
                 <div class="clearfix">
                     <div class="col-md-12">
-                        <label>Select users</label>
+                        <label id="lblBasedOn" >Select </label>
                         <div>
                             <div id="transfer1" class="transfer-demo"></div>
                         </div>

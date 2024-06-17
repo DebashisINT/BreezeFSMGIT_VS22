@@ -118,7 +118,7 @@ namespace LMS.Areas.LMS.Controllers
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
                         where d.USERID == Convert.ToInt32(Userid)
-                        orderby d.SEQ descending
+                        orderby d.SEQ 
                         select d;
                 return q;
             }
@@ -127,7 +127,7 @@ namespace LMS.Areas.LMS.Controllers
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
                         where d.USERID == Convert.ToInt32(Userid) && d.SEQ == 1111119
-                        orderby d.SEQ descending
+                        orderby d.SEQ 
                         select d;
                 return q;
             }
