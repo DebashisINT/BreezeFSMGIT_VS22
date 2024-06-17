@@ -283,6 +283,7 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddPara("@TOPICNAME", data.TopicName);
                 proc.AddPara("@TOPICBASEDON_ID", data.TopicBasedOnId);
                 proc.AddPara("@SELECTEDTOPICBASEDONMAPLIST", data.selectedTopicBasedOnMapList);
+                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                 int k = proc.RunActionQuery();
