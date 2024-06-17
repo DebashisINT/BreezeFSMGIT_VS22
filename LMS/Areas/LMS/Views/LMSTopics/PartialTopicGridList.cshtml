@@ -34,28 +34,7 @@
 
 
 
-    settings.Columns.Add(x =>
-    {
-        x.SetDataItemTemplateContent(tc =>
-        {
-            ViewContext.Writer.Write(
-                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenLMSPointforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
-                "" +
-                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteLMSPoint('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
-            );
-        });
-
-        x.Settings.AllowDragDrop = DefaultBoolean.False;
-        x.Settings.AllowSort = DefaultBoolean.False;
-        x.Width = 100;
-        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Caption = "Action";
-        x.FixedStyle = GridViewColumnFixedStyle.Left;
-
-
-    });
-
+    
     settings.Columns.Add(column =>
     {
         column.FieldName = "SEQ";
@@ -106,6 +85,28 @@
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
         column.Width = 150;
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.SetDataItemTemplateContent(tc =>
+        {
+            ViewContext.Writer.Write(
+                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenLMSPointforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+                "" +
+                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteLMSPoint('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+            );
+        });
+
+        x.Settings.AllowDragDrop = DefaultBoolean.False;
+        x.Settings.AllowSort = DefaultBoolean.False;
+        x.Width = 100;
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.Caption = "Action";
+        //x.FixedStyle = GridViewColumnFixedStyle.Left;
+
+
     });
 
 }).Bind(Model).GetHtml()
