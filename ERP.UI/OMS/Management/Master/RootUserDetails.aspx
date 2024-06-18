@@ -28,6 +28,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 15.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27474, 27477 
 16.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27502 
 17.0                03-06-2024      V2.0.47            Sanchita           Some global settings are required for CRM Opportunity module. Mantis: 27481   
+18.0                18-06-2024      V2.0.47            Sanchita           27436: Please create a global settings IsShowDateWiseOrderInApp   
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4307,6 +4308,21 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         </td>
                                          <%--End of Rev 17.0--%>
                                     </tr>
+                                    <%--Rev 18.0--%>
+                                    <tr>
+                                         <td id="divIsShowDateWiseOrderInApp" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsShowDateWiseOrderInApp" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is Show Date Wise Order In App ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                     <%-- End of Rev 18.0--%>
                                 </table>
                             </div>
                         </div>

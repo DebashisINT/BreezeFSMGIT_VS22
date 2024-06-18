@@ -4569,6 +4569,24 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsDeleteEnableforOpportunity;
 
         /// <summary>
+        /// divIsShowDateWiseOrderInApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsShowDateWiseOrderInApp;
+
+        /// <summary>
+        /// chkIsShowDateWiseOrderInApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsShowDateWiseOrderInApp;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

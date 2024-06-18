@@ -22,6 +22,7 @@
  * 11.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27474, 27477 *
  * 12.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27502 *
  * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
+ * 14.0               18-06-2024       V2.0.47           Sanchita         27436: Please create a global settings IsShowDateWiseOrderInApp   
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2533,6 +2534,16 @@ namespace ERP.OMS.Management.Master
                     chkIsDeleteEnableforOpportunity.Checked = false;
                 }
                 // End of Rev 13.0
+                // Rev 14.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsShowDateWiseOrderInApp"]) == true)
+                {
+                    chkIsShowDateWiseOrderInApp.Checked = true;
+                }
+                else
+                {
+                    chkIsShowDateWiseOrderInApp.Checked = false;
+                }
+                // End of Rev 14.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2970,6 +2981,9 @@ namespace ERP.OMS.Management.Master
                 int IsEditEnableforOpportunity = 0;
                 int IsDeleteEnableforOpportunity = 0;
                 // End of Rev 13.0
+                // Rev 14.0
+                int IsShowDateWiseOrderInApp = 0;
+                // End of Rev 14.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4486,6 +4500,12 @@ namespace ERP.OMS.Management.Master
                 else
                     IsDeleteEnableforOpportunity = 0;
                 // End of Rev 13.0
+                // Rev 14.0
+                if (chkIsShowDateWiseOrderInApp.Checked == true)
+                    IsShowDateWiseOrderInApp = 1;
+                else
+                    IsShowDateWiseOrderInApp = 0;
+                // End of Rev 14.0
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4863,6 +4883,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
                             proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
                             // End of Rev 13.0
+                            // Rev 14.0
+                            proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
+                            // End of Rev 14.0
 
 
                             DataTable dt = proc.GetTable();
@@ -5318,6 +5341,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
                             proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
                             // End of Rev 13.0
+                            // Rev 14.0
+                            proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
+                            // End of Rev 14.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5767,6 +5793,9 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsEditEnableforOpportunity", IsEditEnableforOpportunity);
                             proc.AddPara("@IsDeleteEnableforOpportunity", IsDeleteEnableforOpportunity);
                             // End of Rev 13.0
+                            // Rev 14.0
+                            proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
+                            // End of Rev 14.0
 
 
                             DataTable dt = proc.GetTable();
@@ -7930,6 +7959,19 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // End of Rev 13.0
+                    // Rev 14.0
+                    else if (Convert.ToString(dr["key"]) == "IsShowDateWiseOrderInApp")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsShowDateWiseOrderInApp.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsShowDateWiseOrderInApp.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 14.0
                 }
             }
         }
