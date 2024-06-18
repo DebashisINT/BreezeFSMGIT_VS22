@@ -444,6 +444,75 @@
         left: auto !important;
     }
     /*Rev end 5.0*/
+
+
+    .add-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+    }
+
+    .add-btn
+    {
+        transition: all .4s;
+    }
+
+    .add-btn:hover {
+        color: #fff;
+        background-color: #1b79d0;
+        border-color: #1b79d0;
+    }
+
+        .add-btn .btn-icon i {
+            color: #054682;
+        }
+
+        .add-btn {
+            background: #054682;
+            margin-right: 5px;
+        }
+
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+    }
+
+        .btn:active, .btn:hover, .btn:focus {
+            color: #fff !important;
+        }
+
+        .buttons-alignment {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+    .show-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+        color: #238945;
+    }
+
+    .show-btn {
+        background-color: #238945;
+    }
+
+    .btn-cancel {
+        background-color: #DC0505;
+        color: #fff;
+    }
 </style>
 <script>
     var Is_PageLoad = "0";
@@ -563,11 +632,13 @@
 <div class="container">
     <div class="form_main backBox p-3">
         <div class="row">
-            <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
-                    Category
-                </button>
-                <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Category
+                    </button>
+                    <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                </div>
                 <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
                     <option value="0">Export to Excel</option>
                     <option value="1">PDF</option>
@@ -609,7 +680,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add/Modify Category</h4>
             </div>
-            <div class="modal-body" style="width: 476px;">
+            <div class="modal-body">
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
@@ -618,21 +689,22 @@
                                 <input type="text" id="txtCategoryName" maxlength="250" class="form-control" />
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-3">
                             <div><label>Category Description <span class="red">*</span></label></div>
                             <div>
                                 <input type="text" id="txtCategoryDescription" maxlength="500" class="form-control" />
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div><input type="checkbox" id="chkStatus" class="form-control" checked /><label>Active</label></div>
+                        <div class="col-md-12 mt-3">
+                            <div><input type="checkbox" id="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" style="width: 476px;">
+            <div class="modal-footer">
                 <div>
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save</button>
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel & Exit</button>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save and Exit</button>
                 </div>
 
             </div>
