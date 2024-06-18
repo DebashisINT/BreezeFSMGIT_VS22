@@ -53,6 +53,7 @@ namespace ERP.OMS.Management.Activities
         {
             ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
             proc.AddVarcharPara("@Action", 200, "ALLPAGELOADDATA");
+            proc.AddVarcharPara("@UserbranchHierarchy", 4000, Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"])); 
             DataSet dt = proc.GetDataSet();
 
             if (dt.Tables[0].Rows.Count > 0)
@@ -174,13 +175,22 @@ namespace ERP.OMS.Management.Activities
         }
         [WebMethod(EnableSession = true)]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
-        public static string InsertSpecialPrice( string ProductID,string BRANCH,string SPECIALPRICE, string DesignationId, string EMPINTERNALID)
+        public static string InsertSpecialPrice( string ProductID,string BRANCH,string SPECIALPRICE, string DesignationId, string EMPINTERNALID, string SPECIALPRICEID)
         {
             try
             {
+                string Action = "";
+                if (SPECIALPRICEID!="")
+                {
+                    Action = "UpdateSpecialPrice";
+                }
+                else
+                {
+                    Action = "InsertSpecialPrice";
+                }
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
                 ProcedureExecute proc = new ProcedureExecute("prc_SpecialPriceImportFromExcel");
-                proc.AddVarcharPara("@Action", 4000, "InsertSpecialPrice");             
+                proc.AddVarcharPara("@Action",100, Action);             
                 proc.AddDecimalPara("@SPECIALPRICE", 2, 18, Convert.ToDecimal(SPECIALPRICE));
                 proc.AddIntegerPara("@ProductID", Convert.ToInt32(ProductID));
                 proc.AddIntegerPara("@BranchId", Convert.ToInt32(BRANCH));
@@ -188,6 +198,7 @@ namespace ERP.OMS.Management.Activities
                 //Rev 1.0 
                 proc.AddIntegerPara("@DesignationId", Convert.ToInt32(DesignationId));
                 proc.AddVarcharPara("@EMPINTERNALID", 100, EMPINTERNALID);
+                proc.AddVarcharPara("@SPECIALPRICEID", 50, SPECIALPRICEID);
                 //Rev 1.0 End
 
                 DataTable dtSaleRateLock = proc.GetTable();
@@ -337,6 +348,11 @@ namespace ERP.OMS.Management.Activities
                                         branch_description = dr["branch_description"].ToString(),
                                         deg_designation = dr["deg_designation"].ToString(),
                                         Employee_Name = dr["Employee_Name"].ToString(),
+
+                                        BRANCH_ID = dr["BRANCH_ID"].ToString(),
+                                        DesignationID = dr["DesignationID"].ToString(),
+                                        EMPINTERNALID = dr["EMPINTERNALID"].ToString(),
+
                                     }).ToList();
             }
 
@@ -360,7 +376,13 @@ namespace ERP.OMS.Management.Activities
             public string deg_designation { get; set; }
             public string Employee_Name { get; set; }
 
+            public string BRANCH_ID { get; set; }
 
+            public string DesignationID { get; set; }
+            public string EMPINTERNALID { get; set; }
+  
+
+           
         }
 
 
