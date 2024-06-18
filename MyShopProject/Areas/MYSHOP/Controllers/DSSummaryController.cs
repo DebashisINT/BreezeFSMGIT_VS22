@@ -198,7 +198,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         //Rev 4.0 Mantis: 0027402
                         //dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id);
-                        dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id,Is_PageLoad);
+                        dt = GetDSSummary(Employee, FromDate, ToDate, Branch_Id,model.is_pageload);
                         //End of Rev 4.0 Mantis: 0027402
                     }
                     //Rev 4.0 Mantis: 0027402
