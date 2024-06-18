@@ -24955,6 +24955,8 @@ namespace ERP.Models
 		
 		private string _Employee_Name;
 		
+		private string _EMPINTERNALID;
+		
 		public PRODUCTSPECIALPRICELIST()
 		{
 		}
@@ -25131,6 +25133,22 @@ namespace ERP.Models
 				if ((this._Employee_Name != value))
 				{
 					this._Employee_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMPINTERNALID", DbType="NVarChar(200)")]
+		public string EMPINTERNALID
+		{
+			get
+			{
+				return this._EMPINTERNALID;
+			}
+			set
+			{
+				if ((this._EMPINTERNALID != value))
+				{
+					this._EMPINTERNALID = value;
 				}
 			}
 		}
