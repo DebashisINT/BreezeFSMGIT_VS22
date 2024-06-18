@@ -1597,6 +1597,7 @@
       <Column Name="PRODUCTNAME" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="SPECIALPRICE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="Employee_Name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EMPINTERNALID" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -1059,7 +1059,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
                             $("#AddSPECIALPRICE").hide();
                             $("#divImportButton").show();
                             clear();
-                            cGridSpecialPriceUpload.Refresh();
+                            //cGridSpecialPriceUpload.Refresh();
+                            ShowData();
                             return false;
                         }
 
@@ -1248,6 +1249,15 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
             ctxtSPECIALPRICEAdd.SetValue("0.00");
             ctxtDesignation.SetValue("");
             ctxtEditEmployee.SetValue("");
+            $("#ddlBRANCH").val("");
+            $("#cmbDesg").val("");
+            ctxtEmployee.SetValue("");
+            $("#txtEmployee_hidden").val("");
+
+            ctxtProductNameAdd.SetText("");
+            $("#HiddenProductID").val("");
+
+            ctxtSPECIALPRICEAdd.SetValue("");
         }
 
         $(document).ready(function () {
