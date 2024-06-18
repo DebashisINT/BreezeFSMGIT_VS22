@@ -1003,6 +1003,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
     <script type="text/javascript">
         function AddSaveButtonClick(flag) {
 
+           
+
             var ProductID = $("#HiddenProductID").val();
             var BRANCH = $("#ddlBRANCH").val();
 
@@ -1035,7 +1037,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
                     "SPECIALPRICE": ctxtSPECIALPRICEAdd.GetValue(),
                     <%--  Rev 1.0 --%>
                     "DesignationId": document.getElementById("cmbDesg").value,
-                    "EMPINTERNALID": $("#txtEmployee_hidden").val()
+                    "EMPINTERNALID": $("#txtEmployee_hidden").val(),
+                    "SPECIALPRICEID": $.trim($("#HiddenSPECIALPRICEID").val())
                     <%--  Rev 1.0 End--%>
 
                 }),
@@ -1167,21 +1170,35 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
             //alert(data);
             for (var i = 0; i < data.d.length; i++) {
                 document.getElementById('hdnProdId').value = data.d[i].ProductID;
-                ctxtBRANCH.SetValue(data.d[i].branch_description);
-                ctxtPRODUCTCODE.SetValue(data.d[i].PRODUCT_CODE);
-                ctxtPRODUCTNAME.SetValue(data.d[i].Products_Name);
-                ctxtSPECIALPRICE.SetValue(data.d[i].SPECIAL_PRICE);
-                ctxtDesignation.SetValue(data.d[i].deg_designation);
-                ctxtEditEmployee.SetValue(data.d[i].Employee_Name);
+                //ctxtBRANCH.SetValue(data.d[i].branch_description);
+                //ctxtPRODUCTCODE.SetValue(data.d[i].PRODUCT_CODE);
+                //ctxtPRODUCTNAME.SetValue(data.d[i].Products_Name);
+                //ctxtSPECIALPRICE.SetValue(data.d[i].SPECIAL_PRICE);
+                //ctxtDesignation.SetValue(data.d[i].deg_designation);
+                //ctxtEditEmployee.SetValue(data.d[i].Employee_Name);
+
+                $("#ddlBRANCH").val(data.d[i].BRANCH_ID);
+                $("#cmbDesg").val(data.d[i].DesignationID);                
+                ctxtEmployee.SetValue(data.d[i].Employee_Name);
+                $("#txtEmployee_hidden").val(data.d[i].EMPINTERNALID);               
+
+                ctxtProductNameAdd.SetText(data.d[i].Products_Name);
+                $("#HiddenProductID").val(data.d[i].ProductID);    
+                
+                ctxtSPECIALPRICEAdd.SetValue(data.d[i].SPECIAL_PRICE);
+
 
             }
-            $("#entry").show();
+            //$("#entry").show();
             $("#view").hide();
             $("#divAddButton").hide();
             $("#divcross").show();
             $("#lblheading").html("Modify Special Price Upload");
             $("#TblSearch").hide();
-            $("#AddSPECIALPRICE").hide();
+
+            //$("#AddSPECIALPRICE").hide();
+            $("#AddSPECIALPRICE").show();
+
             $("#divImportButton").hide();
         }
 
