@@ -1025,8 +1025,11 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
             }
 
 
-
-
+            var des = document.getElementById("cmbDesg").value;
+            if (des == "") {
+               
+                $("#cmbDesg").val("0");
+            }
 
             $.ajax({
                 type: "POST",
