@@ -456,25 +456,24 @@
         margin-right: 5px;
     }
 
-    .add-btn
-    {
+    .add-btn {
         transition: all .4s;
     }
 
-    .add-btn:hover {
-        color: #fff;
-        background-color: #1b79d0;
-        border-color: #1b79d0;
-    }
+        .add-btn:hover {
+            color: #fff;
+            background-color: #1b79d0;
+            border-color: #1b79d0;
+        }
 
         .add-btn .btn-icon i {
             color: #054682;
         }
 
-        .add-btn {
-            background: #054682;
-            margin-right: 5px;
-        }
+    .add-btn {
+        background: #054682;
+        margin-right: 5px;
+    }
 
     .btn {
         border-radius: 8px;
@@ -488,11 +487,11 @@
             color: #fff !important;
         }
 
-        .buttons-alignment {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .buttons-alignment {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     .show-btn .btn-icon {
         border-radius: 50px;
@@ -524,6 +523,17 @@
             gridList.Refresh();
         });
 
+        $('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                var desg = $("#drpdesignation").val();
+                var usrtype = $("#ddlusertypes").val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExporCategoryList", "LMSCategory", new { type = "_type_" })'
+                window.location.href = url.replace("_type_", selectedValue);
+
+            }
+        });
     });
 
     function OnStartCallback(s, e) {
@@ -532,6 +542,7 @@
     function AddCategory() {
         $("#hdnID").val('0');
         $("#txtCategoryName").val('');
+        $("#txtCategoryDescription").val('');
         $("#CategoryModal").modal('show')
     }
     function SaveCategory() {
@@ -594,8 +605,8 @@
                             {
                                 $("#chkStatus").prop("checked",false);
                             }
-                                
-                            
+
+
                             $("#CategoryModal").modal('show');
                     }
                 }
@@ -640,26 +651,11 @@
                     <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                 </div>
                 <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                    <option value="0">Export to Excel</option>
-                    <option value="1">PDF</option>
-                    <option value="2">XLS</option>
-                    <option value="3">RTF</option>
-                    <option value="4">CSV</option>
+                    <option value="0">Export to Excel</option>                   
+                    <option value="1">XLSX</option>                   
                 </select>
             </div>
-            @*<div class="col-md-12" style="padding-top: 13px;">
-                <span></span>
-                <div>
-                    <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
-                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                        <option value="0">Export to Excel</option>
-                        <option value="1">PDF</option>
-                        <option value="2">XLS</option>
-                        <option value="3">RTF</option>
-                        <option value="4">CSV</option>
-                    </select>
-                </div>
-            </div>*@
+            
         </div>
         <div class="clearfix"></div>
         <div class="scrooler">
