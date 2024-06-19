@@ -699,7 +699,7 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
     <script>
         function AddProductButnClick(s, e) {
             $("#AddProductTable").empty();
-            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th></tr></table>";
+            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Code</th><th>Product Name</th></tr></table>";
             $("#AddProductTable").html(html);
             setTimeout(function () { $("#txtAddProdSearch").focus(); }, 500);
             $('#txtAddProdSearch').val('');
@@ -914,8 +914,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
 
             if (e.code == "Enter" || e.code == "NumpadEnter") {
                 var HeaderCaption = [];
+                HeaderCaption.push("Product Code");
                 HeaderCaption.push("Product Name");
-                HeaderCaption.push("Product Description");
 
                 if ($("#txtProdSearch").val() != '') {
                     //callonServer("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "ProductTable", HeaderCaption, "ProdIndex", "SetSelectedValues");
@@ -1001,34 +1001,43 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
 
     </script>
     <script type="text/javascript">
-        function AddSaveButtonClick(flag) {
-
-           
+        function AddSaveButtonClick(flag) {           
 
             var ProductID = $("#HiddenProductID").val();
             var BRANCH = $("#ddlBRANCH").val();
 
-            if (ProductID == "0") {
-                $("#AddMandatorysProduct").show();
-                ctxtProductNameAdd.Focus();
-                return false;
-            }
-            if (BRANCH == "0") {
+            if (BRANCH == "0" || BRANCH == "" || BRANCH == null) {
                 $("#AddMandatorysBRANCH").show();
                 $("#ddlBRANCH").Focus();
                 return false;
             }
+            else {
+                $("#AddMandatorysBRANCH").hide();
+            }
+
+            if (ProductID == "0" || ProductID == "") {
+                $("#AddMandatorysProduct").show();
+                ctxtProductNameAdd.Focus();
+                return false;
+            }
+            else {
+                $("#AddMandatorysProduct").hide();
+            }
+
+           
             if (ctxtSPECIALPRICEAdd.GetValue() == "0.00") {
                 $("#AddMandatorysSPECIALPRICE").show();
                 ctxtSPECIALPRICEAdd.Focus();
                 return false;
             }
+            else {
+                $("#AddMandatorysSPECIALPRICE").hide();
+            }
 
 
             var des = document.getElementById("cmbDesg").value;
-            if (des == "") {
-               
-                $("#cmbDesg").val("0");
+            if (des == "") {               
+                des = 0;
             }
 
             $.ajax({
@@ -1039,7 +1048,7 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
                     "BRANCH": BRANCH,
                     "SPECIALPRICE": ctxtSPECIALPRICEAdd.GetValue(),
                     <%--  Rev 1.0 --%>
-                    "DesignationId": document.getElementById("cmbDesg").value,
+                    "DesignationId": des,
                     "EMPINTERNALID": $("#txtEmployee_hidden").val(),
                     "SPECIALPRICEID": $.trim($("#HiddenSPECIALPRICEID").val())
                     <%--  Rev 1.0 End--%>
@@ -1689,8 +1698,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
                         <table border='1' width="100%" class="dynamicPopupTbl">
                             <tr class="HeaderStyle">
                                 <th class="hide">id</th>
+                                <th>Product Code</th>
                                 <th>Product Name</th>
-                                <th>Product Description</th>
                             </tr>
                         </table>
                     </div>

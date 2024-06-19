@@ -77,6 +77,9 @@ namespace ERP.OMS.Management.Activities
                 cmbDesg.DataSource = null;
                 cmbDesg.DataBind();
             }
+
+            //ddlBRANCH.Items.Insert(0, new ListItem("--Select--", "0"));
+            //cmbDesg.Items.Insert(0, new ListItem("--Select--", "0"));
         }
      
 
