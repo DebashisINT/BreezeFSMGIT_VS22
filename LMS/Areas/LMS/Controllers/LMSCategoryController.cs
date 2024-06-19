@@ -1,4 +1,6 @@
-﻿using LMS.Models;
+﻿using DevExpress.Web.Mvc;
+using DevExpress.Web;
+using LMS.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -108,6 +110,94 @@ namespace LMS.Areas.LMS.Controllers
             int output = 0;
             output = obj.DeleteCategory(ID);
             return Json(output, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ExporCategoryList(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return GridViewExtension.ExportToXlsx(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                //case 2:
+                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                //case 3:
+                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                //case 4:
+                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                //case 5:
+                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        private GridViewSettings GetCategoryGridViewSettings()
+        {
+            
+
+            var settings = new GridViewSettings();
+            settings.Name = "PartialGridList";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "Category";
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CATEGORYNAME";
+                x.Caption = "CATEGORY NAME";
+                x.VisibleIndex = 1;
+                x.Width = 200;                
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CATEGORYDESCRIPTION";
+                x.Caption = "CATEGORY DESCRIPTION";
+                x.VisibleIndex = 2;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CATEGORYSTATUS";
+                x.Caption = "ACTIVE";
+                x.VisibleIndex = 3;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CreateUser";
+                x.Caption = "Created By";
+                x.VisibleIndex = 4;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CreateDate";
+                x.Caption = "Created On";
+                x.VisibleIndex = 5;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "ModifyUser";
+                x.Caption = "Updated By";
+                x.VisibleIndex = 6;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "ModifyDate";
+                x.Caption = "Updated On";
+                x.VisibleIndex = 7;
+                x.Width = 200;
+            });
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
         }
     }
 }
