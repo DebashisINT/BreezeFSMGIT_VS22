@@ -31,7 +31,7 @@ namespace LMS.Models
                 sqlcmd.Parameters.AddWithValue("@USER_ID", user);
                 sqlcmd.Parameters.AddWithValue("@CATEGORYDESCRIPTION", description);
                 sqlcmd.Parameters.AddWithValue("@CATEGORYSTATUS", ActiveStatus);
-
+                sqlcmd.Parameters.AddWithValue("@ID", ID); 
 
                 SqlParameter output = new SqlParameter("@ReturnValue", SqlDbType.Int);
                 output.Direction = ParameterDirection.Output;

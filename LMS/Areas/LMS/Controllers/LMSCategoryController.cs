@@ -19,12 +19,29 @@ namespace LMS.Areas.LMS.Controllers
         LMSCategoryModel obj = new LMSCategoryModel();
         public ActionResult Index()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSCategory/Index");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanReassign = rights.CanReassign;
+            ViewBag.CanAssign = rights.CanAssign;
+            ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+
             return View();
+           
         }
         public ActionResult PartialGridList(LMSCategoryModel model)
         {
             try
             {
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSCategory/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanReassign = rights.CanReassign;
+                ViewBag.CanAssign = rights.CanAssign;
+                ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+
                 string Is_PageLoad = string.Empty;
                 DataTable dt = new DataTable();
 
