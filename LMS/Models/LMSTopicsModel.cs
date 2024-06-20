@@ -16,7 +16,7 @@ namespace LMS.Models
         public List<TopicBasedOnList> TopicBasedOnList { get; set; }
 
         public string Action {  get; set; }
-
+        public string TopicID { get; set; }
         public string TopicName { get; set; }
         public string selectedTopicBasedOnMapList { get; set; }
         public string RETURN_VALUE { get; set; }
@@ -32,6 +32,9 @@ namespace LMS.Models
 
     public class TopicMapList
     {
+        public string TOPICNAME {  get; set; }
+        public string TOPICBASEDON_ID { get; set; }
+
         public string ID { get; set; }
         public string NAME { get; set; }
         public bool selected { get; set; }

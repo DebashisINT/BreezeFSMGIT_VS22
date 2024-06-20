@@ -2,6 +2,7 @@
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using LMS.Models;
+using MyShop.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -275,11 +276,11 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                string rtrnvalue = "";
                 //string rtrnduplicatevalue = "";
                 //string Userid = Convert.ToString(Session["userid"]);
                 ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
                 proc.AddPara("@ACTION", data.Action);
+                proc.AddPara("@TOPICID", data.TopicID);
                 proc.AddPara("@TOPICNAME", data.TopicName);
                 proc.AddPara("@TOPICBASEDON_ID", data.TopicBasedOnId);
                 proc.AddPara("@SELECTEDTOPICBASEDONMAPLIST", data.selectedTopicBasedOnMapList);
@@ -295,6 +296,57 @@ namespace LMS.Areas.LMS.Controllers
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
+        }
+
+        public ActionResult ShowTopicDetails(String TopicID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                LMSTopicsModel ret = new LMSTopicsModel();
+                List<TopicMapList> TopicMapList1 = new List<TopicMapList>();
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+                proc.AddPara("@ACTION", "SHOWTOPIC");
+                proc.AddPara("@TOPICID", TopicID);
+                proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TopicMapList1 = APIHelperMethods.ToModelList<TopicMapList>(dt);
+                }
+
+                return Json(TopicMapList1, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult TopicDelete(string TopicID)
+        {
+            string output_msg = string.Empty;
+           
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+                proc.AddPara("@ACTION", "DELETETOPICS");
+                proc.AddPara("@TOPICID", TopicID);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
     }
 }
