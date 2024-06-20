@@ -1047,7 +1047,10 @@
 
     function AddTopic() {
         $("#hdnAddEditMode").val('ADDTOPIC');
+        $("#hdnTopicID").val(0);
         $("#transfer1").html('');
+        $("#txtTopicName").val('');
+        $("#ddlTopicBasedOn").val(0);
         $("#AddTopicModal").modal('show');
     }
 
@@ -1115,11 +1118,33 @@
                     return
                 }
 
+                if ($("#ddlTopicBasedOn").val() == 0 || $("#ddlTopicBasedOn").val() == "" || $("#ddlTopicBasedOn").val() == null || $("#ddlTopicBasedOn").val() == undefined) {
+                    jAlert("Please select Based On.", "Alert", function () {
+                        setTimeout(function () {
+                            $("#ddlTopicBasedOn").focus();
+                            return
+                        }, 200);
+                    });
+                    return
+                }
+
+                if (selectedTopicBasedOnMapList == "" || selectedTopicBasedOnMapList == null || selectedTopicBasedOnMapList == undefined) {
+                    jAlert("Please select Based On Items.", "Alert", function () {
+                        setTimeout(function () {
+                            $("#ddlTopicBasedOn").focus();
+                            return
+                        }, 200);
+                    });
+                    return
+                }
+
                 var TopicBasedOnId = $("#ddlTopicBasedOn").val();
                 var action = $("#hdnAddEditMode").val();
+                var TopicID = $("#hdnTopicID").val();
 
                 var data = {
                     Action: action,
+                    TopicID: TopicID,
                     TopicBasedOnId: $("#ddlTopicBasedOn").val(),
                     TopicName: $("#txtTopicName").val(),
                     selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
@@ -1132,7 +1157,13 @@
                     type: 'POST',
                     success: function (returnValue
                     ) {
-                        if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "" ) {
+                        if (returnValue.RETURN_VALUE == "-10") {
+                            jAlert("Error in Add.");
+                        }
+                        if (returnValue.RETURN_VALUE == "-20") {
+                            jAlert("Error in Update.");
+                        }
+                        else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "" ) {
                             jAlert("Topic added successfully. Duplicate data exists for following Based On with this Topic:\n" + returnValue.RETURN_DUPLICATEMAPNAME + ".");
                             //ClearData();
                             $('#AddTopicModal').modal('hide');
@@ -1152,7 +1183,7 @@
                         //        $('#AddTopicModal').modal('hide');
                         //    }
                         //    GridShow();
-                            
+
                         //}
 
                     },
@@ -1164,6 +1195,96 @@
 
 
     }
+
+    function OpenLMSPointforEdit(TopicId) {
+        $("#hdnAddEditMode").val('EDITTOPIC');
+        $("#hdnTopicID").val(TopicId);
+
+        $.ajax({
+            url: "@Url.Action("ShowTopicDetails", "LMSTopics")",
+            async: false,
+            data: { TopicID: TopicId },
+            type: 'POST',
+            success: function (data) {
+                var temArr2 = [];
+                //var data = response.d;
+                for (var a = 0; a < data.length; a++) {
+                    if (data[a].selected) {
+                        temArr2.push(data[a].ID);
+                    }
+                }
+                selectedTopicBasedOnMapList = temArr2.join(",");
+
+                $("#txtTopicName").val(data[0].TOPICNAME);
+                $("#ddlTopicBasedOn").val(data[0].TOPICBASEDON_ID);
+
+                $("#transfer1").html('');
+
+                var tabNameText = data[0].tabNameText;
+                var rightTabNameText = data[0].rightTabNameText;
+                var searchPlaceholderText = data[0].searchPlaceholderText;
+                lblBasedOn.innerText = "Select " + tabNameText;
+
+                var settings1 = {
+                    "dataArray": data,
+                    "itemName": "NAME",
+                    "valueName": "ID",
+                    "tabNameText": tabNameText,
+                    "rightTabNameText": rightTabNameText,
+                    "searchPlaceholderText": searchPlaceholderText,
+                    "callable": function (items) {
+                        //console.dir(items)
+                        var temArr = [];
+                        for (var i = 0; i < items.length; i++) {
+                            temArr.push(items[i].ID);
+                        }
+                        selectedTopicBasedOnMapList = temArr.join(",");
+                    }
+                };
+                $("#transfer1").transfer(settings1);
+
+                $('#AddTopicModal').modal('show');
+            },
+            error: function () {
+            },
+        });
+    }
+
+    function OnClickDeleteLMSPoint(TopicID) {
+        var url = '/LMSTopics/TopicDelete/';
+
+        jConfirm("Confirm Delete?", "Confirmation Dialog", function (ret) {
+            if (ret == true) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify({ 'TopicID': TopicID }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "-10") {
+                            jAlert("Error in Delete.");
+                            //GridShow();
+                        }
+                        else if (response == "1") {
+                            jAlert("Successfully Deleted.");
+                            gridLMSTopic.Refresh();
+                            //GridShow();
+                        }
+                        else {
+                            jAlert(response);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        });
+    }
+
 </script>
 
 <div class="breadCumb">
@@ -1241,6 +1362,7 @@
 </div>
 
 <input type="hidden" id="hdnAddEditMode" />
+<input type="hidden" id="hdnTopicID" />
 
 <div id="AddTopicModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">
