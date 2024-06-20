@@ -23,9 +23,8 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
-            ViewBag.CanReassign = rights.CanReassign;
-            ViewBag.CanAssign = rights.CanAssign;
-            ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+            ViewBag.CanEdit= rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
 
             return View();
            
@@ -38,9 +37,8 @@ namespace LMS.Areas.LMS.Controllers
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
-                ViewBag.CanReassign = rights.CanReassign;
-                ViewBag.CanAssign = rights.CanAssign;
-                ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
+                ViewBag.CanEdit = rights.CanEdit;
+                ViewBag.CanDelete = rights.CanDelete;
 
                 string Is_PageLoad = string.Empty;
                 DataTable dt = new DataTable();

@@ -105,10 +105,15 @@
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.SetDataItemTemplateContent(c =>
         {
-            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
-            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
+            }
+            if (ViewBag.CanView)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
 
-
+            }
         });
 
     });
