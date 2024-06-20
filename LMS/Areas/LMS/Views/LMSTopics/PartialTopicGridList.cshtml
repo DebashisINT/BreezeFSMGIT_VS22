@@ -34,7 +34,7 @@
 
 
 
-    
+
     settings.Columns.Add(column =>
     {
         column.FieldName = "SEQ";
@@ -49,7 +49,7 @@
         column.Caption = "Topic Name";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width= 350;
+        column.Width= 300;
 
     });
     settings.Columns.Add(column =>
@@ -86,6 +86,23 @@
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
         column.Width = 150;
     });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UPDATEDBY";
+        column.Caption = "Modified by";
+        //column.FixedStyle = GridViewColumnFixedStyle.Left;
+        column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        column.Width = 150;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UPDATEDON";
+        column.Caption = "Modified on";
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+        column.Width = 150;
+    });
 
     settings.Columns.Add(x =>
     {
@@ -104,7 +121,7 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.Caption = "Action";
-        
+
 
 
     });

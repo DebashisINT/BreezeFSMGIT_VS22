@@ -216,7 +216,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "TOPICSTATUS";
                 x.Caption = "Active";
-                x.VisibleIndex = 1;
+                x.VisibleIndex = 4;
                 x.ExportWidth = 150;
 
             });
@@ -225,7 +225,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "CREATEDBY";
                 x.Caption = "Created by";
-                x.VisibleIndex = 1;
+                x.VisibleIndex = 5;
                 x.ExportWidth = 150;
 
             });
@@ -234,7 +234,25 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "CREATEDON";
                 x.Caption = "Created on";
-                x.VisibleIndex = 1;
+                x.VisibleIndex = 6;
+                x.ExportWidth = 150;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UPDATEDBY";
+                x.Caption = "Modified by";
+                x.VisibleIndex = 7;
+                x.ExportWidth = 150;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "UPDATEDON";
+                x.Caption = "Modified on";
+                x.VisibleIndex = 8;
                 x.ExportWidth = 150;
 
             });
