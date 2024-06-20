@@ -719,8 +719,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
             OtherDetails.SearchKey = $("#txtAddProdSearch").val();
             if (e.code == "Enter" || e.code == "NumpadEnter") {
                 var HeaderCaption = [];
+                HeaderCaption.push("Product Code");
                 HeaderCaption.push("Product Name");
-                HeaderCaption.push("Product Description");
 
                 if ($("#txtAddProdSearch").val() != '') {
                     callonServer("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
@@ -890,7 +890,7 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
         function ProductButnClick(s, e) {
             $("#txtProduct_hidden").val("");
             $("#ProductTable").empty();
-            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Name</th><th>Product Description</th></tr></table>";
+            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Code</th><th>Product Name</th></tr></table>";
             $("#ProductTable").html(html);
             setTimeout(function () { $("#txtProdSearch").focus(); }, 500);
             $('#txtProdSearch').val('');
@@ -1730,8 +1730,8 @@ Rev Number DATE               VERSION          DEVELOPER           CHANGES
                         <table border='1' width="100%" class="dynamicPopupTbl">
                             <tr class="HeaderStyle">
                                 <th class="hide">id</th>
+                                <th>Product Code</th>
                                 <th>Product Name</th>
-                                <th>Product Description</th>
 
                             </tr>
                         </table>
