@@ -160,21 +160,21 @@ namespace LMS.Areas.LMS.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CATEGORYNAME";
-                x.Caption = "CATEGORY NAME";
+                x.Caption = "Category Name";
                 x.VisibleIndex = 1;
                 x.Width = 200;                
             });
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CATEGORYDESCRIPTION";
-                x.Caption = "CATEGORY DESCRIPTION";
+                x.Caption = "Category Description";
                 x.VisibleIndex = 2;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CATEGORYSTATUS";
-                x.Caption = "ACTIVE";
+                x.Caption = "Active";
                 x.VisibleIndex = 3;
                 x.Width = 200;
             });
