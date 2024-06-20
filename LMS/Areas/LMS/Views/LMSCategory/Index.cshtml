@@ -709,8 +709,11 @@
             <div class="modal-footer">
                 <div>
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel & Exit</button>
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save and Exit</button>
-                </div>
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save and Exit</button>
+                    }
+                    </div>
 
             </div>
         </div>

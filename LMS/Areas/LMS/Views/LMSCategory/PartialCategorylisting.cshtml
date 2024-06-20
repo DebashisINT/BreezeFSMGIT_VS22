@@ -109,7 +109,7 @@
             {
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
             }
-            if (ViewBag.CanView)
+            if (ViewBag.CanDelete)
             {
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "CATEGORYID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
 
