@@ -325,6 +325,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LMSMaster.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\LMSPointModel.cs" />
     <Compile Include="Models\LMSTopicsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1141,7 +1142,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49383</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44363/</IISUrl>
+          <IISUrl>https://localhost:44364/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
