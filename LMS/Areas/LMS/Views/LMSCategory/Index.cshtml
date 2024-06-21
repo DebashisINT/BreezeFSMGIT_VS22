@@ -787,19 +787,19 @@
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
-                    @*@if (ViewBag.CanAdd)
-                    {*@
+                    @if (ViewBag.CanAdd)
+                    {
                         <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
                             <span class="btn-icon"><i class="fa fa-plus"></i></span> Category
                         </button>
-                    @*}
+                    }
                     @if (ViewBag.CanView)
-                    {*@
+                    {
                         <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                    @*}*@
+                    }
                 </div>
-                @*@if (ViewBag.CanExport)
-                {*@
+                @if (ViewBag.CanExport)
+                {
                 <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
                     <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
                 </button>
@@ -807,7 +807,7 @@
                         <option value="0">Export to </option>
                         <option value="1">XLSX</option>
                     </select>*@
-                @*}*@
+                }
                 </div>
             
         </div>
