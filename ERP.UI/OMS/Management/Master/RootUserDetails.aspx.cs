@@ -23,6 +23,7 @@
  * 12.0               25-05-2024       V2.0.47           Sanchita         New User wise settings required. Mantis: 27502 *
  * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
  * 14.0               18-06-2024       V2.0.47           Sanchita         27436: Please create a global settings IsShowDateWiseOrderInApp   
+ * 15.0               21-06-2024       V2.0.48           Sanchita         0027564: The default value should be zero for some of Global & User wise setting in FSM
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -7799,8 +7800,10 @@ namespace ERP.OMS.Management.Master
                     // Rev 9.0
                     else if (Convert.ToString(dr["key"]) == "AdditionalinfoRequiredforContactListing")
                     {
-                        chkAdditionalinfoRequiredforContactListing.Checked = true;
-                        
+                        // Rev 15.0
+                        //chkAdditionalinfoRequiredforContactListing.Checked = true;
+                        // End of Rev 15.0
+
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
                             divAdditionalinfoRequiredforContactListing.Style.Add("display", "table-cell");
@@ -7812,7 +7815,9 @@ namespace ERP.OMS.Management.Master
                     }
                     else if (Convert.ToString(dr["key"]) == "AdditionalinfoRequiredforContactAdd")
                     {
-                        chkAdditionalinfoRequiredforContactAdd.Checked = true;
+                        // Rev 15.0
+                        //chkAdditionalinfoRequiredforContactAdd.Checked = true;
+                        // End of Rev 15.0
 
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
@@ -7886,7 +7891,9 @@ namespace ERP.OMS.Management.Master
                     // Rev 11.0
                     else if (Convert.ToString(dr["key"]) == "IsShowAddressInParty")
                     {
-                        chkIsShowAddressInParty.Checked = true;
+                        // Rev 15.0
+                        //chkIsShowAddressInParty.Checked = true;
+                        // End of Rev 15.0
 
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
