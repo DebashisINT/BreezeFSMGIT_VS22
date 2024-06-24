@@ -311,6 +311,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSCategoryController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSPointController.cs" />
+    <Compile Include="Areas\LMS\Controllers\LMSQuestionsController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSTopicsController.cs" />
     <Compile Include="Areas\LMS\LMSAreaRegistration.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -326,6 +327,7 @@
       <DependentUpon>LMSMaster.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\LMSPointModel.cs" />
+    <Compile Include="Models\LMSQuestionsModel.cs" />
     <Compile Include="Models\LMSTopicsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -810,6 +812,8 @@
     <Content Include="Areas\LMS\Views\LMSTopics\PartialTopicGridList.cshtml" />
     <Content Include="Areas\LMS\Views\LMSPoint\Index.cshtml" />
     <Content Include="Areas\LMS\Views\LMSPoint\PartialPointListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\Index.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\PartialQuestionsListing.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
