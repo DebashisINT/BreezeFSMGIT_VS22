@@ -309,6 +309,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\LMS\Controllers\LMSContentUploadController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSCategoryController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSPointController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSTopicsController.cs" />
@@ -320,6 +321,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LMSCategoryModel.cs" />
+    <Compile Include="Models\LMSContentModel.cs" />
     <Compile Include="Models\LMSMaster.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -810,6 +812,9 @@
     <Content Include="Areas\LMS\Views\LMSTopics\PartialTopicGridList.cshtml" />
     <Content Include="Areas\LMS\Views\LMSPoint\Index.cshtml" />
     <Content Include="Areas\LMS\Views\LMSPoint\PartialPointListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\Index.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\PartialContentGridList.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSTopicPartial.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
