@@ -64,14 +64,6 @@ namespace LMS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<LMS_CONTENTMASTER_LISTING> LMS_CONTENTMASTER_LISTINGs
-		{
-			get
-			{
-				return this.GetTable<LMS_CONTENTMASTER_LISTING>();
-			}
-		}
-		
 		public System.Data.Linq.Table<LMS_QUESTIONSMASTERLIST> LMS_QUESTIONSMASTERLISTs
 		{
 			get
@@ -93,6 +85,14 @@ namespace LMS.Models
 			get
 			{
 				return this.GetTable<LMS_POINTSETUPMASTERLIST>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LMS_CONTENTMASTER_LISTING> LMS_CONTENTMASTER_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<LMS_CONTENTMASTER_LISTING>();
 			}
 		}
 	}
@@ -217,375 +217,6 @@ namespace LMS.Models
 				if ((this._TOPICSTATUS != value))
 				{
 					this._TOPICSTATUS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="NVarChar(50)")]
-		public string CREATEDBY
-		{
-			get
-			{
-				return this._CREATEDBY;
-			}
-			set
-			{
-				if ((this._CREATEDBY != value))
-				{
-					this._CREATEDBY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDON", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CREATEDON
-		{
-			get
-			{
-				return this._CREATEDON;
-			}
-			set
-			{
-				if ((this._CREATEDON != value))
-				{
-					this._CREATEDON = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="NVarChar(50)")]
-		public string UPDATEDBY
-		{
-			get
-			{
-				return this._UPDATEDBY;
-			}
-			set
-			{
-				if ((this._UPDATEDBY != value))
-				{
-					this._UPDATEDBY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDON", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UPDATEDON
-		{
-			get
-			{
-				return this._UPDATEDON;
-			}
-			set
-			{
-				if ((this._UPDATEDON != value))
-				{
-					this._UPDATEDON = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CONTENTMASTER_LISTING")]
-	public partial class LMS_CONTENTMASTER_LISTING
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<int> _SEQ;
-		
-		private long _CONTENTID;
-		
-		private string _CONTENTTITLE;
-		
-		private string _CONTENTDESC;
-		
-		private string _CONTENT_TOPIC;
-		
-		private long _CONTENT_PLAYSEQ;
-		
-		private string _CONTENTSTATUS;
-		
-		private string _CONTENT_FILENAME;
-		
-		private System.Nullable<int> _CONTENT_FILESIZE;
-		
-		private string _CONTENT_FILEPATH;
-		
-		private string _CONTENT_FILETYPE;
-		
-		private System.Nullable<decimal> _CONTENT_FILEDURATION;
-		
-		private string _CONTENT_ALLOWLIKE;
-		
-		private string _CONTENT_ALLOWCOMMENTS;
-		
-		private string _CONTENT_ALLOWSHARE;
-		
-		private string _CREATEDBY;
-		
-		private System.Nullable<System.DateTime> _CREATEDON;
-		
-		private string _UPDATEDBY;
-		
-		private System.Nullable<System.DateTime> _UPDATEDON;
-		
-		public LMS_CONTENTMASTER_LISTING()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
-		public System.Nullable<int> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTID", DbType="BigInt NOT NULL")]
-		public long CONTENTID
-		{
-			get
-			{
-				return this._CONTENTID;
-			}
-			set
-			{
-				if ((this._CONTENTID != value))
-				{
-					this._CONTENTID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTTITLE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string CONTENTTITLE
-		{
-			get
-			{
-				return this._CONTENTTITLE;
-			}
-			set
-			{
-				if ((this._CONTENTTITLE != value))
-				{
-					this._CONTENTTITLE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTDESC", DbType="NVarChar(300) NOT NULL", CanBeNull=false)]
-		public string CONTENTDESC
-		{
-			get
-			{
-				return this._CONTENTDESC;
-			}
-			set
-			{
-				if ((this._CONTENTDESC != value))
-				{
-					this._CONTENTDESC = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_TOPIC", DbType="NVarChar(300)")]
-		public string CONTENT_TOPIC
-		{
-			get
-			{
-				return this._CONTENT_TOPIC;
-			}
-			set
-			{
-				if ((this._CONTENT_TOPIC != value))
-				{
-					this._CONTENT_TOPIC = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_PLAYSEQ", DbType="BigInt NOT NULL")]
-		public long CONTENT_PLAYSEQ
-		{
-			get
-			{
-				return this._CONTENT_PLAYSEQ;
-			}
-			set
-			{
-				if ((this._CONTENT_PLAYSEQ != value))
-				{
-					this._CONTENT_PLAYSEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTSTATUS", DbType="NVarChar(10)")]
-		public string CONTENTSTATUS
-		{
-			get
-			{
-				return this._CONTENTSTATUS;
-			}
-			set
-			{
-				if ((this._CONTENTSTATUS != value))
-				{
-					this._CONTENTSTATUS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILENAME", DbType="NVarChar(200)")]
-		public string CONTENT_FILENAME
-		{
-			get
-			{
-				return this._CONTENT_FILENAME;
-			}
-			set
-			{
-				if ((this._CONTENT_FILENAME != value))
-				{
-					this._CONTENT_FILENAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILESIZE", DbType="Int")]
-		public System.Nullable<int> CONTENT_FILESIZE
-		{
-			get
-			{
-				return this._CONTENT_FILESIZE;
-			}
-			set
-			{
-				if ((this._CONTENT_FILESIZE != value))
-				{
-					this._CONTENT_FILESIZE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILEPATH", DbType="NVarChar(100)")]
-		public string CONTENT_FILEPATH
-		{
-			get
-			{
-				return this._CONTENT_FILEPATH;
-			}
-			set
-			{
-				if ((this._CONTENT_FILEPATH != value))
-				{
-					this._CONTENT_FILEPATH = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILETYPE", DbType="NVarChar(100)")]
-		public string CONTENT_FILETYPE
-		{
-			get
-			{
-				return this._CONTENT_FILETYPE;
-			}
-			set
-			{
-				if ((this._CONTENT_FILETYPE != value))
-				{
-					this._CONTENT_FILETYPE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILEDURATION", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> CONTENT_FILEDURATION
-		{
-			get
-			{
-				return this._CONTENT_FILEDURATION;
-			}
-			set
-			{
-				if ((this._CONTENT_FILEDURATION != value))
-				{
-					this._CONTENT_FILEDURATION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWLIKE", DbType="NVarChar(10)")]
-		public string CONTENT_ALLOWLIKE
-		{
-			get
-			{
-				return this._CONTENT_ALLOWLIKE;
-			}
-			set
-			{
-				if ((this._CONTENT_ALLOWLIKE != value))
-				{
-					this._CONTENT_ALLOWLIKE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWCOMMENTS", DbType="NVarChar(10)")]
-		public string CONTENT_ALLOWCOMMENTS
-		{
-			get
-			{
-				return this._CONTENT_ALLOWCOMMENTS;
-			}
-			set
-			{
-				if ((this._CONTENT_ALLOWCOMMENTS != value))
-				{
-					this._CONTENT_ALLOWCOMMENTS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWSHARE", DbType="NVarChar(10)")]
-		public string CONTENT_ALLOWSHARE
-		{
-			get
-			{
-				return this._CONTENT_ALLOWSHARE;
-			}
-			set
-			{
-				if ((this._CONTENT_ALLOWSHARE != value))
-				{
-					this._CONTENT_ALLOWSHARE = value;
 				}
 			}
 		}
@@ -1253,6 +884,375 @@ namespace LMS.Models
 				if ((this._ModifyUser != value))
 				{
 					this._ModifyUser = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CONTENTMASTER_LISTING")]
+	public partial class LMS_CONTENTMASTER_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private long _CONTENTID;
+		
+		private string _CONTENTTITLE;
+		
+		private string _CONTENTDESC;
+		
+		private string _CONTENT_TOPIC;
+		
+		private long _CONTENT_PLAYSEQ;
+		
+		private string _CONTENTSTATUS;
+		
+		private string _CONTENT_FILENAME;
+		
+		private System.Nullable<int> _CONTENT_FILESIZE;
+		
+		private string _CONTENT_FILEPATH;
+		
+		private string _CONTENT_FILETYPE;
+		
+		private System.Nullable<decimal> _CONTENT_FILEDURATION;
+		
+		private string _CONTENT_ALLOWLIKE;
+		
+		private string _CONTENT_ALLOWCOMMENTS;
+		
+		private string _CONTENT_ALLOWSHARE;
+		
+		private string _CREATEDBY;
+		
+		private System.Nullable<System.DateTime> _CREATEDON;
+		
+		private string _UPDATEDBY;
+		
+		private System.Nullable<System.DateTime> _UPDATEDON;
+		
+		public LMS_CONTENTMASTER_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTID", DbType="BigInt NOT NULL")]
+		public long CONTENTID
+		{
+			get
+			{
+				return this._CONTENTID;
+			}
+			set
+			{
+				if ((this._CONTENTID != value))
+				{
+					this._CONTENTID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTTITLE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string CONTENTTITLE
+		{
+			get
+			{
+				return this._CONTENTTITLE;
+			}
+			set
+			{
+				if ((this._CONTENTTITLE != value))
+				{
+					this._CONTENTTITLE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTDESC", DbType="NVarChar(300) NOT NULL", CanBeNull=false)]
+		public string CONTENTDESC
+		{
+			get
+			{
+				return this._CONTENTDESC;
+			}
+			set
+			{
+				if ((this._CONTENTDESC != value))
+				{
+					this._CONTENTDESC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_TOPIC", DbType="NVarChar(300)")]
+		public string CONTENT_TOPIC
+		{
+			get
+			{
+				return this._CONTENT_TOPIC;
+			}
+			set
+			{
+				if ((this._CONTENT_TOPIC != value))
+				{
+					this._CONTENT_TOPIC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_PLAYSEQ", DbType="BigInt NOT NULL")]
+		public long CONTENT_PLAYSEQ
+		{
+			get
+			{
+				return this._CONTENT_PLAYSEQ;
+			}
+			set
+			{
+				if ((this._CONTENT_PLAYSEQ != value))
+				{
+					this._CONTENT_PLAYSEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTSTATUS", DbType="NVarChar(10)")]
+		public string CONTENTSTATUS
+		{
+			get
+			{
+				return this._CONTENTSTATUS;
+			}
+			set
+			{
+				if ((this._CONTENTSTATUS != value))
+				{
+					this._CONTENTSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILENAME", DbType="NVarChar(200)")]
+		public string CONTENT_FILENAME
+		{
+			get
+			{
+				return this._CONTENT_FILENAME;
+			}
+			set
+			{
+				if ((this._CONTENT_FILENAME != value))
+				{
+					this._CONTENT_FILENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILESIZE", DbType="Int")]
+		public System.Nullable<int> CONTENT_FILESIZE
+		{
+			get
+			{
+				return this._CONTENT_FILESIZE;
+			}
+			set
+			{
+				if ((this._CONTENT_FILESIZE != value))
+				{
+					this._CONTENT_FILESIZE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILEPATH", DbType="NVarChar(100)")]
+		public string CONTENT_FILEPATH
+		{
+			get
+			{
+				return this._CONTENT_FILEPATH;
+			}
+			set
+			{
+				if ((this._CONTENT_FILEPATH != value))
+				{
+					this._CONTENT_FILEPATH = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILETYPE", DbType="NVarChar(100)")]
+		public string CONTENT_FILETYPE
+		{
+			get
+			{
+				return this._CONTENT_FILETYPE;
+			}
+			set
+			{
+				if ((this._CONTENT_FILETYPE != value))
+				{
+					this._CONTENT_FILETYPE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_FILEDURATION", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> CONTENT_FILEDURATION
+		{
+			get
+			{
+				return this._CONTENT_FILEDURATION;
+			}
+			set
+			{
+				if ((this._CONTENT_FILEDURATION != value))
+				{
+					this._CONTENT_FILEDURATION = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWLIKE", DbType="NVarChar(10)")]
+		public string CONTENT_ALLOWLIKE
+		{
+			get
+			{
+				return this._CONTENT_ALLOWLIKE;
+			}
+			set
+			{
+				if ((this._CONTENT_ALLOWLIKE != value))
+				{
+					this._CONTENT_ALLOWLIKE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWCOMMENTS", DbType="NVarChar(10)")]
+		public string CONTENT_ALLOWCOMMENTS
+		{
+			get
+			{
+				return this._CONTENT_ALLOWCOMMENTS;
+			}
+			set
+			{
+				if ((this._CONTENT_ALLOWCOMMENTS != value))
+				{
+					this._CONTENT_ALLOWCOMMENTS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ALLOWSHARE", DbType="NVarChar(10)")]
+		public string CONTENT_ALLOWSHARE
+		{
+			get
+			{
+				return this._CONTENT_ALLOWSHARE;
+			}
+			set
+			{
+				if ((this._CONTENT_ALLOWSHARE != value))
+				{
+					this._CONTENT_ALLOWSHARE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="NVarChar(50)")]
+		public string CREATEDBY
+		{
+			get
+			{
+				return this._CREATEDBY;
+			}
+			set
+			{
+				if ((this._CREATEDBY != value))
+				{
+					this._CREATEDBY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDON
+		{
+			get
+			{
+				return this._CREATEDON;
+			}
+			set
+			{
+				if ((this._CREATEDON != value))
+				{
+					this._CREATEDON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="NVarChar(50)")]
+		public string UPDATEDBY
+		{
+			get
+			{
+				return this._UPDATEDBY;
+			}
+			set
+			{
+				if ((this._UPDATEDBY != value))
+				{
+					this._UPDATEDBY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UPDATEDON
+		{
+			get
+			{
+				return this._UPDATEDON;
+			}
+			set
+			{
+				if ((this._UPDATEDON != value))
+				{
+					this._UPDATEDON = value;
 				}
 			}
 		}

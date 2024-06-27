@@ -74,15 +74,15 @@
         //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
 
-    //settings.Columns.Add(column =>
-    //{
-    //    column.FieldName = "CONTENT_TOPIC";
-    //    column.Caption = "Topic";
-    //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-    //    column.Width = 120;
-    //    //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CONTENT_TOPIC";
+        column.Caption = "Topic";
+        column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        column.Width = 120;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-    //});
+    });
     settings.Columns.Add(column =>
     {
         column.FieldName = "CONTENT_PLAYSEQ";
