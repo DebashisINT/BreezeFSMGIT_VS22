@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Data;
 using UtilityLayer;
 using DevExpress.Utils;
+using DevExpress.XtraSpreadsheet.Model;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -113,7 +114,7 @@ namespace LMS.Areas.LMS.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditCategory(string id)
+        public JsonResult EditQuestion(string id)
         {
             DataTable output = new DataTable();
             output = obj.EditQuestion(id);
@@ -122,9 +123,9 @@ namespace LMS.Areas.LMS.Controllers
             {
                 return Json(new
                 {
-                    NAME = Convert.ToString(output.Rows[0]["CATEGORYNAME"]),
-                    DESCRIPTION = Convert.ToString(output.Rows[0]["CATEGORYDESCRIPTION"]),
-                    STATUS = Convert.ToString(output.Rows[0]["CATEGORYSTATUS"])
+                    NAME = Convert.ToString(output.Rows[0]["QUESTIONS_NAME"]),
+                    DESCRIPTION = Convert.ToString(output.Rows[0]["QUESTIONS_DESCRIPTN"]),
+                    //STATUS = Convert.ToString(output.Rows[0]["CATEGORYSTATUS"])
                 }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -142,74 +143,83 @@ namespace LMS.Areas.LMS.Controllers
         }
 
 
-        public ActionResult ExporCategoryList(int type)
+        public ActionResult ExporQuestionList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetCategoryGridViewSettings(), GetQuestionsDetailsList(""));              
+                    return GridViewExtension.ExportToXlsx(GetQuestionsGridViewSettings(), GetQuestionsDetailsList(""));              
                 default:
                     break;
             }
             return null;
         }
 
-        private GridViewSettings GetCategoryGridViewSettings()
+        private GridViewSettings GetQuestionsGridViewSettings()
         {
 
 
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Category";
+            settings.SettingsExport.FileName = "Questions";
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "CATEGORYNAME";
-                x.Caption = "Category Name";
+                x.FieldName = "QUESTIONS_NAME";
+                x.Caption = "Question";
                 x.VisibleIndex = 1;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "CATEGORYDESCRIPTION";
-                x.Caption = "Category Description";
+                x.FieldName = "QUESTIONS_DESCRIPTN";
+                x.Caption = "Description";
                 x.VisibleIndex = 2;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "CATEGORYSTATUS";
-                x.Caption = "Active";
+                x.FieldName = "CNTTOPIC"; 
+                x.Caption = "Topics";
                 x.VisibleIndex = 3;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "CreateUser";
-                x.Caption = "Created By";
+                x.FieldName = "CNTCATEGORY"; 
+                x.Caption = "Categories";
                 x.VisibleIndex = 4;
                 x.Width = 200;
             });
+
+
             settings.Columns.Add(x =>
             {
-                x.FieldName = "CreateDate";
-                x.Caption = "Created On";
+                x.FieldName = "CREATEUSER";
+                x.Caption = "Created By";
                 x.VisibleIndex = 5;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "ModifyUser";
-                x.Caption = "Updated By";
+                x.FieldName = "CREATEDATE";
+                x.Caption = "Created On";
                 x.VisibleIndex = 6;
                 x.Width = 200;
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "ModifyDate";
-                x.Caption = "Updated On";
+                x.FieldName = "MODIFYUSER";
+                x.Caption = "Updated By";
                 x.VisibleIndex = 7;
+                x.Width = 200;
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "MODIFYDATE";
+                x.Caption = "Updated On";
+                x.VisibleIndex = 8;
                 x.Width = 200;
             });
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
