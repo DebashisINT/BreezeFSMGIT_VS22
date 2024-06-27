@@ -48,7 +48,7 @@ namespace LMS.Areas.LMS.Controllers
             //    }
             //}
 
-            //LMSContentModel Dtls = new LMSContentModel();
+            LMSContentModel Dtls = new LMSContentModel();
 
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
             ViewBag.CanAdd = rights.CanAdd;
@@ -60,22 +60,22 @@ namespace LMS.Areas.LMS.Controllers
             DBEngine obj1 = new DBEngine();
             ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
 
-            //List<TopicList> modelTopic = new List<TopicList>();
+            List<TopicList> modelTopic = new List<TopicList>();
 
-            //DataSet ds = new DataSet();
-            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            //proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-            //ds = proc.GetDataSet();
+            DataSet ds = new DataSet();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            ds = proc.GetDataSet();
 
-            //if (ds != null)
-            //{
-            //    // Company
-            //    List<TopicList> TopicList = new List<TopicList>();
-            //    TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
-            //    modelTopic = TopicList;
-            //}
+            if (ds != null)
+            {
+                // Company
+                List<TopicList> TopicList = new List<TopicList>();
+                TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
+                Dtls.TopicList = TopicList;
+            }
 
-            return View();
+            return View(Dtls);
         }
 
         public ActionResult GetLMSTopicList()
@@ -261,9 +261,12 @@ namespace LMS.Areas.LMS.Controllers
 
 
         [HttpPost]
+        //public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
+        //            string txtContentTitle, string txtContentDesc, string numPlaySequence, string hdnTopicID,
+        //            string chkStatus, string chkAllowLike , string chkAllowComments, string chkAllowShare)
         public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
-                    string txtContentTitle, string txtContentDesc, string numPlaySequence, string hdnTopicID,
-                    string chkStatus, string chkAllowLike , string chkAllowComments, string chkAllowShare)
+                    string txtContentTitle, string txtContentDesc, string numPlaySequence, LMSContentModel data,
+                    string chkStatus, string chkAllowLike, string chkAllowComments, string chkAllowShare)
         {
             try
             {
@@ -369,7 +372,7 @@ namespace LMS.Areas.LMS.Controllers
                     proc.AddPara("@CONTENTID", hdnContentID);
                     proc.AddPara("@CONTENTTITLE", txtContentTitle);
                     proc.AddPara("@CONTENTDESC", txtContentDesc);
-                    proc.AddPara("@TOPICID", hdnTopicID);
+                    proc.AddPara("@TOPICID", data.TopicId);
                     proc.AddPara("@PLAYSEQUENCE", numPlaySequence);
                     proc.AddPara("@STATUS", chkStatus);
                     proc.AddPara("@ALLOWLIKE", chkAllowLike);

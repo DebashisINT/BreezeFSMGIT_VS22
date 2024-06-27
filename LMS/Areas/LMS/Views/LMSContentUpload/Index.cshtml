@@ -1,6 +1,6 @@
 ﻿
 @using LMS.Models;
-@*@model LMS.Models.LMSContentModel*@
+@model LMS.Models.LMSContentModel
 
 @{
     ViewBag.Title = "Content";
@@ -1538,8 +1538,8 @@
         $("#hdnContentID").val(0);
         $("#txtContentTitle").val('');
         $("#txtContentDesc").val('');
-        //$("#ddlTopic").val(0);
-        LMSTopicGridLookup.SetValue();
+        $("#ddlTopic").val(0);
+        //LMSTopicGridLookup.SetValue();
         $("#numPlaySequence").val(1);
         $("#chkStatus").prop("checked", true);
         $("#chkAllowLike").prop("checked", false);
@@ -1549,26 +1549,26 @@
         $("#AddContentModal").modal('show');
     }
 
-    var TopicId = [];
-    function TopicSelectionChanged(s, e) {
-        LMSTopicGridLookup.gridView.GetSelectedFieldValues("TOPIC_ID", GetTopicSelectedFieldValuesCallback);
-    }
-    function GetTopicSelectedFieldValuesCallback(values) {
-        try {
-            TopicId = [];
-            for (var i = 0; i < values.length; i++) {
-                TopicId.push(values[i]);
-            }
-            $("#hdnTopicID").val(TopicId);
-        } finally {
-            console.log(TopicId);
-        }
-    }
+    //var TopicId = [];
+    //function TopicSelectionChanged(s, e) {
+    //    LMSTopicGridLookup.gridView.GetSelectedFieldValues("TOPIC_ID", GetTopicSelectedFieldValuesCallback);
+    //}
+    //function GetTopicSelectedFieldValuesCallback(values) {
+    //    try {
+    //        TopicId = [];
+    //        for (var i = 0; i < values.length; i++) {
+    //            TopicId.push(values[i]);
+    //        }
+    //        $("#hdnTopicID").val(TopicId);
+    //    } finally {
+    //        console.log(TopicId);
+    //    }
+    //}
 
     function OpenLMSContentforEdit(ContentId) {
         $("#hdnAddEditMode").val('EDITCONTENT');
         $("#hdnContentID").val(ContentId);
-        LMSTopicGridLookup.gridView.UnselectAllRowsOnPage();
+        //LMSTopicGridLookup.gridView.UnselectAllRowsOnPage();
         
 
         $.ajax({
@@ -1580,17 +1580,17 @@
 
                 $("#txtContentTitle").val(data[0].ContentTitle);
                 $("#txtContentDesc").val(data[0].ContentDesc);
-                //$("#ddlTopic").val(data[0].TopicIds);
+                $("#ddlTopic").val(data[0].TopicIds);
                 $("#numPlaySequence").val(data[0].PlaySequence);
                 $("#chkStatus").prop("checked", data[0].Status);
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
                 $("#chkAllowComments").prop("checked", data[0].AllowComments);
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
 
-                $("#hdnTopicID").val(data[0].TopicIds);
+                //$("#hdnTopicID").val(data[0].TopicIds);
 
-                var topicids = data[0].TopicIds.split(', ');
-                LMSTopicGridLookup.SetValue(topicids);
+                //var topicids = data[0].TopicIds.split(', ');
+                //LMSTopicGridLookup.SetValue(topicids);
 
                 $('#AddContentModal').modal('show');
                 },
@@ -1770,8 +1770,8 @@
                     <div class="clearfix">
                         <div class="col-lg-6">
                             <label>Select Topic</label>
-                            @*@Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })*@
-                            @Html.Action("GetLMSTopicList", "LMSContentUpload")
+                            @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
+                            @*@Html.Action("GetLMSTopicList", "LMSContentUpload")*@
 
                         </div>
                         <div class="col-lg-3">
