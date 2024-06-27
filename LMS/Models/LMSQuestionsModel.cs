@@ -108,7 +108,7 @@ namespace LMS.Models
         {
             int i;
             int rtrnvalue = 0;
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMS_CATEGORYMASTER");
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMS_QUESTIONS");
             proc.AddNVarcharPara("@action", 50, "DELETE");
             proc.AddNVarcharPara("@ID", 30, CategoryId);
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
@@ -124,7 +124,7 @@ namespace LMS.Models
             DataTable dt = new DataTable();
             try
             {
-                using (proc = new ProcedureExecute("PRC_LMS_CATEGORYMASTER"))
+                using (proc = new ProcedureExecute("PRC_LMS_QUESTIONS"))
                 {
                     proc.AddVarcharPara("@ID", 100, ID);
                     proc.AddVarcharPara("@ACTION", 100, "EDIT");

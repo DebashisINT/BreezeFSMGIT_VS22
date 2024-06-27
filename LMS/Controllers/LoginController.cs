@@ -45,7 +45,7 @@ namespace LMS.Controllers
             Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
             if (Validuser == "Y")
             {
-                return RedirectToAction("Index", "LMS/LMSPoint");
+                return RedirectToAction("Index", "LMS/LMSQuestions");
             }
 
             else
