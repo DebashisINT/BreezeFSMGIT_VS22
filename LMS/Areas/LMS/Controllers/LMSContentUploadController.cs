@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using UtilityLayer;
 
 namespace LMS.Areas.LMS.Controllers
@@ -138,28 +139,39 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
-                ViewBag.CanAdd = rights.CanAdd;
-                ViewBag.CanView = rights.CanView;
-                ViewBag.CanExport = rights.CanExport;
-                ViewBag.CanEdit = rights.CanEdit;
-                ViewBag.CanDelete = rights.CanDelete;
-
-                string Is_PageLoad = string.Empty;
-
-                if (model.Is_PageLoad == "Ispageload")
+                if (model.Is_PageLoad == "TotalContents" || model.Is_PageLoad == "ActiveContents" || model.Is_PageLoad == "InactiveContents")
                 {
-                    Is_PageLoad = "is_pageload";
+                    string Is_PageLoad = model.Is_PageLoad;
 
+                    model.Is_PageLoad = "Ispageload";
+
+                    return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
                 }
+                else
+                {
+                    EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
+                    ViewBag.CanAdd = rights.CanAdd;
+                    ViewBag.CanView = rights.CanView;
+                    ViewBag.CanExport = rights.CanExport;
+                    ViewBag.CanEdit = rights.CanEdit;
+                    ViewBag.CanDelete = rights.CanDelete;
+
+                    string Is_PageLoad = string.Empty;
+
+                    if (model.Is_PageLoad == "Ispageload")
+                    {
+                        Is_PageLoad = "is_pageload";
+
+                    }
 
 
-                GetContentListing(Is_PageLoad);
+                    GetContentListing(Is_PageLoad);
 
-                model.Is_PageLoad = "Ispageload";
+                    model.Is_PageLoad = "Ispageload";
 
-                return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
-
+                    return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
+                }
+                
             }
             catch (Exception ex)
             {
@@ -205,12 +217,34 @@ namespace LMS.Areas.LMS.Controllers
 
             if (Is_PageLoad != "is_pageload")
             {
-                LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-                        where d.USERID == Convert.ToInt32(Userid)
-                        orderby d.SEQ 
-                        select d;
-                return q;
+                if (Is_PageLoad == "ActiveContents")
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "Yes"
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                else if (Is_PageLoad == "InactiveContents")
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "No"
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                else
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid)
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                
             }
             else
             {
@@ -321,6 +355,7 @@ namespace LMS.Areas.LMS.Controllers
                     else if (hdnAddEditMode == "EDITCONTENT")
                     {
                         IsValid = 1;
+                        hdnFileDuration = "0";
                     }
                     
                 }
@@ -329,30 +364,6 @@ namespace LMS.Areas.LMS.Controllers
 
                 if (IsValid == 1)
                 {
-                    if(fileName != null && fileName != "")
-                    {
-                        if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/")))
-                        {
-                            // If Folder doesnot exists, CREATE the folder
-                            System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
-                        }
-                        else if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
-                        {
-                            if (hdnAddEditMode == "ADDCONTENT")
-                            {
-                                // If file name already exists, RENAME the file by concatinating it by datetime
-                                fileName = DateTime.Now.ToString("hhmmss") + fileName;
-                            }
-                            else if (hdnAddEditMode == "EDITCONTENT")
-                            {
-                                // If file name already exists, DELETE it
-                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
-                            }
-
-                        }
-                        fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
-                    }
-
                     ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
                     proc.AddPara("@ACTION", hdnAddEditMode);
                     proc.AddPara("@CONTENTID", hdnContentID);
@@ -377,6 +388,26 @@ namespace LMS.Areas.LMS.Controllers
                     int k = proc.RunActionQuery();
                     RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
                     //RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+
+                    if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
+                        if (fileName != null && fileName != "")
+                        {
+                            if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/")))
+                            {
+                                // If Folder doesnot exists, CREATE the folder
+                                System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
+                            }
+                            else if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                            {
+                                // If file name already exists, RENAME the file by concatinating it by datetime
+                                fileName = DateTime.Now.ToString("hhmmss") + fileName;
+                            }
+                            fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+                        }
+                    }
+
+                    
+
                 }
 
 
@@ -416,6 +447,77 @@ namespace LMS.Areas.LMS.Controllers
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteContent(string ContentId)
+        {
+            string output_msg = string.Empty;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "DELETECONTENTS");
+                proc.AddPara("@CONTENTID", ContentId);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+
+                if (output_msg != "-10" && output_msg != null && output_msg != "")
+                {
+                    string fileName = output_msg;
+
+                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+
+                    }
+
+                    output_msg = "1";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetContentCount()
+        {
+            LMSContentModel dtl = new LMSContentModel();
+            try
+            {
+                DataSet ds = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@Action", "GETCONTENTCOUNTDATA");
+                proc.AddPara("@userid", Convert.ToString(HttpContext.Session["userid"]));
+                ds = proc.GetDataSet();
+
+                int TotalContents = 0;
+                int ActiveContents = 0;
+                int InactiveContents = 0;
+                
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    TotalContents = Convert.ToInt32(item["cnt_TotalContents"]);
+                    ActiveContents = Convert.ToInt32(item["cnt_ActiveContents"]);
+                    InactiveContents = Convert.ToInt32(item["cnt_InactiveContents"]);
+                }
+
+                dtl.TotalContents = TotalContents;
+                dtl.ActiveContents = ActiveContents;
+                dtl.InactiveContents = InactiveContents;
+                
+            }
+            catch
+            {
+            }
+            return Json(dtl);
         }
     }
 }
