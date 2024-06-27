@@ -1467,7 +1467,8 @@
                         jAlert(JSON.parse(xhr.responseText), 'success', function () { window.location.href = '/LMS/LMSContentUpload/Index'; });
                     else
                     //var notification = alertify.error(JSON.parse(xhr.responseText));
-                        jAlert(JSON.parse(xhr.responseText), 'fail', function () { window.location.href = '/LMS/LMSContentUpload/Index'; });
+                        //jAlert(JSON.parse(xhr.responseText), 'fail', function () { window.location.href = '/LMS/LMSContentUpload/Index'; });
+                        jAlert(JSON.parse(xhr.responseText), 'fail');
 
                 }
             }
