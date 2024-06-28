@@ -135,6 +135,28 @@ namespace LMS.Areas.LMS.Controllers
         //    return View(videolist);
         //}
 
+        public JsonResult GetContentGridListData()
+        {
+            DataTable dt = new DataTable();
+            //  LMSContentAddModel ret = new LMSContentAddModel();
+            List<ContentListingData> ContentList1 = new List<ContentListingData>();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@ACTION", "GETLISTINGDATA");
+            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            dt = proc.GetTable();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                ContentList1 = APIHelperMethods.ToModelList<ContentListingData>(dt);
+            }
+
+            return Json(ContentList1, JsonRequestBehavior.AllowGet);
+
+
+        }
+
         public ActionResult PartialContentGridList(LMSContentModel model)
         {
             try

@@ -1414,22 +1414,45 @@
             var flag = true;
 
             Is_PageLoad = "1";
-            gridLMSContent.Refresh();
-            gridLMSContent.Refresh();
-
+            // Rev Sanchita
+            //gridLMSContent.Refresh();
+            //gridLMSContent.Refresh();
+            // End of Rev Sanchita
 
             setTimeout(function () {
                 $.ajax({
                     type: "POST",
-                    url: "/LMSContentUpload/GetContentCount",
+                    url: "/LMSContentUpload/GetContentGridListData",
                     //data: JSON.stringify(obj),
                     async: false,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
-                        $("#btnShowTotalContents").text(response.TotalContents);
-                        $("#btnShowActiveContents").text(response.ActiveContents);
-                        $("#btnShowInactiveContents").text(response.InactiveContents);
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $("#btnShowTotalContents").text(data[0].cnt_TotalContents);
+                            $("#btnShowActiveContents").text(data[0].cnt_ActiveContents);
+                            $("#btnShowInactiveContents").text(data[0].cnt_InactiveContents);
+                        }
+
+                        //setTimeout(function () {
+                        //    $.ajax({
+                        //        type: "POST",
+                        //        url: "/LMSContentUpload/GetContentCount",
+                        //        //data: JSON.stringify(obj),
+                        //        async: false,
+                        //        contentType: "application/json; charset=utf-8",
+                        //        dataType: "json",
+                        //        success: function (response) {
+                        //            $("#btnShowTotalContents").text(response.TotalContents);
+                        //            $("#btnShowActiveContents").text(response.ActiveContents);
+                        //            $("#btnShowInactiveContents").text(response.InactiveContents);
+
+                        //        },
+                        //        error: function (response) {
+                        //            jAlert("Please try again later");
+                        //        }
+                        //    });
+                        //}, 1000)
 
                     },
                     error: function (response) {
@@ -1437,6 +1460,8 @@
                     }
                 });
             }, 1000)
+
+            
 
 
         });

@@ -67,4 +67,26 @@ namespace LMS.Models
         public string IsActive { get; set; }
 
     }
+
+    public class ContentListingData
+    {
+        public string CONTENTID { get; set; }
+        public string CONTENTTITLE { get; set; }
+        public string CONTENTDESC { get; set; }
+        public string CONTENTSTATUS { get; set; }
+        public string CONTENT_FILESIZE { get; set; }
+        public string CONTENT_FILENAME { get; set; }
+        public string CONTENT_FILEPATH { get; set; }
+        public string CONTENT_FILETYPE { get; set; }
+        public string CONTENT_FILEDURATION { get; set; }
+        public string CONTENT_ALLOWLIKE { get; set; }
+        public string CONTENT_ALLOWCOMMENTS { get; set; }
+        public string CONTENT_ALLOWSHARE { get; set; }
+
+        public string cnt_TotalContents { get; set; }
+        public string cnt_ActiveContents { get; set; }
+        public string cnt_InactiveContents { get; set; }
+
+    }
+
 }
