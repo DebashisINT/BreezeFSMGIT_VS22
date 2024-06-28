@@ -997,13 +997,19 @@
 
     .filter-count
     {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 500;
     }
 
     .btn-total {
         background-color: rgb(10 63 166 / 9%) !important;
-        
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
     }
 
         .btn-total:hover {
@@ -1017,16 +1023,40 @@
                 color: #fff !important;
             }
 
-            .btn-total h5, .btn-total-used h5, .btn-total-unused h5 {
-                color: #111;
-            }
-
-        .btn-total .filter-count {
-            color: #0D3B8C;
+        .btn-total h5, .btn-total-used h5, .btn-total-unused h5 {
+            color: #111;
+            margin: 0;
         }
+
+        .count-filter-btns .btn
+        {
+            margin-left: 6px;
+        }
+
+    /*.btn-total .filter-count {
+            color: #0D3B8C;
+        }*/
+
+    .btn-total .filter-count {
+        color: #ffffff;
+        background: #054682;
+        height: 38PX;
+        line-height: 38px;
+        min-width: 30px;
+        margin-left: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 
     .btn-total-used {
         background-color: #cbffe4 !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
     }
 
         .btn-total-used:hover {
@@ -1035,11 +1065,25 @@
         }
 
         .btn-total-used .filter-count {
-            color: #0c8f38;
+            color: #fff;
+            background: #0c8f38;
+            height: 38px;
+            line-height: 38px;
+            min-width: 30px;
+            margin-left: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
     .btn-total-unused {
         background-color: #ffe1e1 !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
     }
 
         .btn-total-unused:hover {
@@ -1048,7 +1092,14 @@
         }
 
         .btn-total-unused .filter-count {
-            color: #d80606;
+            color: #fff;
+            background: #d80606;
+            height: 38px;
+            line-height: 38px;
+            min-width: 30px;
+            margin-left: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
     .add-btn .btn-icon {
@@ -1059,6 +1110,12 @@
         background: #fff;
         line-height: 21px;
         margin-right: 5px;
+    }
+
+    .count-filter-btns
+    {
+        display: flex;
+        align-items: center;
     }
 
     .add-btn {
@@ -1721,44 +1778,50 @@
                                 <span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span> Show Data
                             </button>
                             @*}*@
-                        </div>
+
                             @*@if (ViewBag.CanExport){*@
-                        <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
-                            <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                        </button>
+                            <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
+                                <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                            </button>
+                            @*}*@
+                        </div>
+
+                        <div class="count-filter-btns">
+
+                            @*@if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total btn-radius bg-color-6">
+                                <h5>Total topic(s)</h5> <span id="btnShowTotalTopics" class="filter-count">0</span>
+                            </button>
+
                             @*}*@
 
-                        
+                            @*@if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6">
+                                <h5>Used topic(s)</h5> <span id="btnShowUsedTopics" class="filter-count">0</span>
+                            </button>
+
+                            @*}*@
+
+                            @*@if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6">
+                                <h5>Unused topic(s)</h5> <span id="btnShowUnusedTopics" class="filter-count">0</span>
+                            </button>
+
+                            @*}*@
+
+                        </div>
+
+                        </div>
+
+                        @*<div class="col-md-12 top-count-filter" style="padding-top: 10px;">
+
+
+
+
+
+        </div>*@
+                        <div class="clear"></div>
                     </div>
-
-                    <div class="col-md-12 top-count-filter" style="padding-top: 10px;">
-
-
-                        @*@if (ViewBag.CanView){*@
-                        <button type="button" class="btn btn-total btn-radius bg-color-6">
-                            <h5>Total topic(s)</h5> <span id="btnShowTotalTopics" class="filter-count">0</span>
-                        </button>
-
-                        @*}*@
-
-                        @*@if (ViewBag.CanView){*@
-                        <button type="button" class="btn btn-total-used btn-radius bg-color-6">
-                            <h5>Used topic(s)</h5> <span id="btnShowUsedTopics" class="filter-count">0</span>
-</button>
-
-                        @*}*@
-
-                        @*@if (ViewBag.CanView){*@
-                        <button type="button" class="btn btn-total-unused btn-radius bg-color-6">
-                            <h5>Unused topic(s)</h5> <span id="btnShowUnusedTopics" class="filter-count">0</span>
-</button>
-
-                        @*}*@
-
-
-                    </div>
-                    <div class="clear"></div>
-                </div>
                 <div class="clear"></div>
                 <div class="clearfix"></div>
 
