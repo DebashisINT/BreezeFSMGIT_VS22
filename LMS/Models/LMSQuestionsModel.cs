@@ -13,6 +13,9 @@ namespace LMS.Models
     {
         public String QUESTIONS_ID { get; set; }
 
+        public string Is_PageLoad { get; set; }
+        public string Is_PageLoadCategory { get; set; }
+        public string Is_PageLoadTopic { get; set; }
         public DataTable GETLOOKUPVALUE(string Action)
         {
             ProcedureExecute proc;
@@ -151,17 +154,21 @@ namespace LMS.Models
     {
         public Int64 TOPICID { get; set; }
         public string TOPICNAME { get; set; }
+        public string TOPICBASEDON { get; set; }
     }
 
     public class GetCategory
     {
         public Int64 CATEGORYID { get; set; }
         public string CATEGORYNAME { get; set; }
+        public string CATEGORYDESCRIPTION { get; set; }
     }
     public class Tag
     {
         public int TOPICID { get; set; }
         public string TOPICNAME { get; set; }
+
+
     }
 
 }

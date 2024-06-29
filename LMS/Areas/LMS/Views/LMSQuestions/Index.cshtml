@@ -680,6 +680,23 @@
             $('#txtQuestionName').focus();
         });
     });
+    var QUESTIONS_ID = "0";
+    function OpenTopics(ID) {
+        QUESTIONS_ID = ID;
+        gridLMSTopic.Refresh();
+        $("#TopicModal").modal('show');
+    }
+    function OnStartCallbackTOPIC(s, e) {
+        e.customArgs["QUESTIONS_ID"] = QUESTIONS_ID;
+    }
+    function OpenCategories(ID) {
+        QUESTIONS_ID = ID;
+        gridCategoryList.Refresh();
+        $("#CategoryModal").modal('show');
+    }
+    function OnStartCallbackCategory(s, e) {
+        e.customArgs["QUESTIONS_ID"] = QUESTIONS_ID;
+    }
 </script>
 <div class="breadCumb">
     <span>Question</span>
@@ -722,4 +739,50 @@
             </div>
         </div>
     </div>
+
+    <div id="CategoryModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" style="width: 500px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Category Listing</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divModalBody">
+                        <div class="scrooler">
+                            <div id="refreshgrid">
+                                @{
+                                    Html.RenderAction("PartialCategoryGridList", "LMSQuestions", new { Is_PageLoad = "0" });
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="TopicModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" style="width: 500px;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Topics Listing</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divModalBody">
+                        <div class="scrooler">
+                            <div id="refreshgrid">
+                                @{
+                                    Html.RenderAction("PartialTopicGridList", "LMSQuestions", new { Is_PageLoad = "0" });
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hdnID" />
 </div>

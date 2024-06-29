@@ -784,90 +784,90 @@
             if (id == "") {
                 id = "0";
             }
-    if ($("#txtQuestionName").val().trim() == "") {
-        // SweetAlert for empty Question name
-        Swal.fire({
-            icon: 'warning',
-            title: 'Warning',
-            text: 'Enter Question Name to proceed.'
-        });
-        return false;
-    } else if ($("#txtQuestionDescription").val().trim() == "") {
-        // SweetAlert for empty Question description
-        Swal.fire({
-            icon: 'warning',
-            title: 'Warning',
-            text: 'Enter Question Description to proceed.'
-        });
-        return false;
-    } else {
+            if ($("#txtQuestionName").val().trim() == "") {
+            // SweetAlert for empty Question name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Question Name to proceed.'
+            });
+            return false;
+            } else if ($("#txtQuestionDescription").val().trim() == "") {
+            // SweetAlert for empty Question description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Question Description to proceed.'
+            });
+            return false;
+            } else {
 
-        var Option1 = $("#txtOption1").val().trim();
-        var Option2 = $("#txtOption2").val().trim();
-        var Option3 = $("#txtOption3").val().trim();
-        var Option4 = $("#txtOption4").val().trim();
+            var Option1 = $("#txtOption1").val().trim();
+            var Option2 = $("#txtOption2").val().trim();
+            var Option3 = $("#txtOption3").val().trim();
+            var Option4 = $("#txtOption4").val().trim();
 
-        var Point1 = $("#txtPoint1").val().trim();
-        var Point2 = $("#txtPoint2").val().trim();
-        var Point3 = $("#txtPoint3").val().trim();
-        var Point4 = $("#txtPoint4").val().trim();
+            var Point1 = $("#txtPoint1").val().trim();
+            var Point2 = $("#txtPoint2").val().trim();
+            var Point3 = $("#txtPoint3").val().trim();
+            var Point4 = $("#txtPoint4").val().trim();
 
-        var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
-        var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
-        var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
-        var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+            var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+            var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+            var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+            var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
 
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("SaveQuestion", "LMSQuestions")',
-            data: {
-                name: $("#txtQuestionName").val().trim(),
-                id: id,
-                description: $("#txtQuestionDescription").val().trim(),
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveQuestion", "LMSQuestions")',
+                data: {
+                    name: $("#txtQuestionName").val().trim(),
+                    id: id,
+                    description: $("#txtQuestionDescription").val().trim(),
 
-                Option1: Option1,
-                Option2: Option2,
-                Option3: Option3,
-                Option4: Option4,
+                    Option1: Option1,
+                    Option2: Option2,
+                    Option3: Option3,
+                    Option4: Option4,
 
-                Point1: Point1,
-                Point2: Point2,
-                Point3: Point3,
-                Point4: Point4,
+                    Point1: Point1,
+                    Point2: Point2,
+                    Point3: Point3,
+                    Point4: Point4,
 
-                chkCorrect1: chkCorrect1,
-                chkCorrect2: chkCorrect2,
-                chkCorrect3: chkCorrect3,
-                chkCorrect4: chkCorrect4,
+                    chkCorrect1: chkCorrect1,
+                    chkCorrect2: chkCorrect2,
+                    chkCorrect3: chkCorrect3,
+                    chkCorrect4: chkCorrect4,
 
-                TOPIC_ID: TOPIC_ID,
-                Category_ID: Category_ID
+                    TOPIC_ID: TOPIC_ID,
+                    Category_ID: Category_ID
 
-            },
-            success: function (response) {
-                if (parseInt(response) > 0) {
-                    // SweetAlert success message
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Question saved successfully.'
-                    }).then(() => {
-                        // $("#QuestionModal").modal('hide');
-                        var url = '/LMS/LMSQuestions/Index;
-                        window.location.href = url;
-                        //location.reload();
-                    });
-                } else if (parseInt(response) == -1) {
-                    // SweetAlert duplicate Question name warning
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Duplicate Question name cannot be entered. Please enter a unique Question name.'
-                    });
+                },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        // SweetAlert success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Question saved successfully.'
+                        }).then(() => {
+                            // $("#QuestionModal").modal('hide');
+                            var url = "/LMS/LMSQuestions/Index";
+                            window.location.href = url;
+                            //location.reload();
+                        });
+                    } else if (parseInt(response) == -1) {
+                        // SweetAlert duplicate Question name warning
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Duplicate Question name cannot be entered. Please enter a unique Question name.'
+                        });
+                    }
                 }
+            });
             }
-        });
-    }
 }
     function DeleteClick1()
     {

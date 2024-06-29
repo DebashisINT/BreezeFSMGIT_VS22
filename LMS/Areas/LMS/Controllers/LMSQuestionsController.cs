@@ -78,7 +78,7 @@ namespace LMS.Areas.LMS.Controllers
             return View("~/Areas/LMS/Views/LMSQuestions/QuestionAdd.cshtml", obj);
            
         }
-        public ActionResult PartialGridList(LMSCategoryModel model)
+        public ActionResult PartialGridList(LMSQuestionsModel model)
         {
             try
             {
@@ -360,6 +360,91 @@ namespace LMS.Areas.LMS.Controllers
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
                 return Json(modelbranch, JsonRequestBehavior.AllowGet);
 
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public ActionResult PartialCategoryGridList(LMSQuestionsModel model)
+        {
+            try
+            {
+               
+                GetCategory dataobj = new GetCategory();
+                List<GetCategory> productdata = new List<GetCategory>();              
+                DataTable dt = new DataTable();             
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMS_QUESTIONS", sqlcon);
+                sqlcmd.Parameters.Add("@ACTION", "GETCATEGORYLISTINGDETAILS");             
+                sqlcmd.Parameters.Add("@ID", model.QUESTIONS_ID);
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataTable objData = dt;
+                    foreach (DataRow row in objData.Rows)
+                    {
+                        dataobj = new GetCategory();
+                        dataobj.CATEGORYID = Convert.ToInt64(row["CATEGORYID"]);
+                        dataobj.CATEGORYNAME = Convert.ToString(row["CATEGORYNAME"]);
+                        dataobj.CATEGORYDESCRIPTION = Convert.ToString(row["CATEGORYDESCRIPTION"]);
+                        productdata.Add(dataobj);
+
+                    }                    
+                }
+                return PartialView("PartialCategoryDetaisListing", productdata);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public ActionResult PartialTopicGridList(LMSQuestionsModel model)
+        {
+            try
+            {
+
+                GetTopic dataobj = new GetTopic();
+                List<GetTopic> productdata = new List<GetTopic>();
+                DataTable dt = new DataTable();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMS_QUESTIONS", sqlcon);
+                sqlcmd.Parameters.Add("@ACTION", "GETTOPICLISTINGDETAILS");
+                sqlcmd.Parameters.Add("@ID", model.QUESTIONS_ID);
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataTable objData = dt;
+                    foreach (DataRow row in objData.Rows)
+                    {
+                        dataobj = new GetTopic();
+                        dataobj.TOPICID = Convert.ToInt64(row["TOPICID"]);
+                        dataobj.TOPICNAME = Convert.ToString(row["TOPICNAME"]);
+                        dataobj.TOPICBASEDON = Convert.ToString(row["TOPICBASEDON"]);
+                        
+                        productdata.Add(dataobj);
+
+                    }
+                }
+                return PartialView("PartialTopicDetailsListing", productdata);
             }
             catch
             {
