@@ -11,6 +11,7 @@ namespace LMS.Models
 {
     public class LMSQuestionsModel
     {
+        public String QUESTIONS_ID { get; set; }
 
         public DataTable GETLOOKUPVALUE(string Action)
         {
@@ -117,18 +118,18 @@ namespace LMS.Models
             return rtrnvalue;
         }
 
-        public DataTable EditQuestion(string ID)
+        public DataSet EditQuestion(string ID)
         {
             ProcedureExecute proc;
             int rtrnvalue = 0;
-            DataTable dt = new DataTable();
+            DataSet dt = new DataSet();
             try
             {
                 using (proc = new ProcedureExecute("PRC_LMS_QUESTIONS"))
                 {
                     proc.AddVarcharPara("@ID", 100, ID);
                     proc.AddVarcharPara("@ACTION", 100, "EDIT");
-                    dt = proc.GetTable();
+                    dt = proc.GetDataSet();
                     return dt;
                 }
             }
@@ -157,6 +158,10 @@ namespace LMS.Models
         public Int64 CATEGORYID { get; set; }
         public string CATEGORYNAME { get; set; }
     }
-    
+    public class Tag
+    {
+        public int TOPICID { get; set; }
+        public string TOPICNAME { get; set; }
+    }
 
 }
