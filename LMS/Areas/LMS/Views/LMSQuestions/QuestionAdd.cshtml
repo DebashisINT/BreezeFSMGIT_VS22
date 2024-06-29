@@ -1,5 +1,10 @@
 ﻿
+@using System.Web.UI.WebControls
+@using DevExpress.Web.Mvc
+@using DevExpress.Web
+@model LMS.Models.LMSQuestionsModel
 @{
+
     ViewBag.Title = "Question Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -541,58 +546,186 @@
     .swal2-html-container {
         margin-top: 5px !important;
     }
+
+    .delete-col {
+        width: 4%;
+        padding: 10px 10px;
+    }
+
+    .option-col {
+        width: 76%;
+        padding: 10px 10px;
+    }
+
+    .number-col {
+        width: 10%;
+        padding: 10px 10px;
+    }
+
+    .correct-col {
+        width: 10%;
+        padding: 10px 10px;
+    }
+
+    .ans-option {
+        display: flex;
+        align-items: center;
+    }
+
+    .save-exit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .save-exit-btn button {
+            margin: 0 10px 15px;
+        }
+
+    .backBox {
+        padding: 15px !important;
+    }
+
+    .option-part {
+        background: #f6f6f6;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    /*.correct-col div {
+        border: 1px solid #ccc;
+        padding: 6px 5px;
+        border-radius: 4px;
+        height: 34px;
+    }*/
 </style>
+
 <script>
-    var TOPICID = [];     
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+     var QuestionID=0;
+ var urlKeys = getUrlVars();
+ if (urlKeys.key != 'Add') {
+     QuestionID = urlKeys.key;
+     $("#hdnIDADd").val(QuestionID);
+     if(QuestionID!=0)
+     {
+          $.ajax({
+          type: "POST",
+          url: "@Url.Action("EditQuestion", "LMSQuestions")",
+          data: { id: QuestionID },
+          success: function (response) {
+              if (response.code == "") {
+                  jAlert('No data found');
+              }
+              else {
+                  $("#txtQuestionName").val(response.NAME);
+                  $("#txtQuestionDescription").val(response.DESCRIPTION);
+
+
+                 $("#txtOption1").val(response.OPTIONS_NUMBER1);
+                 $("#txtOption2").val(response.OPTIONS_NUMBER2);
+                 $("#txtOption3").val(response.OPTIONS_NUMBER3);
+                 $("#txtOption4").val(response.OPTIONS_NUMBER4);
+
+
+                 $("#txtPoint1").val(response.OPTIONS_POINT1);
+                 $("#txtPoint2").val(response.OPTIONS_POINT2);
+                 $("#txtPoint3").val(response.OPTIONS_POINT3);
+                 $("#txtPoint4").val(response.OPTIONS_POINT4);
+
+                  if (response.OPTIONS_CORRECT1 == "True") {
+                      $("#chkCorrect1").prop("checked", true);
+                  }
+                  else {
+                      $("#chkCorrect1").prop("checked", false);
+                  }
+
+                  if (response.OPTIONS_CORRECT2 == "True") {
+                      $("#chkCorrect2").prop("checked", true);
+                  }
+                  else {
+                      $("#chkCorrect2").prop("checked", false);
+                  }
+
+                  if (response.OPTIONS_CORRECT3 == "True") {
+                      $("#chkCorrect3").prop("checked", true);
+                  }
+                  else {
+                      $("#chkCorrect3").prop("checked", false);
+                  }
+
+                  if (response.OPTIONS_CORRECT4 == "True") {
+                      $("#chkCorrect4").prop("checked", true);
+                  }
+                  else {
+                      $("#chkCorrect4").prop("checked", false);
+                  }
+
+               }
+          }
+         });
+
+ }
+ }
+    var TOPICID = [];
     var TOPIC_ID = "";
 
     var Category = [];
     var Category_ID = "";
-  
+
     function CategorySelectionChanged(s, e) {
         CategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetSelectedFieldValuesCallbackCategory);
     }
     function GetSelectedFieldValuesCallbackCategory(values) {
         try {
-            Category = [];           
-            Category_ID = "";           
+            Category = [];
+            Category_ID = "";
             for (var i = 0; i < values.length; i++) {
-                Category.push(values[i]);               
-                Category_ID += values[i] + ',';              
+                Category.push(values[i]);
+                Category_ID += values[i] + ',';
             }
         } finally {
             console.log(Category);
         }
-    }   
+    }
     function SelectAllGridLookup(s, e) {
-        CategoryGridLookup.gridView.SelectRows();       
+        CategoryGridLookup.gridView.SelectRows();
         Category = "";
-        CategoryGridLookup.SetText("");      
-            $.ajax({
-                type: 'POST',
-                url: "/LMSQuestions/GetCategoryListJson",
-                //data: { "Hoid": Hoid },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    Category = [];
-                    Category_ID = "";
-                    $.each(data, function (i, data) {
-                        Category.push(data.CATEGORYID);
-                        Category_ID += data.CATEGORYID + ',';
-                    });
-                    CategoryGridLookup.gridView.SelectRows();
-                },
-                error: function () {                  
-                }
-            });     
-       
+        CategoryGridLookup.SetText("");
+        $.ajax({
+            type: 'POST',
+            url: "/LMSQuestions/GetCategoryListJson",
+            //data: { "Hoid": Hoid },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                Category = [];
+                Category_ID = "";
+                $.each(data, function (i, data) {
+                    Category.push(data.CATEGORYID);
+                    Category_ID += data.CATEGORYID + ',';
+                });
+                CategoryGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
     }
     function DeSelectAllGridLookup(s, e) {
-        CategoryGridLookup.gridView.UnselectRows();   
-     
+        CategoryGridLookup.gridView.UnselectRows();
+
         Category = [];
-        Category_ID = "";       
+        Category_ID = "";
     }
 
 
@@ -640,39 +773,14 @@
         TOPICID = [];
         TOPIC_ID = "";
     }
-    
 
 
-     function EditClick(ID) {
-         $("#hdnID").val(ID);
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("EditQuestion", "LMSQuestions")",
-                data: { id: ID },
-                success: function (response) {
-                    if (response.code == "") {
-                        jAlert('No data found');
-                    }
-                    else {
-                        $("#txtQuestionName").val(response.NAME);
-                        $("#txtQuestionDescription").val(response.DESCRIPTION);
-                            //if (response.STATUS == "True" )
-                            //{
-                            //    $("#chkStatus").prop("checked",true);
-                            //}
-                            //else
-                            //{
-                            //    $("#chkStatus").prop("checked",false);
-                            //}
-                            //$("#QuestionModal").modal('show');
-                    }
-                }
-            });
-     }
+
+
 </script>
 <script>
         function SaveQuestion() {
-            var id = $("#hdnID").val();
+            var id = $("#hdnIDADd").val();
             if (id == "") {
                 id = "0";
             }
@@ -692,7 +800,7 @@
             text: 'Enter Question Description to proceed.'
         });
         return false;
-    } else {       
+    } else {
 
         var Option1 = $("#txtOption1").val().trim();
         var Option2 = $("#txtOption2").val().trim();
@@ -744,8 +852,10 @@
                         title: 'Success',
                         text: 'Question saved successfully.'
                     }).then(() => {
-                        $("#QuestionModal").modal('hide');
-                        location.reload();
+                        // $("#QuestionModal").modal('hide');
+                        var url = '/LMS/LMSQuestions/Index;
+                        window.location.href = url;
+                        //location.reload();
                     });
                 } else if (parseInt(response) == -1) {
                     // SweetAlert duplicate Question name warning
@@ -780,6 +890,8 @@
         $("#txtPoint4").val("");
         $("#chkCorrect4").prop("checked", false);
     }
+    
+   
 </script>
 <div class="breadCumb">
     <span id="titleheader">Add Question</span>
@@ -794,7 +906,7 @@
                     <input type="text" id="txtQuestionName" maxlength="250" class="form-control" />
                 </div>
             </div>
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mb-4 mt-3">
                 <div><label>Question Description <span class="red">*</span></label></div>
                 <div>
                     <input type="text" id="txtQuestionDescription" maxlength="500" class="form-control" />
@@ -805,99 +917,103 @@
             <div class="col-md-12">
                 <label>Options</label>
             </div>
-            <div>
-                <div class="col-md-1">
+
+        </div>
+
+        <div class="option-part">
+            <div class="ans-option">
+                <div class="delete-col">
                     <div>
                         <a style='cursor:pointer' class='pad' onclick="DeleteClick1()"><img src='/assests/images/Delete.png' /> </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="option-col">
                     <div>
                         <input type="text" id="txtOption1" class="form-control" placeholder="Option 1" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="number-col">
                     <div>
                         <input type="number" id="txtPoint1" class="form-control" placeholder="Point 1" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="correct-col">
                     <div><input type="checkbox" id="chkCorrect1" class="styled-checkbox" /><label>Correct</label></div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+            <div class="ans-option">
 
-            <div>
-                <div class="col-md-1">
+
+                <div class="delete-col">
                     <div>
                         <a style='cursor:pointer' class='pad' onclick="DeleteClick2()"><img src='/assests/images/Delete.png' /> </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="option-col">
                     <div>
                         <input type="text" id="txtOption2" class="form-control" placeholder="Option 2" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="number-col">
                     <div>
                         <input type="number" id="txtPoint2" class="form-control" placeholder="Point 2" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="correct-col">
                     <div><input type="checkbox" id="chkCorrect2" class="styled-checkbox" /><label>Correct</label></div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
 
-            <div>
-                <div class="col-md-1">
+            </div>
+            <div class="ans-option">
+
+
+                <div class="delete-col">
                     <div>
                         <a style='cursor:pointer' class='pad' onclick="DeleteClick3()"><img src='/assests/images/Delete.png' /> </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="option-col">
                     <div>
                         <input type="text" id="txtOption3" class="form-control" placeholder="Option 3" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="number-col">
                     <div>
                         <input type="number" id="txtPoint3" class="form-control" placeholder="Point 3" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="correct-col">
                     <div><input type="checkbox" id="chkCorrect3" class="styled-checkbox" /><label>Correct</label></div>
                 </div>
+
             </div>
-        </div>
-        <div class="row">
-            <div>
-                <div class="col-md-1">
+            <div class="ans-option">
+
+                <div class="delete-col">
                     <div>
                         <a style='cursor:pointer' class='pad' onclick="DeleteClick4()"><img src='/assests/images/Delete.png' /> </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="option-col">
                     <div>
                         <input type="text" id="txtOption4" class="form-control" placeholder="Option 4" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="number-col">
                     <div>
                         <input type="number" id="txtPoint4" class="form-control" placeholder="Point 4" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="correct-col">
                     <div><input type="checkbox" id="chkCorrect4" class="styled-checkbox" /><label>Correct</label></div>
                 </div>
+
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-5 mt-4">
             <div class="col-md-4">
                 <label>Map Tropic(s)</label>
-                @Html.Action("GetTopicList", "LMSQuestions")
+                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_TOPICIDS = ViewBag.QUESTIONS_TOPICIDS, QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-4">
                 <label>Map Categories</label>
@@ -906,14 +1022,14 @@
 
         </div>
 
-        <div>
+        <div class="save-exit-btn">
             <button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>
             @if (ViewBag.CanAdd)
             {
                 <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save and Exit</button>
             }
         </div>
-
-        <input type="hidden" id="hdnID" />
+        <input type="hidden" value="@Model.QUESTIONS_ID" id="hdnIDADd" />
+       
     </div>
 </div>

@@ -13,6 +13,9 @@ using System.Data;
 using UtilityLayer;
 using DevExpress.Utils;
 using DevExpress.XtraSpreadsheet.Model;
+using DevExpress.XtraExport;
+//using DevExpress.DataAccess.Native.Data;
+//using DevExpress.DataAccess.Native.Data;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -28,6 +31,10 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
+
+
+
+
             return View();
         }
 
@@ -39,7 +46,37 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
-            return View();
+
+            if (TempData["QUESTIONS_ID"] != null)
+            {
+                obj.QUESTIONS_ID = Convert.ToString(TempData["QUESTIONS_ID"]);
+                TempData.Keep();
+
+                DataSet output = new DataSet();
+                output = obj.EditQuestion(obj.QUESTIONS_ID);
+                if (output.Tables[1].Rows.Count > 0)
+                {
+                    string[] names = output.Tables[1].AsEnumerable().Select(r => r["QUESTIONS_TOPICID"].ToString()).ToArray();
+                    ////var stringArr = output.Tables[1].Rows[0].ItemArray.Select(x => x.ToString()).ToArray();
+                    //List<string[]> MyStringArrays = new List<string[]>();
+                    ////ArrayList list = new ArrayList();
+                    //foreach (DataRow row in output.Tables[1].Rows)//or similar
+                    //{
+                    //    var a = row["QUESTIONS_TOPICID"];
+                    //    MyStringArrays.Add(new string[] { "11" });
+                    //    //MyStringArrays.Add(row["QUESTIONS_TOPICID"]);
+                    //}
+
+                    var stringArray = new string[3] { "11", "12", "13" };
+                    //ViewBag.Collection = stringArray;
+                    ViewBag.QUESTIONS_TOPICIDS= names;
+                }
+
+                    
+            }
+
+            return View("~/Areas/LMS/Views/LMSQuestions/QuestionAdd.cshtml", obj);
+           
         }
         public ActionResult PartialGridList(LMSCategoryModel model)
         {
@@ -113,19 +150,50 @@ namespace LMS.Areas.LMS.Controllers
             , chkCorrect1, chkCorrect2, chkCorrect3, chkCorrect4, TOPIC_ID, Category_ID);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult SetMapDataByID(Int64 ID = 0, Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["QUESTIONS_ID"] = ID;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success);
+        }
         public JsonResult EditQuestion(string id)
         {
-            DataTable output = new DataTable();
+            DataSet output = new DataSet();
             output = obj.EditQuestion(id);
 
-            if (output.Rows.Count > 0)
+            if (output.Tables[0].Rows.Count > 0)
             {
                 return Json(new
                 {
-                    NAME = Convert.ToString(output.Rows[0]["QUESTIONS_NAME"]),
-                    DESCRIPTION = Convert.ToString(output.Rows[0]["QUESTIONS_DESCRIPTN"]),
-                    //STATUS = Convert.ToString(output.Rows[0]["CATEGORYSTATUS"])
+                    NAME = Convert.ToString(output.Tables[0].Rows[0]["QUESTIONS_NAME"]),
+                    DESCRIPTION = Convert.ToString(output.Tables[0].Rows[0]["QUESTIONS_DESCRIPTN"]),
+
+                    OPTIONS_NUMBER1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER1"]),
+                    OPTIONS_NUMBER2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER2"]),
+                    OPTIONS_NUMBER3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER3"]),
+                    OPTIONS_NUMBER4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER4"]),
+
+                    OPTIONS_POINT1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT1"]),
+                    OPTIONS_POINT2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT2"]),
+                    OPTIONS_POINT3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT3"]),
+                    OPTIONS_POINT4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT4"]),
+
+                    OPTIONS_CORRECT1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT1"]),
+                    OPTIONS_CORRECT2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT2"]),
+                    OPTIONS_CORRECT3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT3"]),
+                    OPTIONS_CORRECT4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT4"]),
+
+
+
+
+
                 }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -232,7 +300,7 @@ namespace LMS.Areas.LMS.Controllers
         }
 
 
-        public ActionResult GetTopicList()
+        public ActionResult GetTopicList(string QUESTIONS_TOPICIDS, String QUESTIONS_ID)
         {
             BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(string.Empty);
             try
@@ -241,6 +309,7 @@ namespace LMS.Areas.LMS.Controllers
                 DataTable ComponentTable = new DataTable();
                 ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC");                
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
+                ViewBag.QUESTIONS_TOPICIDS = QUESTIONS_TOPICIDS;
                 return PartialView("~/Areas/LMS/Views/LMSQuestions/_TopicLookUpPartial.cshtml", modelbranch);
 
             }

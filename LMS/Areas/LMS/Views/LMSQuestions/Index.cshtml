@@ -587,32 +587,26 @@
 
     function EditClick(ID) {
         $("#hdnID").val(ID);
-        var url = '/LMS/LMSQuestions/QuestionAdd?key=' + ID;
-        window.location.href = url;
-       $.ajax({
-           type: "POST",
-           url: "@Url.Action("EditQuestion", "LMSQuestions")",
-           data: { id: ID },
-           success: function (response) {
-               if (response.code == "") {
-                   jAlert('No data found');
-               }
-               else {
-                   $("#txtQuestionName").val(response.NAME);
-                   $("#txtQuestionDescription").val(response.DESCRIPTION);
-                       //if (response.STATUS == "True" )
-                       //{
-                       //    $("#chkStatus").prop("checked",true);
-                       //}
-                       //else
-                       //{
-                       //    $("#chkStatus").prop("checked",false);
-                       //}
-                       //$("#QuestionModal").modal('show');
-               }
-           }
-       });
-}
+        if (parseInt(ID) > 0) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
+            data: { ID: ID, IsView: 0 },
+            success: function (response) {
+                if (response != null && response == true) {
+                    var url = '/LMS/LMSQuestions/QuestionAdd?key=' + ID;
+                    window.location.href = url;
+                }
+                else {
+                    jAlert('Please try again later.');
+                    return false;
+                }
+            }
+        });
+    }
+        
+
+    }
 
      function DeleteClick(ID) {
         $("#hdnID").val(ID);
