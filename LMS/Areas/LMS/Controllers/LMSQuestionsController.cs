@@ -32,8 +32,9 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
 
-
-
+            obj.QUESTIONS_ID = Convert.ToString("0");
+            TempData["QUESTIONS_ID"] = null;
+            TempData.Keep();
 
             return View();
         }
