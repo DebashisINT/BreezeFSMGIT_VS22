@@ -47,30 +47,12 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
 
+          
+
             if (TempData["QUESTIONS_ID"] != null)
             {
                 obj.QUESTIONS_ID = Convert.ToString(TempData["QUESTIONS_ID"]);
-                TempData.Keep();
-
-                DataSet output = new DataSet();
-                output = obj.EditQuestion(obj.QUESTIONS_ID);
-                if (output.Tables[1].Rows.Count > 0)
-                {
-                    string[] names = output.Tables[1].AsEnumerable().Select(r => r["QUESTIONS_TOPICID"].ToString()).ToArray();
-                    ////var stringArr = output.Tables[1].Rows[0].ItemArray.Select(x => x.ToString()).ToArray();
-                    //List<string[]> MyStringArrays = new List<string[]>();
-                    ////ArrayList list = new ArrayList();
-                    //foreach (DataRow row in output.Tables[1].Rows)//or similar
-                    //{
-                    //    var a = row["QUESTIONS_TOPICID"];
-                    //    MyStringArrays.Add(new string[] { "11" });
-                    //    //MyStringArrays.Add(row["QUESTIONS_TOPICID"]);
-                    //}
-
-                    var stringArray = new string[3] { "11", "12", "13" };
-                    //ViewBag.Collection = stringArray;
-                    ViewBag.QUESTIONS_TOPICIDS= names;
-                }
+                TempData.Keep();             
 
                     
             }
@@ -300,16 +282,36 @@ namespace LMS.Areas.LMS.Controllers
         }
 
 
-        public ActionResult GetTopicList(string QUESTIONS_TOPICIDS, String QUESTIONS_ID)
+        public ActionResult GetTopicList( String QUESTIONS_ID)
         {
             BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(string.Empty);
             try
             {
+                GetTopic dataobj = new GetTopic();
+                List<GetTopic> productdata = new List<GetTopic>();
                 List<GetTopic> modelbranch = new List<GetTopic>();               
                 DataTable ComponentTable = new DataTable();
                 ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC");                
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
-                ViewBag.QUESTIONS_TOPICIDS = QUESTIONS_TOPICIDS;
+
+                DataSet output = new DataSet();
+                output = obj.EditQuestion(QUESTIONS_ID);
+                if (output.Tables[1].Rows.Count > 0)
+                {
+                    if (output.Tables[1] != null && output.Tables[1].Rows.Count > 0)
+                    {
+                        DataTable objData = output.Tables[1];
+                        foreach (DataRow row in objData.Rows)
+                        {
+                            dataobj = new GetTopic();
+                            dataobj.TOPICID = Convert.ToInt64(row["QUESTIONS_TOPICID"]);
+                            productdata.Add(dataobj);
+
+                        }
+                    }
+                    
+                }
+                ViewBag.QUESTIONS_TOPICIDS = productdata;
                 return PartialView("~/Areas/LMS/Views/LMSQuestions/_TopicLookUpPartial.cshtml", modelbranch);
 
             }
@@ -319,14 +321,37 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
-        public ActionResult GetCategoryList()
+        public ActionResult GetCategoryList(String QUESTIONS_ID)
         {           
             try
             {
+                GetCategory dataobj = new GetCategory();
+                List<GetCategory> productdata = new List<GetCategory>();
                 List<GetCategory> modelbranch = new List<GetCategory>();
                 DataTable ComponentTable = new DataTable();
                 ComponentTable = obj.GETLOOKUPVALUE("GETCATEGORY");
                 modelbranch = APIHelperMethods.ToModelList<GetCategory>(ComponentTable);
+
+                DataSet output = new DataSet();
+                output = obj.EditQuestion(QUESTIONS_ID);
+                if (output.Tables[2].Rows.Count > 0)
+                {
+                    if (output.Tables[2] != null && output.Tables[2].Rows.Count > 0)
+                    {
+                        DataTable objData = output.Tables[2];
+                        foreach (DataRow row in objData.Rows)
+                        {
+                            dataobj = new GetCategory();
+                            dataobj.CATEGORYID = Convert.ToInt64(row["QUESTIONS_CATEGORYID"]);
+                            productdata.Add(dataobj);
+
+                        }
+                    }
+
+                }
+                ViewBag.QUESTIONS_CATEGORYIDS = productdata;
+
+
                 return PartialView("~/Areas/LMS/Views/LMSQuestions/_CategoryLookUpPartial.cshtml", modelbranch);
             }
             catch

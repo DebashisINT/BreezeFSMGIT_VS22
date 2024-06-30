@@ -1013,11 +1013,11 @@
         <div class="row mb-5 mt-4">
             <div class="col-md-4">
                 <label>Map Tropic(s)</label>
-                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_TOPICIDS = ViewBag.QUESTIONS_TOPICIDS, QUESTIONS_ID = @Model.QUESTIONS_ID })
+                @Html.Action("GetTopicList", "LMSQuestions", new {  QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-4">
                 <label>Map Categories</label>
-                @Html.Action("GetCategoryList", "LMSQuestions")
+                @Html.Action("GetCategoryList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
 
         </div>
