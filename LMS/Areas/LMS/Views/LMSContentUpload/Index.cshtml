@@ -27,98 +27,103 @@
 @*<script src="http://malsup.github.com/jquery.form.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js"></script>
 
- <style>
-     .progress {
-         height: 10px;
-         position: relative;
-         overflow: auto;
-         margin: 0;
-     }
 
-     .percent {
-         position: absolute;
-         top: -19px;
-         right: 0;
-     }
+<link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
+<link href="/assests/pluggins/Transfer/css/jquery.transfer.css" rel="stylesheet" />
+<script src="/assests/pluggins/Transfer/jquery.transfer.js"></script>
 
-     .bar {
-         height: 10px;
-         background: green;
-         width: 0%;
-     }
+<style>
+    .progress {
+        height: 10px;
+        position: relative;
+        overflow: auto;
+        margin: 0;
+    }
 
-     .file-drop-zone {
-         margin: auto !important;
-         min-height: 200px;
-     }
+    .percent {
+        position: absolute;
+        top: -19px;
+        right: 0;
+    }
 
-     .krajee-default.file-preview-frame .kv-file-content {
-         height: 125px !important;
-     }
+    .bar {
+        height: 10px;
+        background: green;
+        width: 0%;
+    }
 
-     .krajee-default .file-footer-caption {
-         margin-bottom: 0;
-     }
+    .file-drop-zone {
+        margin: auto !important;
+        min-height: 200px;
+    }
 
-     .modal-dialog.modal-lg {
-         left: 0;
-     }
+    .krajee-default.file-preview-frame .kv-file-content {
+        height: 125px !important;
+    }
 
-     video.kv-preview-data.file-preview-video.file-zoom-detail, .kv-preview-data.file-preview-video {
-         height: auto !important;
-     }
+    .krajee-default .file-footer-caption {
+        margin-bottom: 0;
+    }
 
-     .close.fileinput-remove {
-         background: #ec4848;
-         opacity: 1;
-         color: #fff;
-         font-size: 16px;
-         width: 20px;
-         height: 20px;
-         /* margin: 2px 1px 0 0; */
-         border-radius: 15px;
-         margin: 9px 9px 0 5px;
-     }
+    .modal-dialog.modal-lg {
+        left: 0;
+    }
 
-     .modal.w90 .modal-dialog {
-         width: 90%;
-     }
+    video.kv-preview-data.file-preview-video.file-zoom-detail, .kv-preview-data.file-preview-video {
+        height: auto !important;
+    }
 
-     .form-group {
-         margin-bottom: 5px;
-     }
+    .close.fileinput-remove {
+        background: #ec4848;
+        opacity: 1;
+        color: #fff;
+        font-size: 16px;
+        width: 20px;
+        height: 20px;
+        /* margin: 2px 1px 0 0; */
+        border-radius: 15px;
+        margin: 9px 9px 0 5px;
+    }
 
-     .doc-description {
-         height: 59px !important;
-         padding-bottom: 6px !important;
-         overflow: hidden;
-     }
+    .modal.w90 .modal-dialog {
+        width: 90%;
+    }
 
-     .mHeader {
-         font-size: 31px;
-         color: #4c4c4c;
-         font-family: 'Poppins';
-         background: #efefef;
-         margin: 6px 0;
-         border-radius: 5px;
-         padding: 6px;
-     }
+    .form-group {
+        margin-bottom: 5px;
+    }
 
-     .modal-header {
-         background: #094e8c !important;
-         background-image: none !important;
-         padding: 11px 20px;
-         border: none;
-         color: #fff;
-     }
+    .doc-description {
+        height: 59px !important;
+        padding-bottom: 6px !important;
+        overflow: hidden;
+    }
 
-     button.close {
-         color: #fff !important;
-         font-weight: 400 !important;
-         opacity: .8 !important;
-         font-size: 26px !important;
-     }
- </style>
+    .mHeader {
+        font-size: 31px;
+        color: #4c4c4c;
+        font-family: 'Poppins';
+        background: #efefef;
+        margin: 6px 0;
+        border-radius: 5px;
+        padding: 6px;
+    }
+
+    .modal-header {
+        background: #094e8c !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        color: #fff;
+    }
+
+    button.close {
+        color: #fff !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 26px !important;
+    }
+</style>
 <style>
     .pmsModal .modal-header {
         background: #094e8c !important;
@@ -1373,6 +1378,18 @@
         }
     }
 
+    @@media screen and (min-width: 768px) {
+        #MapQuestionListModal .modal-dialog {
+            width: 48% !important;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        #AddQuestionMapModal .modal-dialog {
+            width: 68% !important;
+        }
+    }
+
     .mainWraper select[multiple], select[size] {
         height: auto !important;
     }
@@ -1497,10 +1514,9 @@
         width: 35px;
     }
 
-    .card-buttons .btn img
-    {
-        width: 100%;
-    }
+        .card-buttons .btn img {
+            width: 100%;
+        }
 
     .content-listing-part {
         margin-top: 10px;
@@ -1527,12 +1543,13 @@
         .content-search-box #btnSearch {
             border-radius: 0 6px 6px 0;
         }
-
 </style>
 
 
 <script>
     var Is_PageLoad = "Ispageload";
+    var Is_ContentId = "0";
+    var Is_ContentTitle = "";
 
     $(document).ready(function () {
 
@@ -1597,7 +1614,7 @@
                                 $("#btnShowActiveContents").text(data[0].cnt_ActiveContents);
                                 $("#btnShowInactiveContents").text(data[0].cnt_InactiveContents);
 
-                                allVideosData = data; 
+                                allVideosData = data;
                                 displayVideos(allVideosData);
 
                                 $('#searchPanel').show();
@@ -1625,7 +1642,7 @@
 
             function displayVideos(data) {
                 var videoContainer = $('#videoContainer');
-                videoContainer.empty(); 
+                videoContainer.empty();
 
                 data.forEach(function (item) {
                     var videoPath = item.CONTENT_FILEPATH.replace('~', '');
@@ -1640,9 +1657,9 @@
                         <div class="card-body">
                             <h5 class="card-title">${item.CONTENTTITLE}</h5>
                             <div class="card-buttons text-right">
-                                <button class="btn"><img src="../../../assests/images/question-map.png"></button>
-                                <button class="btn"><img src="../../../assests/images/edit-content.png"></button>
-                                <button class="btn"><img src="../../../assests/images/delete-content.png"></button>
+                                <button class="btn" onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')" ><img src="../../../assests/images/question-map.png"></button>
+                                <button class="btn" onclick="OpenLMSContentforEdit('${item.CONTENTID}')" ><img src="../../../assests/images/edit-content.png"></button>
+                                <button class="btn" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')" ><img src="../../../assests/images/delete-content.png"></button>
                             </div>
                         </div>
                     </div>
@@ -1793,27 +1810,43 @@
         $("#AddContentModal").modal('show');
     }
 
-    //var TopicId = [];
-    //function TopicSelectionChanged(s, e) {
-    //    LMSTopicGridLookup.gridView.GetSelectedFieldValues("TOPIC_ID", GetTopicSelectedFieldValuesCallback);
-    //}
-    //function GetTopicSelectedFieldValuesCallback(values) {
-    //    try {
-    //        TopicId = [];
-    //        for (var i = 0; i < values.length; i++) {
-    //            TopicId.push(values[i]);
-    //        }
-    //        $("#hdnTopicID").val(TopicId);
-    //    } finally {
-    //        console.log(TopicId);
-    //    }
-    //}
+    var TopicId = [];
+    function TopicSelectionChanged(s, e) {
+        LMSTopicGridLookup.gridView.GetSelectedFieldValues("TOPIC_ID", GetTopicSelectedFieldValuesCallback);
+    }
+    function GetTopicSelectedFieldValuesCallback(values) {
+        try {
+            TopicId = [];
+            for (var i = 0; i < values.length; i++) {
+                TopicId.push(values[i]);
+            }
+            $("#hdnTopicID").val(TopicId);
+        } finally {
+            console.log(TopicId);
+        }
+    }
+
+    var CategoryId = [];
+    function CategorySelectionChanged(s, e) {
+        LMSCategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetCategorySelectedFieldValuesCallback);
+    }
+    function GetCategorySelectedFieldValuesCallback(values) {
+        try {
+            CategoryId = [];
+            for (var i = 0; i < values.length; i++) {
+                CategoryId.push(values[i]);
+            }
+            $("#hdnCategoryID").val(CategoryId);
+        } finally {
+            console.log(CategoryId);
+        }
+    }
 
     function OpenLMSContentforEdit(ContentId) {
         $("#hdnAddEditMode").val('EDITCONTENT');
         $("#hdnContentID").val(ContentId);
         //LMSTopicGridLookup.gridView.UnselectAllRowsOnPage();
-        
+
 
         $.ajax({
             url: "@Url.Action("ShowContentDetails", "LMSContentUpload")",
@@ -1920,6 +1953,301 @@
         gridLMSContent.Refresh()
     }
 
+    function OnStartCallbackQuestion(s, e) {
+        e.customArgs["Is_ContentId"] = Is_ContentId;
+        e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
+    }
+
+    function MapQuestionWithContent(ContentId, ContentTitle) {
+        Is_ContentId = ContentId;
+        Is_ContentTitle = ContentTitle;
+        gridQuestionMapGridList.Refresh();
+        gridQuestionMapGridList.Refresh();
+
+        $("#hdnAddEditMode").val('MAPQUESTION');
+        $("#hdnContentID").val(ContentId);
+        $("#MapQuestionListModal").modal('show');
+    }
+
+    function AddContentQuestionMap(ContentId, ContentTitle) {
+        $("#hdnAddEditMode").val('ADDCONTENTQUESTIONMAP');
+        $("#hdnContentID").val(ContentId);
+        lblContent.textContent = ContentTitle;
+        $("#transfer1").html('');
+        LMSTopicGridLookup.SetValue();
+        LMSCategoryGridLookup.SetValue();
+
+        //$("#txtContentTitle").val('');
+        //$("#txtContentDesc").val('');
+        //$("#ddlTopic").val(0);
+        //LMSTopicGridLookup.SetValue();
+        //$("#numPlaySequence").val(1);
+        //$("#chkStatus").prop("checked", true);
+        //$("#chkAllowLike").prop("checked", false);
+        //$("#chkAllowComments").prop("checked", false);
+        //$("#chkAllowShare").prop("checked", false);
+
+        $("#AddQuestionMapModal").modal('show');
+    }
+
+    var SelectedQuestionMapList;
+    function ShowQuestionsClick() {
+        SelectedQuestionMapList = '';
+        var obj = {};
+        obj.TopicIds = $("#hdnTopicID").val();
+        obj.CategoryIds = $("#hdnCategoryID").val();
+        obj.ContentId = $("#hdnContentID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/LMSContentUpload/GetQuestionListForMap",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data)
+                var temArr2 = [];
+                //var data = response.d;
+                for (var a = 0; a < data.length; a++) {
+                    if (data[a].selected) {
+                        temArr2.push(data[a].ID);
+                    }
+                }
+                SelectedQuestionMapList = temArr2.join(",");
+                $("#transfer1").html('');
+
+                var tabNameText = 'Questions';
+                var rightTabNameText = 'Select Questions';
+                var searchPlaceholderText = 'search in Questions';
+
+                var settings1 = {
+                    "dataArray": data,
+                    "itemName": "NAME",
+                    "valueName": "ID",
+                    "tabNameText": tabNameText,
+                    "rightTabNameText": rightTabNameText,
+                    "searchPlaceholderText": searchPlaceholderText,
+                    "callable": function (items) {
+                        //console.dir(items)
+                        var temArr = [];
+                        for (var i = 0; i < items.length; i++) {
+                            temArr.push(items[i].ID);
+                        }
+                        SelectedQuestionMapList = temArr.join(",");
+                    }
+                };
+                $("#transfer1").transfer(settings1);
+            }
+        });
+    }
+
+    function SaveContentQuestionMap() {
+        Swal.fire({
+            title: 'Are you sure you want to assign?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                if (SelectedQuestionMapList == "" || SelectedQuestionMapList == null) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'Please select Questions.'
+                    }).then(() => {
+                        setTimeout(() => {
+                            $("#btnShowQuestions").focus();
+                        }, 200);
+                    });
+                    return;
+                }
+
+                var data = {
+                    ContentID: $("#hdnContentID").val(),
+                    SelectedQuestionMapList: SelectedQuestionMapList,
+                    Action: $("#hdnAddEditMode").val()
+                }
+
+                $.ajax({
+                    url: '@Url.Action("SaveContentQuestionMap", "LMSContentUpload")',
+                    type: 'POST',
+                    data: { data: data },
+                    success: function (returnValue) {
+                        if (returnValue.RETURN_VALUE == "-10") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Add.'
+                            });
+                        } else if (returnValue.RETURN_VALUE == "-20") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Update.'
+                            });
+                        } else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Question(s) assigned successfully. Content already mapped with the follwoing questions:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                            }).then(() => {
+                                $('#AddQuestionMapModal').modal('hide');
+
+                            });
+                            gridQuestionMapGridList.Refresh();
+                        } else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Question(s) assigned successfully.'
+                            }).then(() => {
+                                $('#AddQuestionMapModal').modal('hide');
+
+                            });
+                            gridQuestionMapGridList.Refresh();
+                        } else if (returnValue.RETURN_VALUE == "1") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Content already mapped with the follwoing questions:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while saving the topic.'
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    function OpenMapQuesforEdit(ContentId, ContentTitle) {
+       
+        $("#hdnAddEditMode").val('EDITCONTENTQUESTIONMAP');
+        $("#hdnContentID").val(ContentId);
+        lblContent.textContent = ContentTitle;
+        $("#transfer1").html('');
+        LMSTopicGridLookup.SetValue();
+        LMSCategoryGridLookup.SetValue();
+
+        $.ajax({
+            url: "@Url.Action("ShowContentDetailsForEdit", "LMSContentUpload")",
+            async: false,
+            data: { ContentId: ContentId },
+            type: 'POST',
+            success: function (data) {
+                console.log(data)
+                var temArr2 = [];
+                //var data = response.d;
+                for (var a = 0; a < data.length; a++) {
+                    if (data[a].selected) {
+                        temArr2.push(data[a].ID);
+                    }
+                }
+                SelectedQuestionMapList = temArr2.join(",");
+                $("#transfer1").html('');
+
+                var tabNameText = 'Questions';
+                var rightTabNameText = 'Select Questions';
+                var searchPlaceholderText = 'search in Questions';
+
+                var settings1 = {
+                    "dataArray": data,
+                    "itemName": "NAME",
+                    "valueName": "ID",
+                    "tabNameText": tabNameText,
+                    "rightTabNameText": rightTabNameText,
+                    "searchPlaceholderText": searchPlaceholderText,
+                    "callable": function (items) {
+                        //console.dir(items)
+                        var temArr = [];
+                        for (var i = 0; i < items.length; i++) {
+                            temArr.push(items[i].ID);
+                        }
+                        SelectedQuestionMapList = temArr.join(",");
+                    }
+                };
+                $("#transfer1").transfer(settings1);
+
+                $('#AddQuestionMapModal').modal('show');
+            },
+            error: function () {
+            },
+        });
+    }
+
+    function OnClickDeleteMapQues(ContentID) {
+        var url = '/LMSContentUpload/QuestionMapDelete/';
+
+        Swal.fire({
+            title: 'Confirm Delete?',
+            text: "Are you sure you want to delete this content?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify({ 'ContentID': ContentID }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "-10") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Delete.'
+                            });
+                            //GridShow();
+                            
+                        }
+                        else if (response == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted',
+                                text: 'Successfully Deleted.'
+                            }).then(() => {
+                                gridLMSTopic.Refresh();
+                            });
+                            //GridShow();
+                            gridQuestionMapGridList.Refresh();
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Info',
+                                text: response
+                            });
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while deleting the content.'
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>
 
 
@@ -1974,51 +2302,51 @@
                         </div>
                     </div>
 
-                   
+
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
                 <div class="clearfix"></div>
 
                 @*<div class="scrooler">
-                    <div id="refreshgrid">
-                        @{
-                            Html.RenderAction("PartialContentGridList", "LMSContentUpload", new { Is_PageLoad = "Ispageload" });
-                        }
-                    </div>
-                </div>*@
+                        <div id="refreshgrid">
+                            @{
+                                Html.RenderAction("PartialContentGridList", "LMSContentUpload", new { Is_PageLoad = "Ispageload" });
+                            }
+                        </div>
+                    </div>*@
 
-            <div class="content-listing-part">
-                <div id="searchPanel" class="row" style="display: none;">
-                    <div class="col-md-12 content-search-box mb-4">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
-                        <button id="btnSearch" class="btn btn-primary">Search</button>
-                        <button id="btnShowAll" class="btn add-btn">Show All</button>
+                <div class="content-listing-part">
+                    <div id="searchPanel" class="row" style="display: none;">
+                        <div class="col-md-12 content-search-box mb-4">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
+                            <button id="btnSearch" class="btn btn-primary">Search</button>
+                            <button id="btnShowAll" class="btn add-btn">Show All</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3" id="videoContainer">
+                        @*<div class="col-md-3">
+                                <div class="card video-card">
+                                    <canvas class="card-img-top videoThumbnail"></canvas>
+                                    <video class="video" style="display:none;">
+                                        <source src="~/Commonfolder/LMS/ContentUpload/EXTREME PARKOUR JUMP over death gap.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Sales Training Basics Beginners Master</h5>
+
+                                        <div class="card-buttons text-right">
+                                            <button class="btn "><img src="../../../assests/images/question-map.png"></button>
+                                            <button class="btn "><img src="../../../assests/images/edit-content.png"></button>
+                                            <button class="btn "><img src="../../../assests/images/delete-content.png"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+
                     </div>
                 </div>
-                <div class="row mt-3" id="videoContainer">
-                    @*<div class="col-md-3">
-            <div class="card video-card">
-                <canvas class="card-img-top videoThumbnail"></canvas>
-                <video class="video" style="display:none;">
-                    <source src="~/Commonfolder/LMS/ContentUpload/EXTREME PARKOUR JUMP over death gap.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="card-body">
-                    <h5 class="card-title">Sales Training Basics Beginners Master</h5>
-
-                    <div class="card-buttons text-right">
-                        <button class="btn "><img src="../../../assests/images/question-map.png"></button>
-                        <button class="btn "><img src="../../../assests/images/edit-content.png"></button>
-                        <button class="btn "><img src="../../../assests/images/delete-content.png"></button>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-
-                </div>
-            </div>
             </div>
         </div>
     </div>
@@ -2106,6 +2434,7 @@
                 <input type="hidden" id="hdnContentID" name="hdnContentID" />
                 <input type="hidden" id="hdnFileDuration" name="hdnFileDuration" />
                 <input type="hidden" id="hdnTopicID" name="hdnTopicID" />
+                <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
 
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Upload & Exit</button>
@@ -2113,6 +2442,105 @@
                 </div>
             })
         </div>
-         
+
+    </div>
+</div>
+
+<div id="MapQuestionListModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Map Question List</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
+                        <div class="add-show-btns">
+                            @*@if (ViewBag.CanAdd){*@
+                            <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContentQuestionMap(Is_ContentId, Is_ContentTitle);">
+                                <span class="btn-icon"><i class="fa fa-plus"></i></span> Map Question
+                            </button>
+                            @*}*@
+
+                            @*@if (ViewBag.CanExport){*@
+                            <button type="button" id="btnExportQmapTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
+                                <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                            </button>
+                            @*}*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="clearfix"></div>
+
+                <div class="clearfix">
+                    <div class="scrooler">
+                        <div id="refreshgrid">
+                            @{
+                                Html.RenderAction("PartialQuestionMapGridList", "LMSContentUpload", new { Is_ContentId = "0" });
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <input type="hidden" id="hdnContentIDForMap" name="hdnContentIDForMap" />
+
+        </div>
+
+    </div>
+</div>
+
+<div id="AddQuestionMapModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Map Question</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-lg-12">
+                        <label><b>For the Content : </b></label>
+                        <label id="lblContent"></label>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="clearfix"></div>
+
+                <div class="clearfix">
+                    <div class="col-lg-4">
+                        <label>Filter Question on Topic(s)</label>
+                        @Html.Action("GetLMSTopicList", "LMSContentUpload")
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Filter Question on Categories(s)</label>
+                        @Html.Action("GetLMSCategoriesList", "LMSContentUpload")
+                    </div>
+                    <div class="col-lg-4">
+                        <button type="button" id="btnShowQuestions" class="btn btn-success" onclick="ShowQuestionsClick();">Show Question(s)</button>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-12 mt-15">
+
+                        <div>
+                            <div id="transfer1" class="transfer-demo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="SaveContentQuestionMap();">Assign & Exit</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
+
+            </div>
+        </div>
+
     </div>
 </div>

@@ -819,6 +819,8 @@
     <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSTopicPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\Index.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialQuestionsListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSCategoryPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\PartialQuestionMapGridList.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\QuestionAdd.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\_CategoryLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\_TopicLookUpPartial.cshtml" />
