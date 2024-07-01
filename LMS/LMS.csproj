@@ -826,6 +826,7 @@
     <Content Include="Areas\LMS\Views\LMSQuestions\_TopicLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialTopicDetailsListing.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialCategoryDetaisListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\PartialMappedQuesForView.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />

@@ -236,7 +236,7 @@ namespace LMS.Areas.LMS.Controllers
                 x.Caption = "Created on";
                 x.VisibleIndex = 6;
                 x.ExportWidth = 150;
-
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
 
             settings.Columns.Add(x =>
@@ -254,7 +254,7 @@ namespace LMS.Areas.LMS.Controllers
                 x.Caption = "Modified on";
                 x.VisibleIndex = 8;
                 x.ExportWidth = 150;
-
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
