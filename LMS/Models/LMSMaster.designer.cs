@@ -95,6 +95,14 @@ namespace LMS.Models
 				return this.GetTable<LMS_CONTENTMASTER_LISTING>();
 			}
 		}
+		
+		public System.Data.Linq.Table<LMS_CONTENTQUESTIONMAP_LISTING> LMS_CONTENTQUESTIONMAP_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<LMS_CONTENTQUESTIONMAP_LISTING>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_TOPICSMASTER_LISTING")]
@@ -1253,6 +1261,123 @@ namespace LMS.Models
 				if ((this._UPDATEDON != value))
 				{
 					this._UPDATEDON = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CONTENTQUESTIONMAP_LISTING")]
+	public partial class LMS_CONTENTQUESTIONMAP_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private long _CONTENTID;
+		
+		private string _CONTENTTITLE;
+		
+		private string _CONTENTDESC;
+		
+		private long _QUESTIONSMAP_COUNT;
+		
+		public LMS_CONTENTQUESTIONMAP_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTID", DbType="BigInt NOT NULL")]
+		public long CONTENTID
+		{
+			get
+			{
+				return this._CONTENTID;
+			}
+			set
+			{
+				if ((this._CONTENTID != value))
+				{
+					this._CONTENTID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTTITLE", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string CONTENTTITLE
+		{
+			get
+			{
+				return this._CONTENTTITLE;
+			}
+			set
+			{
+				if ((this._CONTENTTITLE != value))
+				{
+					this._CONTENTTITLE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTDESC", DbType="NVarChar(300) NOT NULL", CanBeNull=false)]
+		public string CONTENTDESC
+		{
+			get
+			{
+				return this._CONTENTDESC;
+			}
+			set
+			{
+				if ((this._CONTENTDESC != value))
+				{
+					this._CONTENTDESC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUESTIONSMAP_COUNT", DbType="BigInt NOT NULL")]
+		public long QUESTIONSMAP_COUNT
+		{
+			get
+			{
+				return this._QUESTIONSMAP_COUNT;
+			}
+			set
+			{
+				if ((this._QUESTIONSMAP_COUNT != value))
+				{
+					this._QUESTIONSMAP_COUNT = value;
 				}
 			}
 		}

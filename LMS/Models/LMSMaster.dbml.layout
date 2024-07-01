@@ -26,10 +26,16 @@
         <elementListCompartment Id="f840f6e5-642c-40a6-bbe7-dd5b2e302473" absoluteBounds="0.515, 2.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a5cc50f2-eabc-481c-93c6-5a37a7baf4f4" isExpanded="false" absoluteBounds="0.5, 3, 2, 0.45">
+    <classShape Id="e3fcb71c-42ed-4f98-98cf-a18a14fb79fa" isExpanded="false" absoluteBounds="0.5, 3.125, 2, 0.45">
       <DataClassMoniker Name="/LMSMasterDataContext/LMS_CONTENTMASTER_LISTING" />
       <nestedChildShapes>
-        <elementListCompartment Id="072ccd6f-b219-4b15-86bc-0e7227f9196f" absoluteBounds="0.51499999999999968, 3.46, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="583652db-a37f-48d8-bdaf-93126dc22611" absoluteBounds="0.51499999999999968, 3.585, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="acf052e9-5711-448e-a4b3-47a585a0f656" isExpanded="false" absoluteBounds="0.5, 4, 2, 0.45">
+      <DataClassMoniker Name="/LMSMasterDataContext/LMS_CONTENTQUESTIONMAP_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eddc45ec-4f64-4ef1-8049-0bd24ec0b2da" absoluteBounds="0.51500000000000057, 4.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
