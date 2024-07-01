@@ -1,5 +1,7 @@
 ﻿using BusinessLogicLayer;
 using DataAccessLayer;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
 using LMS.Models;
 using Models;
 using MyShop.Models;
@@ -722,5 +724,95 @@ namespace LMS.Areas.LMS.Controllers
 
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PartialMappedQuesForView(LMSContentModel model)
+        {
+            try
+            {
+                string user_id = Convert.ToString(Session["userid"]);
+                List<QuestionMappedViewModel> qmapmodel = new List<QuestionMappedViewModel>();
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "GETMAPPEDQUESTIONSFORVIEW");
+                proc.AddPara("@CONTENTID", model.Is_ContentId);
+                proc.AddPara("@USERID", Convert.ToInt32(user_id));
+                dt = proc.GetTable();
+                
+                if (dt != null)
+                {
+                    qmapmodel = APIHelperMethods.ToModelList<QuestionMappedViewModel>(dt);
+                }
+
+                return PartialView("PartialMappedQuesForView", qmapmodel);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+
+        public ActionResult ExporRegisterList()
+        {
+            return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), QuestionMapGridListDetails());
+        }
+
+        private GridViewSettings GetDoctorBatchGridViewSettings()
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "gridQuestionMapGridList";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "LMSContentUpload";
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "SEQ";
+                x.Caption = "Sr. No";
+                x.VisibleIndex = 1;
+                x.ExportWidth = 80;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CONTENTTITLE";
+                x.Caption = "Content Title";
+                x.VisibleIndex = 2;
+                x.ExportWidth = 300;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CONTENTDESC";
+                x.Caption = "Description";
+                x.VisibleIndex = 3;
+                x.ExportWidth = 300;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "QUESTIONSMAP_COUNT";
+                x.Caption = "Mapped Questions";
+                x.VisibleIndex = 4;
+                x.ExportWidth = 350;
+
+            });
+
+            
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
+
+        }
+
     }
 }

@@ -105,5 +105,10 @@ namespace LMS.Models
         public string NAME { get; set; }
         public bool selected { get; set; }
     }
+    public class QuestionMappedViewModel
+    {
+        public string QUESTIONS_NAME { get; set; }
+        public string QUESTIONS_DESCRIPTN { get; set; }
+    }
 
 }

@@ -1391,6 +1391,12 @@
             width: 68% !important;
         }
     }
+
+    @@media screen and (min-width: 768px) {
+        #MappedQuestionsForViewModal .modal-dialog {
+            width: 48% !important;
+        }
+    }
     /*End of Rev Sanchita*/
 
     .mainWraper select[multiple], select[size] {
@@ -1948,7 +1954,12 @@
             }
 
         });
-
+        // Rev Sanchita
+         $('body').on('click', '#btnExportTo', function () {
+             var url = '@Url.Action("ExporRegisterList", "LMSContentUpload")'
+             window.location.href = url.replace("_type_");
+         });
+        // End of Rev Sanchita
 
     });
 
@@ -2411,6 +2422,23 @@
             }
         });
     }
+
+    function OnStartCallbackMappedQuestion(s, e) {
+        e.customArgs["Is_ContentId"] = Is_ContentId;
+        e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
+    }
+
+    function OpenMappedQuestionsForView(ContentId, ContentTitle) {
+        Is_ContentId = ContentId;
+        Is_ContentTitle = ContentTitle;
+        lblContentQ.textContent = ContentTitle;
+
+        gridMappedQuesForView.Refresh();
+        gridMappedQuesForView.Refresh();
+
+        $("#hdnContentID").val(Is_ContentId);
+        $("#MappedQuestionsForViewModal").modal('show');
+    }
     // End of Rev Sanchita
 </script>
 
@@ -2628,7 +2656,7 @@
                             @*}*@
 
                             @*@if (ViewBag.CanExport){*@
-                            <button type="button" id="btnExportQmapTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
+                            <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
                                 <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
                             </button>
                             @*}*@
@@ -2701,6 +2729,45 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" onclick="SaveContentQuestionMap();">Assign & Exit</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="MappedQuestionsForViewModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Mappped Questions</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-lg-12">
+                        <label><b>For the Content : </b></label>
+                        <label id="lblContentQ"></label>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="clearfix"></div>
+
+                <div class="clearfix">
+                    <div class="scrooler">
+                        <div id="refreshgrid">
+                            @{
+                                Html.RenderAction("PartialMappedQuesForView", "LMSContentUpload", new { Is_ContentId = "0" });
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
 
             </div>
         </div>
