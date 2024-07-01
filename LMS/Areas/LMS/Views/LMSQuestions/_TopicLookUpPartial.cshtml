@@ -80,16 +80,13 @@
         {
             if (ViewBag.QUESTIONS_TOPICIDS != null)
             {
-                //for (int i = 0; i < ViewBag.QUESTIONS_TOPICIDS.Length; i++)
-                //{
-                //    MVCxGridLookup l = s as MVCxGridLookup;
-                //    l.GridView.Selection.SelectRowByKey(ViewBag.type[i]);
-                //}
-                //foreach (var str in ViewBag.QUESTIONS_TOPICIDS)
-                //{
-                MVCxGridLookup l = s as MVCxGridLookup;
-                l.GridView.Selection.SelectRowByKey(ViewBag.QUESTIONS_TOPICIDS);
-                //}
+
+                foreach (var item in ViewBag.QUESTIONS_TOPICIDS)
+                {
+                    MVCxGridLookup l = s as MVCxGridLookup;
+                    l.GridView.Selection.SelectRowByKey(item.TOPICID);
+
+                }
             }
 
         };

@@ -821,6 +821,11 @@
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialQuestionsListing.cshtml" />
     <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSCategoryPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSContentUpload\PartialQuestionMapGridList.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\QuestionAdd.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\_CategoryLookUpPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\_TopicLookUpPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\PartialTopicDetailsListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSQuestions\PartialCategoryDetaisListing.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
@@ -1153,7 +1158,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49383</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44364/</IISUrl>
+          <IISUrl>https://localhost:44366/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
