@@ -80,14 +80,6 @@ namespace LMS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<LMS_POINTSETUPMASTERLIST> LMS_POINTSETUPMASTERLISTs
-		{
-			get
-			{
-				return this.GetTable<LMS_POINTSETUPMASTERLIST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<LMS_CONTENTMASTER_LISTING> LMS_CONTENTMASTER_LISTINGs
 		{
 			get
@@ -101,6 +93,14 @@ namespace LMS.Models
 			get
 			{
 				return this.GetTable<LMS_CONTENTQUESTIONMAP_LISTING>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LMS_POINTSETUPMASTERLIST> LMS_POINTSETUPMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<LMS_POINTSETUPMASTERLIST>();
 			}
 		}
 	}
@@ -690,213 +690,6 @@ namespace LMS.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_POINTSETUPMASTERLIST")]
-	public partial class LMS_POINTSETUPMASTERLIST
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<long> _SEQ;
-		
-		private System.Nullable<int> _POINTSETUPID;
-		
-		private System.Nullable<int> _POINTSECTION;
-		
-		private string _POINTSECTION_FOR;
-		
-		private System.Nullable<decimal> _POINTS;
-		
-		private string _POINTSETUPSTATUS;
-		
-		private string _CreateDate;
-		
-		private string _CreateUser;
-		
-		private string _ModifyDate;
-		
-		private string _ModifyUser;
-		
-		public LMS_POINTSETUPMASTERLIST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
-		public System.Nullable<long> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSETUPID", DbType="Int")]
-		public System.Nullable<int> POINTSETUPID
-		{
-			get
-			{
-				return this._POINTSETUPID;
-			}
-			set
-			{
-				if ((this._POINTSETUPID != value))
-				{
-					this._POINTSETUPID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSECTION", DbType="Int")]
-		public System.Nullable<int> POINTSECTION
-		{
-			get
-			{
-				return this._POINTSECTION;
-			}
-			set
-			{
-				if ((this._POINTSECTION != value))
-				{
-					this._POINTSECTION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSECTION_FOR", DbType="NVarChar(250)")]
-		public string POINTSECTION_FOR
-		{
-			get
-			{
-				return this._POINTSECTION_FOR;
-			}
-			set
-			{
-				if ((this._POINTSECTION_FOR != value))
-				{
-					this._POINTSECTION_FOR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTS", DbType="Decimal(19,2)")]
-		public System.Nullable<decimal> POINTS
-		{
-			get
-			{
-				return this._POINTS;
-			}
-			set
-			{
-				if ((this._POINTS != value))
-				{
-					this._POINTS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSETUPSTATUS", DbType="NVarChar(50)")]
-		public string POINTSETUPSTATUS
-		{
-			get
-			{
-				return this._POINTSETUPSTATUS;
-			}
-			set
-			{
-				if ((this._POINTSETUPSTATUS != value))
-				{
-					this._POINTSETUPSTATUS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="NVarChar(50)")]
-		public string CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
-		public string CreateUser
-		{
-			get
-			{
-				return this._CreateUser;
-			}
-			set
-			{
-				if ((this._CreateUser != value))
-				{
-					this._CreateUser = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="NVarChar(50)")]
-		public string ModifyDate
-		{
-			get
-			{
-				return this._ModifyDate;
-			}
-			set
-			{
-				if ((this._ModifyDate != value))
-				{
-					this._ModifyDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
-		public string ModifyUser
-		{
-			get
-			{
-				return this._ModifyUser;
-			}
-			set
-			{
-				if ((this._ModifyUser != value))
-				{
-					this._ModifyUser = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CONTENTMASTER_LISTING")]
 	public partial class LMS_CONTENTMASTER_LISTING
 	{
@@ -1378,6 +1171,213 @@ namespace LMS.Models
 				if ((this._QUESTIONSMAP_COUNT != value))
 				{
 					this._QUESTIONSMAP_COUNT = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_POINTSETUPMASTERLIST")]
+	public partial class LMS_POINTSETUPMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _POINTSETUPID;
+		
+		private System.Nullable<int> _POINTSECTION;
+		
+		private string _POINTSECTION_FOR;
+		
+		private System.Nullable<int> _POINTS;
+		
+		private string _POINTSETUPSTATUS;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private string _CreateUser;
+		
+		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		public LMS_POINTSETUPMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSETUPID", DbType="Int")]
+		public System.Nullable<int> POINTSETUPID
+		{
+			get
+			{
+				return this._POINTSETUPID;
+			}
+			set
+			{
+				if ((this._POINTSETUPID != value))
+				{
+					this._POINTSETUPID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSECTION", DbType="Int")]
+		public System.Nullable<int> POINTSECTION
+		{
+			get
+			{
+				return this._POINTSECTION;
+			}
+			set
+			{
+				if ((this._POINTSECTION != value))
+				{
+					this._POINTSECTION = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSECTION_FOR", DbType="NVarChar(250)")]
+		public string POINTSECTION_FOR
+		{
+			get
+			{
+				return this._POINTSECTION_FOR;
+			}
+			set
+			{
+				if ((this._POINTSECTION_FOR != value))
+				{
+					this._POINTSECTION_FOR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTS", DbType="Int")]
+		public System.Nullable<int> POINTS
+		{
+			get
+			{
+				return this._POINTS;
+			}
+			set
+			{
+				if ((this._POINTS != value))
+				{
+					this._POINTS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POINTSETUPSTATUS", DbType="NVarChar(50)")]
+		public string POINTSETUPSTATUS
+		{
+			get
+			{
+				return this._POINTSETUPSTATUS;
+			}
+			set
+			{
+				if ((this._POINTSETUPSTATUS != value))
+				{
+					this._POINTSETUPSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
 				}
 			}
 		}

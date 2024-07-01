@@ -40,6 +40,7 @@
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.PropertiesEdit.DisplayFormatString = "#####,##,##,###0.0000;";
 
     });
     settings.Columns.Add(x =>
@@ -48,7 +49,7 @@
         x.Caption = "Active";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
     });
     settings.Columns.Add(x =>
@@ -87,7 +88,7 @@
         x.Caption = "Updated On";
         x.VisibleIndex = 7;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(16);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
