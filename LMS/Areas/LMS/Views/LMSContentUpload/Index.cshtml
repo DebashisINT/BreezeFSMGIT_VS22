@@ -27,10 +27,11 @@
 @*<script src="http://malsup.github.com/jquery.form.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js"></script>
 
-
+@*Rev Sanchita*@
 <link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
 <link href="/assests/pluggins/Transfer/css/jquery.transfer.css" rel="stylesheet" />
 <script src="/assests/pluggins/Transfer/jquery.transfer.js"></script>
+@*Enf of Rev Sanchita*@
 
 <style>
     .progress {
@@ -1378,6 +1379,7 @@
         }
     }
 
+    /* Rev Sanchita*/
     @@media screen and (min-width: 768px) {
         #MapQuestionListModal .modal-dialog {
             width: 48% !important;
@@ -1389,6 +1391,7 @@
             width: 68% !important;
         }
     }
+    /*End of Rev Sanchita*/
 
     .mainWraper select[multiple], select[size] {
         height: auto !important;
@@ -1548,8 +1551,10 @@
 
 <script>
     var Is_PageLoad = "Ispageload";
+    /*Rev Sanchita*/
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
+    /*End of Rev Sanchita*/
 
     $(document).ready(function () {
 
@@ -1644,6 +1649,7 @@
                 var videoContainer = $('#videoContainer');
                 videoContainer.empty();
 
+                // Rev Sanchita [ onclick="MapQuestionWithContent() , onclick="OpenLMSContentforEdit() and OnClickDeleteLMSContent() added ]
                 data.forEach(function (item) {
                     var videoPath = item.CONTENT_FILEPATH.replace('~', '');
                     var videoCardHtml = `
@@ -1953,6 +1959,7 @@
         gridLMSContent.Refresh()
     }
 
+    // Rev Sanchita
     function OnStartCallbackQuestion(s, e) {
         e.customArgs["Is_ContentId"] = Is_ContentId;
         e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
@@ -2131,7 +2138,7 @@
     }
 
     function OpenMapQuesforEdit(ContentId, ContentTitle) {
-       
+
         $("#hdnAddEditMode").val('EDITCONTENTQUESTIONMAP');
         $("#hdnContentID").val(ContentId);
         lblContent.textContent = ContentTitle;
@@ -2215,7 +2222,7 @@
                                 text: 'Error in Delete.'
                             });
                             //GridShow();
-                            
+
                         }
                         else if (response == "1") {
                             Swal.fire({
@@ -2248,6 +2255,7 @@
             }
         });
     }
+    // End of Rev Sanchita
 </script>
 
 
@@ -2446,6 +2454,7 @@
     </div>
 </div>
 
+@*Rev Sanchita*@
 <div id="MapQuestionListModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -2544,3 +2553,4 @@
 
     </div>
 </div>
+@* End of Rev Sanchita*@
