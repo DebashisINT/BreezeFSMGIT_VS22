@@ -174,6 +174,9 @@ namespace LMS.Areas.LMS.Controllers
                     OPTIONS_CORRECT4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT4"]),
 
 
+                    CATEGORYIDS = Convert.ToString(output.Tables[0].Rows[0]["CATEGORYIDS"]),
+                    TOPICIDS = Convert.ToString(output.Tables[0].Rows[0]["TOPICIDS"]),
+
 
 
 
