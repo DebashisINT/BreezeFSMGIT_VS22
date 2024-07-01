@@ -48,6 +48,8 @@ namespace LMS.Models
         public bool AllowLike { get; set; }
         public bool AllowComments { get; set; }
         public bool AllowShare { get; set; }
+        public string CONTENT_FILENAME { get; set; }
+        public string CONTENT_FILEPATH { get; set; }
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
     }

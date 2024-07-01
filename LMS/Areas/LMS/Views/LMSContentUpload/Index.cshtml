@@ -71,7 +71,7 @@
     }
 
     video.kv-preview-data.file-preview-video.file-zoom-detail, .kv-preview-data.file-preview-video {
-        height: auto !important;
+        height: 200px !important;
     }
 
     .close.fileinput-remove {
@@ -1476,6 +1476,7 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 1px 1px 10px #11111142;
+        margin-bottom: 30px;
     }
 
         .video-card .card-img-top {
@@ -1495,6 +1496,7 @@
             font-weight: bold;
             margin-bottom: 15px;
             line-height: 25px;
+            min-height: 55px;
         }
 
         .video-card .card-text {
@@ -1546,6 +1548,60 @@
         .content-search-box #btnSearch {
             border-radius: 0 6px 6px 0;
         }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        margin: 20px 0;
+        list-style: none;
+        border-radius: 4px;
+    }
+
+        .pagination li {
+            display: inline;
+            margin: 0 2px;
+        }
+
+            .pagination li a {
+                color: #000;
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                padding: 6px 12px;
+                text-decoration: none;
+                border-radius: 4px;
+            }
+
+            .pagination li.active a {
+                color: #fff;
+                background-color: #051f7b;
+                border-color: #051f7b;
+            }
+
+            .pagination li.disabled a {
+                color: #777;
+                background-color: #fff;
+                border-color: #ddd;
+                cursor: not-allowed;
+            }
+
+    .active-checkbox
+    {
+        margin-top: 12px;
+    }
+
+    .btn.fileinput-remove
+    {
+        margin-left: 0 !important;
+    }
+
+    .btn-file, .fileinput-remove {
+        height: 45px;
+    }
+
+    .file-caption-main .kv-fileinput-caption {
+        border-radius: 6px 0 0 6px !important;
+    }
 </style>
 
 
@@ -1601,108 +1657,208 @@
 
         /*document.addEventListener('DOMContentLoaded', function () {*/
             var allVideosData = [];
+            var filteredData = [];
+            var currentPage = 1;
+            var itemsPerPage = 4;
+            var activeFilter = 'all';
 
-            $('body').on('click', '#btnshow', function () {
-                var flag = true;
-                Is_PageLoad = "1";
+            $(document).ready(function() {
+                $('body').on('click', '#btnshow', function () {
+                    var flag = true;
+                    Is_PageLoad = "1";
 
-                setTimeout(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "/LMSContentUpload/GetContentGridListData",
-                        async: false,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.length > 0) {
-                                $("#btnShowTotalContents").text(data[0].cnt_TotalContents);
-                                $("#btnShowActiveContents").text(data[0].cnt_ActiveContents);
-                                $("#btnShowInactiveContents").text(data[0].cnt_InactiveContents);
+                    setTimeout(function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/LMSContentUpload/GetContentGridListData",
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                                allVideosData = data;
-                                displayVideos(allVideosData);
+                                    allVideosData = data; 
+                                    filteredData = data;
+                                    displayVideos(filteredData, currentPage);
 
-                                $('#searchPanel').show();
+                                    $('#searchPanel').show();
+                                    $('#contentListing').show();
+                                }
+                            },
+                            error: function (response) {
+                                alert("Please try again later");
                             }
-                        },
-                        error: function (response) {
-                            alert("Please try again later");
-                        }
-                    });
-                }, 1000);
-            });
-
-            $('body').on('click', '#btnSearch', function () {
-                var searchQuery = $('#searchInput').val().toLowerCase();
-                var filteredData = allVideosData.filter(function (item) {
-                    return item.CONTENTTITLE.toLowerCase().includes(searchQuery);
+                        });
+                    }, 1000);
                 });
-                displayVideos(filteredData);
-            });
 
-            $('body').on('click', '#btnShowAll', function () {
-                $('#searchInput').val('');
-                displayVideos(allVideosData);
-            });
+                $('body').on('click', '#btnSearch', function () {
+                    performSearch();
+                });
 
-            function displayVideos(data) {
-                var videoContainer = $('#videoContainer');
-                videoContainer.empty();
+                $('body').on('keypress', '#searchInput', function (e) {
+                    if (e.which === 13) { // Enter key pressed
+                        performSearch();
+                    }
+                });
 
-                // Rev Sanchita [ onclick="MapQuestionWithContent() , onclick="OpenLMSContentforEdit() and OnClickDeleteLMSContent() added ]
-                data.forEach(function (item) {
-                    var videoPath = item.CONTENT_FILEPATH.replace('~', '');
-                    var videoCardHtml = `
-                <div class="col-md-3">
-                    <div class="card video-card" data-video-src="${videoPath}">
-                        <canvas class="card-img-top videoThumbnail"></canvas>
-                        <video class="video" style="display:none;">
-                            <source src="${videoPath}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="card-body">
-                            <h5 class="card-title">${item.CONTENTTITLE}</h5>
-                            <div class="card-buttons text-right">
-                                <button class="btn" onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')" ><img src="../../../assests/images/question-map.png"></button>
-                                <button class="btn" onclick="OpenLMSContentforEdit('${item.CONTENTID}')" ><img src="../../../assests/images/edit-content.png"></button>
-                                <button class="btn" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')" ><img src="../../../assests/images/delete-content.png"></button>
+                $('body').on('click', '#btnShowAll', function () {
+                    $('#searchInput').val('');
+                    currentPage = 1;
+                    filteredData = allVideosData;
+                    displayVideos(filteredData, currentPage);
+                });
+
+                $('body').on('click', '#btnShowTotalContents', function () {
+                    activeFilter = 'all';
+                    $('#searchInput').val('');
+                    currentPage = 1;
+                    filteredData = allVideosData;
+                    displayVideos(filteredData, currentPage);
+                });
+
+                $('body').on('click', '#btnShowActiveContents', function () {
+                    activeFilter = 'active';
+                    $('#searchInput').val('');
+                    currentPage = 1;
+                    filteredData = allVideosData.filter(item => item.CONTENTSTATUS === "Yes");
+                    displayVideos(filteredData, currentPage);
+                });
+
+                $('body').on('click', '#btnShowInactiveContents', function () {
+                    activeFilter = 'inactive';
+                    $('#searchInput').val('');
+                    currentPage = 1;
+                    filteredData = allVideosData.filter(item => item.CONTENTSTATUS === "No");
+                    displayVideos(filteredData, currentPage);
+                });
+
+                $('body').on('click', '.pagination-btn', function (e) {
+                    e.preventDefault();
+                    currentPage = parseInt($(this).data('page'));
+                    displayVideos(filteredData, currentPage);
+                });
+
+                $('body').on('click', '.pagination-prev', function (e) {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        currentPage -= 1;
+                        displayVideos(filteredData, currentPage);
+                    }
+                });
+
+                $('body').on('click', '.pagination-next', function (e) {
+                    e.preventDefault();
+                    var totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                    if (currentPage < totalPages) {
+                        currentPage += 1;
+                        displayVideos(filteredData, currentPage);
+                    }
+                });
+
+                function performSearch() {
+                    var searchQuery = $('#searchInput').val().toLowerCase();
+                    filteredData = allVideosData.filter(function (item) {
+                        var matchesStatus = (activeFilter === 'all') ||
+                                            (activeFilter === 'active' && item.CONTENTSTATUS === "Yes") ||
+                                            (activeFilter === 'inactive' && item.CONTENTSTATUS === "No");
+
+                        return matchesStatus && item.CONTENTTITLE.toLowerCase().includes(searchQuery);
+                    });
+                    currentPage = 1;
+                    displayVideos(filteredData, currentPage);
+                }
+
+                function displayVideos(data, page) {
+                    var videoContainer = $('#videoContainer');
+                    videoContainer.empty(); 
+
+                    var startIndex = (page - 1) * itemsPerPage;
+                    var endIndex = Math.min(startIndex + itemsPerPage, data.length);
+                    var pageData = data.slice(startIndex, endIndex);
+
+                    pageData.forEach(function (item) {
+                        var videoPath = item.CONTENT_FILEPATH.replace('~', '');
+                        var videoCardHtml = `
+                            <div class="col-md-3">
+                                <div class="card video-card" data-video-src="${videoPath}">
+                                    <canvas class="card-img-top videoThumbnail"></canvas>
+                                    <video class="video" style="display:none;">
+                                        <source src="${videoPath}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${item.CONTENTTITLE}</h5>
+                                        <div class="card-buttons text-right">
+                                            <button class="btn" onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')" ><img src="../../../assests/images/question-map.png"></button>
+                                            <button class="btn" onclick="OpenLMSContentforEdit('${item.CONTENTID}')" ><img src="../../../assests/images/edit-content.png"></button>
+                                            <button class="btn" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')" ><img src="../../../assests/images/delete-content.png"></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-                    videoContainer.append(videoCardHtml);
-                });
-
-                generateThumbnails();
-            }
-
-            function generateThumbnails() {
-                var videoCards = document.querySelectorAll('.video-card');
-
-                videoCards.forEach(function (card) {
-                    var video = card.querySelector('.video');
-                    var canvas = card.querySelector('.videoThumbnail');
-                    var context = canvas.getContext('2d');
-
-                    video.addEventListener('loadeddata', function () {
-                        // Set the canvas width and height to match the video dimensions
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
-
-                        // Seek to 1 second
-                        video.currentTime = 1;
+                        `;
+                        videoContainer.append(videoCardHtml);
                     });
 
-                    video.addEventListener('seeked', function () {
-                        // Draw the current frame of the video onto the canvas
-                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    });
+                    generateThumbnails();
+                    displayPagination(data.length, page);
+                }
 
-                    // Load the video
-                    video.load();
-                });
-            }
+                function generateThumbnails() {
+                    var videoCards = document.querySelectorAll('.video-card');
+
+                    videoCards.forEach(function (card) {
+                        var video = card.querySelector('.video');
+                        var canvas = card.querySelector('.videoThumbnail');
+                        var context = canvas.getContext('2d');
+
+                        video.addEventListener('loadeddata', function () {
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            video.currentTime = 2;
+                        });
+
+                        video.addEventListener('seeked', function () {
+                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        });
+
+                        video.load();
+                    });
+                }
+
+                function displayPagination(totalItems, currentPage) {
+                    var paginationContainer = $('#paginationContainer');
+                    paginationContainer.empty();
+
+                    var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                    var paginationHtml = '<li><a href="#" class="pagination-prev" data-page="' + (currentPage - 1) + '">prev</a></li>';
+
+                    for (var i = 1; i <= totalPages; i++) {
+                        paginationHtml += `
+                            <li class="${i === currentPage ? 'active' : ''}">
+                                <a href="#" class="pagination-btn" data-page="${i}">${i}</a>
+                            </li>
+                        `;
+                    }
+
+                    paginationHtml += '<li><a href="#" class="pagination-next" data-page="' + (currentPage + 1) + '">next</a></li>';
+
+                    paginationContainer.append(paginationHtml);
+
+                    if (currentPage === 1) {
+                        $('.pagination-prev').parent().addClass('disabled');
+                    }
+                    if (currentPage === totalPages) {
+                        $('.pagination-next').parent().addClass('disabled');
+                    }
+                }
+            });
+
         /*});*/
 
 
@@ -2287,22 +2443,22 @@
                         <div class="count-filter-btns">
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total btn-radius bg-color-6">
-                                <h5>Total content(s)</h5> <span id="btnShowTotalContents" onclick="ShowTotalContents();" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalContents">
+                                <h5>Total content(s)</h5> <span onclick="ShowTotalContents();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total-used btn-radius bg-color-6">
-                                <h5>Active content(s)</h5> <span id="btnShowActiveContents" onclick="ShowActiveContents();" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowActiveContents">
+                                <h5>Active content(s)</h5> <span onclick="ShowActiveContents();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6">
-                                <h5>Inactive content(s)</h5> <span id="btnShowInactiveContents" onclick="ShowInactiveContents();" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowInactiveContents">
+                                <h5>Inactive content(s)</h5> <span onclick="ShowInactiveContents();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
@@ -2324,7 +2480,7 @@
                         </div>
                     </div>*@
 
-                <div class="content-listing-part">
+                <div class="content-listing-part" id="contentListing" style="display: none;">
                     <div id="searchPanel" class="row" style="display: none;">
                         <div class="col-md-12 content-search-box mb-4">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
@@ -2332,29 +2488,12 @@
                             <button id="btnShowAll" class="btn add-btn">Show All</button>
                         </div>
                     </div>
-                    <div class="row mt-3" id="videoContainer">
-                        @*<div class="col-md-3">
-                                <div class="card video-card">
-                                    <canvas class="card-img-top videoThumbnail"></canvas>
-                                    <video class="video" style="display:none;">
-                                        <source src="~/Commonfolder/LMS/ContentUpload/EXTREME PARKOUR JUMP over death gap.mp4" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Sales Training Basics Beginners Master</h5>
-
-                                        <div class="card-buttons text-right">
-                                            <button class="btn "><img src="../../../assests/images/question-map.png"></button>
-                                            <button class="btn "><img src="../../../assests/images/edit-content.png"></button>
-                                            <button class="btn "><img src="../../../assests/images/delete-content.png"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-
-
-                    </div>
+                    <div class="row mt-3" id="videoContainer"></div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="paginationContainer"></ul>
+                    </nav>
                 </div>
+
             </div>
         </div>
     </div>
@@ -2372,36 +2511,51 @@
                 </div>
                 <div class="modal-body">
                     <div class="clearfix">
-                        <div class="col-lg-6">
-                            <label>Content Title<span style="color: red">*</span></label>
-                            <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
-                            <asp:HiddenField ID="hdnHeaderId" runat="server" />
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Content Description<span style="color: red">*</span></label>
-                            <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
-                            <asp:HiddenField ID="hdnHeaderId" runat="server" />
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="col-lg-6">
-                            <label>Select Topic</label>
-                            @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
-                            @*@Html.Action("GetLMSTopicList", "LMSContentUpload")*@
+                        <div class="col-lg-7">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 mb-3">
+                                    <label>Content Title<span style="color: red">*</span></label>
+                                    <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
+                                    <asp:HiddenField ID="hdnHeaderId" runat="server" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label>Content Description<span style="color: red">*</span></label>
+                                    <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
+                                    <asp:HiddenField ID="hdnHeaderId" runat="server" />
+                                </div>
 
-                        </div>
-                        <div class="col-lg-3">
-                            <label>Play Sequence</label>
-                            <input type="number" id="numPlaySequence" name="numPlaySequence" class="form-control" maxlength="100" min="1" />
+                                <div class="col-lg-12 mb-3">
+                                    <label>Select Topic</label>
+                                    @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
+                                    @*@Html.Action("GetLMSTopicList", "LMSContentUpload")*@
 
+                                </div>
+                                <div class="col-lg-6  mb-4">
+                                    <label>Play Sequence</label>
+                                    <input type="number" id="numPlaySequence" name="numPlaySequence" class="form-control" maxlength="100" min="1" />
+
+                                </div>
+                                <div class="col-lg-6 mb-4" style="height: 60px;">
+                                    <label> </label>
+                                    <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="clearfix">
+                                    <div class="col-lg-4">
+                                        <div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>Allow like</label></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Allow comments</label></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Allow share</label></div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-lg-3">
-                            <label> </label>
-                            <div><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="col-md-12">
+
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Choose File:</label>
                                 <div class="clearfix">
@@ -2412,30 +2566,30 @@
                                 </div>
                             </div>
                             <p class="text-muted red" style="color:red">Supported types : MP4 (File size limited to @ViewBag.LMSVideoUploadSize MB)</p>
+
+                            <div class="progress">
+                                <div class="bar"></div>
+                                <div class="percent">0%</div>
+                            </div>
+
+                            <div id="status"></div>
                         </div>
-                    </div>
 
-                    <div class="progress">
-                        <div class="bar"></div>
-                        <div class="percent">0%</div>
                     </div>
+                    @*<div class="clearfix">
+                        
+                        
+                    </div>*@
+                    @*<div class="clearfix">
+                        
+                    </div>*@
 
-                    <div id="status"></div>
+                    
 
                     <div class="clear"></div>
                     <div class="clearfix"></div>
 
-                    <div class="clearfix">
-                        <div class="col-lg-4">
-                            <div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>Allow like</label></div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Allow comments</label></div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Allow share</label></div>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <input type="hidden" id="hdnAddEditMode" name="hdnAddEditMode" />
