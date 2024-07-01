@@ -601,6 +601,73 @@
 </style>
 
 <script>
+    function validateInput(event) {
+        var input = event.target;
+        if (input.value.length >= 5 && (event.keyCode >= 48 && event.keyCode <= 57)) {
+            event.preventDefault();
+        }
+    }
+
+    function setup() {
+        var inputField1 = document.getElementById("txtPoint1");
+        inputField1.addEventListener("keydown", validateInput);
+
+        var inputField2 = document.getElementById("txtPoint2");
+        inputField2.addEventListener("keydown", validateInput);
+
+        var inputField3 = document.getElementById("txtPoint3");
+        inputField3.addEventListener("keydown", validateInput);
+
+
+        var inputField4 = document.getElementById("txtPoint4");
+        inputField4.addEventListener("keydown", validateInput);
+    }
+
+    window.onload = setup;
+
+    $(document).ready(function () {
+        $('#chkCorrect1').change(function () {
+            var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+            if (chkCorrect1 == "1") {
+                $("#txtPoint1").prop("disabled", false);
+            }
+            else {
+                $("#txtPoint1").prop("disabled", true);
+            }
+        });
+
+        $('#chkCorrect2').change(function () {
+            var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+            if (chkCorrect2 == "1") {
+                $("#txtPoint2").prop("disabled", false);
+            }
+            else {
+                $("#txtPoint2").prop("disabled", true);
+            }
+        });
+
+        $('#chkCorrect3').change(function () {
+            var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+            if (chkCorrect3 == "1") {
+                $("#txtPoint3").prop("disabled", false);
+            }
+            else {
+                $("#txtPoint3").prop("disabled", true);
+            }
+        });
+
+        $('#chkCorrect4').change(function () {
+            var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+            if (chkCorrect4 == "1") {
+                $("#txtPoint4").prop("disabled", false);
+            }
+            else {
+                $("#txtPoint4").prop("disabled", true);
+            }
+        });
+    });
+
+
     function getUrlVars() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -618,6 +685,7 @@
      $("#hdnIDADd").val(QuestionID);
      if(QuestionID!=0)
      {
+         $('#btnSave').show();
           $.ajax({
           type: "POST",
           url: "@Url.Action("EditQuestion", "LMSQuestions")",
@@ -644,38 +712,56 @@
 
                   if (response.OPTIONS_CORRECT1 == "True") {
                       $("#chkCorrect1").prop("checked", true);
+                      $("#txtPoint1").prop("disabled", false);
+
                   }
                   else {
                       $("#chkCorrect1").prop("checked", false);
+                      $("#txtPoint1").prop("disabled", true);
                   }
 
                   if (response.OPTIONS_CORRECT2 == "True") {
                       $("#chkCorrect2").prop("checked", true);
+                      $("#txtPoint2").prop("disabled", false);
                   }
                   else {
                       $("#chkCorrect2").prop("checked", false);
+                      $("#txtPoint2").prop("disabled", true);
                   }
 
                   if (response.OPTIONS_CORRECT3 == "True") {
                       $("#chkCorrect3").prop("checked", true);
+                      $("#txtPoint3").prop("disabled", false);
                   }
                   else {
                       $("#chkCorrect3").prop("checked", false);
+                      $("#txtPoint3").prop("disabled", true);
                   }
 
                   if (response.OPTIONS_CORRECT4 == "True") {
                       $("#chkCorrect4").prop("checked", true);
+                      $("#txtPoint3").prop("disabled", false);
                   }
                   else {
                       $("#chkCorrect4").prop("checked", false);
+                      $("#txtPoint4").prop("disabled", true);
                   }
 
                }
           }
-         });
+          });
+
+         
+
 
  }
- }
+    }
+
+    if (urlKeys.req == 'V') {
+        $("#btnSave").hide();
+    }
+
+
     var TOPICID = [];
     var TOPIC_ID = "";
 
@@ -800,7 +886,61 @@
                 text: 'Enter Question Description to proceed.'
             });
             return false;
-            } else {
+            }
+            else if ($("#txtOption1").val().trim() == "") {
+                // SweetAlert for empty Question description
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Enter Option1 to proceed.'
+                });
+                return false;
+            }
+            else if ($("#txtOption2").val().trim() == "") {
+                // SweetAlert for empty Question description
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Enter Option2 to proceed.'
+                });
+                return false;
+            }
+            else if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+                if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
+                    if ($("#txtPoint3").val().trim() == "" || $("#txtPoint3").val().trim() == "0") {
+                        if ($("#txtPoint4").val().trim() == "" || $("#txtPoint4").val().trim() == "0") {
+
+                            //jAlert('Enter Points  to proceed.');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Warning',
+                                text: 'Please Enter minimum one point to proceed.'
+                            });
+                            return false;
+                        }
+                    }
+                }
+            }
+
+
+
+            else if (TOPIC_ID.trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Select Topic(s) to proceed.'
+                });
+                return false;
+            }
+            else if (Category_ID.trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Select Category to proceed.'
+                });
+                return false;
+            }
+            else {
 
             var Option1 = $("#txtOption1").val().trim();
             var Option2 = $("#txtOption2").val().trim();
@@ -813,9 +953,57 @@
             var Point4 = $("#txtPoint4").val().trim();
 
             var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+
+            if (chkCorrect1 == "1") {
+                if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Point1 to proceed.'
+                    });
+                    return false;
+                }
+            }
+
             var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+
+            if (chkCorrect2 == "1") {
+                if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Point2 to proceed.'
+                    });
+                    return false;
+                }
+            }
             var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+                if (chkCorrect3 == "1") {
+                    if ($("#txtPoint3").val().trim() == "" || $("#txtPoint3").val().trim() == "0") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please Enter Point3 to proceed.'
+                        });
+                        return false;
+                    }
+                }
+
+
             var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+
+                if (chkCorrect4 == "1") {
+                    if ($("#txtPoint4").val().trim() == "" || $("#txtPoint4").val().trim() == "0") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please Enter Point4 to proceed.'
+                        });
+                        return false;
+                    }
+                }
+
+
 
             $.ajax({
                 type: "POST",
@@ -890,8 +1078,8 @@
         $("#txtPoint4").val("");
         $("#chkCorrect4").prop("checked", false);
     }
-    
-   
+
+
 </script>
 <div class="breadCumb">
     <span id="titleheader">Add Question</span>
@@ -934,7 +1122,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint1" class="form-control" placeholder="Point 1" />
+                        <input type="number" id="txtPoint1" class="form-control" placeholder="Point 1" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -956,7 +1144,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint2" class="form-control" placeholder="Point 2" />
+                        <input type="number" id="txtPoint2" class="form-control" placeholder="Point 2" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -979,7 +1167,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint3" class="form-control" placeholder="Point 3" />
+                        <input type="number" id="txtPoint3" class="form-control" placeholder="Point 3" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1001,7 +1189,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint4" class="form-control" placeholder="Point 4" />
+                        <input type="number" id="txtPoint4" class="form-control" placeholder="Point 4" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1013,7 +1201,7 @@
         <div class="row mb-5 mt-4">
             <div class="col-md-4">
                 <label>Map Tropic(s)</label>
-                @Html.Action("GetTopicList", "LMSQuestions", new {  QUESTIONS_ID = @Model.QUESTIONS_ID })
+               @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-4">
                 <label>Map Categories</label>
@@ -1030,6 +1218,6 @@
             }
         </div>
         <input type="hidden" value="@Model.QUESTIONS_ID" id="hdnIDADd" />
-       
+
     </div>
 </div>

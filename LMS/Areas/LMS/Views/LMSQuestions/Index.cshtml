@@ -604,8 +604,29 @@
             }
         });
     }
-        
 
+
+    }
+
+    function ViewClick(ID) {
+    $("#hdnID").val(ID);
+    if (parseInt(ID) > 0) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
+                data: { ID: ID, IsView: 0 },
+                success: function (response) {
+                    if (response != null && response == true) {
+                        var url = '/LMS/LMSQuestions/QuestionAdd?key=' + ID +'&req=V';
+                        window.location.href = url;
+                    }
+                    else {
+                        jAlert('Please try again later.');
+                        return false;
+                    }
+                }
+            });
+        }
     }
 
      function DeleteClick(ID) {
@@ -684,6 +705,7 @@
     function OpenTopics(ID) {
         QUESTIONS_ID = ID;
         gridLMSTopic.Refresh();
+        gridLMSTopic.Refresh();
         $("#TopicModal").modal('show');
     }
     function OnStartCallbackTOPIC(s, e) {
@@ -691,6 +713,7 @@
     }
     function OpenCategories(ID) {
         QUESTIONS_ID = ID;
+        gridCategoryList.Refresh();
         gridCategoryList.Refresh();
         $("#CategoryModal").modal('show');
     }

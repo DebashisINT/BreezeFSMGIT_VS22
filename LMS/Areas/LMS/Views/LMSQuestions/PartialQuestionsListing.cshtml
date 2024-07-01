@@ -70,7 +70,7 @@
         x.Caption = "Created By";
         x.VisibleIndex = 4;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
     });
     settings.Columns.Add(x =>
     {
@@ -78,7 +78,7 @@
         x.Caption = "Created On";
         x.VisibleIndex = 5;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -91,7 +91,7 @@
         x.Caption = "Updated By";
         x.VisibleIndex = 6;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
     });
 
     settings.Columns.Add(x =>
@@ -100,7 +100,7 @@
         x.Caption = "Updated On";
         x.VisibleIndex = 7;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -118,6 +118,10 @@
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.SetDataItemTemplateContent(c =>
         {
+            if (ViewBag.CanView)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"ViewClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "QUESTIONS_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
+            }
             if (ViewBag.CanEdit)
             {
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "QUESTIONS_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
