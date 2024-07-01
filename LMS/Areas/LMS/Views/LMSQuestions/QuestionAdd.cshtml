@@ -601,6 +601,12 @@
 </style>
 
 <script>
+      var TOPICID = [];
+  var TOPIC_ID = "";
+
+  var Category = [];
+  var Category_ID = "";
+
     function validateInput(event) {
         var input = event.target;
         if (input.value.length >= 5 && (event.keyCode >= 48 && event.keyCode <= 57)) {
@@ -747,6 +753,10 @@
                       $("#txtPoint4").prop("disabled", true);
                   }
 
+
+                    TOPIC_ID=response.CATEGORYIDS;
+                    Category_ID=response.TOPICIDS;
+
                }
           }
           });
@@ -762,11 +772,7 @@
     }
 
 
-    var TOPICID = [];
-    var TOPIC_ID = "";
-
-    var Category = [];
-    var Category_ID = "";
+ 
 
     function CategorySelectionChanged(s, e) {
         CategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetSelectedFieldValuesCallbackCategory);
