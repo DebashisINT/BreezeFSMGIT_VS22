@@ -78,33 +78,7 @@ namespace LMS.Areas.LMS.Controllers
             return View(Dtls);
         }
 
-        public ActionResult GetLMSTopicList()
-        {
-            try
-            {
-                List<TopicList> modelTopic = new List<TopicList>();
-
-                DataSet ds = new DataSet();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-                ds = proc.GetDataSet();
-
-                if (ds != null)
-                {
-                    // Company
-                    List<TopicList> TopicList = new List<TopicList>();
-                    TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
-                    modelTopic = TopicList;
-                }
-
-                return PartialView("~/Areas/LMS/Views/LMSContentUpload/_LMSTopicPartial.cshtml", modelTopic);
-            }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-            }
-        }
-
+        
         //public ActionResult GetContentListing()
         //{
         //    List<VideoFiles> videolist = new List<VideoFiles>();
@@ -543,6 +517,210 @@ namespace LMS.Areas.LMS.Controllers
             {
             }
             return Json(dtl);
+        }
+
+        public ActionResult PartialQuestionMapGridList(LMSContentModel model)
+        {
+            try
+            {
+                GetQuestionMapGridListDetails(model.Is_ContentId);
+                return PartialView("PartialQuestionMapGridList", QuestionMapGridListDetails());
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+
+        public void GetQuestionMapGridListDetails(string ContentID)
+        {
+            string user_id = Convert.ToString(Session["userid"]);
+
+            string action = string.Empty;
+            DataTable formula_dtls = new DataTable();
+            DataSet dsInst = new DataSet();
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
+                proc.AddPara("@CONTENTID", ContentID);
+                proc.AddPara("@USERID", Convert.ToInt32(user_id));
+                dt = proc.GetTable();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable QuestionMapGridListDetails()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
+            string Userid = Convert.ToString(Session["userid"]);
+
+            ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
+            ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
+            ////////{
+            ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+            ////////}
+
+            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+            var q = from d in dc.LMS_CONTENTQUESTIONMAP_LISTINGs
+                    where d.USERID == Convert.ToInt32(Userid)
+                    orderby d.SEQ
+                    select d;
+            return q;
+
+
+        }
+
+        public ActionResult GetLMSTopicList()
+        {
+            try
+            {
+                List<TopicList> modelTopic = new List<TopicList>();
+
+                DataSet ds = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+                ds = proc.GetDataSet();
+
+                if (ds != null)
+                {
+                    // Company
+                    List<TopicList> TopicList = new List<TopicList>();
+                    TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
+                    modelTopic = TopicList;
+                }
+
+
+                return PartialView("~/Areas/LMS/Views/LMSContentUpload/_LMSTopicPartial.cshtml", modelTopic);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public ActionResult GetLMSCategoriesList()
+        {
+            try
+            {
+                List<CategoryList> modelCategory = new List<CategoryList>();
+
+                DataSet ds = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "GETCATEGORYDROPDOWNBINDDATA");
+                ds = proc.GetDataSet();
+
+                if (ds != null)
+                {
+                    // Company
+                    List<CategoryList> CategoryList = new List<CategoryList>();
+                    CategoryList = APIHelperMethods.ToModelList<CategoryList>(ds.Tables[0]);
+                    modelCategory = CategoryList;
+                }
+
+
+                return PartialView("~/Areas/LMS/Views/LMSContentUpload/_LMSCategoryPartial.cshtml", modelCategory);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public JsonResult GetQuestionListForMap(string TopicIds, string CategoryIds, string ContentId)
+        {
+            List<QuestionListForMap> modelQuestionListForMap = new List<QuestionListForMap>();
+
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@Action", "GETQUESTIONLISTFORMAP");
+            proc.AddPara("@CONTENTID", ContentId);
+            proc.AddPara("@TOPICIDS", TopicIds);
+            proc.AddPara("@CATEGORYIDS", CategoryIds);
+            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+
+            dt = proc.GetTable();
+
+            if (dt != null)
+            {
+                modelQuestionListForMap = APIHelperMethods.ToModelList<QuestionListForMap>(dt);
+            }
+
+            return Json(modelQuestionListForMap, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveContentQuestionMap(LMSContentAddModel data)
+        {
+            try
+            {
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", data.Action);
+                proc.AddPara("@CONTENTID", data.ContentID);
+                proc.AddPara("@SELECTEDQUESTIONMAPLIST", data.SelectedQuestionMapList);
+                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
+                int k = proc.RunActionQuery();
+                data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+        public JsonResult ShowContentDetailsForEdit(string ContentId)
+        {
+            List<QuestionListForMap> modelQuestionListForMap = new List<QuestionListForMap>();
+
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@Action", "GETCONTENTDETAILSFOREDIT");
+            proc.AddPara("@CONTENTID", ContentId);
+            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+
+            dt = proc.GetTable();
+
+            if (dt != null)
+            {
+                modelQuestionListForMap = APIHelperMethods.ToModelList<QuestionListForMap>(dt);
+            }
+
+            return Json(modelQuestionListForMap, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult QuestionMapDelete(string ContentID)
+        {
+            string output_msg = string.Empty;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "QUESTIONMAPDELETE");
+                proc.AddPara("@CONTENTID", ContentID);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
     }
 }

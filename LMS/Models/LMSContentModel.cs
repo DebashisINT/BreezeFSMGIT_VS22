@@ -8,13 +8,15 @@ namespace LMS.Models
     public class LMSContentModel
     {
         public string Is_PageLoad { get; set; }
-
+        public string Is_ContentId { get; set; }
+        public string Is_ContentTitle { get; set; }
         public int TopicId { get; set; }
         public List<TopicList> TopicList { get; set; }
 
         public Int64 TotalContents { get; set; }
         public Int64 ActiveContents { get; set; }
         public Int64 InactiveContents { get; set; }
+        
     }
 
     public class LMSContentAddModel
@@ -31,6 +33,7 @@ namespace LMS.Models
         public string AllowShare { get; set; }
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
+        public string SelectedQuestionMapList { get; set; }
     }
 
     public class LMSContentEditModel
@@ -53,6 +56,11 @@ namespace LMS.Models
     {
         public String TOPIC_ID { get; set; }
         public String TOPIC_NAME { get; set; }
+    }
+    public class CategoryList
+    {
+        public String CATEGORYID { get; set; }
+        public String CATEGORYNAME { get; set; }
     }
 
     public class UploadContentFiles
@@ -87,6 +95,13 @@ namespace LMS.Models
         public string cnt_ActiveContents { get; set; }
         public string cnt_InactiveContents { get; set; }
 
+    }
+
+    public class QuestionListForMap
+    {
+        public string ID { get; set; }
+        public string NAME { get; set; }
+        public bool selected { get; set; }
     }
 
 }

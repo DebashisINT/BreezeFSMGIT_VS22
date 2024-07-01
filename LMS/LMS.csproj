@@ -819,6 +819,8 @@
     <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSTopicPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\Index.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialQuestionsListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\_LMSCategoryPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSContentUpload\PartialQuestionMapGridList.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
