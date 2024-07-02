@@ -16,7 +16,7 @@ namespace LMS.Models
         public string Is_PageLoad { get; set; }
         public string Is_PageLoadCategory { get; set; }
         public string Is_PageLoadTopic { get; set; }
-        public DataTable GETLOOKUPVALUE(string Action)
+        public DataTable GETLOOKUPVALUE(string Action,string ID)
         {
             ProcedureExecute proc;
             int rtrnvalue = 0;
@@ -25,6 +25,7 @@ namespace LMS.Models
             {
                 using (proc = new ProcedureExecute("PRC_LMS_QUESTIONS"))              {
                     proc.AddVarcharPara("@ACTION", 100, Action);
+                    proc.AddIntegerPara("@ID",Convert.ToInt32(ID));
                     dt = proc.GetTable();
                     return dt;
                 }

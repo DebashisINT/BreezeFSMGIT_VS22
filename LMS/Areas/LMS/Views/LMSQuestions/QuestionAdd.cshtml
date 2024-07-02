@@ -767,10 +767,7 @@
  }
     }
 
-    if (urlKeys.req == 'V') {
-        $("#btnSave").hide();
-    }
-
+    
 
  
 
@@ -1218,11 +1215,13 @@
 
         <div class="save-exit-btn">
             <button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>
-            @if (ViewBag.CanAdd)
-            {
-                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save and Exit</button>
-            }
-        </div>
+            
+                @if (ViewBag.CanAdd  && Convert.ToInt16(ViewBag.IsView) == 0)
+                {
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save and Exit</button>
+                }
+            
+            </div>
         <input type="hidden" value="@Model.QUESTIONS_ID" id="hdnIDADd" />
 
     </div>

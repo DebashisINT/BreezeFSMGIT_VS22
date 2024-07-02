@@ -614,7 +614,7 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
-                data: { ID: ID, IsView: 0 },
+                data: { ID: ID, IsView: 1 },
                 success: function (response) {
                     if (response != null && response == true) {
                         var url = '/LMS/LMSQuestions/QuestionAdd?key=' + ID +'&req=V';
