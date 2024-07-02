@@ -1299,10 +1299,12 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        $("#btnShowTotalTopics").text(response.TotalTopics);
-                        $("#btnShowUsedTopics").text(response.TotalUsedTopics);
-                        $("#btnShowUnusedTopics").text(response.TotalUnusedTopics);
-
+                        //$("#btnShowTotalTopics").text(response.TotalTopics);
+                        //$("#btnShowUsedTopics").text(response.TotalUsedTopics);
+                        //$("#btnShowUnusedTopics").text(response.TotalUnusedTopics);
+                        $("#btnShowTotalTopics .filter-count").text(response.TotalTopics);
+                        $("#btnShowUsedTopics .filter-count").text(response.TotalUsedTopics);
+                        $("#btnShowUnusedTopics .filter-count").text(response.TotalUnusedTopics);
                     },
                     error: function (response) {
                         jAlert("Please try again later");
@@ -1749,7 +1751,20 @@
             }
         });
     }
+    function ShowTotalTopics(e) {
+        Is_PageLoad = 'TotalTopics';
+        gridLMSTopic.Refresh()
+    }
 
+    function ShowUsedTopics(e) {
+        Is_PageLoad = 'UsedTopics';
+        gridLMSTopic.Refresh()
+    }
+
+    function ShowUnusedTopics(e) {
+        Is_PageLoad = 'UnusedTopics';
+        gridLMSTopic.Refresh()
+    }
 
 </script>
 
@@ -1789,22 +1804,22 @@
                         <div class="count-filter-btns">
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total btn-radius bg-color-6">
-                                <h5>Total topic(s)</h5> <span id="btnShowTotalTopics" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" >
+                                <h5>Total topic(s)</h5> <span onclick="ShowTotalTopics();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total-used btn-radius bg-color-6">
-                                <h5>Used topic(s)</h5> <span id="btnShowUsedTopics" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics">
+                                <h5>Used topic(s)</h5> <span onclick="ShowUsedTopics();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6">
-                                <h5>Unused topic(s)</h5> <span id="btnShowUnusedTopics" class="filter-count">0</span>
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics">
+                                <h5>Unused topic(s)</h5> <span onclick="ShowUnusedTopics();" class="filter-count">0</span>
                             </button>
 
                             @*}*@
