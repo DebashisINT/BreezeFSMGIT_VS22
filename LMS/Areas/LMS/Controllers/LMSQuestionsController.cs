@@ -53,11 +53,17 @@ namespace LMS.Areas.LMS.Controllers
             if (TempData["QUESTIONS_ID"] != null)
             {
                 obj.QUESTIONS_ID = Convert.ToString(TempData["QUESTIONS_ID"]);
-                TempData.Keep();             
-
-                    
+                TempData.Keep();         
+     
             }
-
+            if (TempData["IsView"] != null)
+            {
+                ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
+            }
+            else
+            {
+                ViewBag.IsView = 0;
+            }
             return View("~/Areas/LMS/Views/LMSQuestions/QuestionAdd.cshtml", obj);
            
         }
@@ -297,7 +303,12 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetTopic> productdata = new List<GetTopic>();
                 List<GetTopic> modelbranch = new List<GetTopic>();               
                 DataTable ComponentTable = new DataTable();
-                ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC");                
+
+                if(QUESTIONS_ID =="")
+                {
+                    QUESTIONS_ID = "0";
+                }
+                ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC", QUESTIONS_ID);                
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
 
                 DataSet output = new DataSet();
@@ -335,7 +346,11 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetCategory> productdata = new List<GetCategory>();
                 List<GetCategory> modelbranch = new List<GetCategory>();
                 DataTable ComponentTable = new DataTable();
-                ComponentTable = obj.GETLOOKUPVALUE("GETCATEGORY");
+                if (QUESTIONS_ID == "")
+                {
+                    QUESTIONS_ID = "0";
+                }
+                ComponentTable = obj.GETLOOKUPVALUE("GETCATEGORY", QUESTIONS_ID);
                 modelbranch = APIHelperMethods.ToModelList<GetCategory>(ComponentTable);
 
                 DataSet output = new DataSet();
@@ -371,7 +386,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 List<GetCategory> modelbranch = new List<GetCategory>();
                 DataTable ComponentTable = new DataTable();
-                ComponentTable = obj.GETLOOKUPVALUE("GETCATEGORY");
+                ComponentTable = obj.GETLOOKUPVALUE("GETCATEGORY","0");
                 modelbranch = APIHelperMethods.ToModelList<GetCategory>(ComponentTable);
                 return Json(modelbranch, JsonRequestBehavior.AllowGet);
 
@@ -387,7 +402,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 List<GetTopic> modelbranch = new List<GetTopic>();
                 DataTable ComponentTable = new DataTable();
-                ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC");
+                ComponentTable = obj.GETLOOKUPVALUE("GETTOPIC","0");
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
                 return Json(modelbranch, JsonRequestBehavior.AllowGet);
 
