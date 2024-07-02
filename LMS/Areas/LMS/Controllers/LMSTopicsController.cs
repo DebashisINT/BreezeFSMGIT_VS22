@@ -49,27 +49,39 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSTopics/Index");
-                ViewBag.CanAdd = rights.CanAdd;
-                ViewBag.CanView = rights.CanView;
-                ViewBag.CanExport = rights.CanExport;
-                ViewBag.CanEdit = rights.CanEdit;
-                ViewBag.CanDelete = rights.CanDelete;
-
-                string Is_PageLoad = string.Empty;
-
-                if (model.Is_PageLoad == "Ispageload")
+                if (model.Is_PageLoad == "TotalTopics" || model.Is_PageLoad == "UsedTopics" || model.Is_PageLoad == "UnusedTopics")
                 {
-                    Is_PageLoad = "is_pageload";
+                    string Is_PageLoad = model.Is_PageLoad;
 
+                    model.Is_PageLoad = "Ispageload";
+
+                    return PartialView("PartialTopicGridList", GetTopicDetails(Is_PageLoad));
                 }
+                else
+                {
+                    EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSTopics/Index");
+                    ViewBag.CanAdd = rights.CanAdd;
+                    ViewBag.CanView = rights.CanView;
+                    ViewBag.CanExport = rights.CanExport;
+                    ViewBag.CanEdit = rights.CanEdit;
+                    ViewBag.CanDelete = rights.CanDelete;
+
+                    string Is_PageLoad = string.Empty;
+
+                    if (model.Is_PageLoad == "Ispageload")
+                    {
+                        Is_PageLoad = "is_pageload";
+
+                    }
 
 
-                GetTopicListing(Is_PageLoad);
+                    GetTopicListing(Is_PageLoad);
 
-                model.Is_PageLoad = "Ispageload";
+                    model.Is_PageLoad = "Ispageload";
 
-                return PartialView("PartialTopicGridList", GetTopicDetails(Is_PageLoad));
+                    return PartialView("PartialTopicGridList", GetTopicDetails(Is_PageLoad));
+                }
+                
 
             }
             catch (Exception ex)
@@ -116,12 +128,34 @@ namespace LMS.Areas.LMS.Controllers
 
             if (Is_PageLoad != "is_pageload")
             {
-                LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
-                        where d.USERID == Convert.ToInt32(Userid)
-                        orderby d.SEQ 
-                        select d;
-                return q;
+                if (Is_PageLoad == "UsedTopics")
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid) && d.QUESTIONS_ID != 0
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                else if (Is_PageLoad == "UnusedTopics")
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid) && d.QUESTIONS_ID == 0
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                else
+                {
+                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+                    var q = from d in dc.LMS_TOPICSMASTER_LISTINGs
+                            where d.USERID == Convert.ToInt32(Userid)
+                            orderby d.SEQ
+                            select d;
+                    return q;
+                }
+                
             }
             else
             {
