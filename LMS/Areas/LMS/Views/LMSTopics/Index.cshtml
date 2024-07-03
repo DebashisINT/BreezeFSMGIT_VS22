@@ -432,6 +432,7 @@
     .modal-content {
         border: none;
         border-radius: 16px;
+        overflow:hidden;
     }
 
     .modal-header .modal-title {
@@ -613,12 +614,19 @@
     .pmsModal .modal-body {
         padding: 10px;
         padding-bottom: 15px;
+        background: #f1e3ff;
     }
 
         .pmsModal .modal-body .col-md-3, .pmsModal .modal-body .col-md-6, .pmsModal .modal-body .col-md-12 {
             padding-right: 10px;
             padding-left: 10px;
         }
+
+    .modal-footer {
+        background: #3f0677;
+        margin-top: 0;
+        padding: 12px 20px 12px;
+    }
 
     .personal-info {
         background: #f9f9f9;
@@ -1012,10 +1020,20 @@
         overflow: hidden !important;
     }
 
-        .btn-total:hover {
-            background-color: rgb(10 63 166) !important;
-            color: #fff !important;
+        .btn-total.active {
+            background-color: rgb(10 63 166 / 100%) !important;
+
         }
+
+            .btn-total.active h5
+            {
+                color: #fff;
+            }
+
+            .btn-total:hover {
+                background-color: rgb(10 63 166) !important;
+                color: #fff !important;
+            }
 
             .btn-total:hover h5, .btn-total:hover .filter-count,
             .btn-total-used:hover h5, .btn-total-used:hover .filter-count,
@@ -1059,6 +1077,14 @@
         overflow: hidden !important;
     }
 
+        .btn-total-used.active {
+            background-color: #0b8b48 !important;
+        }
+
+            .btn-total-used.active h5 {
+                color: #fff;
+            }
+
         .btn-total-used:hover {
             background-color: #0b8b48 !important;
             color: #fff !important;
@@ -1085,6 +1111,14 @@
         padding-bottom: 0 !important;
         overflow: hidden !important;
     }
+
+        .btn-total-unused.active {
+            background-color: #d01616 !important;
+        }
+
+            .btn-total-unused.active h5 {
+                color: #fff;
+            }
 
         .btn-total-unused:hover {
             background-color: #d01616 !important;
@@ -1198,6 +1232,7 @@
         .transfer-double
         {
             border: none;
+            background: transparent !important;
         }
 
     .transfer-double-content
@@ -1209,6 +1244,8 @@
         width: 45%;
         border-radius: 15px;
         overflow: hidden;
+        background: #fff;
+        box-shadow: 1px 1px 10px #1111112e;
     }
     .transfer-double-content-middle {
         width: 10%;
@@ -1224,6 +1261,8 @@
         padding-left: 0;
         height: auto;
         background: #FADBFF;
+        background: #d0932d;
+        color: #fff;
     }
 
     
@@ -1265,6 +1304,33 @@
     div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
         background: rgb(0 0 0 / 20%) !important;
     }
+
+    .pmsModal .modal-header .modal-title {
+        font-size: 18px;
+    }
+
+    .pmsModal .modal-header {
+        background: #3f0677 !important;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    .cancel-btn, .save-btn {
+        box-shadow: 1px 1px 10px #030e4a7a;
+        transition: all .3s;
+    }
+
+    .cancel-btn:hover
+    {
+        transform: scale(1.1);
+    }
+
+        .save-btn:hover {
+            transform: scale(1.1);
+        }
 </style>
 
 <script>
@@ -1289,6 +1355,7 @@
             gridLMSTopic.Refresh();
             gridLMSTopic.Refresh();
 
+            $("#btnShowTotalTopics").addClass("active");
 
             setTimeout(function () {
                 $.ajax({
@@ -1812,19 +1879,39 @@
     function ShowTotalTopics(e) {
         Is_PageLoad = 'TotalTopics';
         gridLMSTopic.Refresh()
+
+        $("#btnShowTotalTopics").addClass("active");
+        $("#btnShowUsedTopics").removeClass("active");
+        $("#btnShowUnusedTopics").removeClass("active");
     }
 
     function ShowUsedTopics(e) {
         Is_PageLoad = 'UsedTopics';
         gridLMSTopic.Refresh()
+
+        $("#btnShowTotalTopics").removeClass("active");
+        $("#btnShowUsedTopics").addClass("active");
+        $("#btnShowUnusedTopics").removeClass("active");
     }
 
     function ShowUnusedTopics(e) {
         Is_PageLoad = 'UnusedTopics';
         gridLMSTopic.Refresh()
+
+        $("#btnShowTotalTopics").removeClass("active");
+        $("#btnShowUsedTopics").removeClass("active");
+        $("#btnShowUnusedTopics").addClass("active");
     }
 
+    $(document).ready(function () {
+        $('#AddTopicModal').on('shown.bs.modal', function () {
+            $('#txtTopicName').focus();
+        });
+    });
+
 </script>
+
+
 
 <div class="breadCumb">
     <span>Topic Setup</span>
@@ -1840,47 +1927,47 @@
 
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
                         <div class="add-show-btns">
-                            @if (ViewBag.CanAdd){
+                            @*@if (ViewBag.CanAdd){*@
                             <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddTopic();">
-                                <span class="btn-icon"><i class="fa fa-plus"></i></span> &Topic
+                                <span class="btn-icon"><i class="fa fa-plus"></i></span> Topic
                             </button>
-                            }
+                            @*}
 
-                            @if (ViewBag.CanView){
+                            @if (ViewBag.CanView){*@
                             <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
                                 <span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span> Show Data
                             </button>
-                            }
+                            @*}
 
-                            @if (ViewBag.CanExport){
+                            @if (ViewBag.CanExport){*@
                             <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
                                 <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
                             </button>
-                            }
+                            @*}*@
                         </div>
 
                         <div class="count-filter-btns">
 
-                            @if (ViewBag.CanView){
-                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" >
-                                <h5>Total topic(s)</h5> <span onclick="ShowTotalTopics();" class="filter-count">0</span>
+                            @*@if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" onclick="ShowTotalTopics();">
+                                <h5>Total topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            }
+                            @*}
 
-                            @if (ViewBag.CanView){
-                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics">
-                                <h5>Used topic(s)</h5> <span onclick="ShowUsedTopics();" class="filter-count">0</span>
+                            @if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics" onclick="ShowUsedTopics();">
+                                <h5>Used topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            }
+                            @*}
 
-                            @if (ViewBag.CanView){
-                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics">
-                                <h5>Unused topic(s)</h5> <span onclick="ShowUnusedTopics();" class="filter-count">0</span>
+                            @if (ViewBag.CanView){*@
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics" onclick="ShowUnusedTopics();">
+                                <h5>Unused topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            }
+                            @*}*@
 
                         </div>
 
@@ -1932,9 +2019,9 @@
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
                     </div>
-                    <div class="col-lg-2 mb-4" style="height: 60px;">
+                    <div class="col-lg-2" style="height: 60px;">
                         <label> </label>
-                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
+                        <div class="active-checkbox mt-3"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
@@ -1947,8 +2034,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
-                <button type="button" class="btn btn-success" onclick="SaveTopics();">Save & Exit</button>
+                <button type="button" class="btn btn-danger cancel-btn" data-dismiss="modal">Cancel & Exit</button>
+                <button type="button" class="btn btn-success save-btn" onclick="SaveTopics();">Save & Exit</button>
             </div>
         </div>
 
