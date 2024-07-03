@@ -334,6 +334,7 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddPara("@ACTION", data.Action);
                 proc.AddPara("@TOPICID", data.TopicID);
                 proc.AddPara("@TOPICNAME", data.TopicName);
+                proc.AddPara("@TOPICSTATUS", data.TopicStatus);
                 proc.AddPara("@TOPICBASEDON_ID", data.TopicBasedOnId);
                 proc.AddPara("@SELECTEDTOPICBASEDONMAPLIST", data.selectedTopicBasedOnMapList);
                 proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
