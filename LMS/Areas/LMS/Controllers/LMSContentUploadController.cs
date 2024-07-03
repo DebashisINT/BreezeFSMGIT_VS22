@@ -137,6 +137,13 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+                ViewBag.CanDelete = rights.CanDelete;
+
                 if (model.Is_PageLoad == "TotalContents" || model.Is_PageLoad == "ActiveContents" || model.Is_PageLoad == "InactiveContents")
                 {
                     string Is_PageLoad = model.Is_PageLoad;
@@ -147,13 +154,6 @@ namespace LMS.Areas.LMS.Controllers
                 }
                 else
                 {
-                    EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
-                    ViewBag.CanAdd = rights.CanAdd;
-                    ViewBag.CanView = rights.CanView;
-                    ViewBag.CanExport = rights.CanExport;
-                    ViewBag.CanEdit = rights.CanEdit;
-                    ViewBag.CanDelete = rights.CanDelete;
-
                     string Is_PageLoad = string.Empty;
 
                     if (model.Is_PageLoad == "Ispageload")
