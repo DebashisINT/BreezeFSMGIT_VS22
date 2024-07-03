@@ -361,7 +361,10 @@ namespace LMS.Areas.LMS.Controllers
                     
                 }
 
-                
+                if (hdnFileDuration == "")
+                {
+                    hdnFileDuration = "0";
+                }
 
                 if (IsValid == 1)
                 {
