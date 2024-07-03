@@ -27,11 +27,9 @@
 @*<script src="http://malsup.github.com/jquery.form.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js"></script>
 
-@*Rev Sanchita*@
 <link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
 <link href="/assests/pluggins/Transfer/css/jquery.transfer.css" rel="stylesheet" />
 <script src="/assests/pluggins/Transfer/jquery.transfer.js"></script>
-@*Enf of Rev Sanchita*@
 
 <style>
     .progress {
@@ -1379,7 +1377,6 @@
         }
     }
 
-    /* Rev Sanchita*/
     @@media screen and (min-width: 768px) {
         #MapQuestionListModal .modal-dialog {
             width: 48% !important;
@@ -1397,7 +1394,7 @@
             width: 48% !important;
         }
     }
-    /*End of Rev Sanchita*/
+    
 
     .mainWraper select[multiple], select[size] {
         height: auto !important;
@@ -1613,11 +1610,10 @@
 
 <script>
     var Is_PageLoad = "Ispageload";
-    /*Rev Sanchita*/
+    
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
-    /*End of Rev Sanchita*/
-
+    
     $(document).ready(function () {
 
         $("#fileupload").fileinput();
@@ -1954,13 +1950,11 @@
             }
 
         });
-        // Rev Sanchita
          $('body').on('click', '#btnExportTo', function () {
              var url = '@Url.Action("ExporRegisterList", "LMSContentUpload")'
              window.location.href = url.replace("_type_");
          });
-        // End of Rev Sanchita
-
+       
     });
 
     function OnStartCallback(s, e) {
@@ -2126,7 +2120,6 @@
         gridLMSContent.Refresh()
     }
 
-    // Rev Sanchita
     function OnStartCallbackQuestion(s, e) {
         e.customArgs["Is_ContentId"] = Is_ContentId;
         e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
@@ -2439,7 +2432,52 @@
         $("#hdnContentID").val(Is_ContentId);
         $("#MappedQuestionsForViewModal").modal('show');
     }
+
+    // Rev Sanchita
+    var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB;
+
+    function storeFile(fileObj, callback) {
+        var openReq = indexedDB.open('upload-resume', 1);
+        openReq.onerror = function (e) {
+            console.error(e);
+        }
+        openReq.onupgradeneeded = function (e) {
+            var db = openReq.result;
+            db.createObjectStore('upload-resume-store', { keyPath: 'blah' });
+        }
+        openReq.onsuccess = function (e) {
+            var db = openReq.result;
+            var req = db.transaction(['upload-resume-store'], 'readwrite').objectStore('upload-resume-store').add({ blah: 'main', file: fileObj });
+            req.onerror = function (e) {
+                console.error(e);
+            }
+            req.onsuccess = function (e) { callback(); }
+        }
+    }
+
+    function getFile(callback) {
+        var openReq = indexedDB.open('upload-resume', 1);
+        openReq.onerror = function (e) {
+            console.error(e);
+        }
+        openReq.onupgradeneeded = function (e) {
+            //this should have already been called before...so if this is here that means that the file was never stored
+            openReq.onsuccess = null;
+            callback(false);
+        }
+        openReq.onsuccess = function (e) {
+            var req = db.transaction(['upload-resume-store'], 'readonly').objectStore('upload-resume-store').get('blah');
+            req.onerror = function (e) {
+                console.error(e);
+            }
+            req.onsuccess = function (e) {
+                callback(req.result);
+            }
+        }
+    }
     // End of Rev Sanchita
+
+
 </script>
 
 
@@ -2636,7 +2674,6 @@
     </div>
 </div>
 
-@*Rev Sanchita*@
 <div id="MapQuestionListModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -2774,4 +2811,3 @@
 
     </div>
 </div>
-@* End of Rev Sanchita*@
