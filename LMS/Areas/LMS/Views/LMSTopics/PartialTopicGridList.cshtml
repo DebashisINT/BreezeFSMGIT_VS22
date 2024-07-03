@@ -116,11 +116,22 @@
     {
         x.SetDataItemTemplateContent(tc =>
         {
-            ViewContext.Writer.Write(
-                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenLMSPointforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
-                "" +
-                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteLMSPoint('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
-            );
+            //ViewContext.Writer.Write(
+            //    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenLMSPointforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+            //    "" +
+            //    "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteLMSPoint('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+            //);
+
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"OpenLMSPointforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
+            }
+            if (ViewBag.CanDelete)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"OnClickDeleteLMSPoint('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "TOPICID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
+
+            }
+
         });
 
         x.Settings.AllowDragDrop = DefaultBoolean.False;
