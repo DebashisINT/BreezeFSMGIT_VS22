@@ -632,6 +632,7 @@
     window.onload = setup;
 
     $(document).ready(function () {
+        $('#txtQuestionName').focus();
         $('#chkCorrect1').change(function () {
             var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
             if (chkCorrect1 == "1") {
@@ -686,86 +687,87 @@
     }
      var QuestionID=0;
  var urlKeys = getUrlVars();
- if (urlKeys.key != 'Add') {
-     QuestionID = urlKeys.key;
-     $("#hdnIDADd").val(QuestionID);
-     if(QuestionID!=0)
-     {
-         $('#btnSave').show();
-          $.ajax({
-          type: "POST",
-          url: "@Url.Action("EditQuestion", "LMSQuestions")",
-          data: { id: QuestionID },
-          success: function (response) {
-              if (response.code == "") {
-                  jAlert('No data found');
-              }
-              else {
-                  $("#txtQuestionName").val(response.NAME);
-                  $("#txtQuestionDescription").val(response.DESCRIPTION);
+    if (urlKeys.key != 'Add') {
+        $("#titleheader").text(""); 
+        QuestionID = urlKeys.key;
+        $("#hdnIDADd").val(QuestionID);
+        if (QuestionID != 0) {
+            $('#btnSave').show();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditQuestion", "LMSQuestions")",
+                data: { id: QuestionID },
+                success: function (response) {
+                    if (response.code == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        $("#txtQuestionName").val(response.NAME);
+                        $("#txtQuestionDescription").val(response.DESCRIPTION);
 
 
-                 $("#txtOption1").val(response.OPTIONS_NUMBER1);
-                 $("#txtOption2").val(response.OPTIONS_NUMBER2);
-                 $("#txtOption3").val(response.OPTIONS_NUMBER3);
-                 $("#txtOption4").val(response.OPTIONS_NUMBER4);
+                        $("#txtOption1").val(response.OPTIONS_NUMBER1);
+                        $("#txtOption2").val(response.OPTIONS_NUMBER2);
+                        $("#txtOption3").val(response.OPTIONS_NUMBER3);
+                        $("#txtOption4").val(response.OPTIONS_NUMBER4);
 
 
-                 $("#txtPoint1").val(response.OPTIONS_POINT1);
-                 $("#txtPoint2").val(response.OPTIONS_POINT2);
-                 $("#txtPoint3").val(response.OPTIONS_POINT3);
-                 $("#txtPoint4").val(response.OPTIONS_POINT4);
+                        $("#txtPoint1").val(response.OPTIONS_POINT1);
+                        $("#txtPoint2").val(response.OPTIONS_POINT2);
+                        $("#txtPoint3").val(response.OPTIONS_POINT3);
+                        $("#txtPoint4").val(response.OPTIONS_POINT4);
 
-                  if (response.OPTIONS_CORRECT1 == "True") {
-                      $("#chkCorrect1").prop("checked", true);
-                      $("#txtPoint1").prop("disabled", false);
+                        if (response.OPTIONS_CORRECT1 == "True") {
+                            $("#chkCorrect1").prop("checked", true);
+                            $("#txtPoint1").prop("disabled", false);
 
-                  }
-                  else {
-                      $("#chkCorrect1").prop("checked", false);
-                      $("#txtPoint1").prop("disabled", true);
-                  }
+                        }
+                        else {
+                            $("#chkCorrect1").prop("checked", false);
+                            $("#txtPoint1").prop("disabled", true);
+                        }
 
-                  if (response.OPTIONS_CORRECT2 == "True") {
-                      $("#chkCorrect2").prop("checked", true);
-                      $("#txtPoint2").prop("disabled", false);
-                  }
-                  else {
-                      $("#chkCorrect2").prop("checked", false);
-                      $("#txtPoint2").prop("disabled", true);
-                  }
+                        if (response.OPTIONS_CORRECT2 == "True") {
+                            $("#chkCorrect2").prop("checked", true);
+                            $("#txtPoint2").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect2").prop("checked", false);
+                            $("#txtPoint2").prop("disabled", true);
+                        }
 
-                  if (response.OPTIONS_CORRECT3 == "True") {
-                      $("#chkCorrect3").prop("checked", true);
-                      $("#txtPoint3").prop("disabled", false);
-                  }
-                  else {
-                      $("#chkCorrect3").prop("checked", false);
-                      $("#txtPoint3").prop("disabled", true);
-                  }
+                        if (response.OPTIONS_CORRECT3 == "True") {
+                            $("#chkCorrect3").prop("checked", true);
+                            $("#txtPoint3").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect3").prop("checked", false);
+                            $("#txtPoint3").prop("disabled", true);
+                        }
 
-                  if (response.OPTIONS_CORRECT4 == "True") {
-                      $("#chkCorrect4").prop("checked", true);
-                      $("#txtPoint3").prop("disabled", false);
-                  }
-                  else {
-                      $("#chkCorrect4").prop("checked", false);
-                      $("#txtPoint4").prop("disabled", true);
-                  }
-
-
-                    TOPIC_ID=response.CATEGORYIDS;
-                    Category_ID=response.TOPICIDS;
-
-               }
-          }
-          });
-
-         
+                        if (response.OPTIONS_CORRECT4 == "True") {
+                            $("#chkCorrect4").prop("checked", true);
+                            $("#txtPoint3").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect4").prop("checked", false);
+                            $("#txtPoint4").prop("disabled", true);
+                        }
 
 
- }
+                        TOPIC_ID = response.CATEGORYIDS;
+                        Category_ID = response.TOPICIDS;
+
+                    }
+                }
+            });
+
+
+
+
+        }
     }
+    
 
     
 
