@@ -1483,7 +1483,7 @@
     }
 
         .video-card .card-img-top {
-            height: 200px;
+            height: 170px;
             object-fit: cover;
             width: 100%;
             object-position: center;
@@ -1495,11 +1495,12 @@
         }
 
         .video-card .card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             line-height: 25px;
-            min-height: 55px;
+            min-height: 40px;
+            margin-top: 5px;
         }
 
         .video-card .card-text {
@@ -1556,7 +1557,7 @@
         display: flex;
         justify-content: center;
         padding: 0;
-        margin: 20px 0;
+        margin: 5px 0;
         list-style: none;
         border-radius: 4px;
     }
@@ -1661,7 +1662,7 @@
             var allVideosData = [];
             var filteredData = [];
             var currentPage = 1;
-            var itemsPerPage = 4;
+            var itemsPerPage = 8;
             var activeFilter = 'all';
 
             $(document).ready(function() {
@@ -1838,7 +1839,7 @@
 
                     var totalPages = Math.ceil(totalItems / itemsPerPage);
 
-                    var paginationHtml = '<li><a href="#" class="pagination-prev" data-page="' + (currentPage - 1) + '">prev</a></li>';
+                    var paginationHtml = '<li><a href="#" class="pagination-prev" data-page="' + (currentPage - 1) + '">Prev</a></li>';
 
                     for (var i = 1; i <= totalPages; i++) {
                         paginationHtml += `
@@ -1848,7 +1849,7 @@
                         `;
                     }
 
-                    paginationHtml += '<li><a href="#" class="pagination-next" data-page="' + (currentPage + 1) + '">next</a></li>';
+                    paginationHtml += '<li><a href="#" class="pagination-next" data-page="' + (currentPage + 1) + '">Next</a></li>';
 
                     paginationContainer.append(paginationHtml);
 
@@ -2433,49 +2434,6 @@
         $("#MappedQuestionsForViewModal").modal('show');
     }
 
-    // Rev Sanchita
-    var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB;
-
-    function storeFile(fileObj, callback) {
-        var openReq = indexedDB.open('upload-resume', 1);
-        openReq.onerror = function (e) {
-            console.error(e);
-        }
-        openReq.onupgradeneeded = function (e) {
-            var db = openReq.result;
-            db.createObjectStore('upload-resume-store', { keyPath: 'blah' });
-        }
-        openReq.onsuccess = function (e) {
-            var db = openReq.result;
-            var req = db.transaction(['upload-resume-store'], 'readwrite').objectStore('upload-resume-store').add({ blah: 'main', file: fileObj });
-            req.onerror = function (e) {
-                console.error(e);
-            }
-            req.onsuccess = function (e) { callback(); }
-        }
-    }
-
-    function getFile(callback) {
-        var openReq = indexedDB.open('upload-resume', 1);
-        openReq.onerror = function (e) {
-            console.error(e);
-        }
-        openReq.onupgradeneeded = function (e) {
-            //this should have already been called before...so if this is here that means that the file was never stored
-            openReq.onsuccess = null;
-            callback(false);
-        }
-        openReq.onsuccess = function (e) {
-            var req = db.transaction(['upload-resume-store'], 'readonly').objectStore('upload-resume-store').get('blah');
-            req.onerror = function (e) {
-                console.error(e);
-            }
-            req.onsuccess = function (e) {
-                callback(req.result);
-            }
-        }
-    }
-    // End of Rev Sanchita
 
 
 </script>
@@ -2548,6 +2506,7 @@
 
                 <div class="content-listing-part" id="contentListing" style="display: none;">
                     <div id="searchPanel" class="row" style="display: none;">
+
                         <div class="col-md-12 content-search-box mb-4">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
                             <button id="btnSearch" class="btn btn-primary">Search</button>
