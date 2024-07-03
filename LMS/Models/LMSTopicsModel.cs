@@ -18,6 +18,7 @@ namespace LMS.Models
         public string Action {  get; set; }
         public string TopicID { get; set; }
         public string TopicName { get; set; }
+        public string TopicStatus { get; set; }
         public string selectedTopicBasedOnMapList { get; set; }
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
@@ -40,7 +41,7 @@ namespace LMS.Models
         public bool selected { get; set; }
         public string tabNameText { get; set; }
         public string rightTabNameText { get; set; }
-        public bool searchPlaceholderText { get; set; }
+        public string searchPlaceholderText { get; set; }
     }
 
 }

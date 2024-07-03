@@ -1347,6 +1347,7 @@
         $("#hdnTopicID").val(0);
         $("#transfer1").html('');
         $("#txtTopicName").val('');
+        $("#chkStatus").prop("checked", true);
         $("#ddlTopicBasedOn").val(0);
         $("#AddTopicModal").modal('show');
     }
@@ -1539,6 +1540,7 @@
                 Action: $("#hdnAddEditMode").val(),
                 TopicID: $("#hdnTopicID").val(),
                 TopicBasedOnId: $("#ddlTopicBasedOn").val(),
+                TopicStatus: $("#chkStatus").prop("checked"),
                 TopicName: $("#txtTopicName").val().trim(),
                 selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
             }
@@ -1560,15 +1562,8 @@
                             title: 'Error',
                             text: 'Error in Update.'
                         });
-                    } else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Topic added successfully. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
-                        }).then(() => {
-                            $('#AddTopicModal').modal('hide');
-                        });
-                    } else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
+                    }
+                    else if (returnValue.RETURN_VALUE == "1") {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
@@ -1576,13 +1571,56 @@
                         }).then(() => {
                             $('#AddTopicModal').modal('hide');
                         });
-                    } else if (returnValue.RETURN_VALUE == "1") {
+
+                        Is_PageLoad = "Ispageload";
+                        gridLMSTopic.Refresh();
+                        gridLMSTopic.Refresh();
+                    }
+                    else if (returnValue.RETURN_VALUE == "2") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Topic updated successfully.'
+                        }).then(() => {
+                            $('#AddTopicModal').modal('hide');
+                        });
+
+                        Is_PageLoad = "Ispageload";
+                        gridLMSTopic.Refresh();
+                        gridLMSTopic.Refresh();
+                    }
+                    else if (returnValue.RETURN_VALUE == "0") {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Please enter a unique Topic name. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                            text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
                         });
                     }
+
+
+                    //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
+                    //    Swal.fire({
+                    //        icon: 'success',
+                    //        title: 'Success',
+                    //        text: 'Topic added successfully. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                    //    }).then(() => {
+                    //        $('#AddTopicModal').modal('hide');
+                    //    });
+                    //} else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
+                    //    Swal.fire({
+                    //        icon: 'success',
+                    //        title: 'Success',
+                    //        text: 'Topic added successfully.'
+                    //    }).then(() => {
+                    //        $('#AddTopicModal').modal('hide');
+                    //    });
+                    //} else if (returnValue.RETURN_VALUE == "1") {
+                    //    Swal.fire({
+                    //        icon: 'error',
+                    //        title: 'Error',
+                    //        text: 'Please enter a unique Topic name. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                    //    });
+                    //}
                 },
                 error: function () {
                     Swal.fire({
@@ -1621,6 +1659,7 @@
 
                 $("#txtTopicName").val(data[0].TOPICNAME);
                 $("#ddlTopicBasedOn").val(data[0].TOPICBASEDON_ID);
+                $("#chkStatus").prop("checked", data[0].TOPICSTATUS);
 
                 $("#transfer1").html('');
 
@@ -1721,6 +1760,22 @@
                             });
                             //GridShow();
                         }
+                        else if (response == "0") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'This Topic is used in the Question module. Cannot be deleted.'
+                            });
+                            //GridShow();
+                        }
+                        else if (response == "-1") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'This Topic is used in the Content module. Cannot be deleted.'
+                            });
+                            //GridShow();
+                        }
                         else if (response == "1") {
                             Swal.fire({
                                 icon: 'success',
@@ -1782,47 +1837,47 @@
 
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
                         <div class="add-show-btns">
-                            @*@if (ViewBag.CanAdd){*@
+                            @if (ViewBag.CanAdd){
                             <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddTopic();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Topic
                             </button>
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
                                 <span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span> Show Data
                             </button>
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanExport){*@
+                            @if (ViewBag.CanExport){
                             <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
                                 <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
                             </button>
-                            @*}*@
+                            }
                         </div>
 
                         <div class="count-filter-btns">
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" >
                                 <h5>Total topic(s)</h5> <span onclick="ShowTotalTopics();" class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics">
                                 <h5>Used topic(s)</h5> <span onclick="ShowUsedTopics();" class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics">
                                 <h5>Unused topic(s)</h5> <span onclick="ShowUnusedTopics();" class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
                         </div>
 
@@ -1869,10 +1924,14 @@
                         <input type="text" id="txtTopicName" class="form-control" maxlength="250" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
+                    </div>
+                    <div class="col-lg-2 mb-4" style="height: 60px;">
+                        <label> </label>
+                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
