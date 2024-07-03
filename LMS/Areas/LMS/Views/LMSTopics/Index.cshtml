@@ -1349,6 +1349,9 @@
         $("#txtTopicName").val('');
         $("#chkStatus").prop("checked", true);
         $("#ddlTopicBasedOn").val(0);
+        lblBasedOn.innerText = "";
+        //$("#txtTopicName").focus();
+        document.getElementById("txtTopicName").focus();
         $("#AddTopicModal").modal('show');
     }
 
@@ -1839,7 +1842,7 @@
                         <div class="add-show-btns">
                             @if (ViewBag.CanAdd){
                             <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddTopic();">
-                                <span class="btn-icon"><i class="fa fa-plus"></i></span> Topic
+                                <span class="btn-icon"><i class="fa fa-plus"></i></span> &Topic
                             </button>
                             }
 
@@ -1921,7 +1924,7 @@
                 <div class="clearfix">
                     <div class="col-lg-6">
                         <label>Topic Name<span style="color: red">*</span></label>
-                        <input type="text" id="txtTopicName" class="form-control" maxlength="250" />
+                        <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
                     <div class="col-lg-4">
