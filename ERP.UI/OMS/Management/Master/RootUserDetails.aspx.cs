@@ -24,6 +24,7 @@
  * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
  * 14.0               18-06-2024       V2.0.47           Sanchita         27436: Please create a global settings IsShowDateWiseOrderInApp   
  * 15.0               21-06-2024       V2.0.48           Sanchita         0027564: The default value should be zero for some of Global & User wise setting in FSM
+ * 16.0               04-07-2024       V2.0.48           Sanchita         27575: Two new global and user settings are required as 'ShowLMSMenu' and 'IsLMSFeatureOnly'        
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2545,6 +2546,24 @@ namespace ERP.OMS.Management.Master
                     chkIsShowDateWiseOrderInApp.Checked = false;
                 }
                 // End of Rev 14.0
+                // Rev 15.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ShowLMSMenu"]) == true)
+                {
+                    chkShowLMSMenu.Checked = true;
+                }
+                else
+                {
+                    chkShowLMSMenu.Checked = false;
+                }
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsLMSFeatureOnly"]) == true)
+                {
+                    chkIsLMSFeatureOnly.Checked = true;
+                }
+                else
+                {
+                    chkIsLMSFeatureOnly.Checked = false;
+                }
+                // End of Rev 15.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -2985,6 +3004,10 @@ namespace ERP.OMS.Management.Master
                 // Rev 14.0
                 int IsShowDateWiseOrderInApp = 0;
                 // End of Rev 14.0
+                // Rev 15.0
+                int ShowLMSMenu = 0;
+                int IsLMSFeatureOnly = 0;
+                // End of Rev 15.0
 
                 if (chkIsActive.Checked == true)
                     isactive = "Y";
@@ -4507,6 +4530,16 @@ namespace ERP.OMS.Management.Master
                 else
                     IsShowDateWiseOrderInApp = 0;
                 // End of Rev 14.0
+                // Rev Sanchita
+                if (chkShowLMSMenu.Checked == true)
+                    ShowLMSMenu = 1;
+                else
+                    ShowLMSMenu = 0;
+                if (chkIsLMSFeatureOnly.Checked == true)
+                    IsLMSFeatureOnly = 1;
+                else
+                    IsLMSFeatureOnly = 0;
+                // End of Rev Sanchita
 
 
                 String PartyType = hdnPartyType.Value.ToString();
@@ -4887,7 +4920,10 @@ namespace ERP.OMS.Management.Master
                             // Rev 14.0
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
-
+                            // Rev 15.0
+                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5345,6 +5381,10 @@ namespace ERP.OMS.Management.Master
                             // Rev 14.0
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
+                            // Rev 15.0
+                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5797,7 +5837,10 @@ namespace ERP.OMS.Management.Master
                             // Rev 14.0
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
-
+                            // Rev 15.0
+                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
 
@@ -7979,6 +8022,30 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // End of Rev 14.0
+                    // Rev 15.0
+                    else if (Convert.ToString(dr["key"]) == "ShowLMSMenu")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divShowLMSMenu.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divShowLMSMenu.Style.Add("display", "none");
+                        }
+                    }
+                    else if (Convert.ToString(dr["key"]) == "IsLMSFeatureOnly")
+                    {
+                        if (Convert.ToString(dr["Value"]) == "1")
+                        {
+                            divIsLMSFeatureOnly.Style.Add("display", "table-cell");
+                        }
+                        else
+                        {
+                            divIsLMSFeatureOnly.Style.Add("display", "none");
+                        }
+                    }
+                    // End of Rev 15.0
                 }
             }
         }

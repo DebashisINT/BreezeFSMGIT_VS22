@@ -29,6 +29,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 16.0                25-05-2024      V2.0.47            Sanchita           New User wise settings required. Mantis: 27502 
 17.0                03-06-2024      V2.0.47            Sanchita           Some global settings are required for CRM Opportunity module. Mantis: 27481   
 18.0                18-06-2024      V2.0.47            Sanchita           27436: Please create a global settings IsShowDateWiseOrderInApp   
+19.0                04-07-2024      V2.0.48            Sanchita           27575: Two new global and user settings are required as 'ShowLMSMenu' and 'IsLMSFeatureOnly'   
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4321,8 +4322,33 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                 </tr>
                                             </table>
                                         </td>
+                                        <%-- Rev 19.0--%>
+                                        <td id="divShowLMSMenu" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkShowLMSMenu" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Show LMS Menu </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td id="divIsLMSFeatureOnly" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsLMSFeatureOnly" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Is LMS Feature Only ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 19.0--%>
                                     </tr>
-                                     <%-- End of Rev 18.0--%>
+                                    <%-- End of Rev 18.0--%>
+                                    
                                 </table>
                             </div>
                         </div>
