@@ -177,7 +177,15 @@ namespace ShopAPI.Controllers
                                     }
                                     MultiContent = 0;
                                 }
-                                omodel.content_list = Coview;
+                                if (ds.Tables[2].Rows.Count == 0 || ds.Tables[3].Rows.Count == 0)
+                                {
+                                    Coview = APIHelperMethods.ToModelList<ContentlistOutput>(ds.Tables[1]);
+                                    omodel.content_list = Coview;
+                                }
+                                else
+                                {
+                                    omodel.content_list = Coview;
+                                }
                             }
                         }
 
