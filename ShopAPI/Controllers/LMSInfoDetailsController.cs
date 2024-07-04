@@ -74,6 +74,7 @@ namespace ShopAPI.Controllers
         public HttpResponseMessage TopicWiseLists(TopicWiseListsInput model)
         {
             TopicWiseListsOutput omodel = new TopicWiseListsOutput();
+            int MultiContent=0;
 
             try
             {
@@ -106,6 +107,7 @@ namespace ShopAPI.Controllers
                             for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
                             {
                                 List<ContentlistOutput> Coview = new List<ContentlistOutput>();
+                                MultiContent = 1;
                                 for (int k = 0; k < ds.Tables[2].Rows.Count; k++)
                                 {
                                     List<QuestionlistOutput> Qoview = new List<QuestionlistOutput>();
@@ -113,8 +115,10 @@ namespace ShopAPI.Controllers
                                     {
                                         List<OptionlistOutput> Ooview = new List<OptionlistOutput>();
                                         if (Convert.ToInt64(ds.Tables[3].Rows[l]["topic_id"]) == Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]) &&
-                                            Convert.ToInt64(ds.Tables[3].Rows[l]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"]) &&
-                                            Convert.ToInt64(ds.Tables[2].Rows[l]["question_id"]) == Convert.ToInt64(ds.Tables[3].Rows[k]["question_id"]))
+                                            Convert.ToInt64(ds.Tables[3].Rows[l]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"]) 
+                                            //&&
+                                            //Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"])
+                                            )
                                         {
                                             Ooview.Add(new OptionlistOutput()
                                             {
@@ -135,28 +139,32 @@ namespace ShopAPI.Controllers
                                             });
                                         }
 
-                                        if (Convert.ToInt64(ds.Tables[1].Rows[k]["topic_id"]) == Convert.ToInt64(ds.Tables[2].Rows[j]["topic_id"]) &&
-                                        Convert.ToInt64(ds.Tables[1].Rows[k]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[j]["content_id"]))
+                                        if (Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["topic_id"]) &&
+                                        Convert.ToInt64(ds.Tables[1].Rows[j]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"])
+                                        //&&
+                                        //Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"])
+                                        )
                                         {
                                             Qoview.Add(new QuestionlistOutput()
                                             {
                                                 topic_id = Convert.ToInt64(ds.Tables[2].Rows[k]["topic_id"]),
                                                 content_id = Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"]),
-                                                question_id = Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"]),
-                                                question = Convert.ToString(ds.Tables[2].Rows[k]["question"]),
-                                                question_description = Convert.ToString(ds.Tables[2].Rows[k]["question_description"]),
+                                                //question_id = Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"]),
+                                                //question = Convert.ToString(ds.Tables[2].Rows[k]["question"]),
+                                                //question_description = Convert.ToString(ds.Tables[2].Rows[k]["question_description"]),
+                                                question_id = Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]),
+                                                question = Convert.ToString(ds.Tables[3].Rows[l]["question"]),
+                                                question_description = Convert.ToString(ds.Tables[3].Rows[l]["question_description"]),
                                                 option_list = Ooview
                                             });
                                         }
-
                                     }
-                                    if (Convert.ToInt64(ds.Tables[0].Rows[i]["topic_id"]) == Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]))
+                                    if (Convert.ToInt64(ds.Tables[0].Rows[i]["topic_id"]) == Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]) &&
+                                        MultiContent==1)
                                     {
                                         Coview.Add(new ContentlistOutput()
                                         {
                                             content_id = Convert.ToInt64(ds.Tables[1].Rows[j]["content_id"]),
-                                            //content_url =Path.Combine(HttpContext.Current.Server.MapPath(Convert.ToString(ds.Tables[1].Rows[j]["content_url"]))),
-                                            //AttachmentUrl
                                             content_url= AttachmentUrl+Convert.ToString(ds.Tables[1].Rows[j]["content_url"]),
                                             content_title = Convert.ToString(ds.Tables[1].Rows[j]["content_title"]),
                                             content_description = Convert.ToString(ds.Tables[1].Rows[j]["content_description"]),
@@ -167,6 +175,7 @@ namespace ShopAPI.Controllers
                                             question_list = Qoview
                                         });
                                     }
+                                    MultiContent = 0;
                                 }
                                 omodel.content_list = Coview;
                             }
