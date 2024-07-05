@@ -407,9 +407,15 @@ namespace LMS.Areas.LMS.Controllers
                                 fileName = DateTime.Now.ToString("hhmmss") + fileName;
                             }
                             fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+
+                            RETURN_VALUE = Server.MapPath("~/Commonfolder/LMS/ContentUpload/") + fileName;
+
                         }
                     }
-
+                    else
+                    {
+                        RETURN_VALUE = "";
+                    }
                     
 
                 }
