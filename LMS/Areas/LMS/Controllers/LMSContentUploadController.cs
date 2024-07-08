@@ -17,6 +17,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using UtilityLayer;
+using DevExpress.Charts.Native;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -62,22 +63,74 @@ namespace LMS.Areas.LMS.Controllers
             DBEngine obj1 = new DBEngine();
             ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
 
-            List<TopicList> modelTopic = new List<TopicList>();
+            //List<TopicList> modelTopic = new List<TopicList>();
 
             DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-            ds = proc.GetDataSet();
+
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            //ds = proc.GetDataSet();
+
+            //if (ds != null)
+            //{
+            //    // Company
+            //    List<TopicList> TopicList = new List<TopicList>();
+            //    TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
+            //    Dtls.TopicList = TopicList;
+            //}
+
+            DataTable dt = new DataTable();
+            dt = GetTopicListData();
+
+            if (dt != null)
+            {
+                List<TopicList> TopicList = new List<TopicList>();
+                TopicList = APIHelperMethods.ToModelList<TopicList>(dt);
+                Dtls.TopicList = TopicList;
+            }
+
+
+
+            ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+            proc1.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            ds = proc1.GetDataSet();
 
             if (ds != null)
             {
                 // Company
-                List<TopicList> TopicList = new List<TopicList>();
-                TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
-                Dtls.TopicList = TopicList;
+                List<TopicBasedOnList> TopicBasedOnList = new List<TopicBasedOnList>();
+                TopicBasedOnList = APIHelperMethods.ToModelList<TopicBasedOnList>(ds.Tables[0]);
+                Dtls.TopicBasedOnList = TopicBasedOnList;
             }
 
+
             return View(Dtls);
+        }
+
+        public DataTable GetTopicListData()
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            dt = proc.GetTable();
+            return dt;
+        }
+
+        public JsonResult GetTopicList()
+        {
+            LMSContentModel Dtls = new LMSContentModel();
+            DataTable dt = new DataTable();
+            dt = GetTopicListData();
+
+            if (dt != null)
+            {
+                // Company
+                List<TopicList> TopicList = new List<TopicList>();
+                TopicList = APIHelperMethods.ToModelList<TopicList>(dt);
+                Dtls.TopicList = TopicList;
+            }
+            return Json(Dtls.TopicList, JsonRequestBehavior.AllowGet);
         }
 
         
@@ -407,15 +460,9 @@ namespace LMS.Areas.LMS.Controllers
                                 fileName = DateTime.Now.ToString("hhmmss") + fileName;
                             }
                             fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
-
-                            RETURN_VALUE = Server.MapPath("~/Commonfolder/LMS/ContentUpload/") + fileName;
-
                         }
                     }
-                    else
-                    {
-                        RETURN_VALUE = "";
-                    }
+
                     
 
                 }
