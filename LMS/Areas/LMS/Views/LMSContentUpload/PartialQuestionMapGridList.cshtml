@@ -40,8 +40,8 @@
         column.FieldName = "SEQ";
         column.Caption = "Sr. No\r\n";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
-        column.Width = 60;
-        //column.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+        //column.Width = 60;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
     settings.Columns.Add(column =>
@@ -50,8 +50,8 @@
         column.Caption = "Content Title";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 150;
-        //column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
     settings.Columns.Add(column =>
@@ -60,8 +60,8 @@
         column.Caption = "Description";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 200;
-        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        //column.Width = 200;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     });
     settings.Columns.Add(column =>
@@ -70,8 +70,8 @@
         column.Caption = "Mapped Questions";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         //column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 150;
-        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         // Rev Sanchita
         column.SetDataItemTemplateContent(c =>
         {
@@ -94,8 +94,8 @@
 
         x.Settings.AllowDragDrop = DefaultBoolean.False;
         x.Settings.AllowSort = DefaultBoolean.False;
-        x.Width = 100;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        //x.Width = 100;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.Caption = "Action";

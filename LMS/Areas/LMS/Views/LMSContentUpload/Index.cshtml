@@ -60,7 +60,7 @@
     }
 
     .krajee-default.file-preview-frame .kv-file-content {
-        height: 125px !important;
+        height: 175px !important;
     }
 
     .krajee-default .file-footer-caption {
@@ -72,7 +72,7 @@
     }
 
     video.kv-preview-data.file-preview-video.file-zoom-detail, .kv-preview-data.file-preview-video {
-        height: 200px !important;
+        height: 170px !important;
     }
 
     .close.fileinput-remove {
@@ -239,8 +239,8 @@
 
     .dxeButtonEditButton_PlasticBlue {
         background: #094e8c !important;
-        border-radius: 4px !important;
-        padding: 0 4px !important;
+        border-radius: 7px !important;
+        padding: 0 6px !important;
     }
 
     .dxeButtonDisabled_PlasticBlue {
@@ -448,8 +448,8 @@
     }
 
     .dxeButtonEdit_PlasticBlue {
-        border-radius: 5px;
-        height: 30px;
+        border-radius: 8px;
+        height: 38px;
     }
 
     #dtFrom, #dtTo, #FormDate, #toDate, #appcbl_frm_dt {
@@ -712,7 +712,7 @@
     /*End of Rev 4.0*/
 
     .mt-15 {
-        margin-top: 15px;
+        margin-top: 20px;
     }
 
     .mb-10 {
@@ -725,7 +725,7 @@
 
     .pmsModal .modal-body {
         padding: 0;
-        padding-bottom: 15px;
+        padding-bottom: 60px;
         z-index:0;
     }
 
@@ -1516,6 +1516,7 @@
             object-fit: cover;
             width: 100%;
             object-position: center;
+            border-radius: 10px 10px 0 0;
         }
 
         .video-card .card-body {
@@ -1534,7 +1535,7 @@
             line-height: 22px;
             min-height: 45px;
             margin-top: 5px;
-            
+
         }
 
     .card-body-content {
@@ -1689,8 +1690,8 @@
     }
 
     .icon {
-        width: 50px; 
-        height: 50px; 
+        width: 50px;
+        height: 50px;
     }
 
     .file-preview {
@@ -1747,7 +1748,7 @@
     }
 
     .modal-backdrop.in {
-        opacity: .6;
+        opacity: .8;
     }
 
     /*fieldset {
@@ -1784,13 +1785,13 @@
             }
 
         /*inputs*/
-        
+
 
         /*buttons*/
         #msform .action-button {
-            width: 130px;
+            width: 135px;
             background: #2098ce;
-            font-weight: bold;
+            font-weight: 500;
             color: white;
             border: 0 none;
             border-radius: 25px;
@@ -1804,9 +1805,9 @@
             }
 
         #msform .action-button-previous {
-            width: 100px;
-            background: #aCbEd0;
-            font-weight: bold;
+            width: 135px;
+            background: #e78d20;
+            font-weight: 500;
             color: white;
             border: 0 none;
             border-radius: 25px;
@@ -1847,7 +1848,7 @@
         #progressbar li {
             list-style-type: none;
             color: #666;
-            
+
             font-size: 9px;
             width: 50%;
             float: left;
@@ -1875,14 +1876,14 @@
             #progressbar li:before {
                 content: counter(step);
                 counter-increment: step;
-                width: 40px;
-                height: 24px;
-                line-height: 26px;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
                 display: block;
                 font-size: 15px;
                 color: #333;
                 background: #dbdbdb;
-                border-radius: 25px;
+                border-radius: 40px;
                 margin: 0 auto 10px auto;
             }
 
@@ -1890,11 +1891,11 @@
             #progressbar li:after {
                 content: '';
                 width: 100%;
-                height: 5px;
+                height: 3px;
                 background: #dbdbdb;
                 position: absolute;
                 left: 0%;
-                top: 9px;
+                top: 14px;
                 z-index: -1; /*put it behind the numbers*/
             }
 
@@ -1918,7 +1919,7 @@
     }*/
 
 
-    .example 
+    .example
     {
         top: 50%;
         transform: translateY(-50%);
@@ -2024,7 +2025,7 @@
         }
 
 
-        
+
 
         .btn-toggle:before,
         .btn-toggle:after {
@@ -2061,21 +2062,26 @@
     }
 
     .action-dropdown .dropdown-toggle {
-        background: #3e88d4;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
+        background: #ad8df1;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         margin-left: auto;
+        transition: all .3s;
     }
 
-    .action-dropdown .dropdown-toggle img {
-        width: 26px;
-    }
+        .action-dropdown .dropdown-toggle:hover, .action-dropdown .dropdown-toggle:focus {
+            background: #6130c9;
+        }
+
+        .action-dropdown .dropdown-toggle img {
+            width: 24px;
+        }
 
     .action-dropdown .dropdown-menu {
         right: 0;
@@ -2113,6 +2119,7 @@
         border-radius: 6px;
         display: inline-block;
         font-size: 12px;
+        padding-left: 18px;
     }
 
         .card-status.published {
@@ -2120,23 +2127,184 @@
             /*color: #fff;*/
         }
 
-    
+    .file-caption-main
+    {
+        display: none;
+    }
+
+    #msform .action-button {
+        position: absolute;
+        right: 40%;
+    }
+
+    .upload-next {
+        right: 0;
+        bottom: -51px;
+    }
+
+    #msform .action-button-previous {
+        position: absolute;
+        left: 28%;
+        bottom: -51px;
+    }
+
+    .upload-exit-btn {
+        position: absolute;
+        right: 34%;
+        bottom: 20px;
+        border-radius: 50px;
+        font-weight: 500;
+        color: white;
+        border: 0 none;
+        border-radius: 25px;
+        cursor: pointer;
+        padding: 10px 20px;
+    }
+
+    .upload-btn {
+        padding: 8px 15px;
+        border: 2px solid #111;
+        color: #111;
+        border-radius: 10px;
+    }
+
+    .upload-btn img
+    {
+        width: 20px;
+    }
+
+    .custom-file {
+        text-align: center;
+    }
+
+    .delete-option:hover {
+        background-color: red !important;
+        color: #fff !important;
+    }
+
+    .unpublished, .published {
+        position: relative;
+    }
+
+        .published:before {
+            content: '\f00c';
+            position: absolute;
+            left: 3px;
+            top: 4px;
+            font-family: 'FontAwesome';
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .unpublished:before {
+            content: '\f00d';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            font-family: 'FontAwesome';
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+    .add-new-btn {
+        
+        -webkit-animation: pulse 1s;
+        animation: pulse-afct 1s;
+        box-shadow: 0 0 0 20px transparent;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+@@-webkit-keyframes pulse-afct {
+    0% {
+        box-shadow: 0 0 0 0 #164f929e;
+    }
+}
+
+@@keyframes pulse-afct {
+    0% {
+        box-shadow: 0 0 0 0 #164f929e;
+    }
+}
+
+    #AddQuestionMapModal .modal-title
+    {
+        color: #111;
+        font-size: 24px;
+    }
+
+    #AddQuestionMapModal .modal-header {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    .map-content-title
+    {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    #AddQuestionMapModal .modal-content {
+        background: linear-gradient(1deg, #beefff, #ffffff);
+        overflow: visible !important;
+    }
+
+    #AddQuestionMapModal .modal-body {
+        padding-bottom: 0px;
+    }
+
+    .modal-footer {
+        padding: 15px 10px 15px;
+        border-top: 1px solid #c0c0c0;
+    }
+
+    .transfer-double
+    {
+        background: transparent;
+    }
+
+    .transfer-double-content-left, .transfer-double-content-right {
+        background: #fff;
+        box-shadow: 1px 1px 10px #1111112e;
+    }
+
+    .transfer-double-content-middle {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 13% !important;
+    }
+
+    #MapQuestionListModal .modal-title {
+        color: #111;
+        font-size: 24px;
+    }
+
+    #MapQuestionListModal .modal-header {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    #MapQuestionListModal .modal-body {
+        padding-bottom: 20px;
+    }
+
 </style>
 
 
 <script>
     var Is_PageLoad = "Ispageload";
-    
+
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
-    
-    $(document).ready(function () {
 
-        $("#fileupload").fileinput();
+    //$(document).ready(function () {
 
-        // with plugin options
-        $("#fileupload").fileinput({ 'showUpload': false, 'previewFileType': 'any', 'browseLabel': 'Browse' });
-    });
+    //    $("#fileupload").fileinput();
+
+    //    // with plugin options
+    //    $("#fileupload").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+    //});
 
     $(function () {
 
@@ -2202,7 +2370,7 @@
                                     $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
                                     $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                                    allVideosData = data; 
+                                    allVideosData = data;
                                     filteredData = data;
                                     displayVideos(filteredData, currentPage);
 
@@ -2335,7 +2503,7 @@
                                             <h5 class="card-title">${item.CONTENTTITLE}</h5>
                                             <p class="card-status ${statusClass}">${status}</p>
                                         </div>
-                                        
+
                                         <div class="dropdown action-dropdown">
                                           <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
                                             <img src="../../../assests/images/more.svg">
@@ -2344,7 +2512,7 @@
                                           <ul class="dropdown-menu">
                                             <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
                                             <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
-                                            <li><a style="color: red" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
+                                            <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
                                           </ul>
                                         </div>
                                     </div>
@@ -2410,7 +2578,7 @@
                     }
                 }
 
-                
+
             });
 
 
@@ -2451,63 +2619,66 @@
             }
         });
 
-        $('#fileupload').bind('change', function (event) {
-            //if (this.files[0].size > 20971520) {
-            if (this.files[0].size > @ViewBag.LMSVideoUploadSize * 1024 * 1024) {
-                alertify.set('notifier', 'position', 'bottom-left');
-
-                $('#fileupload').fileinput('clear');
-                setTimeout(function () { $('#fileupload').fileinput('refresh'); }, 1000);
-                var notification = alertify.notify('Maximum file size @ViewBag.LMSVideoUploadSize MB Supported', 'Alert', 3, function () {
-                    //$('#fileupload').fileinput('refresh');
-                    $('#fileupload').fileinput('enable');
-                });
-            }
-
-
-            if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
-                return;
-            }
-
-            const name = event.target.files[0].name;
-            const lastDot = name.lastIndexOf('.');
-
-            const fileName = name.substring(0, lastDot);
-            const ext = name.substring(lastDot + 1);
-
-
-            if (ext.toLowerCase() == "mp4") {
-                var myVideos = [];
-                var files = this.files;
-                myVideos.push(files[0]);
-                var video = document.createElement('video');
-                video.preload = 'metadata';
-
-                video.onloadedmetadata = function () {
-                    window.URL.revokeObjectURL(video.src);
-                    var duration = video.duration;
-                    $("#hdnFileDuration").val(duration);
-                    //myVideos[myVideos.length - 1].duration = duration;
-                    //updateInfos();
+        $(document).ready(function () {
+            $("#fileupload").fileinput({
+                'showUpload': false,
+                'previewFileType': 'any',
+                'theme': 'fas',
+                'browseOnZoneClick': true,
+                'allowedFileExtensions': ['mp4'],
+                'showRemove': true,
+                'removeClass': 'btn btn-danger',
+                'removeIcon': '<i class="fas fa-trash-alt"></i>',
+                'dropZoneTitle': 'Drag & drop files here',
+                'dropZoneClickTitle': '',
+                'layoutTemplates': {
+                    footer: '',
+                    actions: ''
                 }
-                video.src = URL.createObjectURL(files[0]);
-            }
-            else {
-                alertify.set('notifier', 'position', 'bottom-left');
-                $('#fileupload').fileinput('clear');
-                setTimeout(function () { $('#fileupload').fileinput('refresh'); }, 1000);
-                var notification = alertify.notify('File type not Supported', 'Alert', 3, function () {
-                    // $('#fileupload').fileinput('refresh');
-                    $('#fileupload').fileinput('enable');
-                });
-            }
+            });
 
+            $('#fileupload').on('change', function (event) {
+                handleFileChange(event);
+            });
+
+            $('#fileupload').on('fileclear', function () {
+                $('#file-name').text('');
+            });
+
+            function handleFileChange(event) {
+                if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
+                    return;
+                }
+
+                const file = event.target.files[0];
+                if (file.size > @ViewBag.LMSVideoUploadSize * 1024 * 1024) {
+                    alertify.set('notifier', 'position', 'bottom-left');
+                    $('#fileupload').fileinput('clear');
+                    setTimeout(function () { $('#fileupload').fileinput('refresh'); }, 1000);
+                    alertify.notify('Maximum file size @ViewBag.LMSVideoUploadSize MB Supported', 'error', 3);
+                    return;
+                }
+
+                const name = file.name;
+                const ext = name.split('.').pop().toLowerCase();
+
+                if (ext !== 'mp4') {
+                    alertify.set('notifier', 'position', 'bottom-left');
+                    $('#fileupload').fileinput('clear');
+                    setTimeout(function () { $('#fileupload').fileinput('refresh'); }, 1000);
+                    alertify.notify('File type not Supported', 'error', 3);
+                    return;
+                }
+
+                $('#file-name').text(name);
+            }
         });
+
          $('body').on('click', '#btnExportTo', function () {
              var url = '@Url.Action("ExporRegisterList", "LMSContentUpload")'
              window.location.href = url.replace("_type_");
          });
-       
+
     });
 
     function OnStartCallback(s, e) {
@@ -2527,90 +2698,11 @@
         $("#chkAllowComments").prop("checked", false);
         $("#chkAllowShare").prop("checked", false);
         document.getElementById('divFooter').style.visibility = 'hidden';
-        
+
 
         $("#AddContentModal").modal('show');
 
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var left, opacity, scale; //fieldset properties which we will animate
-        var animating; //flag to prevent quick multi-click glitches
 
-        $(".upload-next").click(function () {
-            if (animating) return false;
-            animating = true;
-
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //activate next step on progressbar using the index of next_fs
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    //2. bring next_fs from the right(50%)
-                    left = (now * 50) + "%";
-                    //3. increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'transform': 'scale(' + scale + ')',
-                        'position': 'absolute'
-                    });
-                    next_fs.css({ 'left': left, 'opacity': opacity });
-                },
-                duration: 400,
-                complete: function () {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: 'easeInOutBack'
-            });
-        });
-
-        $(".upload-previous").click(function () {
-            if (animating) return false;
-            animating = true;
-
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-
-            //de-activate current step on progressbar
-            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-            //show the previous fieldset
-            previous_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale previous_fs from 80% to 100%
-                    scale = 0.8 + (1 - now) * 0.2;
-                    //2. take current_fs to the right(50%) - from 0%
-                    left = ((1 - now) * 50) + "%";
-                    //3. increase opacity of previous_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({ 'left': left, 'position': 'relative' });
-                    previous_fs.css({ 'transform': 'scale(' + scale + ')', 'opacity': opacity, 'position': 'relative' });
-                },
-                duration: 400,
-                complete: function () {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: 'easeInOutBack'
-            });
-        });
-
-        $(".submit").click(function () {
-            return false;
-        })
 
 
     }
@@ -2668,6 +2760,7 @@
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
                 $("#chkAllowComments").prop("checked", data[0].AllowComments);
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
+                document.getElementById('divFooter').style.visibility = 'hidden';
 
                 //$("#hdnTopicID").val(data[0].TopicIds);
 
@@ -2680,6 +2773,9 @@
             },
         });
     }
+
+
+
 
     function OnClickDeleteLMSContent(ContentId) {
         var url = '/LMSContentUpload/DeleteContent/';
@@ -3082,15 +3178,103 @@
 
     function NextButtonClick() {
         document.getElementById('divFooter').style.visibility = 'visible';
-        
+
     }
 
     function PreviousButtonOnClick() {
         document.getElementById('divFooter').style.visibility = 'hidden';
-        
-    }
-    
 
+    }
+
+
+</script>
+
+<script>
+$(document).ready(function () {
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var left, opacity, scale; //fieldset properties which we will animate
+    var animating; //flag to prevent quick multi-click glitches
+
+    $(".upload-next").click(function () {
+        if (animating) return false;
+        animating = true;
+
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        // Activate next step on progressbar using the index of next_fs
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+        // Show the next fieldset
+        next_fs.show();
+        // Hide the current fieldset with style
+        current_fs.animate({ opacity: 0 }, {
+            step: function (now, mx) {
+                // As the opacity of current_fs reduces to 0 - stored in "now"
+                // 1. Scale current_fs down to 80%
+                scale = 1 - (1 - now) * 0.2;
+                // 2. Bring next_fs from the right(50%)
+                left = (now * 50) + "%";
+                // 3. Increase opacity of next_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({
+                    'transform': 'scale(' + scale + ')',
+                    'position': 'absolute'
+                });
+                next_fs.css({ 'left': left, 'opacity': opacity });
+            },
+            duration: 200,
+            complete: function () {
+                current_fs.hide();
+                animating = false;
+            },
+            // This comes from the custom easing plugin
+            easing: 'easeInOutBack'
+        });
+    });
+
+    $(".upload-previous").click(function () {
+        if (animating) return false;
+        animating = true;
+
+        current_fs = $(this).parent();
+        previous_fs = $(this).parent().prev();
+
+        // De-activate current step on progressbar
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        $("#progressbar li").eq($("fieldset").index(previous_fs)).addClass("active");
+
+        // Show the previous fieldset
+        previous_fs.show();
+        // Hide the current fieldset with style
+        current_fs.animate({ opacity: 0 }, {
+            step: function (now, mx) {
+                // As the opacity of current_fs reduces to 0 - stored in "now"
+                // 1. Scale previous_fs from 80% to 100%
+                scale = 0.8 + (1 - now) * 0.2;
+                // 2. Take current_fs to the right(50%) - from 0%
+                left = ((1 - now) * 50) + "%";
+                // 3. Increase opacity of previous_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({ 'left': left, 'position': 'relative' });
+                previous_fs.css({ 'transform': 'scale(' + scale + ')', 'opacity': opacity, 'position': 'relative' });
+            },
+            duration: 200,
+            complete: function () {
+                current_fs.hide();
+                animating = false;
+            },
+            // This comes from the custom easing plugin
+            easing: 'easeInOutBack'
+        });
+    });
+
+    $(".submit").click(function () {
+        return false;
+    })
+
+});
 </script>
 
 
@@ -3104,13 +3288,13 @@
 <div class="container ">
     <div class="row">
         <div class="col-md-12">
-            <div class="backBox mt-5 p-3">
+            <div class="backBox mt-5 p-4">
                 <div class="">
-                    <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
+                    <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 5px;">
                         <div class="add-show-btns">
                             @*@if (ViewBag.CanAdd){*@
-                            <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContent();">
-                                <span class="btn-icon"><i class="fa fa-plus"></i></span> Content
+                            <button type="button" class="btn add-btn add-new-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContent();">
+                                <span class="btn-icon"><i class="fa fa-plus"></i></span> New Content
                             </button>
                             @*}*@
 
@@ -3161,7 +3345,7 @@
                         </div>
                     </div>*@
 
-                <div class="content-listing-part" id="contentListing" style="display: none;">
+                <div class="content-listing-part" id="contentListing" style="display: none; margin-top: 35px">
                     <div id="searchPanel" class="row" style="display: none;">
 
                         <div class="col-md-6 content-search-box mb-4">
@@ -3200,11 +3384,11 @@
                     <div id="msform">
                         <ul id="progressbar">
                             <li class="active">
-                                <span>Step 1</span>
+                                
                                 <h5>Content Details</h5>
                             </li>
                             <li>
-                                <span>Step 2</span>
+                                
                                 <h5>Upload Content</h5>
                             </li>
 
@@ -3215,39 +3399,52 @@
                                     <h3>Tell Us about your content</h3>
 
                                 </div>
-                                <div class="col-lg-12 mb-3 text-left">
+                                <div class="col-lg-12 mb-4 text-left">
                                     <label>Content Title<span style="color: red">*</span></label>
                                     <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
                                 </div>
-                                <div class="col-lg-12 mb-3 text-left">
+                                <div class="col-lg-12 mb-4 text-left">
                                     <label>Content Description<span style="color: red">*</span></label>
                                     <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
                                 </div>
-                                <div class="col-lg-12 mb-3 text-left">
+                                <div class="col-lg-6 mb-5 text-left">
                                     <div class="flex-label"><label>Select Topic</label> <a href="#"><i class="fa fa-plus"></i>Create topic</a></div>
                                     @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
                                 </div>
-                                <div class="col-lg-6 mb-4 text-left">
+                                <div class="col-lg-6 mb-5 text-left">
                                     <label>Play Sequence</label>
                                     <input type="number" id="numPlaySequence" name="numPlaySequence" class="form-control" maxlength="100" min="1" />
                                 </div>
-                                <div class="col-lg-6 mb-4" style="height: 60px; padding-top: 25px; text-align: left;">
-                                    <label>Publish</label>
-                                    <button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                        <div class="handle"></div>
-                                    </button>
-                                    @*<div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>*@
-                                </div>
+                                
                                 <div class="clear"></div>
                                 <div class="clearfix">
-                                    <div class="col-lg-4">
-                                        <div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>Allow like</label></div>
+                                    <div class="col-lg-3">
+                                        <label>Publish</label>
+                                        <button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                            <div class="handle"></div>
+                                        </button>
+                                        @*<div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>*@
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Allow comments</label></div>
+                                    <div class="col-lg-3">
+                                        @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>Allow like</label></div>*@
+                                        <label>Like</label>
+                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                            <div class="handle"></div>
+                                        </button>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Allow share</label></div>
+                                    <div class="col-lg-3">
+                                        @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Allow comments</label></div>*@
+                                        <label>Comments</label>
+                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                            <div class="handle"></div>
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Allow share</label></div>*@
+                                        <label>Share</label>
+                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                            <div class="handle"></div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -3263,13 +3460,21 @@
                                     <div class="form-group text-left">
                                         <label>Choose File:</label>
                                         <div class="clearfix">
+                                            @*<div class="custom-file">
+                                                <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                                            </div>*@
                                             <div class="custom-file">
                                                 <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                                                <label class="custom-file-label upload-btn" for="fileupload">
+                                                    <img src="../../../assests/images/upload.svg"> Upload
+                                                </label>
+                                                <div class="file-name" id="file-name"></div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     <p class="text-muted red" style="color:red">Supported types: MP4 (File size limited to @ViewBag.LMSVideoUploadSize MB)</p>
-                                    <div class="progress">
+                                    <div class="progress" style="display: none">
                                         <div class="bar"></div>
                                         <div class="percent">0%</div>
                                     </div>
@@ -3301,7 +3506,7 @@
                         </fieldset>
 
                     </div>
-                    }
+                   
                     <div class="clearfix">
 
                         <div class="col-lg-7">
@@ -3329,9 +3534,9 @@
 
                 </div>
 
-                <div class="modal-footer" id="divFooter">
-                    <button type="submit" class="btn btn-success">Upload & Exit</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
+                <div class="" id="divFooter">
+                    <button type="submit" class="btn btn-success upload-exit-btn">Upload & Exit</button>
+                    @*<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>*@
                 </div>
             }
         </div>
@@ -3396,7 +3601,7 @@
             </div>
             <div class="modal-body">
                 <div class="clearfix">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 map-content-title">
                         <label><b>For the Content : </b></label>
                         <label id="lblContent"></label>
                     </div>
@@ -3406,15 +3611,15 @@
                 <div class="clearfix"></div>
 
                 <div class="clearfix">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <label>Filter Question on Topic(s)</label>
                         @Html.Action("GetLMSTopicList", "LMSContentUpload")
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <label>Filter Question on Categories(s)</label>
                         @Html.Action("GetLMSCategoriesList", "LMSContentUpload")
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2" style=" margin-top: 25px;">
                         <button type="button" id="btnShowQuestions" class="btn btn-success" onclick="ShowQuestionsClick();">Show Question(s)</button>
                     </div>
                 </div>
