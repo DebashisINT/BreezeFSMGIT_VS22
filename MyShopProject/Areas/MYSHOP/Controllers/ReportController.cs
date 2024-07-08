@@ -1,6 +1,7 @@
 ﻿//====================================================== Revision History ==========================================================
 //1.0  19-07-2023   V2 .0.42   Priti     0026135: Branch Parameter is required for various FSM reports
 //2.0  04-04-2024   V2 .0.46   Sanchita  0027345: Two checkbox required in parameter for Order register report.
+//3.0  08-07-2024   V2 .0.48   Priti     0027407: "Party Status" - needs to add in the following reports.
 //====================================================== Revision History ==========================================================
 using System;
 using System.Collections.Generic;
@@ -406,7 +407,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
 
             });
-
+            //REV 3.0
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Party Status";
+                column.FieldName = "PARTYSTATUS";
+            });
+            //REV 3.0 End
             settings.Columns.Add(column =>
             {
                 column.Caption = "PP Name";
