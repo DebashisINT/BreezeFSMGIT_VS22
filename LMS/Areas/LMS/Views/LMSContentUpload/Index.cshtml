@@ -2672,6 +2672,19 @@
 
                 $('#file-name').text(name);
             }
+
+            $("#openlinkForTopicAdd").on("click", function () {
+
+                $("#hdnTopicID").val(0);
+                $("#transfer1M").html('');
+                $("#txtTopicName").val('');
+                $("#chkStatus").prop("checked", true);
+                $("#ddlTopicBasedOn").val(0);
+                lblBasedOn.innerText = "";
+                $("#transfer1T").html("");
+                document.getElementById("txtTopicName").focus();
+                $("#AddTopicModal").modal('show');
+            });
         });
 
          $('body').on('click', '#btnExportTo', function () {
@@ -3177,7 +3190,7 @@
     });
 
     function NextButtonClick() {
-        document.getElementById('divFooter').style.visibility = 'visible';
+        //    document.getElementById('divFooter').style.visibility = 'visible';
 
     }
 
@@ -3185,7 +3198,212 @@
         document.getElementById('divFooter').style.visibility = 'hidden';
 
     }
+    function ddlTopicBasedOnChange() {
+    selectedTopicBasedOnMapList = '';
+    var obj = {};
+    obj.topic_basedon = $("#ddlTopicBasedOn").val();
 
+    $.ajax({
+        type: "POST",
+        url: "/LMSTopics/GetBasedOnList",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            console.log(data)
+            var temArr2 = [];
+            //var data = response.d;
+            for (var a = 0; a < data.length; a++) {
+                if (data[a].selected) {
+                    temArr2.push(data[a].ID);
+                }
+            }
+            selectedTopicBasedOnMapList = temArr2.join(",");
+            $("#transfer1T").html('');
+
+            var tabNameText = data[0].tabNameText;
+            var rightTabNameText = data[0].rightTabNameText;
+            var searchPlaceholderText = data[0].searchPlaceholderText;
+            lblBasedOn.innerText = "Select " + tabNameText;
+
+            var settings1 = {
+                "dataArray": data,
+                "itemName": "NAME",
+                "valueName": "ID",
+                "tabNameText": tabNameText,
+                "rightTabNameText": rightTabNameText,
+                "searchPlaceholderText": searchPlaceholderText,
+                "callable": function (items) {
+                    //console.dir(items)
+                    var temArr = [];
+                    for (var i = 0; i < items.length; i++) {
+                        temArr.push(items[i].ID);
+                    }
+                    selectedTopicBasedOnMapList = temArr.join(",");
+                }
+            };
+            $("#transfer1T").transfer(settings1);
+        }
+    });
+}
+function SaveTopics() {
+    Swal.fire({
+        title: 'Are you sure you want to save?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if ($("#txtTopicName").val().trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please enter Topic Name.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#txtTopicName").focus();
+                    }, 200);
+                });
+                return;
+            }
+
+            if ($("#ddlTopicBasedOn").val() == 0 || $("#ddlTopicBasedOn").val().trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please select Based On.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#ddlTopicBasedOn").focus();
+                    }, 200);
+                });
+                return;
+            }
+
+            if (selectedTopicBasedOnMapList == "" || selectedTopicBasedOnMapList == null) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please select Based On Items.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#ddlTopicBasedOn").focus();
+                    }, 200);
+                });
+                return;
+            }
+
+            var data = {
+                Action: 'ADDTOPIC',
+                TopicID: $("#hdnTopicID").val(),
+                TopicBasedOnId: $("#ddlTopicBasedOn").val(),
+                TopicStatus: $("#chkStatus").prop("checked"),
+                TopicName: $("#txtTopicName").val().trim(),
+                selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
+            }
+
+            $.ajax({
+                url: '@Url.Action("SaveTopic", "LMSTopics")',
+                type: 'POST',
+                data: { data: data },
+                success: function (returnValue) {
+                    if (returnValue.RETURN_VALUE == "-10") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error in Add.'
+                        });
+                    } else if (returnValue.RETURN_VALUE == "-20") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error in Update.'
+                        });
+                    }
+                    else if (returnValue.RETURN_VALUE == "1") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Topic added successfully.'
+                        }).then(() => {
+                            $('#AddTopicModal').modal('hide');
+                        });
+
+                        setTimeout(function () {
+                            $.ajax({
+                                url: '/LMSContentUpload/GetTopicList',
+                                async: false,
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (data) {
+
+                                    $('.ddlTopic').html('');
+
+                                    //$('.ddlTopic').html(data);
+                                    var status = "<select id='ddlTopic' class = 'form-control'>";
+                                    status = status + '<option value=' + "0" + '>' + "-- Select --" + '</option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        status = status + '<option value=' + data[i].TOPIC_ID + '>' + data[i].TOPIC_NAME + '</option>';
+                                    }
+                                    status = status + '</select>';
+                                    $('#ddlTopic').html(status);
+
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert(xhr.responseText);
+                                }
+                            });
+                        }, 1000)
+                    }
+                    else if (returnValue.RETURN_VALUE == "0") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
+                        });
+                    }
+
+
+                    //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
+                    //    Swal.fire({
+                    //        icon: 'success',
+                    //        title: 'Success',
+                    //        text: 'Topic added successfully. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                    //    }).then(() => {
+                    //        $('#AddTopicModal').modal('hide');
+                    //    });
+                    //} else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
+                    //    Swal.fire({
+                    //        icon: 'success',
+                    //        title: 'Success',
+                    //        text: 'Topic added successfully.'
+                    //    }).then(() => {
+                    //        $('#AddTopicModal').modal('hide');
+                    //    });
+                    //} else if (returnValue.RETURN_VALUE == "1") {
+                    //    Swal.fire({
+                    //        icon: 'error',
+                    //        title: 'Error',
+                    //        text: 'Please enter a unique Topic name. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                    //    });
+                    //}
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while saving the topic.'
+                    });
+                }
+            });
+        }
+    });
+
+}
 
 </script>
 
@@ -3216,40 +3434,87 @@
         }
 
         $(".upload-next").click(function () {
-            if (animating) return false;
-            animating = true;
+            // Rev Sanchita
 
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
+            if ($("#txtContentTitle").val().trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please enter Content Title.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#txtContentTitle").focus();
+                    }, 200);
+                });
+                //return;
+            }
 
-            // Activate next step on progressbar using the index of next_fs
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            else if ($("#txtContentDesc").val().trim() == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please enter Content Description.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#txtContentDesc").focus();
+                    }, 200);
+                });
+                //return;
+            }
 
-            // Show the next fieldset
-            next_fs.show();
-            // Hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now, mx) {
-                    // As the opacity of current_fs reduces to 0 - stored in "now"
-                    // 1. Scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    // 2. Bring next_fs from the right (50%)
-                    left = (now * 50) + "%";
-                    // 3. Increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'transform': 'scale(' + scale + ')',
-                        'position': 'absolute'
-                    });
-                    next_fs.css({ 'left': left, 'opacity': opacity });
-                },
-                duration: 200,
-                complete: function () {
-                    current_fs.hide();
-                    animating = false;
-                },
-                easing: 'easeInOutBack'
-            });
+            else if ($("#ddlTopic").val() == 0 || $("#ddlTopic").val() == "" || $("#ddlTopic").val() == null) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: 'Please select Topic.'
+                }).then(() => {
+                    setTimeout(() => {
+                        $("#ddlTopic").focus();
+                    }, 200);
+                });
+                //return;
+            }
+            else {
+                document.getElementById('divFooter').style.visibility = 'visible';
+
+                if (animating) return false;
+                animating = true;
+
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                // Activate next step on progressbar using the index of next_fs
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                // Show the next fieldset
+                next_fs.show();
+                // Hide the current fieldset with style
+                current_fs.animate({ opacity: 0 }, {
+                    step: function (now, mx) {
+                        // As the opacity of current_fs reduces to 0 - stored in "now"
+                        // 1. Scale current_fs down to 80%
+                        scale = 1 - (1 - now) * 0.2;
+                        // 2. Bring next_fs from the right (50%)
+                        left = (now * 50) + "%";
+                        // 3. Increase opacity of next_fs to 1 as it moves in
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'transform': 'scale(' + scale + ')',
+                            'position': 'absolute'
+                        });
+                        next_fs.css({ 'left': left, 'opacity': opacity });
+                    },
+                    duration: 200,
+                    complete: function () {
+                        current_fs.hide();
+                        animating = false;
+                    },
+                    easing: 'easeInOutBack'
+                });
+            }
+            // End of Rev Sanchita
+
+            
         });
 
         $(".upload-previous").click(function () {
@@ -3432,7 +3697,7 @@
                                     <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
-                                    <div class="flex-label"><label>Select Topic</label> <a href="#"><i class="fa fa-plus"></i>Create topic</a></div>
+                                    <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd" ><i class="fa fa-plus"></i>Create topic</a></div>
                                     @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
@@ -3443,32 +3708,34 @@
                                 <div class="clear"></div>
                                 <div class="clearfix">
                                     <div class="col-lg-3">
-                                        <label>Publish</label>
-                                        <button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                        @*<label>Publish</label>*@
+                                        @*<button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
-                                        </button>
-                                        @*<div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>*@
+                                        </button>*@
+                                        <div><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>
                                     </div>
                                     <div class="col-lg-3">
-                                        @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>Allow like</label></div>*@
-                                        <label>Like</label>
-                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                        @*<label>Like</label>*@
+                                        @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
-                                        </button>
+                                        </button>*@
+                                        <div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>like</label></div>
                                     </div>
                                     <div class="col-lg-3">
-                                        @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Allow comments</label></div>*@
-                                        <label>Comments</label>
-                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                        
+                                        @*<label>Comments</label>*@
+                                        @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
-                                        </button>
+                                        </button>*@
+                                        <div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Comments</label></div>
                                     </div>
                                     <div class="col-lg-3">
-                                        @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Allow share</label></div>*@
-                                        <label>Share</label>
-                                        <button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
+                                        
+                                        @*<label>Share</label>*@
+                                        @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
-                                        </button>
+                                        </button>*@
+                                        <div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Share</label></div>
                                     </div>
                                 </div>
                             </div>
@@ -3748,3 +4015,44 @@
 
 
 </script>
+<div id="AddTopicModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Create Topic</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-lg-6">
+                        <label>Topic Name<span style="color: red">*</span></label>
+                        <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
+                        <asp:HiddenField ID="hdnHeaderId" runat="server" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Based On</label>
+                        @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
+
+                    </div>
+                    <div class="col-lg-2 mb-4" style="height: 60px;">
+                        <label> </label>
+                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-12 mt-15">
+                        <label id="lblBasedOn"> </label>
+                        <div>
+                            <div id="transfer1T" class="transfer-demo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
+                <button type="button" class="btn btn-success" onclick="SaveTopics();">Save & Exit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

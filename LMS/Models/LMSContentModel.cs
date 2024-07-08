@@ -16,7 +16,10 @@ namespace LMS.Models
         public Int64 TotalContents { get; set; }
         public Int64 ActiveContents { get; set; }
         public Int64 InactiveContents { get; set; }
-        
+
+        public int TopicBasedOnId { get; set; }
+        public List<TopicBasedOnList> TopicBasedOnList { get; set; }
+        public string TOPIC_ID { get; set; }
     }
 
     public class LMSContentAddModel
