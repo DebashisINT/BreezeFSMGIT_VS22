@@ -1767,7 +1767,7 @@
     }
 
         #msform fieldset {
-            background: white;
+            /*background: white;*/
             border: 0 none;
             border-radius: 8px;
             /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
@@ -2244,12 +2244,12 @@
         margin-bottom: 10px;
     }
 
-    #AddQuestionMapModal .modal-content {
-        background: linear-gradient(1deg, #beefff, #ffffff);
+    #AddQuestionMapModal .modal-content, #AddTopicModal .modal-content, #AddContentModal .modal-content {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
         overflow: visible !important;
     }
 
-    #AddQuestionMapModal .modal-body {
+    #AddQuestionMapModal .modal-body, #AddTopicModal .modal-body {
         padding-bottom: 0px;
     }
 
@@ -2275,12 +2275,12 @@
         margin-top: 13% !important;
     }
 
-    #MapQuestionListModal .modal-title {
+    #MapQuestionListModal .modal-title, #AddTopicModal .modal-title {
         color: #111;
         font-size: 24px;
     }
 
-    #MapQuestionListModal .modal-header {
+    #MapQuestionListModal .modal-header, #AddTopicModal .modal-header {
         margin-bottom: 10px;
         border-bottom: 1px solid #d5d5d5;
     }
@@ -2606,18 +2606,30 @@
                 // status.html(xhr.responseText);
 
                 if (xhr.responseText != '') {
-                    alertify.set('notifier', 'position', 'bottom-left');
-
-                    if (JSON.parse(xhr.responseText) == 'Content added succesfully.' || JSON.parse(xhr.responseText) == 'Content updated succesfully.')
-                        jAlert(JSON.parse(xhr.responseText), 'success', function () { window.location.href = '/LMS/LMSContentUpload/Index'; });
-                    else
-                    //var notification = alertify.error(JSON.parse(xhr.responseText));
-                        //jAlert(JSON.parse(xhr.responseText), 'fail', function () { window.location.href = '/LMS/LMSContentUpload/Index'; });
-                        jAlert(JSON.parse(xhr.responseText), 'fail');
-
+                    var responseText = JSON.parse(xhr.responseText);
+                    if (responseText == 'Content added succesfully.' || responseText == 'Content updated succesfully.') {
+                        Swal.fire({
+                            title: 'Success',
+                            text: responseText,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/LMS/LMSContentUpload/Index';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: responseText,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 }
             }
         });
+
 
         $(document).ready(function () {
             $("#fileupload").fileinput({
@@ -2827,9 +2839,11 @@
                                 title: 'Deleted',
                                 text: 'Successfully Deleted.'
                             }).then(() => {
-                                gridLMSContent.Refresh();
+                                /*gridLMSContent.Refresh();*/
                             });
                             //GridShow();
+                            
+                            
                         }
                         else {
                             Swal.fire({
@@ -3484,7 +3498,11 @@ function SaveTopics() {
                 next_fs = $(this).parent().next();
 
                 // Activate next step on progressbar using the index of next_fs
+                /*$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");*/
+
+                // Activate next step on progressbar using the index of next_fs
                 $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
                 // Show the next fieldset
                 next_fs.show();
@@ -3540,7 +3558,7 @@ function SaveTopics() {
                     left = ((1 - now) * 50) + "%";
                     // 3. Increase opacity of previous_fs to 1 as it moves in
                     opacity = 1 - now;
-                    current_fs.css({ 'left': left, 'position': 'absolute' });
+                    current_fs.css({ 'left': left, 'position': 'relative' });
                     previous_fs.css({ 'transform': 'scale(' + scale + ')', 'opacity': opacity, 'position': 'relative' });
                 },
                 duration: 200,
