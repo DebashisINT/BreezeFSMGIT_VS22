@@ -542,6 +542,64 @@
     .swal2-html-container {
         margin-top: 5px !important;
     }
+
+    #refreshgrid
+    {
+        position: relative;
+    }
+
+    #gridLMSTopic_DXPagerBottom_PSP, #gridCategoryList_DXPagerBottom_PSP {
+        right: 25px !important;
+        bottom: 0 !important;
+        left: auto !important;
+    }
+
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv
+    {
+        overflow: visible;
+    }
+
+    
+
 </style>
 <script>
     var Is_PageLoad = "0";
