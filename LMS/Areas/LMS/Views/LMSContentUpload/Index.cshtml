@@ -2356,6 +2356,28 @@
         }
 </style>
 
+<style>
+    #filePreview {
+        margin-top: 10px;
+    }
+
+    .preview-img {
+        max-width: 100%;
+        max-height: 300px; /* Adjust as needed */
+    }
+
+    .preview-video {
+        max-width: 100%;
+    }
+
+    #filePreview video
+    {
+        width: 100%;
+        height: 300px;
+    }
+
+</style>
+
 <script>
     var Is_PageLoad = "Ispageload";
 
@@ -2719,6 +2741,7 @@
 
             $('#fileupload').on('fileclear', function () {
                 $('#file-name').text('');
+                filePreview.innerHTML = '';
             });
 
             function handleFileChange(event) {
@@ -2788,6 +2811,9 @@
         $("#chkAllowShare").prop("checked", false);
         document.getElementById('divFooter').style.visibility = 'hidden';
 
+        $('#file-name').text('');
+        filePreview.innerHTML = '';
+        $('#fileupload').fileinput('clear');
 
         $("#AddContentModal").modal('show');
 
@@ -2828,10 +2854,16 @@
         }
     }
 
+
+
     function OpenLMSContentforEdit(ContentId) {
         $("#hdnAddEditMode").val('EDITCONTENT');
         $("#hdnContentID").val(ContentId);
         //LMSTopicGridLookup.gridView.UnselectAllRowsOnPage();
+
+        $('#file-name').text('');
+        filePreview.innerHTML = '';
+        $('#fileupload').fileinput('clear');
 
 
         $.ajax({
@@ -2851,10 +2883,43 @@
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
                 document.getElementById('divFooter').style.visibility = 'hidden';
 
+                $('#file-name').text(data[0].CONTENT_FILENAME);
+
                 //$("#hdnTopicID").val(data[0].TopicIds);
 
                 //var topicids = data[0].TopicIds.split(', ');
                 //LMSTopicGridLookup.SetValue(topicids);
+
+                var initialPreview = [];
+                var initialPreviewConfig = [];
+
+                var videoName = data[0].CONTENT_FILEPATH.replace('~', ''); // Assuming this is the physical path of the video
+
+                var baseUrl = '@Url.Action("Play", "ContentUpload", new { fileName = "" })';
+
+
+               // Build the full URL
+                var videoUrl = '/' + encodeURIComponent(videoName);
+
+
+                const video = document.createElement('video');
+
+                video.src = videoUrl;
+
+                // Set the video attributes
+                //video.width = 640;
+                //video.height = 360;
+                video.controls = true; // Show the video controls (play, pause, etc.)
+
+                // Append the video element to the DOM
+                const videoContainer = document.getElementById('filePreview');
+                videoContainer.appendChild(video);
+
+                // Load and play the video (optional)
+                video.load();
+               // video.play(); // Uncomment if you want to autoplay the video
+
+
 
                 $('#AddContentModal').modal('show');
                 },
@@ -2906,8 +2971,8 @@
                                 /*gridLMSContent.Refresh();*/
                             });
                             //GridShow();
-                            
-                            
+
+
                         }
                         else {
                             Swal.fire({
@@ -3645,6 +3710,52 @@ function SaveTopics() {
         });
     });
 
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const filePreview = document.getElementById('filePreview');
+
+        // Clear any existing preview
+        filePreview.innerHTML = '';
+
+        if (file.type.startsWith('image/')) {
+            // Display image preview
+            const img = document.createElement('img');
+            img.classList.add('preview-img');
+            img.file = file;
+            filePreview.appendChild(img);
+
+            const reader = new FileReader();
+            reader.onload = (function (aImg) {
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        } else if (file.type.startsWith('video/')) {
+            // Display video preview
+            const video = document.createElement('video');
+            video.classList.add('preview-video');
+            video.file = file;
+            video.controls = true;
+            filePreview.appendChild(video);
+
+            const reader = new FileReader();
+            reader.onload = (function (aVideo) {
+                return function (e) {
+                    aVideo.src = e.target.result;
+                };
+            })(video);
+            reader.readAsDataURL(file);
+        } else {
+            // File type not supported for preview
+            filePreview.innerHTML = `<p>Preview not available for this file type (${file.type}).</p>`;
+        }
+    }
 
 </script>
 
@@ -3853,7 +3964,12 @@ function SaveTopics() {
                                                 <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
                                             </div>*@
                                             <div class="custom-file">
-                                                <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                                                @*<input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />*@
+
+                                                <input type="file" id="fileupload" name="fileupload" accept=".mp4" onchange="handleFileSelect(event)">
+                                                <div id="filePreview"></div>
+
+
                                                 <label class="custom-file-label upload-btn" for="fileupload">
                                                     <img src="../../../assests/images/upload.svg"> Upload
                                                 </label>
