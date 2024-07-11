@@ -587,9 +587,29 @@
     }
 
     .option-part {
-        background: #f6f6f6;
+        background: #ffffffb8;
         padding: 10px;
         border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .backBox {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+    .form-control:focus
+    {
+        box-shadow: none;
+    }
+
+    .delete-col a img
+    {
+        width: 25px;
+        transition: all .3s ease-in-out;
+    }
+
+    .delete-col a:hover img {
+        transform: scale(1.2);
     }
 
     /*.correct-col div {
@@ -1117,7 +1137,7 @@
             <div class="ans-option">
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick1()"><img src='/assests/images/Delete.png' /> </a>
+                        <a style='cursor:pointer' class='pad' onclick="DeleteClick1()"><img src='/assests/images/clear-qst-ans.png' /> </a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1139,7 +1159,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick2()"><img src='/assests/images/Delete.png' /> </a>
+                        <a style='cursor:pointer' class='pad' onclick="DeleteClick2()"><img src='/assests/images/clear-qst-ans.png' /> </a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1162,7 +1182,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick3()"><img src='/assests/images/Delete.png' /> </a>
+                        <a style='cursor:pointer' class='pad' onclick="DeleteClick3()"><img src='/assests/images/clear-qst-ans.png' /> </a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1184,7 +1204,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick4()"><img src='/assests/images/Delete.png' /> </a>
+                        <a style='cursor:pointer' class='pad' onclick="DeleteClick4()"><img src='/assests/images/clear-qst-ans.png' /> </a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1204,11 +1224,11 @@
             </div>
         </div>
         <div class="row mb-5 mt-4">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Map Tropic(s)</label>
                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Map Categories</label>
                 @Html.Action("GetCategoryList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
