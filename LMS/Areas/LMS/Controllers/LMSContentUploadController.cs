@@ -18,6 +18,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using UtilityLayer;
 using DevExpress.Charts.Native;
+using DevExpress.Data.XtraReports.Wizard.Presenters;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -421,6 +422,20 @@ namespace LMS.Areas.LMS.Controllers
 
                 if (IsValid == 1)
                 {
+                    if (fileName != null && fileName != "")
+                    {
+                        if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/")))
+                        {
+                            // If Folder doesnot exists, CREATE the folder
+                            System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
+                        }
+                        else if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                        {
+                            // If file name already exists, RENAME the file by concatinating it by datetime
+                            fileName = DateTime.Now.ToString("hhmmss") + fileName;
+                        }
+                    }
+                    
                     ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
                     proc.AddPara("@ACTION", hdnAddEditMode);
                     proc.AddPara("@CONTENTID", hdnContentID);
@@ -449,17 +464,22 @@ namespace LMS.Areas.LMS.Controllers
                     if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
                         if (fileName != null && fileName != "")
                         {
-                            if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/")))
-                            {
-                                // If Folder doesnot exists, CREATE the folder
-                                System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
-                            }
-                            else if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
-                            {
-                                // If file name already exists, RENAME the file by concatinating it by datetime
-                                fileName = DateTime.Now.ToString("hhmmss") + fileName;
-                            }
-                            fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+                            //fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+
+                            string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
+                            //Directory.CreateDirectory(uploadsFolder);
+
+                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+                            fileupload.SaveAs(originalFilePath);
+
+                            //string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
+
+                            //string ffmpegPath = Server.MapPath("~/FFMpeg/bin/ffmpeg.exe");
+
+                            //var videoCompressionService = new VideoCompressionService();
+                            //videoCompressionService.CompressVideo(originalFilePath, compressedFilePath, ffmpegPath);
+
+
                         }
                     }
 
@@ -489,6 +509,7 @@ namespace LMS.Areas.LMS.Controllers
                 ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
                 proc.AddPara("@ACTION", "SHOWCONTENT");
                 proc.AddPara("@CONTENTID", ContentId);
+                proc.AddPara("@SERVERMAPPATH", Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
                 proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
                 proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
                 dt = proc.GetTable();
@@ -498,12 +519,28 @@ namespace LMS.Areas.LMS.Controllers
                     TopicMapList1 = APIHelperMethods.ToModelList<LMSContentEditModel>(dt);
                 }
 
+                //TopicMapList1.VideoPath = Url.Content("~/App_Data/Uploads/" + fileName);
+
+               
+
+
                 return Json(TopicMapList1, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
+        }
+
+        public ActionResult Play(string fileName)
+        {
+            var filePath = Path.Combine(Server.MapPath(""), fileName);
+            if (!System.IO.File.Exists(filePath))
+            {
+                return HttpNotFound();
+            }
+
+            return File(filePath, "video/mp4");
         }
 
         [HttpPost]

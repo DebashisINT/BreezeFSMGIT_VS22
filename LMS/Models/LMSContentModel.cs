@@ -20,6 +20,7 @@ namespace LMS.Models
         public int TopicBasedOnId { get; set; }
         public List<TopicBasedOnList> TopicBasedOnList { get; set; }
         public string TOPIC_ID { get; set; }
+        public string VideoPath { get; set; }
     }
 
     public class LMSContentAddModel
@@ -55,6 +56,9 @@ namespace LMS.Models
         public string CONTENT_FILEPATH { get; set; }
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
+        public string VideoPath { get; set; }
+        public string CONTENT_FULLPATH { get; set; }
+
     }
 
     public class TopicList
@@ -113,5 +117,52 @@ namespace LMS.Models
         public string QUESTIONS_NAME { get; set; }
         public string QUESTIONS_DESCRIPTN { get; set; }
     }
+
+    
+
+    public class VideoCompressionService
+    {
+        public string CompressVideo(string inputPath, string outputPath, string ffmpegPath)
+        {
+            //string ffmpegPath = @"C:\path\to\ffmpeg.exe"; // Ensure the path to ffmpeg.exe is correct
+            string arguments = $"-i \"{inputPath}\" -vcodec h264 -acodec aac \"{outputPath}\"";
+
+            try
+            {
+                var process = new System.Diagnostics.Process
+                {
+                    StartInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = ffmpegPath,
+                        Arguments = arguments,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (process.ExitCode != 0)
+                {
+                    // Log or handle FFmpeg error
+                    throw new InvalidOperationException($"FFmpeg failed with exit code {process.ExitCode}: {error}");
+                }
+
+                return outputPath;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw new InvalidOperationException("An error occurred while compressing the video.", ex);
+            }
+        }
+    }
+
+
 
 }
