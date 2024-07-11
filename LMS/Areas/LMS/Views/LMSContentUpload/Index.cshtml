@@ -2175,6 +2175,7 @@
 
     .custom-file {
         text-align: center;
+        position: relative;
     }
 
     .delete-option:hover {
@@ -2296,8 +2297,9 @@
     .switch {
         position: relative;
         display: inline-block;
-        width: 60px;
-        height: 34px;
+        width: 54px;
+        height: 28px;
+        margin-bottom: 0;
     }
 
         /* Hide default HTML checkbox */
@@ -2323,8 +2325,8 @@
         .slider:before {
             position: absolute;
             content: "";
-            height: 26px;
-            width: 26px;
+            height: 20px;
+            width: 20px;
             left: 4px;
             bottom: 4px;
             background-color: white;
@@ -2333,7 +2335,7 @@
         }
 
     input:checked + .slider {
-        background-color: #2196F3;
+        background-color: #6535f6;
     }
 
     input:focus + .slider {
@@ -2374,6 +2376,36 @@
     {
         width: 100%;
         height: 300px;
+    }
+
+    .file-preview .fileinput-remove {
+        top: -40px;
+        right: -5px;
+        line-height: 10px;
+    }
+
+    #filePreview video {
+        position: absolute;
+        width: 100%;
+        height: 220px;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 1px 1px 10px #11111136;
+        background: #fff;
+    }
+
+    .flex-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .flex-toggle label
+    {
+        margin-bottom: 0;
+        margin-right: 5px;
     }
 
 </style>
@@ -2439,7 +2471,7 @@
                     var flag = true;
                     Is_PageLoad = "1";
 
-                    $("btnShowTotalContents").addClass("active");
+                    $("#btnShowTotalContents").addClass("active");
                     $("#btnShowActiveContents").removeClass("active");
                     $("#btnShowInactiveContents").removeClass("active");
 
@@ -2487,7 +2519,7 @@
                     filteredData = allVideosData;
                     displayVideos(filteredData, currentPage);
 
-                    $("btnShowTotalContents").addClass("active");
+                    $("#btnShowTotalContents").addClass("active");
                     $("#btnShowActiveContents").removeClass("active");
                     $("#btnShowInactiveContents").removeClass("active");
                 });
@@ -2499,7 +2531,7 @@
                     filteredData = allVideosData;
                     displayVideos(filteredData, currentPage);
 
-                    $("btnShowTotalContents").addClass("active");
+                    $("#btnShowTotalContents").addClass("active");
                     $("#btnShowActiveContents").removeClass("active");
                     $("#btnShowInactiveContents").removeClass("active");
                 });
@@ -2511,7 +2543,7 @@
                     filteredData = allVideosData.filter(item => item.CONTENTSTATUS === "Yes");
                     displayVideos(filteredData, currentPage);
 
-                    $("btnShowTotalContents").removeClass("active");
+                    $("#btnShowTotalContents").removeClass("active");
                     $("#btnShowActiveContents").addClass("active");
                     $("#btnShowInactiveContents").removeClass("active");
                 });
@@ -2523,7 +2555,7 @@
                     filteredData = allVideosData.filter(item => item.CONTENTSTATUS === "No");
                     displayVideos(filteredData, currentPage);
 
-                    $("btnShowTotalContents").removeClass("active");
+                    $("#btnShowTotalContents").removeClass("active");
                     $("#btnShowActiveContents").removeClass("active");
                     $("#btnShowInactiveContents").addClass("active");
                 });
@@ -3757,6 +3789,9 @@ function SaveTopics() {
         }
     }
 
+
+
+
 </script>
 
 
@@ -3900,7 +3935,7 @@ function SaveTopics() {
                                 
                                 <div class="clear"></div>
                                 <div class="clearfix">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 flex-toggle">
                                         <label>Publish</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
@@ -3911,7 +3946,7 @@ function SaveTopics() {
                                              <span class="slider round"></span>
                                          </label>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 flex-toggle">
                                         <label>Like</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
                                             <div class="handle"></div>
@@ -3922,7 +3957,7 @@ function SaveTopics() {
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 flex-toggle">
                                         
                                         <label>Comments</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
@@ -3934,7 +3969,7 @@ function SaveTopics() {
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 flex-toggle">
                                         
                                         <label>Share</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
