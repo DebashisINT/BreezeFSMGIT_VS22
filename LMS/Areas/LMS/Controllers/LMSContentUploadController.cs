@@ -434,8 +434,13 @@ namespace LMS.Areas.LMS.Controllers
                             // If file name already exists, RENAME the file by concatinating it by datetime
                             fileName = DateTime.Now.ToString("hhmmss") + fileName;
                         }
+
+                        
                     }
-                    
+
+                    var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName) + ".jpg");
+
+
                     ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
                     proc.AddPara("@ACTION", hdnAddEditMode);
                     proc.AddPara("@CONTENTID", hdnContentID);
@@ -453,8 +458,8 @@ namespace LMS.Areas.LMS.Controllers
                     proc.AddPara("@CONTENT_FILESIZE", fileSize);
                     proc.AddPara("@CONTENT_FILETYPE", FileType);
                     proc.AddPara("@CONTENT_FILEDURATION", hdnFileDuration);
-                    proc.AddPara("@CONTENT_FILEPATH", "~/Commonfolder/LMS/ContentUpload/" + fileName);
-
+                    proc.AddPara("@CONTENT_FILEPATH", "~/Commonfolder/LMS/ContentUpload/" + fileName);                    
+                    proc.AddPara("@CONTENT_ICONFILEPATH", _thumbnailPath);
                     proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                     int k = proc.RunActionQuery();
@@ -478,6 +483,20 @@ namespace LMS.Areas.LMS.Controllers
 
                             //var videoCompressionService = new VideoCompressionService();
                             //videoCompressionService.CompressVideo(originalFilePath, compressedFilePath, ffmpegPath);
+
+                            //Thumbnails Image save
+                            if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
+                            {
+                                // If Folder doesnot exists, CREATE the folder
+                                System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
+                            }
+                            
+                                var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
+                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName) + ".jpg");
+                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                                ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
+                            
+                            //Thumbnails Image save End
 
 
                         }
@@ -568,6 +587,16 @@ namespace LMS.Areas.LMS.Controllers
                         System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
 
                     }
+
+                    //REV thumbnail DELETE
+                    var thumbnailPath = Path.GetFileNameWithoutExtension(fileName) + ".jpg";
+                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath)))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath));
+
+                    }
+                    //REV thumbnail DELETE END
+
 
                     output_msg = "1";
                 }
