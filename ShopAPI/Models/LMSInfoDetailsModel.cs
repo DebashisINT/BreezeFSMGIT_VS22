@@ -27,6 +27,7 @@ namespace ShopAPI.Models
     {
         public long topic_id { get; set; }
         public string topic_name { get; set; }
+        public int video_count { get; set; }
     }
 
     public class TopicWiseListsInput
@@ -105,5 +106,62 @@ namespace ShopAPI.Models
     {
         public string status { get; set; }
         public string message { get; set; }
+    }
+
+    public class TopicContentDetailsSaveInput
+    {
+        public long user_id { get; set; }
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public bool like_flag { get; set; }
+        public int share_count { get; set; }
+        public string content_length { get; set; }
+        public string content_watch_length { get; set; }
+        public bool content_watch_completed { get; set; }
+        public string content_last_view_date_time { get; set; }
+        public List<Commentlists> comment_list { get; set; }
+    }
+
+    public class Commentlists
+    {
+        public long topic_id { get; set; }
+        public long content_id { get; set; }
+        public string comment_id { get; set; }
+        public string comment_description { get; set; }
+        public string comment_date_time { get; set; }
+    }
+
+    public class TopicContentDetailsSaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+
+    public class LearningContentListsInput
+    {
+        public long user_id { get; set; }
+    }
+
+    public class LearningContentListsOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public long user_id { get; set; }
+        public List<LearningContentInfolistOutput> learning_content_info_list { get; set; }
+    }
+
+    public class LearningContentInfolistOutput
+    {
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public string content_url { get; set; }
+        public string content_title { get; set; }
+        public string content_description { get; set; }
+        public string content_length { get; set; }
+        public string content_watch_length { get; set; }
+        public bool content_watch_completed { get; set; }
+        public string content_last_view_date_time { get; set; }
     }
 }
