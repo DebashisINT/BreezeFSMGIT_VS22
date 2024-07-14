@@ -19,6 +19,7 @@ using System.Web.UI.WebControls;
 using UtilityLayer;
 using DevExpress.Charts.Native;
 using DevExpress.Data.XtraReports.Wizard.Presenters;
+using NReco.VideoConverter;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -476,6 +477,12 @@ namespace LMS.Areas.LMS.Controllers
 
                             string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
                             fileupload.SaveAs(originalFilePath);
+
+
+                            string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
+                            var ffMpegC = new FFMpegConverter();
+                            ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
+
 
                             //string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
 

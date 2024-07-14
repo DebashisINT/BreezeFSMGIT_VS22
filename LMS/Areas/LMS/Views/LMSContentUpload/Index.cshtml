@@ -2977,52 +2977,57 @@
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: JSON.stringify({ 'ContentId': ContentId }),
-                    async: false,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        if (response == "-10") {
+                setTimeout(function () {
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify({ 'ContentId': ContentId }),
+                        async: false,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            if (response == "-10") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Error in Delete.'
+                                });
+                                //GridShow();
+                            }
+                            else if (response == "1") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Deleted',
+                                    text: 'Successfully Deleted.'
+                                }).then(() => {
+                                    /*gridLMSContent.Refresh();*/
+                                    window.location.href = '/LMS/LMSContentUpload/Index';
+                                });
+                                //GridShow();
+                                
+                            }
+                            else {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Info',
+                                    text: response
+                                });
+                            }
+                        },
+                        error: function (response) {
+                            console.log(response);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'Error in Delete.'
+                                text: 'An error occurred while deleting the content.'
                             });
-                            //GridShow();
                         }
-                        else if (response == "1") {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Deleted',
-                                text: 'Successfully Deleted.'
-                            }).then(() => {
-                                /*gridLMSContent.Refresh();*/
-                            });
-                            //GridShow();
+                    });
 
-
-                        }
-                        else {
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Info',
-                                text: response
-                            });
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred while deleting the content.'
-                        });
-                    }
-                });
+                }, 1000)
+                
             }
         });
     }
