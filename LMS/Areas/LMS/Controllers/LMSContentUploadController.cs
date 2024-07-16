@@ -166,7 +166,7 @@ namespace LMS.Areas.LMS.Controllers
         //    return View(videolist);
         //}
 
-        public JsonResult GetContentGridListData()
+        public JsonResult GetContentGridListData(string TopicID)
         {
             DataTable dt = new DataTable();
             //  LMSContentAddModel ret = new LMSContentAddModel();
@@ -175,6 +175,7 @@ namespace LMS.Areas.LMS.Controllers
             ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
             proc.AddPara("@ACTION", "GETLISTINGDATA");
             proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            proc.AddPara("@TOPICID", TopicID);
             proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
             dt = proc.GetTable();
 
@@ -188,129 +189,150 @@ namespace LMS.Areas.LMS.Controllers
 
         }
 
-        public ActionResult PartialContentGridList(LMSContentModel model)
+        public JsonResult GetTopicListForBoxData()
         {
-            try
+            List<TopicListForBoxData> TopicList = new List<TopicListForBoxData>();
+            DataTable dt = new DataTable();
+
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@ACTION", "GETTOPICLISTFORBOXDATA");
+            dt = proc.GetTable();
+
+            if (dt != null)
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
-                ViewBag.CanAdd = rights.CanAdd;
-                ViewBag.CanView = rights.CanView;
-                ViewBag.CanExport = rights.CanExport;
-                ViewBag.CanEdit = rights.CanEdit;
-                ViewBag.CanDelete = rights.CanDelete;
-
-                if (model.Is_PageLoad == "TotalContents" || model.Is_PageLoad == "ActiveContents" || model.Is_PageLoad == "InactiveContents")
-                {
-                    string Is_PageLoad = model.Is_PageLoad;
-
-                    model.Is_PageLoad = "Ispageload";
-
-                    return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
-                }
-                else
-                {
-                    string Is_PageLoad = string.Empty;
-
-                    if (model.Is_PageLoad == "Ispageload")
-                    {
-                        Is_PageLoad = "is_pageload";
-
-                    }
-
-
-                    GetContentListing(Is_PageLoad);
-
-                    model.Is_PageLoad = "Ispageload";
-
-                    return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
-                }
+                // Company
+                
+                TopicList = APIHelperMethods.ToModelList<TopicListForBoxData>(dt);
                 
             }
-            catch (Exception ex)
-            {
-                throw ex;
-
-            }
-
+            return Json(TopicList, JsonRequestBehavior.AllowGet);
         }
 
-        public void GetContentListing(string Is_PageLoad)
-        {
-            string user_id = Convert.ToString(Session["userid"]);
 
-            string action = string.Empty;
-            DataTable formula_dtls = new DataTable();
-            DataSet dsInst = new DataSet();
+        //public ActionResult PartialContentGridList(LMSContentModel model)
+        //{
+        //    try
+        //    {
+        //        EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
+        //        ViewBag.CanAdd = rights.CanAdd;
+        //        ViewBag.CanView = rights.CanView;
+        //        ViewBag.CanExport = rights.CanExport;
+        //        ViewBag.CanEdit = rights.CanEdit;
+        //        ViewBag.CanDelete = rights.CanDelete;
 
-            try
-            {
-                DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETLISTINGDATA");
-                proc.AddPara("@IS_PAGELOAD", Is_PageLoad);
-                proc.AddPara("@USERID", Convert.ToInt32(user_id));
-                dt = proc.GetTable();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        if (model.Is_PageLoad == "TotalContents" || model.Is_PageLoad == "ActiveContents" || model.Is_PageLoad == "InactiveContents")
+        //        {
+        //            string Is_PageLoad = model.Is_PageLoad;
 
-        public IEnumerable GetContentDetails(string Is_PageLoad)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+        //            model.Is_PageLoad = "Ispageload";
 
-            ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
-            ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
-            ////////{
-            ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
-            ////////}
+        //            return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
+        //        }
+        //        else
+        //        {
+        //            string Is_PageLoad = string.Empty;
 
-            if (Is_PageLoad != "is_pageload")
-            {
-                if (Is_PageLoad == "ActiveContents")
-                {
-                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-                            where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "Yes"
-                            orderby d.SEQ
-                            select d;
-                    return q;
-                }
-                else if (Is_PageLoad == "InactiveContents")
-                {
-                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-                            where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "No"
-                            orderby d.SEQ
-                            select d;
-                    return q;
-                }
-                else
-                {
-                    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                    var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-                            where d.USERID == Convert.ToInt32(Userid)
-                            orderby d.SEQ
-                            select d;
-                    return q;
-                }
+        //            if (model.Is_PageLoad == "Ispageload")
+        //            {
+        //                Is_PageLoad = "is_pageload";
+
+        //            }
+
+
+        //            GetContentListing(Is_PageLoad);
+
+        //            model.Is_PageLoad = "Ispageload";
+
+        //            return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
+        //        }
                 
-            }
-            else
-            {
-                LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-                        where d.USERID == Convert.ToInt32(Userid) && d.SEQ == 1111119
-                        orderby d.SEQ 
-                        select d;
-                return q;
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+
+        //    }
+
+        //}
+
+        //public void GetContentListing(string Is_PageLoad)
+        //{
+        //    string user_id = Convert.ToString(Session["userid"]);
+
+        //    string action = string.Empty;
+        //    DataTable formula_dtls = new DataTable();
+        //    DataSet dsInst = new DataSet();
+
+        //    try
+        //    {
+        //        DataTable dt = new DataTable();
+        //        ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+        //        proc.AddPara("@ACTION", "GETLISTINGDATA");
+        //        proc.AddPara("@IS_PAGELOAD", Is_PageLoad);
+        //        proc.AddPara("@USERID", Convert.ToInt32(user_id));
+        //        dt = proc.GetTable();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        //public IEnumerable GetContentDetails(string Is_PageLoad)
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
+        //    string Userid = Convert.ToString(Session["userid"]);
+
+        //    ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
+        //    ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
+        //    ////////{
+        //    ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+        //    ////////}
+
+        //    if (Is_PageLoad != "is_pageload")
+        //    {
+        //        if (Is_PageLoad == "ActiveContents")
+        //        {
+        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+        //                    where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "Yes"
+        //                    orderby d.SEQ
+        //                    select d;
+        //            return q;
+        //        }
+        //        else if (Is_PageLoad == "InactiveContents")
+        //        {
+        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+        //                    where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "No"
+        //                    orderby d.SEQ
+        //                    select d;
+        //            return q;
+        //        }
+        //        else
+        //        {
+        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+        //                    where d.USERID == Convert.ToInt32(Userid)
+        //                    orderby d.SEQ
+        //                    select d;
+        //            return q;
+        //        }
+                
+        //    }
+        //    else
+        //    {
+        //        LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+        //        var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
+        //                where d.USERID == Convert.ToInt32(Userid) && d.SEQ == 1111119
+        //                orderby d.SEQ 
+        //                select d;
+        //        return q;
+        //    }
 
 
-        }
+        //}
 
 
         [HttpPost]

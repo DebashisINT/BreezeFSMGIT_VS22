@@ -66,6 +66,15 @@ namespace LMS.Models
         public String TOPIC_ID { get; set; }
         public String TOPIC_NAME { get; set; }
     }
+
+    public class TopicListForBoxData
+    {
+        public String TOPIC_ID { get; set; }
+        public String TOPIC_NAME { get; set; }
+        public String TOPIC_CONTENT_COUNT { get; set; }
+
+    }
+
     public class CategoryList
     {
         public String CATEGORYID { get; set; }
