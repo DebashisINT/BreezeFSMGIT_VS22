@@ -96,6 +96,7 @@ namespace ShopAPI.Controllers
                     sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
                     sqlcmd.Parameters.AddWithValue("@ACTION", "TOPICWISELISTS");
                     sqlcmd.Parameters.AddWithValue("@TOPIC_ID", model.topic_id);
+                    sqlcmd.Parameters.AddWithValue("@AttachmentUrl", AttachmentUrl);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -166,7 +167,9 @@ namespace ShopAPI.Controllers
                                         Coview.Add(new ContentlistOutput()
                                         {
                                             content_id = Convert.ToInt64(ds.Tables[1].Rows[j]["content_id"]),
-                                            content_url= AttachmentUrl+Convert.ToString(ds.Tables[1].Rows[j]["content_url"]),
+                                            //content_url= AttachmentUrl+Convert.ToString(ds.Tables[1].Rows[j]["content_url"]),
+                                            content_url = Convert.ToString(ds.Tables[1].Rows[j]["content_url"]),
+                                            content_thumbnail = Convert.ToString(ds.Tables[1].Rows[j]["content_thumbnail"]),
                                             content_title = Convert.ToString(ds.Tables[1].Rows[j]["content_title"]),
                                             content_description = Convert.ToString(ds.Tables[1].Rows[j]["content_description"]),
                                             content_play_sequence = Convert.ToInt64(ds.Tables[1].Rows[j]["content_play_sequence"]),
@@ -185,7 +188,6 @@ namespace ShopAPI.Controllers
                                 }
                                 else
                                 {
-                                    //Coview = APIHelperMethods.ToModelList<ContentlistOutput>(ds.Tables[1]);
                                     omodel.content_list = Coview;
                                 }
                             }

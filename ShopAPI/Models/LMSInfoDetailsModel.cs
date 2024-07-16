@@ -48,6 +48,7 @@ namespace ShopAPI.Models
     {
         public long content_id { get; set; }
         public string content_url { get; set; }
+        public string content_thumbnail { get; set; }
         public string content_title { get; set; }
         public string content_description { get; set; }
         public long content_play_sequence { get; set; }
