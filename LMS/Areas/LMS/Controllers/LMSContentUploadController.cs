@@ -497,11 +497,11 @@ namespace LMS.Areas.LMS.Controllers
                             string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
                             //Directory.CreateDirectory(uploadsFolder);
 
-                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+                            string originalFilePath = Path.Combine(uploadsFolder, "org_" + Path.GetFileName(fileName));
                             fileupload.SaveAs(originalFilePath);
 
 
-                            string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
+                            string compressedFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
                             var ffMpegC = new FFMpegConverter();
                             ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
 
