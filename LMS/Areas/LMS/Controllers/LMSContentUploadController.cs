@@ -505,6 +505,12 @@ namespace LMS.Areas.LMS.Controllers
                             var ffMpegC = new FFMpegConverter();
                             ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
 
+                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName)))
+                            {
+                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName));
+
+                            }
+
 
                             //string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
 
