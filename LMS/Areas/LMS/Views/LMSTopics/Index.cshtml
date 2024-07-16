@@ -1287,7 +1287,7 @@
     }
 
     .swal2-confirm.swal2-styled {
-        border-radius: 12px !important;
+        border-radius: 8px !important;
     }
 
     .swal2-styled {
@@ -1331,6 +1331,20 @@
         .save-btn:hover {
             transform: scale(1.1);
         }
+
+    div:where(.swal2-container) button:where(.swal2-styled):not([disabled])
+    {
+        width: 90px !important;
+        border-radius: 8px !important;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        background: rgb(0 0 0 / 50%) !important;
+    }
+
+    div:where(.swal2-container).swal2-center > .swal2-popup {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
 </style>
 
 <script>
@@ -1623,13 +1637,13 @@
                     if (returnValue.RETURN_VALUE == "-10") {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
+                            title: 'Sorry!',
                             text: 'Error in Add.'
                         });
                     } else if (returnValue.RETURN_VALUE == "-20") {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
+                            title: 'Sorry!',
                             text: 'Error in Update.'
                         });
                     }
@@ -1662,7 +1676,7 @@
                     else if (returnValue.RETURN_VALUE == "0") {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
+                            title: 'Sorry!',
                             text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
                         });
                     }
@@ -1695,7 +1709,7 @@
                 error: function () {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
+                        title: 'Sorry!',
                         text: 'An error occurred while saving the topic.'
                     });
                 }
@@ -1803,14 +1817,16 @@
         var url = '/LMSTopics/TopicDelete/';
 
         Swal.fire({
-            title: 'Confirm Delete?',
-            text: "Are you sure you want to delete this topic?",
-            icon: 'question',
+            title: 'Are you sure you want to delete?',
+            text: "This action cannot be undone!",
+            /*icon: 'question',*/
+            imageUrl: '/assests/images/delete-big.png', 
+            imageWidth: 40, 
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -1825,7 +1841,7 @@
                         if (response == "-10") {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error',
+                                title: 'Sorry!',
                                 text: 'Error in Delete.'
                             });
                             //GridShow();
@@ -1833,7 +1849,7 @@
                         else if (response == "0") {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error',
+                                title: 'Sorry!',
                                 text: 'This Topic is used in the Question module. Cannot be deleted.'
                             });
                             //GridShow();
@@ -1841,7 +1857,7 @@
                         else if (response == "-1") {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error',
+                                title: 'Sorry!',
                                 text: 'This Topic is used in the Content module. Cannot be deleted.'
                             });
                             //GridShow();
@@ -1868,7 +1884,7 @@
                         console.log(response);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
+                            title: 'Sorry!',
                             text: 'An error occurred while deleting the topic.'
                         });
                     }

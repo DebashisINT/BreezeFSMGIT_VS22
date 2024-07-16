@@ -529,7 +529,7 @@
         }
 
     .swal2-confirm.swal2-styled {
-        border-radius: 12px !important;
+        border-radius: 8px !important;
     }
 
     .swal2-styled {
@@ -541,6 +541,19 @@
 
     .swal2-html-container {
         margin-top: 5px !important;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
+        width: 90px !important;
+        border-radius: 8px !important;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        background: rgb(0 0 0 / 50%) !important;
+    }
+
+    div:where(.swal2-container).swal2-center > .swal2-popup {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
     }
 </style>
 <script>
@@ -667,7 +680,7 @@
                     // SweetAlert duplicate category name warning
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
+                        title: 'Sorry!',
                         text: 'Duplicate Category name cannot be entered. Please enter a unique category name.'
                     });
                 }
@@ -733,12 +746,12 @@
         title: 'Are you sure you want to delete?',
         text: "This action cannot be undone!",
         imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
-        imageWidth: 50, // Adjust the width as needed
+        imageWidth: 40, // Adjust the width as needed
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -760,10 +773,10 @@
                     } else if (parseInt(response) == -1) {
                         // SweetAlert error message with custom icon
                         Swal.fire({
-                            title: 'Error!',
+                            title: 'Sorry!',
                             text: 'Category already mapped with another module. Cannot delete.',
-                            imageUrl: '/path/to/your/error-icon.png', // Custom icon for error
-                            imageWidth: 50, // Adjust the width as needed
+                            imageUrl: '/path/to/your/error-icon.png', 
+                            imageWidth: 50, 
                             icon: 'error' // You can also keep the built-in icon type
                         });
                     }

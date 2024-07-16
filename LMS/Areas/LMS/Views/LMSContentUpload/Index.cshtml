@@ -2408,6 +2408,44 @@
         margin-right: 5px;
     }
 
+    .topic-list {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 15px;
+    }
+
+        .topic-list .btn
+        {
+            margin-bottom: 10px;
+            margin-right: 15px;
+        }
+
+    .mLoader {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgb(255 255 255 / 95%);
+        z-index: 99999;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: .8;
+        flex-direction: column;
+    }
+
+        .mLoader h4 {
+            font-size: 30px;
+            color: #111;
+            margin-top: 20px;
+        }
+
+    .hide {
+        display: none;
+    }
+
 </style>
 
 <script>
@@ -2423,6 +2461,14 @@
     //    // with plugin options
     //    $("#fileupload").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
     //});
+
+    function showLoader() {
+        $('#gmap-loader').removeClass('hide');
+    }
+
+    function hideLoader() {
+        $('#gmap-loader').addClass('hide');
+    }
 
     $(function () {
 
@@ -2468,6 +2514,32 @@
 
             $(document).ready(function() {
                 $('body').on('click', '#btnshow', function () {
+
+                    $.ajax({
+                        url: '/LMSContentUpload/GetTopicListForBoxData',
+                        method: 'GET',
+                        success: function (data) {
+
+                            $('#searchPanel').show();
+                            $('#contentListing').show();
+
+                            $('.topic-list').empty(); // Clear any existing boxes
+                            data.forEach(function (topic) {
+                                var box = `
+                                <button type="button" class="btn btn-total btn-radius" id="${topic.TOPIC_ID}">
+                                    <h5>${topic.TOPIC_NAME}</h5>
+                                    <span class="filter-count">${topic.TOPIC_CONTENT_COUNT}</span>
+                                </button>
+                            `;
+                                $('.topic-list').append(box);
+                            });
+                        },
+                        error: function (error) {
+                            console.error('Error fetching topics:', error);
+                        }
+                    });
+
+
                     var flag = true;
                     Is_PageLoad = "1";
 
@@ -2714,6 +2786,8 @@
                 var percentVal = '0%';
                 bar.width(percentVal);
                 percent.html(percentVal);
+
+                showLoader();
             },
             uploadProgress: function (event, position, total, percentComplete) {
                 var percentVal = percentComplete + '%';
@@ -2722,6 +2796,8 @@
             },
             complete: function (xhr) {
                 // status.html(xhr.responseText);
+
+                hideLoader();
 
                 if (xhr.responseText != '') {
                     var responseText = JSON.parse(xhr.responseText);
@@ -3800,7 +3876,10 @@ function SaveTopics() {
 </script>
 
 
-
+<div id="gmap-loader" class="mLoader hide">
+    <img src="/assests/images/Rainbow.gif" />
+    <h4>Content Uploading, Please Wait</h4>
+</div>
 
 
 <div class="breadCumb">
@@ -3870,6 +3949,10 @@ function SaveTopics() {
                 <div class="content-listing-part" id="contentListing" style="display: none; margin-top: 35px">
                     <div id="searchPanel" class="row" style="display: none;">
 
+                        <div class="topic-list">
+
+                        </div>
+
                         <div class="col-md-6 content-search-box mb-4">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
                             <button id="btnSearch" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -3895,6 +3978,9 @@ function SaveTopics() {
 <div id="AddContentModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content">
+
+            
+
             @using (Html.BeginForm("SaveContent", "LMSContentUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
@@ -3906,11 +3992,11 @@ function SaveTopics() {
                     <div id="msform">
                         <ul id="progressbar">
                             <li class="active">
-                                
+
                                 <h5>Content Details</h5>
                             </li>
                             <li>
-                                
+
                                 <h5>Upload Content</h5>
                             </li>
 
@@ -3930,32 +4016,32 @@ function SaveTopics() {
                                     <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
-                                    <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd" ><i class="fa fa-plus"></i>Create topic</a></div>
+                                    <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd"><i class="fa fa-plus"></i>Create topic</a></div>
                                     @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
                                     <label>Play Sequence</label>
                                     <input type="number" id="numPlaySequence" name="numPlaySequence" class="form-control" maxlength="100" min="1" />
                                 </div>
-                                
+
                                 <div class="clear"></div>
                                 <div class="clearfix">
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Publish</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                            <div class="handle"></div>
-                                        </button>*@
+                                        <div class="handle"></div>
+                                    </button>*@
                                         @*<div><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>*@
-                                         <label class="switch">
-                                             <input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked />
-                                             <span class="slider round"></span>
-                                         </label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked />
+                                            <span class="slider round"></span>
+                                        </label>
                                     </div>
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Like</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                            <div class="handle"></div>
-                                        </button>*@
+                                        <div class="handle"></div>
+                                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>like</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" />
@@ -3963,11 +4049,11 @@ function SaveTopics() {
                                         </label>
                                     </div>
                                     <div class="col-lg-3 flex-toggle">
-                                        
+
                                         <label>Comments</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                            <div class="handle"></div>
-                                        </button>*@
+                                        <div class="handle"></div>
+                                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Comments</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" />
@@ -3975,11 +4061,11 @@ function SaveTopics() {
                                         </label>
                                     </div>
                                     <div class="col-lg-3 flex-toggle">
-                                        
+
                                         <label>Share</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                            <div class="handle"></div>
-                                        </button>*@
+                                        <div class="handle"></div>
+                                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Share</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" />
@@ -4001,8 +4087,8 @@ function SaveTopics() {
                                         <label>Choose File:</label>
                                         <div class="clearfix">
                                             @*<div class="custom-file">
-                                                <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
-                                            </div>*@
+                                            <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                                        </div>*@
                                             <div class="custom-file">
                                                 @*<input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />*@
 
@@ -4015,7 +4101,7 @@ function SaveTopics() {
                                                 </label>
                                                 <div class="file-name" id="file-name"></div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <p class="text-muted red" style="color:red">Supported types: MP4 (File size limited to @ViewBag.LMSVideoUploadSize MB)</p>
@@ -4051,7 +4137,7 @@ function SaveTopics() {
                         </fieldset>
 
                     </div>
-                   
+
                     <div class="clearfix">
 
                         <div class="col-lg-7">
