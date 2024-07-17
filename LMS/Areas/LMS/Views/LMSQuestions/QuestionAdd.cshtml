@@ -9,6 +9,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    .crossBtn {
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        color: #a5a5a5;
+        font-size: 20px !important;
+        height: 35px;
+        line-height: 33px !important;
+        position: absolute;
+        right: 5px;
+        text-align: center;
+        top: 5px;
+        width: 35px;
+    }
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -652,6 +665,20 @@
     window.onload = setup;
 
     $(document).ready(function () {
+
+        $(".allow_decimal").on("input", function (evt) {
+            var self = $(this);
+            self.val(self.val().replace(/[^0-9\.]/g, ''));
+            if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
+        $('.numbersOnly').keyup(function () {
+            if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+
         $('#txtQuestionName').focus();
         $('#chkCorrect1').change(function () {
             var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
@@ -708,7 +735,7 @@
      var QuestionID=0;
  var urlKeys = getUrlVars();
     if (urlKeys.key != 'Add') {
-        $("#titleheader").text(""); 
+       // $("#titleheader").va("Modify Question"); 
         QuestionID = urlKeys.key;
         $("#hdnIDADd").val(QuestionID);
         if (QuestionID != 0) {
@@ -775,8 +802,8 @@
                         }
 
 
-                        TOPIC_ID = response.CATEGORYIDS;
-                        Category_ID = response.TOPICIDS;
+                        TOPIC_ID = response.TOPICIDS;
+                        Category_ID = response.CATEGORYIDS;
 
                     }
                 }
@@ -903,15 +930,17 @@
                 text: 'Enter Question Name to proceed.'
             });
             return false;
-            } else if ($("#txtQuestionDescription").val().trim() == "") {
-            // SweetAlert for empty Question description
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Question Description to proceed.'
-            });
-            return false;
             }
+
+            //else if ($("#txtQuestionDescription").val().trim() == "") {
+            //// SweetAlert for empty Question description
+            //Swal.fire({
+            //    icon: 'warning',
+            //    title: 'Warning',
+            //    text: 'Enter Question Description to proceed.'
+            //});
+            //return false;
+            //}
             else if ($("#txtOption1").val().trim() == "") {
                 // SweetAlert for empty Question description
                 Swal.fire({
@@ -930,9 +959,12 @@
                 });
                 return false;
             }
-            else if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+            if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+
                 if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
+
                     if ($("#txtPoint3").val().trim() == "" || $("#txtPoint3").val().trim() == "0") {
+
                         if ($("#txtPoint4").val().trim() == "" || $("#txtPoint4").val().trim() == "0") {
 
                             //jAlert('Enter Points  to proceed.');
@@ -946,10 +978,31 @@
                     }
                 }
             }
+            var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+            var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+            var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+            var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
 
+            if (chkCorrect1 == "0") {
 
+                if (chkCorrect2 == "0") {
 
-            else if (TOPIC_ID.trim() == "") {
+                    if (chkCorrect3 == "0") {
+
+                        if (chkCorrect4 == "0") {
+                           
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Warning',
+                                text: 'Please tick the correct answer(s).'
+                            });
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if (TOPIC_ID.trim() == "") {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Warning',
@@ -988,6 +1041,14 @@
                     });
                     return false;
                 }
+                if ($("#txtOption1").val().trim() == "" || $("#txtOption1").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Option1 to proceed.'
+                    });
+                    return false;
+                }
             }
 
             var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
@@ -998,6 +1059,14 @@
                         icon: 'warning',
                         title: 'Warning',
                         text: 'Please Enter Point2 to proceed.'
+                    });
+                    return false;
+                }
+                if ($("#txtOption2").val().trim() == "" || $("#txtOption2").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Option2 to proceed.'
                     });
                     return false;
                 }
@@ -1012,6 +1081,14 @@
                         });
                         return false;
                     }
+                    if ($("#txtOption3").val().trim() == "" || $("#txtOption3").val().trim() == "0") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please Enter Option3 to proceed.'
+                        });
+                        return false;
+                    }
                 }
 
 
@@ -1023,6 +1100,14 @@
                             icon: 'warning',
                             title: 'Warning',
                             text: 'Please Enter Point4 to proceed.'
+                        });
+                        return false;
+                    }
+                    if ($("#txtOption4").val().trim() == "" || $("#txtOption4").val().trim() == "0") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please Enter Option4 to proceed.'
                         });
                         return false;
                     }
@@ -1088,26 +1173,38 @@
         $("#txtPoint1").val("");
         $("#chkCorrect1").prop("checked", false);
     }
+    function checkboxClick1() {
+        $("#txtPoint1").val("");
+    }
     function DeleteClick2() {
         $("#txtOption2").val("");
         $("#txtPoint2").val("");
         $("#chkCorrect2").prop("checked", false);
+    }
+    function checkboxClick2() {
+        $("#txtPoint2").val("");
     }
     function DeleteClick3() {
         $("#txtOption3").val("");
         $("#txtPoint3").val("");
         $("#chkCorrect3").prop("checked", false);
     }
+    function checkboxClick3() {
+        $("#txtPoint3").val("");
+    }
     function DeleteClick4() {
         $("#txtOption4").val("");
         $("#txtPoint4").val("");
         $("#chkCorrect4").prop("checked", false);
     }
-
+    function checkboxClick4() {
+        $("#txtPoint4").val("");
+    }
 
 </script>
 <div class="breadCumb">
-    <span id="titleheader">Add Question</span>
+    <span id="titleheader">@ViewBag.PageTitle</span>
+    <div id="ApprovalCross" class="crossBtnN"><a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
@@ -1120,9 +1217,10 @@
                 </div>
             </div>
             <div class="col-md-12 mb-4 mt-3">
-                <div><label>Question Description <span class="red">*</span></label></div>
+                <div><label>Question Description </label></div>
                 <div>
-                    <input type="text" id="txtQuestionDescription" maxlength="500" class="form-control" />
+                    @*<textarea type="text" id="txtQuestionDescription" maxlength="500" class="form-control" />*@
+                    <textarea rows="5" class="form-control" style="height:50px" cols="20" id="txtQuestionDescription" maxlength="500"></textarea>
                 </div>
             </div>
         </div>
@@ -1147,11 +1245,11 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint1" class="form-control" placeholder="Point 1" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint1" class="form-control  numbersOnly" placeholder="Point 1" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
-                    <div><input type="checkbox" id="chkCorrect1" class="styled-checkbox" /><label>Correct</label></div>
+                    <div><input type="checkbox" id="chkCorrect1" class="styled-checkbox" onclick="checkboxClick1()" /><label>Correct</label></div>
                 </div>
             </div>
             <div class="ans-option">
@@ -1169,11 +1267,11 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint2" class="form-control" placeholder="Point 2" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="99999" maxlength="5" disabled  />
                     </div>
                 </div>
                 <div class="correct-col">
-                    <div><input type="checkbox" id="chkCorrect2" class="styled-checkbox" /><label>Correct</label></div>
+                    <div><input type="checkbox" id="chkCorrect2" class="styled-checkbox" onclick="checkboxClick2()" /><label>Correct</label></div>
                 </div>
 
             </div>
@@ -1192,11 +1290,11 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint3" class="form-control" placeholder="Point 3" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint3" class="form-control  numbersOnly" placeholder="Point 3" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
-                    <div><input type="checkbox" id="chkCorrect3" class="styled-checkbox" /><label>Correct</label></div>
+                    <div><input type="checkbox" id="chkCorrect3" class="styled-checkbox" onclick="checkboxClick3()" /><label>Correct</label></div>
                 </div>
 
             </div>
@@ -1214,22 +1312,22 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint4" class="form-control" placeholder="Point 4" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint4" class="form-control  numbersOnly" placeholder="Point 4" min="1" max="99999" maxlength="5" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
-                    <div><input type="checkbox" id="chkCorrect4" class="styled-checkbox" /><label>Correct</label></div>
+                    <div><input type="checkbox" id="chkCorrect4" class="styled-checkbox" onclick="checkboxClick4()" /><label>Correct</label></div>
                 </div>
 
             </div>
         </div>
         <div class="row mb-5 mt-4">
             <div class="col-md-6">
-                <label>Map Tropic(s)</label>
+                <label>Map Topic(s)<span class="red">*</span></label>
                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-6">
-                <label>Map Categories</label>
+                <label>Map Categories<span class="red">*</span></label>
                 @Html.Action("GetCategoryList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
 
@@ -1240,7 +1338,7 @@
             
                 @if (ViewBag.CanAdd  && Convert.ToInt16(ViewBag.IsView) == 0)
                 {
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save and Exit</button>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save & Exit</button>
                 }
             
             </div>
