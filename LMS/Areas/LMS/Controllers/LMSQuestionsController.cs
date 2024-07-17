@@ -59,10 +59,21 @@ namespace LMS.Areas.LMS.Controllers
             if (TempData["IsView"] != null)
             {
                 ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
+                TempData["IsView"] = null;
+                if(ViewBag.IsView == 0)
+                {
+                    ViewBag.PageTitle = "Modify Question";
+                }
+                else
+                {
+                    ViewBag.PageTitle = "View Question";
+                }
+                
             }
             else
             {
                 ViewBag.IsView = 0;
+                ViewBag.PageTitle = "Add Question";
             }
             return View("~/Areas/LMS/Views/LMSQuestions/QuestionAdd.cshtml", obj);
            

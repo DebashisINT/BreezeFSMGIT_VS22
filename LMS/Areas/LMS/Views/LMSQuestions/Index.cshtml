@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -543,8 +544,7 @@
         margin-top: 5px !important;
     }
 
-    #refreshgrid
-    {
+    #refreshgrid {
         position: relative;
     }
 
@@ -593,19 +593,16 @@
         opacity: 1;
     }
 
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv
-    {
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
         overflow: visible;
     }
-
-    
-
 </style>
 <script>
+   
     var Is_PageLoad = "0";
 
     $(function () {
-
+        
         $('body').on('click', '#btnshow', function () {
             Is_PageLoad = "1";
             gridList.Refresh();
@@ -638,9 +635,10 @@
     function AddQuestion() {
        // $("#hdnID").val('0');
        // $("#txtQuestionName").val('');
-       // $("#txtQuestionDescription").val('');
-        var url = '/LMS/LMSQuestions/QuestionAdd?key=Add';
-        window.location.href = url;
+        // $("#txtQuestionDescription").val('');
+          var url = '/LMS/LMSQuestions/QuestionAdd?key=Add';
+            window.location.href = url;
+
     }
 
     function EditClick(ID) {
@@ -822,12 +820,12 @@
     </div>
 
     <div id="CategoryModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
-        <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-dialog" style="width: 700px;">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Category Listing</h4>
+                    <h4 class="modal-title">Mapped Category(s)</h4>
                 </div>
                 <div class="modal-body">
                     <div id="divModalBody">
@@ -844,12 +842,12 @@
         </div>
     </div>
     <div id="TopicModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
-        <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-dialog" style="width: 700px;">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Topics Listing</h4>
+                    <h4 class="modal-title">Mapped Topic(s)</h4>
                 </div>
                 <div class="modal-body">
                     <div id="divModalBody">

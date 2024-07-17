@@ -2,12 +2,6 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LMSMaster">
   <DataContextMoniker Name="/LMSMasterDataContext" />
   <nestedChildShapes>
-    <classShape Id="2afa0a62-80e0-476b-a446-fc0dcb489404" isExpanded="false" absoluteBounds="0.5, 2.375, 2, 0.45">
-      <DataClassMoniker Name="/LMSMasterDataContext/LMS_QUESTIONSMASTERLIST" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0f924e22-63d3-49c4-9a76-81722802b441" absoluteBounds="0.51500000000000012, 2.835, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="5e50cf5a-02da-4192-a8cb-ffbe4480fd05" isExpanded="false" absoluteBounds="0.5, 1.125, 2, 0.45">
       <DataClassMoniker Name="/LMSMasterDataContext/LMS_CATEGORYMASTERLIST" />
       <nestedChildShapes>
@@ -36,6 +30,12 @@
       <DataClassMoniker Name="/LMSMasterDataContext/LMS_TOPICSMASTER_LISTING" />
       <nestedChildShapes>
         <elementListCompartment Id="c447f97a-8faf-4274-8f4b-7fc8186d4eab" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="09c5e92c-cd37-43e7-a70f-6d2ed8392846" isExpanded="false" absoluteBounds="0.5, 2.375, 2, 0.45">
+      <DataClassMoniker Name="/LMSMasterDataContext/LMS_QUESTIONSMASTERLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bcba323d-1ce3-4f30-8f43-7eeb5c0fd3f5" absoluteBounds="0.515, 2.835, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
