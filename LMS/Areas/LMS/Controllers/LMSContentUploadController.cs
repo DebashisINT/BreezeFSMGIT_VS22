@@ -461,7 +461,8 @@ namespace LMS.Areas.LMS.Controllers
                         
                     }
 
-                    var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName) + ".jpg");
+                    
+                    var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ','_')) + ".jpg");
 
 
                     ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
@@ -527,7 +528,7 @@ namespace LMS.Areas.LMS.Controllers
                             }
                             
                                 var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
-                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName) + ".jpg");
+                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
                                 var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
                                 ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
                             

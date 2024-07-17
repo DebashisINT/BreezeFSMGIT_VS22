@@ -100,9 +100,15 @@ namespace LMS.Models
         public string CONTENTTITLE { get; set; }
         public string CONTENTDESC { get; set; }
         public string CONTENTSTATUS { get; set; }
+        public string CONTENT_TOPICID { get; set; }
+        public string CONTENT_TOPIC { get; set; }
+        public Int64 CONTENT_PLAYSEQ { get; set; }
+
         public string CONTENT_FILESIZE { get; set; }
         public string CONTENT_FILENAME { get; set; }
         public string CONTENT_FILEPATH { get; set; }
+        public string CONTENT_FILEPATHICON { get; set; }
+
         public string CONTENT_FILETYPE { get; set; }
         public string CONTENT_FILEDURATION { get; set; }
         public string CONTENT_ALLOWLIKE { get; set; }
