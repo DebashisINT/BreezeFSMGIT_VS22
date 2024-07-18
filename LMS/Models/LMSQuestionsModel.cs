@@ -42,7 +42,8 @@ namespace LMS.Models
 
 
         public int SaveQuestion(string name, string Userid, string ID="0", string description="", string Option1= "", string Option2 = "", string Option3 = "", string Option4 = "" , string Point1 = "0" , string Point2 = "0", string Point3 = "0", string Point4 = "0"
-            , string chkCorrect1 = "", string chkCorrect2 = "", string chkCorrect3 = "", string chkCorrect4 = "", string TOPIC_ID = "", string Category_ID = "")
+            , string chkCorrect1 = "", string chkCorrect2 = "", string chkCorrect3 = "", string chkCorrect4 = "", string TOPIC_ID = "", string Category_ID = "",
+            string MODE = "", string CONTENTID = "")
         {
             ProcedureExecute proc;
 
@@ -58,6 +59,11 @@ namespace LMS.Models
                     sqlcmd.Parameters.AddWithValue("@ACTION", "ADD");
                 else
                     sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATE");
+
+                // Rev Sanchita
+                sqlcmd.Parameters.AddWithValue("@MODE", MODE);
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", CONTENTID);
+                // End of Rev Sanchita
                 sqlcmd.Parameters.AddWithValue("@QUESTIONNAME", name);
                 sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
                 sqlcmd.Parameters.AddWithValue("@QUESTIONDESCRIPTION", description);

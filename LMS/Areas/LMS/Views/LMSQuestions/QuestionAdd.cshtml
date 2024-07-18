@@ -664,7 +664,18 @@
 
     window.onload = setup;
 
+    // Rev Sanchita
+    var QuestionID = 0;
+    var urlKeys = getUrlVars();
+    // End of Rev Sanchita
+
     $(document).ready(function () {
+
+        // Rev Sanchita
+        if (urlKeys.key == 'AddOnFly') {
+            TOPIC_ID = urlKeys.TOPICID;
+        }
+        // End of Rev Sanchita
 
         $(".allow_decimal").on("input", function (evt) {
             var self = $(this);
@@ -732,9 +743,14 @@
         }
         return vars;
     }
-     var QuestionID=0;
- var urlKeys = getUrlVars();
-    if (urlKeys.key != 'Add') {
+
+    // Rev Sanchita
+    //var QuestionID = 0;
+    //var urlKeys = getUrlVars();
+    
+    //if (urlKeys.key != 'Add') {
+    if (urlKeys.key != 'Add' && urlKeys.key != 'AddOnFly' ) {
+        // End of Rev Sanchita
        // $("#titleheader").va("Modify Question"); 
         QuestionID = urlKeys.key;
         $("#hdnIDADd").val(QuestionID);
@@ -1139,7 +1155,12 @@
                     chkCorrect4: chkCorrect4,
 
                     TOPIC_ID: TOPIC_ID,
-                    Category_ID: Category_ID
+                    Category_ID: Category_ID,
+
+                    /*Rev Sanchita*/
+                    MODE: urlKeys.key,
+                    CONTENTID: urlKeys.CONTENTID
+                    /*End of Rev Sanchita*/
 
                 },
                 success: function (response) {
@@ -1151,8 +1172,36 @@
                             text: 'Question saved successfully.'
                         }).then(() => {
                             // $("#QuestionModal").modal('hide');
-                            var url = "/LMS/LMSQuestions/Index";
-                            window.location.href = url;
+                            // Rev Sanchita
+                            //var url = "/LMS/LMSQuestions/Index";
+                            //window.location.href = url;
+                            if (urlKeys.key == 'AddOnFly') {
+
+                                Swal.fire({
+                                    title: 'Question Add',
+                                    text: "Do you want to add another question?",
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes',
+                                    cancelButtonText: 'No'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                                    }
+                                    else {
+                                        window.location.href = '/LMS/LMSContentUpload/Index';
+                                    }
+                                });
+
+                            }
+                            else {
+                                var url = "/LMS/LMSQuestions/Index";
+                                window.location.href = url;
+                            }
+                            // End of Rev Sanchita
+
                             //location.reload();
                         });
                     } else if (parseInt(response) == -1) {

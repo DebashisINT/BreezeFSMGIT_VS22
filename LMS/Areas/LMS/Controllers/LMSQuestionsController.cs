@@ -142,12 +142,16 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
         public JsonResult SaveQuestion(string name, string id, string description, string Option1, string Option2, string Option3, string Option4, string Point1
-            , string Point2, string Point3, string Point4, string chkCorrect1, string chkCorrect2, string chkCorrect3, string chkCorrect4,string TOPIC_ID,string Category_ID)
+            , string Point2, string Point3, string Point4, string chkCorrect1, string chkCorrect2, string chkCorrect3, string chkCorrect4,string TOPIC_ID,string Category_ID
+            // Rev Sanchita
+            , string MODE, string CONTENTID
+            // End of Rev Sanchita
+            )
         {
             int output = 0;
             string Userid = Convert.ToString(Session["userid"]);
             output = obj.SaveQuestion(name, Userid, id, description, Option1, Option2, Option3, Option4, Point1, Point2, Point3, Point4
-            , chkCorrect1, chkCorrect2, chkCorrect3, chkCorrect4, TOPIC_ID, Category_ID);
+            , chkCorrect1, chkCorrect2, chkCorrect3, chkCorrect4, TOPIC_ID, Category_ID, MODE, CONTENTID);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
         public JsonResult SetMapDataByID(Int64 ID = 0, Int16 IsView = 0)
