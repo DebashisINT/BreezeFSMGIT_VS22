@@ -1506,7 +1506,6 @@
     .video-card {
         border: none;
         border-radius: 10px;
-        overflow: hidden;
         box-shadow: 1px 1px 10px #11111142;
         margin-bottom: 30px;
     }
@@ -2860,11 +2859,14 @@
                 hideLoader();
 
                 if (xhr.responseText != '') {
-                    var responseText = JSON.parse(xhr.responseText);
-                    if (responseText == 'Content added succesfully.' || responseText == 'Content updated succesfully.') {
+                    var temp = JSON.parse(xhr.responseText);
+                    var responseText = temp.split(',');
+
+
+                    if (responseText[0] == 'Content added succesfully.' || responseText[0] == 'Content updated succesfully.') {
                         Swal.fire({
                             title: 'Success',
-                            text: responseText,
+                            text: responseText[0],
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then((result) => {
@@ -2881,7 +2883,7 @@
                                     cancelButtonText: 'No'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=Add';
+                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
                                     }
                                     else {
                                         window.location.href = '/LMS/LMSContentUpload/Index';
@@ -2892,7 +2894,7 @@
                     } else {
                         Swal.fire({
                             title: 'Error',
-                            text: responseText,
+                            text: responseText[0],
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });

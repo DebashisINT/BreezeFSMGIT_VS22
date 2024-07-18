@@ -347,6 +347,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 string RETURN_VALUE = string.Empty;
                 string RETURN_DUPLICATEMAPNAME = string.Empty;
+                string RETURN_CONTENTID = string.Empty;
                 int IsValid = 1;
 
                 if (chkStatus != null && chkStatus == "on")
@@ -486,8 +487,10 @@ namespace LMS.Areas.LMS.Controllers
                     proc.AddPara("@CONTENT_ICONFILEPATH", _thumbnailPath);
                     proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@RETURN_CONTENTID", 500, "", QueryParameterDirection.Output);
                     int k = proc.RunActionQuery();
                     RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                    RETURN_CONTENTID = Convert.ToString(proc.GetParaValue("@RETURN_CONTENTID"));
                     //RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
 
                     if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
@@ -503,6 +506,7 @@ namespace LMS.Areas.LMS.Controllers
 
 
                             string compressedFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+
                             var ffMpegC = new FFMpegConverter();
                             ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
 
@@ -513,12 +517,12 @@ namespace LMS.Areas.LMS.Controllers
                             }
 
 
-                            //string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
+                            ////string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
 
-                            //string ffmpegPath = Server.MapPath("~/FFMpeg/bin/ffmpeg.exe");
+                            ////string ffmpegPath = Server.MapPath("~/FFMpeg/bin/ffmpeg.exe");
 
-                            //var videoCompressionService = new VideoCompressionService();
-                            //videoCompressionService.CompressVideo(originalFilePath, compressedFilePath, ffmpegPath);
+                            ////var videoCompressionService = new VideoCompressionService();
+                            ////videoCompressionService.CompressVideo(originalFilePath, compressedFilePath, ffmpegPath);
 
                             //Thumbnails Image save
                             if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
@@ -526,12 +530,12 @@ namespace LMS.Areas.LMS.Controllers
                                 // If Folder doesnot exists, CREATE the folder
                                 System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
                             }
-                            
-                                var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
-                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
-                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                                ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
-                            
+
+                            var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
+                            var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
+
                             //Thumbnails Image save End
 
 
@@ -543,7 +547,7 @@ namespace LMS.Areas.LMS.Controllers
                 }
 
 
-                TempData["result"] = RETURN_VALUE;
+                TempData["result"] = RETURN_VALUE+","+ RETURN_CONTENTID;
 
                 return Json(TempData["result"], JsonRequestBehavior.AllowGet);
             }
