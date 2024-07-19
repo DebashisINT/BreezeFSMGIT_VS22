@@ -209,6 +209,23 @@ namespace LMS.Areas.LMS.Controllers
             return Json(TopicList, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetLastPlaySeq(string topicid)
+        {
+            LMSContentEditModel model = new LMSContentEditModel();
+           
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            proc.AddPara("@Action", "GETLASTPLAYSEQ");
+            proc.AddPara("@TOPICID", topicid);
+            dt = proc.GetTable();
+
+            if (dt != null && dt.Rows.Count>0 )
+            {
+                model.PlaySequence = Convert.ToString(dt.Rows[0]["PlaySequence"]);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
 
         //public ActionResult PartialContentGridList(LMSContentModel model)
         //{
@@ -246,7 +263,7 @@ namespace LMS.Areas.LMS.Controllers
 
         //            return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
         //        }
-                
+
         //    }
         //    catch (Exception ex)
         //    {
@@ -319,7 +336,7 @@ namespace LMS.Areas.LMS.Controllers
         //                    select d;
         //            return q;
         //        }
-                
+
         //    }
         //    else
         //    {
@@ -547,7 +564,7 @@ namespace LMS.Areas.LMS.Controllers
                 }
 
 
-                TempData["result"] = RETURN_VALUE+","+ RETURN_CONTENTID;
+                TempData["result"] = RETURN_VALUE+"~"+ RETURN_CONTENTID;
 
                 return Json(TempData["result"], JsonRequestBehavior.AllowGet);
             }

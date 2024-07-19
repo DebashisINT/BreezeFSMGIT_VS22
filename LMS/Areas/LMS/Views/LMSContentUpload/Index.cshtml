@@ -2860,7 +2860,7 @@
 
                 if (xhr.responseText != '') {
                     var temp = JSON.parse(xhr.responseText);
-                    var responseText = temp.split(',');
+                    var responseText = temp.split('~');
 
 
                     if (responseText[0] == 'Content added succesfully.' || responseText[0] == 'Content updated succesfully.') {
@@ -4106,7 +4106,24 @@ function SaveTopics() {
         }
     }
 
+    function ddlTopicOnChange() {
+        
+        var obj = {};
+        obj.topicid = $("#ddlTopic").val();
 
+        $.ajax({
+            type: "POST",
+            url: "/LMSContentUpload/GetLastPlaySeq",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data)
+                $("#numPlaySequence").val(data.PlaySequence);
+            }
+        });
+    }
 
 
 </script>
@@ -4268,7 +4285,7 @@ function SaveTopics() {
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
                                     <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd"><i class="fa fa-plus"></i>Create topic</a></div>
-                                    @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
                                     <label>Play Sequence</label>
