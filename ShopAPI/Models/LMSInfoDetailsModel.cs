@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,949 & 950
+//Purpose: LMS Info Details.Row: 945,949,950,952,953,955 & 956
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -121,6 +121,18 @@ namespace ShopAPI.Models
         public string content_watch_length { get; set; }
         public bool content_watch_completed { get; set; }
         public string content_last_view_date_time { get; set; }
+        public string WatchStartTime { get; set; }
+        public string WatchEndTime { get; set; }
+        public string WatchedDuration { get; set; }
+        public string Timestamp { get; set; }
+        public string DeviceType { get; set; }
+        public string Operating_System { get; set; }
+        public string Location { get; set; }
+        public string PlaybackSpeed { get; set; }
+        public string Watch_Percentage { get; set; }
+        public int QuizAttemptsNo { get; set; }
+        public decimal QuizScores { get; set; }
+        public bool CompletionStatus { get; set; }
         public List<Commentlists> comment_list { get; set; }
     }
 
@@ -164,5 +176,17 @@ namespace ShopAPI.Models
         public string content_watch_length { get; set; }
         public bool content_watch_completed { get; set; }
         public string content_last_view_date_time { get; set; }
+        public string WatchStartTime { get; set; }
+        public string WatchEndTime { get; set; }
+        public string WatchedDuration { get; set; }
+        public string Timestamp { get; set; }
+        public string DeviceType { get; set; }
+        public string Operating_System { get; set; }
+        public string Location { get; set; }
+        public string PlaybackSpeed { get; set; }
+        public string Watch_Percentage { get; set; }
+        public int QuizAttemptsNo { get; set; }
+        public decimal QuizScores { get; set; }
+        public bool CompletionStatus { get; set; }
     }
 }
