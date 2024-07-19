@@ -507,6 +507,7 @@
     .show-btn {
         background: #054682;
         transition: all .4s;
+        margin-right: 5px;
     }
 
         .show-btn:hover {
@@ -554,6 +555,49 @@
 
     div:where(.swal2-container).swal2-center > .swal2-popup {
         background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
     }
 </style>
 <script>
@@ -810,17 +854,15 @@
                     {
                         <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                     }
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
+                            <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                        </button>
+
+                    }
                 </div>
-                @if (ViewBag.CanExport)
-                {
-                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                    <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                </button>
-                    @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                        <option value="0">Export to </option>
-                        <option value="1">XLSX</option>
-                    </select>*@
-                }
+                
                 </div>
             
         </div>
@@ -869,7 +911,7 @@
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel & Exit</button>
                     @if (ViewBag.CanAdd)
                     {
-                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save and Exit</button>
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCategory()">Save & Exit</button>
                     }
                     </div>
 
