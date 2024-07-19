@@ -327,6 +327,18 @@ namespace ShopAPI.Controllers
                     sqlcmd.Parameters.AddWithValue("@CONTENT_WATCH_LENGTH", model.content_watch_length);
                     sqlcmd.Parameters.AddWithValue("@ISCONTENTCOMPLETED", model.content_watch_completed);
                     sqlcmd.Parameters.AddWithValue("@CONTENTLASTVIEW", model.content_last_view_date_time);
+                    sqlcmd.Parameters.AddWithValue("@WATCHSTARTTIME", model.WatchStartTime);
+                    sqlcmd.Parameters.AddWithValue("@WATCHENDTIME", model.WatchEndTime);
+                    sqlcmd.Parameters.AddWithValue("@WATCHEDDURATION", model.WatchedDuration);
+                    sqlcmd.Parameters.AddWithValue("@WATCHTIMESTAMP", model.Timestamp);
+                    sqlcmd.Parameters.AddWithValue("@DEVICETYPE", model.DeviceType);
+                    sqlcmd.Parameters.AddWithValue("@OPERATING_SYSTEM", model.Operating_System);
+                    sqlcmd.Parameters.AddWithValue("@WATCHLOCATION", model.Location);
+                    sqlcmd.Parameters.AddWithValue("@PLAYBACKSPEED", model.PlaybackSpeed);
+                    sqlcmd.Parameters.AddWithValue("@WATCH_PERCENTAGE", model.Watch_Percentage);
+                    sqlcmd.Parameters.AddWithValue("@QUIZATTEMPTSNO", model.QuizAttemptsNo);
+                    sqlcmd.Parameters.AddWithValue("@QUIZSCORES", model.QuizScores);
+                    sqlcmd.Parameters.AddWithValue("@COMPLETIONSTATUS", model.CompletionStatus);
                     sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
