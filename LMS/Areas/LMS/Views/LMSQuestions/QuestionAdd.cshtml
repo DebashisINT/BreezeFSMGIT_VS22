@@ -631,6 +631,44 @@
         border-radius: 4px;
         height: 34px;
     }*/
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
 </style>
 
 <script>
@@ -1284,7 +1322,7 @@
             <div class="ans-option">
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick1()"><img src='/assests/images/clear-qst-ans.png' /> </a>
+                        <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick1()"><img src='/assests/images/clear-qst-ans.png' /><div class="tooltip">Clear</div> </a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1294,7 +1332,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint1" class="form-control  numbersOnly" placeholder="Point 1" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint1" class="form-control  numbersOnly" placeholder="Point 1" min="1" max="999" maxlength="3" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1306,7 +1344,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick2()"><img src='/assests/images/clear-qst-ans.png' /> </a>
+                        <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick2()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1316,7 +1354,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="99999" maxlength="5" disabled  />
+                        <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="999" maxlength="3" disabled  />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1329,7 +1367,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick3()"><img src='/assests/images/clear-qst-ans.png' /> </a>
+                        <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick3()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1339,7 +1377,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint3" class="form-control  numbersOnly" placeholder="Point 3" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint3" class="form-control  numbersOnly" placeholder="Point 3" min="1" max="999" maxlength="3" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1351,7 +1389,7 @@
 
                 <div class="delete-col">
                     <div>
-                        <a style='cursor:pointer' class='pad' onclick="DeleteClick4()"><img src='/assests/images/clear-qst-ans.png' /> </a>
+                        <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick4()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
                     </div>
                 </div>
                 <div class="option-col">
@@ -1361,7 +1399,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint4" class="form-control  numbersOnly" placeholder="Point 4" min="1" max="99999" maxlength="5" disabled />
+                        <input type="number" id="txtPoint4" class="form-control  numbersOnly" placeholder="Point 4" min="1" max="999" maxlength="3" disabled />
                     </div>
                 </div>
                 <div class="correct-col">

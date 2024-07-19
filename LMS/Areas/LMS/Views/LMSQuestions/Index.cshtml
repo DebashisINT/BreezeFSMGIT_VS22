@@ -508,6 +508,7 @@
     .show-btn {
         background: #054682;
         transition: all .4s;
+        margin-right: 5px;
     }
 
         .show-btn:hover {
@@ -795,17 +796,15 @@
                     {
                         <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                     }
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
+                            <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                        </button>
+
+                    }
                 </div>
-                @if (ViewBag.CanExport)
-                {
-                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                        <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                    </button>
-                    @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                            <option value="0">Export to </option>
-                            <option value="1">XLSX</option>
-                        </select>*@
-                }
+                
             </div>
 
         </div>
