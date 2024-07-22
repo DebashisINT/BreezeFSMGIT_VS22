@@ -33,6 +33,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
 <style>
     .progress {
         height: 10px;
@@ -1125,9 +1128,25 @@
         overflow: hidden !important;
     }
 
-        .btn-total.active {
-            background-color: rgb(10 63 166 / 100%) !important;
-        }
+    .btn-topic-list {
+        background-color: #0cd4901a !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+        transition: all .2s ease-in-out;
+        height: 34px;
+        border: 1px solid #3aa0586e;
+    }
+
+    .btn-total.active {
+        background-color: rgb(10 63 166 / 100%) !important;
+    }
+
+
 
             .btn-total.active h5 {
                 color: #fff;
@@ -1138,16 +1157,22 @@
             color: #fff !important;
         }
 
-            .btn-total:hover h5, .btn-total:hover .filter-count,
-            .btn-total-used:hover h5, .btn-total-used:hover .filter-count,
-            .btn-total-unused:hover h5, .btn-total-unused:hover .filter-count {
-                color: #fff !important;
-            }
+    .btn-topic-list:hover {
+        background-color: rgb(5 115 70) !important;
+        color: #fff !important;
+    }
 
-        .btn-total h5, .btn-total-used h5, .btn-total-unused h5 {
-            color: #111;
-            margin: 0;
+        .btn-total:hover h5, .btn-total:hover .filter-count,
+        .btn-total-used:hover h5, .btn-total-used:hover .filter-count,
+        .btn-total-unused:hover h5, .btn-total-unused:hover .filter-count,
+        .btn-topic-list:hover h5, .btn-topic-list:hover .filter-count {
+            color: #fff !important;
         }
+
+    .btn-total h5, .btn-total-used h5, .btn-total-unused h5, .btn-topic-list h5 {
+        color: #111;
+        margin: 0;
+    }
 
     .count-filter-btns .btn {
         margin-left: 6px;
@@ -1160,6 +1185,17 @@
     .btn-total .filter-count {
         color: #ffffff;
         background: #054682;
+        height: 38PX;
+        line-height: 38px;
+        min-width: 30px;
+        margin-left: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .btn-topic-list .filter-count {
+        color: #ffffff;
+        background: #048328c2;
         height: 38PX;
         line-height: 38px;
         min-width: 30px;
@@ -1293,11 +1329,11 @@
 
     .show-btn .btn-icon {
         border-radius: 50px;
-        width: 21px;
-        height: 21px;
+        width: 26px;
+        height: 26px;
         display: inline-block;
         background: #fff;
-        line-height: 21px;
+        line-height: 23px;
         margin-right: 5px;
         color: #054682;
     }
@@ -1506,7 +1542,7 @@
     .video-card {
         border: none;
         border-radius: 10px;
-        box-shadow: 1px 1px 10px #11111142;
+        box-shadow: 1px 1px 10px #11111114;
         margin-bottom: 30px;
     }
 
@@ -2410,12 +2446,12 @@
     .topic-list {
         display: flex;
         flex-wrap: wrap;
-        padding: 0 15px;
+        padding: 0;
     }
 
         .topic-list .btn
         {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             margin-right: 15px;
         }
 
@@ -2452,11 +2488,20 @@
         background-size: cover !important;
         background-repeat: no-repeat !important;
         margin-bottom: 10px;
+        border-radius: 10px 10px 0 0;
     }
 
         /*.video-card-img img {
             width: 100%;
         }*/
+
+    #btnBackToTopicList {
+        background: #b67508 !important;
+    }
+
+    .highlight .video-card {
+        background-color: #b9d9ff;
+    }
 
 </style>
 
@@ -2563,7 +2608,7 @@
                             $('.topic-list').empty(); // Clear any existing boxes
                             data.forEach(function (topic) {
                                 var box = `
-                                <button type="button" class="btn btn-total btn-radius" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" >
+                                <button type="button" class="btn btn-topic-list btn-radius" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" >
                                     <h5>${topic.TOPIC_NAME}</h5>
                                     <span class="filter-count">${topic.TOPIC_CONTENT_COUNT}</span>
                                 </button>
@@ -3036,6 +3081,58 @@
         }, 1000);
     }
 
+    //function displayVideos(data, page) {
+    //    var videoContainer = $('#videoContainer');
+    //    videoContainer.empty();
+
+    //    var startIndex = (page - 1) * itemsPerPage;
+    //    var endIndex = Math.min(startIndex + itemsPerPage, data.length);
+    //    var pageData = data.slice(startIndex, endIndex);
+
+    //    pageData.forEach(function (item) {
+    //        var videoPath = item.CONTENT_FILEPATHICON.replace('~', '');
+    //        var status = item.CONTENTSTATUS === "Yes" ? "Published" : "Unpublished";
+    //        var statusClass = item.CONTENTSTATUS === "Yes" ? "published" : "unpublished";
+
+    //        var videoCardHtml = `
+    //        <div class="col-md-3">
+    //            <div class="card video-card">
+
+    //                <div id="videoCardImg" class="video-card-img" style="background: url(${videoPath})"></div>
+
+    //                <div class="card-body">
+    //                    <div class="card-body-content">
+    //                        <h5 class="card-title">${item.CONTENTTITLE}</h5>
+    //                        <p class="card-status ${statusClass}">${status}</p>
+    //                    </div>
+
+    //                    <div class="dropdown action-dropdown">
+    //                      <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
+    //                        <img src="../../../assests/images/more.svg">
+    //                        <div class="tooltip">Options</div>
+    //                      </button>
+    //                      <ul class="dropdown-menu">
+    //                        <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
+    //                        <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
+    //                        <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
+    //                      </ul>
+    //                    </div>
+    //                </div>
+    //            </div>
+    //        </div>
+    //        `;
+
+
+    //        videoContainer.append(videoCardHtml);
+    //    });
+
+    //    //generateThumbnails();
+    //    displayPagination(data.length, page);
+    //}
+
+
+
+
     function displayVideos(data, page) {
         var videoContainer = $('#videoContainer');
         videoContainer.empty();
@@ -3044,46 +3141,63 @@
         var endIndex = Math.min(startIndex + itemsPerPage, data.length);
         var pageData = data.slice(startIndex, endIndex);
 
-        pageData.forEach(function (item) {
+        pageData.forEach(function (item, index) {
             var videoPath = item.CONTENT_FILEPATHICON.replace('~', '');
             var status = item.CONTENTSTATUS === "Yes" ? "Published" : "Unpublished";
             var statusClass = item.CONTENTSTATUS === "Yes" ? "published" : "unpublished";
 
             var videoCardHtml = `
-            <div class="col-md-3">
-                <div class="card video-card">
-                    
-                    <div id="videoCardImg" class="video-card-img" style="background: url(${videoPath})"></div>
-
-                    <div class="card-body">
-                        <div class="card-body-content">
-                            <h5 class="card-title">${item.CONTENTTITLE}</h5>
-                            <p class="card-status ${statusClass}">${status}</p>
-                        </div>
-
-                        <div class="dropdown action-dropdown">
-                          <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
-                            <img src="../../../assests/images/more.svg">
-                            <div class="tooltip">Options</div>
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
-                            <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
-                            <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
-                          </ul>
+                <div class="col-md-3" id="videoCard-${index}">
+                    <div class="card video-card">
+                        <div id="videoCardImg" class="video-card-img" style="background: url(${videoPath})"></div>
+                        <div class="card-body">
+                            <div class="card-body-content">
+                                <h5 class="card-title">${item.CONTENTTITLE}</h5>
+                                <p class="card-status ${statusClass}">${status}</p>
+                            </div>
+                            <div class="dropdown action-dropdown">
+                              <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
+                                <img src="../../../assests/images/more.svg">
+                                <div class="tooltip">Options</div>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
+                                <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
+                                <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
+                              </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            `;
+                `;
 
-           
             videoContainer.append(videoCardHtml);
         });
 
-        //generateThumbnails();
+        // Initialize SortableJS
+        new Sortable(videoContainer[0], {
+            swap: true, // Enable swap plugin
+            swapClass: 'highlight',
+            animation: 150,
+            //onEnd: function (evt) {
+            //    var itemEl = evt.item;
+            //    var newIndex = evt.newIndex;
+            //    var oldIndex = evt.oldIndex;
+
+            //    // Swap the items in the data array
+            //    var temp = filteredData[oldIndex];
+            //    filteredData[oldIndex] = filteredData[newIndex];
+            //    filteredData[newIndex] = temp;
+
+            //    // Update the display
+            //    displayVideos(filteredData, currentPage);
+            //}
+        });
+
         displayPagination(data.length, page);
     }
+
+
 
 
 
@@ -4153,14 +4267,16 @@ function SaveTopics() {
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
-                            <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
-                                <span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span> Show Data
-                            </button>
+                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
+                            @*<span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span>*@
+                            <span class="btn-icon"><img src="../../../assests/images/content.svg"></span>
+                            Show Topics
+                        </button>
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
                             <button type="button" id="btnBackToTopicList" class="btn show-btn" tabindex=4>
-                                <span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span> Back To Topic List
+                                <span class="btn-icon"><img src="../../../assests/images/back-topic.svg"></span> Back To Topic List
                             </button>
                             @*}*@
                         </div>
@@ -4211,7 +4327,7 @@ function SaveTopics() {
 
                 
 
-                    <div class="topic-list" id="divTopicList" style="margin-top: 35px">
+                    <div class="topic-list" id="divTopicList" style="margin-top: 15px">
 
                     </div>
 
