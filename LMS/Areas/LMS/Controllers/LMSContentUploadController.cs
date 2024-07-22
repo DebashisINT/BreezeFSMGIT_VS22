@@ -993,5 +993,56 @@ namespace LMS.Areas.LMS.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult UpdatePlaySequence(string ContentIdOld, string PlaySeqOld, string ContentIdNew, string PlaySeqNew)
+        {
+            string output_msg = string.Empty;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "UPDATEPLAYSEQUENCE");
+                proc.AddPara("@CONTENTIDOLD", ContentIdOld);
+                proc.AddPara("@PLAYSEQOLD", PlaySeqOld);
+                proc.AddPara("@CONTENTIDNEW", ContentIdNew);
+                proc.AddPara("@PLAYSEQNEW", PlaySeqNew);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+
+                if (output_msg != "-10" && output_msg != null && output_msg != "")
+                {
+                    string fileName = output_msg;
+
+                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+
+                    }
+
+                    //REV thumbnail DELETE
+                    var thumbnailPath = Path.GetFileNameWithoutExtension(fileName) + ".jpg";
+                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath)))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath));
+
+                    }
+                    //REV thumbnail DELETE END
+
+
+                    output_msg = "1";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
