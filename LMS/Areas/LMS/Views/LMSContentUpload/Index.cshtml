@@ -3154,6 +3154,7 @@
                             <div class="card-body-content">
                                 <h5 class="card-title">${item.CONTENTTITLE}</h5>
                                 <p class="card-status ${statusClass}">${status}</p>
+                                <p class="">${item.CONTENT_PLAYSEQ}</p>
                             </div>
                             <div class="dropdown action-dropdown">
                               <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
@@ -3192,6 +3193,64 @@
             //    // Update the display
             //    displayVideos(filteredData, currentPage);
             //}
+
+            onEnd: function (evt) { 
+
+                var newIndex = evt.newIndex;
+                var oldIndex = evt.oldIndex;
+
+                var ContentIdOld = filteredData[oldIndex].CONTENTID
+                var PlaySeqOld = filteredData[oldIndex].CONTENT_PLAYSEQ
+
+                var ContentIdNew = filteredData[newIndex].CONTENTID
+                var PlaySeqNew = filteredData[newIndex].CONTENT_PLAYSEQ
+
+                $.ajax({
+                    type: "POST",
+                    url: "/LMSContentUpload/UpdatePlaySequence",
+                    data: JSON.stringify({ 'ContentIdOld': ContentIdOld, 'PlaySeqOld': PlaySeqOld, 'ContentIdNew': ContentIdNew, 'PlaySeqNew': PlaySeqNew }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Play Sequence updated successfully.'
+                            }).then(() => {
+                                /*gridLMSContent.Refresh();*/
+                                window.location.href = '/LMS/LMSContentUpload/Index';
+                            });
+                            //GridShow();
+
+
+                        }
+                        else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Play Sequence Update.'
+                            });
+                            //GridShow();
+            
+                        }
+                    
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred in Play Sequence update.'
+                        });
+                    }
+                });
+            }
+
+
         });
 
         displayPagination(data.length, page);
