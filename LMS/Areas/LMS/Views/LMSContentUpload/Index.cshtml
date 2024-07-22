@@ -3164,7 +3164,7 @@
                               <ul class="dropdown-menu">
                                 <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
                                 <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
-                                <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}')">Delete</a></li>
+                                <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
                               </ul>
                             </div>
                         </div>
@@ -3199,11 +3199,13 @@
                 var newIndex = evt.newIndex;
                 var oldIndex = evt.oldIndex;
 
-                var ContentIdOld = filteredData[oldIndex].CONTENTID
-                var PlaySeqOld = filteredData[oldIndex].CONTENT_PLAYSEQ
+                var TopicId = filteredData[oldIndex].CONTENT_TOPICID;
 
-                var ContentIdNew = filteredData[newIndex].CONTENTID
-                var PlaySeqNew = filteredData[newIndex].CONTENT_PLAYSEQ
+                var ContentIdOld = filteredData[oldIndex].CONTENTID;
+                var PlaySeqOld = filteredData[oldIndex].CONTENT_PLAYSEQ;
+
+                var ContentIdNew = filteredData[newIndex].CONTENTID;
+                var PlaySeqNew = filteredData[newIndex].CONTENT_PLAYSEQ;
 
                 $.ajax({
                     type: "POST",
@@ -3221,7 +3223,36 @@
                                 text: 'Play Sequence updated successfully.'
                             }).then(() => {
                                 /*gridLMSContent.Refresh();*/
-                                window.location.href = '/LMS/LMSContentUpload/Index';
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/LMSContentUpload/GetContentGridListData",
+                                    async: false,
+                                    data: JSON.stringify({ 'TopicId': TopicId }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        if (data.length > 0) {
+                                            $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                            $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                            $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+
+                                            allVideosData = data;
+                                            filteredData = data;
+                                            displayVideos(filteredData, currentPage);
+
+                                            $('#searchPanel').show();
+                                            $('#contentListing').show();
+                                        }
+                                        //hideLoader();
+                                    },
+                                    error: function (response) {
+                                        alert("Please try again later");
+                                        //hideLoader();
+                                    }
+                                });
+
+
                             });
                             //GridShow();
 
@@ -3448,7 +3479,7 @@
 
 
 
-    function OnClickDeleteLMSContent(ContentId) {
+    function OnClickDeleteLMSContent(ContentId, TopicId) {
         var url = '/LMSContentUpload/DeleteContent/';
 
         Swal.fire({
@@ -3488,7 +3519,36 @@
                                     text: 'Successfully Deleted.'
                                 }).then(() => {
                                     /*gridLMSContent.Refresh();*/
-                                    window.location.href = '/LMS/LMSContentUpload/Index';
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/LMSContentUpload/GetContentGridListData",
+                                        async: false,
+                                        data: JSON.stringify({ 'TopicId': TopicId }),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (data) {
+                                            if (data.length > 0) {
+                                                $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                                $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                                $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+
+                                                allVideosData = data;
+                                                filteredData = data;
+                                                displayVideos(filteredData, currentPage);
+
+                                                $('#searchPanel').show();
+                                                $('#contentListing').show();
+                                            }
+                                            //hideLoader();
+                                        },
+                                        error: function (response) {
+                                            alert("Please try again later");
+                                            //hideLoader();
+                                        }
+                                    });
+
+
                                 });
                                 //GridShow();
                                 
