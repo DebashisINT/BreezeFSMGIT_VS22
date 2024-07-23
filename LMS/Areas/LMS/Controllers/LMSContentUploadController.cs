@@ -20,11 +20,19 @@ using UtilityLayer;
 using DevExpress.Charts.Native;
 using DevExpress.Data.XtraReports.Wizard.Presenters;
 using NReco.VideoConverter;
+using DevExpress.Utils.Drawing.Helpers;
+using System.Net;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace LMS.Areas.LMS.Controllers
 {
     public class LMSContentUploadController : Controller
     {
+       
+        DBEngine odbengine = new DBEngine();
+
+
         // GET: LMS/ContentUpload
         public ActionResult Index()
         {
@@ -227,130 +235,7 @@ namespace LMS.Areas.LMS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult PartialContentGridList(LMSContentModel model)
-        //{
-        //    try
-        //    {
-        //        EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
-        //        ViewBag.CanAdd = rights.CanAdd;
-        //        ViewBag.CanView = rights.CanView;
-        //        ViewBag.CanExport = rights.CanExport;
-        //        ViewBag.CanEdit = rights.CanEdit;
-        //        ViewBag.CanDelete = rights.CanDelete;
-
-        //        if (model.Is_PageLoad == "TotalContents" || model.Is_PageLoad == "ActiveContents" || model.Is_PageLoad == "InactiveContents")
-        //        {
-        //            string Is_PageLoad = model.Is_PageLoad;
-
-        //            model.Is_PageLoad = "Ispageload";
-
-        //            return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
-        //        }
-        //        else
-        //        {
-        //            string Is_PageLoad = string.Empty;
-
-        //            if (model.Is_PageLoad == "Ispageload")
-        //            {
-        //                Is_PageLoad = "is_pageload";
-
-        //            }
-
-
-        //            GetContentListing(Is_PageLoad);
-
-        //            model.Is_PageLoad = "Ispageload";
-
-        //            return PartialView("PartialContentGridList", GetContentDetails(Is_PageLoad));
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-
-        //    }
-
-        //}
-
-        //public void GetContentListing(string Is_PageLoad)
-        //{
-        //    string user_id = Convert.ToString(Session["userid"]);
-
-        //    string action = string.Empty;
-        //    DataTable formula_dtls = new DataTable();
-        //    DataSet dsInst = new DataSet();
-
-        //    try
-        //    {
-        //        DataTable dt = new DataTable();
-        //        ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-        //        proc.AddPara("@ACTION", "GETLISTINGDATA");
-        //        proc.AddPara("@IS_PAGELOAD", Is_PageLoad);
-        //        proc.AddPara("@USERID", Convert.ToInt32(user_id));
-        //        dt = proc.GetTable();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        //public IEnumerable GetContentDetails(string Is_PageLoad)
-        //{
-        //    string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-        //    string Userid = Convert.ToString(Session["userid"]);
-
-        //    ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
-        //    ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
-        //    ////////{
-        //    ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
-        //    ////////}
-
-        //    if (Is_PageLoad != "is_pageload")
-        //    {
-        //        if (Is_PageLoad == "ActiveContents")
-        //        {
-        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-        //                    where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "Yes"
-        //                    orderby d.SEQ
-        //                    select d;
-        //            return q;
-        //        }
-        //        else if (Is_PageLoad == "InactiveContents")
-        //        {
-        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-        //                    where d.USERID == Convert.ToInt32(Userid) && d.CONTENTSTATUS == "No"
-        //                    orderby d.SEQ
-        //                    select d;
-        //            return q;
-        //        }
-        //        else
-        //        {
-        //            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-        //            var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-        //                    where d.USERID == Convert.ToInt32(Userid)
-        //                    orderby d.SEQ
-        //                    select d;
-        //            return q;
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-        //        var q = from d in dc.LMS_CONTENTMASTER_LISTINGs
-        //                where d.USERID == Convert.ToInt32(Userid) && d.SEQ == 1111119
-        //                orderby d.SEQ 
-        //                select d;
-        //        return q;
-        //    }
-
-
-        //}
-
+        
 
         [HttpPost]
         //public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
@@ -505,6 +390,7 @@ namespace LMS.Areas.LMS.Controllers
                     proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_CONTENTID", 500, "", QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@RETURN_ASSIGNUSERIDS", -1, "", QueryParameterDirection.Output);
                     int k = proc.RunActionQuery();
                     RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
                     RETURN_CONTENTID = Convert.ToString(proc.GetParaValue("@RETURN_CONTENTID"));
@@ -557,9 +443,36 @@ namespace LMS.Areas.LMS.Controllers
 
 
                         }
+
+                        // Send Notification
+                        if (hdnAddEditMode == "ADDCONTENT")
+                        {
+                            string Mssg = txtContentTitle + " assigned.";
+                            //string SalesMan_Nm = "";
+                            string SalesMan_Phn = "";
+
+                            //DataTable dt_SalesMan = odbengine.GetDataTable("select user_loginId,user_name from tbl_master_user  where user_id=" + SalesmanId + "");
+                            DataTable dtAssignUser = new DataTable();
+
+                            ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                            procA.AddPara("@ACTION", "GETCONTENTASSIGNUSER");
+                            procA.AddPara("@TOPICID", data.TopicId);
+                            procA.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                            dtAssignUser = procA.GetTable();
+
+                            if (dtAssignUser.Rows.Count > 0)
+                            {
+                                //SalesMan_Nm = dt_SalesMan.Rows[0]["user_name"].ToString();
+                                //SalesMan_Phn = dt_SalesMan.Rows[0]["phf_phoneNumber"].ToString();
+                                SalesMan_Phn = dtAssignUser.Rows[0]["user_loginId"].ToString();
+
+                                SendNotification(SalesMan_Phn, Mssg);
+                            }
+                        }
+                        // End of Send Notification
                     }
 
-                    
+
 
                 }
 
@@ -573,6 +486,120 @@ namespace LMS.Areas.LMS.Controllers
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
         }
+
+
+        // Send Notification
+        public JsonResult SendNotification(string Mobiles, string messagetext)
+        {
+
+            string status = string.Empty;
+            try
+            {
+                //int returnmssge = notificationbl.Savenotification(Mobiles, messagetext);
+
+                int s = 0;
+                ProcedureExecute proc = new ProcedureExecute("Proc_FCM_NotificationManage");
+                proc.AddPara("@Mobiles", Mobiles);
+                proc.AddPara("@Message", messagetext);
+                s = proc.RunActionQuery();
+
+                //DataTable dt = odbengine.GetDataTable("select device_token,musr.user_name,musr.user_id  from tbl_master_user as musr inner join tbl_FTS_devicetoken as token on musr.user_id=token.UserID  where musr.user_loginId in (select items from dbo.SplitString('" + Mobiles + "',',')) and musr.user_inactive='N'");
+                //DataTable dt = odbengine.GetDataTable("select device_token,musr.user_name,musr.user_id  from tbl_master_user as musr inner join tbl_FTS_devicetoken as token on musr.user_id=token.UserID  where musr.user_loginId in (" + Mobiles + ") and musr.user_inactive='N'");
+
+                Mobiles = Mobiles.Replace("'", "");
+
+                DataTable dt = new DataTable();
+                ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                procA.AddPara("@ACTION", "GETDEVICETOKENINFO");
+                procA.AddPara("@MOBILES", Mobiles);
+                dt = procA.GetTable();
+
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (Convert.ToString(dt.Rows[i]["device_token"]) != "")
+                        {
+                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]));
+                           
+                        }
+                    }
+                    status = "200";
+                }
+
+
+                else
+                {
+
+                    status = "202";
+                }
+
+
+
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                status = "300";
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        public static void SendPushNotification(string message, string deviceid, string Customer, string Requesttype)
+        {
+            try
+            {
+                //string applicationID = "AAAAS0O97Kk:APA91bH8_KgkJzglOUHC1ZcMEQFjQu8fsj1HBKqmyFf-FU_I_GLtXL_BFUytUjhlfbKvZFX9rb84PWjs05HNU1QyvKy_TJBx7nF70IdIHBMkPgSefwTRyDj59yXz4iiKLxMiXJ7vel8B";
+                //string senderId = "323259067561";
+                string applicationID = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["AppID"]);
+                string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
+                //string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
+                string deviceId = deviceid;
+                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest.Method = "post";
+                tRequest.ContentType = "application/json";
+
+                var data2 = new
+                {
+                    to = deviceId,
+                   
+                    data = new
+                    {
+                        UserName = Customer,
+                        UserID = Requesttype,
+                        body = message,
+                        type = "lms_content_assign"
+                    }
+                };
+
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(data2);
+                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+                tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+                tRequest.ContentLength = byteArray.Length;
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                string str = sResponseFromServer;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+        }
+        // End of Send Notification
 
         public ActionResult ShowContentDetails(String ContentId)
         {
