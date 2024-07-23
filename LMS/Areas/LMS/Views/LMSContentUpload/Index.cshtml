@@ -2929,11 +2929,11 @@
                                 }).then((result) => {
                                     if (result.isConfirmed) {
 
-
+                                        // Rev Sanchitra2307
                                         $.ajax({
                                                 type: "POST",
                                                 url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-                                                data: { TopicID: urlKeys.TOPICID },
+                                                data: { TopicID: $("#ddlTopic").val() },
                                                 success: function (response) {
                                                     if (response != null && response == true) {
                                                         //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
@@ -2946,7 +2946,7 @@
                                                 }
                                         });
 
-                                        
+                                        // End of Rev Sanchita2307
                                     }
                                     else {
                                         window.location.href = '/LMS/LMSContentUpload/Index';

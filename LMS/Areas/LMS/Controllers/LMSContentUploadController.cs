@@ -447,7 +447,8 @@ namespace LMS.Areas.LMS.Controllers
                         // Send Notification
                         if (hdnAddEditMode == "ADDCONTENT")
                         {
-                            string Mssg = txtContentTitle + " assigned.";
+                            string Mssg = "HI! A new video titled "+ txtContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
+                            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
                             //string SalesMan_Nm = "";
                             string SalesMan_Phn = "";
 
@@ -466,7 +467,7 @@ namespace LMS.Areas.LMS.Controllers
                                 //SalesMan_Phn = dt_SalesMan.Rows[0]["phf_phoneNumber"].ToString();
                                 SalesMan_Phn = dtAssignUser.Rows[0]["user_loginId"].ToString();
 
-                                SendNotification(SalesMan_Phn, Mssg);
+                                SendNotification(SalesMan_Phn, Mssg, imgNotification_Icon);
                             }
                         }
                         // End of Send Notification
@@ -489,7 +490,7 @@ namespace LMS.Areas.LMS.Controllers
 
 
         // Send Notification
-        public JsonResult SendNotification(string Mobiles, string messagetext)
+        public JsonResult SendNotification(string Mobiles, string messagetext, string imgNotification_Icon)
         {
 
             string status = string.Empty;
@@ -520,7 +521,7 @@ namespace LMS.Areas.LMS.Controllers
                     {
                         if (Convert.ToString(dt.Rows[i]["device_token"]) != "")
                         {
-                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]));
+                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]), imgNotification_Icon);
                            
                         }
                     }
@@ -545,7 +546,7 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
         
-        public static void SendPushNotification(string message, string deviceid, string Customer, string Requesttype)
+        public static void SendPushNotification(string message, string deviceid, string Customer, string Requesttype, string imgNotification_Icon)
         {
             try
             {
@@ -568,7 +569,8 @@ namespace LMS.Areas.LMS.Controllers
                         UserName = Customer,
                         UserID = Requesttype,
                         body = message,
-                        type = "lms_content_assign"
+                        type = "lms_content_assign",
+                        imgNotification_Icon = imgNotification_Icon
                     }
                 };
 
