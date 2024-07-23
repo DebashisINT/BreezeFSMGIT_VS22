@@ -77,7 +77,7 @@ namespace LMS.Areas.LMS.Controllers
                 }
                 else if (ViewBag.IsView == 2)
                 {
-                    ViewBag.PageTitle = "Content Add Question";
+                    ViewBag.PageTitle = "Add Question from Content";
                 }
                 else
                 {

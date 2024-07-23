@@ -1315,6 +1315,17 @@
         $("#txtPoint4").val("");
     }
 
+    // Rev Sanchita
+    function CancelQuestionAdd() {
+        if (urlKeys.key == 'AddOnFly') {
+            window.location.href = '/LMS/LMSContentUpload/Index';
+        }
+        else {
+            window.location.href = '/LMS/LMSQuestions/Index';
+        }
+    }
+    // End of Rev Sanchita
+
 </script>
 <div class="breadCumb">
     <span id="titleheader">@ViewBag.PageTitle</span>
@@ -1448,7 +1459,10 @@
         </div>
 
         <div class="save-exit-btn">
-            <button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>
+            @*Rev Sanchita*@
+            @*<button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>*@
+            <button type="button" class="btn btn-cancel" onclick="CancelQuestionAdd()">Cancel & Exit</button>
+            @*End of Rev Sanchita*@
 
             @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
             {
