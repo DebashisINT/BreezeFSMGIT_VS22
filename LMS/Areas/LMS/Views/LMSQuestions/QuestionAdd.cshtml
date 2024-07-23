@@ -1210,36 +1210,8 @@
                             text: 'Question saved successfully.'
                         }).then(() => {
                             // $("#QuestionModal").modal('hide');
-                            // Rev Sanchita
-                            //var url = "/LMS/LMSQuestions/Index";
-                            //window.location.href = url;
-                            if (urlKeys.key == 'AddOnFly') {
-
-                                Swal.fire({
-                                    title: 'Question Add',
-                                    text: "Do you want to add another question?",
-                                    icon: 'question',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes',
-                                    cancelButtonText: 'No'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
-                                    }
-                                    else {
-                                        window.location.href = '/LMS/LMSContentUpload/Index';
-                                    }
-                                });
-
-                            }
-                            else {
-                                var url = "/LMS/LMSQuestions/Index";
-                                window.location.href = url;
-                            }
-                            // End of Rev Sanchita
-
+                            var url = "/LMS/LMSQuestions/Index";
+                            window.location.href = url;
                             //location.reload();
                         });
                     } else if (parseInt(response) == -1) {

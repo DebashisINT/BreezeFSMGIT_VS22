@@ -2511,6 +2511,9 @@
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
 
+    var Is_TopicId = "0";
+    var Is_TopicName = "";
+
     //$(document).ready(function () {
 
     //    $("#fileupload").fileinput();
@@ -3598,6 +3601,8 @@
     function OnStartCallbackQuestion(s, e) {
         e.customArgs["Is_ContentId"] = Is_ContentId;
         e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
+        e.customArgs["Is_TopicId"] = Is_TopicId;
+        e.customArgs["Is_TopicName"] = Is_TopicName;
     }
 
     function MapQuestionWithContent(ContentId, ContentTitle) {
@@ -4746,8 +4751,10 @@ function SaveTopics() {
 
                 <div class="clearfix">
                     <div class="col-lg-5">
-                        <label>Filter Question on Topic(s)</label>
-                        @Html.Action("GetLMSTopicList", "LMSContentUpload")
+                        @*<label>Filter Question on Topic(s)</label>
+                        @Html.Action("GetLMSTopicList", "LMSContentUpload")*@
+                        <label>Topic </label>
+                        <label id="lblTopic"></label>
                     </div>
                     <div class="col-lg-5">
                         <label>Filter Question on Categories(s)</label>
