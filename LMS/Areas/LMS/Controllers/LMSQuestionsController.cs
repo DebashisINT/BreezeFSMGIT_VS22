@@ -14,6 +14,8 @@ using UtilityLayer;
 using DevExpress.Utils;
 using DevExpress.XtraSpreadsheet.Model;
 using DevExpress.XtraExport;
+using EntityLayer;
+using DataAccessLayer;
 //using DevExpress.DataAccess.Native.Data;
 //using DevExpress.DataAccess.Native.Data;
 
@@ -34,6 +36,7 @@ namespace LMS.Areas.LMS.Controllers
 
             obj.QUESTIONS_ID = Convert.ToString("0");
             TempData["QUESTIONS_ID"] = null;
+            TempData["TopicID"] = null;
             TempData.Keep();
 
             return View();
@@ -50,12 +53,20 @@ namespace LMS.Areas.LMS.Controllers
 
           
 
+            //if (TempData["TopicID"] != null)
+            //{
+            //    obj.TOPICID = Convert.ToInt64(TempData["TopicID"]);
+            //    TempData.Keep();         
+     
+            //}
+
             if (TempData["QUESTIONS_ID"] != null)
             {
                 obj.QUESTIONS_ID = Convert.ToString(TempData["QUESTIONS_ID"]);
-                TempData.Keep();         
-     
+                TempData.Keep();
+
             }
+
             if (TempData["IsView"] != null)
             {
                 ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
@@ -63,6 +74,10 @@ namespace LMS.Areas.LMS.Controllers
                 if(ViewBag.IsView == 0)
                 {
                     ViewBag.PageTitle = "Modify Question";
+                }
+                else if (ViewBag.IsView == 2)
+                {
+                    ViewBag.PageTitle = "Content Add Question";
                 }
                 else
                 {
@@ -319,7 +334,7 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetTopic> modelbranch = new List<GetTopic>();               
                 DataTable ComponentTable = new DataTable();
 
-                if(QUESTIONS_ID =="")
+                if(QUESTIONS_ID =="" || QUESTIONS_ID ==null)
                 {
                     QUESTIONS_ID = "0";
                 }
@@ -340,11 +355,17 @@ namespace LMS.Areas.LMS.Controllers
                             productdata.Add(dataobj);
 
                         }
+                        ViewBag.QUESTIONS_TOPICIDS = productdata;
                     }
                     
                 }
-                ViewBag.QUESTIONS_TOPICIDS = productdata;
-                return PartialView("~/Areas/LMS/Views/LMSQuestions/_TopicLookUpPartial.cshtml", modelbranch);
+                if (TempData["TopicID"] != null)
+                {
+                    ViewBag.CONTENT_TOPICIDS = Convert.ToInt64(TempData["TopicID"]);
+                }
+
+
+                    return PartialView("~/Areas/LMS/Views/LMSQuestions/_TopicLookUpPartial.cshtml", modelbranch);
 
             }
             catch
@@ -511,6 +532,20 @@ namespace LMS.Areas.LMS.Controllers
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
+        }
+
+        public JsonResult SetMapDataByTopicID(Int64 TopicID = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["TopicID"] = TopicID;
+                TempData["IsView"] = 2;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success);
         }
     }
 }
