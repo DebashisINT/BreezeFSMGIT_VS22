@@ -2601,7 +2601,7 @@
                             $("#btnShowActiveContents").hide();
                             $("#btnShowInactiveContents").hide();
                             $("#btnBackToTopicList").hide();
-                            
+
                             var videoContainer = $('#videoContainer');
                             videoContainer.empty();
 
@@ -2674,7 +2674,7 @@
                     $("#spTopicName").html('Topics');
 
                     $("#btnshow").show();
-                    
+
 
                 });
 
@@ -2758,7 +2758,7 @@
                     }
                 });
 
-                
+
                 function performSearch() {
                     var searchQuery = $('#searchInput').val().toLowerCase();
                     filteredData = allVideosData.filter(function (item) {
@@ -2928,7 +2928,25 @@
                                     cancelButtonText: 'No'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
+
+
+                                        $.ajax({
+                                                type: "POST",
+                                                url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+                                                data: { TopicID: urlKeys.TOPICID },
+                                                success: function (response) {
+                                                    if (response != null && response == true) {
+                                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
+                                                    }
+                                                    else {
+                                                        jAlert('Please try again later.');
+                                                        return false;
+                                                    }
+                                                }
+                                        });
+
+                                        
                                     }
                                     else {
                                         window.location.href = '/LMS/LMSContentUpload/Index';
@@ -3194,7 +3212,7 @@
             //    displayVideos(filteredData, currentPage);
             //}
 
-            onEnd: function (evt) { 
+            onEnd: function (evt) {
 
                 var newIndex = evt.newIndex;
                 var oldIndex = evt.oldIndex;
@@ -3266,9 +3284,9 @@
                                 text: 'Error in Play Sequence Update.'
                             });
                             //GridShow();
-            
+
                         }
-                    
+
                     },
                     error: function (response) {
                         console.log(response);
@@ -3551,7 +3569,7 @@
 
                                 });
                                 //GridShow();
-                                
+
                             }
                             else {
                                 Swal.fire({
@@ -3572,7 +3590,7 @@
                     });
 
                 }, 1000)
-                
+
             }
         });
     }

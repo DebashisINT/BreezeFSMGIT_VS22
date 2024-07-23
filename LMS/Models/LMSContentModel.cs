@@ -10,6 +10,8 @@ namespace LMS.Models
         public string Is_PageLoad { get; set; }
         public string Is_ContentId { get; set; }
         public string Is_ContentTitle { get; set; }
+        public string Is_TopicId { get; set; }
+        public string Is_TopicName { get; set; }
         public int TopicId { get; set; }
         public List<TopicList> TopicList { get; set; }
 
