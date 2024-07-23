@@ -88,6 +88,14 @@
 
                 }
             }
+            if (ViewBag.CONTENT_TOPICIDS != null)
+            {
+
+                MVCxGridLookup l = s as MVCxGridLookup;
+                l.GridView.Selection.SelectRowByKey(ViewBag.CONTENT_TOPICIDS);
+                //l.GridView.Enabled = false;
+            }
+
 
         };
 

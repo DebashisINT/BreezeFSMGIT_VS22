@@ -712,6 +712,7 @@
         // Rev Sanchita
         if (urlKeys.key == 'AddOnFly') {
             TOPIC_ID = urlKeys.TOPICID;
+            TopicGridLookup.SetEnabled(false);
         }
         // End of Rev Sanchita
 
@@ -971,7 +972,7 @@
 
 </script>
 <script>
-        function SaveQuestion() {
+    function SaveQuestion(mode ) {
             var id = $("#hdnIDADd").val();
             if (id == "") {
                 id = "0";
@@ -1044,7 +1045,7 @@
                     if (chkCorrect3 == "0") {
 
                         if (chkCorrect4 == "0") {
-                           
+
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Warning',
@@ -1064,14 +1065,14 @@
                 });
                 return false;
             }
-            else if (Category_ID.trim() == "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Warning',
-                    text: 'Select Category to proceed.'
-                });
-                return false;
-            }
+            //else if (Category_ID.trim() == "") {
+            //    Swal.fire({
+            //        icon: 'warning',
+            //        title: 'Warning',
+            //        text: 'Select Category to proceed.'
+            //    });
+            //    return false;
+            //}
             else {
 
             var Option1 = $("#txtOption1").val().trim();
@@ -1215,28 +1216,54 @@
                             //window.location.href = url;
                             if (urlKeys.key == 'AddOnFly') {
 
-                                Swal.fire({
-                                    title: 'Question Add',
-                                    text: "Do you want to add another question?",
-                                    icon: 'question',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes',
-                                    cancelButtonText: 'No'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
-                                    }
-                                    else {
-                                        window.location.href = '/LMS/LMSContentUpload/Index';
-                                    }
-                                });
+                                if (mode == "New") {
+                                            $.ajax({
+                                                    type: "POST",
+                                                    url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+                                                    data: { TopicID: urlKeys.TOPICID },
+                                                    success: function (response) {
+                                                        if (response != null && response == true) {
+                                                            window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+
+                                                        }
+                                                        else {
+                                                            jAlert('Please try again later.');
+                                                            return false;
+                                                        }
+                                                    }
+                                            });
+
+                                }
+                                else {
+                                    window.location.href = '/LMS/LMSContentUpload/Index';
+                                }
+                                //Swal.fire({
+                                //    title: 'Question Add',
+                                //    text: "Do you want to add another question?",
+                                //    icon: 'question',
+                                //    showCancelButton: true,
+                                //    confirmButtonColor: '#3085d6',
+                                //    cancelButtonColor: '#d33',
+                                //    confirmButtonText: 'Yes',
+                                //    cancelButtonText: 'No'
+                                //}).then((result) => {
+                                //    if (result.isConfirmed) {
+                                //        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                                //    }
+                                //    else {
+                                //        window.location.href = '/LMS/LMSContentUpload/Index';
+                                //    }
+                                //});
 
                             }
                             else {
-                                var url = "/LMS/LMSQuestions/Index";
-                                window.location.href = url;
+                                if (mode == "New") {
+                                    var url = "/LMS/LMSQuestions/QuestionAdd?key=Add";
+                                    window.location.href = url;
+                                }
+                                else {
+                                    window.location.href = '/LMS/LMSQuestions/Index';
+                                }
                             }
                             // End of Rev Sanchita
 
@@ -1414,7 +1441,7 @@
                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-6">
-                <label>Map Categories<span class="red">*</span></label>
+                <label>Map Categories</label>
                 @Html.Action("GetCategoryList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
 
@@ -1422,13 +1449,17 @@
 
         <div class="save-exit-btn">
             <button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>
-            
-                @if (ViewBag.CanAdd  && Convert.ToInt16(ViewBag.IsView) == 0)
-                {
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion()">Save & Exit</button>
-                }
-            
-            </div>
+
+            @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
+            {
+                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('Exit')">Save & Exit</button>
+            }
+            @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
+            {
+                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('New')">Save & New</button>
+            }
+
+        </div>
         <input type="hidden" value="@Model.QUESTIONS_ID" id="hdnIDADd" />
 
     </div>
