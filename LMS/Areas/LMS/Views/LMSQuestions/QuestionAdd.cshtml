@@ -22,6 +22,7 @@
         top: 5px;
         width: 35px;
     }
+
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -610,13 +611,11 @@
         background: linear-gradient(1deg, #cff3ff, #ffffff);
     }
 
-    .form-control:focus
-    {
+    .form-control:focus {
         box-shadow: none;
     }
 
-    .delete-col a img
-    {
+    .delete-col a img {
         width: 25px;
         transition: all .3s ease-in-out;
     }
@@ -714,6 +713,21 @@
             TOPIC_ID = urlKeys.TOPICID;
             TopicGridLookup.SetEnabled(false);
         }
+
+
+        var actionUrlHtml = "";
+
+        var ApprovalCross = $('#ApprovalCross');
+        ApprovalCross.empty();
+
+        if (urlKeys.key == 'AddOnFly') {
+            actionUrlHtml = `<a href="@Url.Action("Index", "LMSContentUpload")"><i class="fa fa-times"></i></a>` ;
+        }
+        else {
+            actionUrlHtml = `<a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a>`;
+        }
+        ApprovalCross.append(actionUrlHtml);
+
         // End of Rev Sanchita
 
         $(".allow_decimal").on("input", function (evt) {
@@ -786,11 +800,11 @@
     // Rev Sanchita
     //var QuestionID = 0;
     //var urlKeys = getUrlVars();
-    
+
     //if (urlKeys.key != 'Add') {
     if (urlKeys.key != 'Add' && urlKeys.key != 'AddOnFly' ) {
         // End of Rev Sanchita
-       // $("#titleheader").va("Modify Question"); 
+       // $("#titleheader").va("Modify Question");
         QuestionID = urlKeys.key;
         $("#hdnIDADd").val(QuestionID);
         if (QuestionID != 0) {
@@ -869,11 +883,11 @@
 
         }
     }
-    
 
-    
 
- 
+
+
+
 
     function CategorySelectionChanged(s, e) {
         CategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetSelectedFieldValuesCallbackCategory);
@@ -1327,12 +1341,15 @@
     // End of Rev Sanchita
 
 </script>
+
+
 <div class="breadCumb">
     <span id="titleheader">@ViewBag.PageTitle</span>
-    <div id="ApprovalCross" class="crossBtnN"><a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a></div>
+    @*<div id="ApprovalCross" class="crossBtnN"><a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a></div>*@
+    <div id="ApprovalCross" class="crossBtnN"></div>
 </div>
 <div class="container">
-    <div class="form_main backBox p-3">
+    <div class="form_main backBox p-3"> 
 
         <div class="row">
             <div class="col-md-12">
@@ -1392,7 +1409,7 @@
                 </div>
                 <div class="number-col">
                     <div>
-                        <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="999" maxlength="3" disabled  />
+                        <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="999" maxlength="3" disabled />
                     </div>
                 </div>
                 <div class="correct-col">
@@ -1449,7 +1466,7 @@
         <div class="row mb-5 mt-4">
             <div class="col-md-6">
                 <label>Map Topic(s)<span class="red">*</span></label>
-               @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
+                @Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
             </div>
             <div class="col-md-6">
                 <label>Map Categories</label>

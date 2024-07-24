@@ -241,7 +241,7 @@ namespace LMS.Areas.LMS.Controllers
         //public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
         //            string txtContentTitle, string txtContentDesc, string numPlaySequence, string hdnTopicID,
         //            string chkStatus, string chkAllowLike , string chkAllowComments, string chkAllowShare)
-        public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
+        public ActionResult SaveContent(HttpPostedFileBase fileupload, HttpPostedFileBase fileuploadicon, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
                     string txtContentTitle, string txtContentDesc, string numPlaySequence, LMSContentModel data,
                     string chkStatus, string chkAllowLike, string chkAllowComments, string chkAllowShare)
         {
@@ -289,10 +289,19 @@ namespace LMS.Areas.LMS.Controllers
                 }
 
                 var allowedExtensions = new[] {".mp4"};
+                var allowedExtensionsicon = new[] { ".jpg"};
+
                 string fileName = "";
                 int fileSize = 0;
                 //int Size = fileSize / 1000;
                 string FileType = "";
+
+                string fileNameicon = "";
+                int fileSizeicon = 0;
+                //int Size = fileSize / 1000;
+                string FileTypeicon = "";
+
+                var _thumbnailPath = "";
 
                 DBEngine obj1 = new DBEngine();
                 var LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
@@ -325,6 +334,36 @@ namespace LMS.Areas.LMS.Controllers
                             
                         }
                     }
+
+                    if (IsValid == 1 && fileuploadicon != null)
+                    {
+
+                        fileNameicon = Path.GetFileName(fileuploadicon.FileName);
+                        fileSizeicon = fileuploadicon.ContentLength;
+                        //int Size = fileSize / 1000;
+                        FileTypeicon = System.IO.Path.GetExtension(fileNameicon);
+
+
+                        if (!allowedExtensionsicon.Contains(FileTypeicon.ToLower()))
+                        {
+                            IsValid = 0;
+                            RETURN_VALUE = "Invalid thumbnail file. Only .jpg types of files shall be supported.";
+                        }
+                        else
+                        {
+                            if (fileSizeicon > (1024 * 1024)) 
+                            {
+                                IsValid = 0;
+                                RETURN_VALUE = "Maximum thumbnail file size shall be 1MB.";
+                            }
+                            else
+                            {
+                                IsValid = 1;
+
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
@@ -364,8 +403,29 @@ namespace LMS.Areas.LMS.Controllers
                         
                     }
 
+
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
+                    {
+                        // If Folder doesnot exists, CREATE the folder
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
+                    }
+                    else if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + fileNameicon)))
+                    {
+                        // If thumbnail file name already exists, RENAME the file by concatinating it by datetime
+                        fileNameicon = DateTime.Now.ToString("hhmmss") + fileNameicon;
+                    }
+
+                    // var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ','_')) + ".jpg");
+
+                    if (fileNameicon != "")
+                    {
+                        _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileName(fileNameicon.Replace(' ', '_')) );
+                    }
+                    else
+                    {
+                        _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
+                    }
                     
-                    var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ','_')) + ".jpg");
 
 
                     ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
@@ -420,34 +480,37 @@ namespace LMS.Areas.LMS.Controllers
                             }
 
 
-                            ////string compressedFilePath = Path.Combine(uploadsFolder, "compressed_" + Path.GetFileName(fileName));
-
-                            ////string ffmpegPath = Server.MapPath("~/FFMpeg/bin/ffmpeg.exe");
-
-                            ////var videoCompressionService = new VideoCompressionService();
-                            ////videoCompressionService.CompressVideo(originalFilePath, compressedFilePath, ffmpegPath);
-
+                            
                             //Thumbnails Image save
-                            if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
+                            //if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
+                            //{
+                            //    // If Folder doesnot exists, CREATE the folder
+                            //    System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
+                            //}
+
+                            if (fileNameicon != "")
                             {
-                                // If Folder doesnot exists, CREATE the folder
-                                System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
+                                // Upload thumbnail
+                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileName(fileNameicon.Replace(' ', '_')) );
+                                fileuploadicon.SaveAs(thumbnailPath);
+                            }
+                            else
+                            {
+                                // Auto generate Thumbnail
+                                var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
+                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
+                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                                ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
                             }
 
-                            var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
-                            var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
-                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
-
                             //Thumbnails Image save End
-
 
                         }
 
                         // Send Notification
-                        if (hdnAddEditMode == "ADDCONTENT")
+                        if (chkStatus == "1")  // If published
                         {
-                            string Mssg = "HI! A new video titled "+ txtContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
+                            string Mssg = "HI! A new video titled " + txtContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
                             var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
                             //string SalesMan_Nm = "";
                             string SalesMan_Phn = "";
@@ -471,6 +534,7 @@ namespace LMS.Areas.LMS.Controllers
                             }
                         }
                         // End of Send Notification
+
                     }
 
 

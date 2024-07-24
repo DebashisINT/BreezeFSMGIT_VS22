@@ -11,7 +11,7 @@ namespace LMS.Models
         public string Is_ContentId { get; set; }
         public string Is_ContentTitle { get; set; }
         public string Is_TopicId { get; set; }
-        public string Is_TopicName { get; set; }
+        public string Is_TopicTitle { get; set; }
         public int TopicId { get; set; }
         public List<TopicList> TopicList { get; set; }
 
@@ -60,6 +60,8 @@ namespace LMS.Models
         public string RETURN_DUPLICATEMAPNAME { get; set; }
         public string VideoPath { get; set; }
         public string CONTENT_FULLPATH { get; set; }
+        public string CONTENT_FILEPATHICON { get; set; }
+        public string CONTENT_FILENAMEICON { get; set; }
 
     }
 
