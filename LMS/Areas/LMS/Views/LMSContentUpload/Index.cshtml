@@ -2666,6 +2666,10 @@
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
 
+    var Is_TopicId = "0";
+    var Is_TopicTitle = "";
+
+
     //$(document).ready(function () {
 
     //    $("#fileupload").fileinput();
@@ -2685,7 +2689,7 @@
     var allVideosData = [];
     var filteredData = [];
     var currentPage = 1;
-    var itemsPerPage = 8;
+    var itemsPerPage = 12;
     var activeFilter = 'all';
 
     $(function () {
@@ -2873,7 +2877,7 @@
                         url: '/LMSContentUpload/GetTopicListForBoxData',
                         method: 'GET',
                         success: function (data) {
-                            const topicsPerPage = 8;
+                            const topicsPerPage = 12;
                             let currentPage = 1;
                             let filteredData = data;
 
@@ -3084,7 +3088,7 @@
                     $("#topic-list-search").show();
 
                     $("#btnshow").show();
-                    
+
 
                 });
 
@@ -3168,7 +3172,7 @@
                     }
                 });
 
-                
+
                 function performSearch() {
                     var searchQuery = $('#searchInput').val().toLowerCase();
                     filteredData = allVideosData.filter(function (item) {
@@ -3338,7 +3342,25 @@
                                     cancelButtonText: 'No'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
+                                       //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
+
+
+                                       $.ajax({
+                                                type: "POST",
+                                                url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+                                                data: { TopicID: $("#ddlTopic").val() },
+                                                success: function (response) {
+                                                    if (response != null && response == true) {
+                                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
+                                                    }
+                                                    else {
+                                                        jAlert('Please try again later.');
+                                                        return false;
+                                                    }
+                                                }
+                                        });
+
                                     }
                                     else {
                                         window.location.href = '/LMS/LMSContentUpload/Index';
@@ -3360,6 +3382,78 @@
 
 
         $(document).ready(function () {
+            // THUMBNAIL
+            $("#fileuploadicon").fileinput({
+                'showUpload': false,
+                'previewFileType': 'any',
+                'theme': 'fas',
+                'browseOnZoneClick': true,
+                'allowedFileExtensions': ['jpg'],
+                'showRemove': true,
+                'removeClass': 'btn btn-danger',
+                'removeIcon': '<i class="fas fa-trash-alt"></i>',
+                'dropZoneTitle': 'Drag & drop files here',
+                'dropZoneClickTitle': '',
+                'layoutTemplates': {
+                    footer: '',
+                    actions: ''
+                }
+            });
+
+            $('#fileuploadicon').bind('change', function (event) {
+                $("#hdnFileDuration").val("");
+                if (this.files[0].size > 1048576) {
+                    alertify.set('notifier', 'position', 'bottom-left');
+
+                    $('#fileuploadicon').fileinput('clear');
+                    setTimeout(function () { $('#fileuploadicon').fileinput('refresh'); }, 1000);
+
+                    var notification = alertify.notify('Maximum file size 1MB Supported', 'Alert', 3, function () {
+
+                        $('#fileuploadicon').fileinput('enable');
+                    });
+                }
+
+                //var allowedExtensions = new[] { ".pdf", ".ppt", ".pptx", ".mp4", ".doc", ".docx" };
+
+                //var allowedExtensionsicon = new[] { ".jpg", ".jpeg", ".tif", ".png" };
+
+                if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
+                    return;
+                }
+
+                const name = event.target.files[0].name;
+                const lastDot = name.lastIndexOf('.');
+
+                const fileName = name.substring(0, lastDot);
+                const ext = name.substring(lastDot + 1);
+
+
+                //if (ext.toLowerCase() == "png" || ext.toLowerCase() == "gif" || ext.toLowerCase() == "jpg" || ext.toLowerCase() == "tif") {
+                if (ext.toLowerCase() == "jpg" ) {
+
+                }
+                else {
+                    alertify.set('notifier', 'position', 'bottom-left');
+                    $('#fileuploadicon').fileinput('clear');
+                    setTimeout(function () { $('#fileuploadicon').fileinput('refresh'); }, 1000);
+                    var notification = alertify.notify('File type not Supported', 'Alert', 3, function () {
+                        // $('#fileuploadicon').fileinput('refresh');
+                        $('#fileuploadicon').fileinput('enable');
+                    });
+                }
+
+                $('#file-name-icon').text(name);
+
+            });
+
+            $('#fileuploadicon').on('fileclear', function () {
+                $('#file-name-icon').text('');
+                filePreviewicon.innerHTML = '';
+            });
+
+            // THUMBNAIL
+
             $("#fileupload").fileinput({
                 'showUpload': false,
                 'previewFileType': 'any',
@@ -3450,8 +3544,8 @@
         $("#divTopicList").hide();
         $("#pagination").hide();
         $("#topic-list-search").hide();
-        
-        
+
+
         $("#divTopicName").show();
         $("#spTopicName").html( "Topic : " + TopicName);
 
@@ -3461,38 +3555,36 @@
         allVideosData = [];
         filteredData = [];
         currentPage = 1;
-        itemsPerPage = 8;
+        itemsPerPage = 10;
         activeFilter = 'all';
 
-        setTimeout(function () {
-            $.ajax({
-                type: "POST",
-                url: "/LMSContentUpload/GetContentGridListData",
-                async: false,
-                data: JSON.stringify({ 'TopicId': TopicId }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    if (data.length > 0) {
-                        $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
-                        $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
-                        $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+        $.ajax({
+            type: "POST",
+            url: "/LMSContentUpload/GetContentGridListData",
+            async: false,
+            data: JSON.stringify({ 'TopicId': TopicId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                        allVideosData = data;
-                        filteredData = data;
-                        displayVideos(filteredData, currentPage);
+                    allVideosData = data;
+                    filteredData = data;
+                    displayVideos(filteredData, currentPage);
 
-                        $('#searchPanel').show();
-                        $('#contentListing').show();
-                    }
-                    hideLoader();
-                },
-                error: function (response) {
-                    alert("Please try again later");
-                    hideLoader();
+                    $('#searchPanel').show();
+                    $('#contentListing').show();
                 }
-            });
-        }, 1000);
+                hideLoader();
+            },
+            error: function (response) {
+                alert("Please try again later");
+                hideLoader();
+            }
+        });
     }
 
     //function displayVideos(data, page) {
@@ -3568,7 +3660,7 @@
                             <div class="card-body-content">
                                 <h5 class="card-title">${item.CONTENTTITLE}</h5>
                                 <p class="card-status ${statusClass}">${status}</p>
-                                
+
                             </div>
                             <p class="sequence-number"><i class="fa fa-play-circle-o" aria-hidden="true"></i> ${item.CONTENT_PLAYSEQ}</p>
                             <div class="dropdown action-dropdown">
@@ -3577,6 +3669,7 @@
                                 <div class="tooltip">Options</div>
                               </button>
                               <ul class="dropdown-menu">
+                                <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Add Questions</a></li>
                                 <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
                                 <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
                                 <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
@@ -3609,7 +3702,7 @@
             //    displayVideos(filteredData, currentPage);
             //}
 
-            onEnd: function (evt) { 
+            onEnd: function (evt) {
 
                 var newIndex = evt.newIndex;
                 var oldIndex = evt.oldIndex;
@@ -3681,9 +3774,9 @@
                                 text: 'Error in Play Sequence Update.'
                             });
                             //GridShow();
-            
+
                         }
-                    
+
                     },
                     error: function (response) {
                         console.log(response);
@@ -3768,7 +3861,7 @@
         $("#ddlTopic").val(0);
         //LMSTopicGridLookup.SetValue();
         $("#numPlaySequence").val(1);
-        $("#chkStatus").prop("checked", true);
+        $("#chkStatus").prop("checked", false);
         $("#chkAllowLike").prop("checked", false);
         $("#chkAllowComments").prop("checked", false);
         $("#chkAllowShare").prop("checked", false);
@@ -3777,6 +3870,10 @@
         $('#file-name').text('');
         filePreview.innerHTML = '';
         $('#fileupload').fileinput('clear');
+
+        $('#file-name-icon').text('');
+        filePreviewicon.innerHTML = '';
+        $('#fileuploadicon').fileinput('clear');
 
         $("#AddContentModal").modal('show');
 
@@ -3829,6 +3926,11 @@
         $('#fileupload').fileinput('clear');
 
 
+        $('#file-name-iocn').text('');
+        filePreviewicon.innerHTML = '';
+        $('#fileuploadicon').fileinput('clear');
+
+
         $.ajax({
             url: "@Url.Action("ShowContentDetails", "LMSContentUpload")",
             async: false,
@@ -3847,6 +3949,7 @@
                 document.getElementById('divFooter').style.visibility = 'hidden';
 
                 $('#file-name').text(data[0].CONTENT_FILENAME);
+                $('#file-name-icon').text(data[0].CONTENT_FILENAMEICON);
 
                 //$("#hdnTopicID").val(data[0].TopicIds);
 
@@ -3863,15 +3966,10 @@
 
                // Build the full URL
                 var videoUrl = '/' + encodeURIComponent(videoName);
-
-
                 const video = document.createElement('video');
-
                 video.src = videoUrl;
 
                 // Set the video attributes
-                //video.width = 640;
-                //video.height = 360;
                 video.controls = true; // Show the video controls (play, pause, etc.)
 
                 // Append the video element to the DOM
@@ -3880,7 +3978,25 @@
 
                 // Load and play the video (optional)
                 video.load();
-               // video.play(); // Uncomment if you want to autoplay the video
+                //
+
+
+                //
+
+                var iconimgName = data[0].CONTENT_FILEPATHICON.replace('~', ''); // Assuming this is the physical path of the video
+
+                var ImgUrlicon = '/' + encodeURIComponent(iconimgName);
+                const image = document.createElement('img');
+
+                image.src = ImgUrlicon;
+
+                // Set the image attributes (optional)
+                image.alt = 'Preview Image'; // Alternative text for the image
+
+                // Append the image element to the DOM
+                const imageContainer = document.getElementById('filePreviewicon');
+                imageContainer.appendChild(image);
+                //
 
 
 
@@ -3908,86 +4024,82 @@
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                setTimeout(function () {
-
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: JSON.stringify({ 'ContentId': ContentId }),
-                        async: false,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (response) {
-                            console.log(response);
-                            if (response == "-10") {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error',
-                                    text: 'Error in Delete.'
-                                });
-                                //GridShow();
-                            }
-                            else if (response == "1") {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Deleted',
-                                    text: 'Successfully Deleted.'
-                                }).then(() => {
-                                    /*gridLMSContent.Refresh();*/
-
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/LMSContentUpload/GetContentGridListData",
-                                        async: false,
-                                        data: JSON.stringify({ 'TopicId': TopicId }),
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        success: function (data) {
-                                            if (data.length > 0) {
-                                                $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
-                                                $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
-                                                $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
-
-                                                allVideosData = data;
-                                                filteredData = data;
-                                                displayVideos(filteredData, currentPage);
-
-                                                $('#searchPanel').show();
-                                                $('#contentListing').show();
-                                            }
-                                            //hideLoader();
-                                        },
-                                        error: function (response) {
-                                            alert("Please try again later");
-                                            //hideLoader();
-                                        }
-                                    });
-
-
-                                });
-                                //GridShow();
-                                
-                            }
-                            else {
-                                Swal.fire({
-                                    icon: 'info',
-                                    title: 'Info',
-                                    text: response
-                                });
-                            }
-                        },
-                        error: function (response) {
-                            console.log(response);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify({ 'ContentId': ContentId }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "-10") {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'An error occurred while deleting the content.'
+                                text: 'Error in Delete.'
+                            });
+                            //GridShow();
+                        }
+                        else if (response == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted',
+                                text: 'Successfully Deleted.'
+                            }).then(() => {
+                                /*gridLMSContent.Refresh();*/
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/LMSContentUpload/GetContentGridListData",
+                                    async: false,
+                                    data: JSON.stringify({ 'TopicId': TopicId }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        if (data.length > 0) {
+                                            $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                            $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                            $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+
+                                            allVideosData = data;
+                                            filteredData = data;
+                                            displayVideos(filteredData, currentPage);
+
+                                            $('#searchPanel').show();
+                                            $('#contentListing').show();
+                                        }
+                                        //hideLoader();
+                                    },
+                                    error: function (response) {
+                                        alert("Please try again later");
+                                        //hideLoader();
+                                    }
+                                });
+
+
+                            });
+                            //GridShow();
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Info',
+                                text: response
                             });
                         }
-                    });
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while deleting the content.'
+                        });
+                    }
+                });
 
-                }, 1000)
-                
             }
         });
     }
@@ -4013,6 +4125,8 @@
     function OnStartCallbackQuestion(s, e) {
         e.customArgs["Is_ContentId"] = Is_ContentId;
         e.customArgs["Is_ContentTitle"] = Is_ContentTitle;
+        e.customArgs["Is_TopicId"] = Is_TopicId;
+        e.customArgs["Is_TopicTitle"] = Is_TopicTitle;
     }
 
     function MapQuestionWithContent(ContentId, ContentTitle) {
@@ -4022,6 +4136,8 @@
         gridQuestionMapGridList.Refresh();
 
         $("#hdnAddEditMode").val('MAPQUESTION');
+        $("#btnMapQuestion").show();
+        $("#btnAddQuestion").hide();
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
     }
@@ -4045,6 +4161,24 @@
         //$("#chkAllowShare").prop("checked", false);
 
         $("#AddQuestionMapModal").modal('show');
+    }
+
+    function AddQuestion(ContentId, ContentTitle, Is_TopicId) {
+        $.ajax({
+             type: "POST",
+             url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+             data: { TopicID: $("#ddlTopic").val() },
+             success: function (response) {
+                 if (response != null && response == true) {
+                     //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                     window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + Is_TopicId + '&&CONTENTID=' + ContentId;
+                 }
+                 else {
+                     jAlert('Please try again later.');
+                     return false;
+                 }
+             }
+     });
     }
 
     var SelectedQuestionMapList;
@@ -4339,141 +4473,140 @@
 
     }
     function ddlTopicBasedOnChange() {
-    selectedTopicBasedOnMapList = '';
-    var obj = {};
-    obj.topic_basedon = $("#ddlTopicBasedOn").val();
+        selectedTopicBasedOnMapList = '';
+        var obj = {};
+        obj.topic_basedon = $("#ddlTopicBasedOn").val();
 
-    $.ajax({
-        type: "POST",
-        url: "/LMSTopics/GetBasedOnList",
-        data: JSON.stringify(obj),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            console.log(data)
-            var temArr2 = [];
-            //var data = response.d;
-            for (var a = 0; a < data.length; a++) {
-                if (data[a].selected) {
-                    temArr2.push(data[a].ID);
-                }
-            }
-            selectedTopicBasedOnMapList = temArr2.join(",");
-            $("#transfer1T").html('');
-
-            var tabNameText = data[0].tabNameText;
-            var rightTabNameText = data[0].rightTabNameText;
-            var searchPlaceholderText = data[0].searchPlaceholderText;
-            lblBasedOn.innerText = "Select " + tabNameText;
-
-            var settings1 = {
-                "dataArray": data,
-                "itemName": "NAME",
-                "valueName": "ID",
-                "tabNameText": tabNameText,
-                "rightTabNameText": rightTabNameText,
-                "searchPlaceholderText": searchPlaceholderText,
-                "callable": function (items) {
-                    //console.dir(items)
-                    var temArr = [];
-                    for (var i = 0; i < items.length; i++) {
-                        temArr.push(items[i].ID);
+        $.ajax({
+            type: "POST",
+            url: "/LMSTopics/GetBasedOnList",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data)
+                var temArr2 = [];
+                //var data = response.d;
+                for (var a = 0; a < data.length; a++) {
+                    if (data[a].selected) {
+                        temArr2.push(data[a].ID);
                     }
-                    selectedTopicBasedOnMapList = temArr.join(",");
                 }
-            };
-            $("#transfer1T").transfer(settings1);
-        }
-    });
-}
-function SaveTopics() {
-    Swal.fire({
-        title: 'Are you sure you want to save?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, save it!',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            if ($("#txtTopicName").val().trim() == "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alert',
-                    text: 'Please enter Topic Name.'
-                }).then(() => {
-                    setTimeout(() => {
-                        $("#txtTopicName").focus();
-                    }, 200);
-                });
-                return;
-            }
+                selectedTopicBasedOnMapList = temArr2.join(",");
+                $("#transfer1T").html('');
 
-            if ($("#ddlTopicBasedOn").val() == 0 || $("#ddlTopicBasedOn").val().trim() == "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alert',
-                    text: 'Please select Based On.'
-                }).then(() => {
-                    setTimeout(() => {
-                        $("#ddlTopicBasedOn").focus();
-                    }, 200);
-                });
-                return;
-            }
+                var tabNameText = data[0].tabNameText;
+                var rightTabNameText = data[0].rightTabNameText;
+                var searchPlaceholderText = data[0].searchPlaceholderText;
+                lblBasedOn.innerText = "Select " + tabNameText;
 
-            if (selectedTopicBasedOnMapList == "" || selectedTopicBasedOnMapList == null) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Alert',
-                    text: 'Please select Based On Items.'
-                }).then(() => {
-                    setTimeout(() => {
-                        $("#ddlTopicBasedOn").focus();
-                    }, 200);
-                });
-                return;
-            }
-
-            var data = {
-                Action: 'ADDTOPIC',
-                TopicID: $("#hdnTopicID").val(),
-                TopicBasedOnId: $("#ddlTopicBasedOn").val(),
-                TopicStatus: $("#chkStatus").prop("checked"),
-                TopicName: $("#txtTopicName").val().trim(),
-                selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
-            }
-
-            $.ajax({
-                url: '@Url.Action("SaveTopic", "LMSTopics")',
-                type: 'POST',
-                data: { data: data },
-                success: function (returnValue) {
-                    if (returnValue.RETURN_VALUE == "-10") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error in Add.'
-                        });
-                    } else if (returnValue.RETURN_VALUE == "-20") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error in Update.'
-                        });
+                var settings1 = {
+                    "dataArray": data,
+                    "itemName": "NAME",
+                    "valueName": "ID",
+                    "tabNameText": tabNameText,
+                    "rightTabNameText": rightTabNameText,
+                    "searchPlaceholderText": searchPlaceholderText,
+                    "callable": function (items) {
+                        //console.dir(items)
+                        var temArr = [];
+                        for (var i = 0; i < items.length; i++) {
+                            temArr.push(items[i].ID);
+                        }
+                        selectedTopicBasedOnMapList = temArr.join(",");
                     }
-                    else if (returnValue.RETURN_VALUE == "1") {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Topic added successfully.'
-                        }).then(() => {
-                            $('#AddTopicModal').modal('hide');
-                        });
+                };
+                $("#transfer1T").transfer(settings1);
+            }
+        });
+    }
+    function SaveTopics() {
+        Swal.fire({
+            title: 'Are you sure you want to save?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if ($("#txtTopicName").val().trim() == "") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'Please enter Topic Name.'
+                    }).then(() => {
+                        setTimeout(() => {
+                            $("#txtTopicName").focus();
+                        }, 200);
+                    });
+                    return;
+                }
 
-                        setTimeout(function () {
+                if ($("#ddlTopicBasedOn").val() == 0 || $("#ddlTopicBasedOn").val().trim() == "") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'Please select Based On.'
+                    }).then(() => {
+                        setTimeout(() => {
+                            $("#ddlTopicBasedOn").focus();
+                        }, 200);
+                    });
+                    return;
+                }
+
+                if (selectedTopicBasedOnMapList == "" || selectedTopicBasedOnMapList == null) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'Please select Based On Items.'
+                    }).then(() => {
+                        setTimeout(() => {
+                            $("#ddlTopicBasedOn").focus();
+                        }, 200);
+                    });
+                    return;
+                }
+
+                var data = {
+                    Action: 'ADDTOPIC',
+                    TopicID: $("#hdnTopicID").val(),
+                    TopicBasedOnId: $("#ddlTopicBasedOn").val(),
+                    TopicStatus: $("#chkStatus").prop("checked"),
+                    TopicName: $("#txtTopicName").val().trim(),
+                    selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
+                }
+
+                $.ajax({
+                    url: '@Url.Action("SaveTopic", "LMSTopics")',
+                    type: 'POST',
+                    data: { data: data },
+                    success: function (returnValue) {
+                        if (returnValue.RETURN_VALUE == "-10") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Add.'
+                            });
+                        } else if (returnValue.RETURN_VALUE == "-20") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Update.'
+                            });
+                        }
+                        else if (returnValue.RETURN_VALUE == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Topic added successfully.'
+                            }).then(() => {
+                                $('#AddTopicModal').modal('hide');
+                            });
+
                             $.ajax({
                                 url: '/LMSContentUpload/GetTopicList',
                                 async: false,
@@ -4497,53 +4630,67 @@ function SaveTopics() {
                                     alert(xhr.responseText);
                                 }
                             });
-                        }, 1000)
-                    }
-                    else if (returnValue.RETURN_VALUE == "0") {
+                        }
+                        else if (returnValue.RETURN_VALUE == "0") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
+                            });
+                        }
+
+
+                        //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
+                        //    Swal.fire({
+                        //        icon: 'success',
+                        //        title: 'Success',
+                        //        text: 'Topic added successfully. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                        //    }).then(() => {
+                        //        $('#AddTopicModal').modal('hide');
+                        //    });
+                        //} else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
+                        //    Swal.fire({
+                        //        icon: 'success',
+                        //        title: 'Success',
+                        //        text: 'Topic added successfully.'
+                        //    }).then(() => {
+                        //        $('#AddTopicModal').modal('hide');
+                        //    });
+                        //} else if (returnValue.RETURN_VALUE == "1") {
+                        //    Swal.fire({
+                        //        icon: 'error',
+                        //        title: 'Error',
+                        //        text: 'Please enter a unique Topic name. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
+                        //    });
+                        //}
+                    },
+                    error: function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
+                            text: 'An error occurred while saving the topic.'
                         });
                     }
+                });
+            }
+        });
 
+    }
+    function AddQuestionWithContent(ContentId, ContentTitle, TopicId, TopicTitle) {
+        Is_ContentId = ContentId;
+        Is_ContentTitle = ContentTitle;
+        Is_TopicId = TopicId;
+        Is_TopicTitle = TopicTitle;
 
-                    //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
-                    //    Swal.fire({
-                    //        icon: 'success',
-                    //        title: 'Success',
-                    //        text: 'Topic added successfully. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
-                    //    }).then(() => {
-                    //        $('#AddTopicModal').modal('hide');
-                    //    });
-                    //} else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME == "") {
-                    //    Swal.fire({
-                    //        icon: 'success',
-                    //        title: 'Success',
-                    //        text: 'Topic added successfully.'
-                    //    }).then(() => {
-                    //        $('#AddTopicModal').modal('hide');
-                    //    });
-                    //} else if (returnValue.RETURN_VALUE == "1") {
-                    //    Swal.fire({
-                    //        icon: 'error',
-                    //        title: 'Error',
-                    //        text: 'Please enter a unique Topic name. Duplicate data exists for the following Based On with this Topic:\n' + returnValue.RETURN_DUPLICATEMAPNAME
-                    //    });
-                    //}
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred while saving the topic.'
-                    });
-                }
-            });
-        }
-    });
+        gridQuestionMapGridList.Refresh();
+        gridQuestionMapGridList.Refresh();
 
-}
+        $("#hdnAddEditMode").val('ADDQUESTION');
+        $("#btnMapQuestion").hide();
+        $("#btnAddQuestion").show();
+        $("#hdnContentID").val(ContentId);
+        $("#MapQuestionListModal").modal('show');
+    }
 
 </script>
 
@@ -4714,6 +4861,8 @@ function SaveTopics() {
             return;
         }
 
+        showLoader();
+
         const filePreview = document.getElementById('filePreview');
 
         // Clear any existing preview
@@ -4752,6 +4901,8 @@ function SaveTopics() {
             // File type not supported for preview
             filePreview.innerHTML = `<p>Preview not available for this file type (${file.type}).</p>`;
         }
+
+        hideLoader();
     }
 
     function ddlTopicOnChange() {
@@ -4830,14 +4981,14 @@ function SaveTopics() {
 
                             @*@if (ViewBag.CanView){*@
                             <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowActiveContents" onclick="ShowActiveContents();">
-                                <h5>Active content(s)</h5> <span class="filter-count">0</span>
+                                <h5>Published content(s)</h5> <span class="filter-count">0</span>
                             </button>
 
                             @*}*@
 
                             @*@if (ViewBag.CanView){*@
                             <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowInactiveContents" onclick="ShowInactiveContents();">
-                                <h5>Inactive content(s)</h5> <span class="filter-count">0</span>
+                                <h5>Unpublished content(s)</h5> <span class="filter-count">0</span>
                             </button>
 
                             @*}*@
@@ -5018,15 +5169,15 @@ function SaveTopics() {
 
                         </fieldset>
                         <fieldset>
-                            <div class="col-md-8 col-md-offset-2">
+                            <div class="col-md-4 col-md-offset-2">
                                 @*<h3>Upload your content</h3>*@
                                 <div class=" mb-5">
                                     <div class="form-group text-left">
                                         <label>Choose File:</label>
                                         <div class="clearfix">
                                             @*<div class="custom-file">
-                                            <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
-                                        </div>*@
+                            <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                        </div>*@
                                             <div class="custom-file">
                                                 @*<input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />*@
 
@@ -5051,26 +5202,49 @@ function SaveTopics() {
                                 </div>
                             </div>
 
-                            @*<div class="col-md-6  text-left">
-                            <label>Thumbnail:</label>
-                            <div class="thumbnail-box">
-                                <button type="button" class="btn btn-success"><img src="~/assests/images/up-loading.svg"/> Upload</button>
-                                Or
-                                <button type="button" class="btn btn-export"><img src="~/assests/images/create-img.svg" /> Create Thumbnail</button>
+                            <div class="col-md-4 col-md-offset-2">
+                                <div class=" mb-5">
+                                    <div class="form-group text-left">
+                                        <label>Choose Thumbnail File:</label>
+                                        <div class="clearfix">
+                                            <div class="custom-file">
+                                                <input type="file" id="fileuploadicon" name="fileuploadicon" accept=".jpg">
+                                                <div id="filePreviewicon"></div>
+
+                                                <label class="custom-file-label upload-btn" for="fileuploadicon">
+                                                    <img src="../../../assests/images/upload.svg"> Upload
+                                                </label>
+                                                <div class="file-name-icon" id="file-name-icon"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <p class="text-muted red" style="color:red">Supported types: JPG (File size limited to 1MB)</p>
+                                </div>
+
                             </div>
-                        </div>*@
-                            <div class="clear"></div>
 
-                            <input type="hidden" id="hdnAddEditMode" name="hdnAddEditMode" />
-                            <input type="hidden" id="hdnContentID" name="hdnContentID" />
-                            <input type="hidden" id="hdnFileDuration" name="hdnFileDuration" />
-                            <input type="hidden" id="hdnTopicID" name="hdnTopicID" />
-                            <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
+                                @*<div class="col-md-6  text-left">
+                <label>Thumbnail:</label>
+                <div class="thumbnail-box">
+                    <button type="button" class="btn btn-success"><img src="~/assests/images/up-loading.svg"/> Upload</button>
+                    Or
+                    <button type="button" class="btn btn-export"><img src="~/assests/images/create-img.svg" /> Create Thumbnail</button>
+                </div>
+            </div>*@
+                                <div class="clear"></div>
+
+                                <input type="hidden" id="hdnAddEditMode" name="hdnAddEditMode" />
+                                <input type="hidden" id="hdnContentID" name="hdnContentID" />
+                                <input type="hidden" id="hdnFileDuration" name="hdnFileDuration" />
+                                <input type="hidden" id="hdnTopicID" name="hdnTopicID" />
+                                <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
 
 
-                            <input type="button" name="previous" class="upload-previous action-button-previous btn btn-success" value="Previous" onclick="PreviousButtonOnClick()" />
-                            @*<input type="submit" class="submit action-button" value="Submit" />*@
-                            @*<button type="submit" class="submit action-button">Upload & Exit</button>*@
+                                <input type="button" name="previous" class="upload-previous action-button-previous btn btn-success" value="Previous" onclick="PreviousButtonOnClick()" />
+                                @*<input type="submit" class="submit action-button" value="Submit" />*@
+                                @*<button type="submit" class="submit action-button">Upload & Exit</button>*@
 
                         </fieldset>
 
@@ -5125,8 +5299,12 @@ function SaveTopics() {
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
                         <div class="add-show-btns">
                             @*@if (ViewBag.CanAdd){*@
-                            <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContentQuestionMap(Is_ContentId, Is_ContentTitle);">
+                            <button type="button" id="btnMapQuestion" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContentQuestionMap(Is_ContentId, Is_ContentTitle);">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Map Question
+                            </button>
+
+                            <button type="button" id="btnAddQuestion" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddQuestion(Is_ContentId, Is_ContentTitle, Is_TopicId);">
+                                <span class="btn-icon"><i class="fa fa-plus"></i></span> Add Question
                             </button>
                             @*}*@
 
@@ -5314,7 +5492,7 @@ function SaveTopics() {
                     </div>
                     <div class="col-lg-2 mb-4" style="height: 60px;">
                         <label> </label>
-                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
+                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Published</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
