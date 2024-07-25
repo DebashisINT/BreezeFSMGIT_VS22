@@ -510,37 +510,11 @@ namespace LMS.Areas.LMS.Controllers
                         // Send Notification
                         if (chkStatus == "1")  // If published
                         {
-                            string Mssg = "HI! A new video titled " + txtContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
-                            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
-                            //string SalesMan_Nm = "";
-                            string SalesMan_Phn = "";
-
-                            //DataTable dt_SalesMan = odbengine.GetDataTable("select user_loginId,user_name from tbl_master_user  where user_id=" + SalesmanId + "");
-                            DataTable dtAssignUser = new DataTable();
-
-                            ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                            procA.AddPara("@ACTION", "GETCONTENTASSIGNUSER");
-                            procA.AddPara("@TOPICID", data.TopicId);
-                            procA.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
-                            dtAssignUser = procA.GetTable();
-
-                            if (dtAssignUser.Rows.Count > 0)
-                            {
-                                //SalesMan_Nm = dt_SalesMan.Rows[0]["user_name"].ToString();
-                                //SalesMan_Phn = dt_SalesMan.Rows[0]["phf_phoneNumber"].ToString();
-                                SalesMan_Phn = dtAssignUser.Rows[0]["user_loginId"].ToString();
-
-                                SendNotification(SalesMan_Phn, Mssg, imgNotification_Icon);
-                            }
+                           // FireNotification(txtContentTitle, Convert.ToString(data.TopicId));
                         }
                         // End of Send Notification
-
                     }
-
-
-
                 }
-
 
                 TempData["result"] = RETURN_VALUE+"~"+ RETURN_CONTENTID;
 
@@ -554,6 +528,30 @@ namespace LMS.Areas.LMS.Controllers
 
 
         // Send Notification
+        public void FireNotification(string ContentTitle, string TopicId)
+        {
+            string Mssg = "HI! A new video titled " + ContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
+            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
+            //string SalesMan_Nm = "";
+            string SalesMan_Phn = "";
+
+            //DataTable dt_SalesMan = odbengine.GetDataTable("select user_loginId,user_name from tbl_master_user  where user_id=" + SalesmanId + "");
+            DataTable dtAssignUser = new DataTable();
+
+            ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            procA.AddPara("@ACTION", "GETCONTENTASSIGNUSER");
+            procA.AddPara("@TOPICID", TopicId);
+            procA.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            dtAssignUser = procA.GetTable();
+
+            if (dtAssignUser.Rows.Count > 0)
+            {
+                SalesMan_Phn = dtAssignUser.Rows[0]["user_loginId"].ToString();
+
+                SendNotification(SalesMan_Phn, Mssg, imgNotification_Icon);
+            }
+        }
+
         public JsonResult SendNotification(string Mobiles, string messagetext, string imgNotification_Icon)
         {
 
@@ -1104,29 +1102,49 @@ namespace LMS.Areas.LMS.Controllers
                 dt = proc.GetTable();
                 output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
 
+                //output_msg = "1";
 
-                if (output_msg != "-10" && output_msg != null && output_msg != "")
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateStatusPublish(string ContentId, string TopicId, string ContentTitle, string chkStatus)
+        {
+            string output_msg = string.Empty;
+
+            if (chkStatus != null && chkStatus == "Yes")
+            {
+                chkStatus = "1";
+            }
+            else
+            {
+                chkStatus = "0";
+            }
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "UPDATESTATUSPUBLISH");
+                proc.AddPara("@CONTENTID", ContentId);
+                proc.AddPara("@STATUS", chkStatus);
+                
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                if (output_msg == "1" && chkStatus=="0")
                 {
-                    string fileName = output_msg;
-
-                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
-                    {
-                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
-
-                    }
-
-                    //REV thumbnail DELETE
-                    var thumbnailPath = Path.GetFileNameWithoutExtension(fileName) + ".jpg";
-                    if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath)))
-                    {
-                        System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/Thumbnails/" + thumbnailPath));
-
-                    }
-                    //REV thumbnail DELETE END
-
-
-                    output_msg = "1";
+                    //FireNotification(ContentTitle, TopicId);
                 }
+
 
             }
             catch (Exception ex)
