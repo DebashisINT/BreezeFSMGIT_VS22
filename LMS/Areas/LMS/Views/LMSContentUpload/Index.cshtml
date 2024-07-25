@@ -3351,8 +3351,8 @@
                                                 data: { TopicID: $("#ddlTopic").val() },
                                                 success: function (response) {
                                                     if (response != null && response == true) {
-                                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
                                                         window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
+
                                                     }
                                                     else {
                                                         jAlert('Please try again later.');
@@ -3651,6 +3651,7 @@
             var videoPath = item.CONTENT_FILEPATHICON.replace('~', '');
             var status = item.CONTENTSTATUS === "Yes" ? "Published" : "Unpublished";
             var statusClass = item.CONTENTSTATUS === "Yes" ? "published" : "unpublished";
+            var Chkstatus = item.CONTENTSTATUS === "Yes" ? "checked" : "0";
 
             var videoCardHtml = `
                 <div class="col-md-3" id="videoCard-${index}">
@@ -3659,9 +3660,13 @@
                         <div class="card-body">
                             <div class="card-body-content">
                                 <h5 class="card-title">${item.CONTENTTITLE}</h5>
+                                <label class="switch">
+                                    <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus}  onchange = "UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${item.CONTENTTITLE}', '${item.CONTENTSTATUS}');" />
+                                    <span class="slider round"></span>
+                                </label>
                                 <p class="card-status ${statusClass}">${status}</p>
-
                             </div>
+                            
                             <p class="sequence-number"><i class="fa fa-play-circle-o" aria-hidden="true"></i> ${item.CONTENT_PLAYSEQ}</p>
                             <div class="dropdown action-dropdown">
                               <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
@@ -3669,9 +3674,9 @@
                                 <div class="tooltip">Options</div>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Add Questions</a></li>
+                                <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
                                 <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
-                                <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}')">Edit Content</a></li>
+                                <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
                                 <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
                               </ul>
                             </div>
@@ -3715,78 +3720,83 @@
                 var ContentIdNew = filteredData[newIndex].CONTENTID;
                 var PlaySeqNew = filteredData[newIndex].CONTENT_PLAYSEQ;
 
-                $.ajax({
-                    type: "POST",
-                    url: "/LMSContentUpload/UpdatePlaySequence",
-                    data: JSON.stringify({ 'ContentIdOld': ContentIdOld, 'PlaySeqOld': PlaySeqOld, 'ContentIdNew': ContentIdNew, 'PlaySeqNew': PlaySeqNew }),
-                    async: false,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        if (response == "1") {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: 'Play Sequence updated successfully.'
-                            }).then(() => {
-                                /*gridLMSContent.Refresh();*/
+                if (ContentIdOld != ContentIdNew)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "/LMSContentUpload/UpdatePlaySequence",
+                        data: JSON.stringify({ 'ContentIdOld': ContentIdOld, 'PlaySeqOld': PlaySeqOld, 'ContentIdNew': ContentIdNew, 'PlaySeqNew': PlaySeqNew }),
+                        async: false,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            if (response == "1") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Play Sequence updated successfully.'
+                                }).then(() => {
+                                    /*gridLMSContent.Refresh();*/
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/LMSContentUpload/GetContentGridListData",
-                                    async: false,
-                                    data: JSON.stringify({ 'TopicId': TopicId }),
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json",
-                                    success: function (data) {
-                                        if (data.length > 0) {
-                                            $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
-                                            $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
-                                            $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/LMSContentUpload/GetContentGridListData",
+                                        async: false,
+                                        data: JSON.stringify({ 'TopicId': TopicId }),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (data) {
+                                            if (data.length > 0) {
+                                                $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                                $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                                $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                                            allVideosData = data;
-                                            filteredData = data;
-                                            displayVideos(filteredData, currentPage);
+                                                allVideosData = data;
+                                                filteredData = data;
+                                                displayVideos(filteredData, currentPage);
 
-                                            $('#searchPanel').show();
-                                            $('#contentListing').show();
+                                                $('#searchPanel').show();
+                                                $('#contentListing').show();
+                                            }
+                                            //hideLoader();
+                                        },
+                                        error: function (response) {
+                                            alert("Please try again later");
+                                            //hideLoader();
                                         }
-                                        //hideLoader();
-                                    },
-                                    error: function (response) {
-                                        alert("Please try again later");
-                                        //hideLoader();
-                                    }
+                                    });
+
+
                                 });
+                                //GridShow();
 
 
-                            });
-                            //GridShow();
+                            }
+                            else {
 
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Error in Play Sequence Update.'
+                                });
+                                //GridShow();
 
-                        }
-                        else {
+                            }
 
+                        },
+                        error: function (response) {
+                            console.log(response);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'Error in Play Sequence Update.'
+                                text: 'An error occurred in Play Sequence update.'
                             });
-                            //GridShow();
-
                         }
+                    });
+                }
 
-                    },
-                    error: function (response) {
-                        console.log(response);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred in Play Sequence update.'
-                        });
-                    }
-                });
+                
             }
 
 
@@ -3866,6 +3876,8 @@
         $("#chkAllowComments").prop("checked", false);
         $("#chkAllowShare").prop("checked", false);
         document.getElementById('divFooter').style.visibility = 'hidden';
+        $("#btnSubmit").text("Upload & Exit");
+        $("#AddQuestion").hide();
 
         $('#file-name').text('');
         filePreview.innerHTML = '';
@@ -3916,10 +3928,16 @@
 
 
 
-    function OpenLMSContentforEdit(ContentId) {
+    function OpenLMSContentforEdit(ContentId, ContentTitle, TopicId, TopicTitle) {
         $("#hdnAddEditMode").val('EDITCONTENT');
         $("#hdnContentID").val(ContentId);
         //LMSTopicGridLookup.gridView.UnselectAllRowsOnPage();
+
+        Is_ContentId = ContentId;
+        Is_ContentTitle = ContentTitle;
+        Is_TopicId = TopicId;
+        Is_TopicTitle = TopicTitle;
+
 
         $('#file-name').text('');
         filePreview.innerHTML = '';
@@ -3946,7 +3964,9 @@
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
                 $("#chkAllowComments").prop("checked", data[0].AllowComments);
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
-                document.getElementById('divFooter').style.visibility = 'hidden';
+                document.getElementById('divFooter').style.visibility = 'visible';
+                $("#btnSubmit").text("Save & Exit");
+                $("#AddQuestion").show();
 
                 $('#file-name').text(data[0].CONTENT_FILENAME);
                 $('#file-name-icon').text(data[0].CONTENT_FILENAMEICON);
@@ -4138,6 +4158,7 @@
         $("#hdnAddEditMode").val('MAPQUESTION');
         $("#btnMapQuestion").show();
         $("#btnAddQuestion").hide();
+        $("#lblAddMapQues").text("Map Question List");
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
     }
@@ -4163,15 +4184,14 @@
         $("#AddQuestionMapModal").modal('show');
     }
 
-    function AddQuestion(ContentId, ContentTitle, Is_TopicId) {
+    function AddQuestion(ContentId, ContentTitle, TopicId) {
         $.ajax({
              type: "POST",
              url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
              data: { TopicID: $("#ddlTopic").val() },
              success: function (response) {
                  if (response != null && response == true) {
-                     //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
-                     window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + Is_TopicId + '&&CONTENTID=' + ContentId;
+                     window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
                  }
                  else {
                      jAlert('Please try again later.');
@@ -4469,7 +4489,7 @@
     }
 
     function PreviousButtonOnClick() {
-        document.getElementById('divFooter').style.visibility = 'hidden';
+        //document.getElementById('divFooter').style.visibility = 'hidden';
 
     }
     function ddlTopicBasedOnChange() {
@@ -4688,10 +4708,84 @@
         $("#hdnAddEditMode").val('ADDQUESTION');
         $("#btnMapQuestion").hide();
         $("#btnAddQuestion").show();
+        $("#lblAddMapQues").text("Add Question List");
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
     }
+    function UpdateStatusPublish(ContentId, TopicId, ContentTitle, chkStatus) {
+        $.ajax({
+            type: "POST",
+            url: "/LMSContentUpload/UpdateStatusPublish",
+            data: JSON.stringify({ 'ContentId': ContentId, 'TopicId': TopicId, 'ContentTitle': ContentTitle, 'chkStatus': chkStatus}),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "1") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Status updated successfully.'
+                    }).then(() => {
+                        /*gridLMSContent.Refresh();*/
 
+                        $.ajax({
+                            type: "POST",
+                            url: "/LMSContentUpload/GetContentGridListData",
+                            async: false,
+                            data: JSON.stringify({ 'TopicId': TopicId }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+
+                                    allVideosData = data;
+                                    filteredData = data;
+                                    displayVideos(filteredData, currentPage);
+
+                                    $('#searchPanel').show();
+                                    $('#contentListing').show();
+                                }
+                                //hideLoader();
+                            },
+                            error: function (response) {
+                                alert("Please try again later");
+                                //hideLoader();
+                            }
+                        });
+
+
+                    });
+                    //GridShow();
+
+
+                }
+                else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error in Status Update.'
+                    });
+                    //GridShow();
+
+                }
+
+            },
+            error: function (response) {
+                console.log(response);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred in Status update.'
+                });
+            }
+        });
+    }
 </script>
 
 <script>
@@ -4719,6 +4813,7 @@
                 'opacity': '1'
             });
         }
+
 
         $(".upload-next").click(function () {
             // Rev Sanchita
@@ -4805,7 +4900,7 @@
             }
             // End of Rev Sanchita
 
-            
+
         });
 
         $(".upload-previous").click(function () {
@@ -4818,6 +4913,13 @@
             // De-activate current step on progressbar
             $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
             $("#progressbar li").eq($("fieldset").index(previous_fs)).addClass("active");
+
+            if ($("#hdnAddEditMode").val() == 'EDITCONTENT') {
+                document.getElementById('divFooter').style.visibility = 'visible';
+            }
+            else {
+                document.getElementById('divFooter').style.visibility = 'hidden';
+            }
 
             // Show the previous fieldset
             previous_fs.show();
@@ -4851,6 +4953,11 @@
         $('#AddContentModal').on('hide.bs.modal', function () {
             // Reset the form to the first step when the modal is hidden
             showFirstFieldset();
+        });
+
+        $(".Add-Question").click(function (){
+            //AddQuestion(Is_ContentId, Is_ContentTitle, Is_TopicId);
+            AddQuestionWithContent(Is_ContentId, Is_ContentTitle, Is_TopicId, Is_TopicTitle)
         });
     });
 
@@ -4947,6 +5054,8 @@
                 <h5>100 <span>Contents</span></h5>
                 <span class="list-topic-name">TOPIC_NAME</span>
             </button>*@
+                    <div id="secondViewContainer"></div>
+
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 5px;">
                         <div class="add-show-btns">
                             @*@if (ViewBag.CanAdd){*@
@@ -5093,9 +5202,9 @@
                         <fieldset>
                             <div class="row clearfix mb-5">
                                 @*<div class="col-lg-12 mb-3">
-                                    <h3>Tell Us about your content</h3>
+                <h3>Tell Us about your content</h3>
 
-                                </div>*@
+            </div>*@
                                 <div class="col-lg-12 mb-4 text-left">
                                     <label>Content Title<span style="color: red">*</span></label>
                                     <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
@@ -5117,10 +5226,6 @@
                                 <div class="clearfix">
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Publish</label>
-                                        @*<button type="button" class="btn btn-sm btn-toggle active" id="chkStatus" name="chkStatus" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                        <div class="handle"></div>
-                                    </button>*@
-                                        @*<div><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked />
                                             <span class="slider round"></span>
@@ -5129,8 +5234,8 @@
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Like</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                        <div class="handle"></div>
-                                    </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>like</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" />
@@ -5141,8 +5246,8 @@
 
                                         <label>Comments</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                        <div class="handle"></div>
-                                    </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Comments</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" />
@@ -5153,8 +5258,8 @@
 
                                         <label>Share</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                        <div class="handle"></div>
-                                    </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Share</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" />
@@ -5164,8 +5269,8 @@
                                 </div>
                             </div>
 
+                            <input type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary" value="Add Question" />
                             <input type="button" name="next" class="upload-next action-button btn-primary" value="Next" onclick="NextButtonClick()" />
-
 
                         </fieldset>
                         <fieldset>
@@ -5278,7 +5383,7 @@
                 </div>
 
                 <div class="" id="divFooter">
-                    <button type="submit" class="btn btn-success upload-exit-btn">Upload & Exit</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-success upload-exit-btn">Upload & Exit</button>
                     @*<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>*@
                 </div>
             }
@@ -5291,7 +5396,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Map Question List</h4>
+                <h4 class="modal-title" id="lblAddMapQues" >Add/Map Question List</h4>
             </div>
 
             <div class="modal-body">
