@@ -668,6 +668,10 @@
         visibility: visible;
         opacity: 1;
     }
+
+    .btn-warning {
+        background: #e08d19;
+    }
 </style>
 
 <script>
@@ -1483,7 +1487,7 @@
 
             @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
             {
-                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('Exit')">Save & Exit</button>
+                <button type="button" id="btnSave" class="btn btn-warning" onclick="SaveQuestion('Exit')">Save & Exit</button>
             }
             @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
             {
