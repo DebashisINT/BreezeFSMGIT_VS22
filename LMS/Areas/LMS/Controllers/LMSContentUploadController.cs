@@ -464,23 +464,28 @@ namespace LMS.Areas.LMS.Controllers
                             string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
                             //Directory.CreateDirectory(uploadsFolder);
 
-                            string originalFilePath = Path.Combine(uploadsFolder, "org_" + Path.GetFileName(fileName));
+
+                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
                             fileupload.SaveAs(originalFilePath);
-
-
-                            string compressedFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
-
-                            var ffMpegC = new FFMpegConverter();
-                            ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
-
-                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName)))
-                            {
-                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName));
-
-                            }
-
-
                             
+                            //// temp closed
+                            //////string originalFilePath = Path.Combine(uploadsFolder, "org_" + Path.GetFileName(fileName));
+                            //////fileupload.SaveAs(originalFilePath);
+
+
+                            //////string compressedFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+
+                            //////var ffMpegC = new FFMpegConverter();
+                            //////ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
+
+                            //////if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName)))
+                            //////{
+                            //////    System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName));
+
+                            //////}
+
+                            /// end temp closed
+
                             //Thumbnails Image save
                             //if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
                             //{
