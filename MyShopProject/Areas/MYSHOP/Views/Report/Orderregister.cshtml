@@ -29,6 +29,10 @@
         dtFrom.SetValue(d);
         dtTo.SetValue(d);
 
+        //Rev 4.0
+        gridorderregister.Refresh();
+        //End of Rev 4.0
+
         var lookup = ASPxClientControl.GetControlCollection().GetByName("StateGridLookup");
         lookup.GetGridView().Refresh();
         var lookup = ASPxClientControl.GetControlCollection().GetByName("StateGridLookup");
