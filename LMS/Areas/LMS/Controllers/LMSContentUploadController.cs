@@ -113,6 +113,20 @@ namespace LMS.Areas.LMS.Controllers
                 Dtls.TopicBasedOnList = TopicBasedOnList;
             }
 
+            ViewBag.CONTENT_TOPICIDS = 0;
+            ViewBag.CONTENT_ID = 0;
+            ViewBag.CONTENT_NAME = "0";
+            ViewBag.TOPIC_NAME = "0";
+
+            if (TempData["TopicID"] != null)
+            {
+                ViewBag.CONTENT_TOPICIDS = Convert.ToInt64(TempData["TopicID"]);
+                ViewBag.CONTENT_ID = Convert.ToInt64(TempData["ContentID"]);
+                ViewBag.CONTENT_NAME = TempData["ContentName"];
+                ViewBag.TOPIC_NAME = TempData["TopicName"];
+
+            }
+
 
             return View(Dtls);
         }
@@ -1158,6 +1172,38 @@ namespace LMS.Areas.LMS.Controllers
             }
 
             return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+         
+        public JsonResult ReturnTopicIdFromQuestion(Int64 TopicID = 0, Int64 ContentID = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "GETRETURNTOPICDETAILS");
+                proc.AddPara("@TOPICID", TopicID);
+                proc.AddPara("@CONTENTID", ContentID);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+
+                if(dt.Rows.Count > 0)
+                {
+                    TempData["TopicID"] = TopicID;
+                    TempData["ContentID"] = ContentID;
+                    TempData["TopicName"] = dt.Rows[0]["TopicName"];
+                    TempData["ContentName"] = dt.Rows[0]["ContentName"];
+                    TempData.Keep();
+                    Success = true;
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+
+            return Json(Success);
         }
 
     }

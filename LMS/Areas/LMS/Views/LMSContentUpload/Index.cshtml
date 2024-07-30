@@ -2800,6 +2800,21 @@
 <script>
     var Is_PageLoad = "Ispageload";
 
+    //var urlKeys = getUrlVars();
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+
+
     var Is_ContentId = "0";
     var Is_ContentTitle = "";
 
@@ -3206,27 +3221,27 @@
                 });
 
                 $('body').on('click', '#btnBackToTopicList', function () {
-                    $('#searchPanel').hide();
-                    $('#contentListing').hide();
+                    //$('#searchPanel').hide();
+                    //$('#contentListing').hide();
 
-                    $("#btnShowTotalContents").hide();
-                    $("#btnShowActiveContents").hide();
-                    $("#btnShowInactiveContents").hide();
-                    $("#btnBackToTopicList").hide();
+                    //$("#btnShowTotalContents").hide();
+                    //$("#btnShowActiveContents").hide();
+                    //$("#btnShowInactiveContents").hide();
+                    //$("#btnBackToTopicList").hide();
 
-                    var videoContainer = $('#videoContainer');
-                    videoContainer.empty();
+                    //var videoContainer = $('#videoContainer');
+                    //videoContainer.empty();
 
-                    $("#divTopicList").show();
-                    $("#divTopicName").show();
-                    $("#spTopicName").html('Topics');
+                    //$("#divTopicList").show();
+                    //$("#divTopicName").show();
+                    //$("#spTopicName").html('Topics');
 
-                    $("#pagination").show();
-                    $("#topic-list-search").show();
+                    //$("#pagination").show();
+                    //$("#topic-list-search").show();
 
                     $("#btnshow").show();
 
-
+                    btnshow.click();
                 });
 
                 $('body').on('click', '#btnSearch', function () {
@@ -3488,8 +3503,8 @@
                                                 data: { TopicID: $("#ddlTopic").val() },
                                                 success: function (response) {
                                                     if (response != null && response == true) {
-                                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
-
+                                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
+                                                        AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val() );
                                                     }
                                                     else {
                                                         jAlert('Please try again later.');
@@ -3548,6 +3563,17 @@
 
 
         $(document).ready(function () {
+            //if (urlKeys.TOPICID != undefined && urlKeys.TOPICID != 0) {
+            //    ShowContentListiing(urlKeys.TOPICID, '');
+            //}
+            if (@ViewBag.CONTENT_TOPICIDS != undefined && @ViewBag.CONTENT_TOPICIDS != null && @ViewBag.CONTENT_TOPICIDS !=0)
+            {
+                ShowContentListiing(@ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME');
+                AddQuestionWithContent(@ViewBag.CONTENT_ID, '@ViewBag.CONTENT_NAME', @ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME')
+               
+            }
+
+
             // THUMBNAIL
             $("#fileuploadicon").fileinput({
                 'showUpload': false,
@@ -3827,13 +3853,13 @@
                         <div class="card-body">
                             <div class="card-body-content">
                                 <h5 class="card-title">${item.CONTENTTITLE}</h5>
-                                
+
                                 <div class="card-status ${statusClass} tooltip-container">
-                                
+
                                     <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus}  onchange = "UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${item.CONTENTTITLE}', '${item.CONTENTSTATUS}');" />
                                    ${status} <div class="tooltip">click to ${statusrev}</div></div>
                             </div>
-                            
+
                             <p class="sequence-number"><i class="fa fa-play-circle-o" aria-hidden="true"></i> ${item.CONTENT_PLAYSEQ}</p>
                             <div class="dropdown action-dropdown">
                               <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
@@ -3963,7 +3989,7 @@
                     });
                 }
 
-                
+
             }
 
 
