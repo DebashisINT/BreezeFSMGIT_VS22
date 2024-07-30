@@ -719,18 +719,18 @@
         }
 
 
-        var actionUrlHtml = "";
+        //var actionUrlHtml = "";
 
-        var ApprovalCross = $('#ApprovalCross');
-        ApprovalCross.empty();
+        //var ApprovalCross = $('#ApprovalCross');
+        //ApprovalCross.empty();
 
-        if (urlKeys.key == 'AddOnFly') {
-            actionUrlHtml = `<a href="@Url.Action("Index", "LMSContentUpload")"><i class="fa fa-times"></i></a>` ;
-        }
-        else {
-            actionUrlHtml = `<a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a>`;
-        }
-        ApprovalCross.append(actionUrlHtml);
+        //if (urlKeys.key == 'AddOnFly') {
+        //    actionUrlHtml = `<a href="@Url.Action("Index", "LMSContentUpload")"><i class="fa fa-times"></i></a>` ;
+        //}
+        //else {
+        //    actionUrlHtml = `<a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a>`;
+        //}
+        //ApprovalCross.append(actionUrlHtml);
 
         // End of Rev Sanchita
 
@@ -1253,7 +1253,23 @@
 
                                 }
                                 else {
-                                    window.location.href = '/LMS/LMSContentUpload/Index';
+                                    //window.location.href = '/LMS/LMSContentUpload/Index';
+
+                                    $.ajax({
+                                            type: "POST",
+                                            url: "@Url.Action("ReturnTopicIdFromQuestion", "LMSContentUpload")",
+                                            data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID },
+                                            success: function (response) {
+                                                if (response != null && response == true) {
+                                                    window.location.href = '/LMS/LMSContentUpload/Index';
+                                                }
+                                                else {
+                                                    jAlert('Please try again later.');
+                                                    return false;
+                                                }
+                                            }
+                                    });
+                                    
                                 }
                                 //Swal.fire({
                                 //    title: 'Question Add',
@@ -1336,7 +1352,22 @@
     // Rev Sanchita
     function CancelQuestionAdd() {
         if (urlKeys.key == 'AddOnFly') {
-            window.location.href = '/LMS/LMSContentUpload/Index';
+            //window.location.href = '/LMS/LMSContentUpload/Index?TOPICID=' + urlKeys.TOPICID;
+
+            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ReturnTopicIdFromQuestion", "LMSContentUpload")",
+                    data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            window.location.href = '/LMS/LMSContentUpload/Index';
+                        }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+            });
         }
         else {
             window.location.href = '/LMS/LMSQuestions/Index';
@@ -1350,7 +1381,7 @@
 <div class="breadCumb">
     <span id="titleheader">@ViewBag.PageTitle</span>
     @*<div id="ApprovalCross" class="crossBtnN"><a href="@Url.Action("Index", "LMSQuestions")"><i class="fa fa-times"></i></a></div>*@
-    <div id="ApprovalCross" class="crossBtnN"></div>
+    <div id="ApprovalCross" onclick="CancelQuestionAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3"> 
