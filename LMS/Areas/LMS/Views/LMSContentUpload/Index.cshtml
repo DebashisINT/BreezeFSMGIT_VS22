@@ -2322,7 +2322,8 @@
 
     #msform .action-button-previous {
         position: absolute;
-        right: 40%;
+        /*right: 40%;*/
+        left: 32%;
         bottom: -51px;
         height: 40px;
     }
@@ -2341,6 +2342,10 @@
         cursor: pointer;
         padding: 10px 20px;
         min-height: 40px;
+    }
+
+    .newposition-btn {
+        right: 34% !important;
     }
 
     .upload-btn {
@@ -3495,7 +3500,36 @@
 
                                     }
                                     else {
-                                        window.location.href = '/LMS/LMSContentUpload/Index';
+                                        // window.location.href = '/LMS/LMSContentUpload/Index';
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/LMSContentUpload/GetContentGridListData",
+                                            async: false,
+                                            data: JSON.stringify({ 'TopicId': $("#ddlTopic").val() }),
+                                            contentType: "application/json; charset=utf-8",
+                                            dataType: "json",
+                                            success: function (data) {
+                                                if (data.length > 0) {
+                                                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+
+                                                    allVideosData = data;
+                                                    filteredData = data;
+                                                    displayVideos(filteredData, currentPage);
+
+                                                    $('#searchPanel').show();
+                                                    $('#contentListing').show();
+
+                                                    $("#AddContentModal").modal('hide');
+                                                }
+                                                //hideLoader();
+                                            },
+                                            error: function (response) {
+                                                alert("Please try again later");
+                                                //hideLoader();
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -4845,79 +4879,97 @@
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
     }
-    function UpdateStatusPublish(ContentId, TopicId, ContentTitle, chkStatus) {
-        $.ajax({
-            type: "POST",
-            url: "/LMSContentUpload/UpdateStatusPublish",
-            data: JSON.stringify({ 'ContentId': ContentId, 'TopicId': TopicId, 'ContentTitle': ContentTitle, 'chkStatus': chkStatus}),
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                if (response == "1") {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Status updated successfully.'
-                    }).then(() => {
-                        /*gridLMSContent.Refresh();*/
+    function UpdateStatusPublish(ContentId, TopicId, ContentTitle, chkStatus, statusrev) {
 
-                        $.ajax({
-                            type: "POST",
-                            url: "/LMSContentUpload/GetContentGridListData",
-                            async: false,
-                            data: JSON.stringify({ 'TopicId': TopicId }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                if (data.length > 0) {
-                                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
-                                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
-                                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+        Swal.fire({
+            title: 'Change Status?',
+            text: "Are you sure you want to " + statusrev + "?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/LMSContentUpload/UpdateStatusPublish",
+                    data: JSON.stringify({ 'ContentId': ContentId, 'TopicId': TopicId, 'ContentTitle': ContentTitle, 'chkStatus': chkStatus }),
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Status updated successfully.'
+                            }).then(() => {
+                                /*gridLMSContent.Refresh();*/
 
-                                    allVideosData = data;
-                                    filteredData = data;
-                                    displayVideos(filteredData, currentPage);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/LMSContentUpload/GetContentGridListData",
+                                    async: false,
+                                    data: JSON.stringify({ 'TopicId': TopicId }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        if (data.length > 0) {
+                                            $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                            $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                            $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                                    $('#searchPanel').show();
-                                    $('#contentListing').show();
-                                }
-                                //hideLoader();
-                            },
-                            error: function (response) {
-                                alert("Please try again later");
-                                //hideLoader();
-                            }
+                                            allVideosData = data;
+                                            filteredData = data;
+                                            displayVideos(filteredData, currentPage);
+
+                                            $('#searchPanel').show();
+                                            $('#contentListing').show();
+                                        }
+                                        //hideLoader();
+                                    },
+                                    error: function (response) {
+                                        alert("Please try again later");
+                                        //hideLoader();
+                                    }
+                                });
+
+
+                            });
+                            //GridShow();
+
+
+                        }
+                        else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error in Status Update.'
+                            });
+                            //GridShow();
+
+                        }
+
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred in Status update.'
                         });
-
-
-                    });
-                    //GridShow();
-
-
-                }
-                else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error in Status Update.'
-                    });
-                    //GridShow();
-
-                }
-
-            },
-            error: function (response) {
-                console.log(response);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred in Status update.'
+                    }
                 });
+
             }
         });
+
+
+
     }
 </script>
 
@@ -4950,6 +5002,7 @@
 
         $(".upload-next").click(function () {
             // Rev Sanchita
+
 
             if ($("#txtContentTitle").val().trim() == "") {
                 Swal.fire({
@@ -4991,6 +5044,15 @@
             }
             else {
                 document.getElementById('divFooter').style.visibility = 'visible';
+
+                $("#btnSubmit").addClass("newposition-btn");
+
+                if ($("#hdnAddEditMode").val() == 'ADDCONTENT') {
+                    $("#AddQuestion").hide();
+                }
+                else {
+                    $("#AddQuestion").show();
+                }
 
                 if (animating) return false;
                 animating = true;
@@ -5047,11 +5109,15 @@
             $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
             $("#progressbar li").eq($("fieldset").index(previous_fs)).addClass("active");
 
+            $("#btnSubmit").removeClass("newposition-btn");
+
             if ($("#hdnAddEditMode").val() == 'EDITCONTENT') {
                 document.getElementById('divFooter').style.visibility = 'visible';
+                $("#AddQuestion").show();
             }
             else {
                 document.getElementById('divFooter').style.visibility = 'hidden';
+                $("#AddQuestion").hide();
             }
 
             // Show the previous fieldset
@@ -5405,7 +5471,7 @@
                                 @*<input type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" value="Add Question" />*@
                                 @*<input type="button" name="next" class="upload-next action-button btn-primary" value="Next" onclick="NextButtonClick()" />*@
                         
-                        <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn">
+                        <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" style="display:none">
                             <img src="../../../assests/images/question-add.svg">
                             Add Question
                         </button>
@@ -5494,10 +5560,10 @@
                             @*<input type="submit" class="submit action-button" value="Submit" />*@
                             @*<button type="submit" class="submit action-button">Upload & Exit</button>*@
 
-                            <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn">
+                            @*<button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn">
                                 <img src="../../../assests/images/question-add.svg">
                                 Add Question
-                            </button>
+                            </button>*@
 
                             <button type="button" name="previous" class="upload-previous action-button-previous btn btn-success" onclick="PreviousButtonOnClick()">
                                 <img src="../../../assests/images/previous.svg">
@@ -5750,7 +5816,7 @@
                     </div>
                     <div class="col-lg-2 mb-4" style="height: 60px;">
                         <label> </label>
-                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Published</label></div>
+                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
