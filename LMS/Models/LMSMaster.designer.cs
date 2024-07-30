@@ -1272,7 +1272,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUESTIONS_NAME", DbType="NVarChar(250)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUESTIONS_NAME", DbType="NVarChar(500)")]
 		public string QUESTIONS_NAME
 		{
 			get
@@ -1288,7 +1288,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUESTIONS_DESCRIPTN", DbType="NVarChar(500)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUESTIONS_DESCRIPTN", DbType="NVarChar(1000)")]
 		public string QUESTIONS_DESCRIPTN
 		{
 			get
