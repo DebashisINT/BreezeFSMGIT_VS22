@@ -28,11 +28,13 @@ namespace ShopAPI.Models
         public long topic_id { get; set; }
         public string topic_name { get; set; }
         public int video_count { get; set; }
+        public int no_of_pending_video_count { get; set; }
     }
 
     public class TopicWiseListsInput
     {
         public long topic_id { get; set; }
+        public long user_id { get; set; }
     }
 
     public class TopicWiseListsOutput
@@ -55,6 +57,25 @@ namespace ShopAPI.Models
         public bool isAllowLike { get; set; }
         public bool isAllowComment { get; set; }
         public bool isAllowShare { get; set; }
+        public int no_of_comment { get; set; }
+        public bool like_flag { get; set; }
+        public int share_count { get; set; }
+        public string content_length { get; set; }
+        public string content_watch_length { get; set; }
+        public bool content_watch_completed { get; set; }
+        public string content_last_view_date_time { get; set; }
+        public string WatchStartTime { get; set; }
+        public string WatchEndTime { get; set; }
+        public string WatchedDuration { get; set; }
+        public string Timestamp { get; set; }
+        public string DeviceType { get; set; }
+        public string Operating_System { get; set; }
+        public string Location { get; set; }
+        public string PlaybackSpeed { get; set; }
+        public string Watch_Percentage { get; set; }
+        public int QuizAttemptsNo { get; set; }
+        public decimal QuizScores { get; set; }
+        public bool CompletionStatus { get; set; }
         public List<QuestionlistOutput> question_list { get; set; }
     }
 
@@ -140,6 +161,8 @@ namespace ShopAPI.Models
     {
         public long topic_id { get; set; }
         public long content_id { get; set; }
+        public long commented_user_id { get; set; }
+        public string commented_user_name { get; set; }
         public string comment_id { get; set; }
         public string comment_description { get; set; }
         public string comment_date_time { get; set; }
@@ -188,5 +211,29 @@ namespace ShopAPI.Models
         public int QuizAttemptsNo { get; set; }
         public decimal QuizScores { get; set; }
         public bool CompletionStatus { get; set; }
+    }
+
+    public class CommentListInput
+    {
+        public long topic_id { get; set; }
+        public long content_id { get; set; }
+    }
+
+    public class CommentListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<CommentlistsOutput> comment_list { get; set; }
+    }
+
+    public class CommentlistsOutput
+    {
+        public long topic_id { get; set; }
+        public long content_id { get; set; }
+        public string comment_id { get; set; }
+        public string comment_description { get; set; }
+        public string comment_date_time { get; set; }
+        public long commented_user_id { get; set; }
+        public string commented_user_name { get; set; }
     }
 }
