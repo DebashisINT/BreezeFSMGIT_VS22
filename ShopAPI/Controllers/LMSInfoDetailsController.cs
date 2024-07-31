@@ -96,6 +96,7 @@ namespace ShopAPI.Controllers
                     sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
                     sqlcmd.Parameters.AddWithValue("@ACTION", "TOPICWISELISTS");
                     sqlcmd.Parameters.AddWithValue("@TOPIC_ID", model.topic_id);
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
                     sqlcmd.Parameters.AddWithValue("@AttachmentUrl", AttachmentUrl);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
@@ -109,24 +110,26 @@ namespace ShopAPI.Controllers
                             for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
                             {
                                 //List<ContentlistOutput> Coview = new List<ContentlistOutput>();
+                                List<QuestionlistOutput> Qoview = new List<QuestionlistOutput>();
                                 MultiContent = 1;
                                 for (int k = 0; k < ds.Tables[2].Rows.Count; k++)
                                 {
-                                    List<QuestionlistOutput> Qoview = new List<QuestionlistOutput>();
+                                    //List<QuestionlistOutput> Qoview = new List<QuestionlistOutput>();
+                                    List<OptionlistOutput> Ooview = new List<OptionlistOutput>();
                                     for (int l = 0; l < ds.Tables[3].Rows.Count; l++)
                                     {
-                                        List<OptionlistOutput> Ooview = new List<OptionlistOutput>();
+                                        //List<OptionlistOutput> Ooview = new List<OptionlistOutput>();
                                         if (Convert.ToInt64(ds.Tables[3].Rows[l]["topic_id"]) == Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]) &&
-                                            Convert.ToInt64(ds.Tables[3].Rows[l]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"]) 
-                                            //&&
-                                            //Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"])
+                                            Convert.ToInt64(ds.Tables[3].Rows[l]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"])
+                                            &&
+                                            Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"])
                                             )
                                         {
                                             Ooview.Add(new OptionlistOutput()
                                             {
                                                 question_id = Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]),
                                                 option_id = Convert.ToInt64(ds.Tables[3].Rows[l]["option_id"]),
-                                                option_no_1 = Convert.ToString(ds.Tables[3].Rows [l]["option_no_1"]),
+                                                option_no_1 = Convert.ToString(ds.Tables[3].Rows[l]["option_no_1"]),
                                                 option_point_1 = Convert.ToInt64(ds.Tables[3].Rows[l]["option_point_1"]),
                                                 isCorrect_1 = Convert.ToBoolean(ds.Tables[3].Rows[l]["isCorrect_1"]),
                                                 option_no_2 = Convert.ToString(ds.Tables[3].Rows[l]["option_no_2"]),
@@ -140,7 +143,7 @@ namespace ShopAPI.Controllers
                                                 isCorrect_4 = Convert.ToBoolean(ds.Tables[3].Rows[l]["isCorrect_4"])
                                             });
                                         }
-
+                                    }
                                         if (Convert.ToInt64(ds.Tables[1].Rows[j]["topic_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["topic_id"]) &&
                                         Convert.ToInt64(ds.Tables[1].Rows[j]["content_id"]) == Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"])
                                         //&&
@@ -151,12 +154,12 @@ namespace ShopAPI.Controllers
                                             {
                                                 topic_id = Convert.ToInt64(ds.Tables[2].Rows[k]["topic_id"]),
                                                 content_id = Convert.ToInt64(ds.Tables[2].Rows[k]["content_id"]),
-                                                //question_id = Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"]),
-                                                //question = Convert.ToString(ds.Tables[2].Rows[k]["question"]),
-                                                //question_description = Convert.ToString(ds.Tables[2].Rows[k]["question_description"]),
-                                                question_id = Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]),
-                                                question = Convert.ToString(ds.Tables[3].Rows[l]["question"]),
-                                                question_description = Convert.ToString(ds.Tables[3].Rows[l]["question_description"]),
+                                                question_id = Convert.ToInt64(ds.Tables[2].Rows[k]["question_id"]),
+                                                question = Convert.ToString(ds.Tables[2].Rows[k]["question"]),
+                                                question_description = Convert.ToString(ds.Tables[2].Rows[k]["question_description"]),
+                                                //question_id = Convert.ToInt64(ds.Tables[3].Rows[l]["question_id"]),
+                                                //question = Convert.ToString(ds.Tables[3].Rows[l]["question"]),
+                                                //question_description = Convert.ToString(ds.Tables[3].Rows[l]["question_description"]),
                                                 option_list = Ooview
                                             });
                                         }
@@ -176,11 +179,30 @@ namespace ShopAPI.Controllers
                                             isAllowLike = Convert.ToBoolean(ds.Tables[1].Rows[j]["isAllowLike"]),
                                             isAllowComment = Convert.ToBoolean(ds.Tables[1].Rows[j]["isAllowComment"]),
                                             isAllowShare = Convert.ToBoolean(ds.Tables[1].Rows[j]["isAllowShare"]),
+                                            no_of_comment = Convert.ToInt32(ds.Tables[1].Rows[j]["no_of_comment"]),
+                                            like_flag = Convert.ToBoolean(ds.Tables[1].Rows[j]["like_flag"]),
+                                            share_count = Convert.ToInt32(ds.Tables[1].Rows[j]["share_count"]),
+                                            content_length= Convert.ToString(ds.Tables[1].Rows[j]["content_length"]),
+                                            content_watch_length = Convert.ToString(ds.Tables[1].Rows[j]["content_watch_length"]),
+                                            content_watch_completed = Convert.ToBoolean(ds.Tables[1].Rows[j]["content_watch_completed"]),
+                                            content_last_view_date_time = Convert.ToString(ds.Tables[1].Rows[j]["content_last_view_date_time"]),
+                                            WatchStartTime = Convert.ToString(ds.Tables[1].Rows[j]["WatchStartTime"]),
+                                            WatchEndTime = Convert.ToString(ds.Tables[1].Rows[j]["WatchEndTime"]),
+                                            WatchedDuration = Convert.ToString(ds.Tables[1].Rows[j]["WatchedDuration"]),
+                                            Timestamp = Convert.ToString(ds.Tables[1].Rows[j]["Timestamp"]),
+                                            DeviceType = Convert.ToString(ds.Tables[1].Rows[j]["DeviceType"]),
+                                            Operating_System = Convert.ToString(ds.Tables[1].Rows[j]["Operating_System"]),
+                                            Location = Convert.ToString(ds.Tables[1].Rows[j]["Location"]),
+                                            PlaybackSpeed = Convert.ToString(ds.Tables[1].Rows[j]["PlaybackSpeed"]),
+                                            Watch_Percentage = Convert.ToString(ds.Tables[1].Rows[j]["Watch_Percentage"]),
+                                            QuizAttemptsNo = Convert.ToInt32(ds.Tables[1].Rows[j]["QuizAttemptsNo"]),
+                                            QuizScores = Convert.ToDecimal(ds.Tables[1].Rows[j]["QuizScores"]),
+                                            CompletionStatus = Convert.ToBoolean(ds.Tables[1].Rows[j]["CompletionStatus"]),
                                             question_list = Qoview
                                         });
                                     }
                                     MultiContent = 0;
-                                }
+                                //}
                                 if (ds.Tables[2].Rows.Count == 0 || ds.Tables[3].Rows.Count == 0)
                                 {
                                     Coview = APIHelperMethods.ToModelList<ContentlistOutput>(ds.Tables[1]);
@@ -302,6 +324,8 @@ namespace ShopAPI.Controllers
                         {
                             topic_id = s2.topic_id,
                             content_id = s2.content_id,
+                            commented_user_id = s2.commented_user_id,
+                            commented_user_name = s2.commented_user_name,
                             comment_id = s2.comment_id,
                             comment_description = s2.comment_description,
                             comment_date_time = s2.comment_date_time
@@ -401,6 +425,56 @@ namespace ShopAPI.Controllers
                         Tview = APIHelperMethods.ToModelList<LearningContentInfolistOutput>(ds.Tables[0]);
                         omodel.user_id = model.user_id;
                         omodel.learning_content_info_list = Tview;
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage CommentLists(CommentListInput model)
+        {
+            CommentListOutput omodel = new CommentListOutput();
+            List<CommentlistsOutput> Cview = new List<CommentlistsOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "COMMENTLIST");
+                    sqlcmd.Parameters.AddWithValue("@TOPIC_ID", model.topic_id);
+                    sqlcmd.Parameters.AddWithValue("@CONTENT_ID", model.content_id);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        Cview = APIHelperMethods.ToModelList<CommentlistsOutput>(ds.Tables[0]);
+                        omodel.comment_list = Cview;
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
