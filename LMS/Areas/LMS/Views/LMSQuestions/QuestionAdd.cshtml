@@ -192,7 +192,10 @@
         background: #fff;
         box-shadow: none;
     }
-
+    
+    #TopicGridLookup_I {
+        font-weight: 700 !important;
+    }
     .daterangepicker td.active, .daterangepicker td.active:hover {
         background-color: #175396;
     }
@@ -715,6 +718,7 @@
         // Rev Sanchita
         if (urlKeys.key == 'AddOnFly') {
             TOPIC_ID = urlKeys.TOPICID;
+           // document.getElementById('TopicGridLookup_I').className = 'bold';
             TopicGridLookup.SetEnabled(false);
         }
 
@@ -807,8 +811,14 @@
 
     //if (urlKeys.key != 'Add') {
     if (urlKeys.key != 'Add' && urlKeys.key != 'AddOnFly' ) {
+
+        //document.getElementById("TopicGridLookup_I").style.fontSize = "larger";
+       //$("#TopicGridLookup_I").addClass("bold");
+       //  //document.getElementById('TopicGridLookup_I').className = 'bold';
         // End of Rev Sanchita
        // $("#titleheader").va("Modify Question");
+
+
         QuestionID = urlKeys.key;
         $("#hdnIDADd").val(QuestionID);
         if (QuestionID != 0) {
