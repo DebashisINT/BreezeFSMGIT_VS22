@@ -133,8 +133,12 @@ namespace LMS.Models
     }
     public class QuestionMappedViewModel
     {
+        public string QUESTIONS_ID { get; set; }
         public string QUESTIONS_NAME { get; set; }
         public string QUESTIONS_DESCRIPTN { get; set; }
+        public string CONTENT_TOPICID { get; set; }
+        public string CONTENTID { get; set; }
+
     }
 
     

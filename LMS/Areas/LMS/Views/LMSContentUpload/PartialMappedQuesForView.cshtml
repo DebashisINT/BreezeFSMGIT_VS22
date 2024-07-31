@@ -56,6 +56,27 @@
 
     });
 
+    settings.Columns.Add(x =>
+    {
+        x.SetDataItemTemplateContent(tc =>
+        {
+        ViewContext.Writer.Write(
+            "<div class=''><a href=\"javascript:void(0);\" onclick=\"EditQuestion('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "QUESTIONS_ID")) + "', '" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "', '"+ Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENT_TOPICID")) + "')\" class=\"\" title=\"Edit Question\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a></div>"
+            );
+    });
+
+    x.Settings.AllowDragDrop = DefaultBoolean.False;
+    x.Settings.AllowSort = DefaultBoolean.False;
+    //x.Width = 100;
+    x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    x.Caption = "Action";
+
+
+
+});
+
 }).Bind(Model).GetHtml()
 
 

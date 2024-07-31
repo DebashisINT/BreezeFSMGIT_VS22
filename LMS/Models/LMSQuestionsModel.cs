@@ -49,12 +49,20 @@ namespace LMS.Models
 
             try
             {
+                // Rev Sanchita
+                if (MODE == "AddOnFly")
+                {
+                    ID = "0";
+                }
+                // End of Rev Sanchita
+
                 DataTable dt = new DataTable();
                 String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_LMS_QUESTIONS", sqlcon);
+
                 if (ID == "0")
                     sqlcmd.Parameters.AddWithValue("@ACTION", "ADD");
                 else
