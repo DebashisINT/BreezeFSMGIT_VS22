@@ -900,9 +900,6 @@
 
 
 
-
-
-
     function CategorySelectionChanged(s, e) {
         CategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetSelectedFieldValuesCallbackCategory);
     }
@@ -1242,7 +1239,7 @@
                             // Rev Sanchita
                             //var url = "/LMS/LMSQuestions/Index";
                             //window.location.href = url;
-                            if (urlKeys.key == 'AddOnFly') {
+                            if (urlKeys.key == 'AddOnFly' || urlKeys.TOPICID > 0 ) {
 
                                 if (mode == "New") {
                                             $.ajax({
@@ -1361,7 +1358,7 @@
 
     // Rev Sanchita
     function CancelQuestionAdd() {
-        if (urlKeys.key == 'AddOnFly') {
+        if (urlKeys.key == 'AddOnFly' || urlKeys.TOPICID > 0) {
             //window.location.href = '/LMS/LMSContentUpload/Index?TOPICID=' + urlKeys.TOPICID;
 
             $.ajax({
