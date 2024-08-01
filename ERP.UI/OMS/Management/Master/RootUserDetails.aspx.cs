@@ -24,7 +24,7 @@
  * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
  * 14.0               18-06-2024       V2.0.47           Sanchita         27436: Please create a global settings IsShowDateWiseOrderInApp   
  * 15.0               21-06-2024       V2.0.48           Sanchita         0027564: The default value should be zero for some of Global & User wise setting in FSM
- * 16.0               04-07-2024       V2.0.48           Sanchita         27575: Two new global and user settings are required as 'ShowLMSMenu' and 'IsLMSFeatureOnly'        
+ * 16.0               04-07-2024       V2.0.48           Sanchita         27575: Two new global and user settings are required as 'ShowLMSMenu' and 'IsUserWiseLMSFeatureOnly'        
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2555,13 +2555,13 @@ namespace ERP.OMS.Management.Master
                 {
                     chkShowLMSMenu.Checked = false;
                 }
-                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsLMSFeatureOnly"]) == true)
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsUserWiseLMSFeatureOnly"]) == true)
                 {
-                    chkIsLMSFeatureOnly.Checked = true;
+                    chkIsUserWiseLMSFeatureOnly.Checked = true;
                 }
                 else
                 {
-                    chkIsLMSFeatureOnly.Checked = false;
+                    chkIsUserWiseLMSFeatureOnly.Checked = false;
                 }
                 // End of Rev 15.0
 
@@ -3006,7 +3006,7 @@ namespace ERP.OMS.Management.Master
                 // End of Rev 14.0
                 // Rev 15.0
                 int ShowLMSMenu = 0;
-                int IsLMSFeatureOnly = 0;
+                int IsUserWiseLMSFeatureOnly = 0;
                 // End of Rev 15.0
 
                 if (chkIsActive.Checked == true)
@@ -4535,10 +4535,10 @@ namespace ERP.OMS.Management.Master
                     ShowLMSMenu = 1;
                 else
                     ShowLMSMenu = 0;
-                if (chkIsLMSFeatureOnly.Checked == true)
-                    IsLMSFeatureOnly = 1;
+                if (chkIsUserWiseLMSFeatureOnly.Checked == true)
+                    IsUserWiseLMSFeatureOnly = 1;
                 else
-                    IsLMSFeatureOnly = 0;
+                    IsUserWiseLMSFeatureOnly = 0;
                 // End of Rev Sanchita
 
 
@@ -4922,7 +4922,7 @@ namespace ERP.OMS.Management.Master
                             // End of Rev 14.0
                             // Rev 15.0
                             proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
-                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
@@ -5383,7 +5383,7 @@ namespace ERP.OMS.Management.Master
                             // End of Rev 14.0
                             // Rev 15.0
                             proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
-                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
@@ -5839,7 +5839,7 @@ namespace ERP.OMS.Management.Master
                             // End of Rev 14.0
                             // Rev 15.0
                             proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
-                            proc.AddPara("@IsLMSFeatureOnly", IsLMSFeatureOnly);
+                            proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
                             DataTable dt = proc.GetTable();
@@ -8034,15 +8034,15 @@ namespace ERP.OMS.Management.Master
                             divShowLMSMenu.Style.Add("display", "none");
                         }
                     }
-                    else if (Convert.ToString(dr["key"]) == "IsLMSFeatureOnly")
+                    else if (Convert.ToString(dr["key"]) == "IsUserWiseLMSFeatureOnly")
                     {
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
-                            divIsLMSFeatureOnly.Style.Add("display", "table-cell");
+                            divIsUserWiseLMSFeatureOnly.Style.Add("display", "table-cell");
                         }
                         else
                         {
-                            divIsLMSFeatureOnly.Style.Add("display", "none");
+                            divIsUserWiseLMSFeatureOnly.Style.Add("display", "none");
                         }
                     }
                     // End of Rev 15.0
