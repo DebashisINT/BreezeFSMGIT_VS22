@@ -3273,6 +3273,10 @@
                     //$("#pagination").show();
                     //$("#topic-list-search").show();
 
+                    // Rev Sanchita
+                    $("#ddlTopic").val(0).trigger('change');
+                    $("#hdnTopicID").val(0);
+                    // End of Rev Sanchita
                     $("#btnshow").show();
 
                     $('#searchInput').val('');
@@ -3810,6 +3814,10 @@
         $("#btnBackToTopicList").show();
         $("#btnshow").hide();
 
+        // Rev Sanchita
+        $("#hdnTopicID").val(TopicId);
+        // End of Rev Sanchita
+
         allVideosData = [];
         filteredData = [];
         currentPage = 1;
@@ -4127,7 +4135,7 @@
         $("#hdnContentID").val(0);
         $("#txtContentTitle").val('');
         $("#txtContentDesc").val('');
-        $("#ddlTopic").val(0);
+        //$("#ddlTopic").val(0);
         //LMSTopicGridLookup.SetValue();
         $("#numPlaySequence").val(1);
         $("#chkStatus").prop("checked", false);
@@ -4145,6 +4153,13 @@
         $('#file-name-icon').text('');
         filePreviewicon.innerHTML = '';
         $('#fileuploadicon').fileinput('clear');
+
+        if ($("#hdnTopicID").val() != undefined && $("#hdnTopicID").val() > 0) {
+            $("#ddlTopic").val($("#hdnTopicID").val()).trigger('change');
+        }
+        else {
+            $("#ddlTopic").val(0).trigger('change');
+        }
 
         $("#AddContentModal").modal('show');
 
@@ -4217,7 +4232,7 @@
 
                 $("#txtContentTitle").val(data[0].ContentTitle);
                 $("#txtContentDesc").val(data[0].ContentDesc);
-                $("#ddlTopic").val(data[0].TopicIds).trigger('change');;
+                $("#ddlTopic").val(data[0].TopicIds).trigger('change');
                 $("#numPlaySequence").val(data[0].PlaySequence);
                 $("#chkStatus").prop("checked", data[0].Status);
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
@@ -4458,6 +4473,28 @@
                  }
              }
      });
+    }
+
+    function EditQuestion(QusetionId, ContentId, TopicId)
+    {
+        if (parseInt(QusetionId) > 0)
+        {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
+                data: { ID: QusetionId, IsView: 0 },
+                success: function (response) {
+                    if (response != null && response == true) {
+                        var url = '/LMS/LMSQuestions/QuestionAdd?key=' + QusetionId + '&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
+                        window.location.href = url;
+                    }
+                    else {
+                        jAlert('Please try again later.');
+                        return false;
+                    }
+                }
+            });
+        }
     }
 
     var SelectedQuestionMapList;

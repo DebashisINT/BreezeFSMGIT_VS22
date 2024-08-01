@@ -349,34 +349,7 @@ namespace LMS.Areas.LMS.Controllers
                         }
                     }
 
-                    if (IsValid == 1 && fileuploadicon != null)
-                    {
-
-                        fileNameicon = Path.GetFileName(fileuploadicon.FileName);
-                        fileSizeicon = fileuploadicon.ContentLength;
-                        //int Size = fileSize / 1000;
-                        FileTypeicon = System.IO.Path.GetExtension(fileNameicon);
-
-
-                        if (!allowedExtensionsicon.Contains(FileTypeicon.ToLower()))
-                        {
-                            IsValid = 0;
-                            RETURN_VALUE = "Invalid thumbnail file. Only .jpg types of files shall be supported.";
-                        }
-                        else
-                        {
-                            if (fileSizeicon > (1024 * 1024)) 
-                            {
-                                IsValid = 0;
-                                RETURN_VALUE = "Maximum thumbnail file size shall be 1MB.";
-                            }
-                            else
-                            {
-                                IsValid = 1;
-
-                            }
-                        }
-                    }
+                    
 
                 }
                 else
@@ -392,6 +365,35 @@ namespace LMS.Areas.LMS.Controllers
                         hdnFileDuration = "0";
                     }
                     
+                }
+
+                if (IsValid == 1 && fileuploadicon != null)
+                {
+
+                    fileNameicon = Path.GetFileName(fileuploadicon.FileName);
+                    fileSizeicon = fileuploadicon.ContentLength;
+                    //int Size = fileSize / 1000;
+                    FileTypeicon = System.IO.Path.GetExtension(fileNameicon);
+
+
+                    if (!allowedExtensionsicon.Contains(FileTypeicon.ToLower()))
+                    {
+                        IsValid = 0;
+                        RETURN_VALUE = "Invalid thumbnail file. Only .jpg types of files shall be supported.";
+                    }
+                    else
+                    {
+                        if (fileSizeicon > (1024 * 1024))
+                        {
+                            IsValid = 0;
+                            RETURN_VALUE = "Maximum thumbnail file size shall be 1MB.";
+                        }
+                        else
+                        {
+                            IsValid = 1;
+
+                        }
+                    }
                 }
 
                 if (hdnFileDuration == "")
@@ -435,9 +437,14 @@ namespace LMS.Areas.LMS.Controllers
                     {
                         _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileName(fileNameicon.Replace(' ', '_')) );
                     }
-                    else
+                    else if (fileName != "")
                     {
                         _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
+
+                    }
+                    else
+                    {
+                        _thumbnailPath = "";
                     }
                     
 
@@ -500,31 +507,33 @@ namespace LMS.Areas.LMS.Controllers
 
                             /// end temp closed
 
-                            //Thumbnails Image save
-                            //if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
-                            //{
-                            //    // If Folder doesnot exists, CREATE the folder
-                            //    System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
-                            //}
-
-                            if (fileNameicon != "")
-                            {
-                                // Upload thumbnail
-                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileName(fileNameicon.Replace(' ', '_')) );
-                                fileuploadicon.SaveAs(thumbnailPath);
-                            }
-                            else
-                            {
-                                // Auto generate Thumbnail
-                                var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
-                                var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
-                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                                ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
-                            }
-
-                            //Thumbnails Image save End
+                            
 
                         }
+
+                        //Thumbnails Image save
+                        //if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
+                        //{
+                        //    // If Folder doesnot exists, CREATE the folder
+                        //    System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
+                        //}
+
+                        if (fileNameicon != null && fileNameicon != "")
+                        {
+                            // Upload thumbnail
+                            var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileName(fileNameicon.Replace(' ', '_')));
+                            fileuploadicon.SaveAs(thumbnailPath);
+                        }
+                        else if (fileName != null && fileName != "")
+                        {
+                            // Auto generate Thumbnail
+                            var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
+                            var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileNameWithoutExtension(fileName.Replace(' ', '_')) + ".jpg");
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            ffMpeg.GetVideoThumbnail(videoPath, thumbnailPath);
+                        }
+
+                        //Thumbnails Image save End
 
                         // Send Notification
                         if (chkStatus == "1")  // If published
