@@ -36,6 +36,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -737,7 +740,7 @@
     .pmsModal .modal-body {
         padding: 0;
         padding-bottom: 60px;
-        z-index:0;
+        z-index: 0;
     }
 
         .pmsModal .modal-body .col-md-3, .pmsModal .modal-body .col-md-6, .pmsModal .modal-body .col-md-12 {
@@ -1144,7 +1147,7 @@
         padding-right: 0px !important;
         padding-left: 0px !important;
         color: #fff;
-        padding-top: 12px !important;
+        padding-top: 8px !important;
         padding-bottom: 0px !important;
         overflow: hidden !important;
         transition: all .2s ease-in-out;
@@ -1158,8 +1161,8 @@
     }
 
     .topic-name-list {
-        padding: 0px 15px 10px;
-        min-height: 60px;
+        padding: 0px 10px 40px;
+        min-height: 100px;
         white-space: break-spaces;
         text-align: left;
         display: flex;
@@ -1168,82 +1171,87 @@
     }
 
     .btn-topic-list h5 {
-        
         font-size: 16px;
         line-height: 22px;
         color: #fff !important;
-        
     }
 
     .topic-name-list-icon {
-        width: 35px;
-        height: 35px;
+        width: 52px;
+        height: 48px;
         margin-right: 8px;
-        background: #ffffff30;
+        background: #ffffff;
         padding: 5px;
-        border-radius: 50px;
+        border-radius: 10px;
         text-align: center;
-        line-height: 23px;
+        line-height: 37px;
+        box-shadow: 1px 1px 12px #1111114d;
     }
 
-    .list-topic-name
-    {
+    .list-topic-name {
         width: 82%;
     }
 
     .topic-name-list img {
-        width: 20px;
-        height: 20px;
+        width: 35px;
+        height: 35px;
         /*margin-right: 8px;
         background: #ffffff30;
         padding: 5px;
         border-radius: 50px;*/
     }
 
-            .btn-topic-list h5 span {
-                display: block;
-                font-size: 14px;
-                font-weight: 500;
-            }
+    .btn-topic-list h5 span {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+    }
 
     .list-topic-content-count {
         /*background: #069363;*/
-        width: 100%;
-        padding: 12px 15px;
+        /* width: 100%; */
+        padding: 8px 12px;
         white-space: break-spaces;
         text-align: left;
         font-size: 14px;
         /* line-height: 3px; */
         display: flex;
+        position: absolute;
+        bottom: 0px;
+        right: 0;
+        background: #f5d834;
+        border-radius: 12px 0 0px 0;
+        color: #111;
+        box-shadow: 1px 1px 20px #11111159;
     }
 
         .list-topic-content-count span {
-            font-size: 40px !important;
+            font-size: 32px !important;
             line-height: 24px !important;
-            color: #edf61c !important;
+            color: #222222 !important;
             font-family: Billy-Ohio;
-            font-weight: 500;
+            font-weight: 600;
             height: 20px;
             letter-spacing: 1px;
             margin-left: 4px;
         }
 
-        .btn-total.active {
-            background-color: rgb(10 63 166 / 100%) !important;
+    .btn-total.active {
+        background-color: rgb(10 63 166 / 100%) !important;
+    }
+
+
+
+        .btn-total.active h5 {
+            color: #fff;
         }
 
+    .btn-total:hover {
+        background-color: rgb(10 63 166) !important;
+        color: #fff !important;
+    }
 
-
-            .btn-total.active h5 {
-                color: #fff;
-            }
-
-        .btn-total:hover {
-            background-color: rgb(10 63 166) !important;
-            color: #fff !important;
-        }
-
-   /* .btn-topic-list:hover {
+        /* .btn-topic-list:hover {
         background-color: rgb(5 115 70) !important;
         color: #fff !important;
     }*/
@@ -1553,7 +1561,7 @@
             width: 48% !important;
         }
     }
-    
+
 
     .mainWraper select[multiple], select[size] {
         height: auto !important;
@@ -1639,6 +1647,7 @@
         /*box-shadow: 1px 1px 20px #062e6f21;*/
         margin-bottom: 30px;
         background: #2f90ca;
+        cursor: grab;
     }
 
         .video-card .card-img-top {
@@ -1676,17 +1685,17 @@
         width: 20%;
     }
 
-        .video-card .card-text {
-            margin-bottom: 15px;
-        }
+    .video-card .card-text {
+        margin-bottom: 15px;
+    }
 
-        .video-card .card-buttons button {
-            margin: 5px;
-        }
+    .video-card .card-buttons button {
+        margin: 5px;
+    }
 
-        .video-card .badge-success {
-            background-color: #28a745;
-        }
+    .video-card .badge-success {
+        background-color: #28a745;
+    }
 
     .card-buttons .btn {
         background: transparent;
@@ -1716,15 +1725,16 @@
         justify-content: flex-start;
     }
 
-        .content-search-box #searchInput {
+        .content-search-box #searchInput-content {
             width: 60%;
             height: 38px;
-            border-radius: 6px 0 0 6px;
+            border-radius: 8px;
         }
 
         .content-search-box #btnSearch {
             border-radius: 0 6px 6px 0;
         }
+
 
     .pagination {
         display: flex;
@@ -1734,6 +1744,7 @@
         list-style: none;
         border-radius: 4px;
     }
+
     .topic-list-pagination {
         display: flex;
         justify-content: center;
@@ -1748,14 +1759,14 @@
         margin: 0 2px;
     }
 
-            .pagination li a {
-                color: #000;
-                background-color: #f5f5f5;
-                border: 1px solid #ddd;
-                padding: 6px 12px;
-                text-decoration: none;
-                border-radius: 4px;
-            }
+        .pagination li a {
+            color: #000;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
 
     .topic-list-pagination button {
         color: #000;
@@ -1797,8 +1808,7 @@
         margin-top: 12px;
     }
 
-    .btn.fileinput-remove
-    {
+    .btn.fileinput-remove {
         margin-left: 0 !important;
     }
 
@@ -1850,7 +1860,6 @@
     }
 
     .card-status .tooltip::after {
-
         border-color: #4f0d8f transparent transparent transparent !important;
     }
 
@@ -1889,17 +1898,17 @@
         color: #098941;
     }
 
-    .flex-label a i {
-        background: #098941;
-        color: #fff;
-        width: 16px;
-        height: 16px;
-        text-align:center;
-        line-height: 17px;
-        font-size: 12px;
-        border-radius: 50%;
-        margin-right: 3px;
-    }
+        .flex-label a i {
+            background: #098941;
+            color: #fff;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            line-height: 17px;
+            font-size: 12px;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
 
     .flex-label {
         display: flex;
@@ -1912,8 +1921,7 @@
         background: transparent !important;
     }
 
-    .pmsModal .modal-content
-    {
+    .pmsModal .modal-content {
         overflow: hidden;
     }
 
@@ -2025,24 +2033,21 @@
         #progressbar li {
             list-style-type: none;
             color: #666;
-
             font-size: 9px;
             width: 50%;
             float: left;
             position: relative;
             letter-spacing: 1px;
-            text-align:center;
+            text-align: center;
         }
 
-            #progressbar li h5
-            {
+            #progressbar li h5 {
                 font-size: 16px;
                 color: #111;
                 margin-top: 2px;
             }
 
-            #progressbar li span
-            {
+            #progressbar li span {
                 font-size: 12px;
             }
 
@@ -2096,8 +2101,7 @@
     }*/
 
 
-    .example
-    {
+    .example {
         top: 50%;
         transform: translateY(-50%);
     }
@@ -2229,14 +2233,14 @@
             margin-right: 2px;
         }
 
-        .thumbnail-box .btn
-        {
+        .thumbnail-box .btn {
             margin: 5px 0;
         }
 
     .text-muted {
-        color: #6f6f6f !important;
+        color: #494949 !important;
         font-size: 12px;
+        font-weight: 600;
     }
 
     .action-dropdown .dropdown-toggle {
@@ -2273,10 +2277,9 @@
             border-bottom: 1px solid #efefef;
         }
 
-        .action-dropdown .dropdown-menu li:last-child
-        {
-            border: none;
-        }
+            .action-dropdown .dropdown-menu li:last-child {
+                border: none;
+            }
 
         .action-dropdown .dropdown-menu > li > a {
             font-size: 16px;
@@ -2284,10 +2287,9 @@
             cursor: pointer;
         }
 
-    #btnShowAll img
-    {
-        width:20px;
-        margin-right:5px;
+    #btnShowAll img {
+        width: 20px;
+        margin-right: 5px;
     }
 
     .card-status {
@@ -2305,8 +2307,7 @@
             /*color: #fff;*/
         }
 
-    .file-caption-main
-    {
+    .file-caption-main {
         display: none;
     }
 
@@ -2355,10 +2356,9 @@
         border-radius: 10px;
     }
 
-    .upload-btn img
-    {
-        width: 20px;
-    }
+        .upload-btn img {
+            width: 20px;
+        }
 
     .custom-file {
         text-align: center;
@@ -2395,7 +2395,6 @@
         }
 
     .add-new-btn {
-        
         -webkit-animation: pulse 1s;
         animation: pulse-afct 1s;
         box-shadow: 0 0 0 20px transparent;
@@ -2403,20 +2402,19 @@
         animation-iteration-count: infinite;
     }
 
-@@-webkit-keyframes pulse-afct {
-    0% {
-        box-shadow: 0 0 0 0 #164f929e;
+    @@-webkit-keyframes pulse-afct {
+        0% {
+            box-shadow: 0 0 0 0 #164f929e;
+        }
     }
-}
 
-@@keyframes pulse-afct {
-    0% {
-        box-shadow: 0 0 0 0 #164f929e;
+    @@keyframes pulse-afct {
+        0% {
+            box-shadow: 0 0 0 0 #164f929e;
+        }
     }
-}
 
-    #AddQuestionMapModal .modal-title
-    {
+    #AddQuestionMapModal .modal-title {
         color: #111;
         font-size: 24px;
     }
@@ -2426,8 +2424,7 @@
         border-bottom: 1px solid #d5d5d5;
     }
 
-    .map-content-title
-    {
+    .map-content-title {
         font-size: 20px;
         margin-bottom: 10px;
     }
@@ -2446,8 +2443,7 @@
         border-top: 1px solid #c0c0c0;
     }
 
-    .transfer-double
-    {
+    .transfer-double {
         background: transparent;
     }
 
@@ -2478,7 +2474,6 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-
 </style>
 
 <style>
@@ -2561,8 +2556,7 @@
         max-width: 100%;
     }
 
-    #filePreview video
-    {
+    #filePreview video {
         width: 100%;
         height: 300px;
     }
@@ -2603,11 +2597,10 @@
         justify-content: center;
     }
 
-    .flex-toggle label
-    {
-        margin-bottom: 0;
-        margin-right: 5px;
-    }
+        .flex-toggle label {
+            margin-bottom: 0;
+            margin-right: 5px;
+        }
 
     .topic-list {
         display: flex;
@@ -2615,10 +2608,11 @@
         padding: 0;
     }
 
-        .topic-list .btn
-        {
+        .topic-list .btn {
             margin-bottom: 0px;
             margin-right: 0px;
+            position: relative;
+            border: none;
         }
 
     .mLoader {
@@ -2657,7 +2651,7 @@
         border-radius: 10px 10px 0 0;
     }
 
-        /*.video-card-img img {
+    /*.video-card-img img {
             width: 100%;
         }*/
 
@@ -2702,17 +2696,15 @@
         box-shadow: -1px 1px 10px #11111152;
     }
 
-    .sequence-number i
-    {
-        margin-right: 2px;
-    }
+        .sequence-number i {
+            margin-right: 2px;
+        }
 
     #videoContainer .col-md-3 {
         width: 20% !important;
     }
 
-    .card-status input
-    {
+    .card-status input {
         position: absolute;
         z-index: 2;
         width: 100%;
@@ -2723,7 +2715,7 @@
         margin-top: 0;
     }
 
-    .topic-not-found {
+    .topic-not-found, #noDataMessage {
         text-align: center;
         width: 100%;
         font-size: 20px;
@@ -2754,16 +2746,15 @@
             background: #8a4e04;
         }
 
-        .file-name-icon {
-            word-wrap: break-word;
-        }
+    .file-name-icon {
+        word-wrap: break-word;
+    }
 
     .krajee-default.file-preview-frame {
         width: 95%;
     }
 
-        .krajee-default.file-preview-frame .kv-file-content
-        {
+        .krajee-default.file-preview-frame .kv-file-content {
             width: 100%;
         }
 
@@ -2781,13 +2772,11 @@
         padding-right: 10px !important;
     }
 
-    .dxgvHSDC
-    {
+    .dxgvHSDC {
         padding-right: 0 !important;
     }
 
-        .dxgvHSDC > div
-        {
+        .dxgvHSDC > div {
             width: 100% !important;
         }
 
@@ -2795,9 +2784,52 @@
         overflow: visible;
     }
 
+    #topic-list-search {
+        width: 300px;
+        margin-left: 30px;
+    }
+
+    .list-topic-content-count img {
+        width: 19px;
+        margin-right: 5px;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 34px;
+        /*padding: 6px 12px;*/
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 34px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 32px;
+            width: 23px;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                border-width: 7px 5px 0 5px;
+            }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered:focus-visible,
+        .select2-container--default .select2-selection--single {
+            box-shadow: none;
+            outline: none;
+        }
 </style>
 
 <script>
+
+
+
+
     var Is_PageLoad = "Ispageload";
 
     //var urlKeys = getUrlVars();
@@ -2845,6 +2877,8 @@
     var activeFilter = 'all';
 
     $(function () {
+
+
 
         //$('body').on('click', '#btnshow', function () {
 
@@ -3053,7 +3087,7 @@
 
                                 $('.topic-list').empty();
 
-                                var colors = ['#467f58', '#3c6e87', '#a3804b', '#8b3c73', '#387881', '#914a5a', '#663986', '#43469c'];
+                                var colors = ['#07AF82', '#3c6e87', '#a3804b', '#8b3c73', '#4f7c0d', '#914a5a', '#6F0CD9', '#43469c'];
                                 var icons = [
                                     '../../../assests/images/topic-icon-1.svg',
                                     '../../../assests/images/topic-icon-2.svg',
@@ -3068,30 +3102,30 @@
                                 var colorIndex = 0;
                                 var iconIndex = 0;
 
-                                function hexToRgba(hex, opacity) {
-                                    var bigint = parseInt(hex.slice(1), 16);
-                                    var r = (bigint >> 16) & 255;
-                                    var g = (bigint >> 8) & 255;
-                                    var b = bigint & 255;
+                                //function hexToRgba(hex, opacity) {
+                                //    var bigint = parseInt(hex.slice(1), 16);
+                                //    var r = (bigint >> 16) & 255;
+                                //    var g = (bigint >> 8) & 255;
+                                //    var b = bigint & 255;
 
-                                    return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-                                }
+                                //    return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
+                                //}
 
                                 topics.forEach(function (topic) {
                                     var color = colors[colorIndex];
                                     var icon = icons[iconIndex];
                                     colorIndex = (colorIndex + 1) % colors.length;
                                     iconIndex = (iconIndex + 1) % icons.length;
-                                    var rgbaColor = hexToRgba(color, 0.8);
+                                    /*var rgbaColor = hexToRgba(color, 0.8);*/
 
                                     var box = `
                                         <div class="col-md-3 mb-4">
-                                            <button type="button" class="btn btn-topic-list btn-radius topic-btn" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" style="background-color: ${rgbaColor};" data-color="${color}">
+                                            <button type="button" class="btn btn-topic-list btn-radius topic-btn" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" style="background-color: ${color};" data-color="${color}">
                                                 <div class="topic-name-list">
                                                     <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
                                                     <div class="list-topic-name"><h5>${topic.TOPIC_NAME}</h5></div>
                                                 </div>
-                                                <div class="list-topic-content-count" style="background-color: ${color};">Content(s): <span>${topic.TOPIC_CONTENT_COUNT}</span></div>
+                                                <div class="list-topic-content-count" ><img src="../../../assests/images/video-lesson.svg" alt=""> <span>${topic.TOPIC_CONTENT_COUNT}</span></div>
                                             </button>
                                         </div>
                                     `;
@@ -3103,8 +3137,8 @@
                                     $(this).css('background-color', color);
                                 }).on('mouseleave', '.topic-btn', function () {
                                     var color = $(this).data('color');
-                                    var rgbaColor = hexToRgba(color, 0.8);
-                                    $(this).css('background-color', rgbaColor);
+                                    /*var rgbaColor = hexToRgba(color, 0.8);
+                                    $(this).css('background-color', rgbaColor);*/
                                 });
                             }
 
@@ -3241,10 +3275,16 @@
 
                     $("#btnshow").show();
 
+                    $('#searchInput').val('');
+
                     btnshow.click();
                 });
 
-                $('body').on('click', '#btnSearch', function () {
+                //$('body').on('click', '#btnSearch', function () {
+                //    performSearch();
+                //});
+
+                $('#searchInput-content').on('input', function () {
                     performSearch();
                 });
 
@@ -3325,15 +3365,36 @@
                 });
 
 
+                //function performSearch() {
+                //    var searchQuery = $('#searchInput-content').val().toLowerCase();
+                //    filteredData = allVideosData.filter(function (item) {
+                //        var matchesStatus = (activeFilter === 'all') ||
+                //                            (activeFilter === 'active' && item.CONTENTSTATUS === "Yes") ||
+                //                            (activeFilter === 'inactive' && item.CONTENTSTATUS === "No");
+
+                //        return matchesStatus && item.CONTENTTITLE.toLowerCase().includes(searchQuery);
+                //    });
+                //    currentPage = 1;
+                //    displayVideos(filteredData, currentPage);
+                //}
+
                 function performSearch() {
-                    var searchQuery = $('#searchInput').val().toLowerCase();
-                    filteredData = allVideosData.filter(function (item) {
+                    var searchQuery = $('#searchInput-content').val().toLowerCase();
+                    var filteredData = allVideosData.filter(function (item) {
                         var matchesStatus = (activeFilter === 'all') ||
-                                            (activeFilter === 'active' && item.CONTENTSTATUS === "Yes") ||
-                                            (activeFilter === 'inactive' && item.CONTENTSTATUS === "No");
+                            (activeFilter === 'active' && item.CONTENTSTATUS === "Yes") ||
+                            (activeFilter === 'inactive' && item.CONTENTSTATUS === "No");
 
                         return matchesStatus && item.CONTENTTITLE.toLowerCase().includes(searchQuery);
                     });
+
+                    // Show "No data found" message if no results match
+                    if (filteredData.length === 0) {
+                        $('#noDataMessage').show();
+                    } else {
+                        $('#noDataMessage').hide();
+                    }
+
                     currentPage = 1;
                     displayVideos(filteredData, currentPage);
                 }
@@ -3570,7 +3631,7 @@
             {
                 ShowContentListiing(@ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME');
                 AddQuestionWithContent(@ViewBag.CONTENT_ID, '@ViewBag.CONTENT_NAME', @ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME')
-               
+
             }
 
 
@@ -3600,7 +3661,7 @@
                     $('#fileuploadicon').fileinput('clear');
                     setTimeout(function () { $('#fileuploadicon').fileinput('refresh'); }, 1000);
 
-                    var notification = alertify.notify('Maximum file size 1MB Supported', 'Alert', 3, function () {
+                    var notification = alertify.notify('Maximum file size 1 Mb Supported', 'Alert', 3, function () {
 
                         $('#fileuploadicon').fileinput('enable');
                     });
@@ -3718,6 +3779,11 @@
              var url = '@Url.Action("ExporRegisterList", "LMSContentUpload")'
              window.location.href = url.replace("_type_");
          });
+
+
+        $('#AddContentModal').on('hidden.bs.modal', function () {
+            $("#btnSubmit").removeClass("newposition-btn");
+        });
 
     });
 
@@ -3860,7 +3926,7 @@
                                    ${status} <div class="tooltip">click to ${statusrev}</div></div>
                             </div>
 
-                            <p class="sequence-number"><i class="fa fa-play-circle-o" aria-hidden="true"></i> ${item.CONTENT_PLAYSEQ}</p>
+                            <p class="sequence-number">#${item.CONTENT_PLAYSEQ}</p>
                             <div class="dropdown action-dropdown">
                               <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
                                 <img src="../../../assests/images/more.svg">
@@ -4151,7 +4217,7 @@
 
                 $("#txtContentTitle").val(data[0].ContentTitle);
                 $("#txtContentDesc").val(data[0].ContentDesc);
-                $("#ddlTopic").val(data[0].TopicIds);
+                $("#ddlTopic").val(data[0].TopicIds).trigger('change');;
                 $("#numPlaySequence").val(data[0].PlaySequence);
                 $("#chkStatus").prop("checked", data[0].Status);
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
@@ -5180,7 +5246,7 @@
             showFirstFieldset();
         });
 
-        $(".Add-Question").click(function (){
+        $(".Add-Question").click(function () {
             //AddQuestion(Is_ContentId, Is_ContentTitle, Is_TopicId);
             AddQuestionWithContent(Is_ContentId, Is_ContentTitle, Is_TopicId, Is_TopicTitle)
         });
@@ -5238,7 +5304,7 @@
     }
 
     function ddlTopicOnChange() {
-        
+
         var obj = {};
         obj.topicid = $("#ddlTopic").val();
 
@@ -5256,8 +5322,26 @@
         });
     }
 
+    //function close() {
+    //    $("#btnSubmit").removeClass("newposition-btn");
+    //}
+
+    //$('#content-upload-close').click(function () {
+    //    $("#btnSubmit").removeClass("newposition-btn");
+    //});
+
+
+    $(document).ready(function () {
+        $('#ddlTopic').select2({
+            placeholder: "Select a topic",
+        });
+    });
 
 </script>
+
+@*<script>
+    
+</script>*@
 
 
 <div id="gmap-loader" class="mLoader hide">
@@ -5276,9 +5360,9 @@
             <div class="backBox mt-5 p-4">
                 <div class="">
                     @*<button type="button" class="btn btn-topic-list btn-radius" id="1" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')">
-                <h5>100 <span>Contents</span></h5>
-                <span class="list-topic-name">TOPIC_NAME</span>
-            </button>*@
+                            <h5>100 <span>Contents</span></h5>
+                            <span class="list-topic-name">TOPIC_NAME</span>
+                        </button>*@
                     <div id="secondViewContainer"></div>
 
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 5px;">
@@ -5337,32 +5421,33 @@
                 <div class="clearfix"></div>
 
                 @*<div class="scrooler">
-            <div id="refreshgrid">
-                @{
-                    Html.RenderAction("PartialContentGridList", "LMSContentUpload", new { Is_PageLoad = "Ispageload" });
-                }
-            </div>
-        </div>*@
-            <div class=" mb-3 clearfix" id="divTopicName" style="display:none; margin-top: 15px">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4> <span id="spTopicName"></span> </h4>
-                    </div>
-                    <div class="col-md-3">
-                        @*<input type="text" id="searchInput" placeholder="Search topics..." class="form-control">*@
-                        <div id="topic-list-search" class="input-group" style="display: none;">
-                            <div class="input-group-prepend search-icon">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" id="searchInput" placeholder="Search topics..." class="form-control topic-search-input">
+                        <div id="refreshgrid">
+                            @{
+                                Html.RenderAction("PartialContentGridList", "LMSContentUpload", new { Is_PageLoad = "Ispageload" });
+                            }
                         </div>
+                    </div>*@
+                <div class=" mb-3 clearfix" id="divTopicName" style="display:none; margin-top: 15px">
+                    <div class="row">
+                        <div class="col-md-9 d-flex">
+                            <h4> <span id="spTopicName"></span> </h4>
+                            <div id="topic-list-search" class="input-group" style="display: none;">
+                                <div class="input-group-prepend search-icon">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" id="searchInput" placeholder="Search topics..." class="form-control topic-search-input">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @*<input type="text" id="searchInput" placeholder="Search topics..." class="form-control">*@
+
+                        </div>
+
                     </div>
 
                 </div>
-                
-                </div>
 
-                
+
 
                 <div class="row topic-list" id="divTopicList" style="margin-top: 15px">
 
@@ -5377,9 +5462,9 @@
 
 
                         <div class="col-md-6 content-search-box mb-4">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Search by video title">
-                            <button id="btnSearch" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            <button id="btnShowAll" class="btn add-btn"><img src="../../../assests/images/undo.svg">Reset</button>
+                            <input type="text" id="searchInput-content" class="form-control" placeholder="Search by video title">
+                            @*<button id="btnSearch" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                <button id="btnShowAll" class="btn add-btn"><img src="../../../assests/images/undo.svg">Reset</button>*@
                         </div>
 
                         <div class="col-md-6">
@@ -5388,12 +5473,13 @@
                             </nav>
                         </div>
                     </div>
+                    <div id="noDataMessage" style="display: none;">Sorry! Content not found</div>
                     <div class="row mt-3" id="videoContainer"></div>
 
                 </div>
 
             </div>
-            </div>
+        </div>
     </div>
 </div>
 
@@ -5402,12 +5488,12 @@
     <div class="modal-dialog ">
         <div class="modal-content">
 
-            
+
 
             @using (Html.BeginForm("SaveContent", "LMSContentUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" id="content-upload-close" onclick="close()">&times;</button>
                     @*<h4 class="modal-title">Create Content</h4>*@
                 </div>
                 <div class="modal-body">
@@ -5427,9 +5513,9 @@
                         <fieldset>
                             <div class="row clearfix mb-5">
                                 @*<div class="col-lg-12 mb-3">
-                <h3>Tell Us about your content</h3>
+                                        <h3>Tell Us about your content</h3>
 
-            </div>*@
+                                    </div>*@
                                 <div class="col-lg-12 mb-4 text-left">
                                     <label>Content Title<span style="color: red">*</span></label>
                                     <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
@@ -5440,7 +5526,8 @@
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
                                     <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd"><i class="fa fa-plus"></i>Create topic</a></div>
-                                    @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })
+                                    @*@Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })*@
+                                    @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", null), "Select a topic", new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
                                     <label>Play Sequence</label>
@@ -5459,8 +5546,8 @@
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Like</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                        <div class="handle"></div>
-                    </button>*@
+                                                <div class="handle"></div>
+                                            </button>*@
                                         @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>like</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" />
@@ -5471,8 +5558,8 @@
 
                                         <label>Comments</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                        <div class="handle"></div>
-                    </button>*@
+                                                <div class="handle"></div>
+                                            </button>*@
                                         @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Comments</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" />
@@ -5483,8 +5570,8 @@
 
                                         <label>Share</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                        <div class="handle"></div>
-                    </button>*@
+                                                <div class="handle"></div>
+                                            </button>*@
                                         @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Share</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" />
@@ -5493,19 +5580,19 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                                @*<input type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" value="Add Question" />*@
-                                @*<input type="button" name="next" class="upload-next action-button btn-primary" value="Next" onclick="NextButtonClick()" />*@
-                        
-                        <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" style="display:none">
-                            <img src="../../../assests/images/question-add.svg">
-                            Add Question
-                        </button>
-                            
-                        <button type="button" name="next" class="upload-next action-button btn-primary" onclick="NextButtonClick()">
-                            <img src="../../../assests/images/next.svg">
-                            Next
-                        </button>
+
+                            @*<input type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" value="Add Question" />*@
+                            @*<input type="button" name="next" class="upload-next action-button btn-primary" value="Next" onclick="NextButtonClick()" />*@
+
+                            <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" style="display:none">
+                                <img src="../../../assests/images/question-add.svg">
+                                Add Question
+                            </button>
+
+                            <button type="button" name="next" class="upload-next action-button btn-primary" onclick="NextButtonClick()">
+                                <img src="../../../assests/images/next.svg">
+                                Next
+                            </button>
 
                         </fieldset>
                         <fieldset>
@@ -5516,8 +5603,8 @@
                                         <label>Choose File:</label>
                                         <div class="clearfix">
                                             @*<div class="custom-file">
-                            <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
-                        </div>*@
+                                                    <input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />
+                                                </div>*@
                                             <div class="custom-file">
                                                 @*<input type="file" id="fileupload" name="fileupload" class="custom-file-input" accept=".mp4" />*@
 
@@ -5533,7 +5620,7 @@
 
                                         </div>
                                     </div>
-                                    <p class="text-muted red" style="color:red">Supported types: MP4 (File size limited to @ViewBag.LMSVideoUploadSize MB)</p>
+                                    <p class="text-muted red" style="color:red">Supported types: MP4 (File size limited to @ViewBag.LMSVideoUploadSize Mb)</p>
                                     <div class="progress" style="display: none">
                                         <div class="bar"></div>
                                         <div class="percent">0%</div>
@@ -5560,19 +5647,19 @@
                                         </div>
                                     </div>
 
-                                    <p class="text-muted red" style="color:red">Supported types: JPG (File size limited to 1MB)</p>
+                                    <p class="text-muted red" style="color:red">Supported types: JPG (File size limited to 1 Mb)</p>
                                 </div>
 
                             </div>
 
                             @*<div class="col-md-6  text-left">
-            <label>Thumbnail:</label>
-            <div class="thumbnail-box">
-                <button type="button" class="btn btn-success"><img src="~/assests/images/up-loading.svg"/> Upload</button>
-                Or
-                <button type="button" class="btn btn-export"><img src="~/assests/images/create-img.svg" /> Create Thumbnail</button>
-            </div>
-        </div>*@
+                                    <label>Thumbnail:</label>
+                                    <div class="thumbnail-box">
+                                        <button type="button" class="btn btn-success"><img src="~/assests/images/up-loading.svg"/> Upload</button>
+                                        Or
+                                        <button type="button" class="btn btn-export"><img src="~/assests/images/create-img.svg" /> Create Thumbnail</button>
+                                    </div>
+                                </div>*@
                             <div class="clear"></div>
 
                             <input type="hidden" id="hdnAddEditMode" name="hdnAddEditMode" />
@@ -5587,9 +5674,9 @@
                             @*<button type="submit" class="submit action-button">Upload & Exit</button>*@
 
                             @*<button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn">
-                                <img src="../../../assests/images/question-add.svg">
-                                Add Question
-                            </button>*@
+                                    <img src="../../../assests/images/question-add.svg">
+                                    Add Question
+                                </button>*@
 
                             <button type="button" name="previous" class="upload-previous action-button-previous btn btn-success" onclick="PreviousButtonOnClick()">
                                 <img src="../../../assests/images/previous.svg">
@@ -5614,10 +5701,10 @@
                     @*<div class="clearfix">
 
 
-                </div>*@
+                        </div>*@
                     @*<div class="clearfix">
 
-                </div>*@
+                        </div>*@
 
 
 
@@ -5641,7 +5728,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title" id="lblAddMapQues" >Add/Map Question List</h4>
+                <h4 class="modal-title" id="lblAddMapQues">Add/Map Question List</h4>
             </div>
 
             <div class="modal-body">
