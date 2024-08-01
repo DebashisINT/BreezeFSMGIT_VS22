@@ -118,6 +118,7 @@ namespace LMS.Models
         public string CONTENT_ALLOWLIKE { get; set; }
         public string CONTENT_ALLOWCOMMENTS { get; set; }
         public string CONTENT_ALLOWSHARE { get; set; }
+        public string CONTENT_QUIZTIME { get; set; }
 
         public string cnt_TotalContents { get; set; }
         public string cnt_ActiveContents { get; set; }

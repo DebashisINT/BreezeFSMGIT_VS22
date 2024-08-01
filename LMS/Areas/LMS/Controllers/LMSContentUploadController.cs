@@ -1215,5 +1215,39 @@ namespace LMS.Areas.LMS.Controllers
             return Json(Success);
         }
 
+        [HttpPost]
+        public JsonResult UpdateQuizTime(string ContentId, string QuizTime)
+        {
+            string output_msg = string.Empty;
+
+            //if (chkStatus != null && chkStatus == "Yes")
+            //{
+            //    chkStatus = "1";
+            //}
+            //else
+            //{
+            //    chkStatus = "0";
+            //}
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "UPDATEQUIZTIME");
+                proc.AddPara("@CONTENTID", ContentId);
+                proc.AddPara("@QUIZTIME", QuizTime);
+
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
     }
 }
