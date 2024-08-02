@@ -3939,9 +3939,9 @@
                                     <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus}  onchange = "UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${item.CONTENTTITLE}', '${item.CONTENTSTATUS}');" />
                                    ${status} <div class="tooltip">click to ${statusrev}</div>
 
-                                   <input type="time" name="dtQuizTime" step="1" value='${item.CONTENT_QUIZTIME}' onchange = "UpdateQuizTime('${item.CONTENTID}', '${item.CONTENT_TOPICID}', this.value);" >
-
+                                   
                                </div>
+                               <div><span>Quiz Time : </span><input type="time" name="dtQuizTime" step="1" value='${item.CONTENT_QUIZTIME}' onchange = "UpdateQuizTime('${item.CONTENTID}', '${item.CONTENT_TOPICID}', this.value);" ></div>
                             </div>
 
                             <p class="sequence-number">#${item.CONTENT_PLAYSEQ}</p>
