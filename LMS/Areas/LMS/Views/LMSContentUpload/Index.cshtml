@@ -3736,6 +3736,11 @@
             $('#fileupload').on('fileclear', function () {
                 $('#file-name').text('');
                 filePreview.innerHTML = '';
+                
+                $('#file-name-icon').text('');
+                filePreviewicon.innerHTML = '';
+                $('#fileuploadicon').fileinput('clear');
+                
             });
 
             function handleFileChange(event) {
