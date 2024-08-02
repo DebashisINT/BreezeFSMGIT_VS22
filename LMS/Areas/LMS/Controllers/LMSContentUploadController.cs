@@ -36,30 +36,6 @@ namespace LMS.Areas.LMS.Controllers
         // GET: LMS/ContentUpload
         public ActionResult Index()
         {
-            //List<VideoFiles> videolist = new List<VideoFiles>();
-
-            //string CS = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
-            //using (SqlConnection con = new SqlConnection(CS))
-            //{
-            //    SqlCommand cmd = new SqlCommand("PRC_LMSCONTENTMASTER", con);
-            //    cmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDATA");
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    con.Open();
-            //    SqlDataReader rdr = cmd.ExecuteReader();
-            //    while (rdr.Read())
-            //    {
-            //        VideoFiles video = new VideoFiles();
-            //        video.ID = Convert.ToInt32(rdr["ID"]);
-            //        video.Name = rdr["Name"].ToString();
-            //        video.FileSize = Convert.ToInt32(rdr["FileSize"]);
-            //        video.FilePath = rdr["FilePath"].ToString();
-            //        video.Filetype = rdr["FileType"].ToString();
-            //        video.FileDescription = rdr["FileDescription"].ToString();
-            //        video.FilePathIcon = Convert.ToString(rdr["FilePathIcon"]);
-            //        video.IsActive = Convert.ToString(rdr["IsActive"]);
-            //        videolist.Add(video);
-            //    }
-            //}
 
             LMSContentModel Dtls = new LMSContentModel();
 
@@ -73,21 +49,7 @@ namespace LMS.Areas.LMS.Controllers
             DBEngine obj1 = new DBEngine();
             ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
 
-            //List<TopicList> modelTopic = new List<TopicList>();
-
             DataSet ds = new DataSet();
-
-            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            //proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-            //ds = proc.GetDataSet();
-
-            //if (ds != null)
-            //{
-            //    // Company
-            //    List<TopicList> TopicList = new List<TopicList>();
-            //    TopicList = APIHelperMethods.ToModelList<TopicList>(ds.Tables[0]);
-            //    Dtls.TopicList = TopicList;
-            //}
 
             DataTable dt = new DataTable();
             dt = GetTopicListData();
@@ -98,8 +60,6 @@ namespace LMS.Areas.LMS.Controllers
                 TopicList = APIHelperMethods.ToModelList<TopicList>(dt);
                 Dtls.TopicList = TopicList;
             }
-
-
 
             ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSTOPICSMASTER");
             proc1.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
@@ -156,37 +116,7 @@ namespace LMS.Areas.LMS.Controllers
             }
             return Json(Dtls.TopicList, JsonRequestBehavior.AllowGet);
         }
-
         
-        //public ActionResult GetContentListing()
-        //{
-        //    List<VideoFiles> videolist = new List<VideoFiles>();
-
-        //    string CS = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
-        //    using (SqlConnection con = new SqlConnection(CS))
-        //    {
-        //        SqlCommand cmd = new SqlCommand("PRC_LMSCONTENTMASTER", con);
-        //        cmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDATA");
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        con.Open();
-        //        SqlDataReader rdr = cmd.ExecuteReader();
-        //        while (rdr.Read())
-        //        {
-        //            VideoFiles video = new VideoFiles();
-        //            video.ID = Convert.ToInt32(rdr["ID"]);
-        //            video.Name = rdr["Name"].ToString();
-        //            video.FileSize = Convert.ToInt32(rdr["FileSize"]);
-        //            video.FilePath = rdr["FilePath"].ToString();
-        //            video.Filetype = rdr["FileType"].ToString();
-        //            video.FileDescription = rdr["FileDescription"].ToString();
-        //            video.FilePathIcon = Convert.ToString(rdr["FilePathIcon"]);
-        //            video.IsActive = Convert.ToString(rdr["IsActive"]);
-        //            videolist.Add(video);
-        //        }
-        //    }
-
-        //    return View(videolist);
-        //}
 
         public JsonResult GetContentGridListData(string TopicID)
         {
@@ -252,9 +182,6 @@ namespace LMS.Areas.LMS.Controllers
         
 
         [HttpPost]
-        //public ActionResult SaveContent(HttpPostedFileBase fileupload, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
-        //            string txtContentTitle, string txtContentDesc, string numPlaySequence, string hdnTopicID,
-        //            string chkStatus, string chkAllowLike , string chkAllowComments, string chkAllowShare)
         public ActionResult SaveContent(HttpPostedFileBase fileupload, HttpPostedFileBase fileuploadicon, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
                     string txtContentTitle, string txtContentDesc, string numPlaySequence, LMSContentModel data,
                     string chkStatus, string chkAllowLike, string chkAllowComments, string chkAllowShare)
@@ -480,51 +407,38 @@ namespace LMS.Areas.LMS.Controllers
                     if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
                         if (fileName != null && fileName != "")
                         {
-                            //fileupload.SaveAs(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
-
                             string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
-                            //Directory.CreateDirectory(uploadsFolder);
-
 
                             string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
-                            fileupload.SaveAs(originalFilePath);
-                            
-                            //// temp closed
-                            //////string originalFilePath = Path.Combine(uploadsFolder, "org_" + Path.GetFileName(fileName));
-                            //////fileupload.SaveAs(originalFilePath);
+                            fileupload.SaveAs(originalFilePath);  // Step 1: Save the original file, eg: Sample.mp4
 
+                            // Compress the video file
+                            var compressedFilePath = CompressVideo(originalFilePath);  // Step 2: Create and Save the Compressed file with name as , eg: Sample.compressed.mp4
 
-                            //////string compressedFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                            {
+                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));  // Step 3: Delete the orinal file Sample.mp4
 
-                            //////var ffMpegC = new FFMpegConverter();
-                            //////ffMpegC.ConvertMedia(originalFilePath, compressedFilePath, "mp4");
+                            }
 
-                            //////if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName)))
-                            //////{
-                            //////    System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "org_" + fileName));
+                            // Move the compressed file to the desired location 
+                            // Step4: Save the compressed file to desired file location with desired file name.
+                            // Here the comprssed file Sample.compressed.mp4 is re-named to Sample.mp4
+                            var finalFilePath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/ContentUpload"), fileName);
+                            System.IO.File.Move(compressedFilePath, finalFilePath); 
 
-                            //////}
-
-                            /// end temp closed
-
-                            
 
                         }
 
                         //Thumbnails Image save
-                        //if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
-                        //{
-                        //    // If Folder doesnot exists, CREATE the folder
-                        //    System.IO.Directory.CreateDirectory(Server.MapPath("~/Commonfolder/LMS/Thumbnails/"));
-                        //}
 
-                        if (fileNameicon != null && fileNameicon != "")
+                        if (fileNameicon != null && fileNameicon != "")  // If Thumbnail Image is manually uploaded from interface.
                         {
                             // Upload thumbnail
                             var thumbnailPath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/Thumbnails"), Path.GetFileName(fileNameicon.Replace(' ', '_')));
                             fileuploadicon.SaveAs(thumbnailPath);
                         }
-                        else if (fileName != null && fileName != "")
+                        else if (fileName != null && fileName != "") // If No Thumbnail Image given manually, then system will create the Thumbnail
                         {
                             // Auto generate Thumbnail
                             var videoPath = Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName);
@@ -554,6 +468,30 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
+        private string CompressVideo(string filePath)
+        {
+            // Implement video compression logic here
+            // This example uses FFMpeg to compress the video
+            string compressedFilePath = Path.ChangeExtension(filePath, ".compressed.mp4");
+            string ffmpegPath = Server.MapPath("~/bin/ffmpeg.exe");
+
+            var process = new System.Diagnostics.Process
+            {
+                StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = ffmpegPath,
+                    Arguments = $"-i \"{filePath}\" -vcodec libx264 -crf 28 \"{compressedFilePath}\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            process.WaitForExit();
+
+            return compressedFilePath;
+        }
 
         // Send Notification
         public void FireNotification(string ContentTitle, string TopicId)
@@ -863,12 +801,7 @@ namespace LMS.Areas.LMS.Controllers
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string Userid = Convert.ToString(Session["userid"]);
 
-            ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
-            ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
-            ////////{
-            ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
-            ////////}
-
+            
             LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
             var q = from d in dc.LMS_CONTENTQUESTIONMAP_LISTINGs
                     where d.USERID == Convert.ToInt32(Userid)
@@ -1220,15 +1153,7 @@ namespace LMS.Areas.LMS.Controllers
         {
             string output_msg = string.Empty;
 
-            //if (chkStatus != null && chkStatus == "Yes")
-            //{
-            //    chkStatus = "1";
-            //}
-            //else
-            //{
-            //    chkStatus = "0";
-            //}
-
+            
             try
             {
                 DataTable dt = new DataTable();
