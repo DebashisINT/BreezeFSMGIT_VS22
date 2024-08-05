@@ -8,9 +8,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using UtilityLayer;
 
 namespace LMS.Areas.LMS.Controllers
@@ -343,6 +347,14 @@ namespace LMS.Areas.LMS.Controllers
                 int k = proc.RunActionQuery();
                 data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
                 data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+
+                // Send Notification
+                if (data.TopicStatus == "true")  // If published
+                {
+                    FireNotification(data.TopicName, Convert.ToString(data.TopicID));
+                }
+                // End of Send Notification
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -350,6 +362,144 @@ namespace LMS.Areas.LMS.Controllers
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
         }
+
+        // Send Notification
+        public void FireNotification(string TopicTitle, string TopicId)
+        {
+            string Mssg = "HI! A new Topic " + TopicTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
+            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
+            //string SalesMan_Nm = "";
+            string SalesMan_Phn = "";
+
+            //DataTable dt_SalesMan = odbengine.GetDataTable("select user_loginId,user_name from tbl_master_user  where user_id=" + SalesmanId + "");
+            DataTable dtAssignUser = new DataTable();
+
+            ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            procA.AddPara("@ACTION", "GETCONTENTASSIGNUSER");
+            procA.AddPara("@TOPICID", TopicId);
+            procA.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            dtAssignUser = procA.GetTable();
+
+            if (dtAssignUser.Rows.Count > 0)
+            {
+                SalesMan_Phn = dtAssignUser.Rows[0]["user_loginId"].ToString();
+
+                SendNotification(SalesMan_Phn, Mssg, imgNotification_Icon);
+            }
+        }
+
+        public JsonResult SendNotification(string Mobiles, string messagetext, string imgNotification_Icon)
+        {
+
+            string status = string.Empty;
+            try
+            {
+                //int returnmssge = notificationbl.Savenotification(Mobiles, messagetext);
+
+                int s = 0;
+                ProcedureExecute proc = new ProcedureExecute("Proc_FCM_NotificationManage");
+                proc.AddPara("@Mobiles", Mobiles);
+                proc.AddPara("@Message", messagetext);
+                s = proc.RunActionQuery();
+
+                //DataTable dt = odbengine.GetDataTable("select device_token,musr.user_name,musr.user_id  from tbl_master_user as musr inner join tbl_FTS_devicetoken as token on musr.user_id=token.UserID  where musr.user_loginId in (select items from dbo.SplitString('" + Mobiles + "',',')) and musr.user_inactive='N'");
+                //DataTable dt = odbengine.GetDataTable("select device_token,musr.user_name,musr.user_id  from tbl_master_user as musr inner join tbl_FTS_devicetoken as token on musr.user_id=token.UserID  where musr.user_loginId in (" + Mobiles + ") and musr.user_inactive='N'");
+
+                Mobiles = Mobiles.Replace("'", "");
+
+                DataTable dt = new DataTable();
+                ProcedureExecute procA = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                procA.AddPara("@ACTION", "GETDEVICETOKENINFO");
+                procA.AddPara("@MOBILES", Mobiles);
+                dt = procA.GetTable();
+
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (Convert.ToString(dt.Rows[i]["device_token"]) != "")
+                        {
+                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]), imgNotification_Icon);
+
+                        }
+                    }
+                    status = "200";
+                }
+
+
+                else
+                {
+
+                    status = "202";
+                }
+
+
+
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                status = "300";
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public static void SendPushNotification(string message, string deviceid, string Customer, string Requesttype, string imgNotification_Icon)
+        {
+            try
+            {
+                //string applicationID = "AAAAS0O97Kk:APA91bH8_KgkJzglOUHC1ZcMEQFjQu8fsj1HBKqmyFf-FU_I_GLtXL_BFUytUjhlfbKvZFX9rb84PWjs05HNU1QyvKy_TJBx7nF70IdIHBMkPgSefwTRyDj59yXz4iiKLxMiXJ7vel8B";
+                //string senderId = "323259067561";
+                string applicationID = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["AppID"]);
+                string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
+                //string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
+                string deviceId = deviceid;
+                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest.Method = "post";
+                tRequest.ContentType = "application/json";
+
+                var data2 = new
+                {
+                    to = deviceId,
+
+                    data = new
+                    {
+                        UserName = Customer,
+                        UserID = Requesttype,
+                        body = message,
+                        type = "lms_content_assign",
+                        imgNotification_Icon = imgNotification_Icon
+                    }
+                };
+
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(data2);
+                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+                tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+                tRequest.ContentLength = byteArray.Length;
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                string str = sResponseFromServer;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+        }
+        // End of Send Notification
 
         public ActionResult ShowTopicDetails(String TopicID)
         {

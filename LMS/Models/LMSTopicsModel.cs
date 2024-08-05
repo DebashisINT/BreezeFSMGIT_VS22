@@ -42,6 +42,7 @@ namespace LMS.Models
         public string tabNameText { get; set; }
         public string rightTabNameText { get; set; }
         public string searchPlaceholderText { get; set; }
+        public bool TOPICSTATUS { get; set; }
     }
 
 }
