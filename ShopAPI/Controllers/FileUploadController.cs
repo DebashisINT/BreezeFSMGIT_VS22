@@ -10,6 +10,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -364,7 +366,7 @@ namespace ShopAPI.Controllers
             return Json(omodeloutput);
         }
 
-        //Rev 1.0 Row: 957
+        //Rev 1.0 Row: 957 & 965
         public JsonResult UploadShopRevisitAudio(UploadShopRevisitAudioInput model)
         {
             UploadRevisitAudioOutput omodel = new UploadRevisitAudioOutput();
@@ -418,7 +420,7 @@ namespace ShopAPI.Controllers
                 omodel.message = msg.Message;
             }
             return Json(omodel);
-        }
-        //End of Rev 1.0 Row: 957
+        }        
+        //End of Rev 1.0 Row: 957 & 965
     }
 }
