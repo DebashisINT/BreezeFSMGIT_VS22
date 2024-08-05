@@ -97,7 +97,7 @@ namespace ShopAPI.Models
         public string user_id { get; set; }
         public string shop_id { get; set; }
         public string visit_datetime { get; set; }
-        public string isRevisit { get; set; }
+        public string revisitORvisit { get; set; }
         public string audio { get; set; }
     }
 
