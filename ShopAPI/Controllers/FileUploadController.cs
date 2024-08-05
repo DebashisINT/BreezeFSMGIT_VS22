@@ -393,7 +393,7 @@ namespace ShopAPI.Controllers
                 sqlcmd.Parameters.AddWithValue("@USER_ID", hhhh.user_id);
                 sqlcmd.Parameters.AddWithValue("@SHOP_ID", hhhh.shop_id);
                 sqlcmd.Parameters.AddWithValue("@VISIT_DATETIME", hhhh.visit_datetime);
-                sqlcmd.Parameters.AddWithValue("@ISREVISIT", hhhh.isRevisit);
+                sqlcmd.Parameters.AddWithValue("@REVISITORVISIT", hhhh.revisitORvisit);
                 sqlcmd.Parameters.AddWithValue("@SHOPVISIT_AUDIO", AudioName);
                 sqlcmd.Parameters.AddWithValue("@AUDIOPATH", "/CommonFolder/ShopRevisitAudio/" + AudioName);
 
