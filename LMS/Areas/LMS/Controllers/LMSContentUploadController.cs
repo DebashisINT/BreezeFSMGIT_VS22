@@ -452,7 +452,7 @@ namespace LMS.Areas.LMS.Controllers
                         // Send Notification
                         if (chkStatus == "1")  // If published
                         {
-                           // FireNotification(txtContentTitle, Convert.ToString(data.TopicId));
+                           FireNotification(txtContentTitle, Convert.ToString(data.TopicId));
                         }
                         // End of Send Notification
                     }
