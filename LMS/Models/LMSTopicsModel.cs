@@ -23,6 +23,7 @@ namespace LMS.Models
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
 
+        public string TopicStatusOld { get; set; }
     }
 
     public class TopicBasedOnList
@@ -43,6 +44,7 @@ namespace LMS.Models
         public string rightTabNameText { get; set; }
         public string searchPlaceholderText { get; set; }
         public bool TOPICSTATUS { get; set; }
+       
     }
 
 }

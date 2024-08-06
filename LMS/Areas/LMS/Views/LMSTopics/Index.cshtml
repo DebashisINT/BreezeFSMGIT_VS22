@@ -1408,6 +1408,14 @@
 <script>
     var Is_PageLoad = "Ispageload";
 
+    function showLoader() {
+        $('#gmap-loader').removeClass('hide');
+    }
+
+    function hideLoader() {
+        $('#gmap-loader').addClass('hide');
+    }
+
     $(function () {
 
 
@@ -1487,6 +1495,7 @@
         $("#transfer1").html('');
         $("#txtTopicName").val('');
         $("#chkStatus").prop("checked", false);
+        $("#hdnTopicStatusOld").val(0);
         $("#ddlTopicBasedOn").val(0);
         lblBasedOn.innerText = "";
         //$("#txtTopicName").focus();
@@ -1679,13 +1688,16 @@
                 return;
             }
 
+            showLoader();
+
             var data = {
                 Action: $("#hdnAddEditMode").val(),
                 TopicID: $("#hdnTopicID").val(),
                 TopicBasedOnId: $("#ddlTopicBasedOn").val(),
                 TopicStatus: $("#chkStatus").prop("checked"),
                 TopicName: $("#txtTopicName").val().trim(),
-                selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
+                selectedTopicBasedOnMapList: selectedTopicBasedOnMapList,
+                TopicStatusOld: $("#hdnTopicStatusOld").val()
             }
 
             $.ajax({
@@ -1740,6 +1752,7 @@
                         });
                     }
 
+                    hideLoader();
 
                     //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
                     //    Swal.fire({
@@ -1804,6 +1817,7 @@
                 $("#ddlTopicBasedOn").val(data[0].TOPICBASEDON_ID);
                 $("#chkStatus").prop("checked", data[0].TOPICSTATUS);
                 $("#lblHeading").text('Edit Topic');
+                $("#hdnTopicStatusOld").val(data[0].TOPICSTATUS);
 
                 $("#transfer1").html('');
 
@@ -1987,7 +2001,10 @@
 
 </script>
 
-
+<div id="gmap-loader" class="mLoader hide">
+    <img src="/assests/images/Rainbow.gif" />
+    <h4>Saving Topic, Please Wait</h4>
+</div>
 
 <div class="breadCumb">
     <span>Topic Setup</span>
@@ -2075,6 +2092,7 @@
 
 <input type="hidden" id="hdnAddEditMode" />
 <input type="hidden" id="hdnTopicID" />
+<input type="hidden" id="hdnTopicStatusOld" />
 
 <div id="AddTopicModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
     <div class="modal-dialog ">

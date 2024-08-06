@@ -345,13 +345,18 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                 int k = proc.RunActionQuery();
-                data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE")); // WILL RETURN NEW TOPIC ID
                 data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
 
                 // Send Notification
-                if (data.TopicStatus == "true")  // If published
+                if ( (data.Action=="ADDTOPIC" && data.TopicStatus == "true") || (data.TopicStatus=="true" && data.TopicStatus!=data.TopicStatusOld) )  // If published
                 {
-                    FireNotification(data.TopicName, Convert.ToString(data.TopicID));
+                    FireNotification(data.TopicName, data.RETURN_VALUE);
+                }
+
+                if (data.Action == "ADDTOPIC" && Convert.ToInt16(data.RETURN_VALUE) > 0)
+                {
+                    data.RETURN_VALUE = "1";
                 }
                 // End of Send Notification
 
