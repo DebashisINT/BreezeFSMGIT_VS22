@@ -2956,6 +2956,7 @@
         background: linear-gradient(0deg, rgb(138 71 5) 0%, rgb(204 130 8) 100%);
         box-shadow: 1px 1px 15px #1111112e;
         line-height: 15px;
+        font-weight: 600;
     }
 
     .publish-quiztime-part
@@ -2965,15 +2966,24 @@
         justify-content: space-between;
     }
 
-    .qz-time-view
-    {
-        font-size: 10px;
+    .qz-time-view {
+        font-size: 12px;
         display: block;
+        font-weight: 400;
     }
 
     #quizTimeModal .modal-body
     {
         padding-bottom: 0 !important;
+    }
+
+    .mb-20
+    {
+        margin-bottom: 20px;
+     }
+
+    .quiz-time-btn:active {
+        background: linear-gradient(0deg, rgb(138 71 5) 0%, rgb(204 130 8) 100%);
     }
     
 </style>
@@ -3281,7 +3291,7 @@
                                                         <h5>${topic.TOPIC_NAME}</h5>
                                                     </div>
                                                 </div>
-                                                
+
                                             </button>
                                         </div>
                                     `;
@@ -4115,13 +4125,13 @@
                                     ${status} <div class="tooltip">click to ${statusrev}</div>
                                 </div>
 
-                                <button type="button" class="btn quiz-time-btn" data-toggle="modal" data-target="#quizTimeModal" data-backdrop="static" data-keyboard="false" onclick="">
-                                    Quiz Time<span class="qz-time-view">00:00:00</span>
+                                <button type="button" class="btn quiz-time-btn" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="AddQuizTime('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_QUIZTIME}')">
+                                    Quiz Time<span class="qz-time-view">${item.CONTENT_QUIZTIME}</span>
                                 </button>
                             </div>
 
                             <p class="sequence-number">#${item.CONTENT_PLAYSEQ}</p>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -4253,7 +4263,7 @@
                 }
             });
         });
-    
+
 
         // Initialize SortableJS
         new Sortable(videoContainer[0], {
@@ -5401,7 +5411,27 @@
 
     }
 
-    function UpdateQuizTime(ContentId, TopicId, timeValue) {
+    function AddQuizTime(ContentId, ContentTitle, TopicId, QuizTime) {
+
+        $("#hdnContentID").val(ContentId);
+        $("#hdnTopicID").val(TopicId);
+
+        $("#hdQuizTimeTitle").text('Content : '+ ContentTitle);
+
+        $("#quiztime_hour").val(QuizTime.substring(2,0));
+        $("#quiztime_minute").val(QuizTime.substring(3, 5));
+        $("#quiztime_second").val(QuizTime.substring(6, 8));
+
+        $("#quizTimeModal").modal('show');
+        
+        
+    }
+
+    function UpdateQuizTime() {
+
+        var ContentId = $("#hdnContentID").val();
+        var timeValue = $("#quiztime_hour").val() + ":" + $("#quiztime_minute").val() + ":" + $("#quiztime_second").val();
+        var TopicId = $("#hdnTopicID").val();
 
         Swal.fire({
             title: 'Quiz Time',
@@ -5452,10 +5482,12 @@
                                             $('#contentListing').show();
                                         }
                                         //hideLoader();
+                                        $("#quizTimeModal").modal('hide');
                                     },
                                     error: function (response) {
                                         alert("Please try again later");
                                         //hideLoader();
+                                        $("#quizTimeModal").modal('hide');
                                     }
                                 });
 
@@ -5493,6 +5525,7 @@
 
 
     }
+
 </script>
 
 <script>
@@ -6429,9 +6462,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
-                <h4 class="modal-title">Set Quiz Time</h4>
+                <h4 class="modal-title">Set Quiz Time </h4>
             </div>
             <div class="modal-body">
+                <div class="col-lg-12">
+                    <h5 id="hdQuizTimeTitle" class="mb-20"> </h5>
+                </div>
                 <div class="clearfix">
                     <div class="col-lg-4">
                         <label>Hour(s)</label>
@@ -6450,7 +6486,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" onclick="SaveTopics();">Save</button>
+                <button type="button" class="btn btn-success" onclick="UpdateQuizTime();">Save</button>
             </div>
         </div>
 
