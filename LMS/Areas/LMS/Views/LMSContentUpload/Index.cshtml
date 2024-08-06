@@ -1153,7 +1153,7 @@
         padding-right: 0px !important;
         padding-left: 0px !important;
         color: #fff;
-        padding-top: 8px !important;
+        /*padding-top: 8px !important;*/
         padding-bottom: 0px !important;
         overflow: hidden !important;
         transition: all .2s ease-in-out;
@@ -1167,9 +1167,10 @@
     }
 
     .topic-name-list {
-        padding: 0px 10px 40px;
+        /*padding: 0px 10px 40px;*/
+        padding: 5px 10px 5px 65px;
         min-height: 100px;
-        white-space: break-spaces;
+        /*white-space: break-spaces;*/
         text-align: left;
         display: flex;
         align-items: center;
@@ -1180,10 +1181,18 @@
         font-size: 16px;
         line-height: 22px;
         color: #fff !important;
+        white-space: break-spaces;
+        font-weight: 500;
+        min-height: 46px;
+    }
+
+    .list-topic-name span {
+        font-size: 28px;
+        font-weight: 600;
     }
 
     .topic-name-list-icon {
-        width: 52px;
+        /*width: 52px;
         height: 48px;
         margin-right: 8px;
         background: #ffffff;
@@ -1191,11 +1200,25 @@
         border-radius: 10px;
         text-align: center;
         line-height: 37px;
+        box-shadow: 1px 1px 12px #1111114d;*/
+        width: 55px;
+        height: 100%;
+        margin-right: 8px;
+        background: rgb(255 255 255 / 80%);
+        padding: 5px 10px;
+        border-radius: 0;
+        text-align: center;
+        line-height: 37px;
         box-shadow: 1px 1px 12px #1111114d;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
     }
 
     .list-topic-name {
-        width: 82%;
+        width: 100%;
     }
 
     .topic-name-list img {
@@ -1446,6 +1469,22 @@
         color: #054682;
     }
 
+    .quiz-time-btn .btn-icon {
+        /* border-radius: 50px; */
+        width: 22px;
+        height: 18px;
+        display: inline-block;
+        background: #ffffffd9;
+        line-height: 23px;
+        margin-right: 2px;
+        color: #054682;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 2px;
+    }
+
     .show-btn {
         background: #054682;
         transition: all .4s;
@@ -1666,10 +1705,10 @@
 
         .video-card .card-body {
             /*text-align: center;*/
-            padding: 0 15px 10px;
+            padding: 0 10px 10px;
             /*background: linear-gradient(1deg, #beefff, #ffffff);*/
-            display: flex;
-            align-items: flex-start;
+            /*display: flex;
+            align-items: flex-start;*/
             /*justify-content: space-between;*/
         }
 
@@ -1681,10 +1720,15 @@
             min-height: 45px;
             margin-top: 5px;
             color: #fff;
+            width: 80%;
+            padding-right: 10px;
         }
 
     .card-body-content {
-        width: 80%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
     }
 
     .video-card .action-dropdown {
@@ -2306,11 +2350,15 @@
         display: inline-block;
         font-size: 12px;
         padding-left: 18px;
+        background: rgb(198, 198, 198);
+        background: linear-gradient(0deg, rgba(198, 198, 198, 1) 0%, rgba(220, 220, 220, 1) 100%);
     }
 
         .card-status.published {
-            background: #63ff74 !important;
+            /*background: #63ff74 !important;*/
             /*color: #fff;*/
+            background: rgb(31, 207, 50);
+            background: linear-gradient(0deg, rgba(31, 207, 50, 1) 0%, rgba(110, 255, 125, 1) 100%);
         }
 
     .file-caption-main {
@@ -2378,6 +2426,10 @@
 
     .unpublished, .published {
         position: relative;
+        height: 35px;
+        border-radius: 40px;
+        line-height: 24px;
+        box-shadow: 1px 1px 15px #11111152;
     }
 
         .published:before {
@@ -2435,7 +2487,11 @@
         margin-bottom: 10px;
     }
 
-    #AddQuestionMapModal .modal-content, #AddTopicModal .modal-content, #AddContentModal .modal-content {
+    #AddQuestionMapModal .modal-content,
+    #AddTopicModal .modal-content,
+    #AddContentModal .modal-content,
+    #quizTimeModal .modal-content
+    {
         background: linear-gradient(1deg, #cff3ff, #ffffff);
         overflow: visible !important;
     }
@@ -2465,12 +2521,18 @@
         margin-top: 13% !important;
     }
 
-    #MapQuestionListModal .modal-title, #AddTopicModal .modal-title, #MappedQuestionsForViewModal .modal-title {
+    #MapQuestionListModal .modal-title,
+    #AddTopicModal .modal-title,
+    #MappedQuestionsForViewModal .modal-title,
+    #quizTimeModal .modal-title {
         color: #111;
         font-size: 20px;
     }
 
-    #MapQuestionListModal .modal-header, #AddTopicModal .modal-header, #MappedQuestionsForViewModal .modal-header {
+    #MapQuestionListModal .modal-header,
+    #AddTopicModal .modal-header,
+    #MappedQuestionsForViewModal .modal-header,
+    #quizTimeModal .modal-header {
         margin-bottom: 10px;
         border-bottom: 1px solid #d5d5d5;
     }
@@ -2619,6 +2681,7 @@
             margin-right: 0px;
             position: relative;
             border: none;
+            padding-top: 0 !important;
         }
 
     .mLoader {
@@ -2874,6 +2937,44 @@
         color: #c82bbe;
     }
 
+    .w-100
+    {
+        width: 100%;
+    }
+
+    .quiz-time-btn {
+        background: #865d0c;
+        padding: 4px 12px;
+        height: 35px;
+        font-size: 13px;
+        position: relative;
+        overflow: hidden;
+        /*padding-left: 26px;*/
+        margin-right: 0;
+        border-radius: 30px;
+        background: rgb(124, 63, 6);
+        background: linear-gradient(0deg, rgb(138 71 5) 0%, rgb(204 130 8) 100%);
+        box-shadow: 1px 1px 15px #1111112e;
+        line-height: 15px;
+    }
+
+    .publish-quiztime-part
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .qz-time-view
+    {
+        font-size: 10px;
+        display: block;
+    }
+
+    #quizTimeModal .modal-body
+    {
+        padding-bottom: 0 !important;
+    }
     
 </style>
 
@@ -3175,9 +3276,12 @@
                                             <button type="button" class="btn btn-topic-list btn-radius topic-btn" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" style="background-color: ${color};" data-color="${color}">
                                                 <div class="topic-name-list">
                                                     <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
-                                                    <div class="list-topic-name"><h5>${topic.TOPIC_NAME}</h5></div>
+                                                    <div class="list-topic-name">
+                                                        <span>${topic.TOPIC_CONTENT_COUNT}</span>
+                                                        <h5>${topic.TOPIC_NAME}</h5>
+                                                    </div>
                                                 </div>
-                                                <div class="list-topic-content-count" ><img src="../../../assests/images/video-lesson.svg" alt=""> <span>${topic.TOPIC_CONTENT_COUNT}</span></div>
+                                                
                                             </button>
                                         </div>
                                     `;
@@ -3991,29 +4095,33 @@
                             <div class="card-body-content">
                                 <h5 class="card-title">${item.CONTENTTITLE}</h5>
 
+                                <div class="dropdown action-dropdown">
+                                    <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
+                                        <img src="../../../assests/images/more.svg">
+                                        <div class="tooltip">Options</div>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
+                                        <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
+                                        <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
+                                        <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="publish-quiztime-part">
                                 <div class="card-status ${statusClass} tooltip-container">
                                     <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus} onchange="UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${item.CONTENTTITLE}', '${item.CONTENTSTATUS}');" />
                                     ${status} <div class="tooltip">click to ${statusrev}</div>
                                 </div>
-                                <div class="form-group quiz-time">
-                                    <label>Quiz Time:</label>
-                                    <input type="text" name="dtQuizTime" class="form-control duration-picker-input" value='${quizTime}' id="${durationPickerId}" data-content-id="${item.CONTENTID}" data-topic-id="${item.CONTENT_TOPICID}">
-                                </div>
+
+                                <button type="button" class="btn quiz-time-btn" data-toggle="modal" data-target="#quizTimeModal" data-backdrop="static" data-keyboard="false" onclick="">
+                                    Quiz Time<span class="qz-time-view">00:00:00</span>
+                                </button>
                             </div>
 
                             <p class="sequence-number">#${item.CONTENT_PLAYSEQ}</p>
-                            <div class="dropdown action-dropdown">
-                                <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
-                                    <img src="../../../assests/images/more.svg">
-                                    <div class="tooltip">Options</div>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
-                                    <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
-                                    <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
-                                    <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -4654,7 +4762,7 @@
         $.ajax({
              type: "POST",
              url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-             data: { TopicID: $("#ddlTopic").val() },
+             data: { TopicID: TopicId },
              success: function (response) {
                  if (response != null && response == true) {
                      window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
@@ -5668,6 +5776,46 @@
 
 </script>
 
+<script>
+    $(document).ready(function () {
+        function validateInput($input, max) {
+            $input.on('input', function () {
+                let value = $input.val();
+
+                // No negative values
+                if (value < 0) {
+                    $input.val(0);
+                }
+
+                // Max character length 2
+                if (value.length > 2) {
+                    $input.val(value.slice(0, 2));
+                }
+
+                // Max and min values
+                if (value > max) {
+                    $input.val(max);
+                }
+                if (value < 0) {
+                    $input.val(0);
+                }
+            });
+
+            $input.on('blur', function () {
+                // Pad single digit numbers with a leading zero
+                let value = $input.val();
+                if (value.length === 1) {
+                    $input.val('0' + value);
+                }
+            });
+        }
+
+        validateInput($('#quiztime_hour'), 24);
+        validateInput($('#quiztime_minute'), 59);
+        validateInput($('#quiztime_second'), 59);
+    });
+</script>
+
 @*<script>
 
     </script>*@
@@ -5688,10 +5836,7 @@
         <div class="col-md-12">
             <div class="backBox mt-5 p-4">
                 <div class="">
-                    @*<button type="button" class="btn btn-topic-list btn-radius" id="1" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')">
-            <h5>100 <span>Contents</span></h5>
-            <span class="list-topic-name">TOPIC_NAME</span>
-        </button>*@
+                    
                     <div id="secondViewContainer"></div>
                     
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 5px;">
@@ -6258,7 +6403,7 @@
                     </div>
                     <div class="col-lg-2 mb-4" style="height: 60px;">
                         <label> </label>
-                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Active</label></div>
+                        <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
@@ -6273,6 +6418,39 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
                 <button type="button" class="btn btn-success" onclick="SaveTopics();">Save & Exit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="quizTimeModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Set Quiz Time</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-lg-4">
+                        <label>Hour(s)</label>
+                        <input type="number" id="quiztime_hour" class="form-control" maxlength="2" tabindex="-1" placeholder="00" />
+                        
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Minute(s)</label>
+                        <input type="number" id="quiztime_minute" class="form-control" maxlength="2" tabindex="-1" placeholder="00" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Second(s)</label>
+                        <input type="number" id="quiztime_second" class="form-control" maxlength="2" tabindex="-1" placeholder="00" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="SaveTopics();">Save</button>
             </div>
         </div>
 
