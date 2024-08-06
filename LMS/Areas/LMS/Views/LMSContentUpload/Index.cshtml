@@ -4103,7 +4103,7 @@
                         <div id="videoCardImg" class="video-card-img" style="background: url(${videoPath})"></div>
                         <div class="card-body">
                             <div class="card-body-content">
-                                <h5 class="card-title">${item.CONTENTTITLE}</h5>
+                                <h5 class="card-title">${ContentTitle}</h5>
 
                                 <div class="dropdown action-dropdown">
                                     <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
@@ -4111,9 +4111,9 @@
                                         <div class="tooltip">Options</div>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
-                                        <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${item.CONTENTTITLE}')">Map Questions</a></li>
-                                        <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
+                                        <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
+                                        <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${ContentTitle}')">Map Questions</a></li>
+                                        <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
                                         <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
                                     </ul>
                                 </div>
@@ -4121,11 +4121,11 @@
                             </div>
                             <div class="publish-quiztime-part">
                                 <div class="card-status ${statusClass} tooltip-container">
-                                    <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus} onchange="UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${item.CONTENTTITLE}', '${item.CONTENTSTATUS}');" />
+                                    <input type="checkbox" id="chkPublishStatusUpdate" name="chkPublishStatusUpdate" class="styled-checkbox" ${Chkstatus} onchange="UpdateStatusPublish('${item.CONTENTID}', '${item.CONTENT_TOPICID}', '${ContentTitle}', '${item.CONTENTSTATUS}');" />
                                     ${status} <div class="tooltip">click to ${statusrev}</div>
                                 </div>
 
-                                <button type="button" class="btn quiz-time-btn" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="AddQuizTime('${item.CONTENTID}','${item.CONTENTTITLE}','${item.CONTENT_TOPICID}','${item.CONTENT_QUIZTIME}')">
+                                <button type="button" class="btn quiz-time-btn" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="AddQuizTime('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_QUIZTIME}')">
                                     Quiz Time<span class="qz-time-view">${item.CONTENT_QUIZTIME}</span>
                                 </button>
                             </div>
