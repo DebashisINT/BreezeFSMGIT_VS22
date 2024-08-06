@@ -184,7 +184,7 @@ namespace LMS.Areas.LMS.Controllers
         [HttpPost]
         public ActionResult SaveContent(HttpPostedFileBase fileupload, HttpPostedFileBase fileuploadicon, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,
                     string txtContentTitle, string txtContentDesc, string numPlaySequence, LMSContentModel data,
-                    string chkStatus, string chkAllowLike, string chkAllowComments, string chkAllowShare)
+                    string chkStatus, string chkAllowLike, string chkAllowComments, string chkAllowShare, string hdnContentStatusOld)
         {
             try
             {
@@ -456,7 +456,7 @@ namespace LMS.Areas.LMS.Controllers
                         //Thumbnails Image save End
 
                         // Send Notification
-                        if (chkStatus == "1")  // If published
+                        if ( (hdnAddEditMode == "ADDCONTENT" && chkStatus == "1") || (hdnAddEditMode == "EDITCONTENT" && chkStatus == "1" && hdnContentStatusOld=="false" ))  // If published
                         {
                            FireNotification(txtContentTitle, Convert.ToString(data.TopicId));
                         }
