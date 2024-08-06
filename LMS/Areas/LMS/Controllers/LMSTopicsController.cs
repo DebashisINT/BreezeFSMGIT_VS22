@@ -349,9 +349,13 @@ namespace LMS.Areas.LMS.Controllers
                 data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
 
                 // Send Notification
-                if ( (data.Action=="ADDTOPIC" && data.TopicStatus == "true") || (data.TopicStatus=="true" && data.TopicStatus!=data.TopicStatusOld) )  // If published
+                if ( (data.Action=="ADDTOPIC" && data.TopicStatus == "true") )  // If published and ADD
                 {
                     FireNotification(data.TopicName, data.RETURN_VALUE);
+                }
+                else if((data.Action == "EDITTOPIC" && data.TopicStatus == "true" && data.TopicStatusOld == "false")) // published and EDIT
+                {
+                    FireNotification(data.TopicName, data.TopicID);
                 }
 
                 if (data.Action == "ADDTOPIC" && Convert.ToInt16(data.RETURN_VALUE) > 0)
