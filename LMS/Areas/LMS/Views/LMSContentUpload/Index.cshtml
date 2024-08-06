@@ -4449,6 +4449,7 @@
         //LMSTopicGridLookup.SetValue();
         $("#numPlaySequence").val(1);
         $("#chkStatus").prop("checked", false);
+        $("#hdnContentStatusOld").val(0);
         $("#chkAllowLike").prop("checked", false);
         $("#chkAllowComments").prop("checked", false);
         $("#chkAllowShare").prop("checked", false);
@@ -4545,6 +4546,7 @@
                 $("#ddlTopic").val(data[0].TopicIds).trigger('change');
                 $("#numPlaySequence").val(data[0].PlaySequence);
                 $("#chkStatus").prop("checked", data[0].Status);
+                $("#hdnContentStatusOld").val(data[0].Status);
                 $("#chkAllowLike").prop("checked", data[0].AllowLike);
                 $("#chkAllowComments").prop("checked", data[0].AllowComments);
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
@@ -6177,6 +6179,7 @@
                             <input type="hidden" id="hdnFileDuration" name="hdnFileDuration" />
                             <input type="hidden" id="hdnTopicID" name="hdnTopicID" />
                             <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
+                            <input type="hidden" id="hdnContentStatusOld" name="hdnContentStatusOld" />
 
 
                             @*<input type="button" name="previous" class="upload-previous action-button-previous btn btn-success" value="Previous" onclick="PreviousButtonOnClick()" />*@
