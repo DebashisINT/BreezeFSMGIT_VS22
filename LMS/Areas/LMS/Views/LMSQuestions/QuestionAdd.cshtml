@@ -1039,6 +1039,24 @@
                 });
                 return false;
             }
+            else if ($("#txtOption3").val().trim() == "") {
+                // SweetAlert for empty Question description
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Enter Option3 to proceed.'
+                });
+                return false;
+            }
+            else if ($("#txtOption4").val().trim() == "") {
+                // SweetAlert for empty Question description
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Enter Option4 to proceed.'
+                });
+                return false;
+            }
             if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
 
                 if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
