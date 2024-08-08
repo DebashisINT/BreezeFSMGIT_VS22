@@ -100,7 +100,7 @@
     }
 </script>
 <script>
-    var is_pageload = "0";
+   // var is_pageload = "0";
     $(function () {
 
       //  gridDSVisitDetails.Refresh();
@@ -151,107 +151,107 @@
 
 
 
-        $('body').on('click', '#btnshow', function () {
+        //$('body').on('click', '#btnshow', function () {
 
-            var flag = true;
-            if (dtFrom.GetDate() == null) {
-                $('#MandatoryFromDate').attr('style', 'display:block');
-                flag = false;
-            }
-            else {
-                $('#MandatoryFromDate').attr('style', 'display:none');
-            }
+        //    var flag = true;
+        //    if (dtFrom.GetDate() == null) {
+        //        $('#MandatoryFromDate').attr('style', 'display:block');
+        //        flag = false;
+        //    }
+        //    else {
+        //        $('#MandatoryFromDate').attr('style', 'display:none');
+        //    }
 
-            if (dtTo.GetDate() == null) {
-                $('#MandatoryToDate').attr('style', 'display:block');
-                flag = false;
-            }
-            else {
-                $('#MandatoryToDate').attr('style', 'display:none');
-            }
-
-
-            datefrm = dtFrom.GetText();
-            var newdatefrom = datefrm.split("-").reverse().join("-");
-
-            var startdate = new Date(Date.parse(newdatefrom));
-            //  alert(startdate);
+        //    if (dtTo.GetDate() == null) {
+        //        $('#MandatoryToDate').attr('style', 'display:block');
+        //        flag = false;
+        //    }
+        //    else {
+        //        $('#MandatoryToDate').attr('style', 'display:none');
+        //    }
 
 
-            dateto = dtTo.GetText();
-            var newdateTo = dateto.split("-").reverse().join("-");
+        //    datefrm = dtFrom.GetText();
+        //    var newdatefrom = datefrm.split("-").reverse().join("-");
 
-            var endDate = new Date(Date.parse(newdateTo));
-
-            if (endDate < startdate) {
-
-                jAlert('From date should be before/equal To date');
-            }
-
-            else {
-                //$("#refreshgridDSVisitDetails").show();
-                if (flag == true) {
-                    is_pageload = "1";
-
-                    var start = $('#dtFrom_I').val();
-                    var end = $('#dtTo_I').val();
-                    start = start.split('-')[1] + '-' + start.split('-')[0] + '-' + start.split('-')[2];
-                    end = end.split('-')[1] + '-' + end.split('-')[0] + '-' + end.split('-')[2];
-
-                    var dayse = Math.round((Date.parse(end) - Date.parse(start)) / (1000 * 60 * 60 * 24));
-                    //if (dayse <= 7) {
-                    //if (dayse <= 30) {
-                    //   // gridDSVisitDetails.Refresh();
-                    //}
-                    //else {
-                    //    //jAlert("Searching days must be within 7 days");
-                    //    jAlert("Searching days must be within One month");
-                    //}
-                    if (dayse < 35) {
-
-                    }
-                    else {
-                        jAlert("Searching days must be within 35 days");
-                        flag = false;
-                        return false;
-                    }
-                }
-            }
-            //alert(BranchId)
-            if (BranchId == "" || BranchId == null) {
-                //  $('#MandatoryState').attr('style', 'display:block');
-                jAlert("Please select Branch.");
-                flag = false;
-                return false;
-            }
-            else {
-                //   $('#MandatoryState').attr('style', 'display:none');
-            }
-            if ($('#IsEmpDSAll').is(':checked')) {
-                //UserDSAllSearch();
-
-            }
-            else {
-                if ($("#hdnUserDSId").val() == null || $("#hdnUserDSId").val() == "") {
-                    //Rev Debashis 0024715
-                    //jAlert("Please select User with designation DS.");
-                    //Rev 2.0 Mantis: 0027360
-                    /*jAlert("Please select User with designation DS/TL.");*/
-                    jAlert("Please select User with designation DS.");
-                    //End of Rev 2.0 Mantis: 0027360
-                    //End of Rev Debashis 0024715
-                    flag = false;
-                    return false;
-                }
-                else {
-                    GetEmpSelectedFieldValuesOndemand($("#hdnUserDSId").val());
-                }
-            }
-
-            gridDSVisitDetails.Refresh();
+        //    var startdate = new Date(Date.parse(newdatefrom));
+        //    //  alert(startdate);
 
 
-        });
+        //    dateto = dtTo.GetText();
+        //    var newdateTo = dateto.split("-").reverse().join("-");
+
+        //    var endDate = new Date(Date.parse(newdateTo));
+
+        //    if (endDate < startdate) {
+
+        //        jAlert('From date should be before/equal To date');
+        //    }
+
+        //    else {
+        //        //$("#refreshgridDSVisitDetails").show();
+        //        if (flag == true) {
+        //            is_pageload = "1";
+
+        //            var start = $('#dtFrom_I').val();
+        //            var end = $('#dtTo_I').val();
+        //            start = start.split('-')[1] + '-' + start.split('-')[0] + '-' + start.split('-')[2];
+        //            end = end.split('-')[1] + '-' + end.split('-')[0] + '-' + end.split('-')[2];
+
+        //            var dayse = Math.round((Date.parse(end) - Date.parse(start)) / (1000 * 60 * 60 * 24));
+        //            //if (dayse <= 7) {
+        //            //if (dayse <= 30) {
+        //            //   // gridDSVisitDetails.Refresh();
+        //            //}
+        //            //else {
+        //            //    //jAlert("Searching days must be within 7 days");
+        //            //    jAlert("Searching days must be within One month");
+        //            //}
+        //            if (dayse < 35) {
+
+        //            }
+        //            else {
+        //                jAlert("Searching days must be within 35 days");
+        //                flag = false;
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    //alert(BranchId)
+        //    if (BranchId == "" || BranchId == null) {
+        //        //  $('#MandatoryState').attr('style', 'display:block');
+        //        jAlert("Please select Branch.");
+        //        flag = false;
+        //        return false;
+        //    }
+        //    else {
+        //        //   $('#MandatoryState').attr('style', 'display:none');
+        //    }
+        //    if ($('#IsEmpDSAll').is(':checked')) {
+        //        //UserDSAllSearch();
+
+        //    }
+        //    else {
+        //        if ($("#hdnUserDSId").val() == null || $("#hdnUserDSId").val() == "") {
+        //            //Rev Debashis 0024715
+        //            //jAlert("Please select User with designation DS.");
+        //            //Rev 2.0 Mantis: 0027360
+        //            /*jAlert("Please select User with designation DS/TL.");*/
+        //            jAlert("Please select User with designation DS.");
+        //            //End of Rev 2.0 Mantis: 0027360
+        //            //End of Rev Debashis 0024715
+        //            flag = false;
+        //            return false;
+        //        }
+        //        else {
+        //            GetEmpSelectedFieldValuesOndemand($("#hdnUserDSId").val());
+        //        }
+        //    }
+
+        //    gridDSVisitDetails.Refresh();
+
+
+        //});
 
 
 
@@ -271,21 +271,13 @@
 
     })
 
-    function BranchStartCallback(s, e) {
-        e.customArgs["UserID"] = $("#hdnUserID").val();
-    }
-
-    function BranchLookupValChange() {
-        BranchGridLookup.GetGridView().Refresh();
-    }
+   
 
     function OnStartCallback(s, e) {
 
         e.customArgs["Fromdate"] = dtFrom.GetText();
-        e.customArgs["Todate"] = dtTo.GetText();
-        e.customArgs["BranchId"] = BranchId;
-        e.customArgs["empcode"] = empId;
-        e.customArgs["is_pageload"] = is_pageload;
+        e.customArgs["Todate"] = dtTo.GetText();       
+        e.customArgs["is_pageload"] = "0";
 
         // alert(e.customArgs["BranchId"]);
 
@@ -416,16 +408,16 @@
 <script>
     function GetData() {
         GetEmpSelectedFieldValuesOndemand($("#hdnUserId").val());
-        
+        var User_Ids = UserId.join(','); 
         
 
     var obj = {};
-    obj.UserIds = UserIds;
+    obj.UserIds = User_Ids;
     obj.Topic_Id = Topic_Id;
     obj.Content_Id = Content_Id;
    
-    obj.fromdate = StartDate.GetDate();
-    obj.todate = EndDate.GetDate();
+    obj.fromdate = dtFrom.GetDate();
+        obj.todate = dtTo.GetDate();
    
     
    
@@ -444,8 +436,8 @@
             data: JSON.stringify(obj),
             async: false,
             success: function (response) {
-                gridlatevisit.Refresh();
-                gridlatevisit.Refresh();
+                gridList.Refresh();
+                gridList.Refresh();
 
             }
         });
@@ -1014,12 +1006,6 @@
 
                         </tr>
                         <tr>
-
-
-
-
-
-
                             <td style="padding-top: 22px;width:200px;">
                                 <label></label>
                                 <button type="button" id="btnshow" class="btn btn-success btnwidth" onclick="GetData();" tabindex=4>Show</button>
@@ -1030,7 +1016,6 @@
                                     <option value="3">XLS</option>
                                     <option value="4">RTF</option>
                                     <option value="5">CSV</option>
-
                                 </select>
 
                             </td>
@@ -1043,40 +1028,21 @@
                     <table class="eqpadtbl mt-1 mb-3"></table>
                 </div>
             </div>
-
-            @*separation*@
-            @*<div class="col-md-12">
-
-                </div>*@
-
         </div>
         <input type="hidden" id="hdnuser_id" />
         <input type="hidden" id="hdnuser_state" />
         <input type="hidden" id="hdnuser_shop" />
         <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
-        @*<input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />*@
+       
 
         <div style="clear: both;"><br /></div>
-
-        @*<div class="options">
-            <div class="options-item">
-                @Html.DevExpress().Button(settings =>
-                {
-                    settings.Name = "btShowColumnChooser";
-                    settings.Text = "Show Column Chooser";
-                    settings.ClientSideEvents.Click = "function (s, e) { onShowChooserClick(s,e); }";
-                    // settings.Theme = "MaterialCompactOrange";
-                }).GetHtml()
-            </div>
-        </div>*@
-        <div class="pb-3">
-            <div id="refreshgridDSVisitDetails">
-                @*@{
-                    Html.RenderAction("GetDSVisitDetailsList", "DSVisitDetails", new { Fromdate = Model.Fromdate, Todate = Model.Todate, BranchId = Model.BranchId, empcode = Model.empcode, is_pageload = "0" });
-                }*@
-                change for design
-            </div>
+        <div >
+            @{
+                Html.RenderAction("PartialReportListing", "LMSReports", new { is_pageload = "1" });
+            }
+                
         </div>
+       
     </div>
 </div>
 <!--User Modal -->

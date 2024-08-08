@@ -18,7 +18,7 @@ namespace LMS.Models
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Todate { get; set; }
 
-
+        public string is_pageload { get; set; }
         public class GetUser
         {
             public Int64 user_id { get; set; }
