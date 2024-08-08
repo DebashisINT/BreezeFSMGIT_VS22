@@ -351,7 +351,9 @@ namespace ShopAPI.Controllers
                     sqlcmd.Parameters.AddWithValue("@CONTENT_WATCH_LENGTH", model.content_watch_length);
                     sqlcmd.Parameters.AddWithValue("@ISCONTENTCOMPLETED", model.content_watch_completed);
                     sqlcmd.Parameters.AddWithValue("@CONTENTLASTVIEW", model.content_last_view_date_time);
+                    sqlcmd.Parameters.AddWithValue("@WATCHSTARTDATE", model.content_watch_start_date);
                     sqlcmd.Parameters.AddWithValue("@WATCHSTARTTIME", model.WatchStartTime);
+                    sqlcmd.Parameters.AddWithValue("@WATCHENDDATE", model.content_watch_end_date);
                     sqlcmd.Parameters.AddWithValue("@WATCHENDTIME", model.WatchEndTime);
                     sqlcmd.Parameters.AddWithValue("@WATCHEDDURATION", model.WatchedDuration);
                     sqlcmd.Parameters.AddWithValue("@WATCHTIMESTAMP", model.Timestamp);
@@ -475,6 +477,124 @@ namespace ShopAPI.Controllers
                         omodel.message = "Successfully Get List.";
                         Cview = APIHelperMethods.ToModelList<CommentlistsOutput>(ds.Tables[0]);
                         omodel.comment_list = Cview;
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage ContentCountSave(ContentCountSaveInput model)
+        {
+            ContentCountSaveOutput omodel = new ContentCountSaveOutput();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "CONTENTCOUNTSAVE");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@CONTENTCOUNTSAVEDATE", model.save_date);
+                    sqlcmd.Parameters.AddWithValue("@LIKECOUNT", model.like_count);
+                    sqlcmd.Parameters.AddWithValue("@SHARE_COUNT", model.share_count);
+                    sqlcmd.Parameters.AddWithValue("@COMMENTCOUNT", model.comment_count);
+                    sqlcmd.Parameters.AddWithValue("@CORRECTANSCOUNT", model.correct_answer_count);
+                    sqlcmd.Parameters.AddWithValue("@WRONGANSCOUNT", model.wrong_answer_count);
+                    sqlcmd.Parameters.AddWithValue("@WATCHCOUNT", model.content_watch_count);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Saved Successfully.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage TopicContentWiseQASave(TopicContentWiseQASaveInput model)
+        {
+            TopicContentWiseQASaveOutput omodel = new TopicContentWiseQASaveOutput();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<QAsavelist> omedl2 = new List<QAsavelist>();
+                    foreach (var s2 in model.question_answer_save_list)
+                    {
+                        omedl2.Add(new QAsavelist()
+                        {
+                            topic_id = s2.topic_id,
+                            topic_name = s2.topic_name,
+                            content_id = s2.content_id,
+                            question_id = s2.question_id,
+                            question = s2.question,
+                            option_id = s2.option_id,
+                            option_number = s2.option_number,
+                            option_point = s2.option_point,
+                            isCorrect = s2.isCorrect,
+                            completionStatus = s2.completionStatus
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omedl2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "TOPICCONTENTWISEQASAVE");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Saved Successfully.";
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
