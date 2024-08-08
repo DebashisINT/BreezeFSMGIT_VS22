@@ -122,7 +122,7 @@ namespace LMS.Areas.LMS.Controllers
 
         public IEnumerable GetReport(string ispageload)
         {
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ErpConnection"]);
+            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ERP_ConnectionString"]);
             string Userid = Convert.ToString(Session["userid"]);
 
             if (ispageload != "1")
