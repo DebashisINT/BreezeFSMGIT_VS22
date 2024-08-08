@@ -142,7 +142,9 @@ namespace ShopAPI.Models
         public string content_watch_length { get; set; }
         public bool content_watch_completed { get; set; }
         public string content_last_view_date_time { get; set; }
+        public string content_watch_start_date { get; set; }
         public string WatchStartTime { get; set; }
+        public string content_watch_end_date { get; set; }
         public string WatchEndTime { get; set; }
         public string WatchedDuration { get; set; }
         public string Timestamp { get; set; }
@@ -211,6 +213,7 @@ namespace ShopAPI.Models
         public int QuizAttemptsNo { get; set; }
         public decimal QuizScores { get; set; }
         public bool CompletionStatus { get; set; }
+        public string content_thumbnail { get; set; }
     }
 
     public class CommentListInput
@@ -235,5 +238,49 @@ namespace ShopAPI.Models
         public string comment_date_time { get; set; }
         public long commented_user_id { get; set; }
         public string commented_user_name { get; set; }
+    }
+
+    public class ContentCountSaveInput
+    {
+        public long user_id { get; set; }
+        public string save_date { get; set; }
+        public int like_count { get; set; }
+        public int share_count { get; set; }
+        public int comment_count { get; set; }
+        public int correct_answer_count { get; set; }
+        public int wrong_answer_count { get; set; }
+        public int content_watch_count { get; set; }
+    }
+
+    public class ContentCountSaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+
+    public class TopicContentWiseQASaveInput
+    {
+        public long user_id { get; set; }
+        public List<QAsavelist> question_answer_save_list { get; set; }
+    }
+
+    public class QAsavelist
+    {
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public long question_id { get; set; }
+        public string question { get; set; }
+        public long option_id { get; set; }
+        public string option_number { get; set; }
+        public long option_point { get; set; }
+        public bool isCorrect { get; set; }
+        public bool completionStatus { get; set; }
+    }
+
+    public class TopicContentWiseQASaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
     }
 }
