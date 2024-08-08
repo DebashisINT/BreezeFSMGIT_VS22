@@ -103,6 +103,14 @@ namespace LMS.Models
 				return this.GetTable<LMS_QUESTIONSMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<LMS_REPORTSLIST> LMS_REPORTSLISTs
+		{
+			get
+			{
+				return this.GetTable<LMS_REPORTSLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_CATEGORYMASTERLIST")]
@@ -1396,6 +1404,303 @@ namespace LMS.Models
 				if ((this._MODIFYUSER != value))
 				{
 					this._MODIFYUSER = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LMS_REPORTSLIST")]
+	public partial class LMS_REPORTSLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<long> _USER_ID;
+		
+		private string _USER_NAME;
+		
+		private System.Nullable<long> _TOPICID;
+		
+		private string _TOPICNAME;
+		
+		private System.Nullable<long> _CONTENT_ID;
+		
+		private string _CONTENTTITLE;
+		
+		private string _CONTENTDESC;
+		
+		private System.Nullable<System.DateTime> _ASSIGNEDON;
+		
+		private string _COMPLETIONSTATUS;
+		
+		private string _TIMESPENT;
+		
+		private System.Nullable<System.DateTime> _CompletionDate;
+		
+		private System.Nullable<System.DateTime> _FirstAccessDateandTime;
+		
+		private System.Nullable<System.DateTime> _LastAccessDateandTime;
+		
+		private System.Nullable<int> _CompletionDurationDays;
+		
+		public LMS_REPORTSLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="BigInt")]
+		public System.Nullable<long> USER_ID
+		{
+			get
+			{
+				return this._USER_ID;
+			}
+			set
+			{
+				if ((this._USER_ID != value))
+				{
+					this._USER_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="VarChar(50)")]
+		public string USER_NAME
+		{
+			get
+			{
+				return this._USER_NAME;
+			}
+			set
+			{
+				if ((this._USER_NAME != value))
+				{
+					this._USER_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICID", DbType="BigInt")]
+		public System.Nullable<long> TOPICID
+		{
+			get
+			{
+				return this._TOPICID;
+			}
+			set
+			{
+				if ((this._TOPICID != value))
+				{
+					this._TOPICID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICNAME", DbType="NVarChar(300)")]
+		public string TOPICNAME
+		{
+			get
+			{
+				return this._TOPICNAME;
+			}
+			set
+			{
+				if ((this._TOPICNAME != value))
+				{
+					this._TOPICNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENT_ID", DbType="BigInt")]
+		public System.Nullable<long> CONTENT_ID
+		{
+			get
+			{
+				return this._CONTENT_ID;
+			}
+			set
+			{
+				if ((this._CONTENT_ID != value))
+				{
+					this._CONTENT_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTTITLE", DbType="NVarChar(100)")]
+		public string CONTENTTITLE
+		{
+			get
+			{
+				return this._CONTENTTITLE;
+			}
+			set
+			{
+				if ((this._CONTENTTITLE != value))
+				{
+					this._CONTENTTITLE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTENTDESC", DbType="NVarChar(300)")]
+		public string CONTENTDESC
+		{
+			get
+			{
+				return this._CONTENTDESC;
+			}
+			set
+			{
+				if ((this._CONTENTDESC != value))
+				{
+					this._CONTENTDESC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASSIGNEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ASSIGNEDON
+		{
+			get
+			{
+				return this._ASSIGNEDON;
+			}
+			set
+			{
+				if ((this._ASSIGNEDON != value))
+				{
+					this._ASSIGNEDON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COMPLETIONSTATUS", DbType="NVarChar(20)")]
+		public string COMPLETIONSTATUS
+		{
+			get
+			{
+				return this._COMPLETIONSTATUS;
+			}
+			set
+			{
+				if ((this._COMPLETIONSTATUS != value))
+				{
+					this._COMPLETIONSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TIMESPENT", DbType="NVarChar(20)")]
+		public string TIMESPENT
+		{
+			get
+			{
+				return this._TIMESPENT;
+			}
+			set
+			{
+				if ((this._TIMESPENT != value))
+				{
+					this._TIMESPENT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompletionDate
+		{
+			get
+			{
+				return this._CompletionDate;
+			}
+			set
+			{
+				if ((this._CompletionDate != value))
+				{
+					this._CompletionDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstAccessDateandTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FirstAccessDateandTime
+		{
+			get
+			{
+				return this._FirstAccessDateandTime;
+			}
+			set
+			{
+				if ((this._FirstAccessDateandTime != value))
+				{
+					this._FirstAccessDateandTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastAccessDateandTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> LastAccessDateandTime
+		{
+			get
+			{
+				return this._LastAccessDateandTime;
+			}
+			set
+			{
+				if ((this._LastAccessDateandTime != value))
+				{
+					this._LastAccessDateandTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionDurationDays", DbType="Int")]
+		public System.Nullable<int> CompletionDurationDays
+		{
+			get
+			{
+				return this._CompletionDurationDays;
+			}
+			set
+			{
+				if ((this._CompletionDurationDays != value))
+				{
+					this._CompletionDurationDays = value;
 				}
 			}
 		}
