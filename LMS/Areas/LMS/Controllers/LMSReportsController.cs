@@ -1,4 +1,6 @@
-﻿using LMS.Models;
+﻿using DevExpress.Web;
+using DevExpress.Web.Mvc;
+using LMS.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -112,21 +114,8 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
-        public PartialViewResult _PartialLateVisitGrid(string ispageload, DateTime starttime, DateTime endtime)
+        public PartialViewResult _PartialLateVisitGrid(string ispageload)
         {
-            if (starttime != null)
-            {
-                ViewBag.StartTime = starttime.ToString("hh:mm tt");
-                TempData["starttime"] = starttime.ToString("hh:mm tt");
-            }
-            if (endtime != null)
-            {
-                ViewBag.EndTime = endtime.ToString("hh:mm tt");
-                TempData["endtime"] = endtime.ToString("hh:mm tt");
-            }
-
-            TempData.Keep();
-
             return PartialView(GetReport(ispageload));
         }
 
@@ -139,18 +128,18 @@ namespace LMS.Areas.LMS.Controllers
             if (ispageload != "1")
             {
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                var q = from d in dc.EMPLOYEE_LATE_VISIT_REPORTs
+                var q = from d in dc.LMS_REPORTSLISTs
                         where Convert.ToString(d.USER_ID) == Userid
-                        orderby d.VISIT_DATE descending
+                        orderby d.SEQ descending
                         select d;
                 return q;
             }
             else
             {
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-                var q = from d in dc.EMPLOYEE_LATE_VISIT_REPORTs
+                var q = from d in dc.LMS_REPORTSLISTs
                         where 1 == 0
-                        orderby d.VISIT_DATE descending
+                        orderby d.SEQ descending
                         select d;
                 return q;
             }
