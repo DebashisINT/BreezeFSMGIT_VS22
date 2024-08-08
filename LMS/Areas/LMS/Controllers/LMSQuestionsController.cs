@@ -180,7 +180,7 @@ namespace LMS.Areas.LMS.Controllers
                 Success = true;
             }
             catch { }
-            return Json(Success);
+            return Json(Success,JsonRequestBehavior.AllowGet);
         }
         public JsonResult EditQuestion(string id)
         {
@@ -545,7 +545,7 @@ namespace LMS.Areas.LMS.Controllers
                 Success = true;
             }
             catch { }
-            return Json(Success);
+            return Json(Success, JsonRequestBehavior.AllowGet);
         }
     }
 }
