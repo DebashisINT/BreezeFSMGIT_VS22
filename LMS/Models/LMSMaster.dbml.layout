@@ -38,10 +38,12 @@
         <elementListCompartment Id="f28053d0-570f-4389-ae9a-cb17c9b9a226" absoluteBounds="0.515, 2.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c8811a8b-f780-4895-b82e-c53470d3bd39" absoluteBounds="3.375, 0.625, 2, 3.8862125651041666">
+
+    <classShape Id="afac4923-352b-4274-a790-9244023773a1" absoluteBounds="3.25, 0.625, 2, 3.8862125651041666">
       <DataClassMoniker Name="/LMSMasterDataContext/LMS_REPORTSLIST" />
       <nestedChildShapes>
-        <elementListCompartment Id="19d52674-aa3e-4379-a705-96d10a3f5b36" absoluteBounds="3.39, 1.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9b68f225-666d-43da-a94e-2fb075f73d8e" absoluteBounds="3.265, 1.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

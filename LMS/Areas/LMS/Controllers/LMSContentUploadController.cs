@@ -503,7 +503,9 @@ namespace LMS.Areas.LMS.Controllers
         public void FireNotification(string ContentTitle, string TopicId)
         {
             string Mssg = "HI! A new video titled " + ContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
-            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
+            //var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
+            var imgNotification_Icon = ConfigurationManager.AppSettings["SPath"].ToString() + "Commonfolder/LMS/Notification_Icon.jpg";
+            
             //string SalesMan_Nm = "";
             string SalesMan_Phn = "";
 
@@ -1109,7 +1111,7 @@ namespace LMS.Areas.LMS.Controllers
 
                 if (output_msg == "1" && chkStatus=="0")
                 {
-                    //FireNotification(ContentTitle, TopicId);
+                    FireNotification(ContentTitle, TopicId);
                 }
 
 
