@@ -3734,6 +3734,7 @@
                                                 data: { TopicID: $("#ddlTopic").val() },
                                                 success: function (response) {
                                                     if (response != null && response == true) {
+                                                        $("#AddContentModal").modal('hide');
                                                         //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
                                                         AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val() );
                                                     }
