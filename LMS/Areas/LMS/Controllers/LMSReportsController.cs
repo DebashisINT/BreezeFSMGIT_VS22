@@ -4,6 +4,7 @@ using LMS.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -31,11 +32,9 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetTopic> productdata = new List<GetTopic>();
                 List<GetTopic> modelbranch = new List<GetTopic>();
                 DataTable ComponentTable = new DataTable();
-
                
                 ComponentTable = obj.GETDROPDOWNVALUE("GETTOPIC");
                 modelbranch = APIHelperMethods.ToModelList<GetTopic>(ComponentTable);
-
                 return PartialView("~/Areas/LMS/Views/LMSReports/_TopicLookUpPartial.cshtml", modelbranch);
 
             }
@@ -55,34 +54,8 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetUser> modelbranch = new List<GetUser>();
                 DataTable ComponentTable = new DataTable();
 
-
                 ComponentTable = obj.GETDROPDOWNVALUE("GETUSER");
                 modelbranch = APIHelperMethods.ToModelList<GetUser>(ComponentTable);
-
-                //DataSet output = new DataSet();
-                //output = obj.EditQuestion(QUESTIONS_ID);
-                //if (output.Tables[1].Rows.Count > 0)
-                //{
-                //    if (output.Tables[1] != null && output.Tables[1].Rows.Count > 0)
-                //    {
-                //        DataTable objData = output.Tables[1];
-                //        foreach (DataRow row in objData.Rows)
-                //        {
-                //            dataobj = new GetTopic();
-                //            dataobj.TOPICID = Convert.ToInt64(row["QUESTIONS_TOPICID"]);
-                //            productdata.Add(dataobj);
-
-                //        }
-                //        ViewBag.QUESTIONS_TOPICIDS = productdata;
-                //    }
-
-                //}
-                //if (TempData["TopicID"] != null)
-                //{
-                //    ViewBag.CONTENT_TOPICIDS = Convert.ToInt64(TempData["TopicID"]);
-                //}
-
-
                 return PartialView("~/Areas/LMS/Views/LMSReports/_UserLookUpPartial.cshtml", modelbranch);
 
             }
@@ -100,11 +73,8 @@ namespace LMS.Areas.LMS.Controllers
                 List<GetContent> productdata = new List<GetContent>();
                 List<GetContent> modelbranch = new List<GetContent>();
                 DataTable ComponentTable = new DataTable();
-
-
                 ComponentTable = obj.GETDROPDOWNVALUE("GetContent");
                 modelbranch = APIHelperMethods.ToModelList<GetContent>(ComponentTable);
-
                 return PartialView("~/Areas/LMS/Views/LMSReports/_ContentLookUpPartial.cshtml", modelbranch);
 
             }
@@ -114,22 +84,23 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
-        public PartialViewResult _PartialLateVisitGrid(string ispageload)
+        public PartialViewResult PartialReportListing(string is_pageload)
         {
-            return PartialView(GetReport(ispageload));
+            return PartialView(GetReport(is_pageload));
         }
 
 
-        public IEnumerable GetReport(string ispageload)
+        public IEnumerable GetReport(string is_pageload)
         {
-            string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["ERP_ConnectionString"]);
+            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
+           // string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["DBConnectionDefault"]);
             string Userid = Convert.ToString(Session["userid"]);
 
-            if (ispageload != "1")
+            if (is_pageload != "1")
             {
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_REPORTSLISTs
-                        where Convert.ToString(d.USER_ID) == Userid
+                        where Convert.ToString(d.USERID) == Userid
                         orderby d.SEQ descending
                         select d;
                 return q;
@@ -152,11 +123,7 @@ namespace LMS.Areas.LMS.Controllers
             //EmployeeLateVisit objEmployeeLateVisit = new EmployeeLateVisit();
             obj.CreateTable(UserIds, Topic_Id, Content_Id,fromdate, todate, Convert.ToString(Session["userid"]));
             return Json(output, JsonRequestBehavior.AllowGet);
-
         }
-
-
-
         public ActionResult ExporSummaryList(int type)
         {
 
