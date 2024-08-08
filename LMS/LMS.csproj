@@ -316,6 +316,7 @@
     <Compile Include="Areas\LMS\Controllers\LMSCategoryController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSPointController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSQuestionsController.cs" />
+    <Compile Include="Areas\LMS\Controllers\LMSReportsController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSTopicsController.cs" />
     <Compile Include="Areas\LMS\LMSAreaRegistration.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -333,6 +334,11 @@
     </Compile>
     <Compile Include="Models\LMSPointModel.cs" />
     <Compile Include="Models\LMSQuestionsModel.cs" />
+    <Compile Include="Models\LMSReportsModel.cs" />
+    <Compile Include="Models\LMSService.asmx.cs">
+      <DependentUpon>LMSService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\LMSTopicsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -830,6 +836,10 @@
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialTopicDetailsListing.cshtml" />
     <Content Include="Areas\LMS\Views\LMSQuestions\PartialCategoryDetaisListing.cshtml" />
     <Content Include="Areas\LMS\Views\LMSContentUpload\PartialMappedQuesForView.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSReports\Index.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSReports\_TopicLookUpPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSReports\_UserLookUpPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSReports\_ContentLookUpPartial.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
@@ -973,6 +983,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\LMSService.asmx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
