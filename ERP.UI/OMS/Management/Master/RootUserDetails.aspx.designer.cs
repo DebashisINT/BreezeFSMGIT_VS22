@@ -4587,22 +4587,22 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsShowDateWiseOrderInApp;
 
         /// <summary>
-        /// divShowLMSMenu control.
+        /// divIsUserWiseLMSEnable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell divShowLMSMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsUserWiseLMSEnable;
 
         /// <summary>
-        /// chkShowLMSMenu control.
+        /// chkIsUserWiseLMSEnable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxCheckBox chkShowLMSMenu;
+        protected global::DevExpress.Web.ASPxCheckBox chkIsUserWiseLMSEnable;
 
         /// <summary>
         /// divIsUserWiseLMSFeatureOnly control.

@@ -24,7 +24,7 @@
  * 13.0               03-06-2024       V2.0.47           Sanchita         Some global settings are required for CRM Opportunity module. Mantis: 27481 *
  * 14.0               18-06-2024       V2.0.47           Sanchita         27436: Please create a global settings IsShowDateWiseOrderInApp   
  * 15.0               21-06-2024       V2.0.48           Sanchita         0027564: The default value should be zero for some of Global & User wise setting in FSM
- * 16.0               04-07-2024       V2.0.48           Sanchita         27575: Two new global and user settings are required as 'ShowLMSMenu' and 'IsUserWiseLMSFeatureOnly'        
+ * 16.0               04-07-2024       V2.0.48           Sanchita         27575: Two new global and user settings are required as 'IsUserWiseLMSEnable' and 'IsUserWiseLMSFeatureOnly'        
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2547,13 +2547,13 @@ namespace ERP.OMS.Management.Master
                 }
                 // End of Rev 14.0
                 // Rev 15.0
-                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ShowLMSMenu"]) == true)
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsUserWiseLMSEnable"]) == true)
                 {
-                    chkShowLMSMenu.Checked = true;
+                    chkIsUserWiseLMSEnable.Checked = true;
                 }
                 else
                 {
-                    chkShowLMSMenu.Checked = false;
+                    chkIsUserWiseLMSEnable.Checked = false;
                 }
                 if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["IsUserWiseLMSFeatureOnly"]) == true)
                 {
@@ -3005,7 +3005,7 @@ namespace ERP.OMS.Management.Master
                 int IsShowDateWiseOrderInApp = 0;
                 // End of Rev 14.0
                 // Rev 15.0
-                int ShowLMSMenu = 0;
+                int IsUserWiseLMSEnable = 0;
                 int IsUserWiseLMSFeatureOnly = 0;
                 // End of Rev 15.0
 
@@ -4531,10 +4531,10 @@ namespace ERP.OMS.Management.Master
                     IsShowDateWiseOrderInApp = 0;
                 // End of Rev 14.0
                 // Rev Sanchita
-                if (chkShowLMSMenu.Checked == true)
-                    ShowLMSMenu = 1;
+                if (chkIsUserWiseLMSEnable.Checked == true)
+                    IsUserWiseLMSEnable = 1;
                 else
-                    ShowLMSMenu = 0;
+                    IsUserWiseLMSEnable = 0;
                 if (chkIsUserWiseLMSFeatureOnly.Checked == true)
                     IsUserWiseLMSFeatureOnly = 1;
                 else
@@ -4921,7 +4921,7 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
                             // Rev 15.0
-                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsUserWiseLMSEnable", IsUserWiseLMSEnable);
                             proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
@@ -5382,7 +5382,7 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
                             // Rev 15.0
-                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsUserWiseLMSEnable", IsUserWiseLMSEnable);
                             proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
@@ -5838,7 +5838,7 @@ namespace ERP.OMS.Management.Master
                             proc.AddPara("@IsShowDateWiseOrderInApp", IsShowDateWiseOrderInApp);
                             // End of Rev 14.0
                             // Rev 15.0
-                            proc.AddPara("@ShowLMSMenu", ShowLMSMenu);
+                            proc.AddPara("@IsUserWiseLMSEnable", IsUserWiseLMSEnable);
                             proc.AddPara("@IsUserWiseLMSFeatureOnly", IsUserWiseLMSFeatureOnly);
                             // End of Rev 15.0
 
@@ -8023,15 +8023,15 @@ namespace ERP.OMS.Management.Master
                     }
                     // End of Rev 14.0
                     // Rev 15.0
-                    else if (Convert.ToString(dr["key"]) == "ShowLMSMenu")
+                    else if (Convert.ToString(dr["key"]) == "IsUserWiseLMSEnable")
                     {
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
-                            divShowLMSMenu.Style.Add("display", "table-cell");
+                            divIsUserWiseLMSEnable.Style.Add("display", "table-cell");
                         }
                         else
                         {
-                            divShowLMSMenu.Style.Add("display", "none");
+                            divIsUserWiseLMSEnable.Style.Add("display", "none");
                         }
                     }
                     else if (Convert.ToString(dr["key"]) == "IsUserWiseLMSFeatureOnly")
