@@ -675,6 +675,10 @@
     .btn-warning {
         background: #e08d19;
     }
+
+    .crossBtnN {
+        color: #fff;
+    }
 </style>
 
 <script>
@@ -756,9 +760,12 @@
             var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
             if (chkCorrect1 == "1") {
                 $("#txtPoint1").prop("disabled", false);
+                $("#txtPoint1").focus();
+                
             }
             else {
                 $("#txtPoint1").prop("disabled", true);
+                
             }
         });
 
@@ -766,9 +773,12 @@
             var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
             if (chkCorrect2 == "1") {
                 $("#txtPoint2").prop("disabled", false);
+                $("#txtPoint2").focus();
+                
             }
             else {
                 $("#txtPoint2").prop("disabled", true);
+                
             }
         });
 
@@ -776,9 +786,12 @@
             var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
             if (chkCorrect3 == "1") {
                 $("#txtPoint3").prop("disabled", false);
+                $("#txtPoint3").focus();
+                
             }
             else {
                 $("#txtPoint3").prop("disabled", true);
+               
             }
         });
 
@@ -786,12 +799,60 @@
             var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
             if (chkCorrect4 == "1") {
                 $("#txtPoint4").prop("disabled", false);
+                $("#txtPoint4").focus();
+                
             }
             else {
                 $("#txtPoint4").prop("disabled", true);
+                
             }
         });
     });
+
+    function handleInputFocus(chkId, txtId, placeholderText) {
+        // Enable the focused input and remove its placeholder on checkbox change
+        $("#" + chkId).change(function () {
+            var isChecked = document.getElementById(chkId).checked ? "1" : "0";
+
+            // Disable and reset placeholders for all inputs
+            $(".txtPoint").prop("disabled", true).each(function () {
+                $(this).attr("placeholder", $(this).data("placeholder"));
+            });
+
+            // Enable the selected input if checked
+            if (isChecked == "1") {
+                $("#" + txtId).prop("disabled", false).focus();
+            }
+        });
+
+        // Remove placeholder on focus
+        $("#" + txtId).focus(function () {
+            $(this).attr("placeholder", "");
+        });
+
+        // Restore placeholder on focus out
+        $("#" + txtId).focusout(function () {
+            $(this).attr("placeholder", $(this).data("placeholder"));
+        });
+    }
+
+    // Initialize the inputs
+    $(document).ready(function () {
+        // Store original placeholders
+        $("#txtPoint1").data("placeholder", "Point 1");
+        $("#txtPoint2").data("placeholder", "Point 2");
+        $("#txtPoint3").data("placeholder", "Point 3");
+        $("#txtPoint4").data("placeholder", "Point 4");
+
+        // Apply the function to each checkbox/input pair
+        handleInputFocus('chkCorrect1', 'txtPoint1', 'Point 1');
+        handleInputFocus('chkCorrect2', 'txtPoint2', 'Point 2');
+        handleInputFocus('chkCorrect3', 'txtPoint3', 'Point 3');
+        handleInputFocus('chkCorrect4', 'txtPoint4', 'Point 4');
+    });
+
+
+
 
 
     function getUrlVars() {
