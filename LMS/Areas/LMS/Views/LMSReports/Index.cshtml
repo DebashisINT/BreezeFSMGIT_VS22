@@ -1,7 +1,7 @@
 ﻿
 @model LMS.Models.LMSReportsModel
 @{
-    ViewBag.Title = "LMS Reports";
+    ViewBag.Title = "Learning Analytics";
 }
 
 <script type="text/javascript" src="~/Scripts/globalize.js"></script>
@@ -261,7 +261,7 @@
                 var desg = $("#drpdesignation").val();
                 var usrtype = $("#ddlusertypes").val();
                 $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExportDSVisitDetailsList", "DSVisitDetails", new { type = "_type_" })'
+                var url = '@Url.Action("ExporSummaryList", "LMSReports", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
 
 
@@ -338,7 +338,7 @@
     var Content_Id = "";
     var ContentId = [];
     function ContentSelectionChanged(s, e) {
-        ContentGridLookup.gridView.GetSelectedFieldValues("desgid", GetContentSelectedFieldValuesCallback);
+        ContentGridLookup.gridView.GetSelectedFieldValues("CONTENTID", GetContentSelectedFieldValuesCallback);
     }
     function GetContentSelectedFieldValuesCallback(values) {
         try {
@@ -912,7 +912,7 @@
 
 <link href="~/Content/media.css" rel="stylesheet" />
 <div class="breadCumb">
-    <span>LMS- Reports</span>
+    <span>Learning Analytics</span>
 </div>
 
 <div class="container">
