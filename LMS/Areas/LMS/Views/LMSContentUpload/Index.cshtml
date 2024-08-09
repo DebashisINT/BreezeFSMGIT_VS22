@@ -3736,7 +3736,7 @@
                                                     if (response != null && response == true) {
                                                         $("#AddContentModal").modal('hide');
                                                         //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
-                                                        AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val() );
+                                                        AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
                                                     }
                                                     else {
                                                         jAlert('Please try again later.');
@@ -3747,36 +3747,38 @@
 
                                     }
                                     else {
+                                        $("#AddContentModal").modal('hide');
+                                        ShowContentListiing($("#ddlTopic").val(), '');
                                         // window.location.href = '/LMS/LMSContentUpload/Index';
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/LMSContentUpload/GetContentGridListData",
-                                            async: false,
-                                            data: JSON.stringify({ 'TopicId': $("#ddlTopic").val() }),
-                                            contentType: "application/json; charset=utf-8",
-                                            dataType: "json",
-                                            success: function (data) {
-                                                if (data.length > 0) {
-                                                    $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
-                                                    $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
-                                                    $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+                                        //$.ajax({
+                                        //    type: "POST",
+                                        //    url: "/LMSContentUpload/GetContentGridListData",
+                                        //    async: false,
+                                        //    data: JSON.stringify({ 'TopicId': $("#ddlTopic").val() }),
+                                        //    contentType: "application/json; charset=utf-8",
+                                        //    dataType: "json",
+                                        //    success: function (data) {
+                                        //        if (data.length > 0) {
+                                        //            $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
+                                        //            $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
+                                        //            $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
 
-                                                    allVideosData = data;
-                                                    filteredData = data;
-                                                    displayVideos(filteredData, currentPage);
+                                        //            allVideosData = data;
+                                        //            filteredData = data;
+                                        //            displayVideos(filteredData, currentPage);
 
-                                                    $('#searchPanel').show();
-                                                    $('#contentListing').show();
+                                        //            //$('#searchPanel').show();
+                                        //            //$('#contentListing').show();
 
-                                                    $("#AddContentModal").modal('hide');
-                                                }
-                                                //hideLoader();
-                                            },
-                                            error: function (response) {
-                                                alert("Please try again later");
-                                                //hideLoader();
-                                            }
-                                        });
+                                        //            $("#AddContentModal").modal('hide');
+                                        //        }
+                                        //        //hideLoader();
+                                        //    },
+                                        //    error: function (response) {
+                                        //        alert("Please try again later");
+                                        //        //hideLoader();
+                                        //    }
+                                        //});
                                     }
                                 });
                             }
@@ -4008,13 +4010,15 @@
                     $("#btnShowTotalContents .filter-count").text(data[0].cnt_TotalContents);
                     $("#btnShowActiveContents .filter-count").text(data[0].cnt_ActiveContents);
                     $("#btnShowInactiveContents .filter-count").text(data[0].cnt_InactiveContents);
+                    $("#spTopicName").html( "Topic : " + data[0].CONTENT_TOPIC);
 
                     allVideosData = data;
                     filteredData = data;
                     displayVideos(filteredData, currentPage);
 
-                    $('#searchPanel').show();
-                    $('#contentListing').show();
+
+                   $('#searchPanel').show();
+                   $('#contentListing').show();
                 }
                 hideLoader();
             },
@@ -4217,8 +4221,8 @@
                                                         filteredData = data;
                                                         displayVideos(filteredData, currentPage);
 
-                                                        $('#searchPanel').show();
-                                                        $('#contentListing').show();
+                                                        //$('#searchPanel').show();
+                                                        //$('#contentListing').show();
                                                     }
                                                 },
                                                 error: function (response) {
@@ -4334,8 +4338,8 @@
                                                 filteredData = data;
                                                 displayVideos(filteredData, currentPage);
 
-                                                $('#searchPanel').show();
-                                                $('#contentListing').show();
+                                                //$('#searchPanel').show();
+                                                //$('#contentListing').show();
                                             }
                                             //hideLoader();
                                         },
@@ -4673,8 +4677,18 @@
                                             filteredData = data;
                                             displayVideos(filteredData, currentPage);
 
-                                            $('#searchPanel').show();
-                                            $('#contentListing').show();
+                                            // $('#searchPanel').show();
+                                            // $('#contentListing').show();
+                                        }
+                                        else {
+                                            $("#ddlTopic").val(0).trigger('change');
+                                            $("#hdnTopicID").val(0);
+                                            // End of Rev Sanchita
+                                            $("#btnshow").show();
+
+                                            $('#searchInput').val('');
+
+                                            btnshow.click();
                                         }
                                         //hideLoader();
                                     },
@@ -5323,6 +5337,7 @@
         $("#lblAddMapQues").text("Add Question List");
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
+        
     }
     function UpdateStatusPublish(ContentId, TopicId, ContentTitle, chkStatus, statusrev) {
 
@@ -5371,8 +5386,8 @@
                                             filteredData = data;
                                             displayVideos(filteredData, currentPage);
 
-                                            $('#searchPanel').show();
-                                            $('#contentListing').show();
+                                           // $('#searchPanel').show();
+                                           // $('#contentListing').show();
                                         }
                                         //hideLoader();
                                     },
@@ -5484,8 +5499,8 @@
                                             filteredData = data;
                                             displayVideos(filteredData, currentPage);
 
-                                            $('#searchPanel').show();
-                                            $('#contentListing').show();
+                                            //$('#searchPanel').show();
+                                            //$('#contentListing').show();
                                         }
                                         //hideLoader();
                                         $("#quizTimeModal").modal('hide');
