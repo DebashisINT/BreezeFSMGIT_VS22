@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LMS.Models
 {
@@ -19,6 +20,11 @@ namespace LMS.Models
         public string Todate { get; set; }
 
         public string is_pageload { get; set; }
+
+
+        public int TotalPending { get; set; }
+        public int TotalCOMPLETED { get; set; }
+        public int TotalUntouched { get; set; }
         public class GetUser
         {
             public Int64 user_id { get; set; }
@@ -59,7 +65,7 @@ namespace LMS.Models
         }
 
 
-        public void CreateTable(string UserIds, string Topic_Id, string Content_Id, DateTime fromdate, DateTime todate,string userid)
+        public void CreateTable(string UserIds, string Topic_Id, string Content_Id, DateTime fromdate, DateTime todate,string userid,string _Status)
         {
             ProcedureExecute proc = new ProcedureExecute("PRC_LMS_REPORTS");
             proc.AddPara("@ACTION", "GETLISTINGDETAILS");
@@ -69,8 +75,11 @@ namespace LMS.Models
             proc.AddPara("@TOPIC_IDS", Topic_Id);
             proc.AddPara("@CONTENT_IDS", Content_Id);
             proc.AddPara("@USER_ID", userid);
+            proc.AddPara("@_Status", _Status);
             proc.GetScalar();
 
         }
+
+        
     }
 }
