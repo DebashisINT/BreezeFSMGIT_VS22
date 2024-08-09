@@ -908,6 +908,177 @@
     }
 
     /*Rev end 1.0*/
+
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+        transition: all .3s ease-in-out;
+    }
+
+        .btn:active, .btn:hover, .btn:focus {
+            color: #fff !important;
+        }
+
+    .show-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+        color: #054682;
+    }
+
+    .show-btn {
+        background: #054682;
+        transition: all .4s;
+        margin-right: 5px;
+    }
+
+        .show-btn:hover {
+            background: #072743;
+        }
+
+    .btn-export {
+        background: #e17134;
+        color: #fff;
+    }
+
+        .btn-export:hover {
+            background: #a24716 !important;
+            color: #fff;
+        }
+
+    .buttons-alignment {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0;
+    }
+
+    .count-filter-btns {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-total {
+        background-color: rgb(10 63 166 / 9%) !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .btn-total-used {
+        background-color: #cbffe4 !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+    }
+    .btn-total-unused {
+        background-color: #ffe1e1 !important;
+        display: flex;
+        align-items: center;
+        padding-right: 0 !important;
+        color: #fff;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .btn-total:hover {
+        background-color: rgb(10 63 166) !important;
+        color: #fff !important;
+    }
+
+    .btn-total-used:hover {
+        background-color: #0b8b48 !important;
+        color: #fff !important;
+    }
+
+    .btn-total-unused:hover {
+        background-color: #d01616 !important;
+        color: #fff !important;
+    }
+
+    .btn-total-used.active {
+        background-color: #0b8b48 !important;
+    }
+
+        .btn-total-used.active h5 {
+            color: #fff;
+        }
+
+
+    .btn-total .filter-count {
+        color: #ffffff;
+        background: #054682;
+        height: 38PX;
+        line-height: 38px;
+        min-width: 30px;
+        margin-left: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .btn-total-used .filter-count {
+        color: #fff;
+        background: #0c8f38;
+        height: 38px;
+        line-height: 38px;
+        min-width: 30px;
+        margin-left: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .filter-count {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .btn-total-unused .filter-count {
+        color: #fff;
+        background: #d80606;
+        height: 38px;
+        line-height: 38px;
+        min-width: 30px;
+        margin-left: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+        .btn-total:hover h5, .btn-total:hover .filter-count,
+        .btn-total-used:hover h5, .btn-total-used:hover .filter-count,
+        .btn-total-unused:hover h5, .btn-total-unused:hover .filter-count {
+            color: #fff !important;
+        }
+
+    .btn-total h5, .btn-total-used h5, .btn-total-unused h5 {
+        color: #111;
+        margin: 0;
+    }
+
+    .count-filter-btns .btn {
+        margin-left: 6px;
+    }
+
+    .p-0
+    {
+        padding-left: 0;
+        padding-right: 0;
+    }
 </style>
 
 <link href="~/Content/media.css" rel="stylesheet" />
@@ -1004,23 +1175,18 @@
                                 </div>
                             </td>
 
-                        </tr>
-                        <tr>
                             <td style="padding-top: 22px;width:200px;">
                                 <label></label>
-                                <button type="button" id="btnshow" class="btn btn-success btnwidth" onclick="GetData();" tabindex=4>Show</button>
-                                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                    <option value="0">Export to</option>
-                                    <option value="1">PDF</option>
-                                    <option value="2">XLSX</option>
-                                    <option value="3">XLS</option>
-                                    <option value="4">RTF</option>
-                                    <option value="5">CSV</option>
-                                </select>
+
+
 
                             </td>
-                            <td></td>
+
                         </tr>
+                        @*<tr>
+
+        <td></td>
+                        </tr>*@
                     </table>
                 </div>
 
@@ -1028,23 +1194,62 @@
                     <table class="eqpadtbl mt-1 mb-3"></table>
                 </div>
             </div>
-        </div>
-        <input type="hidden" id="hdnuser_id" />
-        <input type="hidden" id="hdnuser_state" />
-        <input type="hidden" id="hdnuser_shop" />
-        <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
-       
 
-        <div style="clear: both;"><br /></div>
-        <div >
-            @{
-                Html.RenderAction("PartialReportListing", "LMSReports", new { is_pageload = "1" });
-            }
-                
+            <div class="col-md-12 p-0">
+                <div class="buttons-alignment">
+                    <div class="add-show-btns">
+                        <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
+                        <select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+                            <option value="0">Export to</option>
+                            <option value="1">PDF</option>
+                            <option value="2">XLSX</option>
+                            <option value="3">XLS</option>
+                            <option value="4">RTF</option>
+                            <option value="5">CSV</option>
+                        </select>
+                    </div>
+
+
+                        <div class="count-filter-btns">
+
+                           
+                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" onclick="ShowTotalTopics();">
+                                <h5>Pending</h5> <span class="filter-count">0</span>
+                            </button>
+
+                            
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics" onclick="ShowUsedTopics();">
+                                <h5>Completed</h5> <span class="filter-count">0</span>
+                            </button>
+
+                            
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics" onclick="ShowUnusedTopics();">
+                                <h5>Untouched</h5> <span class="filter-count">0</span>
+                            </button>
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <input type="hidden" id="hdnuser_id" />
+                <input type="hidden" id="hdnuser_state" />
+                <input type="hidden" id="hdnuser_shop" />
+                <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
+
+
+                <div style="clear: both;"><br /></div>
+                <div>
+                    @{
+                        Html.RenderAction("PartialReportListing", "LMSReports", new { is_pageload = "1" });
+                    }
+
+                </div>
+
+            </div>
         </div>
-       
-    </div>
-</div>
 <!--User Modal -->
 <div class="modal fade pmsModal w50" id="UserModel" role="dialog">
     <div class="modal-dialog">
