@@ -840,6 +840,7 @@
     <Content Include="Areas\LMS\Views\LMSReports\_TopicLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSReports\_UserLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSReports\_ContentLookUpPartial.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSReports\PartialReportListing.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />

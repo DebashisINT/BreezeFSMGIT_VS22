@@ -21,6 +21,7 @@ namespace LMS.Areas.LMS.Controllers
         LMSReportsModel obj = new LMSReportsModel();
         public ActionResult Index()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSCategory/Index");
             return View();
         }
         public ActionResult GetTopicList()
@@ -101,7 +102,7 @@ namespace LMS.Areas.LMS.Controllers
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_REPORTSLISTs
                         where Convert.ToString(d.USERID) == Userid
-                        orderby d.SEQ descending
+                       //orderby d.SEQ descending
                         select d;
                 return q;
             }
@@ -110,7 +111,7 @@ namespace LMS.Areas.LMS.Controllers
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_REPORTSLISTs
                         where 1 == 0
-                        orderby d.SEQ descending
+                        //orderby d.SEQ descending
                         select d;
                 return q;
             }
@@ -154,303 +155,136 @@ namespace LMS.Areas.LMS.Controllers
         private GridViewSettings GetEmployeeBatchGridViewSettings()
         {
             var settings = new GridViewSettings();
-            settings.Name = "Employee Summary Report";
-            settings.CallbackRouteValues = new { Action = "_PartialLateVisitGrid", Controller = "ShopVisitRegister" };
+            settings.Name = "Learning Analytics";
+            settings.CallbackRouteValues = new { Action = "PartialReportListing", Controller = "LMSReports" };
             // Export-specific settings
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Employee Late Visit Report";
+            settings.SettingsExport.FileName = "Learning Analytics";
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "SL";
+                x.FieldName = "SEQ";
                 x.Caption = "SL";
-                // x.VisibleIndex = 1;
-                x.Width = 0;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "VISIT_DATE";
-                x.Caption = "Visit Date";
                 x.VisibleIndex = 1;
-                x.Width = 100;
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                (x.PropertiesEdit as DateEditProperties).DisplayFormatString = "dd-MM-yyyy";
+                x.Width =100;
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "EMPID";
-                x.Caption = "Emp. ID";
+                x.FieldName = "USER_ID";
+                x.Caption = "User ID";
+                x.VisibleIndex = 2;
+                x.Width = 100;               
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "USER_NAME";
+                x.Caption = "User Name";
                 x.VisibleIndex = 2;
                 x.Width = 100;
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "EMP_NAME";
-                x.Caption = "Employee";
-                x.VisibleIndex = 3;
-                x.Width = 200;
-            });
-
-            //Rev Debashis 0025198
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "BRANCHDESC";
-                x.Caption = "Branch";
+                x.FieldName = "TOPICNAME";
+                x.Caption = "Topic Name";
                 x.VisibleIndex = 4;
                 x.Width = 200;
             });
-            //End of Rev Debashis 0025198
+
+            
+            
+            
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "STATE_NAME";
-                x.Caption = "State Name";
+                x.FieldName = "CONTENTTITLE";
+                x.Caption = "Course Name";
                 x.VisibleIndex = 5;
                 x.Width = 200;
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "DESIGNATION";
-                x.Caption = "Designation";
+                x.FieldName = "CONTENTDESC";
+                x.Caption = "Course Description";
                 x.VisibleIndex = 6;
                 x.Width = 200;
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "SUPERVISOR_NAME";
-                x.Caption = "Supervisor";
+                x.FieldName = "ASSIGNEDON";
+                x.Caption = "Assigned On";
                 x.VisibleIndex = 7;
                 x.Width = 200;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "ATT_STATUS";
-                x.Caption = "Attendance";
-                x.VisibleIndex = 8;
-                x.Width = 100;
+                x.FieldName = "COMPLETIONSTATUS";
+                x.Caption = "Completion Status";
+                x.VisibleIndex = 8;                
+                x.Width = 200;
 
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "LOGIN_TIME";
-                x.Caption = "Login Time";
-                x.VisibleIndex = 9;
-                x.Width = 150;
-                x.ColumnType = MVCxGridViewColumnType.TimeEdit;
-                (x.PropertiesEdit as TimeEditProperties).DisplayFormatString = "hh:mm tt";
+                x.FieldName = "TIMESPENT";
+                x.Caption = "Time Spent(hh:mm:ss)";
+                x.VisibleIndex = 9;                
+                x.Width = 200;
             });
-
             settings.Columns.Add(x =>
             {
-                x.FieldName = "total_Count";
-                x.Caption = "Total Visit Count";
+                x.FieldName = "CompletionDate";
+                x.Caption = "Completion Date";
                 x.VisibleIndex = 10;
-                x.Width = 100;
+                x.Width = 200;
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm:ss";
 
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "PARTY_NAME_FIRST";
-                x.Caption = "Party Name(First Call)";
+                x.FieldName = "FirstAccessDateandTime";
+                x.Caption = "First Access Date and Time";
                 x.VisibleIndex = 11;
                 x.Width = 200;
-            });
 
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm:ss";
+            });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "MOBILE_FIRST";
-                x.Caption = "Contact Number";
+                x.FieldName = "LastAccessDateandTime";
+                x.Caption = "Last Access Date and Time";
                 x.VisibleIndex = 12;
                 x.Width = 200;
+
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
+                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm:ss";
+
             });
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "SHOP_ADDRESS_FIRST";
-                x.Caption = "Address";
+                x.FieldName = "CompletionDurationDays";
+                x.Caption = "Completion Duration(in Days)";
                 x.VisibleIndex = 13;
-                x.Width = 250;
-            });
-
-            //settings.Columns.Add(x =>
-            //{
-            //    x.FieldName = "PP_NAME_FIRST";
-            //    x.Caption = "PP Name";
-            //    x.VisibleIndex = 12;
-            //    x.Width = 200;
-
-            //});
-
-            //settings.Columns.Add(x =>
-            //{
-            //    x.FieldName = "DD_NAME_FIRST";
-            //    x.Caption = "DD Name";
-            //    x.VisibleIndex = 13;
-            //    x.Width = 200;
-            //});
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "FIRST_VISIT";
-                x.Caption = "First Call time";
-                x.VisibleIndex = 14;
-                x.Width = 100;
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                (x.PropertiesEdit as DateEditProperties).DisplayFormatString = "hh:mm tt";
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "FIRST_REMARKS";
-                x.Caption = "Remarks (If visit time after 11.30 AM)";
-                if (TempData["starttime"] != null)
-                {
-                    x.Caption = "Remarks (If visit time after " + TempData["starttime"] + ")";
-                }
-                x.VisibleIndex = 15;
-                x.Width = 150;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "FIRST_DURATION";
-                x.Caption = "First Call Duration (HH:MM)";
-                x.VisibleIndex = 16;
-                x.Width = 100;
-
-            });
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ONE_HOUR_FIRST_REMARKS";
-                x.Caption = "Remarks (Time Spent In First Call)";
-                x.VisibleIndex = 17;
-                x.Width = 150;
-            });
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "PARTY_NAME_LAST";
-                x.Caption = "Party Name (Last Call)";
-                x.VisibleIndex = 18;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = 200;
             });
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "MOBILE_LAST";
-                x.Caption = "Contact Number";
-                x.VisibleIndex = 19;
-                x.Width = 200;
-            });
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "SHOP_ADDRESS_LAST";
-                x.Caption = "Address";
-                x.VisibleIndex = 20;
-                x.Width = 250;
-            });
-
-            //settings.Columns.Add(x =>
-            //{
-            //    x.FieldName = "PP_NAME_LAST";
-            //    x.Caption = "PP Name";
-            //    x.VisibleIndex = 21;
-            //    x.Width = 200;
-
-            //});
-
-            //settings.Columns.Add(x =>
-            //{
-            //    x.FieldName = "DD_NAME_LAST";
-            //    x.Caption = "DD Name";
-            //    x.VisibleIndex = 22;
-            //    x.Width = 200;
-            //});
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "LAST_VISIT";
-                x.Caption = "Last Shop Visit time";
-                x.VisibleIndex = 21;
-                x.Width = 100;
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                (x.PropertiesEdit as DateEditProperties).DisplayFormatString = "hh:mm tt";
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "LAST_REMARKS";
-                x.Caption = "Remarks (If visit time before 18:00 PM)";
-                if (TempData["endtime"] != null)
-                {
-                    x.Caption = "Remarks (If visit time before " + TempData["endtime"] + ")";
-                }
-                x.VisibleIndex = 22;
-                x.Width = 150;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "LAST_DURATION";
-                x.Caption = "Last Shop Duration (HH:MM)";
-                x.VisibleIndex = 23;
-                x.Width = 100;
-
-            });
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ONE_HOUR_LAST_REMARKS";
-                x.Caption = "Remarks (Time Spent In Last Call)";
-                x.VisibleIndex = 24;
-                x.Width = 150;
-            });
-
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "LOGOUT_TIME";
-                x.Caption = "Logout Time";
-                x.VisibleIndex = 25;
-                x.Width = 100;
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                (x.PropertiesEdit as DateEditProperties).DisplayFormatString = "hh:mm tt";
-            });
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ORDER_VALUE";
-                x.Caption = "Total Order Value";
-                x.VisibleIndex = 26;
-                x.Width = 100;
-                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.PropertiesEdit.DisplayFormatString = "0.00";
-            });
-
-
-
-            ///Summary
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ORDER_VALUE").DisplayFormat = "0.00";
-            settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "total_Count").DisplayFormat = "0";
-
-            TempData.Keep();
 
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
