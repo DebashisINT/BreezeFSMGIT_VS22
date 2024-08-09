@@ -1,4 +1,5 @@
-﻿using DevExpress.Web;
+﻿using DataAccessLayer;
+using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using LMS.Models;
 using System;
@@ -21,7 +22,13 @@ namespace LMS.Areas.LMS.Controllers
         LMSReportsModel obj = new LMSReportsModel();
         public ActionResult Index()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSCategory/Index");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSReports/Index");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             return View();
         }
         public ActionResult GetTopicList()
@@ -93,16 +100,14 @@ namespace LMS.Areas.LMS.Controllers
 
         public IEnumerable GetReport(string is_pageload)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-           // string connectionString = Convert.ToString(System.Web.HttpContext.Current.Session["DBConnectionDefault"]);
+            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;          
             string Userid = Convert.ToString(Session["userid"]);
 
             if (is_pageload != "1")
             {
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_REPORTSLISTs
-                        where Convert.ToString(d.USERID) == Userid
-                       //orderby d.SEQ descending
+                        where Convert.ToString(d.USERID) == Userid                      
                         select d;
                 return q;
             }
@@ -110,19 +115,17 @@ namespace LMS.Areas.LMS.Controllers
             {
                 LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
                 var q = from d in dc.LMS_REPORTSLISTs
-                        where 1 == 0
-                        //orderby d.SEQ descending
+                        where 1 == 0                        
                         select d;
                 return q;
             }
         }
 
-        //Rev Debashis && BranchId added 0025198
-        public JsonResult CreateLINQTable(string UserIds, string Topic_Id, string Content_Id,  DateTime fromdate, DateTime todate)
+        
+        public JsonResult CreateLINQTable(string UserIds, string Topic_Id, string Content_Id,  DateTime fromdate, DateTime todate,string _Status)
         {
-            string output = "";
-            //EmployeeLateVisit objEmployeeLateVisit = new EmployeeLateVisit();
-            obj.CreateTable(UserIds, Topic_Id, Content_Id,fromdate, todate, Convert.ToString(Session["userid"]));
+            string output = "";            
+            obj.CreateTable(UserIds, Topic_Id, Content_Id,fromdate, todate, Convert.ToString(Session["userid"]), _Status);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ExporSummaryList(int type)
@@ -296,6 +299,39 @@ namespace LMS.Areas.LMS.Controllers
             return settings;
         }
 
+        public JsonResult GetContentCount()
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMS_REPORTS");
+                proc.AddPara("@Action", "GETREPORTSCOUNTDATA");
+                proc.AddPara("@USER_ID", Convert.ToString(HttpContext.Session["userid"]));
+                ds = proc.GetDataSet();
+
+
+                int cnt_TotalPending = 0;
+                int cnt_TotalCOMPLETED = 0;
+                int cnt_TotalUntouchedContent = 0;
+
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    cnt_TotalPending = Convert.ToInt32(item["cnt_TotalPending"]);
+                    cnt_TotalCOMPLETED = Convert.ToInt32(item["cnt_TotalCOMPLETED"]);
+                    cnt_TotalUntouchedContent = Convert.ToInt32(item["cnt_TotalUntouchedContent"]);
+
+                }
+
+                obj.TotalPending = cnt_TotalPending;
+                obj.TotalCOMPLETED = cnt_TotalCOMPLETED;
+                obj.TotalUntouched = cnt_TotalUntouchedContent;
+
+            }
+            catch
+            {
+            }
+            return Json(obj);
+        }
 
     }
 }

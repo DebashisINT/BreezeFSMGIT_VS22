@@ -47,30 +47,30 @@
 
         settings.GridViewProperties.Settings.ShowFilterRow = true;
         settings.GridViewProperties.Settings.ShowStatusBar = GridViewStatusBarMode.Visible;
-        //settings.GridViewProperties.SetStatusBarTemplateContent(c =>
-        //{
+        settings.GridViewProperties.SetStatusBarTemplateContent(c =>
+        {
 
-        //    ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
-        //    Html.DevExpress().Button(btnSettings =>
-        //    {
-        //        btnSettings.Name = "btnContentDeSelectAll";
-        //        btnSettings.UseSubmitBehavior = false;
-        //        btnSettings.Text = "DeSelect All";
-        //        btnSettings.ClientSideEvents.Click = "DeSelectAllGridLookupContent";
+            ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnContentDeSelectAll";
+                btnSettings.UseSubmitBehavior = false;
+                btnSettings.Text = "DeSelect All";
+                btnSettings.ClientSideEvents.Click = "DeSelectAllGridLookupContent";
 
-        //    }).Render();
-        //    ViewContext.Writer.Write("</div>");
-        //    ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
-        //    Html.DevExpress().Button(btnSettings =>
-        //    {
-        //        btnSettings.Name = "btnContentSelectAll";
-        //        btnSettings.UseSubmitBehavior = false;
-        //        btnSettings.Text = "Select All";
-        //        btnSettings.ClientSideEvents.Click = "SelectAllGridLookupContent";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnContentSelectAll";
+                btnSettings.UseSubmitBehavior = false;
+                btnSettings.Text = "Select All";
+                btnSettings.ClientSideEvents.Click = "SelectAllGridLookupContent";
 
-        //    }).Render();
-        //    ViewContext.Writer.Write("</div>");
-        //});
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        });
 
         settings.DataBound = (sender, e) =>
         {

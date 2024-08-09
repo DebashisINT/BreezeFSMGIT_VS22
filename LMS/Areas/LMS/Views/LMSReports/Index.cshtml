@@ -351,7 +351,7 @@
             console.log(ContentId);
         }
     }
-    function SelectAllGridLookupTopic(s, e) {
+    function SelectAllGridLookupContent(s, e) {
         ContentGridLookup.gridView.SelectRows();
         ContentGridLookup.SetText("");
 
@@ -379,7 +379,7 @@
 
 
     }
-    function DeSelectAllGridLookup(s, e) {
+    function DeSelectAllGridLookupContent(s, e) {
         ContentGridLookup.gridView.UnselectRows();
         ContentId = [];
         Content_Id = "";
@@ -409,7 +409,11 @@
     function GetData() {
         GetEmpSelectedFieldValuesOndemand($("#hdnUserId").val());
         var User_Ids = UserId.join(','); 
-        
+        var _Status = $('#ddlStatus').val();
+        if (_Status == "") {
+            _Status = "";
+        }
+
 
     var obj = {};
     obj.UserIds = User_Ids;
@@ -417,16 +421,12 @@
     obj.Content_Id = Content_Id;
    
     obj.fromdate = dtFrom.GetDate();
-        obj.todate = dtTo.GetDate();
+    obj.todate = dtTo.GetDate();
+        obj._Status = _Status;
    
     
    
-    //if (BranchId == "" || BranchId == null) {
-    //    jAlert("Please select Branch.");
-    //    flag = false;
-    //    return false;
-    //}
-    //else {
+   
         
         $.ajax({
             type: "POST",
@@ -441,6 +441,25 @@
 
             }
         });
+
+        setTimeout(function () {
+            $.ajax({
+                type: "POST",
+                url: "/LMSReports/GetContentCount",
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    $("#btnShowTotalPending .filter-count").text(response.TotalPending);
+                    $("#btnShowUsedCompleted .filter-count").text(response.TotalCOMPLETED);
+                    $("#btnShowUnusedUntouched .filter-count").text(response.TotalUntouched);
+                },
+                error: function (response) {
+                    jAlert("Please try again later");
+                }
+            });
+        }, 1000)
         
     //}
     
@@ -634,6 +653,13 @@
             line-height: 19px;
             z-index: 0;
         }
+
+    .whclass.selectH {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
 
     .multiselect.dropdown-toggle {
         text-align: left;
@@ -1174,11 +1200,21 @@
                                     @Html.Action("GetContentList", "LMSReports")
                                 </div>
                             </td>
+                            <td class="w150 h-branch-select">
+                                <label>Status </label>
+                                <div>
+                                    <select name="ddlStatus"  id="ddlStatus">
+                                        <option value="">Select</option>
+                                        <option value="0">Pending</option>
+                                        <option value="1">Completed</option>
+                                    </select>
+                                </div>
+                            </td>
+
+
 
                             <td style="padding-top: 22px;width:200px;">
-                                <label></label>
-
-
+                                <label></label>                            
 
                             </td>
 
@@ -1213,17 +1249,17 @@
                         <div class="count-filter-btns">
 
                            
-                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" onclick="ShowTotalTopics();">
+                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalPending" >
                                 <h5>Pending</h5> <span class="filter-count">0</span>
                             </button>
 
                             
-                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics" onclick="ShowUsedTopics();">
+                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedCompleted" >
                                 <h5>Completed</h5> <span class="filter-count">0</span>
                             </button>
 
                             
-                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics" onclick="ShowUnusedTopics();">
+                            <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedUntouched" >
                                 <h5>Untouched</h5> <span class="filter-count">0</span>
                             </button>
 
