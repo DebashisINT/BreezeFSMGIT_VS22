@@ -1720,9 +1720,26 @@
             min-height: 45px;
             margin-top: 5px;
             color: #fff;
-            width: 80%;
+            /*width: 80%;*/
             padding-right: 10px;
+
+
+            display: -webkit-box;            /* Required for webkit-based browsers */
+            -webkit-box-orient: vertical;    /* Set box orientation to vertical */
+            -webkit-line-clamp: 2;           /* Limit the content to 2 lines */
+            overflow: hidden;                /* Hide the overflow content */
+            text-overflow: ellipsis;         /* Add ellipses at the end of the text */
+            max-width: 300px;                /* Set max width to control text width */
+            line-height: 1.5em;              /* Adjust line height */
+            max-height: 3em;                 /* Control the max height based on 2 lines of text */
+
+            cursor: pointer;
         }
+
+    .content-title-div .tooltip {
+        min-width: 150px;
+    }
+
 
     .card-body-content {
         width: 100%;
@@ -2985,6 +3002,10 @@
     .quiz-time-btn:active {
         background: linear-gradient(0deg, rgb(138 71 5) 0%, rgb(204 130 8) 100%);
     }
+
+    .content-title-div {
+        width: 80%;
+    }
     
 </style>
 
@@ -4108,7 +4129,11 @@
                         <div id="videoCardImg" class="video-card-img" style="background: url(${videoPath})"></div>
                         <div class="card-body">
                             <div class="card-body-content">
-                                <h5 class="card-title">${ContentTitle}</h5>
+                                <div class="tooltip-container content-title-div">
+                                    <h5 class="card-title">${ContentTitle}</h5>
+                                    <div class="tooltip">${ContentTitle}</div>
+                                </div>
+                                
 
                                 <div class="dropdown action-dropdown">
                                     <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
