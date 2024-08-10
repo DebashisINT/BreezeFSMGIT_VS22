@@ -164,13 +164,13 @@ namespace LMS.Areas.LMS.Controllers
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "Learning Analytics";
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "SEQ";
-                x.Caption = "SL";
-                x.VisibleIndex = 1;
-                x.Width =100;
-            });
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "SEQ";
+            //    x.Caption = "SL";
+            //    x.VisibleIndex = 1;
+            //    x.Width =100;
+            //});
 
             settings.Columns.Add(x =>
             {
