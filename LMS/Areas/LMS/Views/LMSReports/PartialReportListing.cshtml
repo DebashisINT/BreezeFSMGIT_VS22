@@ -24,15 +24,15 @@
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "SEQ";
-        x.Caption = "SL";
-        x.VisibleIndex = 1;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 100;
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "SEQ";
+    //    x.Caption = "SL";
+    //    x.VisibleIndex = 1;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    x.Width = 100;
 
-    });
+    //});
     settings.Columns.Add(x =>
     {
         x.FieldName = "USER_ID";
@@ -83,7 +83,7 @@
         x.FieldName = "ASSIGNEDON";
         x.Caption = "Assigned On";
         x.VisibleIndex = 7;
-        
+
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
         x.Width = 200;

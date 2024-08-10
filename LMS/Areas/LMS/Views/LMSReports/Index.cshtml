@@ -442,24 +442,24 @@
             }
         });
 
-        setTimeout(function () {
-            $.ajax({
-                type: "POST",
-                url: "/LMSReports/GetContentCount",
-                async: false,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
+        //setTimeout(function () {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/LMSReports/GetContentCount",
+        //        async: false,
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function (response) {
 
-                    $("#btnShowTotalPending .filter-count").text(response.TotalPending);
-                    $("#btnShowUsedCompleted .filter-count").text(response.TotalCOMPLETED);
-                    $("#btnShowUnusedUntouched .filter-count").text(response.TotalUntouched);
-                },
-                error: function (response) {
-                    jAlert("Please try again later");
-                }
-            });
-        }, 1000)
+        //            $("#btnShowTotalPending .filter-count").text(response.TotalPending);
+        //            $("#btnShowUsedCompleted .filter-count").text(response.TotalCOMPLETED);
+        //            $("#btnShowUnusedUntouched .filter-count").text(response.TotalUntouched);
+        //        },
+        //        error: function (response) {
+        //            jAlert("Please try again later");
+        //        }
+        //    });
+        //}, 1000)
         
     //}
     
@@ -1173,7 +1173,7 @@
 
 
                             <td class="w150">
-                                <label>Select User</label>
+                                <label>Select Learner</label>
                                 <div>
                                     @Html.DevExpress().ButtonEdit(
                                     settings =>
@@ -1189,13 +1189,13 @@
                                 </div>
                             </td>
                             <td class="w150">
-                                <label>Selet Topic </label>
+                                <label>Select Topic </label>
                                 <div>
                                     @Html.Action("GetTopicList", "LMSReports")
                                 </div>
                             </td>
                             <td class="w150">
-                                <label>Select Course </label>
+                                <label>Select Content </label>
                                 <div>
                                     @Html.Action("GetContentList", "LMSReports")
                                 </div>
@@ -1203,10 +1203,11 @@
                             <td class="w150 h-branch-select">
                                 <label>Status </label>
                                 <div>
-                                    <select name="ddlStatus"  id="ddlStatus">
+                                    <select name="ddlStatus" id="ddlStatus">
                                         <option value="">Select</option>
                                         <option value="0">Pending</option>
                                         <option value="1">Completed</option>
+                                        <option value="2">Untouched</option>
                                     </select>
                                 </div>
                             </td>
@@ -1246,15 +1247,15 @@
                     </div>
 
 
-                        <div class="count-filter-btns">
+                        <!--<div class="count-filter-btns">
 
-                           
-                            <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalPending" >
+                            <label class="btn btn-total btn-radius bg-color-6" id="btnShowTotalPending"><h5>Pending</h5> <span class="filter-count">0</span></label>-->
+                            @*<button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalPending" >
                                 <h5>Pending</h5> <span class="filter-count">0</span>
-                            </button>
+                            </button>*@
 
                             
-                            <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedCompleted" >
+                            <!--<button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedCompleted" >
                                 <h5>Completed</h5> <span class="filter-count">0</span>
                             </button>
 
@@ -1265,7 +1266,7 @@
 
                             
 
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 
