@@ -77,6 +77,7 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CONTENT_ID = 0;
             ViewBag.CONTENT_NAME = "0";
             ViewBag.TOPIC_NAME = "0";
+            ViewBag.CONTENT_FROMSAVE = "0";
 
             if (TempData["TopicID"] != null)
             {
@@ -84,6 +85,7 @@ namespace LMS.Areas.LMS.Controllers
                 ViewBag.CONTENT_ID = Convert.ToInt64(TempData["ContentID"]);
                 ViewBag.CONTENT_NAME = TempData["ContentName"];
                 ViewBag.TOPIC_NAME = TempData["TopicName"];
+                ViewBag.CONTENT_FROMSAVE = TempData["fromSave"];
 
             }
 
@@ -191,6 +193,7 @@ namespace LMS.Areas.LMS.Controllers
                 string RETURN_VALUE = string.Empty;
                 string RETURN_DUPLICATEMAPNAME = string.Empty;
                 string RETURN_CONTENTID = string.Empty;
+                string RETURN_TOPICID = string.Empty;
                 int IsValid = 1;
 
                 if (chkStatus != null && chkStatus == "on")
@@ -398,10 +401,12 @@ namespace LMS.Areas.LMS.Controllers
                     proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_CONTENTID", 500, "", QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@RETURN_TOPICID", 500, "", QueryParameterDirection.Output);
                     proc.AddVarcharPara("@RETURN_ASSIGNUSERIDS", -1, "", QueryParameterDirection.Output);
                     int k = proc.RunActionQuery();
                     RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
                     RETURN_CONTENTID = Convert.ToString(proc.GetParaValue("@RETURN_CONTENTID"));
+                    RETURN_TOPICID = Convert.ToString(proc.GetParaValue("@RETURN_TOPICID"));
                     //RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
 
                     if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
@@ -464,7 +469,7 @@ namespace LMS.Areas.LMS.Controllers
                     }
                 }
 
-                TempData["result"] = RETURN_VALUE+"~"+ RETURN_CONTENTID;
+                TempData["result"] = RETURN_VALUE+"~"+ RETURN_CONTENTID+"~"+ RETURN_TOPICID;
 
                 return Json(TempData["result"], JsonRequestBehavior.AllowGet);
             }
@@ -502,7 +507,7 @@ namespace LMS.Areas.LMS.Controllers
         // Send Notification
         public void FireNotification(string ContentTitle, string TopicId)
         {
-            string Mssg = "HI! A new video titled " + ContentTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
+            string Mssg = "HI! A new video titled [" + ContentTitle + "] has been assigned to you. Please check your learning dashboard to start watching.";
             //var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
             var imgNotification_Icon = ConfigurationManager.AppSettings["SPath"].ToString() + "Commonfolder/LMS/Notification_Icon.jpg";
             
@@ -769,47 +774,81 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                GetQuestionMapGridListDetails(model.Is_ContentId);
-                return PartialView("PartialQuestionMapGridList", QuestionMapGridListDetails());
+                //string user_id = Convert.ToString(Session["userid"]);
+                List<QuestionMappedGridListModel> qmapmodel = new List<QuestionMappedGridListModel>();
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-
-            }
-
-        }
-
-        public void GetQuestionMapGridListDetails(string ContentID)
-        {
-            string user_id = Convert.ToString(Session["userid"]);
-
-            string action = string.Empty;
-            DataTable formula_dtls = new DataTable();
-            DataSet dsInst = new DataSet();
-
-            try
-            {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
-                proc.AddPara("@CONTENTID", ContentID);
-                proc.AddPara("@USERID", Convert.ToInt32(user_id));
-                dt = proc.GetTable();
+                ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc1.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
+                proc1.AddPara("@CONTENTID", model.Is_ContentId);
+                //proc.AddPara("@USERID", Convert.ToInt32(user_id));
+                dt = proc1.GetTable();
+
+                if (dt != null)
+                {
+                    qmapmodel = APIHelperMethods.ToModelList<QuestionMappedGridListModel>(dt);
+                }
+
+                return PartialView("PartialQuestionMapGridList", qmapmodel);
+
             }
             catch (Exception ex)
             {
                 throw ex;
+
             }
+
         }
+
+
+
+
+
+        //public ActionResult PartialQuestionMapGridList(LMSContentModel model)
+        //{
+        //    try
+        //    {
+        //        GetQuestionMapGridListDetails(model.Is_ContentId);
+        //        return PartialView("PartialQuestionMapGridList", QuestionMapGridListDetails());
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+
+        //    }
+
+        //}
+
+        //public void GetQuestionMapGridListDetails(string ContentID)
+        //{
+        //    string user_id = Convert.ToString(Session["userid"]);
+
+        //    string action = string.Empty;
+        //    DataTable formula_dtls = new DataTable();
+        //    DataSet dsInst = new DataSet();
+
+        //    try
+        //    {
+        //        DataTable dt = new DataTable();
+        //        ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+        //        proc.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
+        //        proc.AddPara("@CONTENTID", ContentID);
+        //        //proc.AddPara("@USERID", Convert.ToInt32(user_id));
+        //        dt = proc.GetTable();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         public IEnumerable QuestionMapGridListDetails()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string Userid = Convert.ToString(Session["userid"]);
 
-            
+
             LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
             var q = from d in dc.LMS_CONTENTQUESTIONMAP_LISTINGs
                     where d.USERID == Convert.ToInt32(Userid)
@@ -1124,7 +1163,7 @@ namespace LMS.Areas.LMS.Controllers
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
          
-        public JsonResult ReturnTopicIdFromQuestion(Int64 TopicID = 0, Int64 ContentID = 0)
+        public JsonResult ReturnTopicIdFromQuestion(Int64 TopicID = 0, Int64 ContentID = 0, Int64 FromSave = 0)
         {
             Boolean Success = false;
             try
@@ -1143,6 +1182,7 @@ namespace LMS.Areas.LMS.Controllers
                     TempData["ContentID"] = ContentID;
                     TempData["TopicName"] = dt.Rows[0]["TopicName"];
                     TempData["ContentName"] = dt.Rows[0]["ContentName"];
+                    TempData["fromSave"] = FromSave;
                     TempData.Keep();
                     Success = true;
                 }

@@ -3748,16 +3748,21 @@
                                     if (result.isConfirmed) {
                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
 
+                                        $("#AddContentModal").modal('hide');
+                                        //AddQuestionWithContentFromSave(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
+                                       // window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFlySave&&TOPICID=' + responseText[2] + '&&CONTENTID=' + responseText[1];
+
 
                                        $.ajax({
                                                 type: "POST",
                                                 url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-                                                data: { TopicID: $("#ddlTopic").val() },
+                                                data: { TopicID: responseText[2], fromSave : 1 },
                                                 success: function (response) {
                                                     if (response != null && response == true) {
                                                         $("#AddContentModal").modal('hide');
                                                         //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
-                                                        AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
+                                                        //AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
+                                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFlySave&&TOPICID=' + responseText[2] + '&&CONTENTID=' + responseText[1];
                                                     }
                                                     else {
                                                         jAlert('Please try again later.');
@@ -3770,6 +3775,7 @@
                                     else {
                                         $("#AddContentModal").modal('hide');
                                         ShowContentListiing($("#ddlTopic").val(), '');
+
                                         // window.location.href = '/LMS/LMSContentUpload/Index';
                                         //$.ajax({
                                         //    type: "POST",
@@ -3824,7 +3830,10 @@
             if (@ViewBag.CONTENT_TOPICIDS != undefined && @ViewBag.CONTENT_TOPICIDS != null && @ViewBag.CONTENT_TOPICIDS !=0)
             {
                 ShowContentListiing(@ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME');
-                AddQuestionWithContent(@ViewBag.CONTENT_ID, '@ViewBag.CONTENT_NAME', @ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME')
+
+                if(@ViewBag.CONTENT_FROMSAVE != undefined && @ViewBag.CONTENT_FROMSAVE != null && @ViewBag.CONTENT_FROMSAVE==0){
+                    AddQuestionWithContent(@ViewBag.CONTENT_ID, '@ViewBag.CONTENT_NAME', @ViewBag.CONTENT_TOPICIDS, '@ViewBag.TOPIC_NAME')
+                }
 
             }
 
@@ -4133,7 +4142,7 @@
                                     <h5 class="card-title">${ContentTitle}</h5>
                                     <div class="tooltip">${ContentTitle}</div>
                                 </div>
-                                
+
 
                                 <div class="dropdown action-dropdown">
                                     <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
@@ -4814,7 +4823,7 @@
         $.ajax({
              type: "POST",
              url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-             data: { TopicID: TopicId },
+             data: { TopicID: TopicId, fromSave : 0 },
              success: function (response) {
                  if (response != null && response == true) {
                      window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
@@ -5362,8 +5371,27 @@
         $("#lblAddMapQues").text("Add Question List");
         $("#hdnContentID").val(ContentId);
         $("#MapQuestionListModal").modal('show');
-        
+
     }
+
+    function AddQuestionWithContentFromSave(ContentId, ContentTitle, TopicId, TopicTitle) {
+        Is_ContentId = ContentId;
+        Is_ContentTitle = ContentTitle;
+        Is_TopicId = TopicId;
+        Is_TopicTitle = TopicTitle;
+
+        //gridQuestionMapGridList.Refresh();
+        //gridQuestionMapGridList.Refresh();
+
+        $("#hdnAddEditMode").val('ADDQUESTION');
+        $("#btnMapQuestion").hide();
+        $("#btnAddQuestion").show();
+        $("#lblAddMapQues").text("Add Question List");
+        $("#hdnContentID").val(ContentId);
+        $("#MapQuestionListModal").modal('show');
+
+    }
+
     function UpdateStatusPublish(ContentId, TopicId, ContentTitle, chkStatus, statusrev) {
 
         Swal.fire({
@@ -5469,8 +5497,8 @@
         $("#quiztime_second").val(QuizTime.substring(6, 8));
 
         $("#quizTimeModal").modal('show');
-        
-        
+
+
     }
 
     function UpdateQuizTime() {

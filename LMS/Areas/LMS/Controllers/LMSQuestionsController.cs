@@ -37,6 +37,7 @@ namespace LMS.Areas.LMS.Controllers
             obj.QUESTIONS_ID = Convert.ToString("0");
             TempData["QUESTIONS_ID"] = null;
             TempData["TopicID"] = null;
+            TempData["fromSave"] = null;
             TempData.Keep();
 
             return View();
@@ -362,6 +363,7 @@ namespace LMS.Areas.LMS.Controllers
                 if (TempData["TopicID"] != null)
                 {
                     ViewBag.CONTENT_TOPICIDS = Convert.ToInt64(TempData["TopicID"]);
+                    ViewBag.CONTENT_FROMSAVE = Convert.ToInt64(TempData["fromSave"]);
                 }
 
 
@@ -534,12 +536,13 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
-        public JsonResult SetMapDataByTopicID(Int64 TopicID = 0)
+        public JsonResult SetMapDataByTopicID(Int64 TopicID = 0, Int64 fromSave=0)
         {
             Boolean Success = false;
             try
             {
                 TempData["TopicID"] = TopicID;
+                TempData["fromSave"] = fromSave;
                 TempData["IsView"] = 2;
                 TempData.Keep();
                 Success = true;

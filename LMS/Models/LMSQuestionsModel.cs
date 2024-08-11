@@ -50,7 +50,7 @@ namespace LMS.Models
             try
             {
                 // Rev Sanchita
-                if (MODE == "AddOnFly")
+                if (MODE == "AddOnFly" || MODE == "AddOnFlySave")
                 {
                     ID = "0";
                 }

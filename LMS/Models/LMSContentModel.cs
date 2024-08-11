@@ -142,7 +142,17 @@ namespace LMS.Models
 
     }
 
-    
+    public class QuestionMappedGridListModel
+    {
+        public string SEQ { get; set; }
+        public string CONTENTID { get; set; }
+        public string CONTENTTITLE { get; set; }
+        public string CONTENTDESC { get; set; }
+        public int QUESTIONSMAP_COUNT { get; set; }
+
+    }
+
+
 
     public class VideoCompressionService
     {
