@@ -375,8 +375,8 @@ namespace LMS.Areas.LMS.Controllers
         // Send Notification
         public void FireNotification(string TopicTitle, string TopicId)
         {
-            string Mssg = "HI! A new Topic " + TopicTitle + " has been assigned to you. Please check your learning dashboard to start watching.";
-            var imgNotification_Icon = Server.MapPath("~/Commonfolder/LMS/Notification_Icon.jpg");
+            string Mssg = "HI! A new Topic [" + TopicTitle + "] has been assigned to you. Please check your learning dashboard to start watching.";
+            var imgNotification_Icon = ConfigurationManager.AppSettings["SPath"].ToString() + "Commonfolder/LMS/Notification_Icon.jpg";
             //string SalesMan_Nm = "";
             string SalesMan_Phn = "";
 

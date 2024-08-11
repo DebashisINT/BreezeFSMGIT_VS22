@@ -721,7 +721,7 @@
     $(document).ready(function () {
 
         // Rev Sanchita
-        if (urlKeys.key == 'AddOnFly') {
+        if (urlKeys.key == 'AddOnFly' || urlKeys.key == 'AddOnFlySave') {
             TOPIC_ID = urlKeys.TOPICID;
            // document.getElementById('TopicGridLookup_I').className = 'bold';
             TopicGridLookup.SetEnabled(false);
@@ -872,7 +872,7 @@
     //var urlKeys = getUrlVars();
 
     //if (urlKeys.key != 'Add') {
-    if (urlKeys.key != 'Add' && urlKeys.key != 'AddOnFly' ) {
+    if (urlKeys.key != 'Add' && urlKeys.key != 'AddOnFly' && urlKeys.key != 'AddOnFlySave' ) {
 
         //document.getElementById("TopicGridLookup_I").style.fontSize = "larger";
        //$("#TopicGridLookup_I").addClass("bold");
@@ -1319,7 +1319,8 @@
                             // Rev Sanchita
                             //var url = "/LMS/LMSQuestions/Index";
                             //window.location.href = url;
-                            if (urlKeys.key == 'AddOnFly' || urlKeys.TOPICID > 0 ) {
+                            if (urlKeys.key == 'AddOnFly' || urlKeys.key == 'AddOnFlySave' || urlKeys.TOPICID > 0) {
+
 
                                 if (mode == "New") {
                                             $.ajax({
@@ -1328,7 +1329,7 @@
                                                     data: { TopicID: urlKeys.TOPICID },
                                                     success: function (response) {
                                                         if (response != null && response == true) {
-                                                            window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
+                                                            window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=' + urlKeys.key +'&&TOPICID=' + urlKeys.TOPICID + '&&CONTENTID=' + urlKeys.CONTENTID;
 
                                                         }
                                                         else {
@@ -1342,10 +1343,15 @@
                                 else {
                                     //window.location.href = '/LMS/LMSContentUpload/Index';
 
+                                    var FromSave = 0
+                                    if (urlKeys.key == 'AddOnFlySave') {
+                                        FromSave = 1
+                                    }
+
                                     $.ajax({
                                             type: "POST",
                                             url: "@Url.Action("ReturnTopicIdFromQuestion", "LMSContentUpload")",
-                                            data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID },
+                                            data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID, FromSave: FromSave },
                                             success: function (response) {
                                                 if (response != null && response == true) {
                                                     window.location.href = '/LMS/LMSContentUpload/Index';
@@ -1438,13 +1444,18 @@
 
     // Rev Sanchita
     function CancelQuestionAdd() {
-        if (urlKeys.key == 'AddOnFly' || urlKeys.TOPICID > 0) {
+        if (urlKeys.key == 'AddOnFly' || urlKeys.key == 'AddOnFlySave' || urlKeys.TOPICID > 0) {
             //window.location.href = '/LMS/LMSContentUpload/Index?TOPICID=' + urlKeys.TOPICID;
+            var FromSave = 0
+            if (urlKeys.key == 'AddOnFlySave') {
+                FromSave=1
+            }
+
 
             $.ajax({
                     type: "POST",
                     url: "@Url.Action("ReturnTopicIdFromQuestion", "LMSContentUpload")",
-                    data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID },
+                    data: { TopicID: urlKeys.TOPICID, ContentID: urlKeys.CONTENTID , FromSave: FromSave },
                     success: function (response) {
                         if (response != null && response == true) {
                             window.location.href = '/LMS/LMSContentUpload/Index';
