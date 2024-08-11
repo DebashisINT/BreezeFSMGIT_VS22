@@ -788,6 +788,8 @@ namespace LMS.Areas.LMS.Controllers
                 {
                     qmapmodel = APIHelperMethods.ToModelList<QuestionMappedGridListModel>(dt);
                 }
+                TempData["QuestionMapGridList"] = qmapmodel;
+                TempData.Keep();
 
                 return PartialView("PartialQuestionMapGridList", qmapmodel);
 
@@ -843,21 +845,21 @@ namespace LMS.Areas.LMS.Controllers
         //    }
         //}
 
-        public IEnumerable QuestionMapGridListDetails()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+        //public IEnumerable QuestionMapGridListDetails()
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
+        //    string Userid = Convert.ToString(Session["userid"]);
 
 
-            LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
-            var q = from d in dc.LMS_CONTENTQUESTIONMAP_LISTINGs
-                    where d.USERID == Convert.ToInt32(Userid)
-                    orderby d.SEQ
-                    select d;
-            return q;
+        //    LMSMasterDataContext dc = new LMSMasterDataContext(connectionString);
+        //    var q = from d in dc.LMS_CONTENTQUESTIONMAP_LISTINGs
+        //            where d.USERID == Convert.ToInt32(Userid)
+        //            orderby d.SEQ
+        //            select d;
+        //    return q;
 
 
-        }
+        //}
 
         public ActionResult GetLMSTopicList()
         {
@@ -1035,7 +1037,12 @@ namespace LMS.Areas.LMS.Controllers
 
         public ActionResult ExporRegisterList()
         {
-            return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), QuestionMapGridListDetails());
+            if (TempData["QuestionMapGridList"] != null)
+            {
+                return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), TempData["QuestionMapGridList"]);
+                
+            }
+            return null; 
         }
 
         private GridViewSettings GetDoctorBatchGridViewSettings()
