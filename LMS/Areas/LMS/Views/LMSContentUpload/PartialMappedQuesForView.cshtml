@@ -60,22 +60,27 @@
     {
         x.SetDataItemTemplateContent(tc =>
         {
-        ViewContext.Writer.Write(
-            "<div class=''><a href=\"javascript:void(0);\" onclick=\"EditQuestion('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "QUESTIONS_ID")) + "', '" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "', '"+ Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENT_TOPICID")) + "')\" class=\"\" title=\"Edit Question\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a></div>"
-            );
+            if (ViewBag.CanEditQues)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditQuestion('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "QUESTIONS_ID")) + "', '" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "', '" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENT_TOPICID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit Question</div></a>");
+            }
+
+            //ViewContext.Writer.Write(
+            //"<div class=''><a href=\"javascript:void(0);\" onclick=\"EditQuestion('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "QUESTIONS_ID")) + "', '" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "', '"+ Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENT_TOPICID")) + "')\" class=\"\" title=\"Edit Question\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a></div>"
+            //);
+        });
+
+        x.Settings.AllowDragDrop = DefaultBoolean.False;
+        x.Settings.AllowSort = DefaultBoolean.False;
+        //x.Width = 100;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.Caption = "Action";
+
+
+
     });
-
-    x.Settings.AllowDragDrop = DefaultBoolean.False;
-    x.Settings.AllowSort = DefaultBoolean.False;
-    //x.Width = 100;
-    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-    x.Caption = "Action";
-
-
-
-});
 
 }).Bind(Model).GetHtml()
 

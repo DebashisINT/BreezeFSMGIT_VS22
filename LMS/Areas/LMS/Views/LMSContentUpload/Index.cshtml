@@ -4142,21 +4142,43 @@
                                     <h5 class="card-title">${ContentTitle}</h5>
                                     <div class="tooltip">${ContentTitle}</div>
                                 </div>
+                                `
+
+                                if (@ViewBag.AddRightsQues== 1 || @ViewBag.EditRights== 1 || @ViewBag.DeleteRights== 1) {
+                                    videoCardHtml += `
+                                        <div class="dropdown action-dropdown">
+                                            <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
+                                                <img src="../../../assests/images/more.svg">
+                                                <div class="tooltip">Options</div>
+                                            </button>
+                                            <ul class="dropdown-menu">`
+                                                if (@ViewBag.AddRightsQues== 1)
+                                                {
+                                                    videoCardHtml += ` <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li> `
+                                                }
+
+                                                if (@ViewBag.EditRights== 1)
+                                                {
+                                                    videoCardHtml += ` <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${ContentTitle}')">Map Questions</a></li> `
+                                                }
+
+                                                if (@ViewBag.EditRights== 1)
+                                                {
+                                                    videoCardHtml += ` <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li> `
+                                                }
+
+                                                if (@ViewBag.DeleteRights== 1)
+                                                {
+                                                    videoCardHtml += ` <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li> `
+                                                }
+                                               videoCardHtml += `
+                                            </ul>
+                                        </div>
+                                    `
+                                }
 
 
-                                <div class="dropdown action-dropdown">
-                                    <button class="btn dropdown-toggle tooltip-container" type="button" data-toggle="dropdown">
-                                        <img src="../../../assests/images/more.svg">
-                                        <div class="tooltip">Options</div>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a onclick="AddQuestionWithContent('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Add Questions</a></li>
-                                        <li><a onclick="MapQuestionWithContent('${item.CONTENTID}','${ContentTitle}')">Map Questions</a></li>
-                                        <li><a onclick="OpenLMSContentforEdit('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')">Edit Content</a></li>
-                                        <li><a style="color: red" class="delete-option" onclick="OnClickDeleteLMSContent('${item.CONTENTID}','${item.CONTENT_TOPICID}')">Delete</a></li>
-                                    </ul>
-                                </div>
-
+                            videoCardHtml += `
                             </div>
                             <div class="publish-quiztime-part">
                                 <div class="card-status ${statusClass} tooltip-container">
@@ -5948,49 +5970,49 @@
                     
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 5px;">
                         <div class="add-show-btns">
-                            @*@if (ViewBag.CanAdd){*@
+                            @if (ViewBag.CanAdd){
                             <button type="button" class="btn add-btn add-new-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContent();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> New Content
                             </button>
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
                                 @*<span class="btn-icon"><i class="fa fa-play" aria-hidden="true"></i></span>*@
                                 <span class="btn-icon"><img src="../../../assests/images/content.svg"></span>
                                 Show Topics
                             </button>
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" id="btnBackToTopicList" class="btn show-btn" tabindex=4>
                                 <span class="btn-icon"><img src="../../../assests/images/back-topic.svg"></span> Back To Topic List
                             </button>
-                            @*}*@
+                            }
                         </div>
 
                         <div class="count-filter-btns">
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalContents" onclick="ShowTotalContents();">
                                 <h5>Total content(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowActiveContents" onclick="ShowActiveContents();">
                                 <h5>Published content(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowInactiveContents" onclick="ShowInactiveContents();">
                                 <h5>Unpublished content(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
                         </div>
                     </div>
@@ -6094,9 +6116,9 @@
                         <fieldset>
                             <div class="row clearfix mb-5">
                                 @*<div class="col-lg-12 mb-3">
-                                        <h3>Tell Us about your content</h3>
+                <h3>Tell Us about your content</h3>
 
-                                    </div>*@
+            </div>*@
                                 <div class="col-lg-12 mb-4 text-left">
                                     <label>Content Title<span style="color: red">*</span></label>
                                     <input type="text" id="txtContentTitle" name="txtContentTitle" class="form-control" maxlength="250" />
@@ -6106,7 +6128,15 @@
                                     <input type="text" id="txtContentDesc" name="txtContentDesc" class="form-control" maxlength="250" />
                                 </div>
                                 <div class="col-lg-6 mb-5 text-left">
-                                    <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd"><i class="fa fa-plus"></i>Create topic</a></div>
+                                    @if (ViewBag.CanAddTopic)
+                                    {
+                                        <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> <a href="#" id="openlinkForTopicAdd"><i class="fa fa-plus"></i>Create topic</a></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="flex-label"><label>Select Topic <span style="color: red">*</span></label> </div>
+                                    }
+
                                     @*@Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", Model.TopicId), new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })*@
                                     @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", null), "Select a topic", new { @id = "ddlTopic", @class = "form-control", @onchange = "ddlTopicOnChange();" })
                                 </div>
@@ -6127,8 +6157,8 @@
                                     <div class="col-lg-3 flex-toggle">
                                         <label>Like</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                                <div class="handle"></div>
-                                            </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" /><label>like</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowLike" name="chkAllowLike" class="styled-checkbox" />
@@ -6139,8 +6169,8 @@
 
                                         <label>Comments</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                                <div class="handle"></div>
-                                            </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" /><label>Comments</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowComments" name="chkAllowComments" class="styled-checkbox" />
@@ -6151,8 +6181,8 @@
 
                                         <label>Share</label>
                                         @*<button type="button" class="btn btn-sm btn-toggle" id="chkAllowLike" name="chkAllowLike" data-toggle="button" aria-pressed="true" autocomplete="off">
-                                                <div class="handle"></div>
-                                            </button>*@
+                        <div class="handle"></div>
+                    </button>*@
                                         @*<div><input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" /><label>Share</label></div>*@
                                         <label class="switch">
                                             <input type="checkbox" id="chkAllowShare" name="chkAllowShare" class="styled-checkbox" />
@@ -6165,10 +6195,14 @@
                             @*<input type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" value="Add Question" />*@
                             @*<input type="button" name="next" class="upload-next action-button btn-primary" value="Next" onclick="NextButtonClick()" />*@
 
-                            <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" style="display:none">
-                                <img src="../../../assests/images/question-add.svg">
-                                Add Question
-                            </button>
+                            @if (ViewBag.CanAddQues)
+                            {
+                                <button type="button" name="AddQuestion" id="AddQuestion" class="Add-Question btn-primary add-question-btn" style="display:none">
+                                    <img src="../../../assests/images/question-add.svg">
+                                    Add Question
+                                </button>
+                            }
+
 
                             <button type="button" name="next" class="upload-next action-button btn-primary" onclick="NextButtonClick()">
                                 <img src="../../../assests/images/next.svg">
@@ -6317,21 +6351,19 @@
                 <div class="clearfix">
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
                         <div class="add-show-btns">
-                            @*@if (ViewBag.CanAdd){*@
                             <button type="button" id="btnMapQuestion" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddContentQuestionMap(Is_ContentId, Is_ContentTitle);">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Map Question
                             </button>
-
                             <button type="button" id="btnAddQuestion" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddQuestion(Is_ContentId, Is_ContentTitle, Is_TopicId);">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Add Question
                             </button>
-                            @*}*@
 
-                            @*@if (ViewBag.CanExport){*@
-                            <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
-                                <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                            </button>
-                            @*}*@
+                            @if (ViewBag.CanExport)
+                            {
+                                <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
+                                    <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>

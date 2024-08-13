@@ -46,6 +46,41 @@ namespace LMS.Areas.LMS.Controllers
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
 
+            ViewBag.EditRights = 0;
+            if(ViewBag.CanEdit)
+            {
+                ViewBag.EditRights = 1;
+            }
+
+            ViewBag.DeleteRights = 0;
+            if (ViewBag.CanDelete)
+            {
+                ViewBag.DeleteRights = 1;
+            }
+
+
+            EntityLayer.CommonELS.UserRightsForPage rightsQ = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSQuestions/Index");
+            ViewBag.CanAddQues = rightsQ.CanAdd;
+            ViewBag.CanEditQues = rightsQ.CanEdit;
+
+            ViewBag.AddRightsQues = 0;
+            if (ViewBag.CanAddQues)
+            {
+                ViewBag.AddRightsQues = 1;
+            }
+
+            ViewBag.CanEditQues = 0;
+            if (ViewBag.CanAddQues)
+            {
+                ViewBag.EditRightsQues = 1;
+            }
+
+
+            EntityLayer.CommonELS.UserRightsForPage rightsT = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSTopics/Index");
+            ViewBag.CanAddTopic = rightsT.CanAdd;
+            
+
+
             DBEngine obj1 = new DBEngine();
             ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
 
@@ -774,6 +809,17 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+                ViewBag.CanDelete = rights.CanDelete;
+
+                EntityLayer.CommonELS.UserRightsForPage rightsQ = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSQuestions/Index");
+                ViewBag.CanAddQues = rights.CanAdd;
+                ViewBag.CanEditQues = rights.CanEdit;
+
                 //string user_id = Convert.ToString(Session["userid"]);
                 List<QuestionMappedGridListModel> qmapmodel = new List<QuestionMappedGridListModel>();
 
@@ -1009,6 +1055,18 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSContentUpload/Index");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+                ViewBag.CanDelete = rights.CanDelete;
+
+                EntityLayer.CommonELS.UserRightsForPage rightsQ = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSQuestions/Index");
+                ViewBag.CanAddQues = rights.CanAdd;
+                ViewBag.CanEditQues = rights.CanEdit;
+
+
                 string user_id = Convert.ToString(Session["userid"]);
                 List<QuestionMappedViewModel> qmapmodel = new List<QuestionMappedViewModel>();
 
