@@ -2020,47 +2020,47 @@
 
                     <div class="col-md-12  buttons-alignment" style="padding-top: 0; margin-bottom: 15px;">
                         <div class="add-show-btns">
-                            @*@if (ViewBag.CanAdd){*@
+                            @if (ViewBag.CanAdd){
                             <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddTopic();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Topic
                             </button>
-                            @*}
+                            }
 
-                            @if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" id="btnshow" class="btn show-btn" tabindex=4>
                                 <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data
                             </button>
-                            @*}
+                            }
 
-                            @if (ViewBag.CanExport){*@
+                            @if (ViewBag.CanExport){
                             <button type="button" id="btnExportTo" class="btn btn-success btn-export" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
                                 <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
                             </button>
-                            @*}*@
+                            }
                         </div>
 
                         <div class="count-filter-btns">
 
-                            @*@if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total btn-radius bg-color-6" id="btnShowTotalTopics" onclick="ShowTotalTopics();">
                                 <h5>Total topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}
+                            }
 
-                            @if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-used btn-radius bg-color-6" id="btnShowUsedTopics" onclick="ShowUsedTopics();">
                                 <h5>Used topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}
+                            }
 
-                            @if (ViewBag.CanView){*@
+                            @if (ViewBag.CanView){
                             <button type="button" class="btn btn-total-unused btn-radius bg-color-6" id="btnShowUnusedTopics" onclick="ShowUnusedTopics();">
                                 <h5>Unused topic(s)</h5> <span class="filter-count">0</span>
                             </button>
 
-                            @*}*@
+                            }
 
                         </div>
 

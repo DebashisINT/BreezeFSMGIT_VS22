@@ -85,11 +85,21 @@
     {
         x.SetDataItemTemplateContent(tc =>
         {
-            ViewContext.Writer.Write(
-                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenMapQuesforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "','"+ Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTTITLE")) + "')\" class=\"\" title=\"Edit Mapping\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
-                "" +
-                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteMapQues('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "')\" class=\"\" title=\"Delete Mapping\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
-            );
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenMapQuesforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "','" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTTITLE")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit Mapping</div></a>");
+            }
+
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OnClickDeleteMapQues('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "')\"><img src='/assests/images/Delete.png' style='margin-right:3px' /><div class=\"tooltip\">Delete Mapping</div></a>");
+            }
+
+            //ViewContext.Writer.Write(
+            //    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenMapQuesforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "','"+ Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTTITLE")) + "')\" class=\"\" title=\"Edit Mapping\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+            //    "" +
+            //    "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteMapQues('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "CONTENTID")) + "')\" class=\"\" title=\"Delete Mapping\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+            //);
         });
 
         x.Settings.AllowDragDrop = DefaultBoolean.False;
