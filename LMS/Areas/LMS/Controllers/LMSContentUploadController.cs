@@ -384,6 +384,16 @@ namespace LMS.Areas.LMS.Controllers
                         
                     }
 
+                    fileName = fileName.Replace('#', '_');
+                    fileName = fileName.Replace('+', '_');
+                    fileName = fileName.Replace('(', '_');
+                    fileName = fileName.Replace(')', '_');
+                    fileName = fileName.Replace('%', '_');
+                    fileName = fileName.Replace('?', '_');
+                    fileName = fileName.Replace('&', '_');
+                    fileName = fileName.Replace('=', '_');
+
+
 
                     if (!System.IO.Directory.Exists(Server.MapPath("~/Commonfolder/LMS/Thumbnails/")))
                     {
@@ -395,6 +405,17 @@ namespace LMS.Areas.LMS.Controllers
                         // If thumbnail file name already exists, RENAME the file by concatinating it by datetime
                         fileNameicon = DateTime.Now.ToString("hhmmss") + fileNameicon;
                     }
+
+
+                    fileNameicon = fileNameicon.Replace('#', '_');
+                    fileNameicon = fileNameicon.Replace('+', '_');
+                    fileNameicon = fileNameicon.Replace('(', '_');
+                    fileNameicon = fileNameicon.Replace(')', '_');
+                    fileNameicon = fileNameicon.Replace('%', '_');
+                    fileNameicon = fileNameicon.Replace('?', '_');
+                    fileNameicon = fileNameicon.Replace('&', '_');
+                    fileNameicon = fileNameicon.Replace('=', '_');
+
 
                     // var _thumbnailPath = Path.Combine("~/Commonfolder/LMS/Thumbnails/", Path.GetFileNameWithoutExtension(fileName.Replace(' ','_')) + ".jpg");
 
