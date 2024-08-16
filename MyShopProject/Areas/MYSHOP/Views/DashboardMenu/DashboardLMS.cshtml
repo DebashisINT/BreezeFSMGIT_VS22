@@ -18,21 +18,30 @@
 
         .newStyleMN .widgBox .icon {
             position: absolute;
-            left: -32px;
-            top: 28px;
+            
             border-radius: 6px;
         }
 
-        .newStyleMN .widgBox .txt {
-            width: 100% !important;
-            max-width: 100% !important;
-            font-family: 'Poppins', sans-serif !important;
-            padding-left: 0px;
-            font-weight: 400;
-            font-size: 14px;
-            margin-top: -9px;
-            margin-bottom: 4px;
-            color: #fff;
+        .newStyleMN.lms-dashboard .widgBox .icon {
+            top: 1px !important;
+            left: 1px !important;
+        }
+
+            .newStyleMN .widgBox .txt {
+                width: 100% !important;
+                max-width: 100% !important;
+                font-family: 'Poppins', sans-serif !important;
+                padding-left: 0px;
+                font-weight: 400;
+                font-size: 14px;
+                margin-top: -9px;
+                margin-bottom: 4px;
+                color: #fff;
+            }
+
+        .newStyleMN.lms-dashboard .widgBox .txt {
+            min-height: 39px !important;
+            font-size: 13px !important;
         }
 
         .dtday {
@@ -42,11 +51,16 @@
         .newStyleMN .widgBox .Numb {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 500;
-            font-size: 32px;
+            
             /*color: #083a72;*/
             color: #fff;
             text-align: left;
             margin-bottom: 5px;
+        }
+
+        .newStyleMN.lms-dashboard .widgBox .Numb {
+            font-size: 22px !important;
+            margin-bottom: 10px !important;
         }
 
         .newStyleMN .widgBox.active .Numb {
@@ -57,6 +71,15 @@
             border-radius: 15px;
             padding: 15px;
             padding-bottom: 15px;
+            
+        }
+
+        .newStyleMN.lms-dashboard .widgBox {
+            padding-bottom: 3px !important;
+        }
+
+        .newStyleMN.lms-dashboard .widgBox {
+            padding-left: 45px !important;
         }
 
         .newStyleMN .lspacer {
@@ -64,8 +87,57 @@
         }
 
         .flex-itm.scr:not(:last-child) .widgBox {
-            margin-right: 30px;
+            margin-right: 12px !important;
         }
+
+
+        .mainDashBoxes.lms-dashboard .flex-itm {
+            width: 15%;
+        }
+
+        @@media only screen and (min-width: 889px) {
+            .mainDashBoxes.lms-dashboard .flex-itm:not(:last-child) {
+                margin-right: 8px;
+            }
+        }
+        .mainDashBoxes.lms-dashboard .flex-itm {
+            margin-left: 8px;
+        }
+
+        .justify-content-between
+        {
+            justify-content: space-between;
+        }
+
+        .lms-dashboard .widgBox .icon {
+            width: 42px !important;
+            height: 84px !important;
+        }
+
+            .lms-dashboard .widgBox .icon.progress-chart {
+                background: transparent !important;
+                box-shadow: none !important;
+                width: 80px !important;
+            }
+
+        .newStyleMN.lms-dashboard .widgBox.avg-progress-box {
+            background: #69067C !important;
+            padding-left: 78px !important;
+        }
+
+        .lms-dashboard .widgBox .icon.progress-chart img {
+            width: 70px !important;
+        }
+
+        .lms-show-data-btn {
+            padding-left: 10px !important;
+        }
+        .widgBox.zoom:hover {
+            -webkit-transform: scale(1.06);
+            -moz-transform: scale(1.06);
+            transform: scale(1.06);
+        }
+
     </style>
 
 
@@ -256,95 +328,110 @@
     <div class="">
         <div class="row">
             <div class="clearfix mb-3">
-                <div class="d-flex justify-content-center mainDashBoxes newStyleMN">
-                    
-                        <div class="flex-itm scr " data-scroll="accordion">
-                            <div class="widgBox c2" id="a4" onclick="OnTotalLearnersClick(this);">
-                                <div class="d-flex  align-items-center">
-                                    <div class="icon">
-                                        <img src="/assests/images/employees.png" />
-                                    </div>
+                <div class="d-flex justify-content-between mainDashBoxes newStyleMN lms-dashboard">
 
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox c2" id="lms-btn-4" onclick="OnTotalLearnersClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon">
+                                    <img src="/assests/images/total-learners.svg" />
                                 </div>
-                                <div class="lspacer">
-                                    <div class="Numb" id="lblTotalLearners">***</div>
-                                    <div class="flex-grow-1 txt">Total Learners</div>
-                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                                </div>
+
+                            </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblTotalLearners">***</div>
+                                <div class="flex-grow-1 txt">Total<br />Learners</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                             </div>
                         </div>
+                    </div>
 
-                    
-                   
-                        <div class="flex-itm scr " data-scroll="accordion">
-                            <div class="widgBox c3" id="a1" onclick="AssignedTopicsClick(this);">
-                                <div class="d-flex  align-items-center">
-                                    <div class="icon">
-                                        <img src="/assests/images/at-work.png" />
-                                    </div>
-                                </div>
-                                <div class="lspacer">
-                                    <div class="Numb" id="lblAssignedTopics">***</div>                                   
-                                    <div class="flex-grow-1 txt">Assigned Topics</div>
-                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+
+
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox c3" id="lms-btn-1" onclick="AssignedTopicsClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon">
+                                    <img src="/assests/images/assigned-topics.svg" />
                                 </div>
                             </div>
-                        </div>
-
-                   
-                        <div class="flex-itm scr " data-scroll="accordion">
-                            <div class="widgBox c5" id="a2" onclick="YettoStartClick(this);">
-                                <div class="d-flex  align-items-center">
-                                    <div class="icon">
-                                        <img src="/assests/images/on-leave.png" />
-                                    </div>
-                                </div>
-                                <div class="lspacer">
-                                    <div class="Numb" id="lblYettoStart">***</div>
-                                    <div class="flex-grow-1 txt">Yet to Start</div>
-                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                                </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblAssignedTopics">***</div>
+                                <div class="flex-grow-1 txt">Assigned<br />Topics</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                             </div>
                         </div>
-                    
+                    </div>
 
-                        <div class="flex-itm scr " data-scroll="accordion">
-                            <div class="widgBox c4" id="a3" onclick="InProgressClick(this);">
-                                <div class="d-flex  align-items-center">
-                                    <div class="icon">
-                                        <img src="/assests/images/not-loggedin.png" />
-                                    </div>
-                                </div>
-                                <div class="lspacer">
-                                    <div class="Numb" id="lblInProgress">***</div>
-                                    <div class="flex-grow-1 txt">In Progress</div>
-                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox c1" id="lms-btn-2" onclick="YettoStartClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon">
+                                    <img src="/assests/images/yet-to-start.svg" />
                                 </div>
                             </div>
-                        </div>
-                   
-
-                        <div class="flex-itm scr " data-scroll="accordion">
-                            <div class="widgBox c4" id="a3" onclick="CompletedClick(this);">
-                                <div class="d-flex  align-items-center">
-                                    <div class="icon">
-                                        <img src="/assests/images/not-loggedin.png" />
-                                    </div>
-                                </div>
-                                <div class="lspacer">
-                                    <div class="Numb" id="lblCompleted">***</div>
-                                    <div class="flex-grow-1 txt">Completed</div>
-                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                                </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblYettoStart">***</div>
+                                <div class="flex-grow-1 txt">Yet to<br />Start</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                             </div>
                         </div>
-                   
+                    </div>
+
+
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox c6" id="lms-btn-3" onclick="InProgressClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon">
+                                    <img src="/assests/images/in-progress.svg" />
+                                </div>
+                            </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblInProgress">***</div>
+                                <div class="flex-grow-1 txt">In<br />Progress</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox c5" id="lms-btn-5" onclick="CompletedClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon">
+                                    <img src="/assests/images/completed-topics.svg" />
+                                </div>
+                            </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblCompleted">***</div>
+                                <div class="flex-grow-1 txt">Completed</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-itm scr " data-scroll="accordion">
+                        <div class="widgBox avg-progress-box" id="a6" onclick="CompletedClick(this);">
+                            <div class="d-flex  align-items-center">
+                                <div class="icon progress-chart">
+                                    <img src="/assests/images/progress-chart.svg" />
+                                </div>
+                            </div>
+                            <div class="lspacer">
+                                <div class="Numb" id="lblCompleted">***</div>
+                                <div class="flex-grow-1 txt">Average<br />Progress</div>
+                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>    
     <div class="row">
-        <div class="col-md-12 text-right clearfix py-0 pl-50">
+        <div class="col-md-12 text-right clearfix py-0 pl-50 lms-show-data-btn">
             <table class="float-left">
                 <tr>                  
                     <td>                        
