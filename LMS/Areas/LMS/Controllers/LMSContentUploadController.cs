@@ -122,8 +122,10 @@ namespace LMS.Areas.LMS.Controllers
                 ViewBag.TOPIC_NAME = TempData["TopicName"];
                 ViewBag.CONTENT_FROMSAVE = TempData["fromSave"];
 
-            }
+                TempData["TopicID"] = null;
 
+            }
+            
 
             return View(Dtls);
         }
