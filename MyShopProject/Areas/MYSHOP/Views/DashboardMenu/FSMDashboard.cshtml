@@ -41,7 +41,49 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 
 <link href="~/assests/css/FsmDashboard.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500,600|Montserrat:300,400,500,600,700|Open+Sans+Condensed:300,700|Open+Sans:300,400,600,700" rel="stylesheet">
-
+<script>
+    /* Priti LMS*/
+    var isShowVisitDataClicked = false;
+    function OnTotalLearnersClick(elem) {
+    
+     if (!isShowVisitDataClicked) {
+         Swal.fire({
+             /*position: 'top',*/
+             title: 'Please select show data first, then view the details from here. Thanks.',
+             showConfirmButton: false,
+             timer: 2000,
+             customClass: "show-data-msg"
+         })
+         return;
+     }
+     $("#gridLoader").show();
+     var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
+     $.ajax({
+         url: Url, // Replace with the correct URL
+         type: 'POST',
+         dataType: 'html',
+         success: function (result) {
+             // Replace the content of your grid element with the loaded PartialView
+             $('#gridContainerLMS').html(result);
+             // Hide the loader after the data has been loaded
+             $("#gridLoader").hide();         },
+             error: function (xhr, status, error) {
+                 console.error(xhr.responseText);
+                 // Handle errors if necessary
+             }
+     });
+     document.getElementById("griddetailsLMS").style.display = "block";
+     $('#dashDetailsLMS').removeClass('hide');
+     $('.boxWidget').removeClass('activeW');
+     $('.widgBox').removeClass('active');
+     $('#a4').addClass('active');
+     $('#collapseTwo').addClass('in');
+     $('#backSpn').attr("Style", "Display:none;");
+     gridList.Refresh();
+     gridList.Refresh();
+    }
+  /*Priti LMS END*/
+</script>
 <script>
 
 
@@ -1366,7 +1408,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     var Type = "";
     var FilterName = "";
     /*Rev 5.0*/
-    var isShowVisitDataClicked = false;
+   
     /*Rev end 5.0*/
     function AtWorkClick(elem) {
         /*Rev 5.0*/
@@ -3390,12 +3432,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 
                                                                 <span id="griddetailsHeadedtext" class="f6 translate-y-big"></span>
 
-                                                                <span class="btn-excel" data-toggle="tooltip" title="Export To Excel">
+                                                                @*<span class="btn-excel" data-toggle="tooltip" title="Export To Excel">
                                                                     <span class="translate-y hide">Export To Excel</span>
                                                                     <span class="icn"><img src="/assests/images/excel.png" style="width: 24px;" title="" onclick="griddashboardgridviewexport()" /></span>
                                                                 </span>
                                                                 <span class="btn-prime">REFRESH</span>
-                                                                <span id="backSpn" class="closeAcDetails clstyle"><i class="fa fa-arrow-left"></i> </span>
+                                                                <span id="backSpn" class="closeAcDetails clstyle"><i class="fa fa-arrow-left"></i> </span>*@
                                                             </h4>
                                                         </div>
                                                         <div id="collapseOne" class="backBox p-3" role="tabpanel" aria-labelledby="headingOne">
@@ -3964,13 +4006,13 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                             @Html.Action("DashboardLMS", new { list = Model.DashboardSettingMappedList })
                         </div>
                         <div class="">
-                            <div class="row " id="griddetails">
+                            <div class="row " id="griddetailsLMS">
                                 <div class="col-md-12">
-                                    <div class=" hide noShaded" id="dashDetails1">
+                                    <div class=" hide noShaded" id="dashDetailsLMS">
                                         <div class="" id="accordion" role="tablist" aria-multiselectable="true">
                                             <div class="">
                                                 <div class="panel-heading row" role="tab" id="headingOne">                                                    
-                                                    <h4 class="Widgheading relative" aria-expanded="true" aria-controls="collapseOne">
+                                                    @*<h4 class="Widgheading relative" aria-expanded="true" aria-controls="collapseOne">
                                                         <span id="griddetailsHeadedtext" class="f6 translate-y-big"></span>
                                                         <span class="btn-excel" data-toggle="tooltip" title="Export To Excel">
                                                             <span class="translate-y hide">Export To Excel</span>
@@ -3978,10 +4020,10 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                                         </span>
                                                         <span class="btn-prime">REFRESH</span>
                                                         <span id="backSpn" class="closeAcDetails clstyle"><i class="fa fa-arrow-left"></i> </span>
-                                                    </h4>
+                                                    </h4>*@
                                                 </div>
                                                 <div id="collapseOne" class="backBox p-3" role="tabpanel" aria-labelledby="headingOne">                                                   
-                                                    <div id="gridContainer overflx">
+                                                    <div id="gridContainerLMS overflx">
                                                         @Html.Partial("DashBoardGVLMS", new System.Data.DataTable())
                                                     </div>
                                                 </div>

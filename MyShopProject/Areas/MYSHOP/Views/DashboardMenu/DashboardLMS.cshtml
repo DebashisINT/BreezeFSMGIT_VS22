@@ -1,11 +1,5 @@
 ﻿@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                06-01-2023        2.0.37           pallab              25570: show button position change and data default value change(added '*' instead of '0') *@
-@*2.0                24-04-2023        2.0.39           Pallab              25896: Console error after click "Not Logged In" box in FSM dashboard Team Visit - Hierarchy tab *@
-@*3.0                21-03-2024        2.0.46           Sanchita            A new dashboard floating menu is required as "View Geography".Mantis: 27322    *@
-@*4.0                21-03-2024        2.0.46           Sanchita            A new dashboard floating icon is required as "View Geotrack"..Mantis: 27323    *@
-
 @model List<MyShop.Models.DashboardSettingMapped>
-
 @if (Model != null)
 {
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,178 +147,7 @@
         });
     </script>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 Widgheading clearfix">
-                @if (Model.Where(x => x.DetailsName == "Total Employees").Count() > 0 || Model.Where(x => x.DetailsName == "At Work").Count() > 0 || Model.Where(x => x.DetailsName == "On Leave").Count() > 0 || Model.Where(x => x.DetailsName == "Not Logged In").Count() > 0)
-                {
-                    @*<span>Employee Attendance Summary/*Add to check*/</span>*@
-                }
-                
-
-                <ul class="mapShowlist clearfix flotting-right-btn">
-                    @*EnMantis Issue 24729*@
-                    @if (Model.Where(x => x.DetailsName == "View Party").Count() > 0)
-                    {
-                        //Rev Sanchita
-                        //<li title="Click to get route details of Employees with Map " id="step7">
-                        @*<li title="Click to get party details with Map " id="step7">*@
-                        <li id="step7">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewParty();">
-                                <span class="text ">
-                                    View Party
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="lni lni-user "></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/view-party.png" alt="">
-                                </div>
-
-                            </div>
-                            <div class="tooltip-customize" title="Click to get party details with Map">Click to get party details with Map</div>
-                        </li>
-                    }
-                    @if (Model.Where(x => x.DetailsName == "View Route").Count() > 0)
-                    {
-                        @*<li title="Click to get route details of Employees with Map " id="step7">*@
-                        <li id="step7">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewRoute();">
-                                <span class="text ">
-                                    View Route
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="lni lni-direction "></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/view-route.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to get route details of Employees with Map">Click to get route details of Employees with Map</div>
-                            @*<span class="greenTrack" style="cursor:pointer;border-right:1px solid #ccc;" >View Route <img src="/assests/images/locat1.png" width="20px" style="margin-left:5px" /></span>*@
-                        </li>
-                    }
-                    @if (Model.Where(x => x.DetailsName == "View Map").Count() > 0)
-                    {
-                        <li class="scr" data-scroll="map" id="step8">
-                            <div class="pointer hoverMenu mp" onclick="showMap();">
-                                <span class="text">
-                                    View Map
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="lni lni-map"></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/view-map.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to show Map">Click to show Map</div>
-                        </li>
-                    }
-                    @if (Model.Where(x => x.DetailsName == "Live Track Employees At Work").Count() > 0)
-                    {
-                        <li class="" id="step9">
-                            <div class="pointer hoverMenu trc" onclick="TrackVisitClick();">
-                                <span class="text">
-                                    Live Tracker
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="liveBlink"></span>*@
-                                @*<span class="lni lni-map-marker"></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/tracking.png" alt="">
-                                </div>
-                            </div>
-
-                            <div class="tooltip-customize" title="Live Tracker">Live Tracker</div>
-                            @*separate-left*@
-                            @*<span class=" greenTrack" style="cursor:pointer;" >Live Track Employees At Work <img class="pull-right blink cgreen" style="width: 12px; margin: 3px 0 0 5px;" src="/assests/images/Live.png" /></span>*@
-                        </li>
-                    }
-                    @if (Model.Where(x => x.DetailsName == "View Outlet").Count() > 0)
-                    {
-                        @*<li title="Click to View Outlet" id="step7">*@
-                        <li id="step7">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewOutlet();">
-                                <span class="text ">
-                                    View Outlet
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="lni lni-hospital "></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/view-outlet.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to View Outlet">Click to View Outlet</div>
-                            @*<span class="greenTrack" style="cursor:pointer;border-right:1px solid #ccc;" >View Route <img src="/assests/images/locat1.png" width="20px" style="margin-left:5px" /></span>*@
-                        </li>
-                    }
-                    @if (Model.Where(x => x.DetailsName == "Emp Outlet").Count() > 0)
-                    {
-                        @*<li title="Click to get Employee Outlet " id="step7">*@
-                        <li id="step7">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewEMPOutlet();">
-                                <span class="text ">
-                                    Employee Outlet
-                                    @*<span class="arrr"></span>*@
-                                </span>
-                                @*<span class="lni lni-users "></span>*@
-                                <div class="icon-img">
-                                    <img src="/assests/images/emp-outlet.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to get Employee Outlet">Click to get Employee Outlet</div>
-                            @*<span class="greenTrack" style="cursor:pointer;border-right:1px solid #ccc;" >View Route <img src="/assests/images/locat1.png" width="20px" style="margin-left:5px" /></span>*@
-                        </li>
-                    }
-                    @*Rev Sanchita*@
-                    @if (Model.Where(x => x.DetailsName == "View Party-Hierarchywise").Count() > 0)
-                    {
-                       
-                        <li id="step7" class="view-party-hierarchywise">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewPartyHierarchy();">
-                                <span class="text ">
-                                    View Party-Hierarchywise                                   
-                                </span>                               
-                                <div class="icon-img">
-                                    <img src="/assests/images/vp-hierarchy.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to get party details hierarchywise with Map">Click to get party details hierarchywise with Map</div>
-                        </li>
-                    }
-                   
-                    @if (Model.Where(x => x.DetailsName == "View Geography").Count() > 0)
-                    {
-                        <li id="step7" class="view-party-hierarchywise">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewGeography();">
-                                <span class="text ">
-                                    View Geography
-                                </span>
-                                <div class="icon-img">
-                                    <img src="/assests/images/geography.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to get Shop Location on Map">Click to get Shop Location on Map</div>
-                        </li>
-                    }
-                    
-                    @if (Model.Where(x => x.DetailsName == "View Geotrack").Count() > 0)
-                    {
-                        <li id="step7" class="view-party-hierarchywise">
-                            <div class="pointer hoverMenu rut" onclick="ShowViewGeotrack();">
-                                <span class="text ">
-                                    View Geotrack
-                                </span>
-                                <div class="icon-img">
-                                    <img src="/assests/images/geotrack.png" alt="">
-                                </div>
-                            </div>
-                            <div class="tooltip-customize" title="Click to get User Location on Map">Click to get User Location on Map</div>
-                        </li>
-                    }
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
+   
     <div class="">
         <div class="row">
             <div class="clearfix mb-3">
@@ -349,7 +172,7 @@
 
 
                     <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c3" id="lms-btn-1" onclick="AssignedTopicsClick(this);">
+                        <div class="widgBox c3" id="lms-btn-1" onclick="OnTotalLearnersClick(this);">
                             <div class="d-flex  align-items-center">
                                 <div class="icon">
                                     <img src="/assests/images/assigned-topics.svg" />
@@ -365,7 +188,7 @@
 
 
                     <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c1" id="lms-btn-2" onclick="YettoStartClick(this);">
+                        <div class="widgBox c1" id="lms-btn-2" onclick="OnTotalLearnersClick(this);">
                             <div class="d-flex  align-items-center">
                                 <div class="icon">
                                     <img src="/assests/images/yet-to-start.svg" />
