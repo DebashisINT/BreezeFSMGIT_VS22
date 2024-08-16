@@ -4670,20 +4670,22 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     function ShowLMSData() {
        
         isShowVisitDataClicked = true;
-        $('#a4').addClass('zoom');
-        $('#a1').addClass('zoom');
-        $('#a2').addClass('zoom');
-        $('#a3').addClass('zoom');
+        $('#lms-btn-4').addClass('zoom');
+        $('#lms-btn-1').addClass('zoom');
+        $('#lms-btn-2').addClass('zoom');
+        $('#lms-btn-3').addClass('zoom');
+        $('#lms-btn-5').addClass('zoom');
         
        
 
         WindowSize = $(window).width();
 
         $(".visit-tb-hand").hide();
-        $("#lblAtWork").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblOnLeave").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblNotLoggedIn").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblTotal").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblTotalLearners").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblAssignedTopics").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblYettoStart").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblInProgress").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblCompleted").html("<img src='/assests/images/Spinner.gif' />");
       
         objData = {};
 
