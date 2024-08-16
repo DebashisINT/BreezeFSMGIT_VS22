@@ -1,0 +1,96 @@
+﻿@*====================================================== Revision History ==========================================================*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+
+@*====================================================== Revision History ==========================================================*@
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gridList";
+    settings.KeyFieldName = "USER_ID";
+    settings.CallbackRouteValues = new { Action = "PartialReportListing", Controller = "LMSReports" };
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
+    settings.SettingsSearchPanel.Visible = true;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsContextMenu.EnableColumnMenu = DefaultBoolean.True;
+    settings.Settings.ShowFooter = true;
+    settings.SettingsContextMenu.EnableFooterMenu = DefaultBoolean.True;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "30", "40", "50" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.ClientSideEvents.BeginCallback = "OnStartCallback";
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "SEQ";
+    //    x.Caption = "SL";
+    //    x.VisibleIndex = 1;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    x.Width = 100;
+
+    //});
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "USER_ID";
+        x.Caption = "User ID";
+        x.VisibleIndex = 2;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 100;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "USER_NAME";
+        x.Caption = "User Name";
+        x.VisibleIndex = 3;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 100;
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "branch_description";
+        x.Caption = "Branch";
+        x.VisibleIndex = 4;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 200;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "deg_designation";
+        x.Caption = "Designation";
+        x.VisibleIndex = 5;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 200;
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "TOPICID";
+        x.Caption = "Course Description";
+        x.VisibleIndex = 6;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 200;
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "CONTENT_ID";
+        x.Caption = "Assigned On";
+        x.VisibleIndex = 7;
+
+        x.ColumnType = MVCxGridViewColumnType.DateEdit;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm:ss";
+        x.Width = 200;
+
+    });
+
+
+    
+
+}).Bind(Model).GetHtml()

@@ -48,8 +48,14 @@ namespace MyShop.Models
         //////////////////////////////////////////////////
 
 
+        //REV PRITI
+        public Int32 TotalLearners { get; set; }
+        public Int32 AssignedTopics { get; set; }
+        public Int32 YettoStart { get; set; }
+        public Int32 InProgress { get; set; }
 
-
+        public Int32 Completed { get; set; }
+        //REV PRITI END
     }
 
     public class FSMDashBoardFilter

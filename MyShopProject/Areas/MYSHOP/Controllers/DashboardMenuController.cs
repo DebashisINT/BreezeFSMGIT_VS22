@@ -22,6 +22,9 @@ using DevExpress.Web.Mvc;
 using BusinessLogicLayer.SalesTrackerReports;
 using DevExpress.Web;
 using System.Runtime.InteropServices.ComTypes;
+using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Data.SqlClient;
 
 
 namespace MyShop.Areas.MYSHOP.Controllers
@@ -34,9 +37,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public ActionResult Dashboard()
         {
-
-
-
             try
             {
                 DashboardModelC model = new DashboardModelC();
@@ -78,11 +78,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
-
-
-
-        }
-
+        }        
         public ActionResult FSMDashboard()
         {
 
@@ -2712,6 +2708,80 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return null;
         }
         // End of Mantis Issue 25468
+
+        
+
+        public ActionResult DashboardLMS(List<DashboardSettingMapped> list)
+        {
+
+            return PartialView(list);
+        }
+
+        public JsonResult GETLMSCOUNTDATA()       
+        {
+            Dashboard dashboarddataobj = new Dashboard();
+            FSMDashboard Dashboarddata = new FSMDashboard();
+            try
+            {                
+                DataSet objData = dashboarddataobj.LINQFORLMSDASHBOARD();
+               
+                int TotalLearnersCNT = 0;
+                int AssignedTopicsCNT = 0;
+                int YettoStartCNT = 0;
+                int InProgressCNT = 0;
+                int CompletedCNT = 0;                
+
+                foreach (DataRow item in objData.Tables[0].Rows)
+                {
+                    TotalLearnersCNT = Convert.ToInt32(item["CNT"]);
+                }
+                foreach (DataRow item in objData.Tables[1].Rows)
+                {
+                    AssignedTopicsCNT = Convert.ToInt32(item["CNT"]);
+                }
+                foreach (DataRow item in objData.Tables[2].Rows)
+                {
+                    YettoStartCNT = Convert.ToInt32(item["CNT"]);
+                }
+                foreach (DataRow item in objData.Tables[3].Rows)
+                {
+                    InProgressCNT = Convert.ToInt32(item["CNT"]);
+                }
+                foreach (DataRow item in objData.Tables[4].Rows)
+                {
+                    CompletedCNT = Convert.ToInt32(item["CNT"]);
+                }
+
+                
+                Dashboarddata.TotalLearners = TotalLearnersCNT;
+                Dashboarddata.AssignedTopics = AssignedTopicsCNT;
+                Dashboarddata.YettoStart = YettoStartCNT;
+                Dashboarddata.InProgress = InProgressCNT;
+                Dashboarddata.Completed = CompletedCNT;
+
+            }
+            catch
+            {
+            }
+            return Json(Dashboarddata);
+        }
+
+        public PartialViewResult DashBoardGVLMS(FSMDashBoardFilter dd)
+        {
+            DataTable dt=new DataTable();
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("prc_LMSDASHBOARDDATA", sqlcon);
+            sqlcmd.Parameters.Add("@ACTION", "TOTALUSERLIST");
+            sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));           
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            return PartialView(dt);
+        }
 
     }
 
