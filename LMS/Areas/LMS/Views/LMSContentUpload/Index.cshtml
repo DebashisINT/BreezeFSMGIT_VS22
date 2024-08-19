@@ -4559,7 +4559,7 @@
             for (var i = 0; i < values.length; i++) {
                 TopicId.push(values[i]);
             }
-            $("#hdnTopicID").val(TopicId);
+            $("#hdnTopicIDForSearch").val(TopicId);
         } finally {
             console.log(TopicId);
         }
@@ -4893,7 +4893,7 @@
     function ShowQuestionsClick() {
         SelectedQuestionMapList = '';
         var obj = {};
-        obj.TopicIds = $("#hdnTopicID").val();
+        obj.TopicIds = $("#hdnTopicIDForSearch").val();
         obj.CategoryIds = $("#hdnCategoryID").val();
         obj.ContentId = $("#hdnContentID").val();
 
@@ -6292,6 +6292,7 @@
                             <input type="hidden" id="hdnTopicID" name="hdnTopicID" />
                             <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
                             <input type="hidden" id="hdnContentStatusOld" name="hdnContentStatusOld" />
+                            <input type="hidden" id="hdnTopicIDForSearch" name="hdnTopicIDForSearch" />
 
 
                             @*<input type="button" name="previous" class="upload-previous action-button-previous btn btn-success" value="Previous" onclick="PreviousButtonOnClick()" />*@
