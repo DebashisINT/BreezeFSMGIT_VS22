@@ -88,6 +88,8 @@ namespace MyShop.Models
 
         // End of Rev Sachita
 
+        public string ActionType { get; set; }
+
         public List<StateData> GetStateList(Int32 userid)
         {
             List<StateData> lststate = new List<StateData>();

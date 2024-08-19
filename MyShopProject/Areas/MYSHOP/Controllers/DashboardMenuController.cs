@@ -2774,13 +2774,89 @@ namespace MyShop.Areas.MYSHOP.Controllers
             SqlConnection sqlcon = new SqlConnection(con);
             sqlcon.Open();
             sqlcmd = new SqlCommand("prc_LMSDASHBOARDDATA", sqlcon);
-            sqlcmd.Parameters.Add("@ACTION", "TOTALUSERLIST");
+            sqlcmd.Parameters.Add("@ACTION", dd.ActionType);
             sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));           
             sqlcmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
             da.Fill(dt);
             sqlcon.Close();
+            ViewData["LMSDashboardGridView"] = dt;
+            TempData.Keep();
             return PartialView(dt);
+        }
+
+        public ActionResult LMSExportDashboardGridView(int type, String Name)
+        {
+            //Rev Tanmoy get data through execute query
+            DataTable dbDashboardData = new DataTable();
+            DBEngine objdb = new DBEngine();           
+
+            if (ViewData["LMSDashboardGridView"] != null)
+            {
+
+                switch (type)
+                {
+                    case 1:
+                        return GridViewExtension.ExportToPdf(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                    //break;
+                    case 2:
+                        return GridViewExtension.ExportToXlsx(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                    // return GridViewExtension.ExportToXlsx(GetDashboardGridView(ViewData["DashboardGridView"]), dbDashboardData);Replace ViewData To datatable
+                    //break;
+                    case 3:
+                        return GridViewExtension.ExportToXls(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                    //break;
+                    case 4:
+                        return GridViewExtension.ExportToRtf(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                    //break;
+                    case 5:
+                        return GridViewExtension.ExportToCsv(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                    default:
+                        break;
+                }
+            }
+            return null;
+        }
+
+        private GridViewSettings GetDashboardGridViewLMS(object datatable, String Name)
+        {
+            var settings = new GridViewSettings();
+            //settings.Name = "DashboardGridView";
+            settings.Name = Name;
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            // settings.SettingsExport.FileName = "DashboardGridView";
+            settings.SettingsExport.FileName = Name;
+            //String ID = Convert.ToString(TempData["LMSDashboardGridView"]);
+            //TempData.Keep();
+            DataTable dt = (DataTable)datatable;
+
+            foreach (System.Data.DataColumn datacolumn in dt.Columns)
+            {
+                //if (datacolumn.ColumnName != "EMPID")
+                //{
+                    settings.Columns.Add(column =>
+                    {
+                        column.Caption = datacolumn.ColumnName;
+                        column.FieldName = datacolumn.ColumnName;
+                        //if (datacolumn.DataType.FullName == "System.Decimal" || datacolumn.DataType.FullName == "System.Int32" || datacolumn.DataType.FullName == "System.Int64")
+                        //{
+                        //    if (datacolumn.ColumnName != "Shops Visited")
+                        //    {
+                        //        column.PropertiesEdit.DisplayFormatString = "0.00";
+                        //    }
+                        //}
+                    });
+                //}
+
+            }
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
         }
 
     }
