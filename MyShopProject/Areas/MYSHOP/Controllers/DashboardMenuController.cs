@@ -81,7 +81,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         }        
         public ActionResult FSMDashboard()
         {
-
+            TempData["LMSDashboardGridView"] = null;
             if (Session["userid"] != null)
             {
                 FSMDashBoardFilter obj = new FSMDashBoardFilter();
@@ -2729,7 +2729,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 int AssignedTopicsCNT = 0;
                 int YettoStartCNT = 0;
                 int InProgressCNT = 0;
-                int CompletedCNT = 0;                
+                int CompletedCNT = 0;
+                decimal AverageProgressCNT = 0;
+
 
                 foreach (DataRow item in objData.Tables[0].Rows)
                 {
@@ -2751,13 +2753,17 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     CompletedCNT = Convert.ToInt32(item["CNT"]);
                 }
+                foreach (DataRow item in objData.Tables[5].Rows)
+                {
+                    AverageProgressCNT = Convert.ToDecimal(item["AverageProgress"]);
+                }
 
-                
                 Dashboarddata.TotalLearners = TotalLearnersCNT;
                 Dashboarddata.AssignedTopics = AssignedTopicsCNT;
                 Dashboarddata.YettoStart = YettoStartCNT;
                 Dashboarddata.InProgress = InProgressCNT;
                 Dashboarddata.Completed = CompletedCNT;
+                Dashboarddata.AverageProgress = AverageProgressCNT;
 
             }
             catch
@@ -2780,7 +2786,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
             da.Fill(dt);
             sqlcon.Close();
-            ViewData["LMSDashboardGridView"] = dt;
+            TempData["LMSDashboardGridView"] = dt;
             TempData.Keep();
             return PartialView(dt);
         }
@@ -2791,26 +2797,26 @@ namespace MyShop.Areas.MYSHOP.Controllers
             DataTable dbDashboardData = new DataTable();
             DBEngine objdb = new DBEngine();           
 
-            if (ViewData["LMSDashboardGridView"] != null)
+            if (TempData["LMSDashboardGridView"] != null)
             {
 
                 switch (type)
                 {
                     case 1:
-                        return GridViewExtension.ExportToPdf(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                        return GridViewExtension.ExportToPdf(GetDashboardGridViewLMS(TempData["LMSDashboardGridView"], Name), TempData["LMSDashboardGridView"]);
                     //break;
                     case 2:
-                        return GridViewExtension.ExportToXlsx(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                        return GridViewExtension.ExportToXlsx(GetDashboardGridViewLMS(TempData["LMSDashboardGridView"], Name), TempData["LMSDashboardGridView"]);
                     // return GridViewExtension.ExportToXlsx(GetDashboardGridView(ViewData["DashboardGridView"]), dbDashboardData);Replace ViewData To datatable
                     //break;
                     case 3:
-                        return GridViewExtension.ExportToXls(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                        return GridViewExtension.ExportToXls(GetDashboardGridViewLMS(TempData["LMSDashboardGridView"], Name), TempData["LMSDashboardGridView"]);
                     //break;
                     case 4:
-                        return GridViewExtension.ExportToRtf(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                        return GridViewExtension.ExportToRtf(GetDashboardGridViewLMS(TempData["LMSDashboardGridView"], Name), TempData["LMSDashboardGridView"]);
                     //break;
                     case 5:
-                        return GridViewExtension.ExportToCsv(GetDashboardGridViewLMS(ViewData["LMSDashboardGridView"], Name), ViewData["LMSDashboardGridView"]);
+                        return GridViewExtension.ExportToCsv(GetDashboardGridViewLMS(TempData["LMSDashboardGridView"], Name), TempData["LMSDashboardGridView"]);
                     default:
                         break;
                 }
