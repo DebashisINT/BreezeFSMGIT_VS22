@@ -55,6 +55,8 @@ namespace MyShop.Models
         public Int32 InProgress { get; set; }
 
         public Int32 Completed { get; set; }
+
+        public Decimal AverageProgress { get; set; }
         //REV PRITI END
     }
 

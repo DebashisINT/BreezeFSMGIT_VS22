@@ -147,109 +147,119 @@
         });
     </script>
 
-   
+
     <div class="">
         <div class="row">
             <div class="clearfix mb-3">
                 <div class="d-flex justify-content-between mainDashBoxes newStyleMN lms-dashboard">
+                    @if (Model.Where(x => x.DetailsName == "Total Learners").Count() > 0)
+                    {
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox c2" id="lms-btn-4" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon">
+                                        <img src="/assests/images/total-learners.svg" />
+                                    </div>
 
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c2" id="lms-btn-4" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon">
-                                    <img src="/assests/images/total-learners.svg" />
                                 </div>
-
-                            </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblTotalLearners">***</div>
-                                <div class="flex-grow-1 txt">Total<br />Learners</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c3" id="lms-btn-1" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon">
-                                    <img src="/assests/images/assigned-topics.svg" />
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblTotalLearners">***</div>
+                                    <div class="flex-grow-1 txt">Total<br />Learners</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                                 </div>
                             </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblAssignedTopics">***</div>
-                                <div class="flex-grow-1 txt">Assigned<br />Topics</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                            </div>
                         </div>
-                    </div>
+                    }
 
-
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c1" id="lms-btn-2" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon">
-                                    <img src="/assests/images/yet-to-start.svg" />
+                    @if (Model.Where(x => x.DetailsName == "Assigned Topics").Count() > 0)
+                    {
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox c3" id="lms-btn-1" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon">
+                                        <img src="/assests/images/assigned-topics.svg" />
+                                    </div>
+                                </div>
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblAssignedTopics">***</div>
+                                    <div class="flex-grow-1 txt">Assigned<br />Topics</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                                 </div>
                             </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblYettoStart">***</div>
-                                <div class="flex-grow-1 txt">Yet to<br />Start</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (Model.Where(x => x.DetailsName == "Yet to Start").Count() > 0)
+                    {
 
-
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c6" id="lms-btn-3" onclick="OnTotalLearnersClick('TOTALUSERPENDINGLIST');">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon">
-                                    <img src="/assests/images/in-progress.svg" />
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox c1" id="lms-btn-2" onclick="OnTotalLearnersClick('TOTALUSERLIST');">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon">
+                                        <img src="/assests/images/yet-to-start.svg" />
+                                    </div>
+                                </div>
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblYettoStart">***</div>
+                                    <div class="flex-grow-1 txt">Yet to<br />Start</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                                 </div>
                             </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblInProgress">***</div>
-                                <div class="flex-grow-1 txt">In<br />Progress</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (Model.Where(x => x.DetailsName == "In Progress").Count() > 0)
+                    {
 
-
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox c5" id="lms-btn-5" onclick="OnTotalLearnersClick('TOTALUSERCOMPLETEDLIST');">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon">
-                                    <img src="/assests/images/completed-topics.svg" />
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox c6" id="lms-btn-3" onclick="OnTotalLearnersClick('TOTALUSERPENDINGLIST');">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon">
+                                        <img src="/assests/images/in-progress.svg" />
+                                    </div>
+                                </div>
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblInProgress">***</div>
+                                    <div class="flex-grow-1 txt">In<br />Progress</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                                 </div>
                             </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblCompleted">***</div>
-                                <div class="flex-grow-1 txt">Completed</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
-                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (Model.Where(x => x.DetailsName == "Completed").Count() > 0)
+                    {
 
-                    <div class="flex-itm scr " data-scroll="accordion">
-                        <div class="widgBox avg-progress-box" id="a6" onclick="CompletedClick(this);">
-                            <div class="d-flex  align-items-center">
-                                <div class="icon progress-chart">
-                                    <img src="/assests/images/progress-chart.svg" />
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox c5" id="lms-btn-5" onclick="OnTotalLearnersClick('TOTALUSERCOMPLETEDLIST');">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon">
+                                        <img src="/assests/images/completed-topics.svg" />
+                                    </div>
+                                </div>
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblCompleted">***</div>
+                                    <div class="flex-grow-1 txt">Completed</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
                                 </div>
                             </div>
-                            <div class="lspacer">
-                                <div class="Numb" id="lblCompleted">***</div>
-                                <div class="flex-grow-1 txt">Average<br />Progress</div>
-                                <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+                        </div>
+                    }
+                    @if (Model.Where(x => x.DetailsName == "Average Progress").Count() > 0)
+                    {
+                        <div class="flex-itm scr " data-scroll="accordion">
+                            <div class="widgBox avg-progress-box" id="a6">
+                                <div class="d-flex  align-items-center">
+                                    <div class="icon progress-chart">
+                                       <div id="gauge" style="width:70px; height:70px;"></div>
+                                    </div>
+                                </div>
+                                <div class="lspacer">
+                                    <div class="Numb" id="lblAverageProgress">***</div>
+                                    <div class="flex-grow-1 txt">Average<br />Progress</div>
+                                    <div class="text-right hide"><span class="lnr lnr-arrow-down dwn arrD"></span></div>
+                                </div>
                             </div>
                         </div>
+                    }
                     </div>
-
-                </div>
             </div>
         </div>
     </div>    
