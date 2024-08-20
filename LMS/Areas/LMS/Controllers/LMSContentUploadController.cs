@@ -667,6 +667,7 @@ namespace LMS.Areas.LMS.Controllers
                     {
                         UserName = Customer,
                         UserID = Requesttype,
+                        header = "New Content Added",
                         body = message,
                         type = "lms_content_assign",
                         imgNotification_Icon = imgNotification_Icon
