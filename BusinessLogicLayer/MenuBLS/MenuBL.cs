@@ -45,6 +45,9 @@ namespace BusinessLogicLayer.MenuBLS
                     ProcedureExecute Proc = new ProcedureExecute(UserMenuHelperProcedures.Proc_MenuHelper);
                     Proc.AddPara("@groupid", UserGroupId);
                     Proc.AddPara("@mode", Proc_MenuHelper_Mode.GetUserMenuList.ToString());
+                    // Rev Sanchita
+                    Proc.AddPara("@userid", Convert.ToInt32(HttpContext.Current.Session["userid"]) );
+                    // End of Rev Sanchita
                     DataTable dt = Proc.GetTable();
                     List<UserMenuListModel> AllMenus = DbHelpers.ToModelList<UserMenuListModel>(dt);
 
