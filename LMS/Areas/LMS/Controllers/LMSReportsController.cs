@@ -174,8 +174,8 @@ namespace LMS.Areas.LMS.Controllers
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "USER_ID";
-                x.Caption = "User ID";
+                x.FieldName = "user_loginId";
+                x.Caption = "Login ID";
                 x.VisibleIndex = 2;
                 x.Width = 100;               
             });
@@ -196,14 +196,10 @@ namespace LMS.Areas.LMS.Controllers
                 x.Width = 200;
             });
 
-            
-            
-            
-
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CONTENTTITLE";
-                x.Caption = "Course Name";
+                x.Caption = "Content Name";
                 x.VisibleIndex = 5;
                 x.Width = 200;
             });
@@ -211,7 +207,7 @@ namespace LMS.Areas.LMS.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CONTENTDESC";
-                x.Caption = "Course Description";
+                x.Caption = "Content Description";
                 x.VisibleIndex = 6;
                 x.Width = 200;
             });

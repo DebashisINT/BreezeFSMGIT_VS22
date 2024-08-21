@@ -110,6 +110,7 @@
       <Column Name="FirstAccessDateandTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LastAccessDateandTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CompletionDurationDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="user_loginId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -1445,6 +1445,8 @@ namespace LMS.Models
 		
 		private System.Nullable<int> _CompletionDurationDays;
 		
+		private string _user_loginId;
+		
 		public LMS_REPORTSLIST()
 		{
 		}
@@ -1701,6 +1703,22 @@ namespace LMS.Models
 				if ((this._CompletionDurationDays != value))
 				{
 					this._CompletionDurationDays = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_loginId", DbType="VarChar(50)")]
+		public string user_loginId
+		{
+			get
+			{
+				return this._user_loginId;
+			}
+			set
+			{
+				if ((this._user_loginId != value))
+				{
+					this._user_loginId = value;
 				}
 			}
 		}
