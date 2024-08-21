@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,949,950,952,953,955 & 956
+//Purpose: LMS Info Details.Row: 945,949,950,952,953,955,956,971 & 972
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
