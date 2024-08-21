@@ -194,10 +194,11 @@ namespace ShopAPI.Controllers
                                             Operating_System = Convert.ToString(ds.Tables[1].Rows[j]["Operating_System"]),
                                             Location = Convert.ToString(ds.Tables[1].Rows[j]["Location"]),
                                             PlaybackSpeed = Convert.ToString(ds.Tables[1].Rows[j]["PlaybackSpeed"]),
-                                            Watch_Percentage = Convert.ToString(ds.Tables[1].Rows[j]["Watch_Percentage"]),
+                                            Watch_Percentage = Convert.ToInt32(ds.Tables[1].Rows[j]["Watch_Percentage"]),
                                             QuizAttemptsNo = Convert.ToInt32(ds.Tables[1].Rows[j]["QuizAttemptsNo"]),
                                             QuizScores = Convert.ToDecimal(ds.Tables[1].Rows[j]["QuizScores"]),
                                             CompletionStatus = Convert.ToBoolean(ds.Tables[1].Rows[j]["CompletionStatus"]),
+                                            CONTENT_QUIZTIME = Convert.ToString(ds.Tables[1].Rows[j]["CONTENT_QUIZTIME"]),
                                             question_list = Qoview
                                         });
                                     }

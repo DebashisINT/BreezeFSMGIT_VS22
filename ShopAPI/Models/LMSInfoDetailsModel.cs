@@ -29,6 +29,7 @@ namespace ShopAPI.Models
         public string topic_name { get; set; }
         public int video_count { get; set; }
         public int no_of_pending_video_count { get; set; }
+        public int topic_parcentage { get; set; }
     }
 
     public class TopicWiseListsInput
@@ -72,10 +73,11 @@ namespace ShopAPI.Models
         public string Operating_System { get; set; }
         public string Location { get; set; }
         public string PlaybackSpeed { get; set; }
-        public string Watch_Percentage { get; set; }
+        public int Watch_Percentage { get; set; }
         public int QuizAttemptsNo { get; set; }
         public decimal QuizScores { get; set; }
         public bool CompletionStatus { get; set; }
+        public string CONTENT_QUIZTIME { get; set; }
         public List<QuestionlistOutput> question_list { get; set; }
     }
 
@@ -152,7 +154,7 @@ namespace ShopAPI.Models
         public string Operating_System { get; set; }
         public string Location { get; set; }
         public string PlaybackSpeed { get; set; }
-        public string Watch_Percentage { get; set; }
+        public int Watch_Percentage { get; set; }
         public int QuizAttemptsNo { get; set; }
         public decimal QuizScores { get; set; }
         public bool CompletionStatus { get; set; }
