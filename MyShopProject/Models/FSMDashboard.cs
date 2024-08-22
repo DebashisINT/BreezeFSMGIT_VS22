@@ -90,7 +90,12 @@ namespace MyShop.Models
 
         // End of Rev Sachita
 
+
+        //Rev Priti
         public string ActionType { get; set; }
+        public string STATEIDS { get; set; }
+        public string BRANCHIDS { get; set; }
+        //Rev Priti END
 
         public List<StateData> GetStateList(Int32 userid)
         {

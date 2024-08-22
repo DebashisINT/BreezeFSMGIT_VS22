@@ -1,10 +1,10 @@
 ﻿@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @model List<MyShop.Models.DashboardSettingMapped>
 @if (Model != null)
-{
+{  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,800;1,900&display=swap" rel="stylesheet">   
     <style>
         .mapShowlist li .tootip {
             font-family: 'Poppins', sans-serif !important;
@@ -12,7 +12,6 @@
 
         .newStyleMN .widgBox .icon {
             position: absolute;
-            
             border-radius: 6px;
         }
 
@@ -21,17 +20,17 @@
             left: 1px !important;
         }
 
-            .newStyleMN .widgBox .txt {
-                width: 100% !important;
-                max-width: 100% !important;
-                font-family: 'Poppins', sans-serif !important;
-                padding-left: 0px;
-                font-weight: 400;
-                font-size: 14px;
-                margin-top: -9px;
-                margin-bottom: 4px;
-                color: #fff;
-            }
+        .newStyleMN .widgBox .txt {
+            width: 100% !important;
+            max-width: 100% !important;
+            font-family: 'Poppins', sans-serif !important;
+            padding-left: 0px;
+            font-weight: 400;
+            font-size: 14px;
+            margin-top: -9px;
+            margin-bottom: 4px;
+            color: #fff;
+        }
 
         .newStyleMN.lms-dashboard .widgBox .txt {
             min-height: 39px !important;
@@ -45,7 +44,6 @@
         .newStyleMN .widgBox .Numb {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 500;
-            
             /*color: #083a72;*/
             color: #fff;
             text-align: left;
@@ -65,7 +63,6 @@
             border-radius: 15px;
             padding: 15px;
             padding-bottom: 15px;
-            
         }
 
         .newStyleMN.lms-dashboard .widgBox {
@@ -94,12 +91,12 @@
                 margin-right: 8px;
             }
         }
+
         .mainDashBoxes.lms-dashboard .flex-itm {
             margin-left: 8px;
         }
 
-        .justify-content-between
-        {
+        .justify-content-between {
             justify-content: space-between;
         }
 
@@ -126,15 +123,13 @@
         .lms-show-data-btn {
             padding-left: 10px !important;
         }
+
         .widgBox.zoom:hover {
             -webkit-transform: scale(1.06);
             -moz-transform: scale(1.06);
             transform: scale(1.06);
         }
-
     </style>
-
-
     <script>
         $(function () {
             $("#step7").tooltip({
@@ -146,8 +141,20 @@
             });
         });
     </script>
-
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 Widgheading clearfix">
+                <ul class="mapShowlist clearfix">
+                    <li class="relative state-selection">
+                        @Html.Action("DashboardStateComboboxLMS")
+                    </li>
+                    <li class="relative branch-selection">
+                        @Html.Action("DashboardBranchComboboxLMS")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="">
         <div class="row">
             <div class="clearfix mb-3">
@@ -248,7 +255,7 @@
                             <div class="widgBox avg-progress-box" id="a6">
                                 <div class="d-flex  align-items-center">
                                     <div class="icon progress-chart">
-                                       <div id="gauge" style="width:70px; height:70px;"></div>
+                                        <div id="gauge" style="width:70px; height:70px;"></div>
                                     </div>
                                 </div>
                                 <div class="lspacer">
@@ -259,24 +266,24 @@
                             </div>
                         </div>
                     }
-                    </div>
+                </div>
             </div>
         </div>
-    </div>    
+    </div>
     <div class="row">
         <div class="col-md-12 text-right clearfix py-0 pl-50 lms-show-data-btn">
             <table class="float-left">
-                <tr>                  
-                    <td>                        
+                <tr>
+                    <td>
                         <button type="button" class="btn details-btn" id="summary-show-btn" onclick="ShowLMSData()" style=" line-height: 20px;" title="">
-                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data                           
-                        </button>                       
+                            <img src="/assests/images/dashboard-summary.png" style="margin-right: 2px;"> click here to show data
+                        </button>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-   
+
     <script>
         $(document).ready(function () {
             $('.scr').on('click', function (e) {
@@ -294,5 +301,5 @@
         })
     </script>
 
-   
+
 }

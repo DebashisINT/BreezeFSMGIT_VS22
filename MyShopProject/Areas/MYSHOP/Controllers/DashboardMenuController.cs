@@ -2717,13 +2717,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return PartialView(list);
         }
 
-        public JsonResult GETLMSCOUNTDATA()       
+        public JsonResult GETLMSCOUNTDATA(string stateid, string branchid)       
         {
             Dashboard dashboarddataobj = new Dashboard();
             FSMDashboard Dashboarddata = new FSMDashboard();
             try
             {                
-                DataSet objData = dashboarddataobj.LINQFORLMSDASHBOARD();
+                DataSet objData = dashboarddataobj.LINQFORLMSDASHBOARD(stateid, branchid);
                
                 int TotalLearnersCNT = 0;
                 int AssignedTopicsCNT = 0;
@@ -2781,7 +2781,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             sqlcon.Open();
             sqlcmd = new SqlCommand("prc_LMSDASHBOARDDATA", sqlcon);
             sqlcmd.Parameters.Add("@ACTION", dd.ActionType);
-            sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));           
+            sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));
+            sqlcmd.Parameters.Add("@STATEID", dd.STATEIDS);
+            sqlcmd.Parameters.Add("@BRANCHID", dd.BRANCHIDS);
             sqlcmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
             da.Fill(dt);
@@ -2864,7 +2866,106 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             return settings;
         }
+        public ActionResult DashboardBranchComboboxLMS(string stateid)
+        {
+            FSMDashBoardFilter dashboard = new FSMDashBoardFilter();
+            string userid = Session["userid"].ToString();
+            int chkState = 0;
+            if (stateid == null)
+            {
+                chkState = 1;
+            }
+            List<BranchData> branchdate = new List<BranchData>();
+            List<BranchData> branchdateobj = new List<BranchData>();
 
+            // Rev 1.0
+            if (TempData["branchdateobj"] == null)
+            {
+                // End of Rev 1.0
+                string stateIds = dashboard.StateId;
+                try
+                {
+                    BranchData obj = null;
+                    if (stateid == null)
+                    {
+                        stateid = "";
+                    }
+
+                    branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
+
+                    foreach (var item in branchdate)
+                    {
+                        obj = new BranchData();
+                        obj.BranchID = !String.IsNullOrEmpty(Convert.ToString(item.BranchID)) ? Convert.ToInt32(item.BranchID) : 0;
+                        obj.name = item.name;
+                        branchdateobj.Add(obj);
+                    }
+                }
+                catch { }
+                ViewBag.BranchListCount = branchdate.Count;
+                // Rev 1.0
+            }
+            else
+            {
+                branchdate = (List<BranchData>)TempData["branchdate"];
+                branchdateobj = (List<BranchData>)TempData["branchdateobj"];
+
+                ViewBag.BranchListCount = branchdate.Count;
+            }
+            // End of Rev 1.0
+
+            if (chkState == 1)
+            {
+                return PartialView("DashboardBranchComboboxLMS", branchdateobj);
+            }
+            else
+            {
+                Session["PageloadChk"] = "0";
+                Session["BranchList"] = branchdateobj;
+                return Json(branchdate, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult DashboardStateComboboxLMS()
+        {
+
+            FSMDashBoardFilter dashboard = new FSMDashBoardFilter();
+            string userid = Session["userid"].ToString();
+            //string userid = "0";
+            List<StateData> statedate = new List<StateData>();
+            List<StateData> statedateobj = new List<StateData>();
+
+            // Rev 1.0
+            if (TempData["statedateobj"] == null)
+            {
+                // End of Rev 1.0
+                try
+                {
+                    StateData obj = null;
+                    statedate = dashboard.GetStateList(Convert.ToInt32(userid));
+                    foreach (var item in statedate)
+                    {
+                        obj = new StateData();
+                        obj.StateID = !String.IsNullOrEmpty(item.id) ? Convert.ToInt32(item.id) : 0;
+                        obj.name = item.name;
+                        statedateobj.Add(obj);
+                    }
+                }
+                catch { }
+                ViewBag.StateListCount = statedate.Count;
+                // Rev 1.0
+            }
+            else
+            {
+                statedate = (List<StateData>)TempData["statedate"];
+                statedateobj = (List<StateData>)TempData["statedateobj"];
+
+                ViewBag.StateListCount = statedate.Count;
+            }
+            // End of Rev 1.0
+
+            return PartialView(statedateobj);
+        }
     }
 
 }

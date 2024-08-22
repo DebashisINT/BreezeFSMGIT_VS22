@@ -2046,6 +2046,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardLMS.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashBoardGVLMS.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardStateComboboxLMS.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardBranchComboboxLMS.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3165,7 +3167,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5735</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5741/</IISUrl>
+          <IISUrl>http://localhost:5742/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -13,6 +13,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 10.0         04-08-2023      V2.0.42     Sanchita        Data not comming in Field Visit and Team Visit tab when Visit tab is off. Mantis : 26672
 11.0         21-03-2024      V2.0.46     Sanchita        A new dashboard floating menu is required as "View Geography". Mantis: 27322
 12.0         21-03-2024      V2.0.46     Sanchita        A new dashboard floating icon is required as "View Geotrack"..Mantis: 27323
+13.0         21-08-2024      V2.0.48     Priti           LMS Dashboard.Mantis: 0027667
 ====================================================== Revision History ==============================================-->
 
 @model MyShop.Models.FSMDashBoardFilter
@@ -28,10 +29,10 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYMZjnt8T6yivYfIa4_R9oy-L3SIYyrQ"></script>*@
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYMZjnt8T6yivYfIa4_R9oy - L3SIYyrQ"></script>*@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYMZjnt8T6yivYfIa4_R9oy - L3SIYyrQ"></script>
-@*Priti LMS*@
+@*REV 13.0*@
 <script src="~/assests/js/raphael.min.js"></script>
 <script src="~/assests/js/justgage.js"></script>
-@*Priti LMS*@
+@*REV 13.0 END*@
 <link href="~/Scripts/Charts/styles.css" rel="stylesheet" />
 <link href="~/Content/media.css" rel="stylesheet" />
 @*<script src="~/Scripts/Charts/apexcharts.min.js"></script>*@
@@ -45,7 +46,9 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 <link href="~/assests/css/FsmDashboard.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:200,300,400,500,600|Montserrat:300,400,500,600,700|Open+Sans+Condensed:300,700|Open+Sans:300,400,600,700" rel="stylesheet">
 <script>
-    /* Priti LMS*/
+    //REV 13.0
+    var LMSstateids = [];
+    var LMSbranchids = [];
     var isShowVisitDataClicked = false;
     var Action = "";
     function OnTotalLearnersClick(elem) {
@@ -60,35 +63,69 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
          })
          return;
      }
-     $("#gridLoader").show();
-     var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
-     $.ajax({
-         url: Url,
-         type: 'POST',
-         dataType: 'html',
-         success: function (result) {
-             $('#gridContainerLMS').html(result);
-             $("#gridLoader").hide();         },
-             error: function (xhr, status, error) {
-                 console.error(xhr.responseText);
+     //$("#gridLoader").show();
+     //var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
+     //$.ajax({
+     //    url: Url,
+     //    type: 'POST',
+     //    dataType: 'html',
+     //    success: function (result) {
+     //        $('#gridContainerLMS').html(result);
+     //        $("#gridLoader").hide();         },
+     //        error: function (xhr, status, error) {
+     //            console.error(xhr.responseText);
 
-             }
-     });
+     //        }
+     //});
      document.getElementById("griddetailsLMS").style.display = "block";
      $('#dashDetailsLMS').removeClass('hide');
      $('.boxWidget').removeClass('activeW');
      $('.widgBox').removeClass('active');
      $('#a4').addClass('active');
      $('#collapseTwo').addClass('in');
-     $('#backSpn').attr("Style", "Display:none;");
-      $("#griddetailsHeadedtext").text("Learners Details");
+        $('#backSpn').attr("Style", "Display:none;");
+
+        if (Action == "TOTALUSERLIST") {
+            $("#griddetailsHeadedtextLMS").text("Total Learners");
+        }
+        else if (Action == "TOTALUSERPENDINGLIST") {
+            $("#griddetailsHeadedtextLMS").text("In Progress");
+        }
+        else if (Action == "TOTALUSERCOMPLETEDLIST") {
+            $("#griddetailsHeadedtextLMS").text("Completed");
+            }
+
+
+     
      gridList.Refresh();
      gridList.Refresh();
     }
 
     function OnStartCallbackLMS(s, e) {
+
+        //let newBranch = $('#cmbBranchLMS').val();
+        //var isObject = typeof newBranch
+        //if (isObject == "object") {
+        //    if (newBranch != null && newBranch.length > 0) {
+        //        LMSbranchids = newBranch.join(',');
+        //    } else {
+        //        LMSbranchids = "";
+
+        //    }
+        //} else {
+        //    if (newBranch != null && newBranch.length > 0) {
+        //        LMSbranchids = newBranch;
+        //    }
+        //    else {
+        //        LMSbranchids = "";
+        //    }
+        //}
+
         e.customArgs["ActionType"] = Action;
-        }
+        e.customArgs["STATEIDS"] = LMSstateids.join(',') ;
+        e.customArgs["BRANCHIDS"] = LMSbranchids.join(',');
+        
+    }
     function LMSgriddashboardgridviewexport() {
     var url = '@Url.Action("LMSExportDashboardGridView", "DashboardMenu", new { type = "_type_" })';
     // debugger;
@@ -98,8 +135,248 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     window.location.href = url;
 
     //window.location.href = url.replace("_type_", 3, "_Name_", $("#griddetailsHeadedtext").text());
-}
-  /*Priti LMS END*/
+    }
+
+    
+    
+
+
+    $(document).ready(function () {
+        
+        $('#cmbStateLMS').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 400,
+            enableCaseInsensitiveFiltering: true,
+            onDropdownHide: function (event) {
+                console.log("on hide");
+                GetSateValueLMS();
+            }
+        }).multiselect('selectAll', false).multiselect('updateButtonText');
+
+        
+        $('#cmbBranchLMS').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 400,
+            enableCaseInsensitiveFiltering: true,
+            onDropdownHide: function (event) {
+                GetBranchValueLMS();
+            }
+        }).multiselect('selectAll', false).multiselect('updateButtonText');
+        LMSbranchids = $('#cmbBranchLMS').val();       
+        LMSstateids = $('#cmbStateLMS').val();
+
+        var statelistcount = $('#hdnStateListCountLMS').val();
+        if (statelistcount > 0) {         
+            for (var i = objsettings.length - 1; i >= 0; i--) {
+                if (objsettings[i].ID == settingsid) {
+                    objsettings.splice(i, 1);
+                }
+            }       
+
+        }
+        else {
+            $('.bodymain_areastatewise').hide();
+        }
+
+    });
+    function GetSateValueLMS() {
+        console.log("state value");
+        LMSstateids = [];
+
+        var datalist = $('#cmbStateLMS').val();
+        if (datalist != null) {
+            LMSstateids = datalist;
+        }
+        else {
+            LMSstateids.push('999999');
+        }
+        cmbStatechangeLMS();
+    }
+    function cmbStatechangeLMS() {
+        
+        if (!isShowVisitDataClicked) {
+            return; 
+        }       
+        settingsid = "1";
+        for (var i = objsettings.length - 1; i >= 0; i--) {
+            if (objsettings[i].ID == settingsid) {
+                objsettings.splice(i, 1);
+            }
+        }
+        if (settingsid == "1") {
+            stateid = LMSstateids.join(','); //;cmbState.GetValue();
+            var obj1 = {};
+            obj1.stateid = stateid;
+            $.ajax({
+                type: "POST",
+                url: "/DashboardMenu/DashboardBranchComboboxLMS",
+                data: JSON.stringify(obj1),
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {                    
+                    const mainData = response.map(function (item) {
+                        return {
+                            label: item.name,
+                            title: item.name,
+                            value: item.BranchID,
+                            selected: true
+                        }                       
+                    })
+
+                    $("#cmbBranchLMS").multiselect('dataprovider', mainData);
+                    //var newBranch = $('#cmbBranchLMS').val();
+                    //var isObject = typeof newBranch
+                    //if (isObject == "object") {
+                    //    if (newBranch != null && newBranch.length > 0) {
+                    //        LMSbranchids = newBranch.join(',');
+                    //    } else {
+                    //        LMSbranchids = "";
+                    //    }
+                    //} else {
+                    //    if (newBranch != null && newBranch.length > 0) {
+                    //        LMSbranchids = newBranch;
+                    //    }
+                    //    else {
+                    //        LMSbranchids = "";
+                    //    }
+                    //}
+                   // reloadBoxData(LMSbranchids);
+                },
+                error: function (response) {
+                    jAlert("Please try again later");
+                }
+            });
+
+        }
+    }
+
+    function GetBranchValueLMS() {
+        LMSbranchids = [];
+
+        var datalist = $('#cmbBranchLMS').val();
+        if (datalist != null) {
+            LMSbranchids = datalist;
+        }
+        else {
+            LMSbranchids.push('999999');
+        }
+        cmbBranchChangeLMS();
+    }
+    function cmbBranchChangeLMS() {
+       
+        if (!isShowVisitDataClicked) {
+            return; // Disable click event
+        }       
+        //let newBranch = $('#cmbBranchLMS').val();
+        //var isObject = typeof newBranch
+        //if (isObject == "object") {
+        //    if (newBranch != null && newBranch.length > 0) {
+        //        LMSbranchids = newBranch.join(',');
+        //    } else {
+        //        LMSbranchids = "";
+
+        //    }
+        //} else {
+        //    if (newBranch != null && newBranch.length > 0) {
+        //        LMSbranchids = newBranch;
+        //    }
+        //    else {
+        //        LMSbranchids = "";
+        //    }
+        //}
+       // reloadBoxData(LMSbranchids);
+    }
+    function ShowLMSData() {
+
+        isShowVisitDataClicked = true;
+        $('#lms-btn-4').addClass('zoom');
+        $('#lms-btn-1').addClass('zoom');
+        $('#lms-btn-2').addClass('zoom');
+        $('#lms-btn-3').addClass('zoom');
+        $('#lms-btn-5').addClass('zoom');
+
+
+
+        WindowSize = $(window).width();
+
+        $(".visit-tb-hand").hide();
+        $("#lblTotalLearners").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblAssignedTopics").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblYettoStart").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblInProgress").html("<img src='/assests/images/Spinner.gif' />");
+        $("#lblCompleted").html("<img src='/assests/images/Spinner.gif' />");
+
+        //var branchidids = "";
+        //var isObject = typeof LMSbranchids
+        //if (isObject == "object") {
+        //    if (LMSbranchids != null && LMSbranchids.length > 0) {
+        //        branchidids = LMSbranchids.join(',');
+        //    } else {
+        //        branchidids = "";
+
+        //    }
+        //} else {
+        //    if (LMSbranchids != null && LMSbranchids.length > 0) {
+        //        branchidids = LMSbranchids;
+        //    }
+        //    else {
+        //        branchidids = "";
+        //    }
+        //}
+
+        objData = {};
+
+        var hdnLMS = $('#hdnLMS').val();
+        var obj = {};
+        obj.stateid = LMSstateids.join(',');
+        obj.branchid = LMSbranchids.join(',');;
+       
+        if (hdnLMS > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/DashboardMenu/GETLMSCOUNTDATA",
+                data: JSON.stringify(obj),
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var g = '';
+
+                    $("#gauge").html("");
+
+                    $("#lblTotalLearners").html(response.TotalLearners);
+
+                    $("#lblAssignedTopics").html(response.AssignedTopics);
+
+                    $("#lblYettoStart").html(response.YettoStart);
+
+                    $("#lblInProgress").html(response.InProgress);
+
+                    $("#lblCompleted").html(response.Completed);
+                    $("#lblAverageProgress").html(response.AverageProgress);
+
+                    g = new JustGage({
+                        id: "gauge",
+                        value: response.AverageProgress,
+                        min: 0,
+                        max: 100,
+                        hideValue: true,
+                        title: "",
+                        levelColors: ["#76FF03"],
+                    });
+
+                },
+                error: function (response) {
+                    jAlert("Please try again later");
+                }
+            });
+        }
+
+    }
+    //REV 13.0 End 
 </script>
 <script>
 
@@ -2646,14 +2923,14 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
             $(".tab-pane#attendanceTB, #tbsP").addClass("active");
             $(".tab-pane#profile").addClass("hide");
         }/*Rev end 2.0*/
-        /*LMS Priti*/
+        /*REV 13.0*/
         else if (getTabDetail == "LMS") {
             $(".mainAreaTAb .tab-pane, .tabItemsLI li").removeClass("active");
             $(".tab-pane#LMSList").addClass("active");
             $("#LMSList").addClass("active");
             $(".tab-pane#profile").addClass("hide");
         }
-        /*LMS Priti*/
+        /*REV 13.0 END*/
         else {
             $(".mainAreaTAb .tab-pane, .tabItemsLI li").removeClass("active");
             $(".tab-pane#profile, #tbsalesman").addClass("active");
@@ -3070,6 +3347,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
             <input type="hidden" class="getTabDetail" value="Attendance Analytics" />
         }
         // Rev end 2.0
+        //REV 13.0
+        else if (Model.DashboardSettingMappedList.Where(x => x.DetailsName == "LMS").Count() > 0)
+        {
+            <input type="hidden" class="getTabDetail" value="LMS" />
+        }
+        //REV 13.0 End
         else
         {
             <input type="hidden" class="getTabDetail" value="Visit" />
@@ -3110,6 +3393,8 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         <input type="hidden" id="isTargetvsAch" value="@Model.DashboardSettingMappedList.Where(x => x.DetailsName == "Target / Achievement").Count()" />
 
         <input type="hidden" id="isLeaveList" value="@Model.DashboardSettingMappedList.Where(x => x.DetailsName == "Leave List").Count()" />
+
+        <input type="hidden" id="hdnLMS" value="@Model.DashboardSettingMappedList.Where(x => x.DetailsName == "LMS").Count()" />
 
         //new Layout ContentControl area
         <div class="container">
@@ -3225,6 +3510,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                     </a>
                                 </li>
                             }
+                            @*REV 13.0*@
                             @if (Model.DashboardSettingMappedList.Where(x => x.DetailsName == "LMS").Count() > 0)
                             {
                                 <li role="presentation" id="tbs7" class="shLeader">
@@ -3235,8 +3521,9 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                     </a>
                                 </li>
                             }
-                                <li></li>
-                            </ul>
+                            @*REV 13.0 END*@
+                            <li></li>
+                        </ul>
                     </nav>
                     <div class="tab-content mainAreaTAb">
                         @if (Model.DashboardSettingMappedList.Where(x => x.DetailsName == "Field Visit").Count() > 0)
@@ -4032,7 +4319,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                                     <div class="">
                                                         <div class="panel-heading row" role="tab" id="headingOne">
                                                             <h4 class="Widgheading relative" aria-expanded="true" aria-controls="collapseOne">
-                                                                <span id="griddetailsHeadedtext" class="f6 translate-y-big"></span>
+                                                                <span id="griddetailsHeadedtextLMS" class="f6 translate-y-big"></span>
                                                                 <span class="btn-excel" data-toggle="tooltip" title="Export To Excel">
                                                                     <span class="translate-y hide">Export To Excel</span>
                                                                     <span class="icn"><img src="/assests/images/excel.png" style="width: 24px;" title="" onclick="LMSgriddashboardgridviewexport()" /></span>
@@ -4727,85 +5014,5 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     // End of Mantis Issue 25455
 
 
-    //LMS PRITI
-    function ShowLMSData() {
-
-        isShowVisitDataClicked = true;
-        $('#lms-btn-4').addClass('zoom');
-        $('#lms-btn-1').addClass('zoom');
-        $('#lms-btn-2').addClass('zoom');
-        $('#lms-btn-3').addClass('zoom');
-        $('#lms-btn-5').addClass('zoom');
-
-
-
-        WindowSize = $(window).width();
-
-        $(".visit-tb-hand").hide();
-        $("#lblTotalLearners").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblAssignedTopics").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblYettoStart").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblInProgress").html("<img src='/assests/images/Spinner.gif' />");
-        $("#lblCompleted").html("<img src='/assests/images/Spinner.gif' />");
-
-        objData = {};
-
-        //var hdnTotalEmployees = $('#hdnTotalEmployees').val();
-        //var hdnAtWork = $('#hdnAtWork').val();
-        //var hdnOnLeave = $('#hdnOnLeave').val();
-        //var hdnNotLoggedIn = $('#hdnNotLoggedIn').val();
-        //var hdnStatewiseSummary = $('#hdnStatewiseSummary').val();
-        //var hdnStatewiseSummaryTeam = $('#hdnStatewiseSummaryTeam').val();
-
-        var obj = {};
-
-
-       // if (hdnTotalEmployees > 0 || hdnAtWork > 0 || hdnOnLeave > 0 || hdnNotLoggedIn > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/DashboardMenu/GETLMSCOUNTDATA",
-                data: JSON.stringify(obj),
-                async: true,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    var g = '';
-
-                    $("#gauge").html("");
-                   
-                    $("#lblTotalLearners").html(response.TotalLearners);
-
-                    $("#lblAssignedTopics").html(response.AssignedTopics);
-
-                    $("#lblYettoStart").html(response.YettoStart);
-
-                    $("#lblInProgress").html(response.InProgress);
-
-                    $("#lblCompleted").html(response.Completed);
-                    $("#lblAverageProgress").html(response.AverageProgress);
-
-                     g = new JustGage({
-                        id: "gauge",
-                        value: response.AverageProgress,
-                        min: 0,
-                        max: 100,
-                        hideValue: true,
-                        title: "",
-                        levelColors: ["#76FF03"],
-                    });
-                    
-                },
-                error: function (response) {
-                    jAlert("Please try again later");
-                }
-            });
-            //// ajax Team visit
-            //if ($("#hdnStatewiseSummaryTeamTab").val() == 1) {
-            //    TeamVisitData(obj)
-            //}
-
-        //}
-
-    }
-    //LMS PRITI
+   
 </script>
