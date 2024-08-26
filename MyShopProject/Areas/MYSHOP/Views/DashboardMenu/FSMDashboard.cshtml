@@ -59,7 +59,10 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     var Action = "";
 
     function OnTotalLearnersClick(elem) {
-        Action=elem;
+
+      
+        
+        
          if (!isShowVisitDataClicked) {
              Swal.fire({
                  /*position: 'top',*/
@@ -70,20 +73,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
              })
              return;
          }
-         //$("#gridLoader").show();
-         //var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
-         //$.ajax({
-         //    url: Url,
-         //    type: 'POST',
-         //    dataType: 'html',
-         //    success: function (result) {
-         //        $('#gridContainerLMS').html(result);
-         //        $("#gridLoader").hide();         },
-         //        error: function (xhr, status, error) {
-         //            console.error(xhr.responseText);
-
-         //        }
-         //});
+        
          document.getElementById("griddetailsLMS").style.display = "block";
          $('#dashDetailsLMS').removeClass('hide');
          $('.boxWidget').removeClass('activeW');
@@ -93,28 +83,35 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
          $('#collapseTwo').addClass('in');
             $('#backSpn').attr("Style", "Display:none;");
 
-            if (Action == "TOTALUSERLIST") {
+            if (elem == "TOTALUSERLIST") {
                 $("#griddetailsHeadedtextLMS").text("Total Learners");
                 /*rev Pallab*/
                 $('.widgBox').removeClass('active');
                 $('#lms-btn-4').addClass('active');
                 /*rev end Pallab*/
+            }   
+            else if (elem == "YETTOSTART") {
+                $("#griddetailsHeadedtextLMS").text("Total Learners");
+                /*rev Pallab*/
+                $('.widgBox').removeClass('active');
+                $('#lms-btn-2').addClass('active');
+                /*rev end Pallab*/
             }
-        if (Action == "YETTOSTART") {
-            $("#griddetailsHeadedtextLMS").text("Total Learners");
-            /*rev Pallab*/
-            $('.widgBox').removeClass('active');
-            $('#lms-btn-2').addClass('active');
-            /*rev end Pallab*/
-        }
-            else if (Action == "TOTALUSERPENDINGLIST") {
+            else if (elem == "AssignedTopic") {
+                $("#griddetailsHeadedtextLMS").text("Total Learners");
+                /*rev Pallab*/
+                $('.widgBox').removeClass('active');
+                $('#lms-btn-1').addClass('active');
+                /*rev end Pallab*/
+            }
+            else if (elem == "TOTALUSERPENDINGLIST") {
                 $("#griddetailsHeadedtextLMS").text("In Progress");
                 /*rev Pallab*/
                 $('.widgBox').removeClass('active');
                 $('#lms-btn-3').addClass('active');
                 /*rev end Pallab*/
             }
-            else if (Action == "TOTALUSERCOMPLETEDLIST") {
+            else if (elem == "TOTALUSERCOMPLETEDLIST") {
                 $("#griddetailsHeadedtextLMS").text("Completed");
                 /*rev Pallab*/
                 $('.widgBox').removeClass('active');
@@ -122,61 +119,19 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                 /*rev end Pallab*/
                 }
 
+        Action = elem;
+        if (elem == "YETTOSTART") {
+            Action = "TOTALUSERLIST";
+        }
+        if (elem == "AssignedTopic") {
+            Action = "TOTALUSERLIST";
+        }
 
 
          gridList.Refresh();
          gridList.Refresh();
     }
-    /*rev end Pallab*/
-    function AssignedTopicClick(elem) {
-    Action=elem;
-     if (!isShowVisitDataClicked) {
-         Swal.fire({
-             /*position: 'top',*/
-             title: 'Please select show data first, then view the details from here. Thanks.',
-             showConfirmButton: false,
-             timer: 2000,
-             customClass: "show-data-msg"
-         })
-         return;
-     }
-     //$("#gridLoader").show();
-     //var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
-     //$.ajax({
-     //    url: Url,
-     //    type: 'POST',
-     //    dataType: 'html',
-     //    success: function (result) {
-     //        $('#gridContainerLMS').html(result);
-     //        $("#gridLoader").hide();         },
-     //        error: function (xhr, status, error) {
-     //            console.error(xhr.responseText);
-
-     //        }
-        //});
-
-        $("#toggle-show-hide").show();
-
-     document.getElementById("griddetailsLMS").style.display = "block";
-     $('#dashDetailsLMS').removeClass('hide');
-     $('.boxWidget').removeClass('activeW');
-
-     $('.widgBox').removeClass('active');
-        $('#lms-btn-1').addClass('active');
-
-     $('#collapseTwo').addClass('in');
-        $('#backSpn').attr("Style", "Display:none;");
-
-        
-
-
-
-     gridList.Refresh();
-     gridList.Refresh();
-    }
-
-    /*rev end Pallab*/
-
+   
 
     function OnStartCallbackLMS(s, e) {
 
@@ -206,7 +161,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     function LMSgriddashboardgridviewexport() {
     var url = '@Url.Action("LMSExportDashboardGridView", "DashboardMenu", new { type = "_type_" })';
     // debugger;
-    var Headedtext = $("#griddetailsHeadedtext").text();
+        var Headedtext = $("#griddetailsHeadedtextLMS").text();
     url = url.replace("_type_", 3);
     url = url + "&Name=" + Headedtext;
     window.location.href = url;
