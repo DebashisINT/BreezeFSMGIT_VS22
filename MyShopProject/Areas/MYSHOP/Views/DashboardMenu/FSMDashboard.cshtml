@@ -30,8 +30,14 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
 @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYMZjnt8T6yivYfIa4_R9oy - L3SIYyrQ"></script>*@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYMZjnt8T6yivYfIa4_R9oy - L3SIYyrQ"></script>
 @*REV 13.0*@
-<script src="~/assests/js/raphael.min.js"></script>
-<script src="~/assests/js/justgage.js"></script>
+@*<script src="~/assests/js/raphael.min.js"></script>
+<script src="~/assests/js/justgage.js"></script>*@
+
+@*<script src="https://cdn.jsdelivr.net/npm/gaugeJS@1.3.7/dist/gauge.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>*@
+
+<script src="~/assests/js/gauge.min.js"></script>
+<script src="~/assests/js/chart_lms.js"></script>
 @*REV 13.0 END*@
 <link href="~/Scripts/Charts/styles.css" rel="stylesheet" />
 <link href="~/Content/media.css" rel="stylesheet" />
@@ -51,7 +57,78 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     var LMSbranchids = [];
     var isShowVisitDataClicked = false;
     var Action = "";
+
     function OnTotalLearnersClick(elem) {
+        Action=elem;
+         if (!isShowVisitDataClicked) {
+             Swal.fire({
+                 /*position: 'top',*/
+                 title: 'Please select show data first, then view the details from here. Thanks.',
+                 showConfirmButton: false,
+                 timer: 2000,
+                 customClass: "show-data-msg"
+             })
+             return;
+         }
+         //$("#gridLoader").show();
+         //var Url = '@Url.Action("DashBoardGVLMS", "DashboardMenu")'
+         //$.ajax({
+         //    url: Url,
+         //    type: 'POST',
+         //    dataType: 'html',
+         //    success: function (result) {
+         //        $('#gridContainerLMS').html(result);
+         //        $("#gridLoader").hide();         },
+         //        error: function (xhr, status, error) {
+         //            console.error(xhr.responseText);
+
+         //        }
+         //});
+         document.getElementById("griddetailsLMS").style.display = "block";
+         $('#dashDetailsLMS').removeClass('hide');
+         $('.boxWidget').removeClass('activeW');
+
+        $("#toggle-show-hide").show();
+
+         $('#collapseTwo').addClass('in');
+            $('#backSpn').attr("Style", "Display:none;");
+
+            if (Action == "TOTALUSERLIST") {
+                $("#griddetailsHeadedtextLMS").text("Total Learners");
+                /*rev Pallab*/
+                $('.widgBox').removeClass('active');
+                $('#lms-btn-4').addClass('active');
+                /*rev end Pallab*/
+            }
+        if (Action == "YETTOSTART") {
+            $("#griddetailsHeadedtextLMS").text("Total Learners");
+            /*rev Pallab*/
+            $('.widgBox').removeClass('active');
+            $('#lms-btn-2').addClass('active');
+            /*rev end Pallab*/
+        }
+            else if (Action == "TOTALUSERPENDINGLIST") {
+                $("#griddetailsHeadedtextLMS").text("In Progress");
+                /*rev Pallab*/
+                $('.widgBox').removeClass('active');
+                $('#lms-btn-3').addClass('active');
+                /*rev end Pallab*/
+            }
+            else if (Action == "TOTALUSERCOMPLETEDLIST") {
+                $("#griddetailsHeadedtextLMS").text("Completed");
+                /*rev Pallab*/
+                $('.widgBox').removeClass('active');
+                $('#lms-btn-5').addClass('active');
+                /*rev end Pallab*/
+                }
+
+
+
+         gridList.Refresh();
+         gridList.Refresh();
+    }
+    /*rev end Pallab*/
+    function AssignedTopicClick(elem) {
     Action=elem;
      if (!isShowVisitDataClicked) {
          Swal.fire({
@@ -76,30 +153,30 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
      //            console.error(xhr.responseText);
 
      //        }
-     //});
+        //});
+
+        $("#toggle-show-hide").show();
+
      document.getElementById("griddetailsLMS").style.display = "block";
      $('#dashDetailsLMS').removeClass('hide');
      $('.boxWidget').removeClass('activeW');
+
      $('.widgBox').removeClass('active');
-     $('#a4').addClass('active');
+        $('#lms-btn-1').addClass('active');
+
      $('#collapseTwo').addClass('in');
         $('#backSpn').attr("Style", "Display:none;");
 
-        if (Action == "TOTALUSERLIST") {
-            $("#griddetailsHeadedtextLMS").text("Total Learners");
-        }
-        else if (Action == "TOTALUSERPENDINGLIST") {
-            $("#griddetailsHeadedtextLMS").text("In Progress");
-        }
-        else if (Action == "TOTALUSERCOMPLETEDLIST") {
-            $("#griddetailsHeadedtextLMS").text("Completed");
-            }
+        
 
 
-     
+
      gridList.Refresh();
      gridList.Refresh();
     }
+
+    /*rev end Pallab*/
+
 
     function OnStartCallbackLMS(s, e) {
 
@@ -124,7 +201,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         e.customArgs["ActionType"] = Action;
         e.customArgs["STATEIDS"] = LMSstateids.join(',') ;
         e.customArgs["BRANCHIDS"] = LMSbranchids.join(',');
-        
+
     }
     function LMSgriddashboardgridviewexport() {
     var url = '@Url.Action("LMSExportDashboardGridView", "DashboardMenu", new { type = "_type_" })';
@@ -137,12 +214,12 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
     //window.location.href = url.replace("_type_", 3, "_Name_", $("#griddetailsHeadedtext").text());
     }
 
-    
-    
+
+
 
 
     $(document).ready(function () {
-        
+
         $('#cmbStateLMS').multiselect({
             includeSelectAllOption: true,
             enableFiltering: true,
@@ -154,7 +231,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
             }
         }).multiselect('selectAll', false).multiselect('updateButtonText');
 
-        
+
         $('#cmbBranchLMS').multiselect({
             includeSelectAllOption: true,
             enableFiltering: true,
@@ -164,16 +241,16 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                 GetBranchValueLMS();
             }
         }).multiselect('selectAll', false).multiselect('updateButtonText');
-        LMSbranchids = $('#cmbBranchLMS').val();       
+        LMSbranchids = $('#cmbBranchLMS').val();
         LMSstateids = $('#cmbStateLMS').val();
 
         var statelistcount = $('#hdnStateListCountLMS').val();
-        if (statelistcount > 0) {         
+        if (statelistcount > 0) {
             for (var i = objsettings.length - 1; i >= 0; i--) {
                 if (objsettings[i].ID == settingsid) {
                     objsettings.splice(i, 1);
                 }
-            }       
+            }
 
         }
         else {
@@ -195,10 +272,10 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         cmbStatechangeLMS();
     }
     function cmbStatechangeLMS() {
-        
+
         if (!isShowVisitDataClicked) {
-            return; 
-        }       
+            return;
+        }
         settingsid = "1";
         for (var i = objsettings.length - 1; i >= 0; i--) {
             if (objsettings[i].ID == settingsid) {
@@ -216,14 +293,14 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {                    
+                success: function (response) {
                     const mainData = response.map(function (item) {
                         return {
                             label: item.name,
                             title: item.name,
                             value: item.BranchID,
                             selected: true
-                        }                       
+                        }
                     })
 
                     $("#cmbBranchLMS").multiselect('dataprovider', mainData);
@@ -266,10 +343,10 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         cmbBranchChangeLMS();
     }
     function cmbBranchChangeLMS() {
-       
+
         if (!isShowVisitDataClicked) {
             return; // Disable click event
-        }       
+        }
         //let newBranch = $('#cmbBranchLMS').val();
         //var isObject = typeof newBranch
         //if (isObject == "object") {
@@ -335,7 +412,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         var obj = {};
         obj.stateid = LMSstateids.join(',');
         obj.branchid = LMSbranchids.join(',');;
-       
+
         if (hdnLMS > 0) {
             $.ajax({
                 type: "POST",
@@ -347,7 +424,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                 success: function (response) {
                     var g = '';
 
-                    $("#gauge").html("");
+                    $("#gaugeCanvas").html("");
 
                     $("#lblTotalLearners").html(response.TotalLearners);
 
@@ -358,17 +435,135 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                     $("#lblInProgress").html(response.InProgress);
 
                     $("#lblCompleted").html(response.Completed);
-                    $("#lblAverageProgress").html(response.AverageProgress);
+                    /*$("#lblAverageProgress").html(response.AverageProgress);*/
+                    $("#lblAverageProgress").html("Progress: " + response.AverageProgress + "%");
 
-                    g = new JustGage({
-                        id: "gauge",
-                        value: response.AverageProgress,
-                        min: 0,
-                        max: 100,
-                        hideValue: true,
-                        title: "",
-                        levelColors: ["#76FF03"],
+                    /*rev Pallab*/
+
+                    //g = new JustGage({
+                    //    id: "gauge",
+                    //    value: response.AverageProgress,
+                    //    min: 0,
+                    //    max: 100,
+                    //    hideValue: true,
+                    //    title: "",
+                    //    levelColors: ["#76FF03"],
+                    //});
+
+                    $(".lms-chart-box").show();
+
+
+                    var opts = {
+                        angle: 0, // The span of the gauge arc
+                        lineWidth: 0.3, // The line thickness
+                        radiusScale: 1, // Relative radius
+                        pointer: {
+                            length: 0.6, // Relative to gauge radius
+                            strokeWidth: 0.035, // The thickness
+                            color: '#000000' // Pointer color
+                        },
+                        limitMax: false,     // If false, max value increases automatically if value > maxValue
+                        limitMin: false,     // If true, the min value of the gauge will be fixed
+                        colorStart: '#6FADCF',   // Colors
+                        colorStop: '#8FC0DA',    // Just experiment with them
+                        strokeColor: '#E0E0E0',  // To see which ones work best for you
+                        generateGradient: true,
+                        highDpiSupport: true,     // High resolution support
+                        staticZones: [
+                            { strokeStyle: "#F03E3E", min: 0, max: 30 },  // Red zone
+                            { strokeStyle: "#FFDD00", min: 30, max: 60 }, // Yellow zone
+                            { strokeStyle: "#30B32D", min: 60, max: 100 }, // Green zone
+                        ],
+                        staticLabels: {
+                            font: "10px sans-serif",  // Specifies font
+                            labels: [0, 30, 60, 100],  // Print labels at these values
+                            color: "#000000",  // Optional: Label text color
+                            fractionDigits: 0  // Optional: Numerical precision
+                        },
+                    };
+
+                    var target = document.getElementById('gaugeCanvas'); // Your canvas element
+                    var gauge = new Gauge(target).setOptions(opts); // Create gauge!
+
+                    gauge.maxValue = 100; // Set max gauge value
+                    gauge.setMinValue(0);  // Set min gauge value
+                    gauge.animationSpeed = 32; // Set animation speed (32 is default value)
+                    gauge.set(response.AverageProgress); // Set gauge value dynamically
+
+
+
+
+
+                    // Assuming you have the data received in these variables
+                    var lmsresponse = {
+                        InProgress: response.InProgress,
+                        Completed: response.Completed,
+                        YettoStart: response.YettoStart
+                    };
+
+                    var ctx = document.getElementById('myDoughnutChart').getContext('2d');
+
+                    // Create the Doughnut chart
+                    var myDoughnutChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['In Progress', 'Completed', 'Yet to Start'],
+                            datasets: [{
+                                data: [lmsresponse.InProgress, lmsresponse.Completed, lmsresponse.YettoStart],
+                                backgroundColor: [
+                                    '#18B2BF',  // Color for In Progress
+                                    '#6ABD2E',  // Color for Completed
+                                    '#E717C5'   // Color for Yet to Start
+                                ],
+                                hoverBackgroundColor: [
+                                    '#18B2BF',
+                                    '#6ABD2E',
+                                    '#E717C5'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        generateLabels: function (chart) {
+                                            let data = chart.data;
+                                            if (data.labels.length && data.datasets.length) {
+                                                return data.labels.map(function (label, i) {
+                                                    var value = data.datasets[0].data[i];
+                                                    return {
+                                                        text: `${value} ${label}`, // Label below the number
+                                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                                        strokeStyle: data.datasets[0].hoverBackgroundColor[i],
+                                                        lineWidth: 2,
+                                                        hidden: isNaN(data.datasets[0].data[i]) || chart.getDatasetMeta(0).data[i].hidden,
+                                                        index: i
+                                                    };
+                                                });
+                                            }
+                                            return [];
+                                        },
+                                        boxWidth: 20,   // Width of the legend color box
+                                        padding: 20,    // Padding around the legend items
+                                        usePointStyle: true, // Use circles instead of squares
+                                        font: {
+                                            size: 14 // Font size for the legend text
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: true
+                                }
+                            }
+                        }
                     });
+
+
+                    /*rev end Pallab*/
 
                 },
                 error: function (response) {
@@ -378,7 +573,7 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         }
 
     }
-    //REV 13.0 End 
+    //REV 13.0 End
 </script>
 <script>
 
@@ -3210,6 +3405,46 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
             transition: all .3s cubic-bezier(.84,-0.18,.31,1.26);
         }
 
+    /*rev Pallab*/
+
+    .lmsgrid-show-hide-btn {
+        position: relative;
+    }
+
+        .lmsgrid-show-hide-btn button {
+            position: absolute;
+            right: 0px;
+            top: -44px;
+            border-radius: 10px;
+           /* width: 40px;*/
+            height: 40px;
+            text-align: center;
+            line-height: 34px;
+            background: #a16612;
+            color: #fff;
+            border: none;
+            padding: 0px 12px;
+        }
+
+    #gaugeCanvas {
+        width: 100%;
+        height: 250px;
+    }
+
+    #myDoughnutChart {
+        width: 100%;
+        height: 290px;
+    }
+
+    #lblAverageProgress {
+        font-size: 22px;
+        font-weight: 600;
+        color: #111;
+        min-height: 32px;
+    }
+
+    /*rev end Pallab*/
+
     @@media (max-width: 760px) {
         .tool::after {
             font-size: .75em;
@@ -3243,6 +3478,8 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         #collapseOne.backBox > div {
             overflow-x: auto !important;
         }
+
+        
     }
 </style>
 <!--Leave list end-->
@@ -3268,6 +3505,49 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         //    }
         //}
     });
+
+    /*rev Pallab*/
+
+    $(document).ready(function () {
+        // Function to update the button based on grid visibility
+        function updateButtonState() {
+            var gridDetails = $('#griddetailsLMS');
+            var toggleButton = $('#toggle-show-hide');
+
+            if (gridDetails.is(':hidden')) {
+                // Grid is hidden, update button to "Show Grid" with down arrow
+                toggleButton.find('i').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                toggleButton.find('span').text('Show Grid');
+            } else {
+                // Grid is visible, update button to "Hide Grid" with up arrow
+                toggleButton.find('i').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                toggleButton.find('span').text('Hide Grid');
+            }
+        }
+
+        // Initial button state update when the page loads
+        updateButtonState();
+
+        // Button click to toggle grid visibility with slide animation
+        $('#toggle-show-hide').click(function () {
+            var gridDetails = $('#griddetailsLMS');
+
+            // Slide toggle the grid's visibility with animation
+            gridDetails.slideToggle("slow", function () {
+                // Update the button state after the slide toggle completes
+                updateButtonState();
+            });
+        });
+
+        // Periodically check and update the button state to ensure consistency
+        setInterval(updateButtonState, 1000);
+    });
+
+
+
+
+    /*rev end Pallab*/
+
 </script>
 
 <div id="gridLoader" class="loader" style="display: none;">
@@ -4313,6 +4593,9 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                 <div class="">
                                     @Html.Action("DashboardLMS", new { list = Model.DashboardSettingMappedList })
                                 </div>
+                                <div class="lmsgrid-show-hide-btn">
+                                    <button id="toggle-show-hide" style="display:none"><i class="fa fa-chevron-up" aria-hidden="true"></i> <span></span></button>
+                                </div>
                                 <div class="">
                                     <div class="row " id="griddetailsLMS">
                                         <div class="col-md-12">
@@ -4342,6 +4625,68 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                     </div>
 
                                 </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="box-holder mTop10 box-full lms-chart-box" style="display: none;">
+                                            @*<span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+                                            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                                                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                                                <img src="/assests/images/maximize.png" />
+                                            </span>
+                                            <div class="clearfix">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="hdd-rp">
+                                                            Average Progress
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bxd-cont">
+                                                <div class="row">
+                                                    <div class="col-md-12 text-center">
+
+                                                        @*<div id="" class="chartHolder font-normal"><div class="nCheck">Select date to refresh data</div></div>*@
+                                                        @*<div id="gauge" style="width:100%;"></div>*@
+                                                        <canvas id="gaugeCanvas"></canvas>
+                                                        <div class="Numb" id="lblAverageProgress"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box-holder mTop10 box-full lms-chart-box" style="display: none;">
+                                            @*<span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Toggle Fullscreen">*@
+                                            <span class="toggleFullScreen" data-toggle="tooltip" data-placement="bottom" title="Maximize">
+                                                @*<i class="fa fa-arrows-alt" aria-hidden="true"></i>*@
+                                                <img src="/assests/images/maximize.png" />
+                                            </span>
+                                            <div class="clearfix">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="hdd-rp">
+                                                            In Progress Vs Completed Vs Yet to Start
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bxd-cont">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @*<div id="" class="chartHolder font-normal"><div class="nCheck">Select date to refresh data</div></div>*@
+                                                        <canvas id="myDoughnutChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         }
                         @*REV LMS Priti*@
