@@ -104,12 +104,12 @@
                     visibleindex = visibleindex + 1;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
-                    //if (column.DataType.FullName == "System.Decimal" || column.DataType.FullName == "System.Int32" || column.DataType.FullName == "System.Int64")
-                    //{
-                    //    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                    //    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                    //    // x.PropertiesEdit.DisplayFormatString = "0.00";
-                    //}
+                    if (column.DataType.FullName == "System.Decimal" || column.DataType.FullName == "System.Int32" || column.DataType.FullName == "System.Int64")
+                    {
+                        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+                        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+                        // x.PropertiesEdit.DisplayFormatString = "0.00";
+                    }
                     //else if (column.DataType.FullName == "System.DateTime")
                     //{
                     //    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
