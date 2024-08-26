@@ -610,6 +610,18 @@
         //gridWorkRoaster.Refresh();
         //gridWorkRoaster.Refresh();
 
+         $('#ddlAppIds').on('change', function () {
+             if ($("#ddlAppIds option:selected").index() > 0) {
+                 var selectedValue = $(this).val();
+                 var desg = $("#drpdesignation").val();
+                 var usrtype = $("#ddlusertypes").val();
+                 $('#ddlAppIds').prop("selectedIndex", 0);
+                 var url = '@Url.Action("ExporRegisterList", "WorkRoasterMaster", new { type = "_type_" })'
+                 window.location.href = url.replace("_type_", selectedValue);
+
+             }
+         });
+
     });
 
     $(document).ready(function () {
@@ -673,7 +685,7 @@
         $("#hdnuniqueid").val(0);
 
         CLEARDATA();
-       
+
         $("#myModal").modal('show');
     }
 
@@ -702,7 +714,7 @@
             return false;
         }
 
-        
+
         if ($("#chkMonday").prop("checked")) {
             if ($("#beginMonday").val() == '' || $("#beginMonday").val() == null) {
                 jAlert("Please provide Begin time for Monday");
@@ -771,7 +783,7 @@
                 $("#beginWednesday").focus();
                 return false;
             }
-        }   
+        }
         if ($("#chkThursday").prop("checked")) {
             if ($("#beginThursday").val() == '' || $("#beginThursday").val() == null) {
                 jAlert("Please provide Begin time for Thursday");
@@ -837,7 +849,7 @@
                 $("#beginSaturday").focus();
                 return false;
             }
-            
+
         }
 
         if ($("#chkSunday").prop("checked")) {
@@ -1171,10 +1183,10 @@
                         $("#graceSaturday").val(data[i].Grace);
                     }
 
-                    
+
                 }
 
-                
+
 
                 $('#myModal').modal('show');
             },
@@ -1340,9 +1352,9 @@
                 else {
                     jAlert('Module assigned failed');
                 }
-                
+
                 // alert(responseFromServer.d)
-                
+
             }
         });
     }

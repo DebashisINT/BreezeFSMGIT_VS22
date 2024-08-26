@@ -1,5 +1,7 @@
 ﻿using BusinessLogicLayer;
 using DataAccessLayer;
+using DevExpress.Web;
+using DevExpress.Web.Mvc;
 using DevExpress.XtraRichEdit.Import.Html;
 using FSMMaster.Models;
 using System;
@@ -281,6 +283,98 @@ namespace FSMMaster.Areas.MASTER.Controllers
             }
 
             return Json(apply, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ExporRegisterList(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return GridViewExtension.ExportToPdf(GetDoctorBatchGridViewSettings(), TempData["WorkRosterGridList"]);
+                case 2:
+                    return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), TempData["WorkRosterGridList"]);
+                case 3:
+                    return GridViewExtension.ExportToXls(GetDoctorBatchGridViewSettings(), TempData["WorkRosterGridList"]);
+                case 4:
+                    return GridViewExtension.ExportToRtf(GetDoctorBatchGridViewSettings(), TempData["WorkRosterGridList"]);
+                case 5:
+                    return GridViewExtension.ExportToCsv(GetDoctorBatchGridViewSettings(), TempData["WorkRosterGridList"]);
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        private GridViewSettings GetDoctorBatchGridViewSettings()
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "gridWorkRoaster";
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "WorkRoaster";
+
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "SEQ";
+                x.Caption = "Sr. No";
+                x.VisibleIndex = 1;
+                x.Width = 80;
+                
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "ROSTENAME";
+                x.Caption = "Roster Name";
+                x.VisibleIndex = 2;
+                x.Width = 110;
+                
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CREATEDATE";
+                x.Caption = "Created On";
+                x.VisibleIndex = 3;
+                x.Width = 100;
+               
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CREATEUSER";
+                x.Caption = "Created By";
+                x.VisibleIndex = 4;
+                x.Width = 100;
+                
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "MODIFIEDDATE";
+                x.Caption = "Modified By";
+                x.VisibleIndex = 5;
+                x.Width = 100;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "MODIFIEDUSER";
+                x.Caption = "Modified By";
+                x.VisibleIndex = 6;
+                x.Width = 100;
+
+            });
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
+
         }
 
     }
