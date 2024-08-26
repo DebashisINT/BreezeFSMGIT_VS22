@@ -3,7 +3,7 @@
  * Rev 2.0      27-06-2023      Sanchita    V2.0.41     State & Branch selection facility is required in the Order Analytics in Dashboard
  *                                                      Refer: 26309
  * Rev 3.0      27-06-2023      Sanchita    V2.0.41     In Portal Dashboard, under Field Visit and Team Visit tabs Order Value coloumn shall be added
- *                                                      Refer: 27403
+ * Rev 4.0      21-08-2024      Priti       V2.0.48     LMS Dashboard.Mantis: 0027667                                                    Refer: 27403
  *******************************************************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -2709,8 +2709,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
         }
         // End of Mantis Issue 25468
 
-        
 
+        //REV 4.0
         public ActionResult DashboardLMS(List<DashboardSettingMapped> list)
         {
 
@@ -2876,12 +2876,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 chkState = 1;
             }
             List<BranchData> branchdate = new List<BranchData>();
-            List<BranchData> branchdateobj = new List<BranchData>();
-
-            // Rev 1.0
-            if (TempData["branchdateobj"] == null)
-            {
-                // End of Rev 1.0
+            List<BranchData> branchdateobj = new List<BranchData>();            
+            if (TempData["branchdateobjLMS"] == null)
+            {                
                 string stateIds = dashboard.StateId;
                 try
                 {
@@ -2891,7 +2888,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         stateid = "";
                     }
 
-                    branchdate = dashboard.GetBranchList(Convert.ToInt32(userid), stateid);
+                    branchdate = dashboard.GetLMSBranchList(Convert.ToInt32(userid), stateid);
 
                     foreach (var item in branchdate)
                     {
@@ -2902,17 +2899,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     }
                 }
                 catch { }
-                ViewBag.BranchListCount = branchdate.Count;
-                // Rev 1.0
+                ViewBag.BranchListCount = branchdate.Count;              
             }
             else
             {
                 branchdate = (List<BranchData>)TempData["branchdate"];
-                branchdateobj = (List<BranchData>)TempData["branchdateobj"];
-
+                branchdateobj = (List<BranchData>)TempData["branchdateobjLMS"];
                 ViewBag.BranchListCount = branchdate.Count;
-            }
-            // End of Rev 1.0
+            }          
 
             if (chkState == 1)
             {
@@ -2966,6 +2960,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             return PartialView(statedateobj);
         }
+
+        //REV 4.0 END
     }
 
 }
