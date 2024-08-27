@@ -12,6 +12,11 @@
 <script src="~/Scripts/SearchMultiPopup.js"></script>
 
 
+<link rel="stylesheet" href="~/assests/css/jquery.timepicker.min.css">
+
+<script src="~/assests/js/jquery.timepicker.min.js"></script>
+
+
 
 <style>
     .pmsModal .modal-header {
@@ -597,6 +602,159 @@
 
     .modal-backdrop {
         z-index: auto !important;
+    }
+
+    .modal .modal-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .working-roaster-table thead {
+        border-radius: 10px !important;
+        border: none;
+        background: #6127ac;
+        color: #fff;
+        font-weight: 500 !important;
+        overflow: hidden;
+    }
+
+    .working-roaster-table {
+        border-radius: 10px;
+        overflow: hidden;
+        background: #faf4ff;
+        box-shadow: 1px 1px 10px #11111130;
+    }
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        vertical-align: middle;
+        border: none;
+    }
+
+    .table-bordered tbody tr:nth-child(odd) {
+        background: #fff;
+    }
+
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+    }
+
+    .add-btn {
+        background-color: #238945;
+        margin-right: 5px;
+        transition: all .4s;
+    }
+
+        .add-btn:hover {
+            color: #fff;
+            background-color: #0e4f23;
+            border-color: #0e4f23;
+        }
+
+        .add-btn .btn-icon {
+            border-radius: 50px;
+            width: 21px;
+            height: 21px;
+            display: inline-block;
+            background: #fff;
+            line-height: 21px;
+            margin-right: 5px;
+        }
+
+            .add-btn .btn-icon i {
+                color: #238945;
+            }
+
+    .show-btn {
+        background: #054682;
+        transition: all .4s;
+        margin-right: 5px;
+    }
+
+        .show-btn:hover {
+            background: #072743;
+        }
+
+        .show-btn .btn-icon {
+            border-radius: 50px;
+            width: 21px;
+            height: 21px;
+            display: inline-block;
+            background: #fff;
+            line-height: 21px;
+            margin-right: 5px;
+            color: #054682;
+        }
+
+    .btn-export {
+        background: #e17134;
+        color: #fff;
+    }
+
+        .btn-export:hover, .btn-export:focus {
+            background: #a24716 !important;
+            color: #fff;
+        }
+
+    .btn:active, .btn:hover, .btn:focus {
+        color: #fff !important;
+    }
+
+    .dxgvControl_PlasticBlue a img
+    {
+        width: 30px;
+    }
+
+    .dxgvControl_PlasticBlue a
+    {
+        transition: all .3s ease-in-out;
+    }
+
+    .dxgvControl_PlasticBlue a:hover {
+        transform: scale(1.1);
+    }
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
     }
 </style>
 
@@ -1362,6 +1520,22 @@
 
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('.timepicker').timepicker({
+            timeFormat: 'h:i A', // 12-hour format with AM/PM
+            interval: 30, // 30-minute intervals
+            minTime: '12:00am',
+            maxTime: '11:59pm',
+            defaultTime: 'now',
+            startTime: '12:00am',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+    });
+</script>
+
 <div class="breadCumb">
     <span>Working Roaster</span>
 </div>
@@ -1370,31 +1544,33 @@
 <div class="container ">
     <div class="row">
         <div class="col-md-12">
-            <div class="backBox mt-5 px-5">
+            <div class="backBox mt-5 px-3 pb-3">
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
                         <!-- Button trigger modal -->
-                        @if (ViewBag.CanAdd)
-                        {
-                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="ADDWORKROSTER()" data-backdrop="static" data-keyboard="false">
-                                Add New
-                            </button>
-                        }
+                        @*@if (ViewBag.CanAdd)
+                            {*@
+                        <button type="button" class="btn add-btn" data-toggle="modal" onclick="ADDWORKROSTER()" data-backdrop="static" data-keyboard="false">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
+                        </button>
+                        @*}*@
 
-                        @if (ViewBag.CanExport)
-                            {
-                        <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                        @*@if (ViewBag.CanView)
+                            {*@
+                        <button type="button" class="btn show-btn" data-toggle="modal" onclick="SHOWDATA()" data-backdrop="static" data-keyboard="false">
+                            <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data
+                        </button>
+                        @*}*@
+
+                        @*@if (ViewBag.CanExport)
+                            {*@
+                        <select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
                             <option value="0">Export to</option>
                             <option value="2">XLSX</option>
                         </select>
-                        }
+                        @*}*@
 
-                        @if (ViewBag.CanView)
-                        {
-                            <button type="button" class="btn btn-success" data-toggle="modal" onclick="SHOWDATA()" data-backdrop="static" data-keyboard="false">
-                                Show Data
-                            </button>
-                        }
+                        
                     </div>
                     <div class="clear"></div>
 
@@ -1428,7 +1604,7 @@
             </div>
             @*<input type="hidden" id="hdnuniqueid" value="" />*@
             <div class="modal-body inputShrink">
-                <div class="row">
+                <div class="mb-4">
                     <label>Roster Name <span class="red">*</span></label>
                     <div>
                         <input type="text" id="txt_RosterName" class="form-control" value="@Model.RoasterName" />
@@ -1436,331 +1612,334 @@
 
                 </div>
                 <div class="clear"></div>
-                <div class="row">
+                <div class="">
 
-                    <table class="table table-bordered mTop15 w850">
-                        <tr>
+                    <table class="table table-bordered mTop15 working-roaster-table">
+                        <thead>
+                            <tr>
 
-                            <th></th>
-                            <th>Is Working Day?</th>
-                            <th style="width: 190px">Day Begin</th>
-                            <th style="width: 190px">Day End</th>
-                            <th style="width: 190px; display: none">Total Break</th>
-                            <th style="width: 190px">Grace Time (Minute)</th>
-                        </tr>
-                        <tr>
+                                <th>Day</th>
+                                <th>Is Working Day?</th>
+                                <th style="width: 190px">Day Begin</th>
+                                <th style="width: 190px">Day End</th>
+                                <th style="width: 190px; display: none">Total Break</th>
+                                <th style="width: 190px">Grace Time (Minute)</th>
+                            </tr>
+                        </thead>
 
-                            <td>Monday:</td>
-                            <td>
-                                @*<dxe:ASPxCheckBox ID="chkMonday" ClientInstanceName="cchkMonday" runat="server" ClientSideEvents-CheckedChanged="mondayChkChange"></dxe:ASPxCheckBox>*@
-                                <input type="checkbox" id="chkMonday" name="chkMonday" value="">
-                            </td>
-                            <td>
-                                <input type="text" id="beginMonday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginMonday"  />*@
-                                @*<dxe:ASPxTimeEdit ID="beginMonday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginMonday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdMonday minput">
-                                <input type="text" id="Endmonday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="Endmonday" />*@
-                                @*<dxe:ASPxTimeEdit ID="Endmonday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cEndmonday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdMonday hide minput">
-                                <input type="text" id="brkMonday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkMonday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkMonday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkMonday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdMonday minput">
-                                @*<dxe:ASPxTextBox ID="graceMonday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                                <input type="number" id="graceMonday" name="graceMonday" min="0" max="999" />
-                            </td>
+                        <tbody>
+                            <tr>
 
-                        </tr>
+                                <td>Monday:</td>
+                                <td>
+                                    @*<dxe:ASPxCheckBox ID="chkMonday" ClientInstanceName="cchkMonday" runat="server" ClientSideEvents-CheckedChanged="mondayChkChange"></dxe:ASPxCheckBox>*@
+                                    <input type="checkbox" id="chkMonday" name="chkMonday" value="">
+                                </td>
+                                <td>
+                                    <input type="text" id="beginMonday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginMonday"  />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginMonday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginMonday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdMonday minput">
+                                    <input type="text" id="Endmonday" placeholder="HH:MM:SS" class="form-control timepicker" />
 
-                        <tr>
+                                </td>
+                                <td class="tdMonday hide minput">
+                                    <input type="text" id="brkMonday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkMonday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkMonday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkMonday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdMonday minput">
+                                    @*<dxe:ASPxTextBox ID="graceMonday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                    <input type="number" id="graceMonday" name="graceMonday" min="0" max="999" class="form-control" />
+                                </td>
 
-                            <td>Tuesday:</td>
-                            <td>
-                                @*<dxe:ASPxCheckBox ID="chktuesday" ClientInstanceName="cchktuesday" runat="server"
-                                    ClientSideEvents-CheckedChanged="tuesdayCheckChange"></dxe:ASPxCheckBox>*@
-                                <input type="checkbox" id="chktuesday" name="chktuesday" value="">
+                            </tr>
 
-                            </td>
-                            <td class="tdTuesday minput">
-                                <input type="text" id="BeginTuesDay" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="BeginTuesDay" />*@
-                                @*<dxe:ASPxTimeEdit ID="BeginTuesDay" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cBeginTuesDay">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdTuesday minput">
-                                <input type="text" id="endTuesDay" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endTuesDay" />*@
-                                @*<dxe:ASPxTimeEdit ID="endTuesDay" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendTuesDay">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdTuesday hide minput">
-                                <input type="text" id="brkTuesDay" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkTuesDay" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkTuesDay" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkTuesDay">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
+                            <tr>
 
-                            <td class="tdTuesday minput">
-                                <input type="number" id="graceTuesday" name="graceTuesday" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="graceTuesday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
+                                <td>Tuesday:</td>
+                                <td>
+                                    @*<dxe:ASPxCheckBox ID="chktuesday" ClientInstanceName="cchktuesday" runat="server"
+                                        ClientSideEvents-CheckedChanged="tuesdayCheckChange"></dxe:ASPxCheckBox>*@
+                                    <input type="checkbox" id="chktuesday" name="chktuesday" value="">
 
-                        </tr>
+                                </td>
+                                <td class="tdTuesday minput">
+                                    <input type="text" id="BeginTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="BeginTuesDay" />*@
+                                    @*<dxe:ASPxTimeEdit ID="BeginTuesDay" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cBeginTuesDay">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdTuesday minput">
+                                    <input type="text" id="endTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endTuesDay" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endTuesDay" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendTuesDay">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdTuesday hide minput">
+                                    <input type="text" id="brkTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkTuesDay" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkTuesDay" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkTuesDay">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
 
-                        <tr>
+                                <td class="tdTuesday minput">
+                                    <input type="number" id="graceTuesday" name="graceTuesday" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="graceTuesday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
 
-                            <td>Wednesday:</td>
-                            <td>
-                                @*<dxe:ASPxCheckBox ID="chkWednesday" ClientInstanceName="cchkWednesday" runat="server" ClientSideEvents-CheckedChanged="WednesdayCheckChange"></dxe:ASPxCheckBox>*@
-                                <input type="checkbox" id="chkWednesday" name="chkWednesday" value="">
-                            </td>
-                            <td class="tdWednesday minput">
-                                <input type="text" id="beginWednesday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginWednesday" />*@
-                                @*<dxe:ASPxTimeEdit ID="beginWednesday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginWednesday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdWednesday minput">
-                                <input type="text" id="endWednesday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endWednesday" />*@
-                                @*<dxe:ASPxTimeEdit ID="endWednesday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendWednesday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdWednesday hide minput">
-                                <input type="text" id="brkWednesday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkWednesday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkWednesday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkWednesday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdWednesday minput">
-                                <input type="number" id="graceWednesday" name="graceWednesday" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="graceWednesday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
+                            </tr>
 
+                            <tr>
+
+                                <td>Wednesday:</td>
+                                <td>
+                                    @*<dxe:ASPxCheckBox ID="chkWednesday" ClientInstanceName="cchkWednesday" runat="server" ClientSideEvents-CheckedChanged="WednesdayCheckChange"></dxe:ASPxCheckBox>*@
+                                    <input type="checkbox" id="chkWednesday" name="chkWednesday" value="">
+                                </td>
+                                <td class="tdWednesday minput">
+                                    <input type="text" id="beginWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginWednesday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginWednesday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginWednesday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdWednesday minput">
+                                    <input type="text" id="endWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endWednesday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endWednesday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendWednesday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdWednesday hide minput">
+                                    <input type="text" id="brkWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkWednesday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkWednesday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkWednesday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdWednesday minput">
+                                    <input type="number" id="graceWednesday" name="graceWednesday" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="graceWednesday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
 
 
-                        </tr>
+
+                            </tr>
 
 
-                        <tr>
+                            <tr>
 
-                            <td>Thursday:</td>
-                            <td>
-                                @*<dxe:ASPxCheckBox ID="chkThursday" ClientInstanceName="cchkThursday" runat="server" ClientSideEvents-CheckedChanged="thursdayCheckChange"></dxe:ASPxCheckBox>*@
-                                <input type="checkbox" id="chkThursday" name="chkThursday" value="">
-                            </td>
-                            <td class="tdthursday minput">
-                                <input type="text" id="beginThursday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginThursday" />*@
-                                @*<dxe:ASPxTimeEdit ID="beginThursday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginThursday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdthursday minput">
-                                <input type="text" id="endThursday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endThursday" />*@
-                                @*<dxe:ASPxTimeEdit ID="endThursday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendThursday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdthursday hide minput">
-                                <input type="text" id="brkThursday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkThursday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkThursday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkThursday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdthursday minput">
-                                <input type="number" id="gracethursday" name="gracethursday" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="gracethursday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
+                                <td>Thursday:</td>
+                                <td>
+                                    @*<dxe:ASPxCheckBox ID="chkThursday" ClientInstanceName="cchkThursday" runat="server" ClientSideEvents-CheckedChanged="thursdayCheckChange"></dxe:ASPxCheckBox>*@
+                                    <input type="checkbox" id="chkThursday" name="chkThursday" value="">
+                                </td>
+                                <td class="tdthursday minput">
+                                    <input type="text" id="beginThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginThursday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginThursday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginThursday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdthursday minput">
+                                    <input type="text" id="endThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endThursday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endThursday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendThursday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdthursday hide minput">
+                                    <input type="text" id="brkThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkThursday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkThursday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkThursday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdthursday minput">
+                                    <input type="number" id="gracethursday" name="gracethursday" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="gracethursday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
 
-                        </tr>
-
-
-                        <tr>
-
-                            <td>Friday:</td>
-                            <td>
-                                <input type="checkbox" id="chkFriday" name="chkFriday" value="">
-                                @*<dxe:ASPxCheckBox ID="chkFriday" ClientInstanceName="cchkFriday" runat="server"
-                                                      ClientSideEvents-CheckedChanged="friDayCheckChange">
-                                    </dxe:ASPxCheckBox>*@
-                            </td>
-                            <td class="tdFriday minput">
-                                <input type="text" id="beginFriday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginFriday"  />*@
-                                @*<dxe:ASPxTimeEdit ID="beginFriday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginFriday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdFriday minput">
-                                <input type="text" id="endFriday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endFriday" />*@
-                                @*<dxe:ASPxTimeEdit ID="endFriday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendFriday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdFriday hide minput">
-                                <input type="text" id="brkFriday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkFriday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkFriday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkFriday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdFriday minput">
-                                <input type="number" id="graceFridDay" name="graceFridDay" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="graceFridDay" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
+                            </tr>
 
 
-                        </tr>
+                            <tr>
 
-                        <tr>
-
-                            <td>Saturday:</td>
-                            <td>
-                                <input type="checkbox" id="chkSaturday" name="chkSaturday" value="">
-                                @*<dxe:ASPxCheckBox ID="chkSaturday" ClientInstanceName="cchkSaturday" runat="server"
-                                                      ClientSideEvents-CheckedChanged="SaturdayCheckChange">
-                                    </dxe:ASPxCheckBox>*@
-                            </td>
-                            <td class="tdSaturday minput">
-                                <input type="text" id="beginSaturday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginSaturday" />*@
-                                @*<dxe:ASPxTimeEdit ID="beginSaturday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSaturday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSaturday minput">
-                                <input type="text" id="endSaturday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endSaturday" />*@
-                                @*<dxe:ASPxTimeEdit ID="endSaturday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSaturday" Height="22">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSaturday hide minput">
-                                <input type="text" id="brkSaturday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkSaturday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkSaturday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSaturday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSaturday minput">
-                                <input type="number" id="graceSaturday" name="graceMonday" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="graceSaturday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
-                        </tr>
+                                <td>Friday:</td>
+                                <td>
+                                    <input type="checkbox" id="chkFriday" name="chkFriday" value="">
+                                    @*<dxe:ASPxCheckBox ID="chkFriday" ClientInstanceName="cchkFriday" runat="server"
+                                                          ClientSideEvents-CheckedChanged="friDayCheckChange">
+                                        </dxe:ASPxCheckBox>*@
+                                </td>
+                                <td class="tdFriday minput">
+                                    <input type="text" id="beginFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginFriday"  />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginFriday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginFriday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdFriday minput">
+                                    <input type="text" id="endFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endFriday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endFriday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendFriday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdFriday hide minput">
+                                    <input type="text" id="brkFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkFriday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkFriday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkFriday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdFriday minput">
+                                    <input type="number" id="graceFridDay" name="graceFridDay" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="graceFridDay" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
 
 
-                        <tr>
+                            </tr>
 
-                            <td>Sunday:</td>
-                            <td>
-                                <input type="checkbox" id="chkSunday" name="chkMonday" value="">
-                                @*<dxe:ASPxCheckBox ID="chkSunday" ClientInstanceName="cchkSunday" runat="server"
-                                                      ClientSideEvents-CheckedChanged="sundayCheckChange">
-                                    </dxe:ASPxCheckBox>*@
-                            </td>
-                            <td class="tdSunday minput">
-                                <input type="text" id="beginSunday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="beginSunday" />*@
-                                @*<dxe:ASPxTimeEdit ID="beginSunday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSunday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSunday minput">
-                                <input type="text" id="endSunday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="endSunday" />*@
-                                @*<dxe:ASPxTimeEdit ID="endSunday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSunday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSunday hide minput">
-                                <input type="text" id="brkSunday" placeholder="HH:MM:SS" />
-                                @*<input type="time" id="brkSunday" />*@
-                                @*<dxe:ASPxTimeEdit ID="brkSunday" runat="server" Width="190" EditFormat="Custom"
-                                                      EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSunday">
-                                        <ClearButton DisplayMode="OnHover"></ClearButton>
-                                        <ValidationSettings ErrorDisplayMode="None" />
-                                    </dxe:ASPxTimeEdit>*@
-                            </td>
-                            <td class="tdSunday minput">
-                                <input type="number" id="graceSunday" name="graceSunday" min="0" max="999" />
-                                @*<dxe:ASPxTextBox ID="graceSunday" runat="server" Width="170px">
-                                        <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
-                                    </dxe:ASPxTextBox>*@
-                            </td>
-                        </tr>
+                            <tr>
+
+                                <td>Saturday:</td>
+                                <td>
+                                    <input type="checkbox" id="chkSaturday" name="chkSaturday" value="">
+                                    @*<dxe:ASPxCheckBox ID="chkSaturday" ClientInstanceName="cchkSaturday" runat="server"
+                                                          ClientSideEvents-CheckedChanged="SaturdayCheckChange">
+                                        </dxe:ASPxCheckBox>*@
+                                </td>
+                                <td class="tdSaturday minput">
+                                    <input type="text" id="beginSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginSaturday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginSaturday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSaturday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSaturday minput">
+                                    <input type="text" id="endSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endSaturday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endSaturday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSaturday" Height="22">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSaturday hide minput">
+                                    <input type="text" id="brkSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkSaturday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkSaturday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSaturday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSaturday minput">
+                                    <input type="number" id="graceSaturday" name="graceMonday" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="graceSaturday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sunday:</td>
+                                <td>
+                                    <input type="checkbox" id="chkSunday" name="chkMonday" value="">
+                                    @*<dxe:ASPxCheckBox ID="chkSunday" ClientInstanceName="cchkSunday" runat="server"
+                                                          ClientSideEvents-CheckedChanged="sundayCheckChange">
+                                        </dxe:ASPxCheckBox>*@
+                                </td>
+                                <td class="tdSunday minput">
+                                    <input type="text" id="beginSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="beginSunday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="beginSunday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSunday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSunday minput">
+                                    <input type="text" id="endSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="endSunday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="endSunday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSunday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSunday hide minput">
+                                    <input type="text" id="brkSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    @*<input type="time" id="brkSunday" />*@
+                                    @*<dxe:ASPxTimeEdit ID="brkSunday" runat="server" Width="190" EditFormat="Custom"
+                                                          EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSunday">
+                                            <ClearButton DisplayMode="OnHover"></ClearButton>
+                                            <ValidationSettings ErrorDisplayMode="None" />
+                                        </dxe:ASPxTimeEdit>*@
+                                </td>
+                                <td class="tdSunday minput">
+                                    <input type="number" id="graceSunday" name="graceSunday" min="0" max="999" class="form-control" />
+                                    @*<dxe:ASPxTextBox ID="graceSunday" runat="server" Width="170px">
+                                            <MaskSettings Mask="&lt;0..999&gt;" AllowMouseWheel="false" />
+                                        </dxe:ASPxTextBox>*@
+                                </td>
+                            </tr>
+                        </tbody>
+
+
+
 
 
                     </table>
@@ -1794,7 +1973,7 @@
                     <ul id="divModalBody" class="listStyle"> </ul>
                 </div>
                 <input type="button" id="btnsatesubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="ModulePushPop()" />
-                
+
             </div>
         </div>
 
@@ -1806,7 +1985,7 @@
 
 <style>
     #myInput {
-        background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+        background-image: url('../../../../assests/images/search.svg'); /* Add a search icon to input */
         background-position: 10px 12px; /* Position the search icon */
         background-repeat: no-repeat; /* Do not repeat the icon image */
         width: 100%; /* Full-width */
