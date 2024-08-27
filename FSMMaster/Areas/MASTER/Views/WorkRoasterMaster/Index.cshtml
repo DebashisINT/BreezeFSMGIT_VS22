@@ -1374,27 +1374,27 @@
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
                         <!-- Button trigger modal -->
-                        @*@if (ViewBag.CanAdd)
-                        {*@
+                        @if (ViewBag.CanAdd)
+                        {
                             <button type="button" class="btn btn-success" data-toggle="modal" onclick="ADDWORKROSTER()" data-backdrop="static" data-keyboard="false">
                                 Add New
                             </button>
-                        @*}*@
+                        }
 
-                        @*@if (ViewBag.CanExport)
-                            {*@
+                        @if (ViewBag.CanExport)
+                            {
                         <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
                             <option value="0">Export to</option>
                             <option value="2">XLSX</option>
                         </select>
-                        @*}*@
+                        }
 
-                        @*@if (ViewBag.CanView)
-                        {*@
+                        @if (ViewBag.CanView)
+                        {
                             <button type="button" class="btn btn-success" data-toggle="modal" onclick="SHOWDATA()" data-backdrop="static" data-keyboard="false">
                                 Show Data
                             </button>
-                        @*}*@
+                        }
                     </div>
                     <div class="clear"></div>
 

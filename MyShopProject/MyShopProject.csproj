@@ -266,6 +266,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\CustomerVisitDetailsController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CustomSMSController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\DailyAccountabilityTrackerController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\DailyCallReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\DashboardMenuController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\DashboardMenu_PartialController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\DashboardReportController.cs" />
@@ -2048,6 +2049,8 @@
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashBoardGVLMS.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardStateComboboxLMS.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardBranchComboboxLMS.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\DailyCallReport\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\DailyCallReport\PartialDailyCallReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
