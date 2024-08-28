@@ -581,7 +581,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CONTACT_NUMBER";
-                x.Caption = "Contact Number";
+                x.Caption = "Owner Contact";
                 x.VisibleIndex = 8;
                 if (ViewBag.RetentionColumn != null)
                 {
