@@ -728,6 +728,36 @@
 
     $(document).ready(function () {
 
+         $('#txtPoint4').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 2) {
+            this.value = this.value.slice(0, 2); // Limit to 2 digits
+        }
+        });
+
+        $('#txtPoint3').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 2) {
+        this.value = this.value.slice(0, 2); // Limit to 2 digits
+        }
+        });
+
+        $('#txtPoint2').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 2) {
+        this.value = this.value.slice(0, 2); // Limit to 2 digits
+        }
+        });
+
+        $('#txtPoint1').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 2) {
+        this.value = this.value.slice(0, 2); // Limit to 2 digits
+        }
+        });
+
+
+
         // Rev Sanchita
         if (urlKeys.key == 'AddOnFly' || urlKeys.key == 'AddOnFlySave') {
             TOPIC_ID = urlKeys.TOPICID;
