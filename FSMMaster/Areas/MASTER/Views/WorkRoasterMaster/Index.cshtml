@@ -859,6 +859,11 @@
         }
     }
 
+    function parseTime(timeString) {
+        // Create a Date object with a fixed date
+        var date = new Date("01/01/2000 " + timeString);
+        return date;
+    }
 
     function validateForm()
     {
@@ -877,21 +882,24 @@
             if ($("#beginMonday").val() == '' || $("#beginMonday").val() == null) {
                 jAlert("Please provide Begin time for Monday");
                 x = false;
-                $("#beginMonday").focus();
+                //$("#beginMonday").focus();
                 return false;
             }
 
             if ($("#Endmonday").val() == '' || $("#Endmonday").val() == null) {
                 jAlert("Please provide End time for Monday");
                 x = false;
-                $("#Endmonday").focus();
+                //$("#Endmonday").focus();
                 return false;
             }
 
-            if ($("#beginMonday").val() >= $("#Endmonday").val()) {
+            var startDate = parseTime($("#beginMonday").val());
+            var endDate = parseTime($("#Endmonday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Monday");
                 x = false;
-                $("#beginMonday").focus();
+                //$("#beginMonday").focus();
                 return false;
             }
 
@@ -901,21 +909,25 @@
             if ($("#BeginTuesDay").val() == '' || $("#BeginTuesDay").val() == null) {
                 jAlert("Please provide Begin time for Tuesday");
                 x = false;
-                $("#BeginTuesDay").focus();
+                //$("#BeginTuesDay").focus();
                 return false;
             }
 
             if ($("#endTuesDay").val() == '' || $("#endTuesDay").val() == null) {
                 jAlert("Please provide End time for Tuesday");
                 x = false;
-                $("#endTuesDay").focus();
+                //$("#endTuesDay").focus();
                 return false;
             }
 
-            if ($("#BeginTuesDay").val() >= $("#endTuesDay").val()) {
+            var startDate = parseTime($("#BeginTuesDay").val());
+            var endDate = parseTime($("#endTuesDay").val());
+
+            //if ($("#BeginTuesDay").val() >= $("#endTuesDay").val()) {
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Tuesday");
                 x = false;
-                $("#BeginTuesDay").focus();
+                //$("#BeginTuesDay").focus();
                 return false;
             }
 
@@ -924,21 +936,24 @@
             if ($("#beginWednesday").val() == '' || $("#beginWednesday").val() == null) {
                 jAlert("Please provide Begin time for Wednesday");
                 x = false;
-                $("#beginWednesday").focus();
+                //$("#beginWednesday").focus();
                 return false;
             }
 
             if ($("#endWednesday").val() == '' || $("#endWednesday").val() == null) {
                 jAlert("Please provide End time for Wednesday");
                 x = false;
-                $("#endWednesday").focus();
+                //$("#endWednesday").focus();
                 return false;
             }
 
-            if ($("#beginWednesday").val() >= $("#endWednesday").val()) {
+            var startDate = parseTime($("#beginWednesday").val());
+            var endDate = parseTime($("#endWednesday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Wednesday");
                 x = false;
-                $("#beginWednesday").focus();
+                //$("#beginWednesday").focus();
                 return false;
             }
         }
@@ -946,21 +961,24 @@
             if ($("#beginThursday").val() == '' || $("#beginThursday").val() == null) {
                 jAlert("Please provide Begin time for Thursday");
                 x = false;
-                $("#beginThursday").focus();
+                //$("#beginThursday").focus();
                 return false;
             }
 
             if ($("#endThursday").val() == '' || $("#endThursday").val() == null) {
                 jAlert("Please provide End time for Thursday");
                 x = false;
-                $("#endThursday").focus();
+                //$("#endThursday").focus();
                 return false;
             }
 
-            if ($("#beginThursday").val() >= $("#endThursday").val()) {
+            var startDate = parseTime($("#beginThursday").val());
+            var endDate = parseTime($("#endThursday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Thursday");
                 x = false;
-                $("#beginThursday").focus();
+                //$("#beginThursday").focus();
                 return false;
             }
         }
@@ -968,21 +986,24 @@
             if ($("#beginFriday").val() == '' || $("#beginFriday").val() == null) {
                 jAlert("Please provide Begin time for Friday");
                 x = false;
-                $("#beginFriday").focus();
+                //$("#beginFriday").focus();
                 return false;
             }
 
             if ($("#endFriday").val() == '' || $("#endFriday").val() == null) {
                 jAlert("Please provide End time for Friday");
                 x = false;
-                $("#endFriday").focus();
+                //$("#endFriday").focus();
                 return false;
             }
 
-            if ($("#beginFriday").val() >= $("#endFriday").val()) {
+            var startDate = parseTime($("#beginFriday").val());
+            var endDate = parseTime($("#endFriday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Friday");
                 x = false;
-                $("#beginFriday").focus();
+                //$("#beginFriday").focus();
                 return false;
             }
         }
@@ -990,21 +1011,24 @@
             if ($("#beginSaturday").val() == '' || $("#beginSaturday").val() == null) {
                 jAlert("Please provide Begin time for Saturday");
                 x = false;
-                $("#beginSaturday").focus();
+                //$("#beginSaturday").focus();
                 return false;
             }
 
             if ($("#endSaturday").val() == '' || $("#endSaturday").val() == null) {
                 jAlert("Please provide End time for Saturday");
                 x = false;
-                $("#endSaturday").focus();
+                //$("#endSaturday").focus();
                 return false;
             }
 
-            if ($("#beginSaturday").val() >= $("#endSaturday").val()) {
+            var startDate = parseTime($("#beginSaturday").val());
+            var endDate = parseTime($("#endSaturday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Saturday");
                 x = false;
-                $("#beginSaturday").focus();
+                //$("#beginSaturday").focus();
                 return false;
             }
 
@@ -1016,21 +1040,24 @@
             if ($("#beginSunday").val() == '' || $("#beginSunday").val() == null) {
                 jAlert("Please provide Begin time for Sunday");
                 x = false;
-                $("#beginSunday").focus();
+                //$("#beginSunday").focus();
                 return false;
             }
 
             if ($("#endSunday").val() == '' || $("#endSunday").val() == null) {
                 jAlert("Please provide End time for Sunday");
                 x = false;
-                $("#endSunday").focus();
+                //$("#endSunday").focus();
                 return false;
             }
 
-            if ($("#beginSunday").val() >= $("#endSunday").val()) {
+            var startDate = parseTime($("#beginSunday").val());
+            var endDate = parseTime($("#endSunday").val());
+
+            if (startDate >= endDate) {
                 jAlert("End time cannot be less than or equal to Begin time for Sunday");
                 x = false;
-                $("#beginSunday").focus();
+                //$("#beginSunday").focus();
                 return false;
             }
         }
@@ -1636,7 +1663,7 @@
                                     <input type="checkbox" id="chkMonday" name="chkMonday" value="">
                                 </td>
                                 <td>
-                                    <input type="text" id="beginMonday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginMonday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginMonday"  />*@
                                     @*<dxe:ASPxTimeEdit ID="beginMonday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginMonday">
@@ -1645,11 +1672,11 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdMonday minput">
-                                    <input type="text" id="Endmonday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="Endmonday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
 
                                 </td>
                                 <td class="tdMonday hide minput">
-                                    <input type="text" id="brkMonday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkMonday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkMonday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkMonday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkMonday">
@@ -1676,7 +1703,7 @@
 
                                 </td>
                                 <td class="tdTuesday minput">
-                                    <input type="text" id="BeginTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="BeginTuesDay" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="BeginTuesDay" />*@
                                     @*<dxe:ASPxTimeEdit ID="BeginTuesDay" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cBeginTuesDay">
@@ -1685,7 +1712,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdTuesday minput">
-                                    <input type="text" id="endTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endTuesDay" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endTuesDay" />*@
                                     @*<dxe:ASPxTimeEdit ID="endTuesDay" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendTuesDay">
@@ -1694,7 +1721,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdTuesday hide minput">
-                                    <input type="text" id="brkTuesDay" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkTuesDay" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkTuesDay" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkTuesDay" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkTuesDay">
@@ -1720,7 +1747,7 @@
                                     <input type="checkbox" id="chkWednesday" name="chkWednesday" value="">
                                 </td>
                                 <td class="tdWednesday minput">
-                                    <input type="text" id="beginWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginWednesday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginWednesday" />*@
                                     @*<dxe:ASPxTimeEdit ID="beginWednesday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginWednesday">
@@ -1729,7 +1756,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdWednesday minput">
-                                    <input type="text" id="endWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endWednesday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endWednesday" />*@
                                     @*<dxe:ASPxTimeEdit ID="endWednesday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendWednesday">
@@ -1738,7 +1765,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdWednesday hide minput">
-                                    <input type="text" id="brkWednesday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkWednesday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkWednesday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkWednesday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkWednesday">
@@ -1766,7 +1793,7 @@
                                     <input type="checkbox" id="chkThursday" name="chkThursday" value="">
                                 </td>
                                 <td class="tdthursday minput">
-                                    <input type="text" id="beginThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginThursday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginThursday" />*@
                                     @*<dxe:ASPxTimeEdit ID="beginThursday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginThursday">
@@ -1775,7 +1802,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdthursday minput">
-                                    <input type="text" id="endThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endThursday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endThursday" />*@
                                     @*<dxe:ASPxTimeEdit ID="endThursday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendThursday">
@@ -1784,7 +1811,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdthursday hide minput">
-                                    <input type="text" id="brkThursday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkThursday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkThursday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkThursday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkThursday">
@@ -1812,7 +1839,7 @@
                                         </dxe:ASPxCheckBox>*@
                                 </td>
                                 <td class="tdFriday minput">
-                                    <input type="text" id="beginFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginFriday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginFriday"  />*@
                                     @*<dxe:ASPxTimeEdit ID="beginFriday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginFriday">
@@ -1821,7 +1848,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdFriday minput">
-                                    <input type="text" id="endFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endFriday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endFriday" />*@
                                     @*<dxe:ASPxTimeEdit ID="endFriday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendFriday">
@@ -1830,7 +1857,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdFriday hide minput">
-                                    <input type="text" id="brkFriday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkFriday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkFriday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkFriday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkFriday">
@@ -1858,7 +1885,7 @@
                                         </dxe:ASPxCheckBox>*@
                                 </td>
                                 <td class="tdSaturday minput">
-                                    <input type="text" id="beginSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginSaturday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginSaturday" />*@
                                     @*<dxe:ASPxTimeEdit ID="beginSaturday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSaturday">
@@ -1867,7 +1894,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdSaturday minput">
-                                    <input type="text" id="endSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endSaturday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endSaturday" />*@
                                     @*<dxe:ASPxTimeEdit ID="endSaturday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSaturday" Height="22">
@@ -1876,7 +1903,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdSaturday hide minput">
-                                    <input type="text" id="brkSaturday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkSaturday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkSaturday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkSaturday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSaturday">
@@ -1903,7 +1930,7 @@
                                         </dxe:ASPxCheckBox>*@
                                 </td>
                                 <td class="tdSunday minput">
-                                    <input type="text" id="beginSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="beginSunday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="beginSunday" />*@
                                     @*<dxe:ASPxTimeEdit ID="beginSunday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbeginSunday">
@@ -1912,7 +1939,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdSunday minput">
-                                    <input type="text" id="endSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="endSunday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="endSunday" />*@
                                     @*<dxe:ASPxTimeEdit ID="endSunday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cendSunday">
@@ -1921,7 +1948,7 @@
                                         </dxe:ASPxTimeEdit>*@
                                 </td>
                                 <td class="tdSunday hide minput">
-                                    <input type="text" id="brkSunday" placeholder="HH:MM:SS" class="form-control timepicker" />
+                                    <input type="text" id="brkSunday" placeholder="HH:MM AM/PM" class="form-control timepicker" />
                                     @*<input type="time" id="brkSunday" />*@
                                     @*<dxe:ASPxTimeEdit ID="brkSunday" runat="server" Width="190" EditFormat="Custom"
                                                           EditFormatString="h:mm tt" DisplayFormatString="h:mm tt" ClientInstanceName="cbrkSunday">
