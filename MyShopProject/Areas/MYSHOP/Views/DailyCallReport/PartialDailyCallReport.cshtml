@@ -53,13 +53,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 200;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 200;
         }
     });
 
@@ -81,13 +81,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 100;
+                x.Width = 200;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 100;
+            x.Width = 200;
         }
     });
 
@@ -233,7 +233,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "CONTACT_NUMBER";
-        x.Caption = "Contact Number";
+        x.Caption = "Owner Contact";
         x.VisibleIndex = 8;
         if (ViewBag.RetentionColumn != null)
         {
@@ -345,7 +345,7 @@
            
             if (AUDIO_URL_PATH != "")
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenAudioRemarks('" + Convert.ToString(DataBinder.Eval(c.DataItem, "AUDIOPATH")) + "', '" + Convert.ToString(DataBinder.Eval(c.DataItem, "SHOP_NAME")) + "')\">Play/Download Audio</a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenAudioRemarks('" + Convert.ToString(DataBinder.Eval(c.DataItem, "AUDIOPATH")) + "', '" + Convert.ToString(DataBinder.Eval(c.DataItem, "SHOP_NAME")) + "')\">Play / Download Audio</a>");
             }
             else
             {
@@ -363,13 +363,13 @@
             else
             {
                 x.Visible = true;
-                x.Width = 140;
+                x.Width = 150;
             }
         }
         else
         {
             x.Visible = true;
-            x.Width = 140;
+            x.Width = 150;
         }
         
     });
