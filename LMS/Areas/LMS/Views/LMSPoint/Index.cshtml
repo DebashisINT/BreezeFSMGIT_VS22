@@ -591,6 +591,16 @@
 </style>
 <script>
     $(document).ready(function () {
+
+
+        $('#txtPoints').on('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length > 2) {
+                this.value = this.value.slice(0, 2); // Limit to 2 digits
+            }
+        });
+
+
         $('#PointModal').on('shown.bs.modal', function () {
             $('#ddlSection').focus();
         });
@@ -842,7 +852,7 @@
                         <div class="col-md-12 mt-3">
                             <div><label>Points  <span class="red">*</span></label></div>
                             <div>
-                                <input type="number" id="txtPoints" class="form-control numbersOnly" min="1" max="100" maxlength="3"/>
+                                <input type="number" id="txtPoints" class="form-control numbersOnly" min="1" max="99" maxlength="2"/>
                             </div>
                         </div>
                         <div class="col-md-12 mt-3">
