@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,949,950,952,953,955,956,971 & 972
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971 & 972
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -284,5 +284,34 @@ namespace ShopAPI.Models
     {
         public string status { get; set; }
         public string message { get; set; }
+    }    
+
+    public class LeaderboardListInput
+    {
+        public long user_id { get; set; }
+        public string branchwise { get; set; }
+        public string flag { get; set; }
+    }
+
+    public class LeaderboardListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<Leaderboarduserlist> user_list { get; set; }
+    }
+
+    public class Leaderboarduserlist
+    {
+        public long user_id { get; set; }
+        public string user_name { get; set; }
+        public string user_phone { get; set; }
+        public int watch { get; set; }
+        public int like { get; set; }
+        public int comment { get; set; }
+        public int share { get; set; }
+        public int correct_answer { get; set; }
+        public Int32 position { get; set; }
+        public int totalscore { get; set; }
+        public string profile_pictures_url { get; set; }
     }
 }

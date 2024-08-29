@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,949,950,952,953,955,956,971 & 972
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971 & 972
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
@@ -605,6 +605,55 @@ namespace ShopAPI.Controllers
             {
                 omodel.status = "204";
                 omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Leaderboardlist(LeaderboardListInput model)
+        {
+            LeaderboardListOutput omodel = new LeaderboardListOutput();
+            List<Leaderboarduserlist> oview = new List<Leaderboarduserlist>();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String ProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "LEADERBOARD");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@BRANCHWISE", model.branchwise);
+                sqlcmd.Parameters.AddWithValue("@ACTIVITYMODE", model.flag);
+                sqlcmd.Parameters.AddWithValue("@PROFILEIMAGEPATH", ProfileImagePath);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    oview = APIHelperMethods.ToModelList<Leaderboarduserlist>(dt);
+                    omodel.status = "200";
+                    omodel.message = "Success";
+                    omodel.user_list = oview;
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
                 var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                 return message;
             }
