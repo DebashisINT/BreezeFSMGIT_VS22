@@ -3398,10 +3398,76 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
         min-height: 32px;
     }
 
-    /*rev end Pallab*/
+    .info-tooltip-ap {
+        width: 24px;
+        height: 24px;
+        background: #4785e9;
+        border-radius: 50px;
+        padding: 2px 4px;
+        display: block;
+        margin-left: 10px;
+        /* line-height: 20px; */
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+    }
 
-    @@media (max-width: 760px) {
-        .tool::after {
+        .info-tooltip-ap:hover {
+            background: ##194996;
+        }
+
+        .info-tooltip-ap img {
+            width: 100%;
+        }
+
+        .avg-prog-ftr
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        width: 296px;
+        background-color: #7a0d8f;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 46%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #7a0d8f transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+        /*rev end Pallab*/
+        @@media (max-width: 760px) {
+            .tool::after {
             font-size: .75em;
             margin-left: -5em;
             width: 10em;
@@ -4607,7 +4673,13 @@ Rev Number   DATE            VERSION     DEVELOPER       CHANGES
                                                         @*<div id="" class="chartHolder font-normal"><div class="nCheck">Select date to refresh data</div></div>*@
                                                         @*<div id="gauge" style="width:100%;"></div>*@
                                                         <canvas id="gaugeCanvas"></canvas>
-                                                        <div class="Numb" id="lblAverageProgress"></div>
+                                                        <div class="avg-prog-ftr">
+                                                            <div class="Numb" id="lblAverageProgress"></div>
+                                                            <div class="info-tooltip-ap tooltip-container">
+                                                                <img src="~/assests/images/info-i.svg" />
+                                                                <div class="tooltip">(In Progress Topics / Assigned Topics) * 100</div></div>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>

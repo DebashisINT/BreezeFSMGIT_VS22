@@ -418,7 +418,7 @@
 
     .modal-content {
         border: none;
-        border-radius: 10px;
+        border-radius: 16px;
     }
 
     .modal-header .modal-title {
@@ -605,7 +605,7 @@
     }
 
     .modal .modal-header {
-        border-radius: 12px 12px 0 0 !important;
+        border-radius: 15px 15px 0 0 !important;
     }
 
     .working-roaster-table thead {
@@ -2012,15 +2012,22 @@
 
 <style>
     #myInput {
-        background-image: url('../../../../assests/images/search.svg'); /* Add a search icon to input */
-        background-position: 10px 12px; /* Position the search icon */
-        background-repeat: no-repeat; /* Do not repeat the icon image */
+        /*background-image: url('../../../../assests/images/search.svg'); 
+    background-position: 10px 12px; 
+    background-repeat: no-repeat; */
         width: 100%; /* Full-width */
         font-size: 16px; /* Increase font-size */
-        padding: 12px 20px 12px 40px; /* Add some padding */
+        padding: 8px 12px 8px 12px; /* Add some padding */
         border: 1px solid #ddd; /* Add a grey border */
         margin-bottom: 12px; /* Add some space below the input */
+        border-radius: 10px;
     }
+
+        #myInput:focus-visible {
+            border-color: #002d96;
+            box-shadow: none;
+            outline: none;
+        }
 
     #divModalBody {
         /* Remove default list styling */
