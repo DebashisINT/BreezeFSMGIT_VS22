@@ -4623,6 +4623,24 @@ namespace ERP.OMS.Management.Master
         protected global::DevExpress.Web.ASPxCheckBox chkIsUserWiseLMSFeatureOnly;
 
         /// <summary>
+        /// divIsUserWiseRecordAudioEnableForVisitRevisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell divIsUserWiseRecordAudioEnableForVisitRevisit;
+
+        /// <summary>
+        /// chkIsUserWiseRecordAudioEnableForVisitRevisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCheckBox chkIsUserWiseRecordAudioEnableForVisitRevisit;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

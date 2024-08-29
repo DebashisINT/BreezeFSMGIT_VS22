@@ -30,6 +30,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 17.0                03-06-2024      V2.0.47            Sanchita           Some global settings are required for CRM Opportunity module. Mantis: 27481   
 18.0                18-06-2024      V2.0.47            Sanchita           27436: Please create a global settings IsShowDateWiseOrderInApp   
 19.0                04-07-2024      V2.0.48            Sanchita           27575: Two new global and user settings are required as 'IsUserWiseLMSEnable' and 'IsUserWiseLMSFeatureOnly'   
+20.0                29-08-2024      V2.0.48            Sanchita           27648: Global and User wise settings isRecordAudioEnableForVisitRevisit shall be available 
+                                                                          in both System settings page and in User master.   
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4346,6 +4348,19 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             </table>
                                         </td>
                                         <%--End of Rev 19.0--%>
+                                        <%-- Rev 20.0--%>
+                                        <td id="divIsUserWiseRecordAudioEnableForVisitRevisit" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkIsUserWiseRecordAudioEnableForVisitRevisit" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Record Audio Enable For Visit/Revisit ? </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 20.0--%>
                                     </tr>
                                     <%-- End of Rev 18.0--%>
                                     
