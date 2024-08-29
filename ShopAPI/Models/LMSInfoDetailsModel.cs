@@ -286,22 +286,46 @@ namespace ShopAPI.Models
         public string message { get; set; }
     }    
 
-    public class LeaderboardListInput
+    public class LMSLeaderboardOverallListInput
     {
         public long user_id { get; set; }
         public string branchwise { get; set; }
         public string flag { get; set; }
     }
 
-    public class LeaderboardListOutput
+    public class LMSLeaderboardOverallListOutput
     {
         public string status { get; set; }
         public string message { get; set; }
-        public List<Leaderboarduserlist> user_list { get; set; }
+        public List<LeaderboardOveralluserlist> user_list { get; set; }
     }
 
-    public class Leaderboarduserlist
+    public class LeaderboardOveralluserlist
     {
+        public long user_id { get; set; }
+        public string user_name { get; set; }
+        public string user_phone { get; set; }
+        public int watch { get; set; }
+        public int like { get; set; }
+        public int comment { get; set; }
+        public int share { get; set; }
+        public int correct_answer { get; set; }
+        public Int32 position { get; set; }
+        public int totalscore { get; set; }
+        public string profile_pictures_url { get; set; }
+    }
+
+    public class LMSLeaderboardOwnListInput
+    {
+        public long user_id { get; set; }
+        public string branchwise { get; set; }
+        public string flag { get; set; }
+    }
+
+    public class LMSLeaderboardOwnListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
         public long user_id { get; set; }
         public string user_name { get; set; }
         public string user_phone { get; set; }

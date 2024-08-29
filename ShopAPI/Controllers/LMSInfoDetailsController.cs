@@ -611,10 +611,10 @@ namespace ShopAPI.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Leaderboardlist(LeaderboardListInput model)
+        public HttpResponseMessage LMSLeaderboardOverallList(LMSLeaderboardOverallListInput model)
         {
-            LeaderboardListOutput omodel = new LeaderboardListOutput();
-            List<Leaderboarduserlist> oview = new List<Leaderboarduserlist>();
+            LMSLeaderboardOverallListOutput omodel = new LMSLeaderboardOverallListOutput();
+            List<LeaderboardOveralluserlist> oview = new List<LeaderboardOveralluserlist>();
 
             if (!ModelState.IsValid)
             {
@@ -632,6 +632,7 @@ namespace ShopAPI.Controllers
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
                 sqlcmd.Parameters.AddWithValue("@ACTION", "LEADERBOARD");
+                sqlcmd.Parameters.AddWithValue("@SUBACTION", "OVERALL");
                 sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
                 sqlcmd.Parameters.AddWithValue("@BRANCHWISE", model.branchwise);
                 sqlcmd.Parameters.AddWithValue("@ACTIVITYMODE", model.flag);
@@ -643,10 +644,68 @@ namespace ShopAPI.Controllers
                 sqlcon.Close();
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    oview = APIHelperMethods.ToModelList<Leaderboarduserlist>(dt);
+                    oview = APIHelperMethods.ToModelList<LeaderboardOveralluserlist>(dt);
                     omodel.status = "200";
                     omodel.message = "Success";
                     omodel.user_list = oview;
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage LMSLeaderboardOwnList(LMSLeaderboardOwnListInput model)
+        {
+            LMSLeaderboardOwnListOutput omodel = new LMSLeaderboardOwnListOutput();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String ProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "LEADERBOARD");
+                sqlcmd.Parameters.AddWithValue("@SUBACTION", "OWN");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@BRANCHWISE", model.branchwise);
+                sqlcmd.Parameters.AddWithValue("@ACTIVITYMODE", model.flag);
+                sqlcmd.Parameters.AddWithValue("@PROFILEIMAGEPATH", ProfileImagePath);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    omodel.status = "200";
+                    omodel.message = "Success";
+                    omodel.user_id = Convert.ToInt64(dt.Rows[0]["user_id"]);
+                    omodel.user_name = Convert.ToString(dt.Rows[0]["user_name"]);
+                    omodel.user_phone = Convert.ToString(dt.Rows[0]["user_phone"]);
+                    omodel.watch = Convert.ToInt32(dt.Rows[0]["watch"]);
+                    omodel.like = Convert.ToInt32(dt.Rows[0]["like"]);
+                    omodel.comment = Convert.ToInt32(dt.Rows[0]["comment"]);
+                    omodel.share = Convert.ToInt32(dt.Rows[0]["share"]);
+                    omodel.correct_answer = Convert.ToInt32(dt.Rows[0]["correct_answer"]);
+                    omodel.position = Convert.ToInt32(dt.Rows[0]["position"]);
+                    omodel.totalscore = Convert.ToInt32(dt.Rows[0]["totalscore"]);
+                    omodel.profile_pictures_url = Convert.ToString(dt.Rows[0]["profile_pictures_url"]);
                 }
                 else
                 {
