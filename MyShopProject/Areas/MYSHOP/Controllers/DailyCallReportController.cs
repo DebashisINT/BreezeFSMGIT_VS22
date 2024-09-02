@@ -20,6 +20,7 @@ using DocumentFormat.OpenXml.Drawing;
 using BusinessLogicLayer;
 using DataAccessLayer;
 using System.Net;
+using System.Web.UI.WebControls;
 
 
 namespace MyShop.Areas.MYSHOP.Controllers
@@ -726,11 +727,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
             //response.Flush();
             //response.End();
 
-           // string fileUrl = "http://3.7.30.86:8072/CommonFolder/ShopRevisitAudio/ifgenwzhsycopxqaaozxiktx_11984_1724745331108.wav";
+            // string fileUrl = "http://3.7.30.86:8072/CommonFolder/ShopRevisitAudio/ifgenwzhsycopxqaaozxiktx_11984_1724745331108.wav";
+
+            string filename = System.IO.Path.GetFileName(audiofile);
+
             WebClient client = new WebClient();
             byte[] fileData = client.DownloadData(audiofile);
 
-            return File(fileData, "audio/wav", "downloadedAudio.wav");
+            return File(fileData, "audio/mp3", filename);
 
             //return null;
         }
