@@ -377,7 +377,16 @@
        
     }
 
+    function closeAudRem() {
+        
+        var audio = document.getElementById('audioPlayer');
+        audio.pause();
+        audio.currentTime = 0; // Reset audio to the beginning
+    }
+
 </script>
+
+
 <style>
     .padTabl > tbody > tr > td {
         padding: 3px 10px;
@@ -842,7 +851,7 @@
         font-weight: 600;
     }
 
-    
+
 </style>
 @*Rev 3.0*@
 <style>
@@ -1198,7 +1207,7 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeAudRem()">&times;</button>
                 <h4 class="modal-title">Audio Remarks</h4>
             </div>
             <div class="modal-body">

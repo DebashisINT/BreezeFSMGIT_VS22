@@ -646,13 +646,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     else
                     {
                         x.Visible = true;
-                        x.ExportWidth = 90;
+                        x.ExportWidth = 150;
                     }
                 }
                 else
                 {
                     x.Visible = true;
-                    x.ExportWidth = 90;
+                    x.ExportWidth = 150;
                 }
 
             });
