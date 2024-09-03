@@ -1403,6 +1403,26 @@
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
         overflow: visible;
     }
+
+    .save-btn .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        .save-btn .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
 </style>
 
 <script>
@@ -2155,8 +2175,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger cancel-btn" data-dismiss="modal">Cancel & Exit</button>
-                <button type="button" class="btn btn-success save-btn" onclick="SaveTopics();">Save & Exit</button>
+                <button type="button" class="btn btn-danger cancel-btn cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                <button type="button" class="btn btn-success save-btn" onclick="SaveTopics();"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
             </div>
         </div>
 

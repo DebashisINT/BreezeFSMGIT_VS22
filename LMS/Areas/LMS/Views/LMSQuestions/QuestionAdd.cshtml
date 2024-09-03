@@ -322,22 +322,46 @@
     }
 
     .pmsModal .modal-header {
-        background: #094e8c !important;
-        background-image: none !important;
+        /*background: #094e8c !important;
+background-image: none !important;*/
         padding: 11px 20px;
         border: none;
-        border-radius: 5px 5px 0 0;
-        color: #fff;
-        border-radius: 10px 10px 0 0;
+        border-radius: 15px 15px 0 0 !important;
+        /*color: #fff;*/
+        /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
     }
 
     .pmsModal .modal-content {
         border: none;
-        border-radius: 10px;
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
     }
 
+    /*.pmsModal .modal-header .modal-title {
+    font-size: 14px;
+}*/
+
     .pmsModal .modal-header .modal-title {
-        font-size: 14px;
+        font-size: 16px !important;
+        color: #111;
+        font-size: 24px;
+    }
+
+    .pmsModal .modal-header {
+        background: transparent !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    button.close {
+        color: #111 !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 32px !important;
     }
 
     .pmsModal .close {
@@ -688,6 +712,31 @@
     #TopicGridLookup_DDD_PW-1, #CategoryGridLookup_DDD_PW-1 {
         width: 95% !important;
     }
+
+    #btnSave .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSave .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+    #btnSave.btn-warning .btn-icon img {
+        color: #e08d19;
+        width: 14px;
+    }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
 </style>
 
 <script>
@@ -1650,16 +1699,16 @@
         <div class="save-exit-btn">
             @*Rev Sanchita*@
             @*<button type="button" class="btn btn-cancel" onclick="location.href='@Url.Action("Index", "LMSQuestions")'">Cancel & Exit</button>*@
-            <button type="button" class="btn btn-cancel" onclick="CancelQuestionAdd()">Cancel & Exit</button>
+            <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelQuestionAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
             @*End of Rev Sanchita*@
 
             @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
             {
-                <button type="button" id="btnSave" class="btn btn-warning" onclick="SaveQuestion('Exit')">Save & Exit</button>
+                <button type="button" id="btnSave" class="btn btn-warning" onclick="SaveQuestion('Exit')"><span class="btn-icon"><img src="../../../assests/images/save-instagram-orange.svg"></span> Save & Exit</button>
             }
             @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
             {
-                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('New')">Save & New</button>
+                <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('New')"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>
             }
 
         </div>

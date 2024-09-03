@@ -37,7 +37,8 @@
     }
 
     .modal-footer {
-        padding: 10px 20px 10px;
+        padding: 15px 10px 15px;
+        border-top: 1px solid #c0c0c0;
     }
 
     .dxgvLoadingPanel_PlasticBlue {
@@ -120,6 +121,7 @@
 
     .h-branch-select {
         position: relative;
+        background: #fff;
     }
 
         .h-branch-select::after {
@@ -311,22 +313,46 @@
     }
 
     .pmsModal .modal-header {
-        background: #094e8c !important;
-        background-image: none !important;
+        /*background: #094e8c !important;
+background-image: none !important;*/
         padding: 11px 20px;
         border: none;
-        border-radius: 5px 5px 0 0;
-        color: #fff;
-        border-radius: 10px 10px 0 0;
+        border-radius: 15px 15px 0 0 !important;
+        /*color: #fff;*/
+        /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
     }
 
     .pmsModal .modal-content {
         border: none;
-        border-radius: 10px;
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
     }
 
+    /*.pmsModal .modal-header .modal-title {
+    font-size: 14px;
+}*/
+
     .pmsModal .modal-header .modal-title {
-        font-size: 14px;
+        font-size: 16px !important;
+        color: #111;
+        font-size: 24px;
+    }
+
+    .pmsModal .modal-header {
+        background: transparent !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    button.close {
+        color: #111 !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 32px !important;
     }
 
     .pmsModal .close {
@@ -472,8 +498,8 @@
 
         .add-btn:hover {
             color: #fff;
-            background-color: #1b79d0;
-            border-color: #1b79d0;
+            background-color: #0e4f23;
+            border-color: #0e4f23;
         }
 
         .add-btn .btn-icon i {
@@ -587,6 +613,42 @@
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
         overflow: visible;
+    }
+
+    #btnSave .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSave .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
+
+    .cancel-catg:hover {
+        transform: scale(1.1);
+    }
+
+    .cancel-catg, #btnSave {
+        transition: all .3s ease-in-out;
+    }
+
+    #btnSave:hover {
+        transform: scale(1.1);
+    }
+
+    .cancel-catg {
+        margin-right: 5px;
     }
 </style>
 <script>
@@ -863,10 +925,10 @@
             </div>
             <div class="modal-footer">
                 <div>
-                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel & Exit</button>
+                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
                     @if (ViewBag.CanAdd)
                     {
-                        <button type="button" id="btnSave" class="btn btn-success" onclick="SavePoint()">Save & Exit</button>
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SavePoint()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                     }
                 </div>
 
