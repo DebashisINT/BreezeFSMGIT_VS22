@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "LMS SETTINGS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+    function ClearQuiz() {  
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ClearQuiz", "LMSSettings")',
+            //data: {
+            //    name: $("#txtCategoryName").val().trim(),
+            //    id: id,
+            //    description: $("#txtCategoryDescription").val().trim(),
+            //    ActiveStatus: _status
+            //},
+            success: function (response) {
+                if (parseInt(response) > 0) {
+                    // SweetAlert success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Clear Quiz successfully.'
+                    }).then(() => {
+                        //$("#CategoryModal").modal('hide');
+                        location.reload();
+                    });
+                } else if (parseInt(response) == -1) {
+                    // SweetAlert duplicate category name warning
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sorry!'
+                       // text: 'Duplicate Category name cannot be entered. Please enter a unique category name.'
+                    });
+                }
+            }
+        });
+   
+}
+</script>
+<div class="breadCumb">
+    <span>LMS SETTINGS</span>
+</div>
+<div class="container">
+    <div class="form_main backBox p-3">
+        <div class="row">
+            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
+                <div class="add-show-btns">                   
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearQuiz();">
+                        <span class="btn-icon"></span> Clear Quiz
+                    </button>                  
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>       
+    </div>
+</div>

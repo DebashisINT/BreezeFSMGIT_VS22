@@ -317,6 +317,7 @@
     <Compile Include="Areas\LMS\Controllers\LMSPointController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSQuestionsController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSReportsController.cs" />
+    <Compile Include="Areas\LMS\Controllers\LMSSettingsController.cs" />
     <Compile Include="Areas\LMS\Controllers\LMSTopicsController.cs" />
     <Compile Include="Areas\LMS\LMSAreaRegistration.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -841,6 +842,7 @@
     <Content Include="Areas\LMS\Views\LMSReports\_UserLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSReports\_ContentLookUpPartial.cshtml" />
     <Content Include="Areas\LMS\Views\LMSReports\PartialReportListing.cshtml" />
+    <Content Include="Areas\LMS\Views\LMSSettings\Index.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
@@ -1174,7 +1176,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49383</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44368/</IISUrl>
+          <IISUrl>https://localhost:44369/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
