@@ -261,9 +261,27 @@ namespace LMS.Areas.LMS.Controllers
 
             settings.Columns.Add(x =>
             {
+                x.FieldName = "TOPIC_COMP_DAY";
+                x.Caption = "Topic Completion Day(s)";
+                x.VisibleIndex = 5;
+                x.ExportWidth = 170;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOPIC_ISDEFAULT";
+                x.Caption = "Default Topic";
+                x.VisibleIndex = 6;
+                x.ExportWidth = 150;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
                 x.FieldName = "CREATEDBY";
                 x.Caption = "Created by";
-                x.VisibleIndex = 5;
+                x.VisibleIndex = 7;
                 x.ExportWidth = 150;
 
             });
@@ -272,7 +290,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "CREATEDON";
                 x.Caption = "Created on";
-                x.VisibleIndex = 6;
+                x.VisibleIndex = 8;
                 x.ExportWidth = 150;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
@@ -281,7 +299,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "UPDATEDBY";
                 x.Caption = "Modified by";
-                x.VisibleIndex = 7;
+                x.VisibleIndex = 9;
                 x.ExportWidth = 150;
 
             });
@@ -290,7 +308,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "UPDATEDON";
                 x.Caption = "Modified on";
-                x.VisibleIndex = 8;
+                x.VisibleIndex = 10;
                 x.ExportWidth = 150;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
@@ -342,6 +360,8 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddPara("@TOPICBASEDON_ID", data.TopicBasedOnId);
                 proc.AddPara("@SELECTEDTOPICBASEDONMAPLIST", data.selectedTopicBasedOnMapList);
                 proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                proc.AddPara("@TOPIC_COMP_DAY", data.TopicCompDay);
+                proc.AddPara("@TOPIC_ISDEFAULT", data.DefaultTopic);
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                 int k = proc.RunActionQuery();

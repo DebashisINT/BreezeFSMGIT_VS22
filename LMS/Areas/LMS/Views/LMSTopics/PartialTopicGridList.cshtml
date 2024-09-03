@@ -34,6 +34,8 @@
 
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    //settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+    //settings.Settings.VerticalScrollableHeight = 200;
     settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
     settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
     settings.SettingsSearchPanel.Visible = true;
@@ -57,10 +59,10 @@
         column.FieldName = "SEQ";
         column.Caption = "Sr. No\r\n";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
-        //column.Width = 60;
+        column.Width = 50;
         column.VisibleIndex = 1;
         //column.ColumnType = MVCxGridViewColumnType.TextBox;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(5);
 
     });
     settings.Columns.Add(column =>
@@ -70,8 +72,8 @@
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.VisibleIndex = 2;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        //column.Width= 150;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        column.Width= 300;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(40);
 
     });
     settings.Columns.Add(column =>
@@ -81,8 +83,8 @@
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.VisibleIndex = 3;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        //column.Width = 120;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
     });
     settings.Columns.Add(column =>
@@ -92,18 +94,39 @@
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.VisibleIndex = 4;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        //column.Width = 100;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TOPIC_COMP_DAY";
+        column.Caption = "Topic Completion Day(s)";
+        //column.FixedStyle = GridViewColumnFixedStyle.Left;
+        column.VisibleIndex = 5;
+        column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        column.Width = 170;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TOPIC_ISDEFAULT";
+        column.Caption = "Default Topic";
+        //column.FixedStyle = GridViewColumnFixedStyle.Left;
+        column.VisibleIndex = 6;
+        column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
     settings.Columns.Add(column =>
     {
         column.FieldName = "CREATEDBY";
         column.Caption = "Created by";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
-        column.VisibleIndex = 5;
+        column.VisibleIndex = 7;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        //column.Width = 150;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        column.Width = 150;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(15);
     });
     settings.Columns.Add(column =>
     {
@@ -112,9 +135,9 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.VisibleIndex = 6;
-        //column.Width = 100;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        column.VisibleIndex = 8;
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
     settings.Columns.Add(column =>
     {
@@ -122,9 +145,9 @@
         column.Caption = "Modified by";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.VisibleIndex = 7;
-        //column.Width = 150;
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        column.VisibleIndex = 9;
+        column.Width = 150;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
     settings.Columns.Add(column =>
     {
@@ -133,9 +156,9 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.VisibleIndex = 8;
-        /*olumn.Width = 150;*/
-        column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        column.VisibleIndex = 10;
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
     });
 
     settings.Columns.Add(x =>
@@ -162,9 +185,9 @@
 
         //x.Settings.AllowDragDrop = DefaultBoolean.False;
         //x.Settings.AllowSort = DefaultBoolean.False;
-        x.VisibleIndex = 9;
-        //x.Width = 100;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        x.VisibleIndex = 11;
+        x.Width = 150;
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.Caption = "Action";

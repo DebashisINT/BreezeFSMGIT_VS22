@@ -24,6 +24,8 @@ namespace LMS.Models
         public string RETURN_DUPLICATEMAPNAME { get; set; }
 
         public string TopicStatusOld { get; set; }
+        public string TopicCompDay { get; set; }
+        public string DefaultTopic { get; set; }
     }
 
     public class TopicBasedOnList
@@ -44,7 +46,9 @@ namespace LMS.Models
         public string rightTabNameText { get; set; }
         public string searchPlaceholderText { get; set; }
         public bool TOPICSTATUS { get; set; }
-       
+        public string TOPIC_COMP_DAY { get; set; }
+        public bool TOPIC_ISDEFAULT { get; set; }
+
     }
 
 }
