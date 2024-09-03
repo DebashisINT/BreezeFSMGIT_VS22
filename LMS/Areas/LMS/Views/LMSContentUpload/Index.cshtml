@@ -3015,6 +3015,26 @@
     .content-title-div {
         width: 80%;
     }
+
+    .save-button .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        .save-button .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
     
 </style>
 
@@ -6566,8 +6586,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>
-                <button type="button" class="btn btn-success" onclick="SaveTopics();">Save & Exit</button>
+                <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                <button type="button" class="btn btn-success save-button" onclick="SaveTopics();"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
             </div>
         </div>
 
@@ -6602,8 +6622,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" tabindex="4" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" tabindex="5" onclick="UpdateQuizTime();">Save</button>
+                <button type="button" class="btn btn-danger  cancel-catg" tabindex="4" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel</button>
+                <button type="button" class="btn btn-success save-button" tabindex="5" onclick="UpdateQuizTime();"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save</button>
             </div>
         </div>
 
