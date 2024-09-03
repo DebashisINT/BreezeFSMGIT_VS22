@@ -338,4 +338,19 @@ namespace ShopAPI.Models
         public int totalscore { get; set; }
         public string profile_pictures_url { get; set; }
     }
+
+    public class LMSSectionsPointsListInput
+    {
+        public string session_token { get; set; }
+    }
+
+    public class LMSSectionsPointsListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public int content_watch_point { get; set; }
+        public int content_like_point { get; set; }
+        public int content_share_point { get; set; }
+        public int content_comment_point { get; set; }
+    }
 }

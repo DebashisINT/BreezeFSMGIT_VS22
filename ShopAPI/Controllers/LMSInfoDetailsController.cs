@@ -717,5 +717,51 @@ namespace ShopAPI.Controllers
                 return message;
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage LMSSectionsPointsList(LMSSectionsPointsListInput model)
+        {
+            LMSSectionsPointsListOutput omodel = new LMSSectionsPointsListOutput();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String ProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "SECTIONSPOINTS");
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    omodel.status = "200";
+                    omodel.message = "Success";
+                    omodel.content_watch_point = Convert.ToInt32(dt.Rows[0]["content_watch_point"]);
+                    omodel.content_like_point = Convert.ToInt32(dt.Rows[0]["content_like_point"]);
+                    omodel.content_share_point = Convert.ToInt32(dt.Rows[0]["content_share_point"]);
+                    omodel.content_comment_point = Convert.ToInt32(dt.Rows[0]["content_comment_point"]);
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
     }
 }
