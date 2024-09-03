@@ -1500,6 +1500,9 @@
         lblBasedOn.innerText = "";
         //$("#txtTopicName").focus();
         document.getElementById("txtTopicName").focus();
+        $("#numTopicCompDay").val('0');
+        $("#chkDefault").prop("checked", false);
+
         $("#lblHeading").text('Create Topic');
         $("#AddTopicModal").modal('show');
     }
@@ -1697,7 +1700,9 @@
                 TopicStatus: $("#chkStatus").prop("checked"),
                 TopicName: $("#txtTopicName").val().trim(),
                 selectedTopicBasedOnMapList: selectedTopicBasedOnMapList,
-                TopicStatusOld: $("#hdnTopicStatusOld").val()
+                TopicStatusOld: $("#hdnTopicStatusOld").val(),
+                TopicCompDay: $("#numTopicCompDay").val(),
+                DefaultTopic: $("#chkDefault").prop("checked")
             }
 
             $.ajax({
@@ -1818,6 +1823,8 @@
                 $("#chkStatus").prop("checked", data[0].TOPICSTATUS);
                 $("#lblHeading").text('Edit Topic');
                 $("#hdnTopicStatusOld").val(data[0].TOPICSTATUS);
+                $("#numTopicCompDay").val(data[0].TOPIC_COMP_DAY);
+                $("#chkDefault").prop("checked", data[0].TOPIC_ISDEFAULT);
 
                 $("#transfer1").html('');
 
@@ -1997,6 +2004,15 @@
         $('#AddTopicModal').on('shown.bs.modal', function () {
             $('#txtTopicName').focus();
         });
+
+        $('#numTopicCompDay').on('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            //if (this.value.length > 2) {
+            //    this.value = this.value.slice(0, 2); // Limit to 2 digits
+            //}
+        });
+
+       
     });
 
 </script>
@@ -2109,6 +2125,13 @@
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
                     <div class="col-lg-4">
+                        <label>Topic Completion Day(s)</label>
+                        <input type="number" id="numTopicCompDay" name="numTopicCompDay" class="form-control" maxlength="100" min="1" />
+                    </div>
+                    
+                </div>
+                <div class="clearfix">
+                    <div class="col-lg-6">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
@@ -2117,10 +2140,14 @@
                         <label> </label>
                         <div class="active-checkbox mt-3"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" /><label>Publish</label></div>
                     </div>
+                    <div class="col-lg-4" style="height: 60px;">
+                        <label> </label>
+                        <div class="active-checkbox mt-3"><input type="checkbox" id="chkDefault" name="chkDefault" class="styled-checkbox" /><label>Default Topic</label></div>
+                    </div>
                 </div>
                 <div class="clearfix">
                     <div class="col-md-12 mt-15">
-                        <label id="lblBasedOn" > </label>
+                        <label id="lblBasedOn"> </label>
                         <div>
                             <div id="transfer1" class="transfer-demo"></div>
                         </div>
