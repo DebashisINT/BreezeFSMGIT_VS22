@@ -31,7 +31,9 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 18.0                18-06-2024      V2.0.47            Sanchita           27436: Please create a global settings IsShowDateWiseOrderInApp   
 19.0                04-07-2024      V2.0.48            Sanchita           27575: Two new global and user settings are required as 'IsUserWiseLMSEnable' and 'IsUserWiseLMSFeatureOnly'   
 20.0                29-08-2024      V2.0.48            Sanchita           27648: Global and User wise settings isRecordAudioEnableForVisitRevisit shall be available 
-                                                                          in both System settings page and in User master.   
+                                                                          in both System settings page and in User master. 
+21.0                03-09-2024      V2.0.48           Priti              	0027684: Create a new user setting as ShowClearQuiz
+
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4210,7 +4212,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         </td>
                                         <%--Rev 14.0 end--%>
                                     </tr>
-                                   
+
                                     <tr>
                                         <%--Rev 14.0--%>
                                         <td id="divIsCRMAddEnable" runat="server">
@@ -4261,8 +4263,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         </td>
                                         <%--End of Rev 15.0--%>
                                         <%--Rev 16.0--%>
-                                     </tr>
-                                     <tr>
+                                    </tr>
+                                    <tr>
                                         <td id="divIsSpecialPriceWithEmployee" runat="server">
                                             <table>
                                                 <tr>
@@ -4276,7 +4278,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         </td>
                                         <%--End of Rev 16.0--%>
                                         <%--Rev 17.0--%>
-                                         <td id="divIsShowCRMOpportunity" runat="server">
+                                        <td id="divIsShowCRMOpportunity" runat="server">
                                             <table>
                                                 <tr>
                                                     <td>
@@ -4287,7 +4289,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                 </tr>
                                             </table>
                                         </td>
-                                          <td id="divIsEditEnableforOpportunity" runat="server">
+                                        <td id="divIsEditEnableforOpportunity" runat="server">
                                             <table>
                                                 <tr>
                                                     <td>
@@ -4309,11 +4311,11 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                                 </tr>
                                             </table>
                                         </td>
-                                         <%--End of Rev 17.0--%>
+                                        <%--End of Rev 17.0--%>
                                     </tr>
                                     <%--Rev 18.0--%>
                                     <tr>
-                                         <td id="divIsShowDateWiseOrderInApp" runat="server">
+                                        <td id="divIsShowDateWiseOrderInApp" runat="server">
                                             <table>
                                                 <tr>
                                                     <td>
@@ -4363,7 +4365,21 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                         <%--End of Rev 20.0--%>
                                     </tr>
                                     <%-- End of Rev 18.0--%>
-                                    
+                                    <tr>
+                                        <%-- Rev 21.0--%>
+                                        <td id="DivShowClearQuiz" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkDivShowClearQuiz" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Show Clear Quiz ?</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 21.0--%>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
