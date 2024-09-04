@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971 & 972
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974 & 975
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -78,6 +78,7 @@ namespace ShopAPI.Models
         public decimal QuizScores { get; set; }
         public bool CompletionStatus { get; set; }
         public string CONTENT_QUIZTIME { get; set; }
+        public string isBookmarked { get; set; }
         public List<QuestionlistOutput> question_list { get; set; }
     }
 
@@ -352,5 +353,47 @@ namespace ShopAPI.Models
         public int content_like_point { get; set; }
         public int content_share_point { get; set; }
         public int content_comment_point { get; set; }
+    }
+
+    public class LMSSaveBookMarkInput
+    {
+        public long user_id { get; set; }
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public string content_name { get; set; }
+        public string content_desc { get; set; }
+        public string content_bitmap { get; set; }
+        public string content_url { get; set; }
+        public string addBookmark { get; set; }
+    }
+
+    public class LMSSaveBookMarkOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+
+    public class LMSFetchBookMarkInput
+    {
+        public long user_id { get; set; }
+    }
+
+    public class LMSFetchBookMarkOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<LMSBookMarOutputkList> bookmark_list { get; set; }
+    }
+
+    public class LMSBookMarOutputkList
+    {
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public string content_name { get; set; }
+        public string content_desc { get; set; }
+        public string content_bitmap { get; set; }
+        public string content_url { get; set; }
     }
 }

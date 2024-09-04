@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971 & 972
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974 & 975
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
@@ -199,6 +199,7 @@ namespace ShopAPI.Controllers
                                             QuizScores = Convert.ToDecimal(ds.Tables[1].Rows[j]["QuizScores"]),
                                             CompletionStatus = Convert.ToBoolean(ds.Tables[1].Rows[j]["CompletionStatus"]),
                                             CONTENT_QUIZTIME = Convert.ToString(ds.Tables[1].Rows[j]["CONTENT_QUIZTIME"]),
+                                            isBookmarked = Convert.ToString(ds.Tables[1].Rows[j]["isBookmarked"]),
                                             question_list = Qoview
                                         });
                                     }
@@ -752,6 +753,103 @@ namespace ShopAPI.Controllers
                     omodel.content_like_point = Convert.ToInt32(dt.Rows[0]["content_like_point"]);
                     omodel.content_share_point = Convert.ToInt32(dt.Rows[0]["content_share_point"]);
                     omodel.content_comment_point = Convert.ToInt32(dt.Rows[0]["content_comment_point"]);
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage LMSSaveBookMark(LMSSaveBookMarkInput model)
+        {
+            LMSSaveBookMarkOutput omodel = new LMSSaveBookMarkOutput();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String ProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "SAVEBOOKMARK");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@TOPIC_ID", model.topic_id);
+                sqlcmd.Parameters.AddWithValue("@TOPICNAME", model.topic_name);
+                sqlcmd.Parameters.AddWithValue("@CONTENT_ID", model.content_id);
+                sqlcmd.Parameters.AddWithValue("@CONTENTNAME", model.content_name);
+                sqlcmd.Parameters.AddWithValue("@CONTENTDESC", model.content_desc);
+                sqlcmd.Parameters.AddWithValue("@CONTENTBITMAP", model.content_bitmap);
+                sqlcmd.Parameters.AddWithValue("@CONTENTURL", model.content_url);
+                sqlcmd.Parameters.AddWithValue("@ADDBOOKMARK", model.addBookmark);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    omodel.status = "200";
+                    omodel.message = "Success";
+                }
+                else
+                {
+                    omodel.status = "205";
+                    omodel.message = "No data found";
+                }
+
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage LMSFetchBookMark(LMSFetchBookMarkInput model)
+        {
+            LMSFetchBookMarkOutput omodel = new LMSFetchBookMarkOutput();
+            List<LMSBookMarOutputkList> oview = new List<LMSBookMarOutputkList>();
+
+            if (!ModelState.IsValid)
+            {
+                omodel.status = "213";
+                omodel.message = "Some input parameters are missing.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+            }
+            else
+            {
+                String ProfileImagePath = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "FETCHBOOKMARK");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    oview = APIHelperMethods.ToModelList<LMSBookMarOutputkList>(dt);
+                    omodel.status = "200";
+                    omodel.message = "Success";
+                    omodel.bookmark_list = oview;
                 }
                 else
                 {
