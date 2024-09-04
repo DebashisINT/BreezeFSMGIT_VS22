@@ -22,6 +22,8 @@ namespace LMS.Models
         public string selectedTopicBasedOnMapList { get; set; }
         public string RETURN_VALUE { get; set; }
         public string RETURN_DUPLICATEMAPNAME { get; set; }
+        public string RETURN_NEWASSIGN { get; set; }
+
 
         public string TopicStatusOld { get; set; }
         public string TopicCompDay { get; set; }

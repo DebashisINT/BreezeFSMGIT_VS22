@@ -3035,6 +3035,11 @@
             color: #DC0505;
             width: 16px;
         }
+
+    small {
+        font-size: 12px !important;
+        font-weight: 400 !important;
+    }
     
 </style>
 
@@ -3337,7 +3342,7 @@
                                                 <div class="topic-name-list">
                                                     <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
                                                     <div class="list-topic-name">
-                                                        <span>${topic.TOPIC_CONTENT_COUNT}</span>
+                                                        <span>${topic.TOPIC_CONTENT_COUNT} <small>Content(s)</small></span>
                                                         <h5>${topic.TOPIC_NAME}</h5>
                                                     </div>
                                                 </div>
@@ -5932,6 +5937,12 @@
     //});
 
 
+    function closeContentModal() {
+        $('#file-name-icon').text('');
+        filePreview.innerHTML = '';
+
+    }
+
 </script>
 
 <script>
@@ -6125,7 +6136,7 @@
             @using (Html.BeginForm("SaveContent", "LMSContentUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" id="content-upload-close" onclick="close()">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" id="content-upload-close" onclick="closeContentModal()">&times;</button>
                     @*<h4 class="modal-title">Create Content</h4>*@
                 </div>
                 <div class="modal-body">
