@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:ShopAPI\\Models\\LMSInfoDetailsModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|D:\\PROJECTS\\BreezeFSMGIT_VS22\\shopapi\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -79,26 +79,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "LMSInfoDetailsModel.cs",
               "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs",
               "RelativeDocumentMoniker": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
               "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs",
               "RelativeToolTip": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAIA7wFAAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAHkBAAAAAAAAAAAqwIUBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-30T13:51:15.292Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LMSInfoDetailsController.cs",
               "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
               "RelativeDocumentMoniker": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
               "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
               "RelativeToolTip": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAQwEkAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAADMDAAAAAAAAAAAAADMDAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-30T10:46:49.439Z",
               "EditorCaption": ""
