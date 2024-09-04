@@ -253,7 +253,7 @@ namespace LMS.Areas.LMS.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "TOPICSTATUS";
-                x.Caption = "Active";
+                x.Caption = "Publish";
                 x.VisibleIndex = 4;
                 x.ExportWidth = 150;
 
@@ -364,18 +364,24 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddPara("@TOPIC_ISDEFAULT", data.DefaultTopic);
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
+                proc.AddVarcharPara("@RETURN_NEWASSIGN", -1, "", QueryParameterDirection.Output);
                 int k = proc.RunActionQuery();
                 data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE")); // WILL RETURN NEW TOPIC ID
                 data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+                data.RETURN_NEWASSIGN = Convert.ToString(proc.GetParaValue("@RETURN_NEWASSIGN"));
 
                 // Send Notification
                 if ( (data.Action=="ADDTOPIC" && data.TopicStatus == "true") )  // If published and ADD
                 {
-                    FireNotification(data.TopicName, data.RETURN_VALUE);
+                    FireNotification(data.TopicName, data.RETURN_VALUE, "");
                 }
                 else if((data.Action == "EDITTOPIC" && data.TopicStatus == "true" && data.TopicStatusOld == "false")) // published and EDIT
                 {
-                    FireNotification(data.TopicName, data.TopicID);
+                    FireNotification(data.TopicName, data.TopicID,"");
+                }
+                else if ((data.Action == "EDITTOPIC" && data.RETURN_NEWASSIGN!="")) // published and EDIT
+                {
+                    FireNotification(data.TopicName, data.TopicID, data.RETURN_NEWASSIGN);
                 }
 
                 if (data.Action == "ADDTOPIC" && Convert.ToInt16(data.RETURN_VALUE) > 0)
@@ -393,7 +399,7 @@ namespace LMS.Areas.LMS.Controllers
         }
 
         // Send Notification
-        public void FireNotification(string TopicTitle, string TopicId)
+        public void FireNotification(string TopicTitle, string TopicId, string NewAssign)
         {
             string Mssg = "HI! A new Topic [" + TopicTitle + "] has been assigned to you. Please check your learning dashboard to start watching.";
             var imgNotification_Icon = ConfigurationManager.AppSettings["SPath"].ToString() + "Commonfolder/LMS/Notification_Icon.jpg";
@@ -407,6 +413,7 @@ namespace LMS.Areas.LMS.Controllers
             procA.AddPara("@ACTION", "GETCONTENTASSIGNUSER");
             procA.AddPara("@TOPICID", TopicId);
             procA.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            procA.AddPara("@NEWASSIGN_ID", NewAssign);
             dtAssignUser = procA.GetTable();
 
             if (dtAssignUser.Rows.Count > 0)
