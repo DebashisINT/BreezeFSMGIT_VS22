@@ -383,10 +383,10 @@ namespace ShopAPI.Models
     {
         public string status { get; set; }
         public string message { get; set; }
-        public List<LMSBookMarOutputkList> bookmark_list { get; set; }
+        public List<LMSBookMarkOutputList> bookmark_list { get; set; }
     }
 
-    public class LMSBookMarOutputkList
+    public class LMSBookMarkOutputList
     {
         public long topic_id { get; set; }
         public string topic_name { get; set; }

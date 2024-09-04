@@ -820,7 +820,7 @@ namespace ShopAPI.Controllers
         public HttpResponseMessage LMSFetchBookMark(LMSFetchBookMarkInput model)
         {
             LMSFetchBookMarkOutput omodel = new LMSFetchBookMarkOutput();
-            List<LMSBookMarOutputkList> oview = new List<LMSBookMarOutputkList>();
+            List<LMSBookMarkOutputList> oview = new List<LMSBookMarkOutputList>();
 
             if (!ModelState.IsValid)
             {
@@ -846,7 +846,7 @@ namespace ShopAPI.Controllers
                 sqlcon.Close();
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    oview = APIHelperMethods.ToModelList<LMSBookMarOutputkList>(dt);
+                    oview = APIHelperMethods.ToModelList<LMSBookMarkOutputList>(dt);
                     omodel.status = "200";
                     omodel.message = "Success";
                     omodel.bookmark_list = oview;
