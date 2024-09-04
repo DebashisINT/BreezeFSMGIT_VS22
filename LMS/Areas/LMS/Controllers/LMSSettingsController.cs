@@ -84,9 +84,9 @@ namespace LMS.Areas.LMS.Controllers
         public DataTable GETSETTINGSDATA()
         {
             DataTable dt = new DataTable();
-
             ProcedureExecute proc = new ProcedureExecute("PRC_LMS_SETTINGS");
             proc.AddPara("@ACTION", "ShowSettings");
+            proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"])); 
             dt = proc.GetTable();
             return dt;
         }
