@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DevExpress.Web;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,23 @@ namespace LMS.Areas.LMS.Controllers
         // GET: LMS/LMSSettings
         public ActionResult Index()
         {
+            Boolean ShowClearQuiz=false;
+            DataTable dt = new DataTable();
+            dt = GETSETTINGSDATA();
+            if(dt.Rows.Count>0)
+            {
+                 ShowClearQuiz = Convert.ToBoolean(dt.Rows[0]["ShowClearQuiz"]);
+                
+                //if(boolShowClearQuiz == true)
+                //{
+                //    ShowClearQuiz = 1;
+                //}
+                //else
+                //{
+                //    ShowClearQuiz = 0;
+                //}
+            }
+            ViewBag.ShowClearQuiz = ShowClearQuiz;
             return View();
         }
         public JsonResult ClearQuiz()
@@ -63,6 +81,15 @@ namespace LMS.Areas.LMS.Controllers
             }
         }
 
+        public DataTable GETSETTINGSDATA()
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMS_SETTINGS");
+            proc.AddPara("@ACTION", "ShowSettings");
+            dt = proc.GetTable();
+            return dt;
+        }
 
     }
 }
