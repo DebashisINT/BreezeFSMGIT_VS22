@@ -50,8 +50,7 @@
               "RelativeToolTip": "ShopAPI\\Models\\ConfigurationModel.cs",
               "ViewState": "AgIAABgBAAAAAAAAAAAIwDIBAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-07T13:16:23.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-07T13:16:23.421Z"
             },
             {
               "$type": "Document",
@@ -63,8 +62,7 @@
               "RelativeToolTip": "ShopAPI\\Controllers\\ConfigurationController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-07T13:15:59.996Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-07T13:15:59.996Z"
             },
             {
               "$type": "Document",
@@ -87,7 +85,7 @@
               "RelativeDocumentMoniker": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
               "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs",
               "RelativeToolTip": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "ViewState": "AgIAAE0BAAAAAAAAAAAswFoBAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAIA7wFAAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-30T13:51:15.292Z",
               "EditorCaption": ""
@@ -100,7 +98,7 @@
               "RelativeDocumentMoniker": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
               "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
               "RelativeToolTip": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "ViewState": "AgIAAJUCAAAAAAAAAAAUwOgCAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAQwEkAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-30T10:46:49.439Z",
               "EditorCaption": ""
