@@ -24,6 +24,9 @@ using DevExpress.Utils.Drawing.Helpers;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Text;
+using Google.Apis.Auth.OAuth2;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -649,52 +652,110 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                //string applicationID = "AAAAS0O97Kk:APA91bH8_KgkJzglOUHC1ZcMEQFjQu8fsj1HBKqmyFf-FU_I_GLtXL_BFUytUjhlfbKvZFX9rb84PWjs05HNU1QyvKy_TJBx7nF70IdIHBMkPgSefwTRyDj59yXz4iiKLxMiXJ7vel8B";
-                //string senderId = "323259067561";
-                string applicationID = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["AppID"]);
-                string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
+                //string applicationID = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["AppID"]);
                 //string senderId = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["SenderID"]);
-                string deviceId = deviceid;
-                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                tRequest.Method = "post";
-                tRequest.ContentType = "application/json";
+                //string deviceId = deviceid;
+                //WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                //tRequest.Method = "post";
+                //tRequest.ContentType = "application/json";
 
-                var data2 = new
-                {
-                    to = deviceId,
-                   
-                    data = new
-                    {
-                        UserName = Customer,
-                        UserID = Requesttype,
-                        header = "New Content Added",
-                        body = message,
-                        type = "lms_content_assign",
-                        imgNotification_Icon = imgNotification_Icon
-                    }
-                };
+                //var data2 = new
+                //{
+                //    to = deviceId,
 
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(data2);
-                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
-                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
-                tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
-                tRequest.ContentLength = byteArray.Length;
-                using (Stream dataStream = tRequest.GetRequestStream())
+                //    data = new
+                //    {
+                //        UserName = Customer,
+                //        UserID = Requesttype,
+                //        header = "New Content Added",
+                //        body = message,
+                //        type = "lms_content_assign",
+                //        imgNotification_Icon = imgNotification_Icon
+                //    }
+                //};
+
+                //var serializer = new JavaScriptSerializer();
+                //var json = serializer.Serialize(data2);
+                //Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                //tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+                //tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+                //tRequest.ContentLength = byteArray.Length;
+                //using (Stream dataStream = tRequest.GetRequestStream())
+                //{
+                //    dataStream.Write(byteArray, 0, byteArray.Length);
+                //    using (WebResponse tResponse = tRequest.GetResponse())
+                //    {
+                //        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                //        {
+                //            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                //            {
+                //                String sResponseFromServer = tReader.ReadToEnd();
+                //                string str = sResponseFromServer;
+                //            }
+                //        }
+                //    }
+                //}
+
+                string fileName = System.Web.Hosting.HostingEnvironment.MapPath("~/demofsm-fee63-firebase-adminsdk-m1emn-4e3e8bba2d.json"); //Download from Firebase Console ServiceAccount
+
+                string scopes = "https://www.googleapis.com/auth/firebase.messaging";
+                var bearertoken = ""; // Bearer Token in this variable
+                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+
                 {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                    using (WebResponse tResponse = tRequest.GetResponse())
-                    {
-                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                        {
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                            {
-                                String sResponseFromServer = tReader.ReadToEnd();
-                                string str = sResponseFromServer;
-                            }
-                        }
-                    }
+
+                    bearertoken = GoogleCredential
+                      .FromStream(stream) // Loads key file
+                      .CreateScoped(scopes) // Gathers scopes requested
+                      .UnderlyingCredential // Gets the credentials
+                      .GetAccessTokenForRequestAsync().Result; // Gets the Access Token
+
                 }
+
+                ///--------Calling FCM-----------------------------
+
+                var clientHandler = new HttpClientHandler();
+                var client = new HttpClient(clientHandler);
+
+                client.BaseAddress = new Uri("https://fcm.googleapis.com/v1/projects/demofsm-fee63/messages:send"); // FCM HttpV1 API
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //client.DefaultRequestHeaders.Accept.Add("Authorization", "Bearer " + bearertoken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearertoken); // Authorization Token in this variable
+
+                //---------------Assigning Of data To Model --------------
+
+                Root rootObj = new Root();
+                rootObj.message = new Message();
+
+                rootObj.message.token = deviceid;  //"AAAA8_ptc9A:APA91bGhMaxl_Mm811bpvNExTIyZZz16krSTnCAp1RpbRKV8hZuIh9gsI6svxMvZO74WaZl3piBPHJzp2N3NN3JRS8a150BAmyLnwqa7nJUFay_kxNm11dQfdDCl00QUPncGCKq1kPYH"; //FCM Token id
+
+                rootObj.message.data = new Data();
+                rootObj.message.data.title = "New Content Added";
+                rootObj.message.data.body = message;
+                rootObj.message.data.key_1 = "Sample Key";
+                rootObj.message.data.key_2 = "Sample Key2";
+                rootObj.message.notification = new Notification();
+                rootObj.message.notification.title = "New Content Added";
+                rootObj.message.notification.body = message;
+
+                //-------------Convert Model To JSON ----------------------
+
+                var jsonObj = new JavaScriptSerializer().Serialize(rootObj);
+
+                //------------------------Calling Of FCM Notify API-------------------
+
+                var data = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                data.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = client.PostAsync("https://fcm.googleapis.com/v1/projects/demofsm-fee63/messages:send", data).Result; // Calling The FCM httpv1 API
+
+                //---------- Deserialize Json Response from API ----------------------------------
+
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var responseObj = new JavaScriptSerializer().DeserializeObject(jsonResponse);
             }
             catch (Exception ex)
             {

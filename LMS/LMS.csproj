@@ -230,15 +230,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ERP.UI\bin\EntityLayer.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Apis, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.68.0\lib\net462\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.68.0\lib\net462\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.68.0\lib\net462\Google.Apis.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NReco.VideoConverter, Version=1.2.1.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
       <HintPath>..\packages\NReco.VideoConverter.1.2.1\lib\net45\NReco.VideoConverter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -984,8 +997,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Global.asax" />
     <Content Include="Models\LMSService.asmx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -1087,6 +1100,7 @@
       <LastGenOutput>LMSMaster.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="demofsm-fee63-firebase-adminsdk-m1emn-4e3e8bba2d.json" />
     <None Include="Models\LMSMaster.dbml.layout">
       <DependentUpon>LMSMaster.dbml</DependentUpon>
     </None>
@@ -1101,6 +1115,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Common\_PartialMenu.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1110,13 +1131,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Common\_PartialMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
