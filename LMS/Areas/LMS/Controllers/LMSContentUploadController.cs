@@ -737,6 +737,13 @@ namespace LMS.Areas.LMS.Controllers
                 rootObj.message.data.body = message;
                 rootObj.message.data.key_1 = "Sample Key";
                 rootObj.message.data.key_2 = "Sample Key2";
+
+                rootObj.message.data.UserName = Customer;
+                rootObj.message.data.UserID = Requesttype;
+                rootObj.message.data.header = "New Topic Added";
+                rootObj.message.data.type = "lms_content_assign";
+                rootObj.message.data.imgNotification_Icon = imgNotification_Icon;
+
                 rootObj.message.notification = new Notification();
                 rootObj.message.notification.title = "New Content Added";
                 rootObj.message.notification.body = message;
