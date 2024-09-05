@@ -573,9 +573,37 @@ namespace LMS.Areas.LMS.Controllers
                 rootObj.message.data.body = message;
                 rootObj.message.data.key_1 = "Sample Key";
                 rootObj.message.data.key_2 = "Sample Key2";
+
+                rootObj.message.data.UserName = Customer;
+                rootObj.message.data.UserID = Requesttype;
+                rootObj.message.data.header = "New Topic Added";
+                rootObj.message.data.type = "lms_content_assign";
+                rootObj.message.data.imgNotification_Icon = imgNotification_Icon;
+                // rootObj.message.data.key_2 = "Sample Key2";
+
+
                 rootObj.message.notification = new Notification();
                 rootObj.message.notification.title = "New Topic Added";
                 rootObj.message.notification.body = message;
+
+
+                //var data2 = new
+                //{
+                //    to = deviceid,
+
+                //    data = new
+                //    {
+                //        UserName = Customer,
+                //        UserID = Requesttype,
+                //        header = "New Topic Added",
+                //        body = message,
+                //        type = "lms_content_assign",
+                //        imgNotification_Icon = imgNotification_Icon
+                //    }
+                //};
+
+                //var serializer = new JavaScriptSerializer();
+                //var jsonObj = serializer.Serialize(data2);
 
                 //-------------Convert Model To JSON ----------------------
 
