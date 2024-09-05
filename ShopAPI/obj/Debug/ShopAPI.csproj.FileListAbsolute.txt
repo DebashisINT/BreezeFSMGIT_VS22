@@ -25,3 +25,4 @@ D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\obj\Debug\ShopAPI.csproj.CoreCompileInputs
 D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\obj\Debug\ShopAPI.csproj.Up2Date
 D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\obj\Debug\ShopAPI.dll
 D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\obj\Debug\ShopAPI.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\System.Web.Mvc.dll
