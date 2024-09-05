@@ -80,6 +80,36 @@ namespace LMS.Models
             set;
         }
 
+        public string UserName
+        {
+            get;
+            set;
+        }
+
+        public string UserID
+        {
+            get;
+            set;
+        }
+
+        public string header
+        {
+            get;
+            set;
+        }
+
+        public string type
+        {
+            get;
+            set;
+        }
+
+        public string imgNotification_Icon
+        {
+            get;
+            set;
+        }
+
     }
 
     public class Message
@@ -103,6 +133,7 @@ namespace LMS.Models
             set;
         }
 
+        
     }
 
     public class Notification
