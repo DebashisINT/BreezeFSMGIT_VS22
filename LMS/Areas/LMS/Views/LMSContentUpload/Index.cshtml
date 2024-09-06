@@ -4548,6 +4548,7 @@
         $("#chkAllowShare").prop("checked", false);
         document.getElementById('divFooter').style.visibility = 'hidden';
         $("#submit-btnText").text("Upload & Exit");
+        $("#btnSubmit img").attr("src", "../../../assests/images/upload-new.svg");
         $("#AddQuestion").hide();
 
         $('#file-name').text('');
@@ -4645,6 +4646,7 @@
                 $("#chkAllowShare").prop("checked", data[0].AllowShare);
                 document.getElementById('divFooter').style.visibility = 'visible';
                 $("#submit-btnText").text("Save & Exit");
+                $("#btnSubmit img").attr("src", "../../../assests/images/save-circle.svg");
                 $("#AddQuestion").show();
 
                 $('#file-name').text(data[0].CONTENT_FILENAME);
@@ -6370,7 +6372,7 @@
                 </div>
 
                 <div class="" id="divFooter">
-                    <button type="submit" id="btnSubmit" class="btn btn-success upload-exit-btn"><img src="../../../assests/images/save.svg"> <span id="submit-btnText">Upload & Exit</span></button>
+                    <button type="submit" id="btnSubmit" class="btn btn-success upload-exit-btn"><img src="../../../assests/images/upload-new.svg"> <span id="submit-btnText">Upload & Exit</span></button>
                     @*<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel & Exit</button>*@
                 </div>
             }
