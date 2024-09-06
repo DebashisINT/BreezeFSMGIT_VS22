@@ -1423,6 +1423,11 @@
             color: #DC0505;
             width: 16px;
         }
+
+    .d-none
+    {
+        display: none;
+    }
 </style>
 
 <script>
@@ -2144,23 +2149,27 @@
                         <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 d-none">
                         <label>Topic Completion Day(s)</label>
                         <input type="number" id="numTopicCompDay" name="numTopicCompDay" class="form-control" maxlength="100" min="1" />
                     </div>
-                    
-                </div>
-                <div class="clearfix">
-                    <div class="col-lg-6">
+
+                    <div class="col-lg-4">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
                     </div>
+
                     <div class="col-lg-2" style="height: 60px;">
                         <label> </label>
                         <div class="active-checkbox mt-3"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" /><label>Publish</label></div>
                     </div>
-                    <div class="col-lg-4" style="height: 60px;">
+
+                </div>
+                <div class="clearfix">
+                    
+                    
+                    <div class="col-lg-4  d-none" style="height: 60px;">
                         <label> </label>
                         <div class="active-checkbox mt-3"><input type="checkbox" id="chkDefault" name="chkDefault" class="styled-checkbox" /><label>Default Topic</label></div>
                     </div>
