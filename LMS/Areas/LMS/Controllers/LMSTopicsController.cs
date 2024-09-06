@@ -353,6 +353,17 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
+                if (data.DefaultTopic == null)
+                {
+                    data.DefaultTopic = "0";
+                }
+
+                if (data.TopicCompDay == null)
+                {
+                    data.TopicCompDay = "0";
+                }
+
+
                 //string rtrnduplicatevalue = "";
                 //string Userid = Convert.ToString(Session["userid"]);
                 ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
