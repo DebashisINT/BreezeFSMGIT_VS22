@@ -2,7 +2,7 @@
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using LMS.Models;
-using MyShop.Models;
+//using MyShop.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
