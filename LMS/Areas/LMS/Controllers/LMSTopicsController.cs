@@ -282,9 +282,18 @@ namespace LMS.Areas.LMS.Controllers
 
             settings.Columns.Add(x =>
             {
+                x.FieldName = "TOPIC_SEQ";
+                x.Caption = "Topic Sequence";
+                x.VisibleIndex = 7;
+                x.ExportWidth = 150;
+
+            });
+
+            settings.Columns.Add(x =>
+            {
                 x.FieldName = "CREATEDBY";
                 x.Caption = "Created by";
-                x.VisibleIndex = 7;
+                x.VisibleIndex = 8;
                 x.ExportWidth = 150;
 
             });
@@ -293,7 +302,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "CREATEDON";
                 x.Caption = "Created on";
-                x.VisibleIndex = 8;
+                x.VisibleIndex = 9;
                 x.ExportWidth = 150;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
@@ -302,7 +311,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "UPDATEDBY";
                 x.Caption = "Modified by";
-                x.VisibleIndex = 9;
+                x.VisibleIndex = 10;
                 x.ExportWidth = 150;
 
             });
@@ -311,7 +320,7 @@ namespace LMS.Areas.LMS.Controllers
             {
                 x.FieldName = "UPDATEDON";
                 x.Caption = "Modified on";
-                x.VisibleIndex = 10;
+                x.VisibleIndex = 11;
                 x.ExportWidth = 150;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
             });
@@ -363,6 +372,11 @@ namespace LMS.Areas.LMS.Controllers
                     data.TopicCompDay = "0";
                 }
 
+                if(data.TopicSequence == null)
+                {
+                    data.TopicSequence = "0";
+                }
+
 
                 //string rtrnduplicatevalue = "";
                 //string Userid = Convert.ToString(Session["userid"]);
@@ -376,6 +390,7 @@ namespace LMS.Areas.LMS.Controllers
                 proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
                 proc.AddPara("@TOPIC_COMP_DAY", data.TopicCompDay);
                 proc.AddPara("@TOPIC_ISDEFAULT", data.DefaultTopic);
+                proc.AddPara("@TOPIC_SEQ", data.TopicSequence);
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
                 proc.AddVarcharPara("@RETURN_NEWASSIGN", -1, "", QueryParameterDirection.Output);
@@ -689,5 +704,24 @@ namespace LMS.Areas.LMS.Controllers
 
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetLastTopicSeq()
+        {
+            LMSTopicsModel model = new LMSTopicsModel();
+
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+            proc.AddPara("@Action", "GETLASTTOPICSEQ");
+            dt = proc.GetTable();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                model.TopicSequence = Convert.ToString(dt.Rows[0]["TopicSequence"]);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
