@@ -1547,6 +1547,8 @@ namespace LMS.Models
 		
 		private string _TOPIC_ISDEFAULT;
 		
+		private string _TOPIC_SEQ;
+		
 		public LMS_TOPICSMASTER_LISTING()
 		{
 		}
@@ -1599,7 +1601,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICNAME", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICNAME", DbType="VarChar(300)")]
 		public string TOPICNAME
 		{
 			get
@@ -1615,7 +1617,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICBASEDON", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICBASEDON", DbType="VarChar(300)")]
 		public string TOPICBASEDON
 		{
 			get
@@ -1631,7 +1633,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICSTATUS", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPICSTATUS", DbType="VarChar(10)")]
 		public string TOPICSTATUS
 		{
 			get
@@ -1663,7 +1665,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="VarChar(50)")]
 		public string CREATEDBY
 		{
 			get
@@ -1695,7 +1697,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATEDBY", DbType="VarChar(50)")]
 		public string UPDATEDBY
 		{
 			get
@@ -1727,7 +1729,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPIC_COMP_DAY", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPIC_COMP_DAY", DbType="VarChar(10)")]
 		public string TOPIC_COMP_DAY
 		{
 			get
@@ -1743,7 +1745,7 @@ namespace LMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPIC_ISDEFAULT", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPIC_ISDEFAULT", DbType="VarChar(10)")]
 		public string TOPIC_ISDEFAULT
 		{
 			get
@@ -1755,6 +1757,22 @@ namespace LMS.Models
 				if ((this._TOPIC_ISDEFAULT != value))
 				{
 					this._TOPIC_ISDEFAULT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOPIC_SEQ", DbType="VarChar(10)")]
+		public string TOPIC_SEQ
+		{
+			get
+			{
+				return this._TOPIC_SEQ;
+			}
+			set
+			{
+				if ((this._TOPIC_SEQ != value))
+				{
+					this._TOPIC_SEQ = value;
 				}
 			}
 		}
