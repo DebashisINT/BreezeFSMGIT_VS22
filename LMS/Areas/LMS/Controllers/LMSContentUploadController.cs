@@ -221,7 +221,24 @@ namespace LMS.Areas.LMS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public JsonResult GetLastTopicSeq()
+        {
+            LMSContentEditModel model = new LMSContentEditModel();
+
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+            proc.AddPara("@Action", "GETLASTTOPICSEQ");
+            dt = proc.GetTable();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                model.TopicSequence = Convert.ToString(dt.Rows[0]["TopicSequence"]);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         [HttpPost]
         public ActionResult SaveContent(HttpPostedFileBase fileupload, HttpPostedFileBase fileuploadicon, string hdnAddEditMode, string hdnContentID, string hdnFileDuration,

@@ -62,6 +62,7 @@ namespace LMS.Models
         public string CONTENT_FULLPATH { get; set; }
         public string CONTENT_FILEPATHICON { get; set; }
         public string CONTENT_FILENAMEICON { get; set; }
+        public string TopicSequence { get; set; }
 
     }
 

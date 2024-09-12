@@ -145,6 +145,9 @@
         opacity: .8 !important;
         font-size: 32px !important;
     }
+    .d-none {
+        display: none;
+    }
 </style>
 <style>
     .pmsModal .modal-header {
@@ -4013,6 +4016,23 @@
                 lblBasedOn.innerText = "";
                 $("#transfer1T").html("");
                 document.getElementById("txtTopicName").focus();
+                $("#numTopicCompDay").val('0');
+                $("#chkDefault").prop("checked", false);
+                $("#numTopicSequence").val('0');
+
+                $.ajax({
+                    type: "POST",
+                    url: "/LMSContentUpload/GetLastTopicSeq",
+                    //data: JSON.stringify(obj),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.log(data)
+                        $("#numTopicSequence").val(data.TopicSequence);
+                    }
+                });
+
                 $("#AddTopicModal").modal('show');
             });
         });
@@ -5313,7 +5333,11 @@
                     TopicBasedOnId: $("#ddlTopicBasedOn").val(),
                     TopicStatus: $("#chkStatus").prop("checked"),
                     TopicName: $("#txtTopicName").val().trim(),
-                    selectedTopicBasedOnMapList: selectedTopicBasedOnMapList
+                    selectedTopicBasedOnMapList: selectedTopicBasedOnMapList,
+                    TopicStatusOld: $("#hdnTopicStatusOld").val(),
+                    TopicCompDay: $("#numTopicCompDay").val(),
+                    DefaultTopic: $("#chkDefault").prop("checked"),
+                    TopicSequence: $("#numTopicSequence").val()
                 }
 
                 $.ajax({
@@ -5374,7 +5398,13 @@
                                 text: 'Duplicate Topic name cannot be entered. Please enter a unique Topic name.'
                             });
                         }
-
+                        else if (returnValue.RETURN_VALUE == "-30") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Sorry!',
+                                text: 'Duplicate Topic Sequence cannot be entered. Please enter a unique Topic Sequence. [Last Topic Sequence : ' + returnValue.RETURN_DUPLICATEMAPNAME + ']'
+                            });
+                        }
 
                         //else if (returnValue.RETURN_VALUE == "0" && returnValue.RETURN_DUPLICATEMAPNAME != "") {
                         //    Swal.fire({
@@ -6577,6 +6607,14 @@
                         <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
+                    <div class="col-lg-6 d">
+                        <label>Topic Sequence</label>
+                        <input type="number" id="numTopicSequence" name="numTopicSequence" class="form-control" maxlength="100" min="1" />
+                    </div>
+                    <div class="col-lg-6 d-none">
+                        <label>Topic Completion Day(s)</label>
+                        <input type="number" id="numTopicCompDay" name="numTopicCompDay" class="form-control" maxlength="100" min="1" />
+                    </div>
                     <div class="col-lg-4">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
@@ -6585,6 +6623,12 @@
                     <div class="col-lg-2 mb-4" style="height: 60px;">
                         <label> </label>
                         <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-lg-4  d-none" style="height: 60px;">
+                        <label> </label>
+                        <div class="active-checkbox mt-3"><input type="checkbox" id="chkDefault" name="chkDefault" class="styled-checkbox" /><label>Default Topic</label></div>
                     </div>
                 </div>
                 <div class="clearfix">
