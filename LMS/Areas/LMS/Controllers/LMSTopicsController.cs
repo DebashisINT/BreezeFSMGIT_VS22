@@ -262,23 +262,23 @@ namespace LMS.Areas.LMS.Controllers
 
             });
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "TOPIC_COMP_DAY";
-                x.Caption = "Topic Completion Day(s)";
-                x.VisibleIndex = 5;
-                x.ExportWidth = 170;
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "TOPIC_COMP_DAY";
+            //    x.Caption = "Topic Completion Day(s)";
+            //    x.VisibleIndex = 5;
+            //    x.ExportWidth = 170;
 
-            });
+            //});
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "TOPIC_ISDEFAULT";
-                x.Caption = "Default Topic";
-                x.VisibleIndex = 6;
-                x.ExportWidth = 150;
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "TOPIC_ISDEFAULT";
+            //    x.Caption = "Default Topic";
+            //    x.VisibleIndex = 6;
+            //    x.ExportWidth = 150;
 
-            });
+            //});
 
             settings.Columns.Add(x =>
             {
