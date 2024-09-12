@@ -6602,12 +6602,12 @@
             </div>
             <div class="modal-body">
                 <div class="clearfix">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12 mb-3">
                         <label>Topic Name<span style="color: red">*</span></label>
                         <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
-                    <div class="col-lg-6 d">
+                    <div class="col-lg-5">
                         <label>Topic Sequence</label>
                         <input type="number" id="numTopicSequence" name="numTopicSequence" class="form-control" maxlength="100" min="1" />
                     </div>
@@ -6615,7 +6615,7 @@
                         <label>Topic Completion Day(s)</label>
                         <input type="number" id="numTopicCompDay" name="numTopicCompDay" class="form-control" maxlength="100" min="1" />
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
@@ -6632,7 +6632,7 @@
                     </div>
                 </div>
                 <div class="clearfix">
-                    <div class="col-md-12 mt-15">
+                    <div class="col-md-12">
                         <label id="lblBasedOn"> </label>
                         <div>
                             <div id="transfer1T" class="transfer-demo"></div>
