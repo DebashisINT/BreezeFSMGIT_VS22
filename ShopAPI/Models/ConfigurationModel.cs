@@ -25,6 +25,8 @@
 //24.0  V2.0.45     Debashis    14/03/2024      Some new parameters have been added.Row: 901 & Refer: 0027279,0027285 & 0027282
 //25.0  V2.0.45     Debashis    03/04/2024      Some new parameters have been added.Row: 903
 //26.0  V2.0.44     Debashis    03/04/2024      A new parameter has been added.Row: 904
+//27.0  V2.0.44     Debashis    10/08/2024      Some new parameters have been added.Row: 968
+//28.0  V2.0.49     Debashis    17/09/2024      A new parameter has been added.Row: 979
 #endregion===================================End of Revision History==============================================================
 using System;
 using System.Collections.Generic;
@@ -303,10 +305,13 @@ namespace ShopAPI.Models
         //Rev 26.0 Row: 904
         public bool IsShowLeaderBoard { get; set; }
         //End of Rev 26.0 Row: 904
-        //Rev 27.0 Row: 904
+        //Rev 27.0 Row: 968
         public int QuestionAfterNoOfContentForLMS { get; set; }
         public bool IsAllowGPSTrackingInBackgroundForLMS { get; set; }
         //End of Rev 27.0 Row: 968
+        //Rev 28.0 Row: 979
+        public bool IsRetailOrderStatusRequired { get; set; }
+        //End of Rev 28.0 Row: 979
     }
 
     public class ConfigurationModelInput
