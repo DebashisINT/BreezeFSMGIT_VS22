@@ -37,3 +37,16 @@ D:\GIT\GitHub\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Core.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Core.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\ShopAPI\bin\System.CodeDom.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\ShopAPI\obj\Debug\ShopAPI.csproj.Up2Date
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Auth.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Core.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Newtonsoft.Json.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\System.CodeDom.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Auth.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Auth.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Core.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Google.Apis.Core.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\Newtonsoft.Json.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\ShopAPI\bin\System.CodeDom.xml
