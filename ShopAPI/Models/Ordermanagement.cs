@@ -297,8 +297,9 @@ namespace ShopAPI.Models
     }
     public class OrderStatusfetch
     {
-        public long Order_id { get; set; }
+        public string Order_Code { get; set; }
         public string OrderStatus { get; set; }
+        public string Order_date { get; set; }
     }
     //End of Rev 3.0 Row: 978
 }
