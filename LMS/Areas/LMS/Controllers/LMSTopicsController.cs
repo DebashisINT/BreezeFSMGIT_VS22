@@ -271,14 +271,14 @@ namespace LMS.Areas.LMS.Controllers
 
             //});
 
-            //settings.Columns.Add(x =>
-            //{
-            //    x.FieldName = "TOPIC_ISDEFAULT";
-            //    x.Caption = "Default Topic";
-            //    x.VisibleIndex = 6;
-            //    x.ExportWidth = 150;
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOPIC_ISDEFAULT";
+                x.Caption = "Default Topic";
+                x.VisibleIndex = 6;
+                x.ExportWidth = 150;
 
-            //});
+            });
 
             settings.Columns.Add(x =>
             {

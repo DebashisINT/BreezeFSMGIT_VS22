@@ -2798,6 +2798,24 @@
             margin-right: 2px;
         }
 
+    .topic-sequence-number {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: #54ffd8;
+        padding: 5px 15px;
+        border-radius: 25px 0 0 25px;
+        color: #06485e;
+        font-size: 20px;
+        font-weight: 500;
+        box-shadow: -1px 1px 10px #11111152;
+    }
+
+        .topic-sequence-number i {
+            margin-right: 2px;
+        }
+
+
     #videoContainer .col-md-3 {
         width: 20% !important;
     }
@@ -3286,7 +3304,8 @@
                         success: function (data) {
                             const topicsPerPage = 12;
                             let currentPage = 1;
-                            let filteredData = data;
+                            /*let filteredData = data;*/
+                            filteredData = data;
 
                             $('#searchPanel').hide();
                             $('#contentListing').hide();
@@ -3301,6 +3320,90 @@
                             $("#btnShowActiveContents").hide();
                             $("#btnShowInactiveContents").hide();
                             $("#btnBackToTopicList").hide();
+
+
+                            /*Rev Sanchita*/
+
+                            var divTopicList = $('#divTopicList');
+
+                            // Initialize SortableJS
+                            new Sortable(divTopicList[0], {
+                                swap: true, // Enable swap plugin
+                                swapClass: 'highlight',
+                                animation: 150,
+
+                                onEnd: function (evt) {
+
+                                    var newIndex = evt.newIndex;
+                                    var oldIndex = evt.oldIndex;
+
+                                    var TopicId = filteredData[oldIndex].TOPIC_ID;
+
+                                    var TopicIdOld = filteredData[oldIndex].TOPIC_ID;
+                                    var TopicSeqOld = filteredData[oldIndex].TOPIC_SEQ;
+
+                                    var TopicIdNew = filteredData[newIndex].TOPIC_ID;
+                                    var TopicSeqNew = filteredData[newIndex].TOPIC_SEQ;
+
+                                    if (TopicIdOld != TopicIdNew) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/LMSContentUpload/UpdateTopicSequence",
+                                            data: JSON.stringify({ 'TopicIdOld': TopicIdOld, 'TopicSeqOld': TopicSeqOld, 'TopicIdNew': TopicIdNew, 'TopicSeqNew': TopicSeqNew }),
+                                            async: false,
+                                            contentType: "application/json; charset=utf-8",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response);
+                                                if (response == "1") {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Success',
+                                                        text: 'Topic Sequence updated successfully.'
+                                                    }).then(() => {
+
+                                                        $("#ddlTopic").val(0).trigger('change');
+                                                        $("#hdnTopicID").val(0);
+                                                        $("#btnshow").show();
+
+                                                        $('#searchInput').val('');
+
+                                                        btnshow.click();
+
+                                                    });
+                                                    //GridShow();
+
+
+                                                }
+                                                else {
+
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Error',
+                                                        text: 'Error in Play Sequence Update.'
+                                                    });
+                                                    //GridShow();
+
+                                                }
+
+                                            },
+                                            error: function (response) {
+                                                console.log(response);
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: 'An error occurred in Play Sequence update.'
+                                                });
+                                            }
+                                        });
+                                    }
+
+
+                                }
+
+
+                            });
+                            /*End of Rev Sanchita*/
 
                             function renderTopics(topics) {
                                 var videoContainer = $('#videoContainer');
@@ -3342,9 +3445,11 @@
                                     var box = `
                                         <div class="col-md-3 mb-4">
                                             <button type="button" class="btn btn-topic-list btn-radius topic-btn" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" style="background-color: ${color};" data-color="${color}">
+                                                <p class="topic-sequence-number">#${topic.TOPIC_SEQ}</p>
                                                 <div class="topic-name-list">
                                                     <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
                                                     <div class="list-topic-name">
+                                                        
                                                         <span>${topic.TOPIC_CONTENT_COUNT} <small>Content(s)</small></span>
                                                         <h5>${topic.TOPIC_NAME}</h5>
                                                     </div>
@@ -6607,7 +6712,7 @@
                         <input type="text" id="txtTopicName" class="form-control" maxlength="250" tabindex="-1" />
                         <asp:HiddenField ID="hdnHeaderId" runat="server" />
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-3">
                         <label>Topic Sequence</label>
                         <input type="number" id="numTopicSequence" name="numTopicSequence" class="form-control" maxlength="100" min="1" />
                     </div>
@@ -6615,7 +6720,7 @@
                         <label>Topic Completion Day(s)</label>
                         <input type="number" id="numTopicCompDay" name="numTopicCompDay" class="form-control" maxlength="100" min="1" />
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <label>Based On</label>
                         @Html.DropDownListFor(m => m.TopicBasedOnId, new SelectList(Model.TopicBasedOnList, "TOPICBASEDON_ID", "TOPICBASEDON_NAME", Model.TopicBasedOnId), new { @id = "ddlTopicBasedOn", @class = "form-control", @onchange = "ddlTopicBasedOnChange();" })
 
@@ -6624,13 +6729,17 @@
                         <label> </label>
                         <div class="active-checkbox"><input type="checkbox" id="chkStatus" name="chkStatus" class="styled-checkbox" checked /><label>Publish</label></div>
                     </div>
-                </div>
-                <div class="clearfix">
-                    <div class="col-lg-4  d-none" style="height: 60px;">
+                    <div class="col-lg-3 " style="height: 60px;">
                         <label> </label>
                         <div class="active-checkbox mt-3"><input type="checkbox" id="chkDefault" name="chkDefault" class="styled-checkbox" /><label>Default Topic</label></div>
                     </div>
                 </div>
+                @*<div class="clearfix">
+                    <div class="col-lg-4 " style="height: 60px;">
+                        <label> </label>
+                        <div class="active-checkbox mt-3"><input type="checkbox" id="chkDefault" name="chkDefault" class="styled-checkbox" /><label>Default Topic</label></div>
+                    </div>
+                </div>*@
                 <div class="clearfix">
                     <div class="col-md-12">
                         <label id="lblBasedOn"> </label>

@@ -1396,5 +1396,35 @@ namespace LMS.Areas.LMS.Controllers
 
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult UpdateTopicSequence(string TopicIdOld, string TopicSeqOld, string TopicIdNew, string TopicSeqNew)
+        {
+            string output_msg = string.Empty;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                proc.AddPara("@ACTION", "UPDATETOPICSEQUENCE");
+                proc.AddPara("@TOPICIDOLD", TopicIdOld);
+                proc.AddPara("@TOPICSEQOLD", TopicSeqOld);
+                proc.AddPara("@TOPICIDNEW", TopicIdNew);
+                proc.AddPara("@TOPICSEQNEW", TopicSeqNew);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                //output_msg = "1";
+
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
     }
 }

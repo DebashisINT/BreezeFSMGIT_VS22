@@ -108,16 +108,16 @@
     //    //column.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
     //});
-    //settings.Columns.Add(column =>
-    //{
-    //    column.FieldName = "TOPIC_ISDEFAULT";
-    //    column.Caption = "Default Topic";
-    //    //column.FixedStyle = GridViewColumnFixedStyle.Left;
-    //    column.VisibleIndex = 6;
-    //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-    //    column.Width = 100;
-    //    //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    //});
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TOPIC_ISDEFAULT";
+        column.Caption = "Default Topic";
+        //column.FixedStyle = GridViewColumnFixedStyle.Left;
+        column.VisibleIndex = 6;
+        column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        column.Width = 100;
+        //column.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+    });
     settings.Columns.Add(column =>
     {
         column.FieldName = "TOPIC_SEQ";
