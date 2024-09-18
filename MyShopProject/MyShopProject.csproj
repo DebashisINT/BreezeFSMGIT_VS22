@@ -411,6 +411,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\TravelConveyanceController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\MYSHOP\Controllers\UpdateOrderStatusController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\UserversionController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewGeographyController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\ViewGeotrackController.cs" />
@@ -564,6 +565,7 @@
     <Compile Include="Models\ThirdPartyInvoiceBL.cs" />
     <Compile Include="Models\Trackshop.cs" />
     <Compile Include="Models\TravelConveyanceModelclass.cs" />
+    <Compile Include="Models\UpdateOrderStatusModel.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UserversioningUsages.cs" />
     <Compile Include="Models\Userwiseattendance.cs" />
@@ -2063,6 +2065,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\_PartialUpdateOrderStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
