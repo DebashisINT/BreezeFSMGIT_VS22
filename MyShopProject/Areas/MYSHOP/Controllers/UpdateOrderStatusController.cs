@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using BusinessLogicLayer.SalesTrackerReports;
+using DataAccessLayer;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using DocumentFormat.OpenXml.Drawing.Spreadsheet;
@@ -15,6 +16,7 @@ using Models;
 using MyShop.Models;
 using SalesmanTrack;
 using UtilityLayer;
+using static MyShop.Models.UpdateOrderStatusModel;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -30,7 +32,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         DataTable dtshop = new DataTable();
         List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
         OrderDetailsSummaryProducts mproductwindow = new OrderDetailsSummaryProducts();
-        List<OrderDetailsSummary> omodel = new List<OrderDetailsSummary>();
+        List<OrderUpdateDetailsSummary> omodel = new List<OrderUpdateDetailsSummary>();
         ProductDetails _productDetails = new ProductDetails();
         DataTable dtquery = new DataTable();
         public ActionResult Index()
@@ -50,23 +52,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
 
                 EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UpdateOrderStatus/Index");
-                ViewBag.CanAdd = rights.CanAdd;
+                
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;         
                 ViewBag.CanPrint = rights.CanPrint;
                 ViewBag.CanInvoice= rights.CanInvoice;
                 ViewBag.CanReadyToDispatch= rights.CanReadyToDispatch;
                 ViewBag.CanDispatch= rights.CanDispatch;
-                ViewBag.CanDeliver= rights.CanDeliver;                
+                ViewBag.CanDeliver= rights.CanDeliver;              
 
-               // UpdateOrderStatusModel Dtls = new UpdateOrderStatusModel();
-                //DataTable ds = Dtls.GetUpdateStatusOption(userid);
+               
 
                 STATUSLIST dataobj = new STATUSLIST();
                 List<STATUSLIST> _STATUSLIST = new List<STATUSLIST>();
-                ////SectionList = APIHelperMethods.ToModelList<SectionList>(ds);
-                ///
+
+
                 
+                dataobj.STATUSID = "Select";
+                dataobj.STATUSVALUE = "Select";
+                _STATUSLIST.Add(dataobj);
 
 
                 if (rights.CanInvoice==true)
@@ -99,7 +103,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
 
                 omodel.STATUSLIST = _STATUSLIST;
-                //omodel.Section = 0;
+                
 
 
                 DataTable dtbranch = lstuser.GetHeadBranchList(Convert.ToString(Session["userbranchHierarchy"]), "HO");
@@ -130,7 +134,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
         }
-        public ActionResult PartialOrderSummary(Reportorderregisterinput model)
+        public ActionResult PartialOrderSummary(UpdateOrderStatusModel model)
         {
             try
             {
@@ -149,18 +153,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     model.Todate = DateTime.Now.ToString("dd-MM-yyyy");
                 }
-
                 if (model.Is_PageLoad == "0") Is_PageLoad = "Ispageload";
-
                 ViewData["ModelData"] = model;
 
                 string datfrmat = model.Fromdate.Split('-')[2] + '-' + model.Fromdate.Split('-')[1] + '-' + model.Fromdate.Split('-')[0];
                 string dattoat = model.Todate.Split('-')[2] + '-' + model.Todate.Split('-')[1] + '-' + model.Todate.Split('-')[0];
                 string Userid = Convert.ToString(Session["userid"]);
-
                 string state = "";
                 int i = 1;
-
                 if (model.StateId != null && model.StateId.Count > 0)
                 {
                     foreach (string item in model.StateId)
@@ -171,12 +171,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             state = item;
                         i++;
                     }
-
                 }
-
                 string shop = "";
                 int j = 1;
-
                 if (model.shopId != null && model.shopId.Count > 0)
                 {
                     foreach (string item in model.shopId)
@@ -187,13 +184,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             shop = item;
                         j++;
                     }
-
                 }
-
                 string empcode = "";
-
                 int k = 1;
-
                 if (model.empcode != null && model.empcode.Count > 0)
                 {
                     foreach (string item in model.empcode)
@@ -204,15 +197,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             empcode = item;
                         k++;
                     }
-
-                }
-
-               
-                if (model.IsPaitentDetails != null)
-                {
-                    TempData["IsPaitentDetails"] = model.IsPaitentDetails;
-                    TempData.Keep();
-                }
+                }               
+                //if (model.IsPaitentDetails != null)
+                //{
+                //    TempData["IsPaitentDetails"] = model.IsPaitentDetails;
+                //    TempData.Keep();
+                //}
                
                 string Branch_Id = "";
                 int l = 1;
@@ -227,7 +217,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         l++;
                     }
                 }
-                
+               
 
                 if (model.Is_PageLoad != "0")
                 {
@@ -235,34 +225,48 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     if (days <= 30)
                     {
                       
-                        dt = objshop.GetallorderListSummary(state, shop, datfrmat, dattoat, empcode, Branch_Id, Userid);
+                        dt = GetallorderListSummary(state, shop, datfrmat, dattoat, empcode, Branch_Id, Userid, model.UPDATESTATUS);
                        
                     }
-                    omodel = APIHelperMethods.ToModelList<OrderDetailsSummary>(dt);
+                    omodel = APIHelperMethods.ToModelList<OrderUpdateDetailsSummary>(dt);
                 }
 
                 
-                DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "ORDER SUMMARY");
+                DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "UPDATE ORDER STATUS");
                 if (dtColmn != null && dtColmn.Rows.Count > 0)
                 {
                     ViewBag.RetentionColumn = dtColmn;
                 }
                 
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/OrderSummary/Summary");
-                ViewBag.CanPrint = rights.CanPrint;
-                
-                TempData["OrderSummaryList"] = omodel;
-                return PartialView("_PartialOrderSummary", omodel);
-
-
-
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UpdateOrderStatus/Index");
+                ViewBag.CanPrint = rights.CanPrint;                
+                TempData["UpdateOrderStatusList"] = omodel;
+                return PartialView("_PartialUpdateOrderStatus", omodel);
             }
             catch
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
-
             }
         }
+        public DataTable GetallorderListSummary(string stateid, string shopid, string fromdate, string todate, string EmployeeId, string Branch_Id, String Userid = "0", string UPDATESTATUS="")
+        
+        {
+            DataTable ds = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_UPDATE_ORDER_STATUS");
+
+            proc.AddPara("@start_date", fromdate);
+            proc.AddPara("@end_date", todate);
+            proc.AddPara("@stateID", stateid);
+            proc.AddPara("@shop_id", shopid);
+            proc.AddPara("@Employee_id", EmployeeId);
+            proc.AddPara("@LOGIN_ID", Userid);            
+            proc.AddPara("@BRANCHID", Branch_Id);
+            proc.AddPara("@UPDATESTATUS", UPDATESTATUS);
+            ds = proc.GetTable();
+
+            return ds;
+        }
+
         public ActionResult PartialOrderProductDetails()
         {
             string IsDiscountInOrder = objSystemSettings.GetSystemSettingsResult("IsDiscountInOrder");//REV 1.0
@@ -328,18 +332,18 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
 
 
-        public ActionResult DeleteOrder(string OrderId)
-        {
-            int output = objshop.OrderDelete(OrderId);
-            if (output > 0)
-            {
-                return Json("Success");
-            }
-            else
-            {
-                return Json("failure");
-            }
-        }
+        //public ActionResult DeleteOrder(string OrderId)
+        //{
+        //    int output = objshop.OrderDelete(OrderId);
+        //    if (output > 0)
+        //    {
+        //        return Json("Success");
+        //    }
+        //    else
+        //    {
+        //        return Json("failure");
+        //    }
+        //}
        
         public JsonResult PrintSalesOrder(string OrderId)
         {
@@ -467,50 +471,46 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public ActionResult ExporOrdrSummaryList(int type)
         {
-            ViewData["OrderSummaryList"] = TempData["OrderSummaryList"];
+            ViewData["UpdateOrderStatusList"] = TempData["UpdateOrderStatusList"];
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToPdf(GetOrderRegisterList(), ViewData["OrderSummaryList"]);
+                    return GridViewExtension.ExportToPdf(GetOrderRegisterList(), ViewData["UpdateOrderStatusList"]);
                 //break;
                 case 2:
-                    return GridViewExtension.ExportToXlsx(GetOrderRegisterList(), ViewData["OrderSummaryList"]);
+                    return GridViewExtension.ExportToXlsx(GetOrderRegisterList(), ViewData["UpdateOrderStatusList"]);
                 //break;
                 case 3:
-                    return GridViewExtension.ExportToXls(GetOrderRegisterList(), ViewData["OrderSummaryList"]);
+                    return GridViewExtension.ExportToXls(GetOrderRegisterList(), ViewData["UpdateOrderStatusList"]);
                 case 4:
-                    return GridViewExtension.ExportToRtf(GetOrderRegisterList(), ViewData["OrderSummaryList"]);
+                    return GridViewExtension.ExportToRtf(GetOrderRegisterList(), ViewData["UpdateOrderStatusList"]);
                 case 5:
-                    return GridViewExtension.ExportToCsv(GetOrderRegisterList(), ViewData["OrderSummaryList"]);
+                    return GridViewExtension.ExportToCsv(GetOrderRegisterList(), ViewData["UpdateOrderStatusList"]);
                 //break;
 
                 default:
                     break;
             }
-            TempData["OrderSummaryList"] = ViewData["OrderSummaryList"];
+            TempData["UpdateOrderStatusList"] = ViewData["UpdateOrderStatusList"];
             return null;
         }
         private GridViewSettings GetOrderRegisterList()
         {
-            // Rev 4.0
-            DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "ORDER SUMMARY");
+            
+            DataTable dtColmn = objshop.GetPageRetention(Session["userid"].ToString(), "UPDATE ORDER STATUS");
             if (dtColmn != null && dtColmn.Rows.Count > 0)
             {
-                ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
+                ViewBag.RetentionColumn = dtColmn;
             }
-            // End of Rev 4.0
+           
 
             var settings = new GridViewSettings();
             settings.Name = "gridsummarylist";
-            //    settings.CallbackRouteValues = new { Controller = "Report", Action = "GetRegisterreporttatusList" };
-            // Export-specific settings
+           
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "Update Order Status";
 
-            //Rev Debashis
-            if (TempData["IsPaitentDetails"].ToString() == "0")
-            {
-                //End of Rev Debashis
+               
                 settings.Columns.Add(x =>
                 {
                     x.FieldName = "EmployeeName";
@@ -518,7 +518,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 1;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                  
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='EmployeeName'");
@@ -535,7 +535,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
                 settings.Columns.Add(x =>
@@ -545,7 +545,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 2;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                   
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='BRANCHDESC'");
@@ -562,7 +562,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                   
                 });
 
 
@@ -573,7 +573,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 3;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                   
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='shop_name'");
@@ -590,7 +590,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
                 settings.Columns.Add(x =>
@@ -600,7 +600,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 4;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                  
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
@@ -617,7 +617,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                   
                 });
 
                 settings.Columns.Add(x =>
@@ -627,7 +627,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 5;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
-                    // Rev 4.0
+                  
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='address'");
@@ -644,7 +644,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                   
 
                 });
                 settings.Columns.Add(x =>
@@ -654,7 +654,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 6;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                    
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='owner_contact_no'");
@@ -671,7 +671,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
                 settings.Columns.Add(x =>
@@ -681,7 +681,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 7;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                   
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Shoptype'");
@@ -698,7 +698,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
 
@@ -709,7 +709,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 8;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
-                    // Rev 4.0
+                  
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='date'");
@@ -726,7 +726,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
 
@@ -737,7 +737,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.VisibleIndex = 9;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
-                    // Rev 4.0
+                   
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='OrderCode'");
@@ -754,7 +754,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+                    
                 });
 
                 settings.Columns.Add(x =>
@@ -766,7 +766,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
                     x.PropertiesEdit.DisplayFormatString = "0.00";
 
-                    // Rev 4.0
+                  
                     if (ViewBag.RetentionColumn != null)
                     {
                         System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='order_amount'");
@@ -783,406 +783,22 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
-                });
-
-                //Rev Debashis
-            }
-            if (TempData["IsPaitentDetails"].ToString() == "1")
-            {
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "EmployeeName";
-                    x.Caption = "Employee Name";
-                    x.VisibleIndex = 1;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='EmployeeName'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
+                    
                 });
 
                 settings.Columns.Add(x =>
                 {
-                    x.FieldName = "BRANCHDESC";
-                    x.Caption = "Branch";
-                    x.VisibleIndex = 2;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='BRANCHDESC'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "shop_name";
-                    x.Caption = "Shop Name";
-                    x.VisibleIndex = 3;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='shop_name'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "ENTITYCODE";
-                    x.Caption = "Code";
-                    x.VisibleIndex = 4;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ENTITYCODE'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "address";
-                    x.Caption = "Address";
-                    x.VisibleIndex = 5;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='address'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-
-                });
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "owner_contact_no";
-                    x.Caption = "Contact";
-                    x.VisibleIndex = 6;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='owner_contact_no'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Shoptype";
-                    x.Caption = "Shop type";
-                    x.VisibleIndex = 7;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Shoptype'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Patient_Name";
-                    x.Caption = "Patient Name";
-                    x.VisibleIndex = 8;
-                    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Patient_Name'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Patient_Phone_No";
-                    x.Caption = "Patient Phone No.";
-                    x.VisibleIndex = 9;
-                    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Patient_Phone_No'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Patient_Address";
-                    x.Caption = "Patient Address";
-                    x.VisibleIndex = 10;
-                    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Patient_Address'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Hospital";
-                    x.Caption = "Patient Hospital";
+                    x.FieldName = "ORDERSTATUS";
+                    x.Caption = "Order Status";
                     x.VisibleIndex = 11;
-                    // x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Hospital'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "Email_Address";
-                    x.Caption = "Patient Email Address";
-                    x.VisibleIndex = 12;
-                    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Email_Address'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "date";
-                    x.Caption = "Order Date";
-                    x.VisibleIndex = 13;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='date'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "OrderCode";
-                    x.Caption = "Order Number";
-                    x.VisibleIndex = 14;
-                    x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-
-                    // Rev 4.0
-                    if (ViewBag.RetentionColumn != null)
-                    {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='OrderCode'");
-                        if (row != null && row.Length > 0)
-                        {
-                            x.Visible = false;
-                        }
-                        else
-                        {
-                            x.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        x.Visible = true;
-                    }
-                    // End of Rev 4.0
-                });
-
-                settings.Columns.Add(x =>
-                {
-                    x.FieldName = "order_amount";
-                    x.Caption = "Order Value";
-                    x.VisibleIndex = 15;
                     x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
                     x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-                    x.PropertiesEdit.DisplayFormatString = "0.00";
+                    //x.PropertiesEdit.DisplayFormatString = "0.00";
 
-                    // Rev 4.0
+
                     if (ViewBag.RetentionColumn != null)
                     {
-                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='order_amount'");
+                        System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ORDERSTATUS'");
                         if (row != null && row.Length > 0)
                         {
                             x.Visible = false;
@@ -1196,9 +812,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         x.Visible = true;
                     }
-                    // End of Rev 4.0
+
                 });
-            }
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
             settings.SettingsExport.RightMargin = 20;

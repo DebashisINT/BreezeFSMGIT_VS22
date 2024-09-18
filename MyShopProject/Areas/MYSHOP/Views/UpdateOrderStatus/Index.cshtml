@@ -18,7 +18,7 @@
     var Is_PageLoad = "0";
     //Rev 1.0
     function fetchProductDetails() {
-        var surl = '@Url.Action("getMrpDiscount", "OrderSummary")';
+        var surl = '@Url.Action("getMrpDiscount", "UpdateOrderStatus")';
         var Product_Id = $("#idproduct").val();
         if (Product_Id != null) {
             $.ajax({
@@ -148,7 +148,7 @@
 
             else {
                 flag = true;
-                var surl = '@Url.Action("UpdateOrderProduct", "OrderSummary")';
+                var surl = '@Url.Action("UpdateOrderProduct", "UpdateOrderStatus")';
                 $.ajax({
                     url: surl,
                     async: false,
@@ -184,7 +184,7 @@
             if ($("#ddlAppIds option:selected").index() > 0) {
                 var selectedValue = $(this).val();
                 $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporOrdrSummaryList", "OrderSummary", new { type = "_type_" })'
+                var url = '@Url.Action("ExporOrdrSummaryList", "UpdateOrderStatus", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
 
             }
@@ -244,23 +244,19 @@
     function OnStartCallback(s, e) {
 
         e.customArgs["Fromdate"] = dtFrom.GetText();
-        e.customArgs["Todate"] = dtTo.GetText();
-        //e.customArgs["selectedusrid"] = empId
+        e.customArgs["Todate"] = dtTo.GetText();        
         e.customArgs["empcode"] = empId;
         e.customArgs["StateId"] = StateId;
-        e.customArgs["shopId"] = ShopId;
-        //Rev Debashis
+        e.customArgs["shopId"] = ShopId;       
         if ($('#IsPaitentDetails').prop('checked')) {
             e.customArgs["IsPaitentDetails"] = 1;
         }
         else {
             e.customArgs["IsPaitentDetails"] = 0;
-        }
-        //End of Rev Debashis
+        }        
+        e.customArgs["BranchId"] = BranchId;      
 
-        //REV 4.0
-        e.customArgs["BranchId"] = BranchId;
-        //REV 4.0 END
+        e.customArgs["UPDATESTATUS"] = $("#ddlSTATUS").val();
     }
 
 
@@ -330,7 +326,7 @@
         //$('#DesignModel').show()
         $("#DesignModel").modal('show')
         $("#Order_Id").val(orderid)
-        var surl = '@Url.Action("PrintSalesOrder", "OrderSummary")';
+        var surl = '@Url.Action("PrintSalesOrder", "UpdateOrderStatus")';
         $.ajax({
             url: surl,
             async: false,
@@ -376,7 +372,7 @@
             'type': 'confirm',
             'confirmQuestion': 'Do you want to delete the Order?',
             'onConfirm': function (e, btn) {
-                var surl = '@Url.Action("DeleteOrder", "OrderSummary")';
+                var surl = '@Url.Action("DeleteOrder", "UpdateOrderStatus")';
                 $.ajax({
                     url: surl,
                     async: false,
@@ -404,7 +400,7 @@
             'type': 'confirm',
             'confirmQuestion': 'Do you want to delete the Product?',
             'onConfirm': function (e, btn) {
-                var surl = '@Url.Action("DeleteProduct", "OrderSummary")';
+                var surl = '@Url.Action("DeleteProduct", "UpdateOrderStatus")';
                 $.ajax({
                     url: surl,
                     async: false,
@@ -429,7 +425,7 @@
 
     function EditProduct(ProdID, OrderID) {
 
-        var surl = '@Url.Action("EditOrderProducts", "OrderSummary")';
+        var surl = '@Url.Action("EditOrderProducts", "UpdateOrderStatus")';
         $.ajax({
             async: false,
             url: surl,
@@ -934,6 +930,13 @@
     #refreshgridstatusreportregister #gridorderrsummary {
         width: 99% !important;
     }
+
+    #ddlSTATUS {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
 </style>
 <script>
     $(document).ready(function () {
@@ -1028,7 +1031,7 @@
     function PrintOKPopup() {
         // End of Mantis Issue 25360
         var reportName = $("#ddl_design").val();
-        var module = 'OrderSummary';
+        var module = 'UpdateOrderStatus';
         var orderid = $("#Order_Id").val()
         if (reportName == '0') {
             jAlert("Please select Design.");
@@ -1168,7 +1171,7 @@
 
     function addPageRetention(visibleColumn) {
         $.ajax({
-            url: "@Url.Action("PageRetention", "OrderSummary")",
+            url: "@Url.Action("PageRetention", "UpdateOrderStatus")",
             async: false,
             data: { Columns: visibleColumn },
             type: 'POST',
@@ -1282,8 +1285,9 @@
                         </tr>
                         <tr>                         
 
-                            <td>
-                                <div class="h-branch-select">
+                            <td class="h-branch-select">
+                                <label>Order Status</label>
+                                <div>
                                     @Html.DropDownListFor(m => m.UPDATESTATUS, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlSTATUS", @class = "form-control" })
                                 </div>
                             </td>
@@ -1329,7 +1333,7 @@
                 <div id="refreshgridstatusreportregister">
                     @{
 
-                        Html.RenderAction("PartialOrderSummary", "OrderSummary", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId });
+                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS= Model.UPDATESTATUS });
 
                     }
                 </div>
@@ -1342,7 +1346,7 @@
                 <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
                 <input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />
 
-                <div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
+                @*<div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
                     <div class="modal-dialog modal-lg" style="width: 1045px">
 
 
@@ -1355,7 +1359,7 @@
                                 <div id="divModalBody" style="padding-left:20px;">
                                     <div>
                                         @{
-                                            Html.RenderAction("PartialOrderProductDetails", "OrderSummary");
+                                            Html.RenderAction("PartialOrderProductDetails", "UpdateOrderStatus");
                                         }
 
 
@@ -1365,7 +1369,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div>*@
             </div>
 
             <input id="hdnorder" type="hidden" />
