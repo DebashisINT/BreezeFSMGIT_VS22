@@ -36,7 +36,7 @@ namespace MyShop.Models
         public int IsShowDiscount { get; set; }
         // End of Rev 1.0
         public string UPDATESTATUS { get; set; }
-        public List<string> SectionIds { get; set; }
+        //public List<string> SectionIds { get; set; }
         public string STATUSId { get; set; }
         public List<STATUSLIST> STATUSLIST { get; set; }
 
@@ -66,6 +66,28 @@ namespace MyShop.Models
             {
                 proc = null;
             }
+        }
+
+        public class OrderUpdateDetailsSummary
+        {
+            public string EmployeeName { get; set; }
+            public string BRANCHDESC { get; set; }
+            public string shop_name { get; set; }
+            public string ENTITYCODE { get; set; }
+            public string address { get; set; }
+            public string owner_contact_no { get; set; }
+            public string Shoptype { get; set; }
+            public string date { get; set; }
+            public string OrderCode { get; set; }
+            public decimal order_amount { get; set; }
+            public long OrderId { get; set; }            
+            public string Patient_Name { get; set; }
+            public string Patient_Phone_No { get; set; }
+            public string Patient_Address { get; set; }
+            public string Hospital { get; set; }
+            public string Email_Address { get; set; }
+            public string ORDERSTATUS { get; set; }
+
         }
     }
 
