@@ -77,6 +77,8 @@ namespace LMS.Models
         public String TOPIC_ID { get; set; }
         public String TOPIC_NAME { get; set; }
         public String TOPIC_CONTENT_COUNT { get; set; }
+        public string TOPIC_SEQ { get; set; }
+
 
     }
 
