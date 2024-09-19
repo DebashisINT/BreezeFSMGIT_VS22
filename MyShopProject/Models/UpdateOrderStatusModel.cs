@@ -21,22 +21,24 @@ namespace MyShop.Models
         public string Fromdate { get; set; }
         public string Todate { get; set; }
         public int Uniquecont { get; set; }
-        //rev Pratik
+        
         public int IsSchemeDetails { get; set; }
-        //End of rev Pratik
-        //Rev Debashis
+        
         public int IsPaitentDetails { get; set; }
-        //End of Rev Debashis
-        //Rev Debashis 0025198
+        
         public List<string> BranchId { get; set; }
         public List<GetBranch> modelbranch = new List<GetBranch>();
-        //End of Rev Debashis 0025198
-        // Rev 1.0
+       
         public int IsShowMRP { get; set; }
         public int IsShowDiscount { get; set; }
-        // End of Rev 1.0
+        
         public string UPDATESTATUS { get; set; }
-        //public List<string> SectionIds { get; set; }
+
+        public string ORDERSTATUSOLD { get; set; }
+
+        public string ORDERSTATUSNEW { get; set; }
+
+
         public string STATUSId { get; set; }
         public List<STATUSLIST> STATUSLIST { get; set; }
 
@@ -88,6 +90,9 @@ namespace MyShop.Models
             public string Email_Address { get; set; }
             public string ORDERSTATUS { get; set; }
 
+            public string ORDERSTATUSOLD { get; set; }
+
+            public string ORDERSTATUSNEW { get; set; }
         }
     }
 

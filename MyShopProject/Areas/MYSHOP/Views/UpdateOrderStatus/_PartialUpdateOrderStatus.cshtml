@@ -321,23 +321,23 @@
     });
 
 
-    //if (ViewBag.CanPrint == true)
-    //{
-    //    settings.Columns.Add(x =>
-    //    {
-    //        x.Caption = "Action";
-    //        x.VisibleIndex = 12;
-    //        x.SetDataItemTemplateContent(c =>
-    //        {
+    if (ViewBag.CanPrint == true)
+    {
+        settings.Columns.Add(x =>
+        {
+            x.Caption = "Action";
+            x.VisibleIndex = 12;
+            x.SetDataItemTemplateContent(c =>
+            {
 
-    //            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenProductWindow('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/eye2.png\" /></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenProductWindow('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/eye2.png\" /></a>");
 
-    //            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"PrintOrder('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/print.png\" /></a>");
+                //ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"PrintOrder('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/print.png\" /></a>");
 
 
-    //        });
-    //    });
-    //}      
+            });
+        });
+    }
 
     settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "order_amount").DisplayFormat = "0.00";
 }).Bind(Model).GetHtml()
