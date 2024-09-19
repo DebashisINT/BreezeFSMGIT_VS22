@@ -44,7 +44,7 @@
 
     $(function () {
 
-        $("#btnEdit").attr('style', 'display:none;');
+       // $("#btnEdit").attr('style', 'display:none;');
         var d = new Date();
 
 
@@ -130,63 +130,40 @@
             Clearall();
         });
 
-        $('body').on('click', '#btnEdit', function () {
-            var flag = false;
+        $('body').on('click', '#btnUpdateStatus', function () {
+            var flag = false;          
 
-            if ($("#idproduct").val() == "") {
-                alert(flag);
-
-            }
-            else if ($("#txtprod_qty").val() == "" || parseInt($("#txtprod_qty").val()) == 0) {
-                alert(flag);
-
-            }
-
-            else if ($("#txtprod_rate").val() == "" || parseInt($("#txtprod_rate").val()) == 0) {
+            if ($("#ddlNewSTATUS").val() == "" || $("#ddlNewSTATUS").val() == "Select") {
                 alert(flag);
             }
-
             else {
                 flag = true;
-                var surl = '@Url.Action("UpdateOrderProduct", "UpdateOrderStatus")';
+                var surl = '@Url.Action("UpdateOrderStatusModify", "UpdateOrderStatus")';
                 $.ajax({
                     url: surl,
                     async: false,
                     data: {
-                        Order_ID: $("#hdnorder").val(),
-                        Order_ProdId: $("#hdnproductorderid").val(),
-                        Product_Id: $("#idproduct").val(),
-                        Product_Qty: $("#txtprod_qty").val(),
-                        Product_Rate: $("#txtprod_rate").val(),
-
-                       /* REV 2.0*/
-                        Product_MRP: $("#txtprod_MRP").val(),
-                        Product_Discount: $("#txtprod_discount").val()
-                      /*  REV 2.0 END*/
+                        OrderId: $("#hdnorder").val(),
+                        ORDERSTATUSNEW: $("#ddlNewSTATUS").val()                        
                     },
                     type: 'POST',
                     success: function (data) {
                         jAlert('Updated Successfully');
-                        gridProductlist.Refresh();
+                        $("#myModal").modal('hide');
                         gridorderrsummary.Refresh();
                     },
                     error: function () {
-
                     },
                 });
-
             }
-
-
         });
 
         $('#ddlAppIds').on('change', function () {
             if ($("#ddlAppIds option:selected").index() > 0) {
                 var selectedValue = $(this).val();
                 $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporOrdrSummaryList", "UpdateOrderStatus", new { type = "_type_" })'
+                var url = '@Url.Action("ExporUpdateOrderStatusList", "UpdateOrderStatus", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
-
             }
         });
 
@@ -244,17 +221,17 @@
     function OnStartCallback(s, e) {
 
         e.customArgs["Fromdate"] = dtFrom.GetText();
-        e.customArgs["Todate"] = dtTo.GetText();        
+        e.customArgs["Todate"] = dtTo.GetText();
         e.customArgs["empcode"] = empId;
         e.customArgs["StateId"] = StateId;
-        e.customArgs["shopId"] = ShopId;       
+        e.customArgs["shopId"] = ShopId;
         if ($('#IsPaitentDetails').prop('checked')) {
             e.customArgs["IsPaitentDetails"] = 1;
         }
         else {
             e.customArgs["IsPaitentDetails"] = 0;
-        }        
-        e.customArgs["BranchId"] = BranchId;      
+        }
+        e.customArgs["BranchId"] = BranchId;
 
         e.customArgs["UPDATESTATUS"] = $("#ddlSTATUS").val();
     }
@@ -357,9 +334,10 @@
     function OpenProductWindow(orderid) {
 
         $("#hdnorder").val(orderid);
+        EditStatus(orderid);
         $("#myModal").modal('show');
         Clearall();
-        gridProductlist.Refresh();
+        //gridProductlist.Refresh();
     }
 
 
@@ -367,102 +345,29 @@
         e.customArgs["OrderId"] = $("#hdnorder").val();
     }
 
-    function DeleteOrder(Id) {
-        $.jAlert({
-            'type': 'confirm',
-            'confirmQuestion': 'Do you want to delete the Order?',
-            'onConfirm': function (e, btn) {
-                var surl = '@Url.Action("DeleteOrder", "UpdateOrderStatus")';
-                $.ajax({
-                    url: surl,
-                    async: false,
-                    data: {
-                        OrderId: Id,
-                    },
-                    type: 'POST',
-                    success: function (data) {
-                        jAlert('Deleted Successfully');
-                        gridorderrsummary.Refresh();
-                    },
-                    error: function () {
+   
 
-                    },
-                });
-            },
-            'onDeny': function (e, btn) {
-                return false;
-            }
-        });
-    }
+   
 
-    function DeleteProduct(ProdID, OrderID) {
-        $.jAlert({
-            'type': 'confirm',
-            'confirmQuestion': 'Do you want to delete the Product?',
-            'onConfirm': function (e, btn) {
-                var surl = '@Url.Action("DeleteProduct", "UpdateOrderStatus")';
-                $.ajax({
-                    url: surl,
-                    async: false,
-                    data: {
-                        OrderId: OrderID,
-                        ProdID: ProdID
-                    },
-                    type: 'POST',
-                    success: function (data) {
-                        jAlert('Deleted Successfully');
-                        gridProductlist.Refresh();
-                    },
-                    error: function () {
-                    },
-                });
-            },
-            'onDeny': function (e, btn) {
-                return false;
-            }
-        });
-    }
+    function EditStatus(OrderID) {
 
-    function EditProduct(ProdID, OrderID) {
-
-        var surl = '@Url.Action("EditOrderProducts", "UpdateOrderStatus")';
+        var surl = '@Url.Action("EditUpdateOrderStatus", "UpdateOrderStatus")';
         $.ajax({
             async: false,
             url: surl,
             data: {
-                OrderId: OrderID,
-                ProdID: ProdID
+                OrderId: OrderID,               
             },
             type: 'POST',
 
             success: function (data) {
-                $("#idproduct").val(data.Product_Id);
-                $("#txtprod_qty").val(data.Product_Qty);
-                $("#txtprod_rate").val(data.Product_Rate);
-                $("#txtprod_price").val(data.Product_Price);
-
-                /* REV 2.0*/
-                $("#txtprod_MRP").val(data.Product_MRP);
-                $("#txtprod_discount").val(data.Product_Discount);
-                /* REV 2.0 END*/
-                $("#hdnorder").val(data.Order_ID);
-                $("#hdnproductorderid").val(data.Order_ProdId);
-
-                $("#btnEdit").attr('style', 'display:inline-block;');
-                /* REV 6.0*/
-                $("#idproduct").prop("disabled", true);
-                /* REV 6.0 End*/
+                $("#txtORDERSTATUSOLD").val(data.ORDERSTATUS);               
             },
             error: function () {
                 alert('No dat to be displayed', "Alert!");
             },
-
-
         });
-        // Mantis Issue 25478
-        //empgradeGridLookup.SetEnabled(false);
-        // End of Mantis Issue 25478
-        StateGridLookup.SetEnabled(false);
+       
     }
     function calculation() {
 
@@ -482,18 +387,8 @@
 
     }
 
-    function Clearall() {
-
-        $("#btnEdit").attr('style', 'display:none;');
-        $("#txtprod_rate").val(0);
-        $("#txtprod_qty").val(0);
-        $("#txtprod_price").val(0);
-        $("#hdnproductorderid").val(0);
-
-       /* REV 2.0*/
-        $("#txtprod_MRP").val(0);
-        $("#txtprod_discount").val(0);
-       /* REV 2.0 END*/
+    function Clearall() {       
+        $("#ddlNewSTATUS").val("Select");        
     }
 
     function StateStartCallback(s, e) {
@@ -1281,9 +1176,9 @@
                                 }).GetHtml()
                                 </div>
                             </td>
-                           
+
                         </tr>
-                        <tr>                         
+                        <tr>
 
                             <td class="h-branch-select">
                                 <label>Order Status</label>
@@ -1333,7 +1228,7 @@
                 <div id="refreshgridstatusreportregister">
                     @{
 
-                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS= Model.UPDATESTATUS });
+                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS = Model.UPDATESTATUS });
 
                     }
                 </div>
@@ -1346,96 +1241,103 @@
                 <input type="hidden" id="hdnUserID" value="@Session["userid"].ToString()" />
                 <input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />
 
-                @*<div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
+                <div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
                     <div class="modal-dialog modal-lg" style="width: 1045px">
 
 
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Product List</h4>
+                                <h4 class="modal-title">Update Order Status</h4>
                             </div>
                             <div class="modal-body">
-                                <div id="divModalBody" style="padding-left:20px;">
-                                    <div>
-                                        @{
-                                            Html.RenderAction("PartialOrderProductDetails", "UpdateOrderStatus");
-                                        }
-
-
+                                <div id="divModalBody" style="" class="clearfix">
+                                    <div class="col-md-2">
+                                        <label>Old Status</label>
+                                        <div>
+                                            @Html.TextBoxFor(m => m.ORDERSTATUSOLD, new { @class = "form-control", @id = "txtORDERSTATUSOLD" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>New Status</label>
+                                        <div>
+                                            @Html.DropDownListFor(m => m.ORDERSTATUSNEW, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlNewSTATUS", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pad-md-18 mt-3 cust-margin-top">
+                                        <label>&nbsp;</label>                                        
+                                        <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>Update</button>                                        
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+                    </div>
+
+                    <input id="hdnorder" type="hidden" />
+                    <input id="hdnproductorderid" type="hidden" />
+
+                </div>
+            </div>
+        </div>
+        <!--Employee Modal -->
+        <div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Employee Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
+                        <div id="EmployeeTable">
+                            <table border='1' width="100%">
+
+                                <tr class="HeaderStyle" style="font-size:small">
+                                    <th>Select</th>
+                                    <th class="hide">id</th>
+                                    <th>Employee Name</th>
+                                    <th>Employee Code</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
+                        <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
 
                     </div>
-                </div>*@
-            </div>
-
-            <input id="hdnorder" type="hidden" />
-            <input id="hdnproductorderid" type="hidden" />
-
-        </div>
-    </div>
-</div>
-<!--Employee Modal -->
-<div class="modal fade pmsModal w50" id="EmployeeModel" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Employee Search</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" onkeydown="Employeekeydown(event)" id="txtEmployeeSearch" width="100%" placeholder="Search By Employee Name" />
-                <div id="EmployeeTable">
-                    <table border='1' width="100%">
-
-                        <tr class="HeaderStyle" style="font-size:small">
-                            <th>Select</th>
-                            <th class="hide">id</th>
-                            <th>Employee Name</th>
-                            <th>Employee Code</th>
-                        </tr>
-                    </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('EmployeeSource')">Deselect All</button>
-                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-
-            </div>
         </div>
-    </div>
-</div>
-<asp:HiddenField ID="hdnEmployeeId" runat="server" />
-<!--Employee Modal -->
-@*Mantis Issue 24944*@
-<div class="modal fade pmsModal w50" id="DesignModel" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+        <asp:HiddenField ID="hdnEmployeeId" runat="server" />
+        <!--Employee Modal -->
+        @*Mantis Issue 24944*@
+        <div class="modal fade pmsModal w50" id="DesignModel" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <h4 class="modal-title">Select Design</h4>
-            </div>
-            <div class="modal-body">
-                <div id="DesignTable">
-                    <label class="required">Select Design:</label>
-                    <select class="form-control" id="ddl_design">
-                        <option value="0">--Select Design--</option>
-                    </select>
+                        <h4 class="modal-title">Select Design</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="DesignTable">
+                            <label class="required">Select Design:</label>
+                            <select class="form-control" id="ddl_design">
+                                <option value="0">--Select Design--</option>
+                            </select>
 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="PrintOKPopup()">OK</button>
+
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="PrintOKPopup()">OK</button>
-
-            </div>
         </div>
-    </div>
-</div>
 

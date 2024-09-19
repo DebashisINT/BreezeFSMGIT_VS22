@@ -30,10 +30,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
         DataTable dtuser = new DataTable();
         DataTable dtstate = new DataTable();
         DataTable dtshop = new DataTable();
-        List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
-        OrderDetailsSummaryProducts mproductwindow = new OrderDetailsSummaryProducts();
+        //List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
+        OrderUpdateDetailsSummary UpdateStatusWindow = new OrderUpdateDetailsSummary();
         List<OrderUpdateDetailsSummary> omodel = new List<OrderUpdateDetailsSummary>();
-        ProductDetails _productDetails = new ProductDetails();
+       // ProductDetails _productDetails = new ProductDetails();
         DataTable dtquery = new DataTable();
         public ActionResult Index()
         {
@@ -80,21 +80,21 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     dataobj.STATUSVALUE = "Invoiced";
                     _STATUSLIST.Add(dataobj);
                 }
-                else if (rights.CanReadyToDispatch == true)
+                if (rights.CanReadyToDispatch == true)
                 {
                     dataobj = new STATUSLIST();
                     dataobj.STATUSID = "Ready To Dispatch";
                     dataobj.STATUSVALUE = "Ready To Dispatch";
                     _STATUSLIST.Add(dataobj);
                 }
-                else if (rights.CanDispatch == true)
+                if (rights.CanDispatch == true)
                 {
                     dataobj = new STATUSLIST();
                     dataobj.STATUSID = "Dispatched";
                     dataobj.STATUSVALUE = "Dispatched";
                     _STATUSLIST.Add(dataobj);
                 }
-                else if (rights.CanDeliver == true)
+                if (rights.CanDeliver == true)
                 {
                     dataobj = new STATUSLIST();
                     dataobj.STATUSID = "Delivered";
@@ -249,7 +249,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
         }
         public DataTable GetallorderListSummary(string stateid, string shopid, string fromdate, string todate, string EmployeeId, string Branch_Id, String Userid = "0", string UPDATESTATUS="")
-        
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_UPDATE_ORDER_STATUS");
@@ -267,83 +266,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return ds;
         }
 
-        public ActionResult PartialOrderProductDetails()
-        {
-            string IsDiscountInOrder = objSystemSettings.GetSystemSettingsResult("IsDiscountInOrder");//REV 1.0
-            string IsViewMRPInOrder = objSystemSettings.GetSystemSettingsResult("IsViewMRPInOrder");//REV 1.0
-            List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
-            try
-            {
-                string Is_PageLoad = string.Empty;
-                String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
-                List<GpsStatusClasstOutput> omel = new List<GpsStatusClasstOutput>();
-
-                DataTable dt = new DataTable();
-                DataTable dtproduct = new DataTable();
-                dtproduct = objshop.GetProducts();
-                List<Productlist_Order> oproductlist = new List<Productlist_Order>();
-
-                oproductlist = APIHelperMethods.ToModelList<Productlist_Order>(dtproduct);
-
-                mproductwindow.products = oproductlist;
-
-               
-                ViewBag.IsDiscountInOrder = IsDiscountInOrder;
-                ViewBag.IsViewMRPInOrder = IsViewMRPInOrder;
-                
-                return PartialView("_PartialOrderProductDetails", mproductwindow);
-
-            }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-
-            }
-        }
-        public ActionResult PartialOrderSummaryAllProducts(string OrderId = null)
-        {
-
-            try
-            {
-                string IsDiscountInOrder = objSystemSettings.GetSystemSettingsResult("IsDiscountInOrder");//REV 1.0
-                string IsViewMRPInOrder = objSystemSettings.GetSystemSettingsResult("IsViewMRPInOrder");//REV 1.0
-                string Is_PageLoad = string.Empty;
-                String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
-                List<GpsStatusClasstOutput> omel = new List<GpsStatusClasstOutput>();
-
-                DataTable dt = new DataTable();
-                if (!string.IsNullOrEmpty(OrderId))
-                {
-                    dt = objshop.GetallorderDetails(Int32.Parse(OrderId));
-                    mproductwindow.productdetails = APIHelperMethods.ToModelList<OrderDetailsSummaryProductslist>(dt);
-                }
-                ViewBag.IsDiscountInOrder = IsDiscountInOrder;
-                ViewBag.IsViewMRPInOrder = IsViewMRPInOrder;
-                
-                return PartialView("_PartialOrderSummaryAllProducts", mproductwindow.productdetails);
-
-            }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-
-            }
-        }
+      
 
 
 
-        //public ActionResult DeleteOrder(string OrderId)
-        //{
-        //    int output = objshop.OrderDelete(OrderId);
-        //    if (output > 0)
-        //    {
-        //        return Json("Success");
-        //    }
-        //    else
-        //    {
-        //        return Json("failure");
-        //    }
-        //}
        
         public JsonResult PrintSalesOrder(string OrderId)
         {
@@ -398,60 +324,40 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         }
       
-        public ActionResult DeleteProduct(int OrderId, int ProdID)
-        {
-            int output = objshop.OrderProductModifyDelete(ProdID, OrderId, 0, 0, 0, 0, "Delete");
-            if (output > 0)
-            {
-                return Json("Success");
-            }
-            else
-            {
-                return Json("failure");
-            }
-        }
+       
 
-        public ActionResult EditOrderProducts(string OrderId, string ProdID)
+        public ActionResult EditUpdateOrderStatus(string OrderId)
         {
-
-            List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
             try
             {
-                string Is_PageLoad = string.Empty;
-                String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
-                List<GpsStatusClasstOutput> omel = new List<GpsStatusClasstOutput>();
-
-                DataTable dt = new DataTable();
-                DataTable dtproduct = new DataTable();
-                dtproduct = objshop.GetProducts();
-                List<Productlist_Order> oproductlist = new List<Productlist_Order>();
-                oproductlist = APIHelperMethods.ToModelList<Productlist_Order>(dtproduct);
-
-                dtquery = objshop.OrderProductFetch(ProdID, OrderId, "Edit");
-                mproductwindow = APIHelperMethods.ToModel<OrderDetailsSummaryProducts>(dtquery);
-                // Mantis Issue 25478
-                //mproductwindow.products = oproductlist;
-                // End of Mantis Issue 25478
-                return Json(mproductwindow);
+                dtquery = UpdateOrderStatusFetch(OrderId, "Edit");
+                UpdateStatusWindow = APIHelperMethods.ToModel<OrderUpdateDetailsSummary>(dtquery);            
+                
+                return Json(UpdateStatusWindow);
 
             }
             catch
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
-
             }
         }
 
-
-
-        public ActionResult UpdateOrderProduct(OrderDetailsSummaryProducts model)
+        public DataTable UpdateOrderStatusFetch(string OrderId, string Action)
         {
-            if (model.Order_ProdId != 0)
-            {
-                //REV 1.0
-                //int output = objshop.OrderProductModifyDelete(model.Order_ProdId, model.Order_ID, model.Product_Qty, model.Product_Rate, "Update");
-                int output = objshop.OrderProductModifyDelete(model.Order_ProdId, model.Order_ID, model.Product_Qty, model.Product_Rate, model.Product_MRP, model.Product_Discount, "Update");
-                //REV 1.0 END
+            DataTable ds = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_UPDATEORDERSTATUS_DETAILS");
+            proc.AddPara("@OrderID", OrderId);           
+            proc.AddPara("@Action", Action);
+            ds = proc.GetTable();
+            return ds;
+        }
+
+        public ActionResult UpdateOrderStatusModify(OrderUpdateDetailsSummary model)
+        {
+            if (model.ORDERSTATUSNEW != "Select")
+            {               
+                int output = OrderStatusModify(model.ORDERSTATUSNEW, model.OrderId, "Update");
+         
                 if (output > 0)
                 {
                     return Json("Success");
@@ -467,9 +373,19 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
         }
 
+        public int OrderStatusModify(string ORDERSTATUSNEW, long OrderId,string Action)
+        {
+            DataTable ds = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_UPDATEORDERSTATUS_DETAILS");
+            proc.AddPara("@OrderID", OrderId);
+            proc.AddPara("@ORDERSTATUSNEW", ORDERSTATUSNEW);            
+            proc.AddPara("@Action", Action);
+            proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["userid"])); 
+            int i = proc.RunActionQuery();
+            return i;
+        }
 
-
-        public ActionResult ExporOrdrSummaryList(int type)
+        public ActionResult ExporUpdateOrderStatusList(int type)
         {
             ViewData["UpdateOrderStatusList"] = TempData["UpdateOrderStatusList"];
             switch (type)
@@ -823,20 +739,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return settings;
         }
 
-        public ActionResult getMrpDiscount(OrderDetailsSummaryProducts model)
-        {
-            if (model.Order_ProdId != 0)
-            {
-                dtquery = objshop.getMrpDiscount(model.Product_Id, "ProductIdWiseMrpDiscount");
-                _productDetails = APIHelperMethods.ToModel<ProductDetails>(dtquery);
-                return Json(_productDetails);
-            }
-            else
-            {
-                return Json("failure");
-            }
-        }
-
+        
        
         public ActionResult PageRetention(List<String> Columns)
         {
