@@ -4,7 +4,11 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using BusinessLogicLayer.SalesTrackerReports;
@@ -12,11 +16,14 @@ using DataAccessLayer;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using Google.Apis.Auth.OAuth2;
 using Models;
 using MyShop.Models;
 using SalesmanTrack;
 using UtilityLayer;
 using static MyShop.Models.UpdateOrderStatusModel;
+//using DocumentFormat.OpenXml.Drawing.Charts;
+//using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace MyShop.Areas.MYSHOP.Controllers
 {
@@ -251,7 +258,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         public DataTable GetallorderListSummary(string stateid, string shopid, string fromdate, string todate, string EmployeeId, string Branch_Id, String Userid = "0", string UPDATESTATUS="")
         {
             DataTable ds = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_UPDATE_ORDER_STATUS");
+            ProcedureExecute proc = new ProcedureExecute("PRC_UPDATEORDERSTATUS_LISTING");
 
             proc.AddPara("@start_date", fromdate);
             proc.AddPara("@end_date", todate);
@@ -266,11 +273,6 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return ds;
         }
 
-      
-
-
-
-       
         public JsonResult PrintSalesOrder(string OrderId)
         {
 
@@ -360,6 +362,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
          
                 if (output > 0)
                 {
+                    DataSet dataSet = new DataSet();
+                    ProcedureExecute proc = new ProcedureExecute("PRC_PUSHNOTIFICATIONS");
+                    proc.AddIntegerPara("@USERID", Convert.ToInt32(model.USERID));
+                    proc.AddPara("@Action", "GETDATA");
+                    dataSet = proc.GetDataSet();                 
+                   
+                    DataTable dtUser= dataSet.Tables[0];
+                    if (dtUser.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dtUser.Rows.Count; i++)
+                        {
+                            string user_name = dtUser.Rows[0]["user_name"].ToString();
+                            string user_PHNO = dtUser.Rows[0]["user_loginId"].ToString();
+
+                            string Mssg = "" + model.OrderCode + " status has changed to " + model.ORDERSTATUSNEW;
+
+                            SendNotification(user_PHNO, Mssg, model.OrderCode, model.ORDERSTATUSNEW);
+                        }
+                    }
                     return Json("Success");
                 }
                 else
@@ -372,7 +393,133 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return Json("failure");
             }
         }
+        public JsonResult SendNotification(string Mobiles, string messagetext, string OrderCode, string ORDERSTATUS)
+        {
 
+            string status = string.Empty;
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_PUSHNOTIFICATIONS");
+                proc.AddPara("@MobileNO", Mobiles);
+                proc.AddPara("@Action", "GETDEVICETOKEN");
+                dt = proc.GetTable();
+               
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (Convert.ToString(dt.Rows[i]["device_token"]) != "")
+                        {                            
+                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]), "lms_content_assign", OrderCode, ORDERSTATUS);
+                           
+                        }
+                    }
+                    status = "200";
+                }
+
+
+                else
+                {
+
+                    status = "202";
+                }
+
+
+
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                status = "300";
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public void SendPushNotification(string message = "", string deviceid = "", string Customer = "", string UserID = "", string type = "",
+          string lead_date = "", string enquiry_type = "", string title = "")       
+        {
+            try
+            {
+                DBEngine odbengine = new DBEngine();
+                string fileName = "", projectname = "";
+                DataSet dataSet = new DataSet();
+                ProcedureExecute proc = new ProcedureExecute("PRC_PUSHNOTIFICATIONS");
+               // proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["userid"]));
+                proc.AddPara("@Action", "GETDATA");
+                dataSet = proc.GetDataSet();
+
+                DataTable dt = dataSet.Tables[1];
+                //DataTable dt = odbengine.GetDataTable("select JSONFILE_NAME, PROJECT_NAME from FSM_CONFIG_FIREBASENITIFICATION WHERE ID=1");
+
+                if (dt.Rows.Count > 0)
+                {
+                    fileName = System.Web.Hosting.HostingEnvironment.MapPath("~/" + Convert.ToString(dt.Rows[0]["JSONFILE_NAME"]));
+                    projectname = Convert.ToString(dt.Rows[0]["PROJECT_NAME"]);
+                }
+
+
+                string scopes = "https://www.googleapis.com/auth/firebase.messaging";
+                var bearertoken = ""; // Bearer Token in this variable
+                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+
+                {
+
+                    bearertoken = GoogleCredential
+                      .FromStream(stream) // Loads key file
+                      .CreateScoped(scopes) // Gathers scopes requested
+                      .UnderlyingCredential // Gets the credentials
+                      .GetAccessTokenForRequestAsync().Result; // Gets the Access Token
+
+                }
+
+                ///--------Calling FCM-----------------------------
+
+                var clientHandler = new HttpClientHandler();
+                var client = new HttpClient(clientHandler);
+
+                client.BaseAddress = new Uri("https://fcm.googleapis.com/v1/projects/" + projectname + "/messages:send"); // FCM HttpV1 API
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));               
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearertoken); // Authorization Token in this variable
+
+                //---------------Assigning Of data To Model --------------
+
+                Root rootObj = new Root();
+                rootObj.message = new Message();
+                rootObj.message.token = deviceid;  
+                rootObj.message.data = new Data();
+                rootObj.message.data.UserName = Customer;
+                rootObj.message.data.UserID = UserID;
+                rootObj.message.data.body = message;
+                rootObj.message.data.type = type;
+               
+
+
+               
+
+                //-------------Convert Model To JSON ----------------------
+
+                var jsonObj = new JavaScriptSerializer().Serialize(rootObj);
+
+                //------------------------Calling Of FCM Notify API-------------------
+
+                var data = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                data.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = client.PostAsync("https://fcm.googleapis.com/v1/projects/" + projectname + "/messages:send", data).Result; // Calling The FCM httpv1 API
+
+                //---------- Deserialize Json Response from API ----------------------------------
+
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var responseObj = new JavaScriptSerializer().DeserializeObject(jsonResponse);
+               
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+        }
         public int OrderStatusModify(string ORDERSTATUSNEW, long OrderId,string Action)
         {
             DataTable ds = new DataTable();
