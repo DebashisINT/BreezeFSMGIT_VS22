@@ -2056,6 +2056,8 @@
     <Content Include="Areas\MYSHOP\Views\DashboardMenu\DashboardBranchComboboxLMS.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DailyCallReport\Index.cshtml" />
     <Content Include="Areas\MYSHOP\Views\DailyCallReport\PartialDailyCallReport.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\_PartialUpdateOrderStatus.cshtml" />
     <Content Include="Views\Common\_PartialMenu.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -2065,8 +2067,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\Index.cshtml" />
-    <Content Include="Areas\MYSHOP\Views\UpdateOrderStatus\_PartialUpdateOrderStatus.cshtml" />
+    <Content Include="demofsm-fee63-firebase-adminsdk-m1emn-4e3e8bba2d.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

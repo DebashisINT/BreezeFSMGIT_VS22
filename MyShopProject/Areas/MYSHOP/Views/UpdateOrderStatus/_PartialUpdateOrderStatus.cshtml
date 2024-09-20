@@ -319,6 +319,17 @@
         }
 
     });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "USERID";
+        x.Caption = "USERID";
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(0);
+        x.Visible = false;
+
+
+
+    });
 
 
     if (ViewBag.CanPrint == true)
@@ -330,7 +341,7 @@
             x.SetDataItemTemplateContent(c =>
             {
 
-                ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenProductWindow('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/eye2.png\" /></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenUpdateStatusWindow('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderCode")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "USERID"))+ "')\"><img class=\"mr-2\" src=\"../../../assests/images/eye2.png\" /></a>");
 
                 //ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"PrintOrder('" + Convert.ToString(DataBinder.Eval(c.DataItem, "OrderId")) + "')\"><img class=\"mr-2\" src=\"../../../assests/images/print.png\" /></a>");
 

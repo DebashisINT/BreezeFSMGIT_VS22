@@ -88,7 +88,9 @@ namespace MyShop.Models
             public string Patient_Address { get; set; }
             public string Hospital { get; set; }
             public string Email_Address { get; set; }
-            public string ORDERSTATUS { get; set; }
+            public string ORDERSTATUS { get; set; }           
+
+            public Int32 USERID { get; set; }
 
             public string ORDERSTATUSOLD { get; set; }
 

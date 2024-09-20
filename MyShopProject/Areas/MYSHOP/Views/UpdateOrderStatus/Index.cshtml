@@ -131,11 +131,51 @@
         });
 
         $('body').on('click', '#btnUpdateStatus', function () {
-            var flag = false;          
+            var flag = false;  
+
+            if ($("#txtORDERSTATUSOLD").val() == "Ordered") {
+                if ($("#ddlNewSTATUS").val() == "Invoiced") {
+                    flag = true;
+                }
+                else {
+                    alert("Status Should be Invoiced.");
+                    return;
+                }
+            }
+
+            if ($("#txtORDERSTATUSOLD").val() == "Invoiced") {
+                if ($("#ddlNewSTATUS").val() == "Ready To Dispatch") {
+                    flag = true;
+                }
+                else {
+                    alert("Status Should be Ready To Dispatch.");
+                    return;
+                }
+            }
+
+            if ($("#txtORDERSTATUSOLD").val() == "Ready To Dispatch") {
+                if ($("#ddlNewSTATUS").val() == "Dispatched") {
+                    flag = true;
+                }
+                else {
+                    alert("Status Should be Dispatched.");
+                    return;
+                }
+            }
+
+            if ($("#txtORDERSTATUSOLD").val() == "Dispatched") {
+                if ($("#ddlNewSTATUS").val() == "Delivered") {
+                    flag = true;
+                }
+                else {
+                    alert("Status Should be Delivered.");
+                    return;
+                }
+            }
 
             if ($("#ddlNewSTATUS").val() == "" || $("#ddlNewSTATUS").val() == "Select") {
-                alert(flag);
-            }
+                alert("Please select Status.");
+            }            
             else {
                 flag = true;
                 var surl = '@Url.Action("UpdateOrderStatusModify", "UpdateOrderStatus")';
@@ -144,8 +184,12 @@
                     async: false,
                     data: {
                         OrderId: $("#hdnorder").val(),
-                        ORDERSTATUSNEW: $("#ddlNewSTATUS").val()                        
+                        ORDERSTATUSNEW: $("#ddlNewSTATUS").val(),
+                        OrderCode: $("#hdnorderNo").val(), 
+                        USERID: $("#hdnUserId").val()
+                        
                     },
+
                     type: 'POST',
                     success: function (data) {
                         jAlert('Updated Successfully');
@@ -331,23 +375,20 @@
 
 
 
-    function OpenProductWindow(orderid) {
+    function OpenUpdateStatusWindow(orderid, orderNo, UserId) {
 
         $("#hdnorder").val(orderid);
+        $("#hdnorderNo").val(orderNo);
+        $("#hdnUserId").val(UserId);
+        
         EditStatus(orderid);
         $("#myModal").modal('show');
         Clearall();
         //gridProductlist.Refresh();
     }
-
-
     function OnStartCallbackProduct(s, e) {
         e.customArgs["OrderId"] = $("#hdnorder").val();
     }
-
-   
-
-   
 
     function EditStatus(OrderID) {
 
@@ -1255,7 +1296,7 @@
                                     <div class="col-md-2">
                                         <label>Old Status</label>
                                         <div>
-                                            @Html.TextBoxFor(m => m.ORDERSTATUSOLD, new { @class = "form-control", @id = "txtORDERSTATUSOLD" })
+                                            @Html.TextBoxFor(m => m.ORDERSTATUSOLD, new { @class = "form-control", @id = "txtORDERSTATUSOLD" , @radonly = true })
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -1265,8 +1306,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 pad-md-18 mt-3 cust-margin-top">
-                                        <label>&nbsp;</label>                                        
-                                        <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>Update</button>                                        
+                                        <label>&nbsp;</label>
+                                        <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>Update</button>
                                     </div>
                                 </div>
 
@@ -1275,7 +1316,9 @@
                     </div>
 
                     <input id="hdnorder" type="hidden" />
-                    <input id="hdnproductorderid" type="hidden" />
+                    <input id="hdnUserId" type="hidden" />
+                    <input id="hdnorderNo" type="hidden" />
+                    
 
                 </div>
             </div>
