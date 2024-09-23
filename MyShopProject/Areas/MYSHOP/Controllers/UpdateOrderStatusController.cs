@@ -42,6 +42,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         List<OrderUpdateDetailsSummary> omodel = new List<OrderUpdateDetailsSummary>();
        // ProductDetails _productDetails = new ProductDetails();
         DataTable dtquery = new DataTable();
+        NotificationBL notificationbl = new NotificationBL();
         public ActionResult Index()
         {
             try
@@ -370,6 +371,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
          
                 if (output > 0)
                 {
+
+
+                    
                     DataSet dataSet = new DataSet();
                     ProcedureExecute proc = new ProcedureExecute("PRC_PUSHNOTIFICATIONS");
                     proc.AddIntegerPara("@USERID", Convert.ToInt32(model.USERID));
@@ -381,10 +385,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         for (int i = 0; i < dtUser.Rows.Count; i++)
                         {
-                            string user_name = dtUser.Rows[0]["user_name"].ToString();
-                            string user_PHNO = dtUser.Rows[0]["user_loginId"].ToString();
+                            string user_name = dtUser.Rows[i]["user_name"].ToString();
+                            string user_PHNO = dtUser.Rows[i]["user_loginId"].ToString();
+                            string user_ID = dtUser.Rows[i]["user_id"].ToString();
 
                             string Mssg = "Order #" + model.OrderCode + " status has changed to " + model.ORDERSTATUSNEW;
+
+                            int returnmssge = notificationbl.Savenotification(user_PHNO, Mssg);
 
                             SendNotification(user_PHNO, Mssg, model.OrderCode, model.ORDERSTATUSNEW);
                         }
