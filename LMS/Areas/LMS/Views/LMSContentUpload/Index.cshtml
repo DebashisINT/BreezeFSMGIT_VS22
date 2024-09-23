@@ -2519,8 +2519,8 @@
     #AddQuestionMapModal .modal-content,
     #AddTopicModal .modal-content,
     #AddContentModal .modal-content,
-    #quizTimeModal .modal-content
-    {
+    #quizTimeModal .modal-content,
+    #AddQuestionModal .modal-content {
         background: linear-gradient(1deg, #cff3ff, #ffffff);
         overflow: visible !important;
     }
@@ -2553,7 +2553,8 @@
     #MapQuestionListModal .modal-title,
     #AddTopicModal .modal-title,
     #MappedQuestionsForViewModal .modal-title,
-    #quizTimeModal .modal-title {
+    #quizTimeModal .modal-title,
+    #AddQuestionModal .modal-title {
         color: #111;
         font-size: 20px;
     }
@@ -2561,7 +2562,8 @@
     #MapQuestionListModal .modal-header,
     #AddTopicModal .modal-header,
     #MappedQuestionsForViewModal .modal-header,
-    #quizTimeModal .modal-header {
+    #quizTimeModal .modal-header,
+    #AddQuestionModal .modal-header {
         margin-bottom: 10px;
         border-bottom: 1px solid #d5d5d5;
     }
@@ -2801,12 +2803,12 @@
     .topic-sequence-number {
         position: absolute;
         top: 5px;
-        right: 5px;
+        right: 0;
         background: #54ffd8;
-        padding: 5px 15px;
+        padding: 5px 10px;
         border-radius: 25px 0 0 25px;
         color: #06485e;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 500;
         box-shadow: -1px 1px 10px #11111152;
     }
@@ -3061,6 +3063,103 @@
         font-size: 12px !important;
         font-weight: 400 !important;
     }
+
+    #AddQuestionModal .modal-dialog
+    {
+        width: 70%;
+    }
+
+    #AddQuestionModal .modal-body {
+        padding: 0 30px;
+    }
+
+    .delete-col {
+        width: 4%;
+        padding: 10px 10px;
+    }
+
+    .option-col {
+        width: 74%;
+        padding: 10px 10px;
+    }
+
+    .number-col {
+        width: 12%;
+        padding: 10px 10px;
+    }
+
+    .correct-col {
+        width: 10%;
+        padding: 10px 10px;
+    }
+
+    .ans-option {
+        display: flex;
+        align-items: center;
+    }
+
+    .save-exit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        /*.save-exit-btn button {
+            margin: 0 10px 15px;
+        }*/
+
+    /*.backBox {
+        padding: 15px !important;
+    }*/
+
+    .option-part {
+        background: #ffffffb8;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    /*.backBox {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }*/
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+    .delete-col a img {
+        width: 25px;
+        transition: all .3s ease-in-out;
+    }
+
+    .delete-col a:hover img {
+        transform: scale(1.2);
+    }
+
+    #btnSave .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSave .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+    #btnSave.btn-warning .btn-icon img {
+        color: #e08d19;
+        width: 14px;
+    }
+
+    .cancel-catg .btn-icon img {
+        color: #DC0505;
+        width: 16px;
+    }
     
 </style>
 
@@ -3169,134 +3268,6 @@
                 $("#spTopicName").html('');
 
                 $('body').on('click', '#btnshow', function () {
-
-                    //$.ajax({
-                    //    url: '/LMSContentUpload/GetTopicListForBoxData',
-                    //    method: 'GET',
-                    //    success: function (data) {
-
-                    //        $('#searchPanel').hide();
-                    //        $('#contentListing').hide();
-                    //        $("#divTopicList").show();
-                    //        $("#divTopicName").show();
-                    //        $("#spTopicName").html('Topics');
-
-                    //        $("#btnShowTotalContents").hide();
-                    //        $("#btnShowActiveContents").hide();
-                    //        $("#btnShowInactiveContents").hide();
-                    //        $("#btnBackToTopicList").hide();
-
-                    //        var videoContainer = $('#videoContainer');
-                    //        videoContainer.empty();
-
-                    //        $('.topic-list').empty(); // Clear any existing boxes
-                    //        data.forEach(function (topic) {
-                    //            var box = `
-                    //            <div class="col-md-3 mb-4">
-                    //                <button type="button" class="btn btn-topic-list btn-radius" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')">
-                    //                    <h5>${topic.TOPIC_CONTENT_COUNT}<span>Content(s)</span></h5>
-                    //                    <span class="list-topic-name">${topic.TOPIC_NAME}</span>
-                    //                </button>
-                    //            </div>
-                    //        `;
-                    //            $('.topic-list').append(box);
-                    //        });
-                    //    },
-                    //    error: function (error) {
-                    //        console.error('Error fetching topics:', error);
-                    //    }
-                    //});
-
-
-
-
-
-
-                    //$.ajax({
-                    //    url: '/LMSContentUpload/GetTopicListForBoxData',
-                    //    method: 'GET',
-                    //    success: function (data) {
-
-                    //        $('#searchPanel').hide();
-                    //        $('#contentListing').hide();
-                    //        $("#divTopicList").show();
-                    //        $("#divTopicName").show();
-                    //        $("#spTopicName").html('Topics');
-
-                    //        $("#btnShowTotalContents").hide();
-                    //        $("#btnShowActiveContents").hide();
-                    //        $("#btnShowInactiveContents").hide();
-                    //        $("#btnBackToTopicList").hide();
-
-                    //        var videoContainer = $('#videoContainer');
-                    //        videoContainer.empty();
-
-                    //        $('.topic-list').empty();
-
-                    //        var colors = ['#467f58', '#3c6e87', '#a3804b', '#8b3c73', '#387881', '#914a5a', '#663986', '#43469c'];
-                    //        var icons =
-                    //            [
-                    //                '../../../assests/images/topic-icon-1.svg',
-                    //                '../../../assests/images/topic-icon-2.svg',
-                    //                '../../../assests/images/topic-icon-3.svg',
-                    //                '../../../assests/images/topic-icon-4.svg',
-                    //                '../../../assests/images/topic-icon-5.svg',
-                    //                '../../../assests/images/topic-icon-6.svg',
-                    //                '../../../assests/images/topic-icon-7.svg',
-                    //                '../../../assests/images/topic-icon-8.svg',
-                    //            ];
-                    //        var colorIndex = 0;
-                    //        var iconIndex = 0;
-
-                    //        // Function to convert hex to rgba
-                    //        function hexToRgba(hex, opacity) {
-                    //            var bigint = parseInt(hex.slice(1), 16);
-                    //            var r = (bigint >> 16) & 255;
-                    //            var g = (bigint >> 8) & 255;
-                    //            var b = bigint & 255;
-
-                    //            return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-                    //        }
-
-                    //        data.forEach(function (topic) {
-                    //            var color = colors[colorIndex];
-                    //            var icon = icons[iconIndex];
-                    //            colorIndex = (colorIndex + 1) % colors.length; // Cycle through the colors
-                    //            iconIndex = (iconIndex + 1) % icons.length; // Cycle through the icons
-                    //            var rgbaColor = hexToRgba(color, 0.8); // Convert hex color to rgba with reduced opacity
-
-                    //            var box = `
-                    //                <div class="col-md-3 mb-4">
-                    //                    <button type="button" class="btn btn-topic-list btn-radius topic-btn" id="${topic.TOPIC_ID}" onclick="ShowContentListiing(id,'${topic.TOPIC_NAME}')" style="background-color: ${rgbaColor};" data-color="${color}">
-                    //                       <div class="topic-name-list">
-                    //                            <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
-                    //                            <div class="list-topic-name"><h5>${topic.TOPIC_NAME}</h5></div>
-                    //                       </div>
-                    //                        <div class="list-topic-content-count" style="background-color: ${color};">Content(s): <span>${topic.TOPIC_CONTENT_COUNT}</span></div>
-                    //                    </button>
-                    //                </div>
-                    //            `;
-                    //            $('.topic-list').append(box);
-                    //        });
-
-                    //        // Apply hover effect for the buttons
-                    //        $('.topic-list').on('mouseenter', '.topic-btn', function () {
-                    //            var color = $(this).data('color');
-                    //            $(this).css('background-color', color);
-                    //        }).on('mouseleave', '.topic-btn', function () {
-                    //            var color = $(this).data('color');
-                    //            var rgbaColor = hexToRgba(color, 0.8); // Convert hex color to rgba with reduced opacity
-                    //            $(this).css('background-color', rgbaColor);
-                    //        });
-
-                    //    },
-                    //    error: function (error) {
-                    //        console.error('Error fetching topics:', error);
-                    //    }
-                    //});
-
-
-
 
                     $.ajax({
                         url: '/LMSContentUpload/GetTopicListForBoxData',
@@ -3449,7 +3420,7 @@
                                                 <div class="topic-name-list">
                                                     <div class="topic-name-list-icon"><img src="${icon}" alt=""></div>
                                                     <div class="list-topic-name">
-                                                        
+
                                                         <span>${topic.TOPIC_CONTENT_COUNT} <small>Content(s)</small></span>
                                                         <h5>${topic.TOPIC_NAME}</h5>
                                                     </div>
@@ -3833,6 +3804,101 @@
                 //}
 
 
+                $('#txtPoint4').on('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    if (this.value.length > 2) {
+                        this.value = this.value.slice(0, 2); // Limit to 2 digits
+                    }
+                });
+
+                $('#txtPoint3').on('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    if (this.value.length > 2) {
+                        this.value = this.value.slice(0, 2); // Limit to 2 digits
+                    }
+                });
+
+                $('#txtPoint2').on('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    if (this.value.length > 2) {
+                        this.value = this.value.slice(0, 2); // Limit to 2 digits
+                    }
+                });
+
+                $('#txtPoint1').on('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    if (this.value.length > 2) {
+                        this.value = this.value.slice(0, 2); // Limit to 2 digits
+                    }
+                });
+
+
+                $(".allow_decimal").on("input", function (evt) {
+                    var self = $(this);
+                    self.val(self.val().replace(/[^0-9\.]/g, ''));
+                    if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                        evt.preventDefault();
+                    }
+                });
+                $('.numbersOnly').keyup(function () {
+                    if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                        this.value = this.value.replace(/[^0-9\.]/g, '');
+                    }
+                });
+
+                $('#txtQuestionName').focus();
+                $('#chkCorrect1').change(function () {
+                    var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+                    if (chkCorrect1 == "1") {
+                        $("#txtPoint1").prop("disabled", false);
+                        $("#txtPoint1").focus();
+
+                    }
+                    else {
+                        $("#txtPoint1").prop("disabled", true);
+
+                    }
+                });
+
+                $('#chkCorrect2').change(function () {
+                    var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+                    if (chkCorrect2 == "1") {
+                        $("#txtPoint2").prop("disabled", false);
+                        $("#txtPoint2").focus();
+
+                    }
+                    else {
+                        $("#txtPoint2").prop("disabled", true);
+
+                    }
+                });
+
+                $('#chkCorrect3').change(function () {
+                    var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+                    if (chkCorrect3 == "1") {
+                        $("#txtPoint3").prop("disabled", false);
+                        $("#txtPoint3").focus();
+
+                    }
+                    else {
+                        $("#txtPoint3").prop("disabled", true);
+
+                    }
+                });
+
+                $('#chkCorrect4').change(function () {
+                    var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+                    if (chkCorrect4 == "1") {
+                        $("#txtPoint4").prop("disabled", false);
+                        $("#txtPoint4").focus();
+
+                    }
+                    else {
+                        $("#txtPoint4").prop("disabled", true);
+
+                    }
+                });
+
             });
 
 
@@ -3850,7 +3916,7 @@
                 var percentVal = '0%';
                 bar.width(percentVal);
                 percent.html(percentVal);
-
+                
                 showLoader();
             },
             uploadProgress: function (event, position, total, percentComplete) {
@@ -3876,6 +3942,8 @@
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
+                                //window.location.href = '/LMS/LMSContentUpload/Index';
+
 
                                 Swal.fire({
                                     title: 'Question Add',
@@ -3890,28 +3958,47 @@
                                     if (result.isConfirmed) {
                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID='+responseText[1];
 
-                                        $("#AddContentModal").modal('hide');
+                                        //$("#AddContentModal").modal('hide');
                                         //AddQuestionWithContentFromSave(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
                                        // window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFlySave&&TOPICID=' + responseText[2] + '&&CONTENTID=' + responseText[1];
 
+                                        ClearQuesData();
 
-                                       $.ajax({
-                                                type: "POST",
-                                                url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-                                                data: { TopicID: responseText[2], fromSave : 1 },
-                                                success: function (response) {
-                                                    if (response != null && response == true) {
-                                                        $("#AddContentModal").modal('hide');
-                                                        //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
-                                                        //AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
-                                                        window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFlySave&&TOPICID=' + responseText[2] + '&&CONTENTID=' + responseText[1];
-                                                    }
-                                                    else {
-                                                        jAlert('Please try again later.');
-                                                        return false;
-                                                    }
-                                                }
-                                        });
+                                        //TOPIC_ID = "";
+
+                                        //TOPIC_ID = $("#ddlTopic").val();
+                                        //$("#ddlTopic").SetEnabled(false);
+                                        //TOPICID.push($("#ddlTopic").val());
+
+                                        $("#AddContentModal").modal('hide');
+
+                                        $("#ddlTopicQ").val($("#ddlTopic").val()).trigger('change');
+
+                                        Category_ID = "";
+
+                                        $("#hdnAddQFrom").val("save");
+                                        Is_ContentId = responseText[1] ;
+
+
+                                        $("#AddQuestionModal").modal('show');
+
+                                       //$.ajax({
+                                       //         type: "POST",
+                                       //         url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+                                       //         data: { TopicID: responseText[2], fromSave : 1 },
+                                       //         success: function (response) {
+                                       //             if (response != null && response == true) {
+                                       //                 $("#AddContentModal").modal('hide');
+                                       //                 //window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + $("#ddlTopic").val() + '&&CONTENTID=' + responseText[1];
+                                       //                 //AddQuestionWithContent(responseText[1], $("#txtContentDesc").val(), $("#ddlTopic").val(), $("#spTopicName").val());
+                                       //                 window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFlySave&&TOPICID=' + responseText[2] + '&&CONTENTID=' + responseText[1];
+                                       //             }
+                                       //             else {
+                                       //                 jAlert('Please try again later.');
+                                       //                 return false;
+                                       //             }
+                                       //         }
+                                       // });
 
                                     }
                                     else {
@@ -4345,7 +4432,7 @@
                                     ${status} <div class="tooltip">click to ${statusrev}</div>
                                 </div>
 
-                                
+
                             </div>
 
                             <p class="sequence-number">#${item.CONTENT_PLAYSEQ}</p>
@@ -4699,7 +4786,7 @@
     }
 
     var TopicId = [];
-    function TopicSelectionChanged(s, e) {
+    function ContentTopicSelectionChanged (s, e) {
         LMSTopicGridLookup.gridView.GetSelectedFieldValues("TOPIC_ID", GetTopicSelectedFieldValuesCallback);
     }
     function GetTopicSelectedFieldValuesCallback(values) {
@@ -4715,7 +4802,7 @@
     }
 
     var CategoryId = [];
-    function CategorySelectionChanged(s, e) {
+    function ContCategorySelectionChanged(s, e) {
         LMSCategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetCategorySelectedFieldValuesCallback);
     }
     function GetCategorySelectedFieldValuesCallback(values) {
@@ -4729,8 +4816,6 @@
             console.log(CategoryId);
         }
     }
-
-
 
     function OpenLMSContentforEdit(ContentId, ContentTitle, TopicId, TopicTitle) {
         $("#hdnAddEditMode").val('EDITCONTENT');
@@ -4832,9 +4917,6 @@
             },
         });
     }
-
-
-
 
     function OnClickDeleteLMSContent(ContentId, TopicId) {
         var url = '/LMSContentUpload/DeleteContent/';
@@ -5000,21 +5082,60 @@
         $("#AddQuestionMapModal").modal('show');
     }
 
+    function ClearQuesData() {
+        $("#txtQuestionName").val("");
+        $("#txtQuestionDescription").val("");
+        $("#txtOption1").val("");
+        $("#txtPoint1").val("");
+        $("#chkCorrect1").prop("checked", false);
+        $("#txtPoint1").val("");
+        $("#txtOption2").val("");
+        $("#txtPoint2").val("");
+        $("#chkCorrect2").prop("checked", false);
+        $("#txtPoint2").val("");
+        $("#txtOption3").val("");
+        $("#txtPoint3").val("");
+        $("#chkCorrect3").prop("checked", false);
+        $("#txtPoint3").val("");
+        $("#txtOption4").val("");
+        $("#txtPoint4").val("");
+        $("#chkCorrect4").prop("checked", false);
+        $("#txtPoint4").val("");
+
+        //$("#ddlTopicQ").val(0).trigger('change');
+        ddlTopicQ.disabled = true;
+
+    }
+
     function AddQuestion(ContentId, ContentTitle, TopicId) {
-        $.ajax({
-             type: "POST",
-             url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
-             data: { TopicID: TopicId, fromSave : 0 },
-             success: function (response) {
-                 if (response != null && response == true) {
-                     window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
-                 }
-                 else {
-                     jAlert('Please try again later.');
-                     return false;
-                 }
-             }
-     });
+        ClearQuesData();
+
+       // TOPIC_ID = TopicId;
+       // $("#ddlTopic").SetEnabled(false);
+        //TOPICID.push(TopicId);
+        Category_ID = "";
+
+        $("#ddlTopicQ").val(TopicId).trigger('change');
+        Is_ContentId = ContentId;
+
+        $("#AddQuestionModal").modal('show');
+
+        $("#hdnAddQFrom").val("");
+
+        //$.ajax({
+        //     type: "POST",
+        //     url: "@Url.Action("SetMapDataByTopicID", "LMSQuestions")",
+        //     data: { TopicID: TopicId, fromSave : 0 },
+        //     success: function (response) {
+        //         if (response != null && response == true) {
+        //             window.location.href = '/LMS/LMSQuestions/QuestionAdd?key=AddOnFly&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
+        //         }
+        //         else {
+        //             jAlert('Please try again later.');
+        //             return false;
+        //         }
+        //     }
+      //});
     }
 
     function EditQuestion(QusetionId, ContentId, TopicId)
@@ -5556,7 +5677,7 @@
         gridQuestionMapGridList.Refresh();
         gridQuestionMapGridList.Refresh();
 
-        $("#hdnAddEditMode").val('ADDQUESTION');
+       // $("#hdnAddEditMode").val('ADDQUESTION');
         $("#btnMapQuestion").hide();
         $("#btnAddQuestion").show();
         $("#lblAddMapQues").text("Add Question List");
@@ -5790,6 +5911,53 @@
 
 
     }
+
+    function DeSelectAllGridLookup(s, e) {
+        CategoryGridLookup.gridView.UnselectRows();
+
+        Category = [];
+        Category_ID = "";
+    }
+    function CategorySelectionChanged(s, e) {
+        CategoryGridLookup.gridView.GetSelectedFieldValues("CATEGORYID", GetSelectedFieldValuesCallbackCategory);
+    }
+    function GetSelectedFieldValuesCallbackCategory(values) {
+        try {
+            Category = [];
+            Category_ID = "";
+            for (var i = 0; i < values.length; i++) {
+                Category.push(values[i]);
+                Category_ID += values[i] + ',';
+            }
+        } finally {
+            console.log(Category);
+        }
+    }
+    function SelectAllGridLookup(s, e) {
+        CategoryGridLookup.gridView.SelectRows();
+        Category = "";
+        CategoryGridLookup.SetText("");
+        $.ajax({
+            type: 'POST',
+            url: "/LMSQuestions/GetCategoryListJson",
+            //data: { "Hoid": Hoid },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                Category = [];
+                Category_ID = "";
+                $.each(data, function (i, data) {
+                    Category.push(data.CATEGORYID);
+                    Category_ID += data.CATEGORYID + ',';
+                });
+                CategoryGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
+    }
+
 
 </script>
 
@@ -6081,6 +6249,13 @@
 </script>
 
 <script>
+
+    //var TOPICID = [];
+    //var TOPIC_ID = "";
+
+    var Category = [];
+    var Category_ID = "";
+
     $(document).ready(function () {
         function validateInput($input, max) {
             $input.on('input', function () {
@@ -6118,11 +6293,340 @@
         validateInput($('#quiztime_minute'), 59);
         validateInput($('#quiztime_second'), 59);
     });
+
+    function CancelQuestionAdd() {
+        ClearQuesData();
+        $("#AddQuestionModal").modal('hide');
+    }
+
+    function SaveQuestion(mode ) {
+        var id = $("#hdnIDADd").val();
+        if (id == "") {
+            id = "0";
+        }
+        if ($("#txtQuestionName").val().trim() == "") {
+        // SweetAlert for empty Question name
+        Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: 'Enter Question Name to proceed.'
+        });
+        return false;
+        }
+
+        //else if ($("#txtQuestionDescription").val().trim() == "") {
+        //// SweetAlert for empty Question description
+        //Swal.fire({
+        //    icon: 'warning',
+        //    title: 'Warning',
+        //    text: 'Enter Question Description to proceed.'
+        //});
+        //return false;
+        //}
+        else if ($("#txtOption1").val().trim() == "") {
+            // SweetAlert for empty Question description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Option1 to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtOption2").val().trim() == "") {
+            // SweetAlert for empty Question description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Option2 to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtOption3").val().trim() == "") {
+            // SweetAlert for empty Question description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Option3 to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtOption4").val().trim() == "") {
+            // SweetAlert for empty Question description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Option4 to proceed.'
+            });
+            return false;
+        }
+        if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+
+            if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
+
+                if ($("#txtPoint3").val().trim() == "" || $("#txtPoint3").val().trim() == "0") {
+
+                    if ($("#txtPoint4").val().trim() == "" || $("#txtPoint4").val().trim() == "0") {
+
+                        //jAlert('Enter Points  to proceed.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please Enter minimum one point to proceed.'
+                        });
+                        return false;
+                    }
+                }
+            }
+        }
+        var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+        var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+        var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+        var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+
+        if (chkCorrect1 == "0") {
+
+            if (chkCorrect2 == "0") {
+
+                if (chkCorrect3 == "0") {
+
+                    if (chkCorrect4 == "0") {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please tick the correct answer(s).'
+                        });
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if ($("#ddlTopicQ").val() == "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Topic(s) to proceed.'
+            });
+            return false;
+        }
+        //else if (Category_ID.trim() == "") {
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Warning',
+        //        text: 'Select Category to proceed.'
+        //    });
+        //    return false;
+        //}
+        else {
+
+        var Option1 = $("#txtOption1").val().trim();
+        var Option2 = $("#txtOption2").val().trim();
+        var Option3 = $("#txtOption3").val().trim();
+        var Option4 = $("#txtOption4").val().trim();
+
+        var Point1 = $("#txtPoint1").val().trim();
+        var Point2 = $("#txtPoint2").val().trim();
+        var Point3 = $("#txtPoint3").val().trim();
+        var Point4 = $("#txtPoint4").val().trim();
+
+        var chkCorrect1 = document.getElementById("chkCorrect1").checked ? "1" : "0";
+
+        if (chkCorrect1 == "1") {
+            if ($("#txtPoint1").val().trim() == "" || $("#txtPoint1").val().trim() == "0") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please Enter Point1 to proceed.'
+                });
+                return false;
+            }
+            if ($("#txtOption1").val().trim() == "" || $("#txtOption1").val().trim() == "0") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please Enter Option1 to proceed.'
+                });
+                return false;
+            }
+        }
+
+        var chkCorrect2 = document.getElementById("chkCorrect2").checked ? "1" : "0";
+
+        if (chkCorrect2 == "1") {
+            if ($("#txtPoint2").val().trim() == "" || $("#txtPoint2").val().trim() == "0") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please Enter Point2 to proceed.'
+                });
+                return false;
+            }
+            if ($("#txtOption2").val().trim() == "" || $("#txtOption2").val().trim() == "0") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please Enter Option2 to proceed.'
+                });
+                return false;
+            }
+        }
+        var chkCorrect3 = document.getElementById("chkCorrect3").checked ? "1" : "0";
+            if (chkCorrect3 == "1") {
+                if ($("#txtPoint3").val().trim() == "" || $("#txtPoint3").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Point3 to proceed.'
+                    });
+                    return false;
+                }
+                if ($("#txtOption3").val().trim() == "" || $("#txtOption3").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Option3 to proceed.'
+                    });
+                    return false;
+                }
+            }
+
+
+        var chkCorrect4 = document.getElementById("chkCorrect4").checked ? "1" : "0";
+
+            if (chkCorrect4 == "1") {
+                if ($("#txtPoint4").val().trim() == "" || $("#txtPoint4").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Point4 to proceed.'
+                    });
+                    return false;
+                }
+                if ($("#txtOption4").val().trim() == "" || $("#txtOption4").val().trim() == "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please Enter Option4 to proceed.'
+                    });
+                    return false;
+                }
+            }
+
+            showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveQuestion", "LMSContentUpload")',
+            data: {
+                name: $("#txtQuestionName").val().trim(),
+                id: id,
+                description: $("#txtQuestionDescription").val().trim(),
+
+                Option1: Option1,
+                Option2: Option2,
+                Option3: Option3,
+                Option4: Option4,
+
+                Point1: Point1,
+                Point2: Point2,
+                Point3: Point3,
+                Point4: Point4,
+
+                chkCorrect1: chkCorrect1,
+                chkCorrect2: chkCorrect2,
+                chkCorrect3: chkCorrect3,
+                chkCorrect4: chkCorrect4,
+
+                TOPIC_ID: $("#ddlTopicQ").val(),
+                Category_ID: Category_ID,
+
+                /*Rev Sanchita*/
+                MODE: 'AddOnFly',
+                CONTENTID: Is_ContentId
+                /*End of Rev Sanchita*/
+
+            },
+            success: function (output_msg) {
+
+                hideLoader();
+
+                if (output_msg == "1") {
+                    // SweetAlert success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Question saved successfully.'
+                    }).then(() => {
+                        if (mode == "New") {
+                            ClearQuesData();
+
+                            // TOPIC_ID = "";
+                            Category_ID = "";
+                        }
+                        else {
+                            $("#AddQuestionModal").modal('hide');
+
+                            if ($("#hdnAddQFrom").val() == "save") {
+                                ShowContentListiing($("#ddlTopic").val(), '');
+                            }
+                            else {
+                                gridQuestionMapGridList.Refresh();
+                                gridQuestionMapGridList.Refresh();
+                            }
+                            // window.location.href = '/LMS/LMSContentUpload/Index';
+                        }
+
+                        //location.reload();
+                    });
+                } else if (output_msg == "-1") {
+                    // SweetAlert duplicate Question name warning
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Duplicate Question name cannot be entered. Please enter a unique Question name.'
+                    });
+                }
+            }
+        });
+        }
+    }
+    function DeleteClick1()
+    {
+        $("#txtOption1").val("");
+        $("#txtPoint1").val("");
+        $("#chkCorrect1").prop("checked", false);
+    }
+    function checkboxClick1() {
+        $("#txtPoint1").val("");
+    }
+    function DeleteClick2() {
+        $("#txtOption2").val("");
+        $("#txtPoint2").val("");
+        $("#chkCorrect2").prop("checked", false);
+    }
+    function checkboxClick2() {
+        $("#txtPoint2").val("");
+    }
+    function DeleteClick3() {
+        $("#txtOption3").val("");
+        $("#txtPoint3").val("");
+        $("#chkCorrect3").prop("checked", false);
+    }
+    function checkboxClick3() {
+        $("#txtPoint3").val("");
+    }
+    function DeleteClick4() {
+        $("#txtOption4").val("");
+        $("#txtPoint4").val("");
+        $("#chkCorrect4").prop("checked", false);
+    }
+    function checkboxClick4() {
+        $("#txtPoint4").val("");
+    }
 </script>
 
-@*<script>
 
-    </script>*@
 
 
 <div id="gmap-loader" class="mLoader hide">
@@ -6459,6 +6963,7 @@
                             <input type="hidden" id="hdnCategoryID" name="hdnCategoryID" />
                             <input type="hidden" id="hdnContentStatusOld" name="hdnContentStatusOld" />
                             <input type="hidden" id="hdnTopicIDForSearch" name="hdnTopicIDForSearch" />
+                            <input type="hidden" id="hdnAddQFrom" name="hdnAddEditMode" />
 
 
                             @*<input type="button" name="previous" class="upload-previous action-button-previous btn btn-success" value="Previous" onclick="PreviousButtonOnClick()" />*@
@@ -6788,6 +7293,162 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger  cancel-catg" tabindex="4" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel</button>
                 <button type="button" class="btn btn-success save-button" tabindex="5" onclick="UpdateQuizTime();"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="AddQuestionModal" class="modal fade pmsModal w80" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="CancelQuestionAdd()">&times;</button>
+                <h4 class="modal-title">Add Question</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div><label>Question Name <span class="red">*</span></label></div>
+                        <div>
+                            <input type="text" id="txtQuestionName" maxlength="250" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-4 mt-3">
+                        <div><label>Question Description </label></div>
+                        <div>
+                            <textarea rows="5" class="form-control" style="height:50px" cols="20" id="txtQuestionDescription" maxlength="500"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Options</label>
+                    </div>
+
+                </div>
+
+                <div class="option-part">
+                    <div class="ans-option">
+                        <div class="delete-col">
+                            <div>
+                                <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick1()"><img src='/assests/images/clear-qst-ans.png' /><div class="tooltip">Clear</div> </a>
+                            </div>
+                        </div>
+                        <div class="option-col">
+                            <div>
+                                <input type="text" id="txtOption1" class="form-control" placeholder="Option 1" />
+                            </div>
+                        </div>
+                        <div class="number-col">
+                            <div>
+                                <input type="number" id="txtPoint1" class="form-control  numbersOnly" placeholder="Point 1" min="1" max="999" maxlength="3" disabled />
+                            </div>
+                        </div>
+                        <div class="correct-col">
+                            <div><input type="checkbox" id="chkCorrect1" class="styled-checkbox" onclick="checkboxClick1()" /><label>Correct</label></div>
+                        </div>
+                    </div>
+                    <div class="ans-option">
+
+
+                        <div class="delete-col">
+                            <div>
+                                <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick2()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
+                            </div>
+                        </div>
+                        <div class="option-col">
+                            <div>
+                                <input type="text" id="txtOption2" class="form-control" placeholder="Option 2" />
+                            </div>
+                        </div>
+                        <div class="number-col">
+                            <div>
+                                <input type="number" id="txtPoint2" class="form-control  numbersOnly" placeholder="Point 2" min="1" max="999" maxlength="3" disabled />
+                            </div>
+                        </div>
+                        <div class="correct-col">
+                            <div><input type="checkbox" id="chkCorrect2" class="styled-checkbox" onclick="checkboxClick2()" /><label>Correct</label></div>
+                        </div>
+
+                    </div>
+                    <div class="ans-option">
+
+
+                        <div class="delete-col">
+                            <div>
+                                <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick3()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
+                            </div>
+                        </div>
+                        <div class="option-col">
+                            <div>
+                                <input type="text" id="txtOption3" class="form-control" placeholder="Option 3" />
+                            </div>
+                        </div>
+                        <div class="number-col">
+                            <div>
+                                <input type="number" id="txtPoint3" class="form-control  numbersOnly" placeholder="Point 3" min="1" max="999" maxlength="3" disabled />
+                            </div>
+                        </div>
+                        <div class="correct-col">
+                            <div><input type="checkbox" id="chkCorrect3" class="styled-checkbox" onclick="checkboxClick3()" /><label>Correct</label></div>
+                        </div>
+
+                    </div>
+                    <div class="ans-option">
+
+                        <div class="delete-col">
+                            <div>
+                                <a style='cursor:pointer' class='pad tooltip-container' onclick="DeleteClick4()"><img src='/assests/images/clear-qst-ans.png' /> <div class="tooltip">Clear</div></a>
+                            </div>
+                        </div>
+                        <div class="option-col">
+                            <div>
+                                <input type="text" id="txtOption4" class="form-control" placeholder="Option 4" />
+                            </div>
+                        </div>
+                        <div class="number-col">
+                            <div>
+                                <input type="number" id="txtPoint4" class="form-control  numbersOnly" placeholder="Point 4" min="1" max="999" maxlength="3" disabled />
+                            </div>
+                        </div>
+                        <div class="correct-col">
+                            <div><input type="checkbox" id="chkCorrect4" class="styled-checkbox" onclick="checkboxClick4()" /><label>Correct</label></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mb-5 mt-4">
+                    <div class="col-md-6">
+                        <label>Map Topic(s)<span class="red">*</span></label>
+                        @*@Html.Action("GetTopicList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })*@
+                        @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.TopicList, "TOPIC_ID", "TOPIC_NAME", null), "", new { @id = "ddlTopicQ", @class = "form-control" })
+                    </div>
+                    <div class="col-md-6">
+                        <label>Map Categories</label>
+                        @Html.Action("GetCategoryList", "LMSQuestions", new { QUESTIONS_ID = @Model.QUESTIONS_ID })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="save-exit-btn">
+                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelQuestionAdd()" ><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                    
+
+                    @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
+                    {
+                        <button type="button" id="btnSave" class="btn btn-warning" onclick="SaveQuestion('Exit')"><span class="btn-icon"><img src="../../../assests/images/save-instagram-orange.svg"></span> Save & Exit</button>
+                    }
+                    @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
+                    {
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('New')"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>
+                    }
+
+                </div>
             </div>
         </div>
 
