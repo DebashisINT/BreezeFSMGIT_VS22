@@ -27,6 +27,10 @@ using System.Text;
 using Google.Apis.Auth.OAuth2;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Data.SqlTypes;
+using DevExpress.DataAccess.Native.Data;
+using DevExpress.XtraCharts.Native;
+using DataTable = System.Data.DataTable;
 
 namespace LMS.Areas.LMS.Controllers
 {
@@ -81,15 +85,67 @@ namespace LMS.Areas.LMS.Controllers
 
             EntityLayer.CommonELS.UserRightsForPage rightsT = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSTopics/Index");
             ViewBag.CanAddTopic = rightsT.CanAdd;
+
+
+
+            //DBEngine obj1 = new DBEngine();
+            //ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
+
+           
+            DataTable dt = new DataTable();
+            //String con1 = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+           
+            //SqlCommand sqlcmd1 = new SqlCommand();
+            //SqlConnection sqlcon1 = new SqlConnection(con1);
+            //sqlcon1.Open();
+            //sqlcmd1 = new SqlCommand("Proc_SystemsettingResult", sqlcon1);
+            //sqlcmd1.Parameters.AddWithValue("@VariableName", "LMSVideoUploadSize");
+            //sqlcmd1.CommandType = CommandType.StoredProcedure;
+            //SqlDataAdapter da = new SqlDataAdapter(sqlcmd1);
+            //da.Fill(dt);
+            //sqlcon1.Close();
+            //sqlcmd1.Dispose();
+
+
+            //if (dt.Rows.Count > 0)
+            //{
+            //    ViewBag.LMSVideoUploadSize = Convert.ToString(dt.Rows[0]["Variable_Value"]);
+            //}
+
+
+
+            //DataTable dtAPP_CONFIG = new DataTable();
+            //ProcedureExecute procCONFIG = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //procCONFIG.AddPara("@ACTION", "GETLMSVIDEOUPLOADSIZE");
+            //dtAPP_CONFIG = procCONFIG.GetTable();
+
+            //if (dtAPP_CONFIG != null)
+            //{
+            //    ViewBag.LMSVideoUploadSize = dtAPP_CONFIG.Rows[0]["value"];
+            //}
+
+            DataTable dtAPP_CONFIG = new DataTable();
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "GETLMSVIDEOUPLOADSIZE");
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da1 = new SqlDataAdapter(sqlcmd);
+            da1.Fill(dtAPP_CONFIG);
+            sqlcon.Close();
             
 
+            if (dtAPP_CONFIG != null)
+            {
+                ViewBag.LMSVideoUploadSize = dtAPP_CONFIG.Rows[0]["value"];
+            }
 
-            DBEngine obj1 = new DBEngine();
-            ViewBag.LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
 
             DataSet ds = new DataSet();
 
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
             dt = GetTopicListData();
 
             if (dt != null)
@@ -99,9 +155,22 @@ namespace LMS.Areas.LMS.Controllers
                 Dtls.TopicList = TopicList;
             }
 
-            ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSTOPICSMASTER");
-            proc1.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-            ds = proc1.GetDataSet();
+            //ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+            //proc1.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            //ds = proc1.GetDataSet();
+
+           // String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+           // SqlCommand sqlcmd = new SqlCommand();
+           // SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSTOPICSMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "GETDROPDOWNBINDDATA");
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(ds);
+            sqlcon.Close();
+            sqlcmd.Dispose();
+
 
             if (ds != null)
             {
@@ -137,9 +206,22 @@ namespace LMS.Areas.LMS.Controllers
         {
             DataTable dt = new DataTable();
 
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-            dt = proc.GetTable();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            //dt = proc.GetTable();
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "GETDROPDOWNBINDDATA");
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
+
             return dt;
         }
 
@@ -163,20 +245,49 @@ namespace LMS.Areas.LMS.Controllers
         public JsonResult GetContentGridListData(string TopicID)
         {
             DataTable dt = new DataTable();
-            //  LMSContentAddModel ret = new LMSContentAddModel();
+            
+            ////  LMSContentAddModel ret = new LMSContentAddModel();
             List<ContentListingData> ContentList1 = new List<ContentListingData>();
 
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@ACTION", "GETLISTINGDATA");
-            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
-            proc.AddPara("@TOPICID", TopicID);
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
-            dt = proc.GetTable();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@ACTION", "GETLISTINGDATA");
+            //proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            //proc.AddPara("@TOPICID", TopicID);
+            //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            //dt = proc.GetTable();
 
-            if (dt != null && dt.Rows.Count > 0)
+            //if (dt != null && dt.Rows.Count > 0)
+            //{
+            //    ContentList1 = APIHelperMethods.ToModelList<ContentListingData>(dt);
+            //}
+
+
+            string CS = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            using (SqlConnection con = new SqlConnection(CS))
             {
-                ContentList1 = APIHelperMethods.ToModelList<ContentListingData>(dt);
+                SqlCommand cmd = new SqlCommand("PRC_LMSCONTENTMASTER", con);
+                
+                cmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDATA");
+                cmd.Parameters.AddWithValue("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+                cmd.Parameters.AddWithValue("@TOPICID", TopicID);
+                cmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                // SqlDataReader rdr = cmd.ExecuteReader();
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query your database and return the result to your datatable
+                da.Fill(dt);
+                con.Close();
+                da.Dispose();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    ContentList1 = APIHelperMethods.ToModelList<ContentListingData>(dt);
+                }
             }
+
+
 
             return Json(ContentList1, JsonRequestBehavior.AllowGet);
 
@@ -189,9 +300,21 @@ namespace LMS.Areas.LMS.Controllers
             DataTable dt = new DataTable();
 
 
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@ACTION", "GETTOPICLISTFORBOXDATA");
-            dt = proc.GetTable();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@ACTION", "GETTOPICLISTFORBOXDATA");
+            //dt = proc.GetTable();
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "GETTOPICLISTFORBOXDATA");
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
 
             if (dt != null)
             {
@@ -208,10 +331,24 @@ namespace LMS.Areas.LMS.Controllers
             LMSContentEditModel model = new LMSContentEditModel();
            
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@Action", "GETLASTPLAYSEQ");
-            proc.AddPara("@TOPICID", topicid);
-            dt = proc.GetTable();
+
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@Action", "GETLASTPLAYSEQ");
+            //proc.AddPara("@TOPICID", topicid);
+            //dt = proc.GetTable();
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "GETLASTPLAYSEQ");
+            sqlcmd.Parameters.AddWithValue("@TOPICID", topicid);
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
 
             if (dt != null && dt.Rows.Count>0 )
             {
@@ -226,9 +363,21 @@ namespace LMS.Areas.LMS.Controllers
             LMSContentEditModel model = new LMSContentEditModel();
 
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
-            proc.AddPara("@Action", "GETLASTTOPICSEQ");
-            dt = proc.GetTable();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSTOPICSMASTER");
+            //proc.AddPara("@Action", "GETLASTTOPICSEQ");
+            //dt = proc.GetTable();
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSTOPICSMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@Action", "GETLASTTOPICSEQ");
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -304,8 +453,29 @@ namespace LMS.Areas.LMS.Controllers
 
                 var _thumbnailPath = "";
 
-                DBEngine obj1 = new DBEngine();
-                var LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
+                //DBEngine obj1 = new DBEngine();
+                //var LMSVideoUploadSize = Convert.ToString(obj1.GetDataTable("select [value] from FTS_APP_CONFIG_SETTINGS WHERE [Key]='LMSVideoUploadSize'").Rows[0][0]);
+
+                var LMSVideoUploadSize = "0";
+
+                DataTable dt1 = new DataTable();
+                String con1 = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd1 = new SqlCommand();
+                SqlConnection sqlcon1 = new SqlConnection(con1);
+                sqlcon1.Open();
+                sqlcmd1 = new SqlCommand("Proc_SystemsettingResult", sqlcon1);
+                sqlcmd1.Parameters.AddWithValue("@VariableName", "LMSVideoUploadSize");
+                sqlcmd1.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da1 = new SqlDataAdapter(sqlcmd1);
+                da1.Fill(dt1);
+                sqlcon1.Close();
+
+
+                if (dt1.Rows.Count > 0)
+                {
+                    LMSVideoUploadSize = Convert.ToString(dt1.Rows[0]["Variable_Value"]);
+                }
+
 
                 //LMSContentAddModel data = new LMSContentAddModel();
 
@@ -454,38 +624,102 @@ namespace LMS.Areas.LMS.Controllers
                     {
                         _thumbnailPath = "";
                     }
-                    
 
 
-                    ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                    proc.AddPara("@ACTION", hdnAddEditMode);
-                    proc.AddPara("@CONTENTID", hdnContentID);
-                    proc.AddPara("@CONTENTTITLE", txtContentTitle);
-                    proc.AddPara("@CONTENTDESC", txtContentDesc);
-                    proc.AddPara("@TOPICID", data.TopicId);
-                    proc.AddPara("@PLAYSEQUENCE", numPlaySequence);
-                    proc.AddPara("@STATUS", chkStatus);
-                    proc.AddPara("@ALLOWLIKE", chkAllowLike);
-                    proc.AddPara("@ALLOWCOMMENTS", chkAllowComments);
-                    proc.AddPara("@ALLOWSHARE", chkAllowShare);
-                    proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
 
-                    proc.AddPara("@CONTENT_FILENAME", fileName);
-                    proc.AddPara("@CONTENT_FILESIZE", fileSize);
-                    proc.AddPara("@CONTENT_FILETYPE", FileType);
-                    proc.AddPara("@CONTENT_FILEDURATION", hdnFileDuration);
-                    proc.AddPara("@CONTENT_FILEPATH", "~/Commonfolder/LMS/ContentUpload/" + fileName);                    
-                    proc.AddPara("@CONTENT_ICONFILEPATH", _thumbnailPath);
-                    proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@RETURN_CONTENTID", 500, "", QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@RETURN_TOPICID", 500, "", QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@RETURN_ASSIGNUSERIDS", -1, "", QueryParameterDirection.Output);
-                    int k = proc.RunActionQuery();
-                    RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
-                    RETURN_CONTENTID = Convert.ToString(proc.GetParaValue("@RETURN_CONTENTID"));
-                    RETURN_TOPICID = Convert.ToString(proc.GetParaValue("@RETURN_TOPICID"));
-                    //RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+                    //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                    //proc.AddPara("@ACTION", hdnAddEditMode);
+                    //proc.AddPara("@CONTENTID", hdnContentID);
+                    //proc.AddPara("@CONTENTTITLE", txtContentTitle);
+                    //proc.AddPara("@CONTENTDESC", txtContentDesc);
+                    //proc.AddPara("@TOPICID", data.TopicId);
+                    //proc.AddPara("@PLAYSEQUENCE", numPlaySequence);
+                    //proc.AddPara("@STATUS", chkStatus);
+                    //proc.AddPara("@ALLOWLIKE", chkAllowLike);
+                    //proc.AddPara("@ALLOWCOMMENTS", chkAllowComments);
+                    //proc.AddPara("@ALLOWSHARE", chkAllowShare);
+                    //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+
+                    //proc.AddPara("@CONTENT_FILENAME", fileName);
+                    //proc.AddPara("@CONTENT_FILESIZE", fileSize);
+                    //proc.AddPara("@CONTENT_FILETYPE", FileType);
+                    //proc.AddPara("@CONTENT_FILEDURATION", hdnFileDuration);
+                    //proc.AddPara("@CONTENT_FILEPATH", "~/Commonfolder/LMS/ContentUpload/" + fileName);                    
+                    //proc.AddPara("@CONTENT_ICONFILEPATH", _thumbnailPath);
+                    //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                    //proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
+                    //proc.AddVarcharPara("@RETURN_CONTENTID", 500, "", QueryParameterDirection.Output);
+                    //proc.AddVarcharPara("@RETURN_TOPICID", 500, "", QueryParameterDirection.Output);
+                    //proc.AddVarcharPara("@RETURN_ASSIGNUSERIDS", -1, "", QueryParameterDirection.Output);
+                    //int k = proc.RunActionQuery();
+
+                    DataTable dt = new DataTable();
+
+                    string CS = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    using (SqlConnection con = new SqlConnection(CS))
+                    {
+                        SqlCommand cmd = new SqlCommand("PRC_LMSCONTENTMASTER", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        
+
+                        cmd.Parameters.AddWithValue("@ACTION", hdnAddEditMode);
+                        cmd.Parameters.AddWithValue("@CONTENTID", hdnContentID);
+                        cmd.Parameters.AddWithValue("@CONTENTTITLE", txtContentTitle);
+                        cmd.Parameters.AddWithValue("@CONTENTDESC", txtContentDesc);
+                        cmd.Parameters.AddWithValue("@TOPICID", data.TopicId);
+                        cmd.Parameters.AddWithValue("@PLAYSEQUENCE", numPlaySequence);
+                        cmd.Parameters.AddWithValue("@STATUS", chkStatus);
+                        cmd.Parameters.AddWithValue("@ALLOWLIKE", chkAllowLike);
+                        cmd.Parameters.AddWithValue("@ALLOWCOMMENTS", chkAllowComments);
+                        cmd.Parameters.AddWithValue("@ALLOWSHARE", chkAllowShare);
+                        cmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+
+                        cmd.Parameters.AddWithValue("@CONTENT_FILENAME", fileName);
+                        cmd.Parameters.AddWithValue("@CONTENT_FILESIZE", fileSize);
+                        cmd.Parameters.AddWithValue("@CONTENT_FILETYPE", FileType);
+                        cmd.Parameters.AddWithValue("@CONTENT_FILEDURATION", hdnFileDuration);
+                        cmd.Parameters.AddWithValue("@CONTENT_FILEPATH", "~/Commonfolder/LMS/ContentUpload/" + fileName);
+                        cmd.Parameters.AddWithValue("@CONTENT_ICONFILEPATH", _thumbnailPath);
+
+
+                        SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.VarChar,500);
+                        output.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(output);
+
+
+                        SqlParameter output1 = new SqlParameter("@RETURN_DUPLICATEMAPNAME", SqlDbType.VarChar,-1);
+                        output1.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(output1);
+
+
+                        SqlParameter output2 = new SqlParameter("@RETURN_CONTENTID", SqlDbType.VarChar,500);
+                        output2.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(output2);
+
+
+                        SqlParameter output3 = new SqlParameter("@RETURN_TOPICID", SqlDbType.VarChar,500);
+                        output3.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(output3);
+
+                        SqlParameter output4 = new SqlParameter("@RETURN_ASSIGNUSERIDS", SqlDbType.VarChar,-1);
+                        output4.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(output4);
+
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                        //con.Close();
+
+                        RETURN_VALUE = Convert.ToString(output.Value);
+                        RETURN_CONTENTID = Convert.ToString(output2.Value);
+                        RETURN_TOPICID = Convert.ToString(output3.Value);
+                        //RETURN_DUPLICATEMAPNAME = Convert.ToString(output1.Value);
+
+                        con.Close();
+                        cmd.Dispose();
+                    }
 
                     if (RETURN_VALUE == "Content added succesfully." || RETURN_VALUE == "Content updated succesfully."){
                         if (fileName != null && fileName != "")
@@ -796,13 +1030,30 @@ namespace LMS.Areas.LMS.Controllers
               //  LMSContentAddModel ret = new LMSContentAddModel();
                 List<LMSContentEditModel> TopicMapList1 = new List<LMSContentEditModel>();
 
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "SHOWCONTENT");
-                proc.AddPara("@CONTENTID", ContentId);
-                proc.AddPara("@SERVERMAPPATH", Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
-                proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
-                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
-                dt = proc.GetTable();
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "SHOWCONTENT");
+                //proc.AddPara("@CONTENTID", ContentId);
+                //proc.AddPara("@SERVERMAPPATH", Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
+                //proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+                //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                //dt = proc.GetTable();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "SHOWCONTENT");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+                sqlcmd.Parameters.AddWithValue("@SERVERMAPPATH", Server.MapPath("~/Commonfolder/LMS/ContentUpload/"));
+                sqlcmd.Parameters.AddWithValue("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+                sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+               
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                sqlcmd.Dispose();
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -841,12 +1092,37 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "DELETECONTENTS");
-                proc.AddPara("@CONTENTID", ContentId);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "DELETECONTENTS");
+                //proc.AddPara("@CONTENTID", ContentId);
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "DELETECONTENTS");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.VarChar,500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                output_msg = Convert.ToString(output.Value);
+
+                sqlcmd.Dispose();
+
 
 
                 if (output_msg != "-10" && output_msg != null && output_msg != "")
@@ -887,10 +1163,26 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataSet ds = new DataSet();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@Action", "GETCONTENTCOUNTDATA");
-                proc.AddPara("@userid", Convert.ToString(HttpContext.Session["userid"]));
-                ds = proc.GetDataSet();
+
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@Action", "GETCONTENTCOUNTDATA");
+                //proc.AddPara("@userid", Convert.ToString(HttpContext.Session["userid"]));
+                //ds = proc.GetDataSet();
+
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@Action", "GETCONTENTCOUNTDATA");
+                sqlcmd.Parameters.AddWithValue("@userid", Convert.ToString(HttpContext.Session["userid"]));
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(ds);
+                sqlcon.Close();
+                sqlcmd.Dispose();
+
 
                 int TotalContents = 0;
                 int ActiveContents = 0;
@@ -933,11 +1225,24 @@ namespace LMS.Areas.LMS.Controllers
                 List<QuestionMappedGridListModel> qmapmodel = new List<QuestionMappedGridListModel>();
 
                 DataTable dt = new DataTable();
-                ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc1.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
-                proc1.AddPara("@CONTENTID", model.Is_ContentId);
-                //proc.AddPara("@USERID", Convert.ToInt32(user_id));
-                dt = proc1.GetTable();
+                //ProcedureExecute proc1 = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc1.AddPara("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
+                //proc1.AddPara("@CONTENTID", model.Is_ContentId);
+                ////proc.AddPara("@USERID", Convert.ToInt32(user_id));
+                //dt = proc1.GetTable();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GET_CONTENTQUESTIONMAP_LISTINGDATA");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", model.Is_ContentId);
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                sqlcmd.Dispose();
 
                 if (dt != null)
                 {
@@ -1023,9 +1328,21 @@ namespace LMS.Areas.LMS.Controllers
                 List<TopicList> modelTopic = new List<TopicList>();
 
                 DataSet ds = new DataSet();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
-                ds = proc.GetDataSet();
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+                //ds = proc.GetDataSet();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETDROPDOWNBINDDATA");
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(ds);
+                sqlcon.Close();
+                sqlcmd.Dispose();
 
                 if (ds != null)
                 {
@@ -1051,9 +1368,21 @@ namespace LMS.Areas.LMS.Controllers
                 List<CategoryList> modelCategory = new List<CategoryList>();
 
                 DataSet ds = new DataSet();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETCATEGORYDROPDOWNBINDDATA");
-                ds = proc.GetDataSet();
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "GETCATEGORYDROPDOWNBINDDATA");
+                //ds = proc.GetDataSet();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETCATEGORYDROPDOWNBINDDATA");
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(ds);
+                sqlcon.Close();
+                sqlcmd.Dispose();
 
                 if (ds != null)
                 {
@@ -1077,15 +1406,32 @@ namespace LMS.Areas.LMS.Controllers
             List<QuestionListForMap> modelQuestionListForMap = new List<QuestionListForMap>();
 
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@Action", "GETQUESTIONLISTFORMAP");
-            proc.AddPara("@CONTENTID", ContentId);
-            proc.AddPara("@TOPICIDS", TopicIds);
-            proc.AddPara("@CATEGORYIDS", CategoryIds);
-            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@Action", "GETQUESTIONLISTFORMAP");
+            //proc.AddPara("@CONTENTID", ContentId);
+            //proc.AddPara("@TOPICIDS", TopicIds);
+            //proc.AddPara("@CATEGORYIDS", CategoryIds);
+            //proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
 
-            dt = proc.GetTable();
+            //dt = proc.GetTable();
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@Action", "GETQUESTIONLISTFORMAP");
+            sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+            sqlcmd.Parameters.AddWithValue("@TOPICIDS", TopicIds);
+            sqlcmd.Parameters.AddWithValue("@CATEGORYIDS", CategoryIds);
+            sqlcmd.Parameters.AddWithValue("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
 
             if (dt != null)
             {
@@ -1100,16 +1446,48 @@ namespace LMS.Areas.LMS.Controllers
         {
             try
             {
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", data.Action);
-                proc.AddPara("@CONTENTID", data.ContentID);
-                proc.AddPara("@SELECTEDQUESTIONMAPLIST", data.SelectedQuestionMapList);
-                proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
-                int k = proc.RunActionQuery();
-                data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
-                data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", data.Action);
+                //proc.AddPara("@CONTENTID", data.ContentID);
+                //proc.AddPara("@SELECTEDQUESTIONMAPLIST", data.SelectedQuestionMapList);
+                //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //proc.AddVarcharPara("@RETURN_DUPLICATEMAPNAME", -1, "", QueryParameterDirection.Output);
+                //int k = proc.RunActionQuery();
+                //data.RETURN_VALUE = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                //data.RETURN_DUPLICATEMAPNAME = Convert.ToString(proc.GetParaValue("@RETURN_DUPLICATEMAPNAME"));
+
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", data.Action);
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", data.ContentID);
+                sqlcmd.Parameters.AddWithValue("@SELECTEDQUESTIONMAPLIST", data.SelectedQuestionMapList);
+                sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.VarChar ,500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                SqlParameter output1 = new SqlParameter("@RETURN_DUPLICATEMAPNAME", SqlDbType.NVarChar, -1);
+                output1.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output1);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                data.RETURN_VALUE = Convert.ToString(output.Value);
+                data.RETURN_DUPLICATEMAPNAME = Convert.ToString(output1.Value);
+
+                sqlcmd.Dispose();
+
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -1122,13 +1500,27 @@ namespace LMS.Areas.LMS.Controllers
             List<QuestionListForMap> modelQuestionListForMap = new List<QuestionListForMap>();
 
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-            proc.AddPara("@Action", "GETCONTENTDETAILSFOREDIT");
-            proc.AddPara("@CONTENTID", ContentId);
-            proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+            //proc.AddPara("@Action", "GETCONTENTDETAILSFOREDIT");
+            //proc.AddPara("@CONTENTID", ContentId);
+            //proc.AddPara("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            //proc.AddPara("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            //dt = proc.GetTable();
 
-            dt = proc.GetTable();
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@Action", "GETCONTENTDETAILSFOREDIT");
+            sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+            sqlcmd.Parameters.AddWithValue("@BRANCHID", Convert.ToString(Session["userbranchHierarchy"]));
+            sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToString(HttpContext.Session["userid"]));
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(dt);
+            sqlcon.Close();
+            sqlcmd.Dispose();
 
             if (dt != null)
             {
@@ -1145,12 +1537,36 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "QUESTIONMAPDELETE");
-                proc.AddPara("@CONTENTID", ContentID);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "QUESTIONMAPDELETE");
+                //proc.AddPara("@CONTENTID", ContentID);
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "QUESTIONMAPDELETE");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentID);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.VarChar,500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                output_msg = Convert.ToString(output.Value);
+
+                sqlcmd.Dispose();
+
+
             }
             catch (Exception ex)
             {
@@ -1180,12 +1596,27 @@ namespace LMS.Areas.LMS.Controllers
                 List<QuestionMappedViewModel> qmapmodel = new List<QuestionMappedViewModel>();
 
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETMAPPEDQUESTIONSFORVIEW");
-                proc.AddPara("@CONTENTID", model.Is_ContentId);
-                proc.AddPara("@USERID", Convert.ToInt32(user_id));
-                dt = proc.GetTable();
-                
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "GETMAPPEDQUESTIONSFORVIEW");
+                //proc.AddPara("@CONTENTID", model.Is_ContentId);
+                //proc.AddPara("@USERID", Convert.ToInt32(user_id));
+                //dt = proc.GetTable();
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETMAPPEDQUESTIONSFORVIEW");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", model.Is_ContentId);
+                //sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToInt32(user_id));
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                sqlcmd.Dispose();
+
+
                 if (dt != null)
                 {
                     qmapmodel = APIHelperMethods.ToModelList<QuestionMappedViewModel>(dt);
@@ -1274,15 +1705,43 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "UPDATEPLAYSEQUENCE");
-                proc.AddPara("@CONTENTIDOLD", ContentIdOld);
-                proc.AddPara("@PLAYSEQOLD", PlaySeqOld);
-                proc.AddPara("@CONTENTIDNEW", ContentIdNew);
-                proc.AddPara("@PLAYSEQNEW", PlaySeqNew);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "UPDATEPLAYSEQUENCE");
+                //proc.AddPara("@CONTENTIDOLD", ContentIdOld);
+                //proc.AddPara("@PLAYSEQOLD", PlaySeqOld);
+                //proc.AddPara("@CONTENTIDNEW", ContentIdNew);
+                //proc.AddPara("@PLAYSEQNEW", PlaySeqNew);
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATEPLAYSEQUENCE");
+                sqlcmd.Parameters.AddWithValue("@CONTENTIDOLD", ContentIdOld);
+                sqlcmd.Parameters.AddWithValue("@PLAYSEQOLD", PlaySeqOld);
+                sqlcmd.Parameters.AddWithValue("@CONTENTIDNEW", ContentIdNew);
+                sqlcmd.Parameters.AddWithValue("@PLAYSEQNEW", PlaySeqNew);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.NVarChar ,500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                output_msg = Convert.ToString(output.Value);
+
+                sqlcmd.Dispose();
+
+
 
                 //output_msg = "1";
 
@@ -1313,14 +1772,38 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "UPDATESTATUSPUBLISH");
-                proc.AddPara("@CONTENTID", ContentId);
-                proc.AddPara("@STATUS", chkStatus);
-                
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "UPDATESTATUSPUBLISH");
+                //proc.AddPara("@CONTENTID", ContentId);
+                //proc.AddPara("@STATUS", chkStatus);
+
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATESTATUSPUBLISH");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+                sqlcmd.Parameters.AddWithValue("@STATUS", chkStatus);
+               
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.NVarChar, 500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                output_msg = Convert.ToString(output.Value);
+
+                sqlcmd.Dispose();
+
 
                 if (output_msg == "1" && chkStatus=="0")
                 {
@@ -1343,14 +1826,33 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "GETRETURNTOPICDETAILS");
-                proc.AddPara("@TOPICID", TopicID);
-                proc.AddPara("@CONTENTID", ContentID);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "GETRETURNTOPICDETAILS");
+                //proc.AddPara("@TOPICID", TopicID);
+                //proc.AddPara("@CONTENTID", ContentID);
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
 
-                if(dt.Rows.Count > 0)
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETRETURNTOPICDETAILS");
+                sqlcmd.Parameters.AddWithValue("@TOPICID", TopicID);
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentID);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.NVarChar, 500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+                sqlcmd.Dispose();
+
+                if (dt.Rows.Count > 0)
                 {
                     TempData["TopicID"] = TopicID;
                     TempData["ContentID"] = ContentID;
@@ -1379,14 +1881,37 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "UPDATEQUIZTIME");
-                proc.AddPara("@CONTENTID", ContentId);
-                proc.AddPara("@QUIZTIME", QuizTime);
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "UPDATEQUIZTIME");
+                //proc.AddPara("@CONTENTID", ContentId);
+                //proc.AddPara("@QUIZTIME", QuizTime);
 
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATEQUIZTIME");
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", ContentId);
+                sqlcmd.Parameters.AddWithValue("@QUIZTIME", QuizTime);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.NVarChar, 500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                output_msg = Convert.ToString(output.Value);
+
+
+                sqlcmd.Dispose();
 
             }
             catch (Exception ex)
@@ -1405,15 +1930,42 @@ namespace LMS.Areas.LMS.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
-                proc.AddPara("@ACTION", "UPDATETOPICSEQUENCE");
-                proc.AddPara("@TOPICIDOLD", TopicIdOld);
-                proc.AddPara("@TOPICSEQOLD", TopicSeqOld);
-                proc.AddPara("@TOPICIDNEW", TopicIdNew);
-                proc.AddPara("@TOPICSEQNEW", TopicSeqNew);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                //ProcedureExecute proc = new ProcedureExecute("PRC_LMSCONTENTMASTER");
+                //proc.AddPara("@ACTION", "UPDATETOPICSEQUENCE");
+                //proc.AddPara("@TOPICIDOLD", TopicIdOld);
+                //proc.AddPara("@TOPICSEQOLD", TopicSeqOld);
+                //proc.AddPara("@TOPICIDNEW", TopicIdNew);
+                //proc.AddPara("@TOPICSEQNEW", TopicSeqNew);
+                //proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                //dt = proc.GetTable();
+                //output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMSCONTENTMASTER", sqlcon);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATETOPICSEQUENCE");
+                sqlcmd.Parameters.AddWithValue("@TOPICIDOLD", TopicIdOld);
+                sqlcmd.Parameters.AddWithValue("@TOPICSEQOLD", TopicSeqOld);
+                sqlcmd.Parameters.AddWithValue("@TOPICIDNEW", TopicIdNew);
+                sqlcmd.Parameters.AddWithValue("@TOPICSEQNEW", TopicSeqNew);
+
+                SqlParameter output = new SqlParameter("@RETURN_VALUE", SqlDbType.NVarChar, 500);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                output_msg = Convert.ToString(output.Value);
+
+
+                sqlcmd.Dispose();
+
 
                 //output_msg = "1";
 
@@ -1426,5 +1978,96 @@ namespace LMS.Areas.LMS.Controllers
 
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpPost]
+        public JsonResult SaveQuestion(string name, string id, string description, string Option1, string Option2, string Option3, string Option4, string Point1
+            , string Point2, string Point3, string Point4, string chkCorrect1, string chkCorrect2, string chkCorrect3, string chkCorrect4, string TOPIC_ID, string Category_ID
+            , string MODE, string CONTENTID
+            )
+        {
+            string output_msg = string.Empty;
+
+            try
+            {
+
+                string Userid = Convert.ToString(Session["userid"]);
+
+                if (id == null)
+                {
+                    id = "0";
+                }
+                // End of Rev Sanchita
+
+                DataTable dt = new DataTable();
+                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                SqlCommand sqlcmd = new SqlCommand();
+                SqlConnection sqlcon = new SqlConnection(con);
+                sqlcon.Open();
+                sqlcmd = new SqlCommand("PRC_LMS_QUESTIONS", sqlcon);
+
+                if (id == "0")
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "ADD");
+                else
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATE");
+
+                // Rev Sanchita
+                sqlcmd.Parameters.AddWithValue("@MODE", MODE);
+                sqlcmd.Parameters.AddWithValue("@CONTENTID", CONTENTID);
+                // End of Rev Sanchita
+                sqlcmd.Parameters.AddWithValue("@QUESTIONNAME", name);
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@QUESTIONDESCRIPTION", description);
+
+                sqlcmd.Parameters.AddWithValue("@OPTION1", Option1);
+                sqlcmd.Parameters.AddWithValue("@OPTION2", Option2);
+                sqlcmd.Parameters.AddWithValue("@OPTION3", Option3);
+                sqlcmd.Parameters.AddWithValue("@OPTION4", Option4);
+
+                sqlcmd.Parameters.AddWithValue("@POINT1", Point1);
+                sqlcmd.Parameters.AddWithValue("@POINT2", Point2);
+                sqlcmd.Parameters.AddWithValue("@POINT3", Point3);
+                sqlcmd.Parameters.AddWithValue("@POINT4", Point4);
+
+                sqlcmd.Parameters.AddWithValue("@CORRECT1", chkCorrect1);
+                sqlcmd.Parameters.AddWithValue("@CORRECT2", chkCorrect2);
+                sqlcmd.Parameters.AddWithValue("@CORRECT3", chkCorrect3);
+                sqlcmd.Parameters.AddWithValue("@CORRECT4", chkCorrect4);
+
+                sqlcmd.Parameters.AddWithValue("@TOPIC_IDS", TOPIC_ID);
+                sqlcmd.Parameters.AddWithValue("@CATEGORY_IDS", Category_ID);
+
+                sqlcmd.Parameters.AddWithValue("@ID", id);
+
+                SqlParameter output = new SqlParameter("@ReturnValue", SqlDbType.Int);
+                output.Direction = ParameterDirection.Output;
+                sqlcmd.Parameters.Add(output);
+
+                sqlcmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                da.Fill(dt);
+                sqlcon.Close();
+
+                //Int32 ReturnValue = Convert.ToInt32(output.Value);
+                output_msg = Convert.ToString(output.Value);
+
+                sqlcmd.Dispose();
+                sqlcmd.Dispose();
+
+                
+
+                //output_msg = "1";
+
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

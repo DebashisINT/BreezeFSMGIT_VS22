@@ -23,6 +23,7 @@ namespace LMS.Models
         public List<TopicBasedOnList> TopicBasedOnList { get; set; }
         public string TOPIC_ID { get; set; }
         public string VideoPath { get; set; }
+        public String QUESTIONS_ID { get; set; }
     }
 
     public class LMSContentAddModel
