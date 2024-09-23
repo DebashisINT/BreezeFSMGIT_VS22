@@ -384,7 +384,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             string user_name = dtUser.Rows[0]["user_name"].ToString();
                             string user_PHNO = dtUser.Rows[0]["user_loginId"].ToString();
 
-                            string Mssg = "" + model.OrderCode + " status has changed to " + model.ORDERSTATUSNEW;
+                            string Mssg = "Order #" + model.OrderCode + " status has changed to " + model.ORDERSTATUSNEW;
 
                             SendNotification(user_PHNO, Mssg, model.OrderCode, model.ORDERSTATUSNEW);
                         }
