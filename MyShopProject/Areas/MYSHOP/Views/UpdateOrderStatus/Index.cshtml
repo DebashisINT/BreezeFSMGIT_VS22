@@ -117,6 +117,7 @@
                 var dayse = Math.round((Date.parse(end) - Date.parse(start)) / (1000 * 60 * 60 * 24));
                 if (flag) {
                     if (dayse <= 30) {
+                        Is_PageLoad = "1";
                         gridorderrsummary.Refresh();
                     }
                     else {
@@ -132,6 +133,11 @@
 
         $('body').on('click', '#btnUpdateStatus', function () {
             var flag = false;  
+
+            if ($("#txtORDERSTATUSOLD").val() == "") {
+                alert("Status Should be Ordered.");
+                return;
+            }
 
             if ($("#txtORDERSTATUSOLD").val() == "Ordered") {
                 if ($("#ddlNewSTATUS").val() == "Invoiced") {
@@ -194,6 +200,7 @@
                     success: function (data) {
                         jAlert('Updated Successfully');
                         $("#myModal").modal('hide');
+                        Is_PageLoad = "1";
                         gridorderrsummary.Refresh();
                     },
                     error: function () {
@@ -278,6 +285,8 @@
         e.customArgs["BranchId"] = BranchId;
 
         e.customArgs["UPDATESTATUS"] = $("#ddlSTATUS").val();
+        e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        
     }
 
 
@@ -880,6 +889,21 @@
             $('#txtEmployeeSearch').focus();
         })
 
+        if ('@ViewBag.IsRetailOrderStatusRequired' == "1") {
+            $("#DivbtnUpdateStatus").removeClass("hidden");
+        }
+        else {
+            $("#DivbtnUpdateStatus").addClass("hidden");
+        }
+
+        if ('@ViewBag.IsRetailOrderStatusRequired' == "1") {
+            $("#btnshow").removeClass("hidden");
+        }
+        else {
+            $("#btnshow").addClass("hidden");
+        }
+
+        
     })
     var ProdArr = new Array();
     $(document).ready(function () {
@@ -1112,6 +1136,7 @@
             data: { Columns: visibleColumn },
             type: 'POST',
             success: function (data) {
+                Is_PageLoad = "1";
                 gridorderrsummary.Refresh();
             },
             error: function () {
@@ -1229,6 +1254,7 @@
                             </td>
                             <td style="padding-top: 22px;width:180px;">
                                 <label></label>
+
                                 <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
                                 <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
                                     <option value="0">Export to</option>
@@ -1267,9 +1293,10 @@
                 </div>
 
                 <div id="refreshgridstatusreportregister">
+
                     @{
 
-                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS = Model.UPDATESTATUS });
+                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Is_PageLoad=Model.Is_PageLoad,Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS = Model.UPDATESTATUS });
 
                     }
                 </div>
@@ -1305,7 +1332,7 @@
                                             @Html.DropDownListFor(m => m.ORDERSTATUSNEW, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlNewSTATUS", @class = "form-control" })
                                         </div>
                                     </div>
-                                    <div class="col-md-4 pad-md-18 mt-3 cust-margin-top">
+                                    <div class="col-md-4 pad-md-18 mt-3 cust-margin-top" id="DivbtnUpdateStatus">
                                         <label>&nbsp;</label>
                                         <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>Update</button>
                                     </div>
