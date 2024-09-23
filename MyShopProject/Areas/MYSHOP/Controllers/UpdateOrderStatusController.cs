@@ -46,6 +46,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
         {
             try
             {
+                string IsRetailOrderStatusRequired = objSystemSettings.GetSystemSettingsResult("IsRetailOrderStatusRequired");
                 UpdateOrderStatusModel omodel = new UpdateOrderStatusModel();
                 string userid = Session["userid"].ToString();
                 omodel.selectedusrid = userid;
@@ -66,9 +67,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewBag.CanInvoice= rights.CanInvoice;
                 ViewBag.CanReadyToDispatch= rights.CanReadyToDispatch;
                 ViewBag.CanDispatch= rights.CanDispatch;
-                ViewBag.CanDeliver= rights.CanDeliver;              
+                ViewBag.CanDeliver= rights.CanDeliver;
+                ViewBag.IsRetailOrderStatusRequired = IsRetailOrderStatusRequired;
 
-               
 
                 STATUSLIST dataobj = new STATUSLIST();
                 List<STATUSLIST> _STATUSLIST = new List<STATUSLIST>();
@@ -160,6 +161,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     model.Todate = DateTime.Now.ToString("dd-MM-yyyy");
                 }
+                if (model.Is_PageLoad == null)
+                {
+                    model.Is_PageLoad = "0";
+                }
+                   
+
+
                 if (model.Is_PageLoad == "0") Is_PageLoad = "Ispageload";
                 ViewData["ModelData"] = model;
 
@@ -411,7 +419,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     {
                         if (Convert.ToString(dt.Rows[i]["device_token"]) != "")
                         {                            
-                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]), "lms_content_assign", OrderCode, ORDERSTATUS);
+                            SendPushNotification(messagetext, Convert.ToString(dt.Rows[i]["device_token"]), Convert.ToString(dt.Rows[i]["user_name"]), Convert.ToString(dt.Rows[i]["user_id"]), "UpdateOrderStatus", OrderCode, ORDERSTATUS);
                            
                         }
                     }
@@ -493,10 +501,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 rootObj.message.data.UserID = UserID;
                 rootObj.message.data.body = message;
                 rootObj.message.data.type = type;
-               
+                rootObj.message.data.header = "Update Order Status";
 
 
-               
+
 
                 //-------------Convert Model To JSON ----------------------
 
