@@ -2068,6 +2068,84 @@ namespace LMS.Areas.LMS.Controllers
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult EditQuestion(string id)
+        {
+            LMSContentModel obj = new LMSContentModel();
+            obj.QUESTIONS_ID = id;
+
+            DataSet output = new DataSet();
+            //output = obj.EditQuestion(id);
+
+            String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+            SqlCommand sqlcmd = new SqlCommand();
+            SqlConnection sqlcon = new SqlConnection(con);
+            sqlcon.Open();
+            sqlcmd = new SqlCommand("PRC_LMS_QUESTIONS", sqlcon);
+            sqlcmd.Parameters.AddWithValue("@ACTION", "EDIT");
+            sqlcmd.Parameters.AddWithValue("@ID", id);
+            sqlcmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+            da.Fill(output);
+            sqlcon.Close();
+            sqlcmd.Dispose();
+
+            GetCategory dataobj = new GetCategory();
+            List<GetCategory> productdata = new List<GetCategory>();
+
+            if (output.Tables[2].Rows.Count > 0)
+            {
+                if (output.Tables[2] != null && output.Tables[2].Rows.Count > 0)
+                {
+                    DataTable objData = output.Tables[2];
+                    foreach (DataRow row in objData.Rows)
+                    {
+                        dataobj = new GetCategory();
+                        dataobj.CATEGORYID = Convert.ToInt64(row["QUESTIONS_CATEGORYID"]);
+                        productdata.Add(dataobj);
+
+                    }
+                }
+
+            }
+            ViewBag.QUESTIONS_CATEGORYIDS = productdata;
+
+            if (output.Tables[0].Rows.Count > 0)
+            {
+                return Json(new
+                {
+                    NAME = Convert.ToString(output.Tables[0].Rows[0]["QUESTIONS_NAME"]),
+                    DESCRIPTION = Convert.ToString(output.Tables[0].Rows[0]["QUESTIONS_DESCRIPTN"]),
+
+                    OPTIONS_NUMBER1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER1"]),
+                    OPTIONS_NUMBER2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER2"]),
+                    OPTIONS_NUMBER3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER3"]),
+                    OPTIONS_NUMBER4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_NUMBER4"]),
+
+                    OPTIONS_POINT1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT1"]),
+                    OPTIONS_POINT2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT2"]),
+                    OPTIONS_POINT3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT3"]),
+                    OPTIONS_POINT4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_POINT4"]),
+
+                    OPTIONS_CORRECT1 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT1"]),
+                    OPTIONS_CORRECT2 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT2"]),
+                    OPTIONS_CORRECT3 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT3"]),
+                    OPTIONS_CORRECT4 = Convert.ToString(output.Tables[0].Rows[0]["OPTIONS_CORRECT4"]),
+
+
+                    CATEGORYIDS = Convert.ToString(output.Tables[0].Rows[0]["CATEGORYIDS"]),
+                    TOPICIDS = Convert.ToString(output.Tables[0].Rows[0]["TOPICIDS"]),
+
+
+
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
     }
 }

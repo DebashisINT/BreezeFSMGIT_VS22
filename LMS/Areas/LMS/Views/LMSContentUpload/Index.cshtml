@@ -3160,6 +3160,28 @@
         color: #DC0505;
         width: 16px;
     }
+
+    #btnSaveNew .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSaveNew .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+    #btnSaveNew.btn-warning .btn-icon img {
+        color: #e08d19;
+        width: 14px;
+    }
+
+
     
 </style>
 
@@ -5104,7 +5126,7 @@
 
         //$("#ddlTopicQ").val(0).trigger('change');
         ddlTopicQ.disabled = true;
-
+        $("#btnSaveNew").show();
     }
 
     function AddQuestion(ContentId, ContentTitle, TopicId) {
@@ -5142,21 +5164,101 @@
     {
         if (parseInt(QusetionId) > 0)
         {
+            //$.ajax({
+            //    type: "POST",
+            //    url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
+            //    data: { ID: QusetionId, IsView: 0 },
+            //    success: function (response) {
+            //        if (response != null && response == true) {
+            //            var url = '/LMS/LMSQuestions/QuestionAdd?key=' + QusetionId + '&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
+            //            window.location.href = url;
+            //        }
+            //        else {
+            //            jAlert('Please try again later.');
+            //            return false;
+            //        }
+            //    }
+            //});
+
+            ClearQuesData();
+            $("#ddlTopicQ").val(TopicId).trigger('change');
+            $("#btnSaveNew").hide();
+            $("#hdnIDADd").val(QusetionId);
+
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("SetMapDataByID", "LMSQuestions")",
-                data: { ID: QusetionId, IsView: 0 },
+                url: "@Url.Action("EditQuestion", "LMSContentUpload")",
+                data: { id: QusetionId },
                 success: function (response) {
-                    if (response != null && response == true) {
-                        var url = '/LMS/LMSQuestions/QuestionAdd?key=' + QusetionId + '&&TOPICID=' + TopicId + '&&CONTENTID=' + ContentId;
-                        window.location.href = url;
+                    if (response.code == "") {
+                        jAlert('No data found');
                     }
                     else {
-                        jAlert('Please try again later.');
-                        return false;
+                        $("#txtQuestionName").val(response.NAME);
+                        $("#txtQuestionDescription").val(response.DESCRIPTION);
+
+
+                        $("#txtOption1").val(response.OPTIONS_NUMBER1);
+                        $("#txtOption2").val(response.OPTIONS_NUMBER2);
+                        $("#txtOption3").val(response.OPTIONS_NUMBER3);
+                        $("#txtOption4").val(response.OPTIONS_NUMBER4);
+
+
+                        $("#txtPoint1").val(response.OPTIONS_POINT1);
+                        $("#txtPoint2").val(response.OPTIONS_POINT2);
+                        $("#txtPoint3").val(response.OPTIONS_POINT3);
+                        $("#txtPoint4").val(response.OPTIONS_POINT4);
+
+                        if (response.OPTIONS_CORRECT1 == "True") {
+                            $("#chkCorrect1").prop("checked", true);
+                            $("#txtPoint1").prop("disabled", false);
+
+                        }
+                        else {
+                            $("#chkCorrect1").prop("checked", false);
+                            $("#txtPoint1").prop("disabled", true);
+                        }
+
+                        if (response.OPTIONS_CORRECT2 == "True") {
+                            $("#chkCorrect2").prop("checked", true);
+                            $("#txtPoint2").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect2").prop("checked", false);
+                            $("#txtPoint2").prop("disabled", true);
+                        }
+
+                        if (response.OPTIONS_CORRECT3 == "True") {
+                            $("#chkCorrect3").prop("checked", true);
+                            $("#txtPoint3").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect3").prop("checked", false);
+                            $("#txtPoint3").prop("disabled", true);
+                        }
+
+                        if (response.OPTIONS_CORRECT4 == "True") {
+                            $("#chkCorrect4").prop("checked", true);
+                            $("#txtPoint3").prop("disabled", false);
+                        }
+                        else {
+                            $("#chkCorrect4").prop("checked", false);
+                            $("#txtPoint4").prop("disabled", true);
+                        }
+
+
+                        TOPIC_ID = response.TOPICIDS;
+                        Category_ID = response.CATEGORYIDS;
+
+                        $("#AddQuestionModal").modal('show');
+
                     }
                 }
             });
+
+
+
+
         }
     }
 
@@ -7436,8 +7538,8 @@
             </div>
             <div class="modal-footer">
                 <div class="save-exit-btn">
-                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelQuestionAdd()" ><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
-                    
+                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelQuestionAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
 
                     @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
                     {
@@ -7445,12 +7547,13 @@
                     }
                     @if (ViewBag.CanAdd && Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 2)
                     {
-                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveQuestion('New')"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>
+                        <button type="button" id="btnSaveNew" class="btn btn-success" onclick="SaveQuestion('New')"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>
                     }
 
                 </div>
             </div>
         </div>
+        <input type="hidden" value="@Model.QUESTIONS_ID" id="hdnIDADd" />
 
     </div>
 </div>
