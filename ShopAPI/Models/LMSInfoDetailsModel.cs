@@ -30,6 +30,7 @@ namespace ShopAPI.Models
         public int video_count { get; set; }
         public int no_of_pending_video_count { get; set; }
         public int topic_parcentage { get; set; }
+        public long topic_sequence { get; set; }
     }
 
     public class TopicWiseListsInput
