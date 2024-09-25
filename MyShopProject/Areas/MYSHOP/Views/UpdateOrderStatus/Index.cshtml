@@ -14,6 +14,9 @@
 <script src="~/assests/pluggins/choosen/choosen.min.js"></script>
 <script src="~/Scripts/SearchMultiPopup.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
 <script>
     var Is_PageLoad = "0";
     //Rev 1.0
@@ -132,7 +135,7 @@
         });
 
         $('body').on('click', '#btnUpdateStatus', function () {
-            var flag = false;  
+            var flag = false;
 
             if ($("#txtORDERSTATUSOLD").val() == "") {
                 alert("Status Should be Ordered.");
@@ -181,7 +184,7 @@
 
             if ($("#ddlNewSTATUS").val() == "" || $("#ddlNewSTATUS").val() == "Select") {
                 alert("Please select Status.");
-            }            
+            }
             else {
                 flag = true;
                 var surl = '@Url.Action("UpdateOrderStatusModify", "UpdateOrderStatus")';
@@ -191,9 +194,9 @@
                     data: {
                         OrderId: $("#hdnorder").val(),
                         ORDERSTATUSNEW: $("#ddlNewSTATUS").val(),
-                        OrderCode: $("#hdnorderNo").val(), 
+                        OrderCode: $("#hdnorderNo").val(),
                         USERID: $("#hdnUserId").val()
-                        
+
                     },
 
                     type: 'POST',
@@ -286,7 +289,7 @@
 
         e.customArgs["UPDATESTATUS"] = $("#ddlSTATUS").val();
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
-        
+
     }
 
 
@@ -389,7 +392,7 @@
         $("#hdnorder").val(orderid);
         $("#hdnorderNo").val(orderNo);
         $("#hdnUserId").val(UserId);
-        
+
         EditStatus(orderid);
         $("#myModal").modal('show');
         Clearall();
@@ -406,18 +409,18 @@
             async: false,
             url: surl,
             data: {
-                OrderId: OrderID,               
+                OrderId: OrderID,
             },
             type: 'POST',
 
             success: function (data) {
-                $("#txtORDERSTATUSOLD").val(data.ORDERSTATUS);               
+                $("#txtORDERSTATUSOLD").val(data.ORDERSTATUS);
             },
             error: function () {
                 alert('No dat to be displayed', "Alert!");
             },
         });
-       
+
     }
     function calculation() {
 
@@ -437,8 +440,8 @@
 
     }
 
-    function Clearall() {       
-        $("#ddlNewSTATUS").val("Select");        
+    function Clearall() {
+        $("#ddlNewSTATUS").val("Select");
     }
 
     function StateStartCallback(s, e) {
@@ -464,10 +467,10 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 34px;
-            right: 17px;
+            top: 33px;
+            right: 3px;
             font-size: 18px;
-            transform: rotate(269deg);
+            transform: rotate(270deg);
             font-weight: 500;
             background: #094e8c;
             color: #fff;
@@ -872,9 +875,9 @@
         font-size: 15px;
     }
 
-    #refreshgridstatusreportregister #gridorderrsummary {
+    /*#refreshgridstatusreportregister #gridorderrsummary {
         width: 99% !important;
-    }
+    }*/
 
     #ddlSTATUS {
         -webkit-appearance: none;
@@ -882,6 +885,254 @@
         z-index: 1;
         background-color: transparent;
     }
+
+    .dxeButtonEdit_PlasticBlue {
+        height: 34px;
+    }
+
+    .pt-25 {
+        padding-top: 25px;
+    }
+
+    #ddlAppIds {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        padding-left: 30px; /* space for the icon */
+    }
+
+    #ddlAppIds {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        padding-left: 35px; /* space for the icon */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="512" width="512"> <circle cx="12" cy="12" r="12" fill="white" /> <g transform="translate(1, 1)"> <path d="M21 13a1 1 0 0 0-1 1v3a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h5a1 1 0 0 0 0-2H7a5.006 5.006 0 0 0-5 5v10a5.006 5.006 0 0 0 5 5h10a5.006 5.006 0 0 0 5-5v-3a1 1 0 0 0-1-1z" fill="%23094e8c"></path> <path d="M7.01 13.142a1 1 0 0 0 .83.845.968.968 0 0 0 .16.013 1 1 0 0 0 .895-.553c1.241-2.483 4.543-2.632 6.105-2.539v2.092a1 1 0 0 0 1.707.707l5-5a1 1 0 0 0-.082-1.488l-5-4a1 1 0 0 0-1.625.781v1.918c-2.8-.131-4.94.535-6.341 1.979a6.725 6.725 0 0 0-1.649 5.245z" fill="black"></path> </g> </svg>');
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: 22px; /* size of the icon */
+        height: 34px;
+        padding-right: 10px !important;
+        border-radius: 7px;
+    }
+
+    #btnshow {
+        height: 34px;
+        border-radius: 7px;
+        margin-top: -2px;
+        background: #094e8c;
+        transition: all .3s;
+    }
+
+        #btnshow:hover {
+            background: #043866;
+            color: #fff;
+        }
+
+        /* Optionally hide the default dropdown arrow */
+        #ddlAppIds::-ms-expand {
+            display: none;
+        }
+
+    .col-md-2, .col-md-4 {
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+    }
+
+    #btnshow .btn-icon img, .custom-dropdown .btn-icon img, #btnUpdateStatus .btn-icon img {
+        /*color: #238945;*/
+        width: 14px;
+    }
+
+    #btnshow .btn-icon, .custom-dropdown .btn-icon, #btnUpdateStatus .btn-icon {
+        border-radius: 50px;
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+
+
+
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+        margin-left: 5px;
+    }
+
+    .dropdown-button {
+        display: flex;
+        align-items: center;
+        background-color: #e17134;
+        color: white;
+        border: none;
+        padding: 6px 15px 6px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        height: 34px;
+        transition: all .3s;
+    }
+
+        .dropdown-button:hover {
+            background: #ae4b15;
+            color: #fff;
+        }
+
+    .dropdown-icon {
+        margin-right: 8px;
+    }
+
+    .dropdown-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #ffdcc8;
+        /* border: 1px solid #ccc; */
+        border-radius: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 100%;
+        color: #000000;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .dropdown-list.show {
+            display: block; /* Show when class is added */
+            opacity: 1; /* Full opacity when shown */
+        }
+
+
+        .dropdown-list li {
+            padding: 10px;
+            cursor: pointer;
+            transition: all .3s;
+        }
+
+            .dropdown-list li:hover {
+                background-color: #c85a1e;
+                color: #fff;
+            }
+
+    #myModal .modal-body {
+        padding: 5px 5px 20px;
+    }
+
+
+    #myModal .modal-content, #EmployeeModel .modal-content {
+        border: none;
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+    /*.pmsModal .modal-header .modal-title {
+    font-size: 14px;
+}*/
+
+    #myModal .modal-header .modal-title, #EmployeeModel .modal-header .modal-title {
+        font-size: 16px !important;
+        color: #111;
+        font-size: 24px;
+    }
+
+    #myModal .modal-header, #EmployeeModel .modal-header {
+        background: transparent !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    #EmployeeModel .modal-body {
+        padding: 10px 20px;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    button.close {
+        color: #111 !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 32px !important;
+    }
+
+    #myModal .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+
+        #myModal .close:hover, #EmployeeModel .close:hover {
+            color: #111 !important;
+        }
+
+        #myModal .modal-dialog {
+            padding-top: 60px !important;
+        }
+
+    #myModal .modal-content, #EmployeeModel .modal-content {
+        border-radius: 20px;
+    }
+
+    @@media (min-width: 992px) {
+    .col-md-2 {
+        width: 20% !important;
+    }
+}
+
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 100px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
+    }
+
+
 </style>
 <script>
     $(document).ready(function () {
@@ -903,7 +1154,7 @@
             $("#btnshow").addClass("hidden");
         }
 
-        
+
     })
     var ProdArr = new Array();
     $(document).ready(function () {
@@ -1145,6 +1396,51 @@
 
     }
 
+
+    $(document).ready(function() {
+    // Toggle dropdown on button click with slide animation
+    $('#dropdownButton').on('click', function() {
+        $('#dropdownList').slideToggle(300); // Use slide toggle
+    });
+
+    // Change selected option and trigger export function
+    $('#dropdownList li').on('click', function() {
+        var selectedValue = $(this).data('value');
+
+        $('#ddlAppIds').val(selectedValue); // Update the original select value
+
+        // Trigger the change event for the export function
+        $('#ddlAppIds').trigger('change');
+
+        // Reset the button text to "Export to"
+        $('#selectedOption').text("Export to");
+
+        $('#dropdownList').slideUp(300); // Slide up to close dropdown
+    });
+
+    // Close dropdown when clicking outside
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.custom-dropdown').length) {
+            $('#dropdownList').slideUp(300); // Slide up to close
+        }
+    });
+
+    // Export function
+    $('#ddlAppIds').on('change', function () {
+        if ($("#ddlAppIds option:selected").index() > 0) {
+            var selectedValue = $(this).val();
+            $('#ddlAppIds').prop("selectedIndex", 0);
+            var url = '@Url.Action("ExporUpdateOrderStatusList", "UpdateOrderStatus", new { type = "_type_" })';
+            window.location.href = url.replace("_type_", selectedValue);
+        }
+    });
+});
+
+
+
+
+
+
 </script>
 
 @* End of Rev 7.0 *@
@@ -1157,124 +1453,152 @@
     <div class="form_main backBox p-3 clearfix">
         <div class="clearfix">
             <div class="col-md-12">
-                <div class="row">
-                    <table class="eqpadtbl mb-4">
-                        <tr>
-                            @*REV 4.0*@
-                            <td class="h-branch-select" style="width:175px;">
-                                <label>Head Branch : </label>
-                                <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
-                                    @foreach (var item in Model.modelbranch)
-                                    {
-                                        <option value="@item.BRANCH_ID">@item.CODE</option>
-                                    }
-                                </select>
-                            </td>
-                            <td class="w150 w200-mob">
-                                <label>Branch </label>
-                                <div>
-                                    @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
-                                </div>
-                            </td>
-                            @*REV 4.0 END*@
-                            <td class="w150">
-                                <label>State</label>
-                                <div>
-                                    @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
+                <div class="row clearfix">
 
-                                </div>
-                            </td>
-                            <td class="w150">
-                                <label>Shop List</label>
-                                <div>
-                                    @Html.Action("GetShopList", "MasterPopulate")
-                                </div>
-                            </td>
-                            <td class="w150">
-                                <label>Employee</label>
-                                <div>
-                                    @Html.DevExpress().ButtonEdit(
-                                    settings =>
-                                    {
-                                        settings.Name = "EmployeeTxt";
-                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        //settings.Text = Model.AssignedTo;
-                                        settings.ReadOnly = true;
-                                        settings.Properties.Buttons.Add("...");
-                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){EmployeeButnClick(s,e);}";
-                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Employee_KeyDown(s,e);}";
 
-                                    }).GetHtml()
-                                    @*@Html.Action("GetEmpList", "MasterPopulate", new { userId = @Session["userid"].ToString() })*@
-                                </div>
-                            </td>
-                            <td class="w150">
-                                <label>From Date</label>
-                                <div>
+                    <div class="col-md-2 h-branch-select mb-3">
+                        <label>Head Branch : </label>
+                        <select id="HeadBranch" name="HeadBranch" onchange="BindBranches()" data-placeholder="Click or Type Here..." class="whclass selectH">
+                            @foreach (var item in Model.modelbranch)
+                            {
+                                <option value="@item.BRANCH_ID">@item.CODE</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Branch </label>
+                        <div>
+                            @Html.Action("GetChildBranchList", "MasterPopulate", new { Hoid = @ViewBag.h_id })
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>State</label>
+                        <div>
+                            @Html.Action("GetEmployeeWiseStateList", "MasterPopulate", new { UserID = @Session["userid"].ToString() })
 
-                                    @Html.DevExpress().DateEditFor(x => x.Fromdate,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "dtFrom";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
+                        </div>
+                    </div>
 
-                                </div>
-                            </td>
-                            <td class="w150">
-                                <label>To Date</label>
-                                <div>
-                                    @Html.DevExpress().DateEditFor(x => x.Todate,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "dtTo";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
-                                </div>
-                            </td>
+                    <div class="col-md-2 mb-3">
+                        <label>Shop List</label>
+                        <div>
+                            @Html.Action("GetShopList", "MasterPopulate")
+                        </div>
+                    </div>
 
-                        </tr>
-                        <tr>
+                    <div class="col-md-2 mb-3">
+                        <label>Employee</label>
+                        <div>
+                            @Html.DevExpress().ButtonEdit(
+                            settings =>
+                            {
+                                settings.Name = "EmployeeTxt";
+                                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                //settings.Text = Model.AssignedTo;
+                                settings.ReadOnly = true;
+                                settings.Properties.Buttons.Add("...");
+                                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){EmployeeButnClick(s,e);}";
+                                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Employee_KeyDown(s,e);}";
 
-                            <td class="h-branch-select">
-                                <label>Order Status</label>
-                                <div>
-                                    @Html.DropDownListFor(m => m.UPDATESTATUS, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlSTATUS", @class = "form-control" })
-                                </div>
-                            </td>
-                            <td style="padding-top: 22px;width:180px;">
-                                <label></label>
+                            }).GetHtml()
+                            @*@Html.Action("GetEmpList", "MasterPopulate", new { userId = @Session["userid"].ToString() })*@
+                        </div>
+                    </div>
 
-                                <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
-                                <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                    <option value="0">Export to</option>
-                                    <option value="1">PDF</option>
-                                    <option value="2">XLSX</option>
-                                    <option value="3">XLS</option>
-                                    <option value="2">RTF</option>
-                                    <option value="2">CSV</option>
+                    <div class="col-md-2 mb-3">
+                        <label>From Date</label>
+                        <div>
 
-                                </select>
+                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtFrom";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        }).GetHtml()
 
-                            </td>
-                        </tr>
-                    </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label>To Date</label>
+                        <div>
+                            @Html.DevExpress().DateEditFor(x => x.Todate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtTo";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        }).GetHtml()
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 h-branch-select mb-3">
+                        <label>Order Status</label>
+                        <div>
+                            @Html.DropDownListFor(m => m.UPDATESTATUS, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlSTATUS", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 pt-25 mb-3">
+                        <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
+                            <span class="btn-icon"><img src="/assests/images/show-order-status.svg"></span>
+                            Show
+                        </button>
+                        @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+            <option value="0">Export to</option>
+            <option value="1">PDF</option>
+            <option value="2">XLSX</option>
+            <option value="3">XLS</option>
+            <option value="2">RTF</option>
+            <option value="2">CSV</option>
+
+        </select>*@
+
+                        <div class="custom-dropdown">
+                            <button class="dropdown-button" id="dropdownButton">
+                                <span class="btn-icon"><img src="/assests/images/export.svg"></span>
+                                <span id="selectedOption">Export to</span>
+                            </button>
+                            <ul class="dropdown-list" id="dropdownList">
+                                @*<li data-value="0">Export to</li>*@
+                                <li data-value="1">PDF</li>
+                                <li data-value="2">XLSX</li>
+                                <li data-value="3">XLS</li>
+                                <li data-value="4">RTF</li>
+                                <li data-value="5">CSV</li>
+                            </ul>
+                            <!-- Hidden original select for export logic -->
+                            <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" style="display: none;">
+                                <option value="0">Export to</option>
+                                <option value="1">PDF</option>
+                                <option value="2">XLSX</option>
+                                <option value="3">XLS</option>
+                                <option value="4">RTF</option>
+                                <option value="5">CSV</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+
+
+
                 </div>
             </div>
 
 
 
-            <div class="form_main ">
+            <div class="form_main mt-3">
 
                 <div class="clear"></div>
                 @*Rev 7.0*@
@@ -1296,7 +1620,7 @@
 
                     @{
 
-                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Is_PageLoad=Model.Is_PageLoad,Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS = Model.UPDATESTATUS });
+                        Html.RenderAction("PartialOrderSummary", "UpdateOrderStatus", new { Is_PageLoad = Model.Is_PageLoad, Fromdate = Model.Fromdate, Todate = Model.Todate, empcode = Model.empcode, StateId = Model.StateId, shopId = Model.shopId, BranchId = Model.BranchId, UPDATESTATUS = Model.UPDATESTATUS });
 
                     }
                 </div>
@@ -1310,7 +1634,7 @@
                 <input type="hidden" id="hdnStateMandatory" value="@ViewBag.StateMandatory" />
 
                 <div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
-                    <div class="modal-dialog modal-lg" style="width: 1045px">
+                    <div class="modal-dialog modal-lg" style="width: 700px">
 
 
                         <div class="modal-content">
@@ -1320,21 +1644,25 @@
                             </div>
                             <div class="modal-body">
                                 <div id="divModalBody" style="" class="clearfix">
-                                    <div class="col-md-2">
+                                    <div class="col-md-6">
                                         <label>Old Status</label>
                                         <div>
-                                            @Html.TextBoxFor(m => m.ORDERSTATUSOLD, new { @class = "form-control", @id = "txtORDERSTATUSOLD" , @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.ORDERSTATUSOLD, new { @class = "form-control", @id = "txtORDERSTATUSOLD", @readonly = "readonly" })
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-6">
                                         <label>New Status</label>
                                         <div>
                                             @Html.DropDownListFor(m => m.ORDERSTATUSNEW, new SelectList(Model.STATUSLIST, "STATUSID", "STATUSVALUE"), new { @id = "ddlNewSTATUS", @class = "form-control" })
                                         </div>
                                     </div>
-                                    <div class="col-md-4 pad-md-18 mt-3 cust-margin-top" id="DivbtnUpdateStatus">
-                                        <label>&nbsp;</label>
-                                        <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>Update</button>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12 pad-md-18 mt-2 text-center" id="DivbtnUpdateStatus">
+                                        
+                                        <button type="button" id="btnUpdateStatus" class="btn btn-success " tabindex=13>
+                                            <span class="btn-icon"><img src="/assests/images/update-btn-icon.svg"></span>
+                                            Update
+                                        </button>
                                     </div>
                                 </div>
 
@@ -1345,7 +1673,7 @@
                     <input id="hdnorder" type="hidden" />
                     <input id="hdnUserId" type="hidden" />
                     <input id="hdnorderNo" type="hidden" />
-                    
+
 
                 </div>
             </div>
