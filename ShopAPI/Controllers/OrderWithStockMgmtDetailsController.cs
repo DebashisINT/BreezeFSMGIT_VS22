@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿#region======================================Revision History=========================================================
+//Written By : Debashis Talukder On 30/09/2024
+//Purpose: Product Stock Management Details.Refer: Row: 982
+#endregion===================================End of Revision History==================================================
+
+using Newtonsoft.Json;
 using ShopAPI.Models;
 using System;
 using System.Collections.Generic;
