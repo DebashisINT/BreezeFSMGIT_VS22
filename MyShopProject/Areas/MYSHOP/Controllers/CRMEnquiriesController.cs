@@ -6,6 +6,8 @@
   3.0       23-11-2023        V2.0.43          Sanchita          Bulk Import feature required for Enquiry Module.Mantis: 27020 
   4.0		25-04-2024	      V2.0.46		   Priti             0027383: New Enquires type Add and Hide # Eurobond Portal
   5.0       10/09/2024        V2.0.48          Sanchita          27690: Quotation Notification issue @ Eurobond
+  6.0       28/09/2024        V2.0.49          Priti             Report taking too much time time to generate.Now resolved.Refer: 0027728
+
 **************************************************************************************************************************/
 using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
@@ -300,11 +302,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                     //int user_id = Convert.ToInt32(HttpContext.Current.Session["userid"]);
 
-                   // DataTable dt = new DataTable();
-                   
+                    // DataTable dt = new DataTable();
+                    
                 }
-
-                GetCRMEnquiriesListing(EnquiryFrom, datfrmat, dattoat);
+                //REV 6.0
+                //GetCRMEnquiriesListing(EnquiryFrom, datfrmat, dattoat);
+                GetCRMEnquiriesListing(EnquiryFrom, datfrmat, dattoat, model.Is_PageLoad);
+                //REV 6.0 END
 
                 model.Is_PageLoad = "Ispageload";
 
@@ -321,8 +325,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
             }
            
         }
-        
-        public void GetCRMEnquiriesListing(string EnquiryFrom, string FromDate, string ToDate)
+        //REV 6.0 
+        //public void GetCRMEnquiriesListing(string EnquiryFrom, string FromDate, string ToDate)
+        public void GetCRMEnquiriesListing(string EnquiryFrom, string FromDate, string ToDate,string IsPageLoad)
+        //REV 6.0 END
         {
             string user_id = Convert.ToString(Session["userid"]);
             //string FROMDATE = dtFrom.ToString("yyyy-MM-dd");
@@ -340,6 +346,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc.AddPara("@ENQUIRIESFROM", EnquiryFrom);
                 proc.AddPara("@FROMDATE", FromDate);
                 proc.AddPara("@TODATE", ToDate);
+                //REV 6.0 
+                proc.AddPara("@ISPAGELOAD", IsPageLoad);
+                //REV 6.0 END
                 dt = proc.GetTable();
 
             }
