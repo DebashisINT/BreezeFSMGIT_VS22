@@ -29,6 +29,8 @@
                                                                           in both System settings page and in User master.  
  * 18.0               03-09-2024       V2.0.48           Priti            0027684: Create a new user setting as ShowClearQuiz
  * 19.0               24-09-2024       V2.0.49           Sanchita         0027705: A new Global and user wise settings required as IsAllowProductCurrentStockUpdateFromApp    
+ * 20.0               27-09-2024       V2.0.49           Priti            0027714: Default value of the below user settings shall be changed as false .
+
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -7969,8 +7971,9 @@ namespace ERP.OMS.Management.Master
                     }
                     else if (Convert.ToString(dr["key"]) == "ContactAddresswithGeofence")
                     {
-                        chkContactAddresswithGeofence.Checked = true;
-                        
+                        //Rev 20.0
+                        //chkContactAddresswithGeofence.Checked = true;
+                        //Rev 20.0 End
                         if (Convert.ToString(dr["Value"]) == "1")
                         {
                             divContactAddresswithGeofence.Style.Add("display", "table-cell");
