@@ -27,6 +27,7 @@
 //26.0  V2.0.44     Debashis    03/04/2024      A new parameter has been added.Row: 904
 //27.0  V2.0.44     Debashis    10/08/2024      Some new parameters have been added.Row: 968
 //28.0  V2.0.49     Debashis    17/09/2024      A new parameter has been added.Row: 979
+//29.0  V2.0.49     Debashis    27/09/2024      A new parameter has been added.Row: 981
 #endregion===================================End of Revision History==============================================================
 using System;
 using System.Collections.Generic;
@@ -312,6 +313,9 @@ namespace ShopAPI.Models
         //Rev 28.0 Row: 979
         public bool IsRetailOrderStatusRequired { get; set; }
         //End of Rev 28.0 Row: 979
+        //Rev 29.0 Row: 981
+        public bool IsVideoAutoPlayInLMS { get; set; }
+        //End of Rev 29.0 Row: 981
     }
 
     public class ConfigurationModelInput

@@ -301,6 +301,7 @@
     <Compile Include="Controllers\OfflineTeamController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderWithProductAttributeController.cs" />
+    <Compile Include="Controllers\OrderWithStockMgmtDetailsController.cs" />
     <Compile Include="Controllers\OTPConfigurationController.cs" />
     <Compile Include="Controllers\PartyStatusController.cs" />
     <Compile Include="Controllers\PartyTypeController.cs" />
@@ -434,6 +435,7 @@
     <Compile Include="Models\OfflineTeamClass.cs" />
     <Compile Include="Models\Ordermanagement.cs" />
     <Compile Include="Models\OrderWithProductAttributeModel.cs" />
+    <Compile Include="Models\OrderWithStockMgmtDetailsModel.cs" />
     <Compile Include="Models\OTPClass.cs" />
     <Compile Include="Models\PartyStatusInput.cs" />
     <Compile Include="Models\PartyTypeModel.cs" />

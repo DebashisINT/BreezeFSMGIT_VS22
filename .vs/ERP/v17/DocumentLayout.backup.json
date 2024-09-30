@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\lmsinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\orderwithstockmgmtdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\orderwithstockmgmtdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\models\\lmsinfodetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\models\\lmsinfodetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\models\\orderwithstockmgmtdetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\models\\orderwithstockmgmtdetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|D:\\PROJECTS\\BreezeFSMGIT_VS22\\shopapi\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\orderwithproductattributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\orderwithproductattributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\models\\configurationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\models\\configurationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|d:\\projects\\breezefsmgit_vs22\\shopapi\\controllers\\configurationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\configurationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,8 +30,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ConfigurationModel.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\ConfigurationModel.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Models\\ConfigurationModel.cs",
+              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\ConfigurationModel.cs",
+              "RelativeToolTip": "ShopAPI\\Models\\ConfigurationModel.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAASwCYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-30T06:46:45.579Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
@@ -35,40 +56,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LMSInfoDetailsModel.cs",
-              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "RelativeDocumentMoniker": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "RelativeToolTip": "ShopAPI\\Models\\LMSInfoDetailsModel.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAlwB4AAAA6AAAAAAAAAA==",
+              "Title": "OrderWithStockMgmtDetailsModel.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\OrderWithStockMgmtDetailsModel.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Models\\OrderWithStockMgmtDetailsModel.cs",
+              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Models\\OrderWithStockMgmtDetailsModel.cs",
+              "RelativeToolTip": "ShopAPI\\Models\\OrderWithStockMgmtDetailsModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T08:30:54.272Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LMSInfoDetailsController.cs",
-              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "RelativeToolTip": "ShopAPI\\Controllers\\LMSInfoDetailsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T08:30:39.164Z",
+              "WhenOpened": "2024-09-30T06:52:15.379Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Web.config",
-              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Web.config",
-              "RelativeDocumentMoniker": "ShopAPI\\Web.config",
-              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Web.config",
-              "RelativeToolTip": "ShopAPI\\Web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-09-17T16:48:00.557Z",
+              "Title": "OrderWithProductAttributeController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\OrderWithProductAttributeController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\OrderWithProductAttributeController.cs",
+              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\OrderWithProductAttributeController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\OrderWithProductAttributeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-30T06:48:45.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderWithStockMgmtDetailsController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\OrderWithStockMgmtDetailsController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\OrderWithStockMgmtDetailsController.cs",
+              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\OrderWithStockMgmtDetailsController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\OrderWithStockMgmtDetailsController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-30T06:48:06.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConfigurationController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\ConfigurationController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\ConfigurationController.cs",
+              "ToolTip": "D:\\PROJECTS\\BreezeFSMGIT_VS22\\ShopAPI\\Controllers\\ConfigurationController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\ConfigurationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-30T06:46:32.786Z",
               "EditorCaption": ""
             }
           ]
