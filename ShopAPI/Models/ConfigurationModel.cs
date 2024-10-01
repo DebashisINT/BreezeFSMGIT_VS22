@@ -28,7 +28,9 @@
 //27.0  V2.0.44     Debashis    10/08/2024      Some new parameters have been added.Row: 968
 //28.0  V2.0.49     Debashis    17/09/2024      A new parameter has been added.Row: 979
 //29.0  V2.0.49     Debashis    27/09/2024      A new parameter has been added.Row: 981
+//30.0  V2.0.49     Debashis    01/10/2024      Some new parameters have been added.Row: 983
 #endregion===================================End of Revision History==============================================================
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -316,6 +318,12 @@ namespace ShopAPI.Models
         //Rev 29.0 Row: 981
         public bool IsVideoAutoPlayInLMS { get; set; }
         //End of Rev 29.0 Row: 981
+        //Rev 30.0 Row: 983
+        public bool IsStockCheckFeatureOn { get; set; }
+        public bool IsShowDistributorWiseCurrentStockInOrder { get; set; }
+        public bool IsAllowNegativeStock { get; set; }
+        public bool StockCheckOnOrder1OrInvioce0 { get; set; }
+        //End of Rev 30.0 Row: 983
     }
 
     public class ConfigurationModelInput
