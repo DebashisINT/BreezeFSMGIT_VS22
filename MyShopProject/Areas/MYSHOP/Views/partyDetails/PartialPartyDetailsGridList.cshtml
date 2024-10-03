@@ -12,7 +12,7 @@
 
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
-    settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+    //settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
     settings.Settings.VerticalScrollableHeight = 400;
 
 
@@ -1134,19 +1134,19 @@
             if (ViewBag.CanDelete)
             {
                 ViewContext.Writer.Write(
-                    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Modify\"><img src=\"../../../assests/images/Edit.png\" /></a>" +
+                    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"tooltip-container\"><img src=\"../../../assests/images/Edit.png\" /><div class=\"tooltip\">Modify</div></a>" +
                      "" +
-                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Change Status\"><img src=\"../../../assests/images/change-status.png\" /></a>" +
+                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"tooltip-container\" ><img src=\"../../../assests/images/change-status.png\" /><div class=\"tooltip\">Change Status</div></a>" +
                       "" +
-                    "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteForm('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Delete\"><img src=\"../../../assests/images/Delete.png\" /></a></div>"
+                    "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteForm('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"tooltip-container\"><img src=\"../../../assests/images/Delete.png\" /><div class=\"tooltip\">Delete</div></a></div>"
                 );
             }
             else
             {
                 ViewContext.Writer.Write(
-                    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Modify\"><img src=\"../../../assests/images/Edit.png\" /></a>" +
+                    "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenShopforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"tooltip-container\" ><img src=\"../../../assests/images/Edit.png\" /><div class=\"tooltip\">Modify</div></a>" +
                      "" +
-                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"\" title=\"Change Status\"><img src=\"../../../assests/images/change-status.png\" /></a>"
+                     "<a href=\"javascript:void(0);\" onclick=\"ShopActiveInactive('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "ShopCode")) + "')\" class=\"tooltip-container\" ><img src=\"../../../assests/images/change-status.png\" /><div class=\"tooltip\">Change Status</div></a>"
                 );
             }
             // End of Rev 2.0

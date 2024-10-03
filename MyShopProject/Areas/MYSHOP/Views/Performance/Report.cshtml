@@ -787,6 +787,11 @@
         width: 100%;
     }
 
+    .rowActive {
+        background-color: #ebf4ff !important;
+        color: #000 !important;
+    }
+
     @@media only screen and (max-width: 767px) {
         #refreshgridsalessummary {
             overflow-x: auto;
@@ -928,6 +933,15 @@
         } finally {
             console.log(empId);
         }
+    }
+
+
+    function gridRowclick(s, e) {
+        $('#gridperformance').find('tr').removeClass('rowActive');
+        
+        
+        $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+        
     }
 </script>
 
