@@ -926,6 +926,7 @@
         #btnshow:hover {
             background: #043866;
             color: #fff;
+            transform: scale(1.1);
         }
 
         /* Optionally hide the default dropdown arrow */
@@ -940,20 +941,18 @@
 
     #btnshow .btn-icon img, .custom-dropdown .btn-icon img, #btnUpdateStatus .btn-icon img {
         /*color: #238945;*/
-        width: 14px;
+        width: 17px;
     }
 
     #btnshow .btn-icon, .custom-dropdown .btn-icon, #btnUpdateStatus .btn-icon {
         border-radius: 50px;
-        width: 22px;
-        height: 22px;
+        width: 23px;
+        height: 23px;
         display: inline-block;
         background: #fff;
         line-height: 20px;
         margin-right: 5px;
     }
-
-
 
 
     .custom-dropdown {
@@ -979,6 +978,7 @@
         .dropdown-button:hover {
             background: #ae4b15;
             color: #fff;
+            transform: scale(1.1);
         }
 
     .dropdown-icon {
@@ -1011,7 +1011,7 @@
 
 
         .dropdown-list li {
-            padding: 10px;
+            padding: 5px;
             cursor: pointer;
             transition: all .3s;
         }
@@ -1550,18 +1550,18 @@
 
                     <div class="col-md-4 pt-25 mb-3">
                         <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
-                            <span class="btn-icon"><img src="/assests/images/show-order-status.svg"></span>
+                            <span class="btn-icon"><img src="/assests/images/order-status.svg"></span>
                             Show
                         </button>
                         @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-            <option value="0">Export to</option>
-            <option value="1">PDF</option>
-            <option value="2">XLSX</option>
-            <option value="3">XLS</option>
-            <option value="2">RTF</option>
-            <option value="2">CSV</option>
+                            <option value="0">Export to</option>
+                            <option value="1">PDF</option>
+                            <option value="2">XLSX</option>
+                            <option value="3">XLS</option>
+                            <option value="2">RTF</option>
+                            <option value="2">CSV</option>
 
-        </select>*@
+                        </select>*@
 
                         <div class="custom-dropdown">
                             <button class="dropdown-button" id="dropdownButton">
