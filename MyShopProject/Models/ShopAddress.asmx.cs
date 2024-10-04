@@ -9,6 +9,7 @@
 //                                             Mantis: 26858
 // 6.0      V2.0.44    Sanchita    12-12-2023  A new design page is required as Contact (s) under CRM menu. Mantis: 27034  
 // 7.0      V2.0.46    Sanchita    11/04/2024  0027348: FSM: Master > Contact > Parties [Delete Facility]
+// 8.0      V2.0.49    Sanchita    04/10/2024  In Current stock Register report there shall be a stock import option. Mantis: 27707, 27724
 // ********************************************************************************************************************
 using DataAccessLayer;
 using Models;
@@ -465,7 +466,7 @@ namespace MyShop.Models
             return listShop;
         }
         // End of Rev 7.0
-        // Rev Sanchita
+        // Rev 8.0
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object GetShopList(string SearchKey)
@@ -495,7 +496,7 @@ namespace MyShop.Models
 
             return listShop;
         }
-        // End of Rev Sanchita
+        // End of Rev 8.0
     }
 
     public class PPModel
@@ -570,7 +571,7 @@ namespace MyShop.Models
         public string ShopType_Name { get; set; }
     }
     // End of Rev 7.0
-    // Rev Sanchita
+    // Rev 8.0
     public class ShopListModel
     {
         public string Shop_Code { get; set; }
@@ -580,5 +581,5 @@ namespace MyShop.Models
          public string Shop_Owner_Contact { get; set; }
         public string ShopType_Name { get; set; }
     }
-    // End of Rev Sanchita
+    // End of Rev 8.0
 }
