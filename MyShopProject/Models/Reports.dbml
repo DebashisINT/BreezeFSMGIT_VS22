@@ -3024,4 +3024,25 @@
       <Column Name="STATENAME" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.FSM_CURRENTSTOCK_LISTING" Member="FSM_CURRENTSTOCK_LISTINGs">
+    <Type Name="FSM_CURRENTSTOCK_LISTING">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="STOCK_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BRANCH" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="SHOPNAME" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CODE" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CONTACTNUMBER" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SHOPTYPE" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CURRENTSTOCKDATE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PRODUCTCODE" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PRODUCTNAME" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="QUANTITY" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="QUANTITY_BAL" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="CREATED_BY" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="CREATED_DATE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MODIFIED_BY" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="MODIFIED_DATE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
