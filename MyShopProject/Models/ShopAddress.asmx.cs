@@ -466,6 +466,8 @@ namespace MyShop.Models
         }
         // End of Rev 7.0
         // Rev Sanchita
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object GetShopList(string SearchKey)
         {
             List<ShopListModel> listShop = new List<ShopListModel>();
