@@ -273,6 +273,7 @@
     <Compile Include="Areas\MYSHOP\Controllers\CounterListController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CRMContactController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CRMEnquiriesController.cs" />
+    <Compile Include="Areas\MYSHOP\Controllers\CurrentStockRegisterController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CurrentStockReportController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CustomerDetailsController.cs" />
     <Compile Include="Areas\MYSHOP\Controllers\CustomerVisitDetailsController.cs" />
@@ -447,6 +448,7 @@
     <Compile Include="Models\ConfigueLeaderboardModel.cs" />
     <Compile Include="Models\CRMContactModel.cs" />
     <Compile Include="Models\CRMEnquiriesModel.cs" />
+    <Compile Include="Models\CurrentStockModel.cs" />
     <Compile Include="Models\CurrentStockReportModel.cs" />
     <Compile Include="Models\CustomerDetailsModel.cs" />
     <Compile Include="Models\CustomerVisitDetailsModel.cs" />
@@ -2068,6 +2070,10 @@
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="demofsm-fee63-firebase-adminsdk-m1emn-4e3e8bba2d.json" />
+    <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\Index.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\_CurrentStockImportManualLogView.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\CurrentStockImportLog.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\PartialCurrentStockGridList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

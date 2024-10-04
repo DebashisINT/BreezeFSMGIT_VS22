@@ -908,6 +908,14 @@ namespace MyShop.Models
 				return this.GetTable<FTSDAILYCALL_REPORT>();
 			}
 		}
+		
+		public System.Data.Linq.Table<FSM_CURRENTSTOCK_LISTING> FSM_CURRENTSTOCK_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<FSM_CURRENTSTOCK_LISTING>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FTSDASHBOARD_REPORT")]
@@ -50495,6 +50503,321 @@ namespace MyShop.Models
 				if ((this._AUDIOPATH != value))
 				{
 					this._AUDIOPATH = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FSM_CURRENTSTOCK_LISTING")]
+	public partial class FSM_CURRENTSTOCK_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<long> _STOCK_ID;
+		
+		private string _BRANCH;
+		
+		private string _SHOPNAME;
+		
+		private string _CODE;
+		
+		private string _CONTACTNUMBER;
+		
+		private string _SHOPTYPE;
+		
+		private string _CURRENTSTOCKDATE;
+		
+		private string _PRODUCTCODE;
+		
+		private string _PRODUCTNAME;
+		
+		private System.Nullable<decimal> _QUANTITY;
+		
+		private System.Nullable<decimal> _QUANTITY_BAL;
+		
+		private string _CREATED_BY;
+		
+		private string _CREATED_DATE;
+		
+		private string _MODIFIED_BY;
+		
+		private string _MODIFIED_DATE;
+		
+		public FSM_CURRENTSTOCK_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STOCK_ID", DbType="BigInt")]
+		public System.Nullable<long> STOCK_ID
+		{
+			get
+			{
+				return this._STOCK_ID;
+			}
+			set
+			{
+				if ((this._STOCK_ID != value))
+				{
+					this._STOCK_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH", DbType="VarChar(500)")]
+		public string BRANCH
+		{
+			get
+			{
+				return this._BRANCH;
+			}
+			set
+			{
+				if ((this._BRANCH != value))
+				{
+					this._BRANCH = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SHOPNAME", DbType="NVarChar(500)")]
+		public string SHOPNAME
+		{
+			get
+			{
+				return this._SHOPNAME;
+			}
+			set
+			{
+				if ((this._SHOPNAME != value))
+				{
+					this._SHOPNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODE", DbType="NVarChar(50)")]
+		public string CODE
+		{
+			get
+			{
+				return this._CODE;
+			}
+			set
+			{
+				if ((this._CODE != value))
+				{
+					this._CODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTACTNUMBER", DbType="NVarChar(500)")]
+		public string CONTACTNUMBER
+		{
+			get
+			{
+				return this._CONTACTNUMBER;
+			}
+			set
+			{
+				if ((this._CONTACTNUMBER != value))
+				{
+					this._CONTACTNUMBER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SHOPTYPE", DbType="VarChar(500)")]
+		public string SHOPTYPE
+		{
+			get
+			{
+				return this._SHOPTYPE;
+			}
+			set
+			{
+				if ((this._SHOPTYPE != value))
+				{
+					this._SHOPTYPE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CURRENTSTOCKDATE", DbType="VarChar(50)")]
+		public string CURRENTSTOCKDATE
+		{
+			get
+			{
+				return this._CURRENTSTOCKDATE;
+			}
+			set
+			{
+				if ((this._CURRENTSTOCKDATE != value))
+				{
+					this._CURRENTSTOCKDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTCODE", DbType="NVarChar(500)")]
+		public string PRODUCTCODE
+		{
+			get
+			{
+				return this._PRODUCTCODE;
+			}
+			set
+			{
+				if ((this._PRODUCTCODE != value))
+				{
+					this._PRODUCTCODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTNAME", DbType="NVarChar(500)")]
+		public string PRODUCTNAME
+		{
+			get
+			{
+				return this._PRODUCTNAME;
+			}
+			set
+			{
+				if ((this._PRODUCTNAME != value))
+				{
+					this._PRODUCTNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY", DbType="Decimal(18,4)")]
+		public System.Nullable<decimal> QUANTITY
+		{
+			get
+			{
+				return this._QUANTITY;
+			}
+			set
+			{
+				if ((this._QUANTITY != value))
+				{
+					this._QUANTITY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY_BAL", DbType="Decimal(18,4)")]
+		public System.Nullable<decimal> QUANTITY_BAL
+		{
+			get
+			{
+				return this._QUANTITY_BAL;
+			}
+			set
+			{
+				if ((this._QUANTITY_BAL != value))
+				{
+					this._QUANTITY_BAL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_BY", DbType="VarChar(200)")]
+		public string CREATED_BY
+		{
+			get
+			{
+				return this._CREATED_BY;
+			}
+			set
+			{
+				if ((this._CREATED_BY != value))
+				{
+					this._CREATED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="VarChar(50)")]
+		public string CREATED_DATE
+		{
+			get
+			{
+				return this._CREATED_DATE;
+			}
+			set
+			{
+				if ((this._CREATED_DATE != value))
+				{
+					this._CREATED_DATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_BY", DbType="VarChar(200)")]
+		public string MODIFIED_BY
+		{
+			get
+			{
+				return this._MODIFIED_BY;
+			}
+			set
+			{
+				if ((this._MODIFIED_BY != value))
+				{
+					this._MODIFIED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="VarChar(50)")]
+		public string MODIFIED_DATE
+		{
+			get
+			{
+				return this._MODIFIED_DATE;
+			}
+			set
+			{
+				if ((this._MODIFIED_DATE != value))
+				{
+					this._MODIFIED_DATE = value;
 				}
 			}
 		}

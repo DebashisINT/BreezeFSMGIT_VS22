@@ -465,6 +465,39 @@ namespace MyShop.Models
             return listShop;
         }
         // End of Rev 7.0
+
+        // Rev Sanchita
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetShopList(string SearchKey)
+        {
+            List<ShopListModel> listShop = new List<ShopListModel>();
+            if (HttpContext.Current.Session["userid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_FTSINSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                proc.AddPara("@ACTION", "GETSHOPLIST");
+                DataTable Shop = proc.GetTable();
+                // Mantis Issue 24450,24451 [ EmployeeID added ]
+                listShop = (from DataRow dr in Shop.Rows
+                            select new ShopListModel()
+                            {
+                                SHOP_CODE = dr["SHOP_CODE"].ToString(),
+                                SHOP_NAME = dr["SHOP_NAME"].ToString(),
+                                ENTITYCODE = Convert.ToString(dr["ENTITYCODE"]),
+                                SHOPTYPENAME = Convert.ToString(dr["SHOPTYPENAME"]),
+                                SHOP_OWNER_CONTACT = Convert.ToString(dr["SHOP_OWNER_CONTACT"])
+                            }).ToList();
+            }
+
+            return listShop;
+        }
+        // End of Rev Sanchita
     }
 
     public class PPModel
@@ -539,4 +572,15 @@ namespace MyShop.Models
         public string ShopType_Name { get; set; }
     }
     // End of Rev 7.0   
+    // Rev Sanchita
+    public class ShopListModel
+    {
+        public string SHOP_CODE { get; set; }
+        public string SHOP_NAME { get; set; }
+        public string ENTITYCODE { get; set; }
+        public string SHOPTYPENAME { get; set; }
+        public string SHOP_OWNER_CONTACT { get; set; }
+
+    }
+    // End of Rev Sanchita
 }

@@ -608,5 +608,11 @@
         <elementListCompartment Id="034df62e-08bc-496f-9f35-463bc479470c" absoluteBounds="7.265, 11.21, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="925c4a86-53c7-4150-878b-94dc9662ef0a" isExpanded="false" absoluteBounds="0.625, 11.25, 2, 0.45">
+      <DataClassMoniker Name="/ReportsDataContext/FSM_CURRENTSTOCK_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="31eef7fe-4692-4f93-a648-d7040f5c7562" absoluteBounds="0.63999999999999968, 11.71, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
