@@ -522,3 +522,16 @@ D:\Projects\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopProject.csproj.CoreC
 D:\Projects\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShopPr.1380E811.Up2Date
 D:\Projects\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.dll
 D:\Projects\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.pdb
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.dll
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.dll
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.dll
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Newtonsoft.Json.dll
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.dll
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.pdb
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.xml
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.pdb
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.xml
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.pdb
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.xml
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Newtonsoft.Json.xml
+D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.xml
