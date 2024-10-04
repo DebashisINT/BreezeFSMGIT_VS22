@@ -1398,43 +1398,43 @@
 
 
     $(document).ready(function() {
-    // Toggle dropdown on button click with slide animation
-    $('#dropdownButton').on('click', function() {
-        $('#dropdownList').slideToggle(300); // Use slide toggle
+        // Toggle dropdown on button click with slide animation
+        $('#dropdownButton').on('click', function() {
+            $('#dropdownList').slideToggle(300); // Use slide toggle
+        });
+
+        // Change selected option and trigger export function
+        $('#dropdownList li').on('click', function() {
+            var selectedValue = $(this).data('value');
+
+            $('#ddlAppIds').val(selectedValue); // Update the original select value
+
+            // Trigger the change event for the export function
+            $('#ddlAppIds').trigger('change');
+
+            // Reset the button text to "Export to"
+            $('#selectedOption').text("Export to");
+
+            $('#dropdownList').slideUp(300); // Slide up to close dropdown
+        });
+
+        // Close dropdown when clicking outside
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('.custom-dropdown').length) {
+                $('#dropdownList').slideUp(300); // Slide up to close
+            }
+        });
+
+        // Export function
+        $('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExporUpdateOrderStatusList", "UpdateOrderStatus", new { type = "_type_" })';
+                window.location.href = url.replace("_type_", selectedValue);
+            }
+        });
     });
-
-    // Change selected option and trigger export function
-    $('#dropdownList li').on('click', function() {
-        var selectedValue = $(this).data('value');
-
-        $('#ddlAppIds').val(selectedValue); // Update the original select value
-
-        // Trigger the change event for the export function
-        $('#ddlAppIds').trigger('change');
-
-        // Reset the button text to "Export to"
-        $('#selectedOption').text("Export to");
-
-        $('#dropdownList').slideUp(300); // Slide up to close dropdown
-    });
-
-    // Close dropdown when clicking outside
-    $(document).on('click', function(event) {
-        if (!$(event.target).closest('.custom-dropdown').length) {
-            $('#dropdownList').slideUp(300); // Slide up to close
-        }
-    });
-
-    // Export function
-    $('#ddlAppIds').on('change', function () {
-        if ($("#ddlAppIds option:selected").index() > 0) {
-            var selectedValue = $(this).val();
-            $('#ddlAppIds').prop("selectedIndex", 0);
-            var url = '@Url.Action("ExporUpdateOrderStatusList", "UpdateOrderStatus", new { type = "_type_" })';
-            window.location.href = url.replace("_type_", selectedValue);
-        }
-    });
-});
 
 
 

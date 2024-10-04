@@ -10,6 +10,8 @@
     settings.CallbackRouteValues = new { Action = "PartialCurrentStockGridList", Controller = "CurrentStockRegister" };
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
 
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
     settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
@@ -211,6 +213,8 @@
 
 
     });
+
+    settings.ClientSideEvents.RowClick = "gridRowclick";
 
 }).Bind(Model).GetHtml()
 
