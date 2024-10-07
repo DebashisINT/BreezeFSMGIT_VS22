@@ -1443,8 +1443,8 @@ background-image: none !important;*/
             var HeaderCaption = [];
             HeaderCaption.push("Shop Name");
             HeaderCaption.push("Shop Code");
-            HeaderCaption.push("Shop Type");
             HeaderCaption.push("Shop Owner Contact");
+            HeaderCaption.push("Shop Type");
 
             if ($("#txtShopSearch").val() != "") {
                 callonServer("../../../Models/ShopAddress.asmx/GetShopList", OtherDetails, "ShopTable", HeaderCaption, "ShopIndex", "SetShop");
@@ -1525,6 +1525,15 @@ background-image: none !important;*/
         ProductNameTxt.SetText('');
         ShopNameTxt.SetText('');
 
+        $("#txtProductSearch").val('');
+        $("#txtShopSearch").val('');
+
+
+        var txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='ShopIndex_0'>Shop Name</th><th class='ShopIndex_1'>Shop Code</th><th class='ShopIndex_2'>Shop Owner Contact</th><th class='ShopIndex_3'>Shop Type</th></table>"
+        document.getElementById("ShopTable").innerHTML = txt;
+
+        txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='ProductIndex_0'>Product Code</th><th class='ProductIndex_1'>Product Name</th></table>"
+        document.getElementById("ProductTable").innerHTML = txt;
     }
 
     function AddCurrentStock() {
@@ -2223,8 +2232,8 @@ background-image: none !important;*/
                             <th class="hide">id</th>
                             <th>Shop Name</th>
                             <th>Shop Code</th>
-                            <th>Shop Type</th>
                             <th>Shop Owner Contact</th>
+                            <th>Shop Type</th>
                         </tr>
                     </table>
                 </div>
