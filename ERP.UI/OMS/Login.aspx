@@ -6,6 +6,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 3.0                24-04-2023        2.0.39           Pallab/Sanchita     25861 : Event banner should dynamically change according to the date
 4.0                06-06-2023        2.0.41           Pallab              26302 : FSM portal login page make responsive and mobile friendly
 5.0                11-07-2023        2.0.42           Pallab              26550 : login page "Invalid UserID or Password!" visibility issue fix for small device
+6.0                07-10-2024        2.0.49           Priti               27754 : Copyright 2024 Indus Net Technologies [2.0.49] It is to be changed to   Copyright 2024 Breeze [2.0.49]
 ====================================================== Revision History ===========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="true" Inherits="pLogin"
@@ -14,7 +15,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login to BreezeERP</title>
+    <%--REV 6.0--%>
+    <%--<title>Login to BreezeERP</title>--%>
+    <title>Login to BreezeFSM</title>
+    <%--REV 6.0 END--%>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -1265,7 +1269,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
                          <div class="ftFooter">
-                             © Copyright <span id="yearCP"></span> Indus Net Technologies
+                            <%-- REV 6.0--%>
+                             <%--© Copyright <span id="yearCP"></span> Indus Net Technologies--%>
+                              © Copyright <span id="yearCP"></span> Breeze 
+                             <%-- REV 6.0 END--%>
                              <asp:Label ID="lblVersion" runat="server" Text="1.0.4" /> 
                             <a href="Management/Master/view-version-features.aspx" target="_blank" style="display:none">( What's New )</a><br />
                             
