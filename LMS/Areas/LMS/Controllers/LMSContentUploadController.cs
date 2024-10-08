@@ -731,24 +731,24 @@ namespace LMS.Areas.LMS.Controllers
                             fileupload.SaveAs(originalFilePath);
 
 
-                            ////////// Step 2: Create and Save the Compressed file with name as , eg: Sample.compressed.mp4
-                            ////////// Compress the video file
-                            ////////var compressedFilePath = CompressVideo(originalFilePath);
+                            // Step 2: Create and Save the Compressed file with name as , eg: Sample.compressed.mp4
+                            // Compress the video file
+                            var compressedFilePath = CompressVideo(originalFilePath);
 
 
-                            ////////// Step 3: Delete the orinal file Sample.mp4
-                            ////////if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
-                            ////////{
-                            ////////    System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));  
+                            // Step 3: Delete the orinal file Sample.mp4
+                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                            {
+                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
 
-                            ////////}
+                            }
 
 
-                            ////////// Step4: Save the compressed file to desired file location with desired file name.
-                            ////////// Here the comprssed file Sample.compressed.mp4 is re-named to Sample.mp4
-                            ////////// Move the compressed file to the desired location 
-                            ////////var finalFilePath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/ContentUpload"), fileName);
-                            ////////System.IO.File.Move(compressedFilePath, finalFilePath); 
+                            // Step4: Save the compressed file to desired file location with desired file name.
+                            // Here the comprssed file Sample.compressed.mp4 is re-named to Sample.mp4
+                            // Move the compressed file to the desired location 
+                            var finalFilePath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/ContentUpload"), fileName);
+                            System.IO.File.Move(compressedFilePath, finalFilePath);
 
 
                         }

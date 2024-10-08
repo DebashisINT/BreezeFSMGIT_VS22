@@ -525,7 +525,6 @@ D:\Projects\BreezeFSMGIT_VS22\MyShopProject\obj\Debug\MyShop.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.dll
-D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Newtonsoft.Json.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.dll
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.xml
