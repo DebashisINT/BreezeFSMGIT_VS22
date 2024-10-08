@@ -44,24 +44,7 @@
         column.Caption = "Sr. No\r\n";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.Width = 96;
-        //if (ViewBag.RetentionColumn != null)
-        //{
-        //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SEQ'");
-        //    if (row != null && row.Length > 0)  /// Check now
-        //    {
-        //        column.Visible = false;
-        //    }
-        //    else
-        //    {
-        //        column.Visible = true;
-        //        column.Width = 50;
-        //    }
-        //}
-        //else
-        //{
-        //    column.Visible = true;
-        //    column.Width = 50;
-        //}
+        
     });
     settings.Columns.Add(column =>
     {
@@ -108,13 +91,10 @@
         column.FieldName = "CURRENTSTOCKDATE";
         column.Caption = "Current Stock Date";
         column.VisibleIndex = 6;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
-
-        column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy hh:mm tt";
-        (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm tt";
+        column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+        column.Width = 100;
     });
 
 

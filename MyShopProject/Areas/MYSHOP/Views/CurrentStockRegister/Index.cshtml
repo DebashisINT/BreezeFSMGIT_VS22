@@ -1924,6 +1924,12 @@ background-image: none !important;*/
                             </button>
                         }
 
+                        @if (ViewBag.CanView)
+                        {
+                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
+                                <span class="btn-icon"><img src="/assests/images/stock-view.svg"></span> Show
+                            </button>
+                        }
 
                         @if (ViewBag.CanBulkUpdate)
                         {
@@ -1941,19 +1947,12 @@ background-image: none !important;*/
                         }
 
 
-                        @if (ViewBag.CanView)
-                        {
-                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
-                                <span class="btn-icon"><img src="/assests/images/stock-view.svg"></span> Show
-                            </button>
-                        }
-
                         @if (ViewBag.CanExport)
                         {
                             @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                <option value="0">Export to</option>
-                                <option value="2">XLSX</option>
-                            </select>*@
+                <option value="0">Export to</option>
+                <option value="2">XLSX</option>
+            </select>*@
 
                             <div class="custom-dropdown">
                                 <button class="dropdown-button" id="dropdownButton">
@@ -1962,19 +1961,19 @@ background-image: none !important;*/
                                 </button>
                                 <ul class="dropdown-list" id="dropdownList">
                                     @*<li data-value="0">Export to</li>*@
-                                    
+
                                     <li data-value="2">XLSX</li>
-                                    
+
                                 </ul>
                                 <!-- Hidden original select for export logic -->
                                 @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" style="display: none;">
-                                        <option value="0">Export to</option>
-                                        <option value="1">PDF</option>
-                                        <option value="2">XLSX</option>
-                                        <option value="3">XLS</option>
-                                        <option value="4">RTF</option>
-                                        <option value="5">CSV</option>
-                                    </select>*@
+                    <option value="0">Export to</option>
+                    <option value="1">PDF</option>
+                    <option value="2">XLSX</option>
+                    <option value="3">XLS</option>
+                    <option value="4">RTF</option>
+                    <option value="5">CSV</option>
+                </select>*@
                                 <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" style="display: none;">
                                     <option value="0">Export to</option>
                                     <option value="2">XLSX</option>
