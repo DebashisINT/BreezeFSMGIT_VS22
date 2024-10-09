@@ -29,6 +29,7 @@
 //28.0  V2.0.49     Debashis    17/09/2024      A new parameter has been added.Row: 979
 //29.0  V2.0.49     Debashis    27/09/2024      A new parameter has been added.Row: 981
 //30.0  V2.0.49     Debashis    01/10/2024      Some new parameters have been added.Row: 983
+//31.0  V2.0.49     Debashis    09/10/2024      Some new parameters have been added.Row: 985
 #endregion===================================End of Revision History==============================================================
 
 using System;
@@ -324,6 +325,11 @@ namespace ShopAPI.Models
         public bool IsAllowNegativeStock { get; set; }
         public bool StockCheckOnOrder1OrInvioce0 { get; set; }
         //End of Rev 30.0 Row: 983
+        //Rev 31.0 Row: 985
+        public string AllowedCreditDays { get; set; }
+        public bool WillCreditDaysFollow { get; set; }
+        public bool AllowOrderOnOutstandingAndClosingStockDifference { get; set; }
+        //End of Rev 31.0 Row: 985
     }
 
     public class ConfigurationModelInput
