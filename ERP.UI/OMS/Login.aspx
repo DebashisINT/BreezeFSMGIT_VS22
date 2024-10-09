@@ -1235,10 +1235,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 </head>
 <body onload="noBack();setInterval('blinkIt()',500);" onpageshow="if (event.persisted) noBack();" onunload="">
 
-    <%--Rev 7.0--%>
-<%--<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>--%>
-<asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderapk_Click" CssClass="btn apk-download-btn"><img src="/assests/images/android-icon.png" class="" /> Download APK</asp:LinkButton>
-<%--End of Rev 7.0--%>
+   
 
     <%--Rev 2.0--%>
     <div id="switchArea" class="">
@@ -1322,7 +1319,13 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                          <asp:Button ID="Submit1" ValidationGroup="login" runat="server" CssClass="btn btn-block loginbtn" Text="Submit" OnClick="Login_User" TabIndex="3" />
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
-                         
+                          <%--Rev 7.0--%>
+                            <%--<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>--%>
+                            <asp:LinkButton ID="lnlDownloaderapk" runat="server" OnClick="lnlDownloaderapk_Click" CssClass="btn apk-download-btn"><img src="/assests/images/android-icon.png" class="" /> Download APK</asp:LinkButton>
+                                <%--<button ID="lnlDownloaderAPK" runat="server" OnClick="lnlDownloaderapk_Click" Class="btn apk-download-btn">
+                                    <img src="/assests/images/android-icon.png" class="" /> Download APK
+                                </button>--%>
+                            <%--End of Rev 7.0--%>
 
                          <div class="ftFooter">
                             <%-- REV 6.0--%>
@@ -1333,6 +1336,9 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                             <a href="Management/Master/view-version-features.aspx" target="_blank" style="display:none">( What's New )</a><br />
                             
                          </div>
+
+                            
+
                      </div>
                     </form>
                      </div>
