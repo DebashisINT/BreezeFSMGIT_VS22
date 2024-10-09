@@ -727,7 +727,10 @@ namespace LMS.Areas.LMS.Controllers
                             string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
 
                             // Step 1: Save the original file, eg: Sample.mp4
-                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+                            // REV SANCHITA
+                            //string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
+                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName("ORG_"+fileName));
+                            // END OF REV SANCHITA
                             fileupload.SaveAs(originalFilePath);
 
 
@@ -737,9 +740,9 @@ namespace LMS.Areas.LMS.Controllers
 
 
                             // Step 3: Delete the orinal file Sample.mp4
-                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "ORG_" + fileName)))
                             {
-                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "ORG_" + fileName));
 
                             }
 
@@ -798,12 +801,52 @@ namespace LMS.Areas.LMS.Controllers
             string compressedFilePath = Path.ChangeExtension(filePath, ".compressed.mp4");
             string ffmpegPath = Server.MapPath("~/bin/ffmpeg.exe");
 
+            // REV SANCHITA
+            // int originalBitrate = 2000; // in kbps
+            int originalBitrate = 0;
+            string output;
+
+            var processSIZ = new System.Diagnostics.Process
+            {
+                StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = ffmpegPath,
+                    Arguments = $"-i \"{filePath}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true, // FFmpeg outputs info to stderr, not stdout
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            // Capture the output (which contains the bitrate info)
+            processSIZ.Start();
+            output = processSIZ.StandardError.ReadToEnd(); // Use StandardError to capture the output
+            processSIZ.WaitForExit();
+
+
+            var match = System.Text.RegularExpressions.Regex.Match(output, @"bitrate:\s+(\d+)\s+kb/s");
+            if (match.Success)
+            {
+                originalBitrate = int.Parse(match.Groups[1].Value);
+            }
+    
+            int desiredBitrate = (int)(originalBitrate * 0.4); // 40% of original bitrate - compression is 60%
+            // END OF REV SANCHITA
+
             var process = new System.Diagnostics.Process
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
                 {
                     FileName = ffmpegPath,
-                    Arguments = $"-i \"{filePath}\" -vcodec libx264 -crf 28 \"{compressedFilePath}\"",
+                    // REV SANCHITA
+                    //Arguments = $"-i \"{filePath}\" -vcodec libx264 -crf 28 \"{compressedFilePath}\"",
+                    //Arguments = $"-i \"{filePath}\" -b:v {desiredBitrate}k -vcodec libx264 \"{compressedFilePath}\"",
+                    //Arguments = $"-i \"{filePath}\" -b:v {desiredBitrate}k -vcodec libx264 -preset ultrafast \"{compressedFilePath}\"",
+                    //Arguments = $"-i \"{filePath}\" -b:v {desiredBitrate}k -vcodec libx264 -crf 22 -preset ultrafast \"{compressedFilePath}\"",
+                    Arguments = $"-i \"{filePath}\" -b:v {desiredBitrate}k -vcodec libx264 -preset ultrafast \"{compressedFilePath}\"",
+                    // END OF REV SANCHITA
+
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true
