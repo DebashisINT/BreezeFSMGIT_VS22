@@ -1097,6 +1097,53 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
              display: block;
              font-size: 16px;
          }
+
+         .apk-download-btn {
+    position: fixed;
+    top: 28%;
+    right: 0;
+    padding: 10px 15px;
+    background: #5b0cb4;
+    border-radius: 12px 0 0 12px;
+    z-index: 99999;
+    transition: right 0.4s ease, width 0.4s ease; /* Smooth transition */
+    width: 55px; /* Initially only show the icon */
+    overflow: hidden; /* Hide text */
+    white-space: nowrap; /* Prevent text wrapping */
+    color: #fff !important;
+    font-size: 16px;
+}
+
+    .apk-download-btn:focus
+    {
+        outline: none !important;
+    }
+
+    .apk-download-btn:hover {
+        width: 175px; /* Expand to full button width on hover */
+        right: 0; /* Keep it fixed at the right */
+    }
+
+    .apk-download-btn img {
+        width: 25px;
+        vertical-align: middle;
+        margin-right: 10px;
+        /*transition: transform 0.4s ease;*/
+    }
+
+    .apk-download-btn:hover img {
+        transform: rotate(360deg); /* Optional icon spin effect on hover */
+    }
+
+    .apk-download-btn span {
+        opacity: 0; /* Initially hide text */
+        transition: opacity 0.4s ease; /* Smooth fade-in effect */
+    }
+
+    .apk-download-btn:hover span {
+        opacity: 1; /* Show text when hovered */
+    }
+
          /*Rev 5.0*/
          @media  only screen and (min-width: 767px) and (max-width: 1320px)
          {
@@ -1187,6 +1234,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
     </script>
 </head>
 <body onload="noBack();setInterval('blinkIt()',500);" onpageshow="if (event.persisted) noBack();" onunload="">
+
+    <%--Rev 7.0--%>
+<%--<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>--%>
+<asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderapk_Click" CssClass="btn apk-download-btn"><img src="/assests/images/android-icon.png" class="" /> Download APK</asp:LinkButton>
+<%--End of Rev 7.0--%>
+
     <%--Rev 2.0--%>
     <div id="switchArea" class="">
         <label class="switch">
@@ -1269,10 +1322,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                          <asp:Button ID="Submit1" ValidationGroup="login" runat="server" CssClass="btn btn-block loginbtn" Text="Submit" OnClick="Login_User" TabIndex="3" />
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
-                         <%--Rev 7.0--%>
-                         <%--<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>--%>
-                         <asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderapk_Click" CssClass="btn btn-info btn-radius  mBot0">Download APK</asp:LinkButton>
-                         <%--End of Rev 7.0--%>
+                         
 
                          <div class="ftFooter">
                             <%-- REV 6.0--%>
