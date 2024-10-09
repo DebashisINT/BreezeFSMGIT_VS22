@@ -1,6 +1,7 @@
 ﻿@*====================================================== Revision History ===========================================================
 Rev Number         DATE              VERSION          DEVELOPER           CHANGES
 1.0                14-01-2023        2.0.38           Pallab              Design change if we provide wrong password: fix
+2.0                09-10-2024        V2.0.49          Pallab/Sanchita     027763: Portal login page download APK functionality add   
 ====================================================== Revision History ===========================================================*@
 
 @model MyShop.Models.LoginModel
@@ -75,6 +76,12 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
             else var expires = "";
             document.cookie = name + "=" + value + expires + "; path=/";
         }
+        // Rev 2.0
+        function DownloadAPK() {
+            var url = '@Url.Action("DownloadAPK", "Login")'
+            window.location.href = url;
+        }
+        // End of Rev 2.0
 
         removeCookiesKeyFromStorage();
     </script>
@@ -863,7 +870,13 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                 <div style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #4a4a4a; text-align: center; ">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
                                 <input type="submit" value="Sign in" class="btn btn-block loginbtn" />
 
-                                <a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>
+                                @*Rev 2.0*@
+                                @*<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>*@
+
+                                <button type="button" class="btn btn-info mr-1" onclick="DownloadAPK();">
+                                    Download APK
+                                </button>
+                                @*End of Rev 2.0*@
 
                                 <div class="ftFooter">
                                     © Copyright 2023 Indus Net Technologies.<br />
