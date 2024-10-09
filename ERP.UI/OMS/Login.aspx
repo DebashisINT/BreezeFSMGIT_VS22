@@ -7,6 +7,7 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 4.0                06-06-2023        2.0.41           Pallab              26302 : FSM portal login page make responsive and mobile friendly
 5.0                11-07-2023        2.0.42           Pallab              26550 : login page "Invalid UserID or Password!" visibility issue fix for small device
 6.0                07-10-2024        2.0.49           Priti               27754 : Copyright 2024 Indus Net Technologies [2.0.49] It is to be changed to   Copyright 2024 Breeze [2.0.49]
+7.0                09-10-2024        V2.0.49          Pallab/Sanchita     027763: Portal login page download APK functionality add   
 ====================================================== Revision History ===========================================================--%>
 
 <%@ Page Language="C#" AutoEventWireup="true" Inherits="pLogin"
@@ -1268,7 +1269,10 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                          <asp:Button ID="Submit1" ValidationGroup="login" runat="server" CssClass="btn btn-block loginbtn" Text="Submit" OnClick="Login_User" TabIndex="3" />
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
-                         <a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>
+                         <%--Rev 7.0--%>
+                         <%--<a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>--%>
+                         <asp:LinkButton ID="lnlDownloaderexcel" runat="server" OnClick="lnlDownloaderapk_Click" CssClass="btn btn-info btn-radius  mBot0">Download APK</asp:LinkButton>
+                         <%--End of Rev 7.0--%>
 
                          <div class="ftFooter">
                             <%-- REV 6.0--%>

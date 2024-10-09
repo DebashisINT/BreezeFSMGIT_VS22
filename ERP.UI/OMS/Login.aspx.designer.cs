@@ -94,6 +94,15 @@ public partial class pLogin
     protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
     /// <summary>
+    /// lnlDownloaderexcel control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.LinkButton lnlDownloaderexcel;
+
+    /// <summary>
     /// lblVersion control.
     /// </summary>
     /// <remarks>
