@@ -1268,6 +1268,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                          <asp:Button ID="Submit1" ValidationGroup="login" runat="server" CssClass="btn btn-block loginbtn" Text="Submit" OnClick="Login_User" TabIndex="3" />
 						<asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" TabIndex="4" CssClass="compemail hide" OnClick="LinkButton1_Click1">Forgot  Password?</asp:LinkButton>
 
+                         <a class="btn btn-primary" href="/assests/ITC_v_4.5.3_LIVE.apk">Download APK</a>
+
                          <div class="ftFooter">
                             <%-- REV 6.0--%>
                              <%--© Copyright <span id="yearCP"></span> Indus Net Technologies--%>
