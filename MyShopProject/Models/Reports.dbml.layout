@@ -602,16 +602,16 @@
         <elementListCompartment Id="034df62e-08bc-496f-9f35-463bc479470c" absoluteBounds="7.265, 11.21, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="30fa4677-a181-41f6-92a6-c6395b96fcfe" absoluteBounds="9.25, 10, 3, 6.3861311848958326">
+    <classShape Id="30fa4677-a181-41f6-92a6-c6395b96fcfe" isExpanded="false" absoluteBounds="9.25, 10, 3, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/FTSORDERREGISTER_REPORT" />
       <nestedChildShapes>
         <elementListCompartment Id="83ea50e0-bb94-4663-8e23-69fadc63189c" absoluteBounds="9.265, 10.46, 2.9699999999999998, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="14afcecf-a90f-4236-b683-07aaae5a8379" isExpanded="false" absoluteBounds="0.5, 11.25, 2, 0.45">
+    <classShape Id="65bfbf4b-1138-43e6-a3ad-01ce412faea9" isExpanded="false" absoluteBounds="9.5, 10.875, 2, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/FSM_CURRENTSTOCK_LISTING" />
       <nestedChildShapes>
-        <elementListCompartment Id="33f7de5d-f20c-4435-b0ef-36b58b4300db" absoluteBounds="0.515, 11.71, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cd417e62-09d3-4c41-af8e-084f7a4c1a78" absoluteBounds="9.515, 11.335, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
