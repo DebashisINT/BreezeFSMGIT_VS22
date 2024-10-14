@@ -1,6 +1,7 @@
 ﻿/***************************************************************************************************************
-1.0  v2 .0.36  1.0  12/01/2023     Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" 
+1.0  v2 .0.36  Sanchita  12/01/2023     Appconfig and User wise setting "IsAllDataInPortalwithHeirarchy = True" 
                                         then data in portal shall be populated based on Hierarchy Only. Refer: 25504
+2.0  v2.0.49   Sanchita  14-10-2024     27742: Beat import format as per the attached file
 ***********************************************************************************************************/
 using BusinessLogicLayer.SalesmanTrack;
 using MyShop.Models;
@@ -44,10 +45,13 @@ namespace MyShop.Areas.MYSHOP.Controllers
             Dtls.Route = 0;
             // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
 
-            // Rev Sanchita
+            // Rev 2.0
+            TempData["FromManualLog"] = null;
+            TempData["BeatImportLog"] = null;
+
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Beat/Index");
             ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
-            // End of Rev Sanchita
+            // End of Rev 2.0
 
 
             return View(Dtls);
@@ -175,7 +179,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        // Rev Sanchita
+        // Rev 2.0
         public ActionResult DownloadFormat()
         {
             string FileName = "BeatList.xlsx";
@@ -308,7 +312,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                         try
                         {
-                            TempData["CurrentStockImportLog"] = dtExcelData;
+                            TempData["BeatImportLog"] = dtExcelData;
                             TempData.Keep();
 
                             DataTable dtCmb = new DataTable();
@@ -329,7 +333,100 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return HasLog;
         }
 
-        // End of Rev Sanchita
+        public ActionResult BeatImportLog()
+        {
+            List<BeatImportLogModel> list = new List<BeatImportLogModel>();
+            DataTable dt = new DataTable();
+            try
+            {
+                if (TempData["BeatImportLog"] != null)
+                {
+                    if (TempData["FromManualLog"] != null && Convert.ToString(TempData["FromManualLog"]) == "1")
+                    {
+                        dt = (DataTable)TempData["BeatImportLog"];
+                    }
+                    else
+                    {
+                        DataTable dtCmb = new DataTable();
+                        ProcedureExecute proc = new ProcedureExecute("PRC_GROUPBEAT");
+                        proc.AddPara("@Action", "SHOWIMPORTLOG");
+                        proc.AddPara("@IMPORT_TABLE", (DataTable)TempData["BeatImportLog"]);
+                        proc.AddPara("@User_Id", Convert.ToInt32(Session["userid"]));
+                        dt = proc.GetTable();
+                    }
+
+                    TempData.Keep();
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        BeatImportLogModel data = null;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            data = new BeatImportLogModel();
+                            data.AreaCode = Convert.ToString(row["AreaCode"]);
+                            data.AreaName = Convert.ToString(row["AreaName"]);
+                            data.RouteCode = Convert.ToString(row["RouteCode"]);
+                            data.RouteName = Convert.ToString(row["RouteName"]);
+                            data.BeatCode = Convert.ToString(row["BeatCode"]);
+                            data.BeatName = Convert.ToString(row["BeatName"]);
+                            data.UserName = Convert.ToString(row["UserName"]);
+                            data.UserID = Convert.ToString(row["UserID"]);
+                            data.OutletEntityID = Convert.ToString(row["OutletEntityID"]);
+                            data.OutletName = Convert.ToString(row["OutletName"]);
+                            data.ImportStatus = Convert.ToString(row["ImportStatus"]);
+                            data.ImportMsg = Convert.ToString(row["ImportMsg"]);
+                            data.ImportDate = Convert.ToString(row["ImportDate"]);
+                            data.CreateUser = Convert.ToString(row["CreateUser"]);
+
+                            list.Add(data);
+                        }
+                    }
+                    //TempData["EnquiriesImportLog"] = dt;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            TempData.Keep();
+            return PartialView(list);
+        }
+
+        [HttpPost]
+        public JsonResult BeatImportManualLog(string Fromdt, String ToDate)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                string datfrmat = Fromdt.Split('-')[2] + '-' + Fromdt.Split('-')[1] + '-' + Fromdt.Split('-')[0];
+                string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_GROUPBEAT");
+                proc.AddPara("@ACTION", "GETBEATIMPORTLOG");
+                proc.AddPara("@FromDate", datfrmat);
+                proc.AddPara("@ToDate", dattoat);
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TempData["BeatImportLog"] = dt;
+                    TempData["FromManualLog"] = "1";
+                    TempData.Keep();
+                    output_msg = "True";
+                }
+                else
+                {
+                    output_msg = "Log not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+        // End of Rev 2.0
 
     }
 }
