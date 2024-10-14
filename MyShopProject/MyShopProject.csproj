@@ -2074,6 +2074,8 @@
     <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\_CurrentStockImportManualLogView.cshtml" />
     <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\CurrentStockImportLog.cshtml" />
     <Content Include="Areas\MYSHOP\Views\CurrentStockRegister\PartialCurrentStockGridList.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\Beat\BeatImportLog.cshtml" />
+    <Content Include="Areas\MYSHOP\Views\Beat\BeatImportLogManual.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
