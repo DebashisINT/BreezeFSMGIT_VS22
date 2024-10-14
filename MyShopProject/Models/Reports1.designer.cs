@@ -50582,7 +50582,7 @@ namespace MyShop.Models
 		
 		private string _SHOPTYPE;
 		
-		private string _CURRENTSTOCKDATE;
+		private System.Nullable<System.DateTime> _CURRENTSTOCKDATE;
 		
 		private string _PRODUCTCODE;
 		
@@ -50594,11 +50594,11 @@ namespace MyShop.Models
 		
 		private string _CREATED_BY;
 		
-		private string _CREATED_DATE;
+		private System.Nullable<System.DateTime> _CREATED_DATE;
 		
 		private string _MODIFIED_BY;
 		
-		private string _MODIFIED_DATE;
+		private System.Nullable<System.DateTime> _MODIFIED_DATE;
 		
 		public FSM_CURRENTSTOCK_LISTING()
 		{
@@ -50732,8 +50732,8 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CURRENTSTOCKDATE", DbType="VarChar(50)")]
-		public string CURRENTSTOCKDATE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CURRENTSTOCKDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CURRENTSTOCKDATE
 		{
 			get
 			{
@@ -50828,8 +50828,8 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="VarChar(50)")]
-		public string CREATED_DATE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATED_DATE
 		{
 			get
 			{
@@ -50860,8 +50860,8 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="VarChar(50)")]
-		public string MODIFIED_DATE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFIED_DATE
 		{
 			get
 			{
