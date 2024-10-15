@@ -727,32 +727,33 @@ namespace LMS.Areas.LMS.Controllers
                             string uploadsFolder = Server.MapPath("~/Commonfolder/LMS/ContentUpload/");
 
                             // Step 1: Save the original file, eg: Sample.mp4
-                            // REV SANCHITA
                             //string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
-                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName("ORG_"+fileName));
-                            // END OF REV SANCHITA
+                            string originalFilePath = Path.Combine(uploadsFolder, Path.GetFileName(fileName));
                             fileupload.SaveAs(originalFilePath);
+                            // End Step 1
 
-
-                            // Step 2: Create and Save the Compressed file with name as , eg: Sample.compressed.mp4
-                            // Compress the video file
-                            var compressedFilePath = CompressVideo(originalFilePath);
-
-
-                            // Step 3: Delete the orinal file Sample.mp4
-                            if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "ORG_" + fileName)))
+                            if (fileSize > (200 * 1024 * 1024))  // COMPRESSION will take place if file size is greater than 200MB
                             {
-                                System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + "ORG_" + fileName));
+                                // Step 2: Create and Save the Compressed file with name as , eg: Sample.compressed.mp4
+                                // Compress the video file
+                                var compressedFilePath = CompressVideo(originalFilePath);
+                                // End Step 2
 
+                                // Step 3: Delete the orinal file Sample.mp4
+                                if (System.IO.File.Exists(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName)))
+                                {
+                                    System.IO.File.Delete(Server.MapPath("~/Commonfolder/LMS/ContentUpload/" + fileName));
+
+                                }
+                                // End Step 3
+
+                                // Step 4: Save the compressed file to desired file location with desired file name.
+                                // Here the comprssed file Sample.compressed.mp4 is re-named to Sample.mp4
+                                // Move the compressed file to the desired location 
+                                var finalFilePath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/ContentUpload"), fileName);
+                                System.IO.File.Move(compressedFilePath, finalFilePath);
+                                // End Step 4
                             }
-
-
-                            // Step4: Save the compressed file to desired file location with desired file name.
-                            // Here the comprssed file Sample.compressed.mp4 is re-named to Sample.mp4
-                            // Move the compressed file to the desired location 
-                            var finalFilePath = Path.Combine(Server.MapPath("~/Commonfolder/LMS/ContentUpload"), fileName);
-                            System.IO.File.Move(compressedFilePath, finalFilePath);
-
 
                         }
 
@@ -801,7 +802,9 @@ namespace LMS.Areas.LMS.Controllers
             string compressedFilePath = Path.ChangeExtension(filePath, ".compressed.mp4");
             string ffmpegPath = Server.MapPath("~/bin/ffmpeg.exe");
 
-            // REV SANCHITA
+
+            // Start Step 1 : Get the Bitrate of the original video
+
             // int originalBitrate = 2000; // in kbps
             int originalBitrate = 0;
             string output;
@@ -830,10 +833,14 @@ namespace LMS.Areas.LMS.Controllers
             {
                 originalBitrate = int.Parse(match.Groups[1].Value);
             }
-    
-            int desiredBitrate = (int)(originalBitrate * 0.4); // 40% of original bitrate - compression is 60%
-            // END OF REV SANCHITA
 
+            // End Step 1
+
+            // Start Step 2: Get the final Bitrate of the file after 60% compression has taken place, i.e. calculate the 40% of the original Bitrate
+            int desiredBitrate = (int)(originalBitrate * 0.4); 
+            // End Step 2
+
+            // Start Step 3: Compress the file upto 60%
             var process = new System.Diagnostics.Process
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
@@ -855,6 +862,7 @@ namespace LMS.Areas.LMS.Controllers
 
             process.Start();
             process.WaitForExit();
+            // End Step 3
 
             return compressedFilePath;
         }
