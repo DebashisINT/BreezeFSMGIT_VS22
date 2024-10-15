@@ -348,12 +348,12 @@
          var isprocess = false;
          var filename = $("#fileprod").val();
          if ($('#fileprod').get(0).files.length === 0) {
-             //jAlert("No files selected.");
-             Swal.fire({
-                 icon: 'warning',
-                 title: 'Warning',
-                 text: 'No files selected.'
-             });
+             jAlert("No files selected.");
+             //Swal.fire({
+             //    icon: 'warning',
+             //    title: 'Warning',
+             //    text: 'No files selected.'
+             //});
 
              return false;
          }
@@ -367,12 +367,12 @@
                  default:
                      // Cancel the form submission
                      if (!isprocess) {
-                         //jAlert('Only excel file require.');
-                         Swal.fire({
-                             icon: 'warning',
-                             title: 'Warning',
-                             text: 'Only excel file require.'
-                         });
+                         jAlert('Only excel file require.');
+                         //Swal.fire({
+                         //    icon: 'warning',
+                         //    title: 'Warning',
+                         //    text: 'Only excel file require.'
+                         //});
 
                          return false;
                      }
@@ -420,12 +420,12 @@
 
                  },
                  error: function (err) {
-                     //jAlert(err.statusText);
-                     Swal.fire({
-                         icon: 'error',
-                         title: 'Sorry!',
-                         text: err.statusText
-                     });
+                     jAlert(err.statusText);
+                     //Swal.fire({
+                     //    icon: 'error',
+                     //    title: 'Sorry!',
+                     //    text: err.statusText
+                     //});
                  }
              });
          }
@@ -470,12 +470,12 @@
                     });
                 }
                 else {
-                    // jAlert(response);
-                   Swal.fire({
-                       icon: 'error',
-                       title: 'Sorry!',
-                       text: response
-                    });
+                   jAlert(response);
+                   //Swal.fire({
+                   //    icon: 'error',
+                   //    title: 'Sorry!',
+                   //    text: response
+                   // });
                 }
             },
             error: function (response) {
