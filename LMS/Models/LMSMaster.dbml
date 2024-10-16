@@ -116,4 +116,18 @@
       <Column Name="TOPIC_SEQ" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.LMS_REPORTTOPICLIST" Member="LMS_REPORTTOPICLISTs">
+    <Type Name="LMS_REPORTTOPICLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TOPICID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TOPICNAME" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="TOPICSTATUS" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CONTENTID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CONTENTTITLE" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CONTENTSTATUS" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="QuestionMapped" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="QUESTIONSCount" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
