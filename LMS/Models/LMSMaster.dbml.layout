@@ -44,5 +44,11 @@
         <elementListCompartment Id="335b5485-7586-4237-abd3-7ffba71d430c" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="ad7bde18-5b61-4c68-a8fa-034d5cae2fd0" absoluteBounds="4.625, 1.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/LMSMasterDataContext/LMS_REPORTTOPICLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0655cb56-31e0-42d0-bb19-c9f03d234bcd" absoluteBounds="4.64, 1.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
