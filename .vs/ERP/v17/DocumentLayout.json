@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\areas\\targetvsachievement\\views\\targetsetupmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\areas\\targetvsachievement\\views\\targetsetupmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\areas\\targetvsachievement\\controllers\\targetlevelsetupmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\areas\\targetvsachievement\\controllers\\targetlevelsetupmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\areas\\targetvsachievement\\controllers\\targetsetupmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\areas\\targetvsachievement\\controllers\\targetsetupmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\views\\common\\_partialmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\views\\common\\_partialmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|d:\\git\\github\\breezefsmgit_vs22\\erp.ui\\oms\\management\\store\\master\\sproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|solutionrelative:erp.ui\\oms\\management\\store\\master\\sproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\views\\common\\_partialmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\views\\common\\_partialmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\erp.ui\\oms\\management\\store\\master\\sproducts.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A2B7ADE9-0B60-49C9-AC01-8D3B3A2641D8}|ERP.UI\\ERP.csproj|solutionrelative:erp.ui\\oms\\management\\store\\master\\sproducts.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\controllers\\commoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\controllers\\commoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\lms\\areas\\lms\\controllers\\lmscontentuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\areas\\lms\\controllers\\lmscontentuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|d:\\git\\github\\breezefsmgit_vs22\\lms\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{73962037-5EA7-4BD8-B60A-384897AFDD44}|LMS\\LMS.csproj|solutionrelative:lms\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|d:\\git\\github\\breezefsmgit_vs22\\targetvsachievement\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{B0174A18-0564-4944-8B7C-2D4BB3C59995}|TargetVsAchievement\\TargetVsAchievement.csproj|solutionrelative:targetvsachievement\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,70 +34,85 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Views\\TargetSetupMaster\\Index.cshtml",
-              "RelativeDocumentMoniker": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Views\\TargetSetupMaster\\Index.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Views\\TargetSetupMaster\\Index.cshtml",
-              "RelativeToolTip": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Views\\TargetSetupMaster\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-21T05:43:21.057Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TargetSetupMasterController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetSetupMasterController.cs",
-              "RelativeDocumentMoniker": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetSetupMasterController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetSetupMasterController.cs",
-              "RelativeToolTip": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetSetupMasterController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T05:43:05.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "sProducts.aspx.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx.cs",
-              "RelativeDocumentMoniker": "ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx.cs",
-              "RelativeToolTip": "ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx.cs",
-              "ViewState": "AQIAAGoHAAAAAAAAAAAAAHUHAAA9AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T12:37:01.724Z",
+              "Title": "_PartialMenu.cshtml",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Views\\Common\\_PartialMenu.cshtml",
+              "RelativeDocumentMoniker": "TargetVsAchievement\\Views\\Common\\_PartialMenu.cshtml",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Views\\Common\\_PartialMenu.cshtml",
+              "RelativeToolTip": "TargetVsAchievement\\Views\\Common\\_PartialMenu.cshtml",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAYwIsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-21T06:58:48.526Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "sProducts.aspx",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx",
-              "RelativeDocumentMoniker": "ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx",
-              "RelativeToolTip": "ERP.UI\\OMS\\Management\\Store\\Master\\sProducts.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-18T12:36:59.938Z"
+              "Title": "CommonController.cs",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Controllers\\CommonController.cs",
+              "RelativeDocumentMoniker": "TargetVsAchievement\\Controllers\\CommonController.cs",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Controllers\\CommonController.cs",
+              "RelativeToolTip": "TargetVsAchievement\\Controllers\\CommonController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T06:58:25.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_PartialMenu.cshtml",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Views\\Common\\_PartialMenu.cshtml",
+              "RelativeDocumentMoniker": "LMS\\Views\\Common\\_PartialMenu.cshtml",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Views\\Common\\_PartialMenu.cshtml",
+              "RelativeToolTip": "LMS\\Views\\Common\\_PartialMenu.cshtml",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAYwIsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-21T06:57:55.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TargetLevelSetupMasterController.cs",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetLevelSetupMasterController.cs",
+              "RelativeDocumentMoniker": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetLevelSetupMasterController.cs",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetLevelSetupMasterController.cs",
+              "RelativeToolTip": "TargetVsAchievement\\Areas\\TargetVsAchievement\\Controllers\\TargetLevelSetupMasterController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T06:57:10.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Views\\Web.config",
+              "RelativeDocumentMoniker": "TargetVsAchievement\\Views\\Web.config",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\TargetVsAchievement\\Views\\Web.config",
+              "RelativeToolTip": "TargetVsAchievement\\Views\\Web.config",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAQwEMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-10-21T06:56:33.427Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "LMSContentUploadController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Controllers\\LMSContentUploadController.cs",
-              "RelativeDocumentMoniker": "LMS\\Areas\\LMS\\Controllers\\LMSContentUploadController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Areas\\LMS\\Controllers\\LMSContentUploadController.cs",
-              "RelativeToolTip": "LMS\\Areas\\LMS\\Controllers\\LMSContentUploadController.cs",
-              "ViewState": "AQIAAGQDAAAAAAAAAAAcwG0DAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T10:39:09.708Z"
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Views\\Web.config",
+              "RelativeDocumentMoniker": "LMS\\Views\\Web.config",
+              "ToolTip": "D:\\GIT\\GitHub\\BreezeFSMGIT_VS22\\LMS\\Views\\Web.config",
+              "RelativeToolTip": "LMS\\Views\\Web.config",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAYwEMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-10-21T06:56:21.56Z",
+              "EditorCaption": ""
             }
           ]
         }
