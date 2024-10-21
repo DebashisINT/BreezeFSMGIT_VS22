@@ -3037,8 +3037,8 @@
       <Column Name="CURRENTSTOCKDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PRODUCTCODE" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="PRODUCTNAME" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="QUANTITY" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
-      <Column Name="QUANTITY_BAL" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="QUANTITY" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="QUANTITY_BAL" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="CREATED_BY" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="CREATED_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="MODIFIED_BY" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />

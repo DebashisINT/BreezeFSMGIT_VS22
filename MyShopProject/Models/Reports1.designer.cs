@@ -50780,7 +50780,7 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY", DbType="Decimal(18,4)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY", DbType="Decimal(18,2)")]
 		public System.Nullable<decimal> QUANTITY
 		{
 			get
@@ -50796,7 +50796,7 @@ namespace MyShop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY_BAL", DbType="Decimal(18,4)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUANTITY_BAL", DbType="Decimal(18,2)")]
 		public System.Nullable<decimal> QUANTITY_BAL
 		{
 			get

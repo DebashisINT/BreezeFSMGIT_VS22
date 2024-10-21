@@ -608,10 +608,10 @@
         <elementListCompartment Id="83ea50e0-bb94-4663-8e23-69fadc63189c" absoluteBounds="9.265, 10.46, 2.9699999999999998, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="65bfbf4b-1138-43e6-a3ad-01ce412faea9" isExpanded="false" absoluteBounds="9.5, 10.875, 2, 0.45">
+    <classShape Id="865d224c-1854-450a-9c43-fb023b6ddbf4" isExpanded="false" absoluteBounds="0.625, 11.375, 2, 0.45">
       <DataClassMoniker Name="/ReportsDataContext/FSM_CURRENTSTOCK_LISTING" />
       <nestedChildShapes>
-        <elementListCompartment Id="cd417e62-09d3-4c41-af8e-084f7a4c1a78" absoluteBounds="9.515, 11.335, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="54909b81-90d2-4451-95c2-75063e26613e" absoluteBounds="0.64, 11.835, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
