@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\TargetVsAchievement\Controllers\TargetSetupMasterController.cs" />
     <Compile Include="Areas\TargetVsAchievement\TargetVsAchievementAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,6 +155,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\TargetVsAchievement\Views\web.config" />
+    <Content Include="Areas\TargetVsAchievement\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\TargetSetupMaster\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -182,9 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\TargetVsAchievement\Controllers\" />
     <Folder Include="Areas\TargetVsAchievement\Data\" />
-    <Folder Include="Areas\TargetVsAchievement\Views\Shared\" />
+    <Folder Include="Areas\TargetVsAchievement\Views\TargetSetup\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
