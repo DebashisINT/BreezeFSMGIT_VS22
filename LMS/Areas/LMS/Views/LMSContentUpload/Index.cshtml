@@ -2510,7 +2510,8 @@
     #AddTopicModal .modal-content,
     #AddContentModal .modal-content,
     #quizTimeModal .modal-content,
-    #AddQuestionModal .modal-content {
+    #AddQuestionModal .modal-content,
+    #ContentPlayModal .modal-content {
         background: linear-gradient(1deg, #cff3ff, #ffffff);
         overflow: visible !important;
     }
@@ -4444,10 +4445,10 @@
                             //Rev 1.0
                             if (CONTENTFILETYPE == '.mp4') {
                                 videoCardHtml += `
-                             <div >
+                             
                                  <button type="button" class="btn btn-VideoShow" onclick="ShowContentVideoInListing('${item.CONTENTID}','${ContentTitle}','${item.CONTENT_TOPICID}','${item.CONTENT_TOPIC}')"><span class="btn-icon"><img src="../../../assests/images/play-button.svg"></span></button>
 
-                             </div>
+                             
                               `;
                             }
                             //Rev 1.0 End
@@ -6730,28 +6731,49 @@
 <style>
     .btn-VideoShow span img
     {
-        width:20px;
+        width:34px;
+        transition: all .3s;
     }
 
-    .btn-VideoShow
-    {
-        background:transparent;
-    }
+        .btn-VideoShow span img:hover
+        {
+            transform: scale(1.1);
+        }
+
+        .btn-VideoShow {
+            background: transparent;
+            padding-top: 0;
+            padding-right: 0;
+        }
     #ContentPlayModal .modal-header {
         margin-bottom: 10px;
-        border-bottom: 1px solid #d5d5d5;
+        /*border-bottom: 1px solid #d5d5d5;*/
+        border-bottom: 0;
+        padding: 6px 20px !important;
     }
 
-    #ContentPlayModal .modal-dialog {
-        width: 700px;
-    }
+        #ContentPlayModal .modal-header .close {
+            margin-top: 5px;
+        }
 
-    #ContentPlayModal .modal-body {
+        #ContentPlayModal .modal-dialog {
+            width: 700px;
+        }
+
+
+
+    /*#ContentPlayModal .modal-body {
         height: 300px;
+    }*/
+
+    #ContentPlayModal .modal-footer {
+        text-align:left;
+        border-top: none;
     }
 
     #filePreviewListing {
         /*margin-top: 10px;*/
+        height: 220px;
     }
 
         #filePreviewListing video {
@@ -6763,15 +6785,21 @@
 
         #filePreviewListing video {
             position: absolute;
-            width: 100%;
-            height: 215px;
+            width: 96%;
+            height: 295px;
             top: 0;
-            left: 0;
+            left: 2%;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 15px;
             box-shadow: 1px 1px 10px #11111136;
             background: #fff;
         }
+
+    #file-nameListing
+    {
+        font-size: 18px;
+        margin-left: 10px;
+    }
 </style>
 <script>
     function ShowContentVideoInListing(ContentId, ContentTitle, TopicId, TopicTitle) {
@@ -7709,22 +7737,26 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <div id="txtContentTitleListing"></div>
                 <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 id="txtContentTitleListing"></h4>
+
             </div>
             <div class="modal-body">
-                <div class="clearfix">
+                @*<div class="clearfix">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12">*@
                             <div id="filePreviewListing"></div>
-                        </div>
-                    </div>
-                    <div class="row">
+                        @*</div>
+                    </div>*@
+                    @*<div class="row">
                         <div class="col-md-12">
-                            <div class="file-name" id="file-nameListing"></div>
+                            
                         </div>
-                    </div>
-                </div>
+                    </div>*@
+                @*</div>*@
+            </div>
+            <div class="modal-footer">
+                <h4 class="file-name" id="file-nameListing"></h4>
             </div>
         </div>
     </div>
