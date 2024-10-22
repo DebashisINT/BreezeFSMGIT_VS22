@@ -671,11 +671,218 @@
     .close:hover, .close:focus {
         color: #111 !important;
     }
+
+
+
+    .step-container {
+        position: relative;
+        margin-top: 5px;
+        min-height: 480px;
+    }
+
+    .step-box {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        /*border: 2px solid #ccc;*/
+        border-radius: 8px;
+        color: white;
+        width: 250px;
+        height: 70px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+        .step-box img {
+            margin-right: 8px;
+            width: 55px;
+            height: 55px;
+        }
+
+    /* Specific colors for each step */
+    .step-box-1 {
+        background-color: #AC27EE;
+    }
+
+    .step-box-2 {
+        background-color: #07AF82;
+    }
+
+    .step-box-3 {
+        background-color: #E19D08;
+    }
+
+    .step-box-4 {
+        background-color: #CB0AA5;
+    }
+
+    .step-box-5 {
+        background-color: #3498db;
+    }
+
+    .step-box-6 {
+        background-color: #d35400;
+    }
+
+    /* Stairs alignment */
+    .step-box-1 {
+        top: 0px;
+        left: 0px;
+    }
+
+    .step-box-2 {
+        top: 80px;
+        left: 150px;
+    }
+
+    .step-box-3 {
+        top: 160px;
+        left: 300px;
+    }
+
+    .step-box-4 {
+        top: 240px;
+        left: 450px;
+    }
+
+    .step-box-5 {
+        top: 320px;
+        left: 600px;
+    }
+
+    .step-box-6 {
+        top: 400px;
+        left: 750px;
+    }
+
+    /* Connector line for each step */
+    .step-connector {
+        position: absolute;
+        width: 3px;
+        height: 55px;
+        background-color: #ccc;
+    }
+
+    /* Connector positions */
+    .step-connector-1 {
+        top: 60px;
+        left: 100px;
+        background-color: #AC27EE;
+        position: relative;
+    }
+
+        .step-connector-1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #AC27EE;
+        }
+
+    .step-connector-2 {
+        top: 90px;
+        left: 245px;
+        background-color: #07AF82;
+        position: relative;
+    }
+
+        .step-connector-2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #07AF82;
+        }
+
+    .step-connector-3 {
+        top: 110px;
+        left: 400px;
+        background-color: #E19D08;
+        position: relative;
+    }
+
+        .step-connector-3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #E19D08;
+        }
+
+    .step-connector-4 {
+        top: 135px;
+        left: 550px;
+        background-color: #CB0AA5;
+        position: relative;
+    }
+
+        .step-connector-4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #CB0AA5;
+        }
+
+    .step-connector-5 {
+        top: 160px;
+        left: 700px;
+        background-color: #3498db;
+        position: relative;
+    }
+
+        .step-connector-5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #3498db;
+        }
+
+    .hidden {
+        display: none;
+    }
 </style>
 
 <script>
     var Is_PageLoad = "0";
 
+</script>
+
+<script>
+    function hideStep(stepId) {
+        $('#' + stepId).addClass('hidden');
+        adjustSteps();
+    }
+
+    function adjustSteps() {
+        var visibleSteps = $('.step-box').not('.hidden');
+        visibleSteps.each(function (index) {
+            $(this).css('top', (index * 100) + 'px'); // Adjusts vertical position
+            $(this).css('left', (index * 100) + 'px'); // Adjusts horizontal position
+        });
+
+        $('.step-connector').each(function (index) {
+            var stepBefore = visibleSteps.eq(index);
+            if (stepBefore.length > 0) {
+                $(this).css('top', parseInt(stepBefore.css('top')) + 60 + 'px');
+                $(this).css('left', parseInt(stepBefore.css('left')) + 250 + 'px');
+            } else {
+                $(this).addClass('hidden'); // Hide unused connectors
+            }
+        });
+    }
 </script>
 
 <div class="breadCumb">
@@ -687,24 +894,68 @@
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 @*<div class="add-show-btns">
-                    @if (ViewBag.CanAdd)
-                    {
-                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Category
-                        </button>
-                    }
-                    @if (ViewBag.CanView)
-                    {
-                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                    }
-                    @if (ViewBag.CanExport)
-                    {
-                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                            <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                        </button>
+            @if (ViewBag.CanAdd)
+            {
+                <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
+                    <span class="btn-icon"><i class="fa fa-plus"></i></span> Category
+                </button>
+            }
+            @if (ViewBag.CanView)
+            {
+                <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+            }
+            @if (ViewBag.CanExport)
+            {
+                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
+                    <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
+                </button>
 
-                    }
-                </div>*@
+            }
+        </div>*@
+
+
+                <div class="step-container">
+                    <!-- Step 1 -->
+                    <div class="step-box step-box-1" id="step-1">
+                        <img src="../../../assests/images/target-icon-1.svg" alt="Region Icon">
+                        <span>Region Level Target</span>
+                    </div>
+                    <div class="step-connector step-connector-1"></div>
+
+                    <!-- Step 2 -->
+                    <div class="step-box step-box-2" id="step-2">
+                        <img src="../../../assests/images/target-icon-2.svg" alt="Area Manager Icon">
+                        <span>Area Manager Level Target</span>
+                    </div>
+                    <div class="step-connector step-connector-2"></div>
+
+                    <!-- Step 3 -->
+                    <div class="step-box step-box-3" id="step-3">
+                        <img src="../../../assests/images/target-icon-3.svg" alt="Sales Officer Icon">
+                        <span>Sales Officer Level Target</span>
+                    </div>
+                    <div class="step-connector step-connector-3"></div>
+
+                    <!-- Step 4 -->
+                    <div class="step-box step-box-4" id="step-4">
+                        <img src="../../../assests/images/target-icon-4.svg" alt="Salesman Icon">
+                        <span>Salesman Level Target</span>
+                    </div>
+                    <div class="step-connector step-connector-4"></div>
+
+                    <!-- Step 5 -->
+                    <div class="step-box step-box-5" id="step-5">
+                        <img src="../../../assests/images/target-icon-5.svg" alt="Beat Icon">
+                        <span>Beat Level Target</span>
+                    </div>
+                    <div class="step-connector step-connector-5"></div>
+
+                    <!-- Step 6 -->
+                    <div class="step-box step-box-6" id="step-6">
+                        <img src="../../../assests/images/target-icon-6.svg" alt="Outlet Icon">
+                        <span>Outlet Level Target</span>
+                    </div>
+                </div>
 
             </div>
 
