@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974 & 975
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974,975,988 & 989
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -396,5 +396,69 @@ namespace ShopAPI.Models
         public string content_desc { get; set; }
         public string content_bitmap { get; set; }
         public string content_url { get; set; }
+    }
+
+    public class TopicContentWiseAnswerListsInput
+    {
+        public long user_id { get; set; }
+        public long topic_id { get; set; }
+        public long content_id { get; set; }
+    }
+    public class TopicContentWiseAnswerListsOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public long user_id { get; set; }
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public string content_name { get; set; }
+        public List<QuestionAnswerfetchlistOutput> question_answer_fetch_list { get; set; }
+    }
+    public class QuestionAnswerfetchlistOutput
+    {
+        public long topic_id { get; set; }
+        public long content_id { get; set; }
+        public long question_id { get; set; }
+        public string question { get; set; }
+        public string question_description { get; set; }
+        public string answered { get; set; }
+        public List<QAOptionlistOutput> option_list { get; set; }
+    }
+    public class QAOptionlistOutput
+    {
+        public long question_id { get; set; }
+        public long option_id { get; set; }
+        public string option_no_1 { get; set; }
+        public long option_point_1 { get; set; }
+        public bool isCorrect_1 { get; set; }
+        public string option_no_2 { get; set; }
+        public long option_point_2 { get; set; }
+        public bool isCorrect_2 { get; set; }
+        public string option_no_3 { get; set; }
+        public long option_point_3 { get; set; }
+        public bool isCorrect_3 { get; set; }
+        public string option_no_4 { get; set; }
+        public long option_point_4 { get; set; }
+        public bool isCorrect_4 { get; set; }
+    }
+    public class TopicContentWiseAnswerUpdateInput
+    {
+        public long user_id { get; set; }
+        public string session_token { get; set; }
+        public long topic_id { get; set; }
+        public string topic_name { get; set; }
+        public long content_id { get; set; }
+        public long question_id { get; set; }
+        public string question { get; set; }
+        public long option_id { get; set; }
+        public string option_number { get; set; }
+        public long option_point { get; set; }
+        public bool isCorrect { get; set; }
+    }
+    public class TopicContentWiseAnswerUpdateOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
     }
 }

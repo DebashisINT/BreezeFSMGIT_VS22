@@ -30,6 +30,7 @@
 //29.0  V2.0.49     Debashis    27/09/2024      A new parameter has been added.Row: 981
 //30.0  V2.0.49     Debashis    01/10/2024      Some new parameters have been added.Row: 983
 //31.0  V2.0.49     Debashis    09/10/2024      Some new parameters have been added.Row: 985
+//32.0  V2.0.49     Debashis    23/10/2024      A new parameter has been added.Row: 987
 #endregion===================================End of Revision History==============================================================
 
 using System;
@@ -330,6 +331,9 @@ namespace ShopAPI.Models
         public bool WillCreditDaysFollow { get; set; }
         public bool AllowOrderOnOutstandingAndClosingStockDifference { get; set; }
         //End of Rev 31.0 Row: 985
+        //Rev 32.0 Row: 987
+        public bool ShowRetryIncorrectQuiz { get; set; }
+        //End of Rev 32.0 Row: 987
     }
 
     public class ConfigurationModelInput
