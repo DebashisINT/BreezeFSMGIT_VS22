@@ -939,6 +939,7 @@ namespace ShopAPI.Controllers
                                             question = Convert.ToString(ds.Tables[1].Rows[j]["question"]),
                                             question_description = Convert.ToString(ds.Tables[1].Rows[j]["question_description"]),
                                             answered = Convert.ToString(ds.Tables[1].Rows[j]["answered"]),
+                                            isCorrectAnswer = Convert.ToBoolean(ds.Tables[1].Rows[j]["isCorrectAnswer"]),
                                             option_list = Ooview
                                         });
                                     }

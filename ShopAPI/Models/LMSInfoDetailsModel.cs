@@ -423,6 +423,7 @@ namespace ShopAPI.Models
         public string question { get; set; }
         public string question_description { get; set; }
         public string answered { get; set; }
+        public bool isCorrectAnswer { get; set; }
         public List<QAOptionlistOutput> option_list { get; set; }
     }
     public class QAOptionlistOutput
