@@ -1,9 +1,15 @@
 ﻿
+@using TargetVsAchievement.Models;
+@model TargetVsAchievement.Models.TargetLevelSetupModel
 
 @{
     ViewBag.Title = "Target Level Set Up";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link href="/assests/pluggins/Transfer/icon_font/css/icon_font.css" rel="stylesheet" />
+<link href="/assests/pluggins/Transfer/css/jquery.transfer.css" rel="stylesheet" />
+<script src="/assests/pluggins/Transfer/jquery.transfer.js"></script>
 
 <style>
     .modal-header {
@@ -332,6 +338,10 @@
         background: transparent !important;
         margin-bottom: 10px;
         border-bottom: 1px solid #d5d5d5;
+    }
+
+    .pmsModal.w120 .modal-dialog {
+        width: 50% !important;
     }
 
     .close {
@@ -853,14 +863,22 @@
     .hidden {
         display: none;
     }
+
+    .pmsModal .modal-body select:not(.btn), .pmsModal .modal-body .form-control {
+        border-radius: 6px !important;
+        background: #fff !important;
+    }
+
+        .pmsModal .modal-body .form-control:focus {
+            box-shadow: none !important;
+        }
 </style>
+
 
 <script>
     var Is_PageLoad = "0";
 
-</script>
 
-<script>
     function hideStep(stepId) {
         $('#' + stepId).addClass('hidden');
         adjustSteps();
@@ -883,6 +901,217 @@
             }
         });
     }
+
+    function ClearData() {
+        $("#ddlDesignation").val(0);
+        $("#ddlDesignation").hide();
+
+        lblBasedOn.innerText = "";
+        $("#transfer1").html('');
+        $('input[name="optBasedOn"]').prop('checked', false);
+    }
+
+    function AddEditLevel(salesmanLevel) {
+
+        $("#hdnSalesmanLevel").val(salesmanLevel);
+
+        if (salesmanLevel == "ASM") {
+            $("#lblHeading").text("Create Target Level");
+            $("#lblTargetLevel").text("ASM Level");
+        }
+        else if (salesmanLevel == "SLO") {
+            $("#lblHeading").text("Create Target Level");
+            $("#lblTargetLevel").text("Sales Officer Level");
+        }
+        else if (salesmanLevel == "SLM") {
+            $("#lblHeading").text("Create Target Level");
+            $("#lblTargetLevel").text("Salesman Level");
+        }
+
+        ClearData();
+
+        LoadEmployeeOnChange('SHOW')
+
+        $("#AddTargetLevelModal").modal('show');
+    }
+
+    function ShowHideDesignation() {
+        $("#ddlDesignation").val(0);
+
+        if ($('input[name="optBasedOn"]:checked').val() == 2) {
+            $("#ddlDesignation").show();
+            $("#transfer1").html('');
+            lblBasedOn.innerText = "";
+        }
+        else {
+            $("#ddlDesignation").hide();
+            LoadEmployeeOnChange('GETEMPLOYEELIST');
+        }
+    }
+
+
+    var selectedEmployeeBasedOnMapList;
+    function LoadEmployeeOnChange(action) {
+        selectedEmployeeBasedOnMapList = '';
+        var obj = {};
+        obj.action = action;
+        obj.deg_id = $("#ddlDesignation").val();
+        obj.SalesmanLevel = $("#hdnSalesmanLevel").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/TargetLevelSetupMaster/GetEmployeeList",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data)
+                var temArr2 = [];
+                //var data = response.d;
+                for (var a = 0; a < data.length; a++) {
+                    if (data[a].selected) {
+                        temArr2.push(data[a].ID);
+                    }
+                }
+                selectedEmployeeBasedOnMapList = temArr2.join(",");
+                $("#transfer1").html('');
+
+                var tabNameText = data[0].tabNameText;
+                var rightTabNameText = data[0].rightTabNameText;
+                var searchPlaceholderText = data[0].searchPlaceholderText;
+                lblBasedOn.innerText = "Select Employee(s)";
+
+                var settings1 = {
+                    "dataArray": data,
+                    "itemName": "NAME",
+                    "valueName": "ID",
+                    "tabNameText": tabNameText,
+                    "rightTabNameText": rightTabNameText,
+                    "searchPlaceholderText": searchPlaceholderText,
+                    "callable": function (items) {
+                        //console.dir(items)
+                        var temArr = [];
+                        for (var i = 0; i < items.length; i++) {
+                            temArr.push(items[i].ID);
+                        }
+                        selectedEmployeeBasedOnMapList = temArr.join(",");
+                    }
+                };
+                $("#transfer1").transfer(settings1);
+            }
+        });
+    }
+
+    function SaveTargetEmpMap() {
+        Swal.fire({
+            title: 'Are you sure you want to save?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //if ($('input[name="optBasedOn"]:checked').val() == 0 || $('input[name="optBasedOn"]:checked').val() == null) {
+                //    Swal.fire({
+                //        icon: 'warning',
+                //        title: 'Alert',
+                //        text: 'Please select Based On.'
+                //    }).then(() => {
+                //        setTimeout(() => {
+                //            $("#optBasedOn").focus();
+                //        }, 200);
+                //    });
+                //    return;
+                //}
+
+                if (selectedEmployeeBasedOnMapList == "" || selectedEmployeeBasedOnMapList == null) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'Please select Employees.'
+                    }).then(() => {
+                        setTimeout(() => {
+                            $("#optBasedOn").focus();
+                        }, 200);
+                    });
+                    return;
+                }
+
+               
+                //showLoader();
+
+                var data = {
+                    Action: "ADD",
+                    SalesmanLevel: $("#hdnSalesmanLevel").val(),
+                    BasedOn: $('input[name="optBasedOn"]:checked').val(),
+                    selectedEmployeeBasedOnMapList: selectedEmployeeBasedOnMapList
+                }
+
+                $.ajax({
+                    url: '@Url.Action("SaveTargetEmpMap", "TargetLevelSetupMaster")',
+                    type: 'POST',
+                    data: { data: data },
+                    success: function (returnValue) {
+                        if (returnValue.RETURN_VALUE == "-10") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Sorry!',
+                                text: 'Error in Add.'
+                            });
+                        }
+                        else if (returnValue.RETURN_VALUE == "-20") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Sorry!',
+                                text: 'Error in Update.'
+                            });
+                        }
+                        else if (returnValue.RETURN_VALUE == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Employee tagged with Target Level successfully.'
+                            }).then(() => {
+                                $('#AddTargetLevelModal').modal('hide');
+                            });
+
+                            Is_PageLoad = "Ispageload";
+                            $("#AddTargetLevelModal").modal('show');
+                            //gridLMSTopic.Refresh();
+                            //gridLMSTopic.Refresh();
+                        }
+                        else if (returnValue.RETURN_VALUE == "2") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Employee tagged with Target Level successfully.'
+                            }).then(() => {
+                                $('#AddTargetLevelModal').modal('hide');
+                            });
+
+                            Is_PageLoad = "Ispageload";
+                            $("#AddTargetLevelModal").modal('show');
+                            //gridLMSTopic.Refresh();
+                            //gridLMSTopic.Refresh();
+                        }
+                        
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Sorry!',
+                            text: 'An error occurred while saving the topic.'
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+
 </script>
 
 <div class="breadCumb">
@@ -893,26 +1122,6 @@
     <div class="form_main backBox p-3">
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
-                @*<div class="add-show-btns">
-            @if (ViewBag.CanAdd)
-            {
-                <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCategory();">
-                    <span class="btn-icon"><i class="fa fa-plus"></i></span> Category
-                </button>
-            }
-            @if (ViewBag.CanView)
-            {
-                <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-            }
-            @if (ViewBag.CanExport)
-            {
-                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                    <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                </button>
-
-            }
-        </div>*@
-
 
                 <div class="step-container">
                     <!-- Step 1 -->
@@ -923,21 +1132,21 @@
                     <div class="step-connector step-connector-1"></div>
 
                     <!-- Step 2 -->
-                    <div class="step-box step-box-2" id="step-2">
+                    <div class="step-box step-box-2" id="step-2" onclick="AddEditLevel('ASM')">
                         <img src="../../../assests/images/target-icon-2.svg" alt="Area Manager Icon">
                         <span>Area Manager Level Target</span>
                     </div>
                     <div class="step-connector step-connector-2"></div>
 
                     <!-- Step 3 -->
-                    <div class="step-box step-box-3" id="step-3">
+                    <div class="step-box step-box-3" id="step-3" onclick="AddEditLevel('SLO')">
                         <img src="../../../assests/images/target-icon-3.svg" alt="Sales Officer Icon">
                         <span>Sales Officer Level Target</span>
                     </div>
                     <div class="step-connector step-connector-3"></div>
 
                     <!-- Step 4 -->
-                    <div class="step-box step-box-4" id="step-4">
+                    <div class="step-box step-box-4" id="step-4" onclick="AddEditLevel('SLM')">
                         <img src="../../../assests/images/target-icon-4.svg" alt="Salesman Icon">
                         <span>Salesman Level Target</span>
                     </div>
@@ -963,10 +1172,52 @@
         <div class="clearfix"></div>
         <div class="scrooler">
             @*<div id="refreshgrid">
-                @{
-                    Html.RenderAction("PartialGridList", "LMSCategory", new { Is_PageLoad = "0" });
-                }
-            </div>*@
+                    @{
+                        Html.RenderAction("PartialGridList", "LMSCategory", new { Is_PageLoad = "0" });
+                    }
+                </div>*@
         </div>
+    </div>
+</div>
+
+<input type="hidden" id="hdnSalesmanLevel" />
+
+<div id="AddTargetLevelModal" class="modal fade pmsModal w120" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="ClearData()">&times;</button>
+                <h4 id="lblHeading" class="modal-title">Create Target Level </h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-lg-4 mb-4">
+                        <label><b>Target Level</b></label>
+                        <label id="lblTargetLevel" style="color:red"><b> </b></label>
+                    </div>
+                    <div class="col-lg-8">
+                        <label><b>Based On</b></label>
+
+                        <input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="1" @(Model.LevelBasedOn == 1 ? "checked='checked'" : "") /> <span style="color:red; font-weight:bold">Employee</span>
+                        <input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="2" @(Model.LevelBasedOn == 2 ? "checked='checked'" : "") /> <span style="color:red; font-weight:bold">Designation</span>
+                        @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.DesignationList, "deg_id", "deg_designation", Model.DesignationId), new { @id = "ddlDesignation", @class = "form-control", @onchange = "LoadEmployeeOnChange('GETEMPLOYEELIST');" })
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <div class="col-md-12 mt-15">
+                        <label id="lblBasedOn"> </label>
+                        <div>
+                            <div id="transfer1" class="transfer-demo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger cancel-btn cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                <button type="button" class="btn btn-success save-btn" onclick="SaveTargetEmpMap();"><span class="btn-icon"><img src=""></span> Save & Exit</button>
+            </div>
+        </div>
+
     </div>
 </div>
