@@ -30,7 +30,8 @@
         x.Caption = "SL No.";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 70;
+        //x.Width = 70;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(5);
 
     });
     settings.Columns.Add(x =>
@@ -39,7 +40,8 @@
         x.Caption = "Topic Name";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 200;
+        //x.Width = 200;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
     });
 
@@ -49,7 +51,8 @@
         x.Caption = "Status(Published/ Unpublished)";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 200;
+        //x.Width = 200;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
     });
     settings.Columns.Add(x =>
     {
@@ -57,7 +60,8 @@
         x.Caption = "Content Name";
         x.VisibleIndex = 4;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 200;
+        //x.Width = 200;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
     });
 
@@ -67,7 +71,8 @@
         x.Caption = "Status(Published/ Unpublished)";
         x.VisibleIndex = 5;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 180;
+        //x.Width = 180;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
     });
     settings.Columns.Add(x =>
     {
@@ -75,7 +80,8 @@
         x.Caption = "Question Mapped(Yes/No)";
         x.VisibleIndex = 6;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 200;
+        //x.Width = 200;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
     });
     settings.Columns.Add(x =>
@@ -85,12 +91,13 @@
         x.VisibleIndex = 7;
 
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = 120;
+        //x.Width = 120;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
 
     });
 
 
-    
+
 }).Bind(Model).GetHtml()
 
 
