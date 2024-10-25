@@ -136,12 +136,10 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             
             String Message = "";
             Int64 SaveDataArea = 0;
-
             List<udtSalesTarget> udt = new List<udtSalesTarget>();
-
             if ((int)TempData["Count"] != 2)
             {
-                Boolean IsProcess = false;                
+                Boolean IsProcess = false;               
                
                 if (updateValues.Insert.Count > 0 && Convert.ToInt64(options.SALESTARGET_ID) < 1)
                 {
@@ -168,7 +166,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     }
                     if (udtlist.Count > 0)
                     {
-                            SaveDataArea = 1;             
+                            SaveDataArea = 1;           
                            
                             foreach (var item in udtlist)
                             {
@@ -186,8 +184,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                                 udt.Add(obj1);
                             }
                         IsProcess = SalesTargetInsertUpdate(udt, options);
-
-
                     }
 
                 }
