@@ -57,9 +57,9 @@
         x.FieldName = "SlNO";
         x.Caption = "Sl#";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(7);
-        x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
-        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
+        ////x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        ////x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        ////x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
         x.ReadOnly = true;
         x.Index = 1;
     });
@@ -222,17 +222,7 @@
 
     });
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "";
-        x.Caption = "Action";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
-        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.ReadOnly = true;
-        //x.Index = 12;
-    });
+    
     settings.SettingsEditing.ShowModelErrorsForEditors = true;
     settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
 
@@ -241,10 +231,8 @@
     {
         x.FieldName = "UpdateEdit";
         x.Caption = "UpdateEdit";
-        //x.CellStyle.CssClass = "hide";
-        //x.HeaderStyle.CssClass = "hide";
-        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.CellStyle.CssClass = "hide";
+        x.HeaderStyle.CssClass = "hide";
         x.Index = 11;
     });
 
@@ -254,11 +242,8 @@
 
         x.FieldName = "TARGETLEVELID";
         x.Caption = "TARGETLEVELID";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        // x.ReadOnly = true;
+        x.CellStyle.CssClass = "hide";
+        x.HeaderStyle.CssClass = "hide";
         x.Index = 12;
 
 
@@ -272,12 +257,32 @@
 
     });
 
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "INTERNALID";
+        x.Caption = "";
+        x.CellStyle.CssClass = "hide";
+        x.HeaderStyle.CssClass = "hide";
+
+    });
 
 
 
 
 
 
+
+    settings.Columns.Add(x =>
+{
+    x.FieldName = "";
+    x.Caption = "Action";
+    x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+    x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    x.ReadOnly = true;
+    //x.Index = 12;
+});
 
 
     settings.HtmlDataCellPrepared += (s, e) =>

@@ -16,6 +16,13 @@
 <link href="~/assests/css/SearchPopup.css" rel="stylesheet" />
 
 <style>
+    .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
+        background: #fff;
+    }
+    .dxgvStatusBar_PlasticBlue
+    {
+        display:none;
+    }
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -691,9 +698,7 @@
     $(document).ready(function () {
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
-        //$('#CategoryModal').on('shown.bs.modal', function () {
-        //    $('#txtCategoryName').focus();
-        //});
+       
     });
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
@@ -830,10 +835,20 @@
         var TargetLevelName = Name;
 
         if (TargetLevelID != "") {
+
+            var data = TargetLevelID.split('|');
+            TargetLevelID = data[0];
+            var INTERNALID = data[1];
+
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 12);
             gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
+            gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
+            
+
+
 
         $('#GridProductlistModel').modal('hide');
 
@@ -1096,10 +1111,10 @@
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-sm-2">
                 <label>Target Level <span style="color:red">*</span></label>
-                <select id="ddlTargetLevel" class="form-control" >
+                <select id="ddlTargetLevel" class="form-control">
                     <option value="Region">Region level</option>
                     <option value="ASM">ASM level</option>
                     <option value="SalesOfficer">Sales Officer level</option>
@@ -1147,17 +1162,17 @@
                 }
             </div>
         </div>
+        <div class="clearfix"></div>
         <div class="">
-            <div class="clearfix">
+            <div class=" mt-4">
                 @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                    {*@
+                {*@
                 @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
-                <button type="button" class="inline-block addResourceBtn themeColor " onclick="EntrySave('Exit');"><div class="addEdcircleBtn" id=""><i class="fa fa-reply"></i></div><span>Save and E<u>x</u>it</span></button>
+                <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
                 @*}*@
 
             </div>
-            <div class="">
-            </div>
+
         </div>
     </div>
 </div>

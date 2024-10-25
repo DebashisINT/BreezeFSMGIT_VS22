@@ -293,10 +293,15 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 DataTable dtSalesTarget = new DataTable();
                 dtSalesTarget = ToDataTable(obj);
                 DataColumnCollection dtC = dtSalesTarget.Columns;
-                //if (dtC.Contains("BOMProductsID"))
-                //{
-                //    dtSalesTarget.Columns.Remove("BOMProductsID");
-                //}
+                if (dtC.Contains("UpdateEdit"))
+                {
+                    dtSalesTarget.Columns.Remove("UpdateEdit");
+                }
+                if (dtC.Contains("SALESTARGETDETAILS_ID"))
+                {
+                    dtSalesTarget.Columns.Remove("SALESTARGETDETAILS_ID");
+                }
+
 
                 DataSet dt = new DataSet();
                
@@ -316,8 +321,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     foreach (DataRow row in dt.Tables[0].Rows)
                     {
                         Success = Convert.ToBoolean(row["Success"]);                      
-                        DetailsID = Convert.ToInt32(row["SALESTARGET_ID"]);
-                        SalesTargetNo = Convert.ToString(row["SalesTargetNo"]);
+                        DetailsID = Convert.ToInt32(row["DetailsID"]);
+                        SalesTargetNo = Convert.ToString(obj2.SalesTargetNo);
                     }
                 }
             }

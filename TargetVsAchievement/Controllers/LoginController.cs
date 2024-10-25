@@ -45,7 +45,7 @@ namespace TargetVsAchievement.Controllers
             Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
             if (Validuser == "Y")
             {
-                return RedirectToAction("Index", "TargetVsAchievement/TargetLevelSetupMaster");
+                return RedirectToAction("Index", "TargetVsAchievement/TargetSetUp");
             }
 
             else
