@@ -20,13 +20,13 @@ namespace TargetVsAchievement.Models
             )
         {
             DataSet ds = new DataSet();           
-            ProcedureExecute proc = new ProcedureExecute("usp_BOMProductEntryGetNew");
-            //End of rev Pratik
+            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            
             proc.AddVarcharPara("@ACTION", 150, action);
-            proc.AddVarcharPara("@BOMNO", 100, SalesTargetLevel);
+            proc.AddVarcharPara("@SalesTargetLevel", 100, SalesTargetLevel);
             proc.AddDateTimePara("@SalesTargetDate", Convert.ToDateTime(SalesTargetDate));
             proc.AddBigIntegerPara("@SALESTARGET_ID", SALESTARGET_ID);           
-            proc.AddVarcharPara("@FINISHEDUOM", 100, SalesTargetNo);         
+            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);         
            
             if (action == "INSERTMAINPRODUCT" || action == "UPDATEMAINPRODUCT")
             {
