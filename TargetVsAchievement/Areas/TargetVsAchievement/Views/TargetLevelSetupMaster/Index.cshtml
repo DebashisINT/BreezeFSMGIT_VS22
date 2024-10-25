@@ -11,6 +11,9 @@
 <link href="/assests/pluggins/Transfer/css/jquery.transfer.css" rel="stylesheet" />
 <script src="/assests/pluggins/Transfer/jquery.transfer.js"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <style>
     .modal-header {
         padding: 8px;
@@ -637,7 +640,7 @@
         overflow: visible;
     }
 
-    #btnSave .btn-icon, .cancel-catg .btn-icon {
+    .save-btn .btn-icon, .cancel-catg .btn-icon {
         border-radius: 50px;
         width: 21px;
         height: 21px;
@@ -647,12 +650,12 @@
         margin-right: 5px;
     }
 
-        #btnSave .btn-icon img {
+        .save-btn .btn-icon img {
             color: #238945;
             width: 14px;
         }
 
-    .cancel-catg, #btnSave {
+    .cancel-catg, .save-btn {
         transition: all .3s ease-in-out;
     }
 
@@ -665,9 +668,9 @@
             transform: scale(1.1);
         }
 
-        #btnSave:hover {
-            transform: scale(1.1);
-        }
+    .save-btn:hover {
+        transform: scale(1.1);
+    }
 
     .modal-footer .btn + .btn {
         margin-bottom: 0;
@@ -872,6 +875,187 @@
         .pmsModal .modal-body .form-control:focus {
             box-shadow: none !important;
         }
+
+    #step-2, #step-3, #step-4 {
+        cursor: pointer;
+    }
+
+
+    .transfer-double, .transfer-double-list-search-input, .transfer-double-selected-list-search-input {
+        width: 100%;
+    }
+
+    .transfer-double {
+        border: none;
+        background: transparent !important;
+    }
+
+    .transfer-double-content {
+        padding: 0;
+    }
+
+    .transfer-double-content-left, .transfer-double-content-right {
+        width: 45%;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 1px 1px 10px #1111112e;
+    }
+
+    .transfer-double-content-middle {
+        width: 10%;
+        margin: 0 !important;
+        margin-top: 20% !important;
+    }
+
+    .transfer-double-list-main .transfer-double-list-ul, .transfer-double-selected-list-main .transfer-double-selected-list-ul {
+        padding-left: 5px;
+    }
+
+    .transfer-double-list-footer {
+        padding-left: 0;
+        height: auto;
+        background: #FADBFF;
+        background: #d0932d;
+        color: #fff;
+    }
+
+    .transfer-double-content-param {
+        border-bottom: 1px solid #4236f5;
+        background: #4236f5;
+        color: #e8e8e8;
+    }
+
+    .btn-select-arrow {
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        border-radius: 50px;
+        color: #fff;
+        background: #b4b4b4;
+    }
+
+    .btn-arrow-active {
+        color: #fff;
+        background: #27ac15 !important;
+        cursor: pointer;
+    }
+
+    .transfer-double-content-param {
+        color: #fff;
+    }
+
+    .transfer-double-header {
+        display: none;
+    }
+
+    #lblTargetLevel {
+        color: #291cad;
+        font-size: 15px;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .based-on-radio {
+        display: flex;
+        align-items: center;
+        color: #291cad;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+        .based-on-radio input {
+            margin-top: 0;
+            margin-right: 3px;
+        }
+
+    #AddTargetLevelModal .modal-body label {
+        margin-bottom: 0 !important;
+    }
+
+    .transfer-double-list-footer {
+        line-height: 26px;
+    }
+
+    #AddTargetLevelModal .modal-body label#lblBasedOn {
+        margin-bottom: 6px !important;
+    }
+
+    .add-new-btn {
+        -webkit-animation: pulse 1s;
+        animation: pulse-afct 1s;
+        box-shadow: 0 0 0 10px transparent;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+    @@-webkit-keyframes pulse-afct {
+        0% {
+            box-shadow: 0 0 0 0 #164f929e;
+        }
+    }
+
+    @@keyframes pulse-afct {
+        0% {
+            box-shadow: 0 0 0 0 #164f929e;
+        }
+    }
+
+    .add-new-btn .btn-icon {
+        border-radius: 50px;
+        width: 22px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 23px;
+        margin-right: 5px;
+        position: absolute;
+        right: 2px;
+        bottom: 7px;
+        text-align: center;
+    }
+
+        .add-new-btn .btn-icon i {
+            color: #404040;
+        }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 34px;
+        /*padding: 6px 12px;*/
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 34px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 32px;
+            width: 23px;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                border-width: 7px 5px 0 5px;
+            }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered:focus-visible,
+        .select2-container--default .select2-selection--single {
+            box-shadow: none;
+            outline: none;
+        }
+
+    #based-on-selection-div {
+        width: 100%;
+        margin-top: 10px;
+    }
 </style>
 
 
@@ -904,7 +1088,7 @@
 
     function ClearData() {
         $("#ddlDesignation").val(0);
-        $("#ddlDesignation").hide();
+        $("#based-on-selection-div").hide();
 
         lblBasedOn.innerText = "";
         $("#transfer1").html('');
@@ -939,12 +1123,12 @@
         $("#ddlDesignation").val(0);
 
         if ($('input[name="optBasedOn"]:checked').val() == 2) {
-            $("#ddlDesignation").show();
+            $("#based-on-selection-div").show();
             $("#transfer1").html('');
             lblBasedOn.innerText = "";
         }
         else {
-            $("#ddlDesignation").hide();
+            $("#based-on-selection-div").hide();
             LoadEmployeeOnChange('GETEMPLOYEELIST');
         }
     }
@@ -1040,7 +1224,7 @@
                     return;
                 }
 
-               
+
                 //showLoader();
 
                 var data = {
@@ -1097,7 +1281,7 @@
                             //gridLMSTopic.Refresh();
                             //gridLMSTopic.Refresh();
                         }
-                        
+
                     },
                     error: function () {
                         Swal.fire({
@@ -1112,6 +1296,21 @@
     }
 
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize Select2 on the dropdown
+        $('#ddlDesignation').select2({
+            placeholder: "Select a designation",  // Optional placeholder
+            
+        });
+
+        // Optional: Re-trigger the 'onchange' event manually if needed
+        $('#ddlDesignation').on('change', function () {
+            LoadEmployeeOnChange('GETEMPLOYEELIST');
+        });
+    });
 </script>
 
 <div class="breadCumb">
@@ -1132,23 +1331,26 @@
                     <div class="step-connector step-connector-1"></div>
 
                     <!-- Step 2 -->
-                    <div class="step-box step-box-2" id="step-2" onclick="AddEditLevel('ASM')">
+                    <div class="step-box step-box-2 add-new-btn" id="step-2" onclick="AddEditLevel('ASM')">
                         <img src="../../../assests/images/target-icon-2.svg" alt="Area Manager Icon">
                         <span>Area Manager Level Target</span>
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>
                     </div>
                     <div class="step-connector step-connector-2"></div>
 
                     <!-- Step 3 -->
-                    <div class="step-box step-box-3" id="step-3" onclick="AddEditLevel('SLO')">
+                    <div class="step-box step-box-3 add-new-btn" id="step-3" onclick="AddEditLevel('SLO')">
                         <img src="../../../assests/images/target-icon-3.svg" alt="Sales Officer Icon">
                         <span>Sales Officer Level Target</span>
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>
                     </div>
                     <div class="step-connector step-connector-3"></div>
 
                     <!-- Step 4 -->
-                    <div class="step-box step-box-4" id="step-4" onclick="AddEditLevel('SLM')">
+                    <div class="step-box step-box-4 add-new-btn" id="step-4" onclick="AddEditLevel('SLM')">
                         <img src="../../../assests/images/target-icon-4.svg" alt="Salesman Icon">
                         <span>Salesman Level Target</span>
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>
                     </div>
                     <div class="step-connector step-connector-4"></div>
 
@@ -1191,16 +1393,28 @@
             </div>
             <div class="modal-body">
                 <div class="clearfix">
-                    <div class="col-lg-4 mb-4">
-                        <label><b>Target Level</b></label>
-                        <label id="lblTargetLevel" style="color:red"><b> </b></label>
+                    <div class="col-lg-6 mb-4">
+                        <label>Target Level: </label>
+                        <label id="lblTargetLevel"><b> </b></label>
                     </div>
-                    <div class="col-lg-8">
-                        <label><b>Based On</b></label>
+                    <div class="col-lg-6 d-flex flex-wrap">
+                        <label>Based On: </label>
+                        <div class="d-flex">
+                            <div class="mr-3 ml-2 based-on-radio"><input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="1" @(Model.LevelBasedOn == 1 ? "checked='checked'" : "") /> <span>Employee</span></div>
+                            <div class="based-on-radio"><input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="2" @(Model.LevelBasedOn == 2 ? "checked='checked'" : "") /> <span>Designation</span></div>
+                        </div>
 
-                        <input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="1" @(Model.LevelBasedOn == 1 ? "checked='checked'" : "") /> <span style="color:red; font-weight:bold">Employee</span>
-                        <input type="radio" name="optBasedOn" id="optBasedOn" onclick="ShowHideDesignation()" value="2" @(Model.LevelBasedOn == 2 ? "checked='checked'" : "") /> <span style="color:red; font-weight:bold">Designation</span>
-                        @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.DesignationList, "deg_id", "deg_designation", Model.DesignationId), new { @id = "ddlDesignation", @class = "form-control", @onchange = "LoadEmployeeOnChange('GETEMPLOYEELIST');" })
+                        @*@Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.DesignationList, "deg_id", "deg_designation", Model.DesignationId), new { @id = "ddlDesignation", @class = "form-control", @onchange = "LoadEmployeeOnChange('GETEMPLOYEELIST');" })*@
+                    <div id="based-on-selection-div">
+                        @Html.DropDownListFor(m => m.DesignationId,
+                            new SelectList(Model.DesignationList, "deg_id", "deg_designation", Model.DesignationId),
+                            new
+                            {
+                                @id = "ddlDesignation",
+                                @class = "form-control",
+                                @onchange = "LoadEmployeeOnChange('GETEMPLOYEELIST');"
+                            })
+                    </div>
                     </div>
                 </div>
 
@@ -1215,7 +1429,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger cancel-btn cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
-                <button type="button" class="btn btn-success save-btn" onclick="SaveTargetEmpMap();"><span class="btn-icon"><img src=""></span> Save & Exit</button>
+                <button type="button" class="btn btn-success save-btn" onclick="SaveTargetEmpMap();"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
             </div>
         </div>
 
