@@ -1151,38 +1151,41 @@
             async: false,
             success: function (data) {
                 console.log(data)
-                var temArr2 = [];
-                //var data = response.d;
-                for (var a = 0; a < data.length; a++) {
-                    if (data[a].selected) {
-                        temArr2.push(data[a].ID);
-                    }
-                }
-                selectedEmployeeBasedOnMapList = temArr2.join(",");
-                $("#transfer1").html('');
-
-                var tabNameText = data[0].tabNameText;
-                var rightTabNameText = data[0].rightTabNameText;
-                var searchPlaceholderText = data[0].searchPlaceholderText;
-                lblBasedOn.innerText = "Select Employee(s)";
-
-                var settings1 = {
-                    "dataArray": data,
-                    "itemName": "NAME",
-                    "valueName": "ID",
-                    "tabNameText": tabNameText,
-                    "rightTabNameText": rightTabNameText,
-                    "searchPlaceholderText": searchPlaceholderText,
-                    "callable": function (items) {
-                        //console.dir(items)
-                        var temArr = [];
-                        for (var i = 0; i < items.length; i++) {
-                            temArr.push(items[i].ID);
+                if (data.length>0){
+                    var temArr2 = [];
+                    //var data = response.d;
+                    for (var a = 0; a < data.length; a++) {
+                        if (data[a].selected) {
+                            temArr2.push(data[a].ID);
                         }
-                        selectedEmployeeBasedOnMapList = temArr.join(",");
                     }
-                };
-                $("#transfer1").transfer(settings1);
+                    selectedEmployeeBasedOnMapList = temArr2.join(",");
+                    $("#transfer1").html('');
+
+                    var tabNameText = "Employee(s)";
+                    var rightTabNameText = "Selected Employee(s)";
+                    var searchPlaceholderText = "search in employees";
+                    lblBasedOn.innerText = "Select Employee(s)";
+
+                    var settings1 = {
+                        "dataArray": data,
+                        "itemName": "NAME",
+                        "valueName": "ID",
+                        "tabNameText": tabNameText,
+                        "rightTabNameText": rightTabNameText,
+                        "searchPlaceholderText": searchPlaceholderText,
+                        "callable": function (items) {
+                            //console.dir(items)
+                            var temArr = [];
+                            for (var i = 0; i < items.length; i++) {
+                                temArr.push(items[i].ID);
+                            }
+                            selectedEmployeeBasedOnMapList = temArr.join(",");
+                        }
+                    };
+                    $("#transfer1").transfer(settings1);
+                }
+                
             }
         });
     }
