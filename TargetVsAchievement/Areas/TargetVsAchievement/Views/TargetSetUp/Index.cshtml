@@ -675,6 +675,10 @@
         var url = '/TargetVsAchievement/SalesTarget/Index?key=Add';
         window.location.href = url;
     }
+    function AddProductTarget() {
+        var url = '/TargetVsAchievement/AddProductTarget/Index?key=Add';
+        window.location.href = url;
+    }
 </script>
 <div class="breadCumb">
     <span>Target Set Up</span>
@@ -682,14 +686,21 @@
 <div class="container">
     <div class="form_main backBox p-3">
         <div class="row">
-            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
-                <div class="add-show-btns">                  
-                        <button type="button" class="btn add-btn"  onclick="AddSalesTarget();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
-                        </button>               
-                    
-                </div>
+            <div class="col-md-3 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn" onclick="AddSalesTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
+                    </button>
 
+                </div>
+            </div>
+            <div class="col-md-3 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn" onclick="AddProductTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
+                    </button>
+
+                </div>
             </div>
 
         </div>

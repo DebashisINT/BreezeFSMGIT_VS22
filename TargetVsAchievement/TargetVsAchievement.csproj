@@ -220,6 +220,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\TargetVsAchievement\Controllers\AddProductTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\SalesTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetSetUpController.cs" />
@@ -754,6 +755,7 @@
     <Content Include="Areas\TargetVsAchievement\Views\SalesTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\SalesTarget\_PartialSalesTargetEntry.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
