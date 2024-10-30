@@ -756,6 +756,7 @@
     <Content Include="Areas\TargetVsAchievement\Views\SalesTarget\_PartialSalesTargetEntry.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
