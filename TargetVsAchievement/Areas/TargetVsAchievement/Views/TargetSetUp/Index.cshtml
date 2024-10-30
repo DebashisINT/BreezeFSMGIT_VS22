@@ -1,9 +1,14 @@
 ﻿
+@model TargetVsAchievement.Models.TargetLevelSetupModel
 @{
     ViewBag.Title = "Target Set Up";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    .eqpadtbl > tbody > tr > td:not(:last-child) {
+        padding-right: 20px;
+    }
+
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -374,9 +379,7 @@
         width: 160px;
     }
 
-    .eqpadtbl > tbody > tr > td:not(:last-child) {
-        padding-right: 20px;
-    }
+
 
     #dtFrom_B-1, #dtTo_B-1 {
         background: transparent !important;
@@ -671,6 +674,10 @@
     }
 </style>
 <script>
+    var fromdate = "";
+    var todate = "";
+    var TargetType = "";
+
     function AddSalesTarget() {
         var url = '/TargetVsAchievement/SalesTarget/Index?key=Add';
         window.location.href = url;
@@ -679,12 +686,154 @@
         var url = '/TargetVsAchievement/AddProductTarget/Index?key=Add';
         window.location.href = url;
     }
+
+    function DateValidateFrom() {
+        if (dtTo.GetDate()) {
+            if (dtTo.GetDate() < dtFrom.GetDate()) {
+                dtTo.SetValue(dtFrom.GetDate());
+            }
+        }
+    }
+
+    function DateValidateTo() {
+        if (dtFrom.GetDate()) {
+            if (dtTo.GetDate() < dtFrom.GetDate()) {
+                dtTo.SetValue(dtFrom.GetDate());
+            }
+        }
+    }
+    function GetData() {
+
+        fromdate = dtFrom.GetDate();
+        todate = dtTo.GetDate();
+        TargetType = $('#ddlTargetType').val();
+        gridList.Refresh();
+        gridList.Refresh();
+    }
+    function OnStartCallback(s, e) {
+
+        e.customArgs["Fromdate"] = fromdate;
+        e.customArgs["Todate"] = todate;
+        e.customArgs["TargetType"] = TargetType;
+
+    }
+    function EditClick(detailsid) {
+        if (parseInt(detailsid) > 0) {
+
+        var TargetType = $('#ddlTargetType').val();
+            if (TargetType =="SalesTarget") {
+            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SetDataByID", "SalesTarget")",
+                    data: { detailsid: detailsid, IsView: 0 },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            var url = $('#hdnAddUpdate').val();
+                            window.location.href = url;
+                        }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+                });
+            }
+
+    }
+}
 </script>
 <div class="breadCumb">
     <span>Target Set Up</span>
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
+        <div class="row">
+            <table class="eqpadtbl mt-3 mb-3">
+                <tr>
+                    <td class="w150 relative for-cust-icon">
+                        <label>From Date</label>
+                        <div>
+                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtFrom";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.ShowOutOfRangeWarning = false;
+                            deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateFrom";
+                        }).GetHtml()
+
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            <span id="MandatoryFromDate" style="display: none" class="validclass">
+                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="w150 relative for-cust-icon">
+                        <label>To Date</label>
+                        <div>
+
+                            @Html.DevExpress().DateEditFor(x => x.Todate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtTo";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.ShowOutOfRangeWarning = false;
+                            deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateTo";
+
+                        }).GetHtml()
+
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+
+                            <span id="MandatoryToDate" style="display: none" class="validclass">
+                                <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                            </span>
+                        </div>
+                    </td>
+                    <td class="w150 h-branch-select">
+                        <label>Target Type </label>
+                        <div>
+                            <select name="ddlStatus" id="ddlTargetType">
+                                <option value="">Select</option>
+                                <option value="SalesTarget">Sales Target</option>
+                                <option value="ProductTarget">Product Target</option>
+                                <option value="BrandTarget">Brand Volume/Value Target</option>
+                                <option value="WODTarget">WOD Target</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td style="padding-top: 22px;width:200px;">
+                        <label></label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-12 p-0">
+            <div class="buttons-alignment">
+                <div class="add-show-btns">
+                    <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
+                    @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+                            <option value="0">Export to</option>
+                            <option value="1">PDF</option>
+                            <option value="2">XLSX</option>
+                            <option value="3">XLS</option>
+                            <option value="4">RTF</option>
+                            <option value="5">CSV</option>
+                        </select>*@
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-3 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
@@ -706,14 +855,15 @@
         </div>
         <div class="clearfix"></div>
         <div class="scrooler">
-            @*<div id="refreshgrid">
+            <div id="refreshgrid">
                 @{
-                    Html.RenderAction("PartialGridList", "LMSCategory", new { Is_PageLoad = "0" });
+                    @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
                 }
-            </div>*@
+            </div>
         </div>
     </div>
 </div>
+<input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnAddUpdate" />
 
 
 

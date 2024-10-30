@@ -55,21 +55,19 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             try
             {
 
-                //if (TempData["DetailsID"] != null)
-                //{
-                //    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
-                //    TempData.Keep();
-                //}
+                if (TempData["DetailsID"] != null)
+                {
+                    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
+                    TempData.Keep();
+                }
 
                 //if (DetailsID > 0)
                 //{
-                //    //rev Pratik
-                //    //DataTable objData = objdata.GetBOMProductEntryListByID("GetBOMEntryProductsData", DetailsID);
                 //    DataTable objData = objdata.GetBOMProductEntryListByID("GETBOMENTRYPRODUCTSDATA_NEW", DetailsID);
 
                 //    TempData["MultiUom"] = objdata.GetBOMProductEntryListByID("BOMMultiUOMDetails", DetailsID);
 
-                //    //End of rev Pratik
+                //    End of rev Pratik
 
                 //    if (objData != null && objData.Rows.Count > 0)
                 //    {
@@ -105,15 +103,15 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 //            bomproductdataobj.Tag_Details_ID = Convert.ToString(row["Tag_Details_ID"]);
                 //            bomproductdataobj.Tag_Production_ID = Convert.ToString(row["Tag_Production_ID"]);
                 //            bomproductdataobj.RevNo = Convert.ToString(row["RevNo"]);
-                //            //Rev Pratik
+                //            Rev Pratik
                 //            bomproductdataobj.AltQuantity = Convert.ToString(row["AltQuantity"]);
                 //            bomproductdataobj.AltUom = Convert.ToString(row["AltUom"]);
                 //            bomproductdataobj.MultiUOMSelectionForManufacturing = cSOrder.GetSystemSettingsResult("MultiUOMSelectionForManufacturing");
-                //            //End of rev Pratik
+                //            End of rev Pratik
 
-                //            //Rev 1.0
+                //            Rev 1.0
                 //            bomproductdataobj.ActualSL = Convert.ToString(row["SlNO"]);
-                //            //Rev 1.0 End
+                //            Rev 1.0 End
                 //            bomproductdata.Add(bomproductdataobj);
 
                 //        }
@@ -154,6 +152,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {                            
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL; 
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -174,6 +174,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             {
                                 udtSalesTarget obj1 = new udtSalesTarget();
                                 obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                                obj1.TARGETLEVEL = item.TARGETLEVEL;
+                                obj1.INTERNALID = item.INTERNALID;
                                 obj1.TIMEFRAME = item.TIMEFRAME;
                                 obj1.STARTEDATE = item.STARTEDATE;
                                 obj1.ENDDATE = item.ENDDATE;
@@ -201,6 +203,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -220,6 +224,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -257,6 +263,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             udtSalesTarget obj1 = new udtSalesTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                            obj1.TARGETLEVEL = item.TARGETLEVEL;
+                            obj1.INTERNALID = item.INTERNALID;
                             obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
@@ -329,9 +337,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             catch { }
             return Success;
         }
-
-
-
         public DataTable ToDataTable<T>(List<T> items)
         {
 
@@ -372,6 +377,20 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             return dataTable;
 
+        }
+
+        public JsonResult SetDataByID(Int64 detailsid = 0, Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["DetailsID"] = detailsid;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success);
         }
     }
 }

@@ -19,10 +19,11 @@
     .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
         background: #fff;
     }
-    .dxgvStatusBar_PlasticBlue
-    {
-        display:none;
+
+    .dxgvStatusBar_PlasticBlue {
+        display: none;
     }
+
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -690,7 +691,8 @@
     }
 </style>
 <script>
-
+    var DetailsID = 0;
+    var GBOMNo = "";
     var globalrowindex = 0;
     var rowtime = 0;
     var savemode = "";
@@ -698,7 +700,7 @@
     $(document).ready(function () {
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
-       
+
     });
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
@@ -731,18 +733,18 @@
     }
     function grid_CustomButtonClick(s) {
 
-            var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
-            if (noofvisiblerows != 1) {
-                gridLevelEntryList.batchEditApi.StartEdit(s);
-                gridLevelEntryList.DeleteRow(s);
-                if ($('#hdnDetailsID').val() == 0) {
-                    resuffleSerial();
-                }
-                else {
-                    DeleteRowProductGrid(s);
-                }
-                //BOMGridSetTotalAmount();
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            gridLevelEntryList.batchEditApi.StartEdit(s);
+            gridLevelEntryList.DeleteRow(s);
+            if ($('#hdnDetailsID').val() == 0) {
+                resuffleSerial();
             }
+            else {
+                DeleteRowProductGrid(s);
+            }
+            //BOMGridSetTotalAmount();
+        }
 
     }
     function grid_CustomButtonAddClick(s) {
@@ -811,7 +813,7 @@
         }
     }
     function GridProductlist(Action) {
-        var SearchKey=$("#txtGridProductName").val()
+        var SearchKey = $("#txtGridProductName").val()
         //gridproductlist = 1;
         var OtherDetails = {}
         OtherDetails.SearchKey = SearchKey;
@@ -829,28 +831,28 @@
 
     }
     function SetGridProduct(Id, Name, e) {
-    //alert(Id)
-   // gridproductlist = 0;
+        //alert(Id)
+        // gridproductlist = 0;
         var TargetLevelID = Id;
         var TargetLevelName = Name;
 
         if (TargetLevelID != "") {
 
-            var data = TargetLevelID.split('|');
+            var data = TargetLevelID.split("|");
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 12);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
             gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
-            
 
 
 
-        $('#GridProductlistModel').modal('hide');
+
+            $('#GridProductlistModel').modal('hide');
 
 
 
@@ -889,102 +891,102 @@
     function EntrySave(mode) {
 
 
-     savemode = mode;
-     hasmsg = 0;
-     var TargetNo = $('#SalesTargetNo').val();
-      var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
-      var TargetLevel = $('#ddlTargetLevel option:selected').val();
-     var oneproduct = "";
-         var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-     if (visiablerow > 0) {
-         for (var i = 100; i > -500; i--) {
-             if (gridLevelEntryList.GetRow(i)) {
-                 if (oneproduct == "" || oneproduct == null) {
-                     oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
-                 }
-             }
-         }
-     }
+        savemode = mode;
+        hasmsg = 0;
+        var TargetNo = $('#SalesTargetNo').val();
+        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
+        var oneproduct = "";
+        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (visiablerow > 0) {
+            for (var i = 100; i > -500; i--) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    if (oneproduct == "" || oneproduct == null) {
+                        oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
+                    }
+                }
+            }
+        }
 
-     //if (visiablerow > 0) {
-     //    for (i = -1; i > -1000; i--) {
-     //        if (gridLevelEntryList.GetRow(i)) {
-     //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-     //            //var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
+        //if (visiablerow > 0) {
+        //    for (i = -1; i > -1000; i--) {
+        //        if (gridLevelEntryList.GetRow(i)) {
+        //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+        //            //var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
 
-     //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-     //                //if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-     //                //    jAlert("Product qty should be greater than zero!");
-     //                //    return false;
-     //                //}
-     //                //if ($("#hdnIsBOMRateRequired").val() == 1) {
-     //                //    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-     //                //        jAlert("Product Price should be greater than zero!");
-     //                //        return false;
-     //                //    }
-     //                //}
-
-
-     //                //if (WhareHouseMandatory == "Yes") {
-     //                //    if (IsInventory == "Yes") {
-     //                //        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-     //                //            jAlert("Please select the warehouse");
-     //                //            return false;
-     //                //        }
-     //                //    }
-
-     //                //}
-
-     //            }
-     //        }
-     //    }
-
-     //    for (var i = 0; i < 500; i++) {
-     //        if (gridLevelEntryList.GetRow(i)) {
-     //            var Product = gridLevelEntryList.GetEditor("ProductName").GetValue();
-     //            var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
-     //            if (Product != "" && Product != null) {
-     //                if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-     //                    jAlert("Product qty should be greater than zero!");
-     //                    return false;
-     //                }
-     //                if ($("#hdnIsBOMRateRequired").val() == 1) {
-     //                    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-     //                        jAlert("Product Price should be greater than zero!");
-     //                        return false;
-     //                    }
-     //                }
-
-     //                if (WhareHouseMandatory == "Yes") {
-     //                    if (IsInventory == "Yes") {
-     //                        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-     //                            jAlert("Please select the warehouse");
-     //                            return false;
-     //                        }
-     //                    }
-     //                }
-     //            }
-     //        }
-     //    }
-     //}
+        //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+        //                //if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
+        //                //    jAlert("Product qty should be greater than zero!");
+        //                //    return false;
+        //                //}
+        //                //if ($("#hdnIsBOMRateRequired").val() == 1) {
+        //                //    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
+        //                //        jAlert("Product Price should be greater than zero!");
+        //                //        return false;
+        //                //    }
+        //                //}
 
 
+        //                //if (WhareHouseMandatory == "Yes") {
+        //                //    if (IsInventory == "Yes") {
+        //                //        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
+        //                //            jAlert("Please select the warehouse");
+        //                //            return false;
+        //                //        }
+        //                //    }
 
-     //if (hdnDetailsID == "") {
-     //    RevisionNo = " ";
-     //    RevisionDate = GetServerDateFormat(new Date);
-     //}
-     if (oneproduct != "" && oneproduct != null) {
-         addNewRowToEditgrid();
-         SuffleRows();         
-         gridLevelEntryList.UpdateEdit();
-         gridLevelEntryList.UpdateEdit();
-     }
-     else {
-       
-         jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
-         return false;
-     }
+        //                //}
+
+        //            }
+        //        }
+        //    }
+
+        //    for (var i = 0; i < 500; i++) {
+        //        if (gridLevelEntryList.GetRow(i)) {
+        //            var Product = gridLevelEntryList.GetEditor("ProductName").GetValue();
+        //            var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
+        //            if (Product != "" && Product != null) {
+        //                if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
+        //                    jAlert("Product qty should be greater than zero!");
+        //                    return false;
+        //                }
+        //                if ($("#hdnIsBOMRateRequired").val() == 1) {
+        //                    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
+        //                        jAlert("Product Price should be greater than zero!");
+        //                        return false;
+        //                    }
+        //                }
+
+        //                if (WhareHouseMandatory == "Yes") {
+        //                    if (IsInventory == "Yes") {
+        //                        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
+        //                            jAlert("Please select the warehouse");
+        //                            return false;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+        //if (hdnDetailsID == "") {
+        //    RevisionNo = " ";
+        //    RevisionDate = GetServerDateFormat(new Date);
+        //}
+        if (oneproduct != "" && oneproduct != null) {
+            addNewRowToEditgrid();
+            SuffleRows();
+            gridLevelEntryList.UpdateEdit();
+            gridLevelEntryList.UpdateEdit();
+        }
+        else {
+
+            jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
+            return false;
+        }
     }
     function addNewRowToEditgrid() {
         gridLevelEntryList.batchEditApi.EndEdit();
@@ -1010,7 +1012,7 @@
         for (var i = 0; i < 1000; i++) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 11);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1019,7 +1021,7 @@
         for (i = -1; i > -1000; i--) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 11);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1047,63 +1049,45 @@
     }
 
     function OnEndCallback(s, e) {
-       
-        //DetailsID = s.cpDetailsID;
-        //ProductionID = s.cpProductionID;
-        //GBOMNo = s.cpBOMNo;
-        //Message = s.cpMessage;
-        //$('#hdnDetailsID').val(DetailsID);
-        //if (s.cpBatchUpdate == "1") {
 
-        //    s.cpBatchUpdate = "0";
+        DetailsID = s.cpDetailsID;
+        SalesTargetNo = s.cpSalesTargetNo;
+        Message = s.cpMessage;
+        $('#hdnDetailsID').val(DetailsID);
+        if (s.cpBatchUpdate == "1") {
+            s.cpBatchUpdate = "0";
 
+            var newDetailsID = DetailsID;
+            if (DetailsID > 0 && SalesTargetNo != "") {
+                ProductionID = 0;
+                DetailsID = 0;
+                jAlert('Sales Target Number : ' + SalesTargetNo + ' saved successfully.', 'Alert!', function (r) {
+                    if (r) {
+                        //afterSave(savemode, newDetailsID);
+                        if (savemode == "Exit") {
+                            setTimeout(function () {
+                                var url = $('#hdnListPage').val();
+                                window.location.href = url;
+                            }, 500);
+                        }
+                    }
+                });
+                // jAlert('BOM Number : ' + GBOMNo + ' Successfully saved.');
+            }
+            else {
+                
+                DetailsID = 0;
+                savemode = "";
+                jAlert('Please try again later.');
+                return false;
+            }
+            Message = "";
+            //}
 
-        //    if (gridBOMResourcesList.batchEditApi.HasChanges()) {
-        //        gridBOMResourcesList.UpdateEdit();
+        }
 
-        //        setTimeout(function () {
-        //            OnResourcesEndCallback();
-        //        }, 1500);
-
-        //    }
-        //    else {
-        //        var newDetailsID = DetailsID;
-        //        if (DetailsID > 0 && ProductionID > 0 && GBOMNo != "") {
-        //            ProductionID = 0;
-        //            DetailsID = 0;
-        //            jAlert('BOM Number : ' + GBOMNo + ' saved successfully.', 'Alert!', function (r) {
-        //                if (r) {
-        //                    afterSave(savemode, newDetailsID);
-        //                    if (savemode == "Exit") {
-        //                        setTimeout(function () {
-        //                            var url = $('#hdnBOMListPage').val();
-        //                            window.location.href = url;
-        //                        }, 500);
-        //                    }
-        //                }
-        //            });
-        //            // jAlert('BOM Number : ' + GBOMNo + ' Successfully saved.');
-        //        }
-        //        else {
-        //            ProductionID = 0;
-        //            DetailsID = 0;
-        //            savemode = "";
-        //            jAlert('Please try again later.');
-        //            return false;
-        //        }
-        //        Message = "";
-        //    }
-
-        //}
-       
         AddNewRowWithSl();
-        //$('#txtGridProductEntryTotalAmount').val(parseFloat(0).toFixed(2));
-        //if (Message == "duplicate" && hasmsg == 0) {
-        //    jAlert('This BOM no already present!');
-        //    hasmsg = 1;
-        //    return false;
-        //}
-      
+       
     }
 </script>
 <div class="breadCumb">
@@ -1166,7 +1150,7 @@
         <div class="">
             <div class=" mt-4">
                 @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                {*@
+                    {*@
                 @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
                 <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
                 @*}*@
@@ -1176,6 +1160,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
 <input type="hidden" value="0" id="hdnDetailsID" />
 <!-- Grid Product List -->
 <div class="modal fade" id="GridProductlistModel" role="dialog">
@@ -1193,7 +1178,7 @@
                             <th class="hide">id</th>
                             <th> Code</th>
                             <th> Name</th>
-                           
+
                         </tr>
                     </table>
                 </div>
