@@ -700,14 +700,44 @@
     $(document).ready(function () {
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
-
+        var d = new Date();
+        SalesTargetDate.SetValue(d);
         var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
         var hdnDetailsID = $('#hdnDetailsID').val();
-        if (hdnBOMTYPE != '' && hdnDetailsID > 0) {
+        if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnSalesTargetLevel);
         }
 
+        $('#SalesTargetNo').blur(function () {
+            var value = $(this).val();
+            //alert(value);
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "SalesTarget")",
+                data: JSON.stringify({ SalesTargetNo: value }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    CheckUniqueCode = msg;
+                    if (CheckUniqueCode == 1) {
+                        jAlert('Please enter unique No.');
+                        $('#SalesTargetNo').val("");                       
+                        $('#SalesTargetNo').Focus();
+                    }
+
+                }
+
+            });
+        });
     });
+
+
+
+
+    function SalesTargetAdd() {
+        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+    }
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
     }
@@ -790,7 +820,7 @@
         }
         var TargetLevel = $("#ddlTargetLevel").val();
         if (TargetLevel = "Region") {
-            GridProductlist("GETREGION");
+            GridProductlist("Region");
         }
 
         typemodal = "A";
@@ -826,8 +856,9 @@
         OtherDetails.Type = Action;
 
         var HeaderCaption = [];
-        HeaderCaption.push("Code");
         HeaderCaption.push("Name");
+        HeaderCaption.push("Code");
+
 
         callonServer("../../../Models/TargetWebService.asmx/GetTargetLevelDetailsList", OtherDetails, "GridTargetTable", HeaderCaption, "GridTargetIndex", "SetGridProduct");
 
@@ -900,7 +931,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter Target Level to proceed.'
+                text: 'Select Target Level to proceed.'
             });
             return false;
         }
@@ -917,11 +948,11 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter Target Date to proceed.'
+                text: 'Select Target Date to proceed.'
             });
             return false;
         }
-        
+
 
 
 
@@ -937,74 +968,104 @@
             }
         }
 
-        //if (visiablerow > 0) {
-        //    for (i = -1; i > -1000; i--) {
-        //        if (gridLevelEntryList.GetRow(i)) {
-        //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-        //            //var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
+        if (visiablerow > 0) {
+            for (i = -1; i > -1000; i--) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();                   
 
-        //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-        //                //if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-        //                //    jAlert("Product qty should be greater than zero!");
-        //                //    return false;
-        //                //}
-        //                //if ($("#hdnIsBOMRateRequired").val() == 1) {
-        //                //    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-        //                //        jAlert("Product Price should be greater than zero!");
-        //                //        return false;
-        //                //    }
-        //                //}
+                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() ==null) {
+                            jAlert("Select Timeframe.");
+                            return false;
+                        }
+                        
+                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                            jAlert("Select Start Date.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                            jAlert("Select End Date.");
+                            return false;
+                        }                      
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+                            jAlert("Order Amount should be greater than zero!");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                            jAlert("Order Qty should be greater than zero!");
+                            return false;
+                        }                       
+
+                    }
+                }
+            }
+
+            for (var i = 0; i < 500; i++) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+                   
+                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
+                            jAlert("Select Timeframe.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                            jAlert("Select Start Date.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                            jAlert("Select End Date.");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+                            jAlert("Order Amount should be greater than zero!");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                            jAlert("Order Qty should be greater than zero!");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
 
 
-        //                //if (WhareHouseMandatory == "Yes") {
-        //                //    if (IsInventory == "Yes") {
-        //                //        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-        //                //            jAlert("Please select the warehouse");
-        //                //            return false;
-        //                //        }
-        //                //    }
 
-        //                //}
-
-        //            }
-        //        }
-        //    }
-
-        //    for (var i = 0; i < 500; i++) {
-        //        if (gridLevelEntryList.GetRow(i)) {
-        //            var Product = gridLevelEntryList.GetEditor("ProductName").GetValue();
-        //            var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
-        //            if (Product != "" && Product != null) {
-        //                if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-        //                    jAlert("Product qty should be greater than zero!");
-        //                    return false;
-        //                }
-        //                if ($("#hdnIsBOMRateRequired").val() == 1) {
-        //                    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-        //                        jAlert("Product Price should be greater than zero!");
-        //                        return false;
-        //                    }
-        //                }
-
-        //                if (WhareHouseMandatory == "Yes") {
-        //                    if (IsInventory == "Yes") {
-        //                        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-        //                            jAlert("Please select the warehouse");
-        //                            return false;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
-
-        //if (hdnDetailsID == "") {
-        //    RevisionNo = " ";
-        //    RevisionDate = GetServerDateFormat(new Date);
-        //}
+       
         if (oneproduct != "" && oneproduct != null) {
             addNewRowToEditgrid();
             SuffleRows();
@@ -1092,7 +1153,7 @@
                 DetailsID = 0;
                 jAlert('Sales Target Number : ' + SalesTargetNo + ' saved successfully.', 'Alert!', function (r) {
                     if (r) {
-                        //afterSave(savemode, newDetailsID);
+                       
                         if (savemode == "Exit") {
                             setTimeout(function () {
                                 var url = $('#hdnListPage').val();
@@ -1101,28 +1162,28 @@
                         }
                     }
                 });
-                // jAlert('BOM Number : ' + GBOMNo + ' Successfully saved.');
+               
             }
             else {
-                
+
                 DetailsID = 0;
                 savemode = "";
                 jAlert('Please try again later.');
                 return false;
             }
             Message = "";
-            //}
-
+          
         }
 
         AddNewRowWithSl();
-       
+
     }
 </script>
 <div class="breadCumb">
     <span>Sales Target -Add </span>
+    <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
-<div class="container">
+<div class="container">   
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class="col-sm-2">
@@ -1137,14 +1198,12 @@
                     <option value="Outlet">Outlet Level</option>
                 </select>
             </div>
-
             <div class=" col-sm-2">
                 <label>Document No. <span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control" })
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
-
             </div>
             <div class=" col-sm-2">
                 <label>Date <span style="color:red">*</span></label>
@@ -1165,14 +1224,12 @@
                     <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
-
         </div>
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
                 @{
                     Html.RenderAction("GetProductEntryList", "SalesTarget");
-
                 }
             </div>
         </div>
@@ -1199,7 +1256,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select Product</h4>
+                <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
                 <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridProductName" autofocus width="100%" placeholder="Search By Product Name or Short Name" />
@@ -1207,9 +1264,8 @@
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
-                            <th> Code</th>
                             <th> Name</th>
-
+                            <th> Code</th>
                         </tr>
                     </table>
                 </div>
