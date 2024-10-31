@@ -18,22 +18,42 @@ using System.Globalization;
 using System.IO;
 using System.Web.Services;
 using UtilityLayer;
+using Antlr.Runtime.Misc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
     public class SalesTargetController : Controller
     {
-        SalesTargetModel objdata = null;
-        //SalesTargetProduct objdata = null;
-        // GET: TargetVsAchievement/SalesTarget
+        SalesTargetModel objdata = null;      
         Int32 DetailsID = 0;
         string SalesTargetNo = string.Empty;
         public SalesTargetController()
         {
-            objdata = new SalesTargetModel();
-           // objdata = new SalesTargetProduct();
+            objdata = new SalesTargetModel();         
         }
         public ActionResult Index()
+        {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
+
+           
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+            TempData["Count"] = 1;
+            TempData.Keep();
+
+            TempData["DetailsID"] = null;
+            TempData.Keep();
+
+            return View(objdata);
+        }
+
+
+        public ActionResult EDITIndex()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
 
@@ -51,9 +71,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         foreach (DataRow row in dt.Rows)
                         {
                             objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
-                            objdata.SalesTargetLevel = Convert.ToString(row["SalesTargetLevel"]);
-                            objdata.SalesTargetNo = Convert.ToString(row["SalesTargetNo"]);
-                            objdata.SalesTargetDate = Convert.ToDateTime(row["SalesTargetDate"]); 
+                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLABLE"]);
+                            objdata.SalesTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            objdata.SalesTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
                         }
                     }
                 }
@@ -67,7 +87,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData["Count"] = 1;
             TempData.Keep();
 
-            return View();
+            return View(objdata);
         }
         public ActionResult GetProductEntryList()
         {
@@ -100,19 +120,19 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
 
                             productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
-                            productdataobj.STARTEDATE = Convert.ToDateTime(row["TARGETLEVELID"]);
-                            productdataobj.ENDDATE = Convert.ToDateTime(row["TARGETDOCNUMBER"]);
-                            productdataobj.NEWVISIT = Convert.ToInt64(row["TARGETLEVELID"]);
+                            productdataobj.STARTEDATE = Convert.ToDateTime(row["STARTEDATE"]);
+                            productdataobj.ENDDATE = Convert.ToDateTime(row["ENDDATE"]);
+                            productdataobj.NEWVISIT = Convert.ToInt64(row["NEWVISIT"]);
 
-                            productdataobj.REVISIT = Convert.ToInt64(row["TIMEFRAME"]);
-                            productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["TARGETLEVELID"]);
-                            productdataobj.COLLECTION = Convert.ToDecimal(row["TARGETDOCNUMBER"]);
-                            productdataobj.ORDERQTY = Convert.ToDecimal(row["TARGETLEVELID"]);
+                            productdataobj.REVISIT = Convert.ToInt64(row["REVISIT"]);
+                            productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["ORDERAMOUNT"]);
+                            productdataobj.COLLECTION = Convert.ToDecimal(row["COLLECTION"]);
+                            productdataobj.ORDERQTY = Convert.ToDecimal(row["ORDERQTY"]);
 
                             productdata.Add(productdataobj);
 
                         }
-                        //ViewData["BOMEntryProductsTotalAm"] = bomproductdata.Sum(x => Convert.ToDecimal(x.Amount)).ToString();
+                        
                     }
                 }
 
@@ -280,7 +300,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                 TempData["Count"] = 1;
                 TempData.Keep();
-                
+                TempData["DetailsID"] = null;
+                TempData.Keep();
                 ViewData["DetailsID"] = DetailsID;               
                 ViewData["SalesTargetNo"] = options.SalesTargetNo;
                 ViewData["Success"] = IsProcess;
@@ -388,6 +409,28 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             catch { }
             return Json(Success);
+        }
+
+        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string SalesTargetNo)
+        {
+            
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_SALESTARGETASSIGN"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
+                    proc.AddIntegerPara("@ReturnValue", 0,QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);                  
+
+                    int i = proc.RunActionQuery();
+                    retData =Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+                    
+                }
+            }
+            catch { }
+            return Json(retData);
         }
     }
 }
