@@ -13,7 +13,7 @@ namespace TargetVsAchievement.Models
         public Int64 SALESTARGET_ID { get; set; }
         public String SalesTargetLevel { get; set; }
         public String SalesTargetNo { get; set; }
-        public String SalesTargetDate { get; set; }
+        public DateTime SalesTargetDate { get; set; }
        // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
         public DataSet SalesTargetEntryInsertUpdate(String action, DateTime? SalesTargetDate, Int64 SALESTARGET_ID, String SalesTargetLevel,String SalesTargetNo,
             DataTable dtSalesTarget,Int64 userid = 0
@@ -41,10 +41,9 @@ namespace TargetVsAchievement.Models
         public DataTable GETSALESTARGETASSIGNDETAILSBYID(String Action, Int64 DetailsID)
         {
             DataTable ds = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("usp_BOMEntryDataGet");
+            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
             proc.AddVarcharPara("@ACTION", 100, Action);
-            proc.AddBigIntegerPara("@DetailsID", DetailsID);
-            proc.AddPara("@doc_Type", "BOM");
+            proc.AddBigIntegerPara("@SALESTARGET_ID", DetailsID);
             ds = proc.GetTable();
             return ds;
         }

@@ -36,6 +36,28 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
         public ActionResult Index()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
+
+            if (TempData["DetailsID"] != null)
+            {
+                objdata.SALESTARGET_ID = Convert.ToInt64(TempData["DetailsID"]);
+                TempData.Keep();
+
+                if (Convert.ToInt64(objdata.SALESTARGET_ID) > 0)
+                {
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETHEADERSALESTARGET", objdata.SALESTARGET_ID);
+                    if (objData != null && objData.Rows.Count > 0)
+                    {
+                        DataTable dt = objData;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
+                            objdata.SalesTargetLevel = Convert.ToString(row["SalesTargetLevel"]);
+                            objdata.SalesTargetNo = Convert.ToString(row["SalesTargetNo"]);
+                            objdata.SalesTargetDate = Convert.ToDateTime(row["SalesTargetDate"]); 
+                        }
+                    }
+                }
+            }
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -54,70 +76,45 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Int64 DetailsID = 0;
             try
             {
-
                 if (TempData["DetailsID"] != null)
                 {
                     DetailsID = Convert.ToInt64(TempData["DetailsID"]);
                     TempData.Keep();
                 }
-
-                //if (DetailsID > 0)
-                //{
-                //    DataTable objData = objdata.GetBOMProductEntryListByID("GETBOMENTRYPRODUCTSDATA_NEW", DetailsID);
-
-                //    TempData["MultiUom"] = objdata.GetBOMProductEntryListByID("BOMMultiUOMDetails", DetailsID);
-
-                //    End of rev Pratik
-
-                //    if (objData != null && objData.Rows.Count > 0)
-                //    {
-                //        DataTable dt = objData;
+                if (DetailsID > 0)
+                {
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
+                    if (objData != null && objData.Rows.Count > 0)
+                    {
+                        DataTable dt = objData;
 
 
-                //        foreach (DataRow row in dt.Rows)
-                //        {
-                //            bomproductdataobj = new BOMProduct();
-                //            bomproductdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                //            bomproductdataobj.ProductName = Convert.ToString(row["sProducts_Code"]);
-                //            bomproductdataobj.ProductId = Convert.ToString(row["ProductID"]);
-                //            bomproductdataobj.ProductDescription = Convert.ToString(row["sProducts_Name"]);
-                //            bomproductdataobj.DesignNo = Convert.ToString(row["DesignNo"]);
-                //            bomproductdataobj.ItemRevisionNo = Convert.ToString(row["ItemRevisionNo"]);
-                //            bomproductdataobj.ProductQty = Convert.ToString(row["StkQty"]);
-                //            bomproductdataobj.ProductUOM = Convert.ToString(row["StkUOM"]);
-                //            bomproductdataobj.Warehouse = Convert.ToString(row["WarehouseName"]);
-                //            bomproductdataobj.Price = Convert.ToString(row["Price"]);
-                //            bomproductdataobj.Amount = Convert.ToString(row["Amount"]);
-                //            bomproductdataobj.BOMNo = Convert.ToString(row["BOMNo"]);
-                //            bomproductdataobj.RevNo = Convert.ToString(row["RevNo"]);
-                //            if (!String.IsNullOrEmpty(Convert.ToString(row["RevDate"])))
-                //            {
-                //                bomproductdataobj.RevDate = Convert.ToDateTime(row["RevDate"]).ToString("dd-MM-yyyy");
-                //            }
-                //            else
-                //            {
-                //                bomproductdataobj.RevDate = " ";
-                //            }
-                //            bomproductdataobj.Remarks = Convert.ToString(row["Remarks"]);
-                //            bomproductdataobj.ProductsWarehouseID = Convert.ToString(row["WarehouseID"]);
-                //            bomproductdataobj.Tag_Details_ID = Convert.ToString(row["Tag_Details_ID"]);
-                //            bomproductdataobj.Tag_Production_ID = Convert.ToString(row["Tag_Production_ID"]);
-                //            bomproductdataobj.RevNo = Convert.ToString(row["RevNo"]);
-                //            Rev Pratik
-                //            bomproductdataobj.AltQuantity = Convert.ToString(row["AltQuantity"]);
-                //            bomproductdataobj.AltUom = Convert.ToString(row["AltUom"]);
-                //            bomproductdataobj.MultiUOMSelectionForManufacturing = cSOrder.GetSystemSettingsResult("MultiUOMSelectionForManufacturing");
-                //            End of rev Pratik
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            productdataobj = new SalesTargetProduct();
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            productdataobj.ActualSL = Convert.ToString(row["SALESTARGETDETAILS_ID"]);
+                            productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
+                            productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
+                            productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
 
-                //            Rev 1.0
-                //            bomproductdataobj.ActualSL = Convert.ToString(row["SlNO"]);
-                //            Rev 1.0 End
-                //            bomproductdata.Add(bomproductdataobj);
+                            productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
+                            productdataobj.STARTEDATE = Convert.ToDateTime(row["TARGETLEVELID"]);
+                            productdataobj.ENDDATE = Convert.ToDateTime(row["TARGETDOCNUMBER"]);
+                            productdataobj.NEWVISIT = Convert.ToInt64(row["TARGETLEVELID"]);
 
-                //        }
-                //        ViewData["BOMEntryProductsTotalAm"] = bomproductdata.Sum(x => Convert.ToDecimal(x.Amount)).ToString();
-                //    }
-                //}
+                            productdataobj.REVISIT = Convert.ToInt64(row["TIMEFRAME"]);
+                            productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["TARGETLEVELID"]);
+                            productdataobj.COLLECTION = Convert.ToDecimal(row["TARGETDOCNUMBER"]);
+                            productdataobj.ORDERQTY = Convert.ToDecimal(row["TARGETLEVELID"]);
+
+                            productdata.Add(productdataobj);
+
+                        }
+                        //ViewData["BOMEntryProductsTotalAm"] = bomproductdata.Sum(x => Convert.ToDecimal(x.Amount)).ToString();
+                    }
+                }
 
             }
             catch { }

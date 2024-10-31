@@ -701,6 +701,12 @@
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
 
+        var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
+        var hdnDetailsID = $('#hdnDetailsID').val();
+        if (hdnBOMTYPE != '' && hdnDetailsID > 0) {
+            $('#ddlTargetLevel').val(hdnSalesTargetLevel);
+        }
+
     });
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
@@ -849,15 +855,9 @@
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
 
-
-
-
             $('#GridProductlistModel').modal('hide');
 
-
-
         }
-
     }
 
     function ProductKeyDown(s, e) {
@@ -865,7 +865,6 @@
         if (e.htmlEvent.key == "Enter") {
             s.OnButtonClick(0);
         }
-
         else if (e.code == "ArrowDown") {
             if ($("input[GridTargetIndex=0]"))
                 $("input[GridTargetIndex=0]").focus();
@@ -889,13 +888,43 @@
         }
     }
     function EntrySave(mode) {
-
-
         savemode = mode;
         hasmsg = 0;
         var TargetNo = $('#SalesTargetNo').val();
         var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
+
+
+        if (TargetLevel.trim() == "Select" || TargetLevel.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Target Level to proceed.'
+            });
+            return false;
+        }
+        else if ($("#SalesTargetNo").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Sales Target No to proceed.'
+            });
+            return false;
+        } else if (TargetDate.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Target Date to proceed.'
+            });
+            return false;
+        }
+        
+
+
+
         var oneproduct = "";
         var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
         if (visiablerow > 0) {
@@ -1099,6 +1128,7 @@
             <div class="col-sm-2">
                 <label>Target Level <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
+                    <option value="Select">Select</option>
                     <option value="Region">Region level</option>
                     <option value="ASM">ASM level</option>
                     <option value="SalesOfficer">Sales Officer level</option>
@@ -1127,7 +1157,7 @@
                                      settings.Properties.EditFormatString = "dd-MM-yyyy";
                                      settings.Width = Unit.Percentage(100);
                                      //settings.Properties.ClientSideEvents.DateChanged = "datevalidateTo";
-                                     //settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
+                                     settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
                                      settings.Properties.UseMaskBehavior = true;
 
                                  }
@@ -1161,7 +1191,8 @@
     </div>
 </div>
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
-<input type="hidden" value="0" id="hdnDetailsID" />
+<input type="hidden" value="@Model.SALESTARGET_ID" id="hdnDetailsID" />
+<input type="hidden" value="@Model.SalesTargetLevel" id="hdnSalesTargetLevel" />
 <!-- Grid Product List -->
 <div class="modal fade" id="GridProductlistModel" role="dialog">
     <div class="modal-dialog">
