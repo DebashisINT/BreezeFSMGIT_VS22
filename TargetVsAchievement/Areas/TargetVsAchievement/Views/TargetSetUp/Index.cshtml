@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    .mt-22
+    {
+        margin-top:22px;
+    }
+    .w-100
+    {
+        width:100%;
+    }
     .eqpadtbl > tbody > tr > td:not(:last-child) {
         padding-right: 20px;
     }
@@ -674,6 +682,14 @@
     }
 </style>
 <script>
+
+    $(function () {
+    var d = new Date();
+    dtFrom.SetValue(d);
+    dtTo.SetValue(d);
+
+    });
+
     var fromdate = "";
     var todate = "";
     var TargetType = "";
@@ -763,122 +779,113 @@
 <div class="container">
     <div class="form_main backBox p-3">
         <div class="row">
-            <table class="eqpadtbl mt-3 mb-3">
-                <tr>
-                    <td class="w150 relative for-cust-icon">
-                        <label>From Date</label>
-                        <div>
-                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
-                        deSettings =>
-                        {
-                            deSettings.Name = "dtFrom";
-                            deSettings.Date = DateTime.Now;
-                            deSettings.Properties.UseMaskBehavior = true;
-                            deSettings.Properties.EditFormat = EditFormat.Custom;
-                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                            deSettings.Properties.ShowOutOfRangeWarning = false;
-                            deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateFrom";
-                        }).GetHtml()
+            <div class="col-md-2 mb-3">
+                <label>From Date</label>
+                <div>
+                    @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                    deSettings =>
+                    {
+                        deSettings.Name = "dtFrom";
+                        deSettings.Date = DateTime.Now;
+                        deSettings.Properties.UseMaskBehavior = true;
+                        deSettings.Properties.EditFormat = EditFormat.Custom;
+                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        deSettings.Properties.ShowOutOfRangeWarning = false;
+                        deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateFrom";
+                    }).GetHtml()
 
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-                            <span id="MandatoryFromDate" style="display: none" class="validclass">
-                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
-                            </span>
-                        </div>
-                    </td>
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                    <span id="MandatoryFromDate" style="display: none" class="validclass">
+                        <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label>To Date</label>
+                <div>
 
-                    <td class="w150 relative for-cust-icon">
-                        <label>To Date</label>
-                        <div>
+                    @Html.DevExpress().DateEditFor(x => x.Todate,
+                    deSettings =>
+                    {
+                        deSettings.Name = "dtTo";
+                        deSettings.Date = DateTime.Now;
+                        deSettings.Properties.UseMaskBehavior = true;
+                        deSettings.Properties.EditFormat = EditFormat.Custom;
+                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        deSettings.Properties.ShowOutOfRangeWarning = false;
+                        deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateTo";
 
-                            @Html.DevExpress().DateEditFor(x => x.Todate,
-                        deSettings =>
-                        {
-                            deSettings.Name = "dtTo";
-                            deSettings.Date = DateTime.Now;
-                            deSettings.Properties.UseMaskBehavior = true;
-                            deSettings.Properties.EditFormat = EditFormat.Custom;
-                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                            deSettings.Properties.ShowOutOfRangeWarning = false;
-                            deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateTo";
+                    }).GetHtml()
 
-                        }).GetHtml()
+                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
 
-                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-
-                            <span id="MandatoryToDate" style="display: none" class="validclass">
-                                <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
-                            </span>
-                        </div>
-                    </td>
-                    <td class="w150 h-branch-select">
-                        <label>Target Type </label>
-                        <div>
-                            <select name="ddlStatus" id="ddlTargetType">
-                                <option value="">Select</option>
-                                <option value="SalesTarget">Sales Target</option>
-                                <option value="ProductTarget">Product Target</option>
-                                <option value="BrandTarget">Brand Volume/Value Target</option>
-                                <option value="WODTarget">WOD Target</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td style="padding-top: 22px;width:200px;">
-                        <label></label>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-12 p-0">
-            <div class="buttons-alignment">
-                <div class="add-show-btns">
-                    <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
-                    @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
-                            <option value="0">Export to</option>
-                            <option value="1">PDF</option>
-                            <option value="2">XLSX</option>
-                            <option value="3">XLS</option>
-                            <option value="4">RTF</option>
-                            <option value="5">CSV</option>
-                        </select>*@
+                    <span id="MandatoryToDate" style="display: none" class="validclass">
+                        <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label>Target Type </label>
+                <div>
+                    <select name="ddlStatus" id="ddlTargetType">
+                        <option value="SalesTarget">Sales Target</option>
+                        <option value="ProductTarget">Product Target</option>
+                        <option value="BrandTarget">Brand Volume/Value Target</option>
+                        <option value="WODTarget">WOD Target</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 mt-22">
+                <div class="">
+                    <div class="add-show-btns">
+                        <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
+                        @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+                        <option value="0">Export to</option>
+                        <option value="1">PDF</option>
+                        <option value="2">XLSX</option>
+                        <option value="3">XLS</option>
+                        <option value="4">RTF</option>
+                        <option value="5">CSV</option>
+                    </select>*@
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-3 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn" onclick="AddSalesTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
-                    </button>
+           
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="add-show-btns">
+                        <button type="button" class="btn add-btn w-100" onclick="AddSalesTarget();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="add-show-btns">
+                        <button type="button" class="btn add-btn w-100" onclick="AddProductTarget();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
+                        </button>
 
+                    </div>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="scrooler">
+                <div id="refreshgrid">
+                    @{
+                        @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
+                    }
                 </div>
             </div>
-            <div class="col-md-3 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn" onclick="AddProductTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
-                    </button>
-
-                </div>
-            </div>
-
         </div>
-        <div class="clearfix"></div>
-        <div class="scrooler">
-            <div id="refreshgrid">
-                @{
-                    @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
-                }
-            </div>
-        </div>
-    </div>
 </div>
-<input type="hidden" value="@Url.Action("Index", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
+<input type="hidden" value="@Url.Action("EDITIndex", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 
 
 
