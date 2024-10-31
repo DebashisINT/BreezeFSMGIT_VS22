@@ -688,6 +688,15 @@
     dtFrom.SetValue(d);
     dtTo.SetValue(d);
 
+        fromdate = dtFrom.GetDate();
+        todate = dtTo.GetDate();
+        TargetType = $('#ddlTargetType').val();
+
+        gridList.Refresh();
+        gridList.Refresh();
+
+
+
     });
 
     var fromdate = "";
@@ -757,8 +766,55 @@
 
 
         }
-           
-    
+
+ function DeleteClick(ID) {
+     $("#hdnID").val(ID);
+     var TargetType = $('#ddlTargetType').val();
+
+     // SweetAlert confirmation with custom icon
+ Swal.fire({
+     title: 'Are you sure you want to delete?',
+     text: "This action cannot be undone!",
+     imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+     imageWidth: 40, // Adjust the width as needed
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes',
+     cancelButtonText: 'No'
+ }).then((result) => {
+     if (result.isConfirmed) {
+         $.ajax({
+             type: "POST",
+             url: '@Url.Action("Delete", "TargetSetUp")',
+             data: { ID: ID, TargetType: TargetType },
+             success: function (response) {
+                 if (parseInt(response) > 0) {
+                     // SweetAlert success message with custom icon
+                     Swal.fire({
+                         title: 'Deleted!',
+                         text: 'The record has been deleted successfully.',
+                         /*imageUrl: '/path/to/your/success-icon.png', */
+                         /*imageWidth: 50, */
+                         icon: 'success' // You can also keep the built-in icon type
+                     }).then(() => {
+                         location.reload();
+                     });
+                 } else if (parseInt(response) == -1) {
+                     // SweetAlert error message with custom icon
+                     Swal.fire({
+                         title: 'Sorry!',
+                         text: 'Sales Target already mapped with another module. Cannot delete.',
+                         imageUrl: '/path/to/your/error-icon.png',
+                         imageWidth: 50,
+                         icon: 'error' // You can also keep the built-in icon type
+                     });
+                 }
+             }
+         });
+     }
+ });
+ }
 
 
 

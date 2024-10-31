@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TargetVsAchievement.Models;
+using DataAccessLayer;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
@@ -44,8 +45,20 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             return PartialView(dt);
         }
 
+        public JsonResult Delete(string ID,string TargetType)
+        {           
+            int i;
+            int rtrnvalue = 0;
+            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            proc.AddNVarcharPara("@action", 50, "DELETE");
+            proc.AddNVarcharPara("@SALESTARGET_ID", 30, ID);
+            proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
+            i = proc.RunActionQuery();
+            rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));         
 
-        
+            return Json(rtrnvalue, JsonRequestBehavior.AllowGet);
+        }
+
     }
 
 
