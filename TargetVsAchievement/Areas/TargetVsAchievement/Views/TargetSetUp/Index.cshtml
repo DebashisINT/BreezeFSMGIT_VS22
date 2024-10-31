@@ -707,40 +707,55 @@
         fromdate = dtFrom.GetDate();
         todate = dtTo.GetDate();
         TargetType = $('#ddlTargetType').val();
+
         gridList.Refresh();
         gridList.Refresh();
     }
     function OnStartCallback(s, e) {
-
         e.customArgs["Fromdate"] = fromdate;
         e.customArgs["Todate"] = todate;
         e.customArgs["TargetType"] = TargetType;
-
     }
     function EditClick(detailsid) {
         if (parseInt(detailsid) > 0) {
 
-        var TargetType = $('#ddlTargetType').val();
-            if (TargetType =="SalesTarget") {
-            $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("SetDataByID", "SalesTarget")",
-                    data: { detailsid: detailsid, IsView: 0 },
-                    success: function (response) {
-                        if (response != null && response == true) {
-                            var url = $('#hdnAddUpdate').val();
-                            window.location.href = url;
+            var TargetType = $('#ddlTargetType').val();
+                if (TargetType =="SalesTarget") {
+                        $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("SetDataByID", "SalesTarget")",
+                        data: { detailsid: detailsid, IsView: 0 },
+                        success: function (response) {
+                            if (response != null && response == true) {
+                                var url = $('#hdnAddUpdateSalesTarget').val();
+                                window.location.href = url;
+                            }
+                            else {
+                                jAlert('Please try again later.');
+                                return false;
+                            }
                         }
-                        else {
-                            jAlert('Please try again later.');
-                            return false;
-                        }
-                    }
-                });
-            }
+                    });
+                }
+        }
 
-    }
-}
+
+        }
+           
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 <div class="breadCumb">
     <span>Target Set Up</span>
@@ -863,7 +878,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnAddUpdate" />
+<input type="hidden" value="@Url.Action("Index", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 
 
 
