@@ -14,7 +14,24 @@
 <script src="~/Scripts/SearchPopupDatatable.js"></script>
 @*<script src="~/Scripts/SearchPopup.js"></script>*@
 <link href="~/assests/css/SearchPopup.css" rel="stylesheet" />
+<style>
+    #grid .dxgvHSDC > div, #grid .dxgvCSD {
+        width: 100% !important;
+    }
+    .hide {
+        display: none;
+    }
+    .full-grid, #grid {
+        width: 100% !important;
+    }       
+    #gridLevelEntryList, #gridLevelEntryList > tbody > tr > td > div.dxgvHSDC > div {
+        width: 100% !important;
+    }   
 
+    .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
+        background: white !important;
+    }
+</style>
 <style>
     .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
         background: #fff;
@@ -224,7 +241,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
 
     .btnPadding .btn {
@@ -642,7 +659,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
+        /*overflow: visible;*/
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -881,10 +898,13 @@
 
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
             gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
+            gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
+            gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
+            
 
             $('#GridProductlistModel').modal('hide');
 
@@ -1259,7 +1279,7 @@
                 <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridProductName" autofocus width="100%" placeholder="Search By Product Name or Short Name" />
+                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridProductName" autofocus width="100%" placeholder="Search By  Name" />
                 <div id="GridTargetTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
