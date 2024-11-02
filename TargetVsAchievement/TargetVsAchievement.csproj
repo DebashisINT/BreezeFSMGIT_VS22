@@ -278,6 +278,7 @@
     <Content Include="assests\css\newlogin.css" />
     <Content Include="assests\css\pignose.calendar.min.css" />
     <Content Include="assests\css\responsive.css" />
+    <Content Include="assests\css\SearchPopup.css" />
     <Content Include="assests\css\sweetalert2.min.css" />
     <Content Include="assests\fonts\font-awesome\css\font-awesome.css" />
     <Content Include="assests\fonts\font-awesome\css\font-awesome.min.css" />
