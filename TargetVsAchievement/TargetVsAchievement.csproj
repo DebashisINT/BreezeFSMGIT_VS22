@@ -220,6 +220,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\TargetVsAchievement\Controllers\BrandVolumeValueTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\ProductTargetAddEditController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\SalesTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetLevelSetupMasterController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BrandVolumeValueTargetModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ProductTargetAddModel.cs" />
     <Compile Include="Models\SalesTargetModel.cs" />
@@ -761,6 +763,7 @@
     <Content Include="Areas\TargetVsAchievement\Views\ProductTargetAddEdit\PartialProductTargetEntryGrid.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\Index.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
