@@ -93,7 +93,7 @@
         comboBoxProperties.Items.Add("Monthly");
         comboBoxProperties.Items.Add("Yearly");
         comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
-        //x.Index = 3;
+
     });
     settings.Columns.Add(x =>
     {
@@ -108,7 +108,8 @@
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         // x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
-        //x.Index = 4;
+        DevExpress.Web.DateEditProperties dateEditProperties = x.PropertiesEdit as DevExpress.Web.DateEditProperties;
+        dateEditProperties.ClientSideEvents.LostFocus = "function(s, e) { CHANGEDTIMEFRAME(s,e); }";
 
     });
 
@@ -258,7 +259,7 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-        
+
     });
 
 
@@ -269,7 +270,7 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-       
+
 
     });
     settings.Columns.Add(x =>

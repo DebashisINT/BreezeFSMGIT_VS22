@@ -61,11 +61,11 @@
         border-radius: 5px;
     }
 
-    .dxeButtonEditButton_PlasticBlue {
+    /*.dxeButtonEditButton_PlasticBlue {
         background: #094e8c !important;
         border-radius: 4px !important;
         padding: 0 4px !important;
-    }
+    }*/
 
     .chosen-container-single .chosen-single div {
         background: #094e8c;
@@ -217,7 +217,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        font-weight: 500;
+       /* font-weight: 500;*/
     }
 
     .btnPadding .btn {
@@ -633,7 +633,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
+     /*   overflow: visible;*/
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -683,6 +683,10 @@
 </style>
 <script>
 
+    var fromdate; 
+    var todate;
+    var TargetType = "";
+
     $(function () {
     var d = new Date();
     dtFrom.SetValue(d);
@@ -695,13 +699,9 @@
         gridList.Refresh();
         gridList.Refresh();
 
-
-
     });
 
-    var fromdate = "";
-    var todate = "";
-    var TargetType = "";
+  
 
     function AddSalesTarget() {
         var url = '/TargetVsAchievement/SalesTarget/Index?key=Add';
@@ -737,8 +737,8 @@
         gridList.Refresh();
     }
     function OnStartCallback(s, e) {
-        e.customArgs["Fromdate"] = fromdate;
-        e.customArgs["Todate"] = todate;
+        e.customArgs["Fromdate"] = dtFrom.GetText().split("-").reverse().join("-")  ;
+        e.customArgs["Todate"] = dtTo.GetText().split("-").reverse().join("-") ;  
         e.customArgs["TargetType"] = TargetType;
     }
     function EditClick(detailsid) {
@@ -816,18 +816,6 @@
  });
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <div class="breadCumb">
     <span>Target Set Up</span>
@@ -888,6 +876,7 @@
                 <label>Target Type </label>
                 <div>
                     <select name="ddlStatus" id="ddlTargetType">
+                        <option value="Select">Select</option>
                         <option value="SalesTarget">Sales Target</option>
                         <option value="ProductTarget">Product Target</option>
                         <option value="BrandTarget">Brand Volume/Value Target</option>
@@ -941,7 +930,7 @@
             </div>
         </div>
 </div>
-<input type="hidden" value="@Url.Action("EDITIndex", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
+<input type="hidden" value="@Url.Action("EDITINDEX", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 
 
 

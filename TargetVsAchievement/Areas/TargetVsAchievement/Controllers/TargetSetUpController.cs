@@ -35,7 +35,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             sqlcmd = new SqlCommand("FSM_TARGETASSIGN_LISTING", sqlcon);
             sqlcmd.Parameters.Add("@ACTION", ACTION);
             sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));
-          
+            sqlcmd.Parameters.Add("@fromdate", dd.Fromdate);
+            sqlcmd.Parameters.Add("@todate", dd.Todate);
             sqlcmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
             da.Fill(dt);
