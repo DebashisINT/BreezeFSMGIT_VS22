@@ -87,7 +87,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData["Count"] = 1;
             TempData.Keep();
             return PartialView("~/Areas/TargetVsAchievement/Views/SalesTarget/Index.cshtml", objdata);
-            //return View(objdata);
+           
         }
         public ActionResult GetProductEntryList()
         {

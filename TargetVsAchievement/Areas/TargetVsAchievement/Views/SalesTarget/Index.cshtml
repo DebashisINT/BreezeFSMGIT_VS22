@@ -723,6 +723,8 @@
         var hdnDetailsID = $('#hdnDetailsID').val();
         if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnSalesTargetLevel);
+            $('#HeaderLableID').text("Sales Target -Modify");
+            
         }
 
         $('#SalesTargetNo').blur(function () {
@@ -749,7 +751,9 @@
         });
     });
 
-
+    function CancelAdd() {
+        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+    }
 
 
     function SalesTargetAdd() {
@@ -831,24 +835,24 @@
         }
     }
 
-    function OpenProductList(s, e) {
+    function OpenLevelList(s, e) {
         if (gridLevelEntryList.GetDataRow(globalrowindex) != null) {
             slno = gridLevelEntryList.GetDataRow(globalrowindex).children[0].innerHTML.trim();
         }
         var TargetLevel = $("#ddlTargetLevel").val();
-        GridProductlist(TargetLevel);
+        GridLevellist(TargetLevel);
 
 
        
-        $('#GridProductlistModel').modal('show');
-        $('#txtGridProductName').focus();
+        $('#GridLevellistModel').modal('show');
+        $('#txtGridLevelName').focus();
     }
     function GridProductListkeydown(e) {
 
         if (e.code == "Enter" || e.code == "NumpadEnter") {
-            if ($("#txtGridProductName").val() != '') {
+            if ($("#txtGridLevelName").val() != '') {
                 var TargetLevel = $("#ddlTargetLevel").val();
-                GridProductlist(TargetLevel);
+                GridLevellist(TargetLevel);
             }
         }
         else if (e.code == "ArrowDown") {
@@ -862,8 +866,8 @@
             }
         }
     }
-    function GridProductlist(Action) {
-        var SearchKey = $("#txtGridProductName").val()
+    function GridLevellist(Action) {
+        var SearchKey = $("#txtGridLevelName").val()
         //gridproductlist = 1;
         var OtherDetails = {}
         OtherDetails.SearchKey = SearchKey;
@@ -874,16 +878,15 @@
         HeaderCaption.push("Code");
 
 
-        callonServer("../../../Models/TargetWebService.asmx/GetTargetLevelDetailsList", OtherDetails, "GridTargetTable", HeaderCaption, "GridTargetIndex", "SetGridProduct");
+        callonServer("../../../Models/TargetWebService.asmx/GetTargetLevelDetailsList", OtherDetails, "GridTargetTable", HeaderCaption, "GridTargetIndex", "SetGridLevel");
 
         setTimeout(function () {
-            $('#txtGridProductName').focus();
+            $('#txtGridLevelName').focus();
         }, 600);
 
     }
-    function SetGridProduct(Id, Name, e) {
-        //alert(Id)
-        // gridproductlist = 0;
+    function SetGridLevel(Id, Name, e) {
+      
         var TargetLevelID = Id;
         var TargetLevelName = Name;
 
@@ -903,14 +906,14 @@
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
             
 
-            $('#GridProductlistModel').modal('hide');
+            $('#GridLevellistModel').modal('hide');
 
             
             $('#ddlTargetLevel').prop('disabled', true);
         }
     }
 
-    function ProductKeyDown(s, e) {
+    function LevelKeyDown(s, e) {
         console.log(e.htmlEvent.key);
         if (e.htmlEvent.key == "Enter") {
             s.OnButtonClick(0);
@@ -1279,11 +1282,12 @@
         <div class="clearfix"></div>
         <div class="">
             <div class=" mt-4">
-                @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                    {*@
-                @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
-                <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
-                @*}*@
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
+                @if (Convert.ToInt16(ViewBag.IsView) == 0)
+                {
+                    <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and Exit</span></button>
+                }
 
             </div>
 
@@ -1294,7 +1298,7 @@
 <input type="hidden" value="@Model.SALESTARGET_ID" id="hdnDetailsID" />
 <input type="hidden" value="@Model.SalesTargetLevel" id="hdnSalesTargetLevel" />
 <!-- Grid Product List -->
-<div class="modal fade" id="GridProductlistModel" role="dialog">
+<div class="modal fade" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1302,7 +1306,7 @@
                 <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridProductName" autofocus width="100%" placeholder="Search By  Name" />
+                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
                 <div id="GridTargetTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
