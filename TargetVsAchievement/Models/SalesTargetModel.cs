@@ -30,7 +30,7 @@ namespace TargetVsAchievement.Models
             proc.AddBigIntegerPara("@USER_ID", userid); 
 
 
-            if (action == "INSERTMAINPRODUCT" || action == "UPDATEMAINPRODUCT")
+            if (action == "INSERTSALESTARGET" || action == "UPDATESALESTARGET")
             {
                 proc.AddPara("@FSM_UDT_SALESTARGETASSIGN", dtSalesTarget);
             }           

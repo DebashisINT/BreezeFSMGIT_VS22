@@ -53,7 +53,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
         }
 
 
-        public ActionResult EDITIndex()
+        public ActionResult EDITINDEX()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
 
@@ -71,7 +71,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         foreach (DataRow row in dt.Rows)
                         {
                             objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
-                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLABLE"]);
+                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLEVEL"]);
                             objdata.SalesTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
                             objdata.SalesTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
                         }
@@ -230,7 +230,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = item.ActualSL;
+                            obj.SlNO = item.ActualSL;
                             udtlist.Add(obj);
                         }
                     }
@@ -251,7 +251,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = "0";
+                            obj.SlNO = "0";
                             udtlist.Add(obj);
                         }
                     }
@@ -333,12 +333,12 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                
                 if (Convert.ToInt64(obj2.SALESTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
                 {
-                    dt = objdata.SalesTargetEntryInsertUpdate("UPDATEMAINPRODUCT",Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                    dt = objdata.SalesTargetEntryInsertUpdate("UPDATESALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
                            , dtSalesTarget, Convert.ToInt64(Session["userid"]));                    
                 }   
                 else
                 { 
-                    dt = objdata.SalesTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                    dt = objdata.SalesTargetEntryInsertUpdate("INSERTSALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
                            , dtSalesTarget, Convert.ToInt64(Session["userid"]));
                    
                 }

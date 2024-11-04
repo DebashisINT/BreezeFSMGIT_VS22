@@ -788,8 +788,8 @@
 
         var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
         if (noofvisiblerows != 1) {
-            gridLevelEntryList.batchEditApi.StartEdit(s);
-            gridLevelEntryList.DeleteRow(s);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex);
+            gridLevelEntryList.DeleteRow(globalrowindex);
             if ($('#hdnDetailsID').val() == 0) {
                 resuffleSerial();
             }
@@ -836,11 +836,10 @@
             slno = gridLevelEntryList.GetDataRow(globalrowindex).children[0].innerHTML.trim();
         }
         var TargetLevel = $("#ddlTargetLevel").val();
-        if (TargetLevel = "Region") {
-            GridProductlist("Region");
-        }
+        GridProductlist(TargetLevel);
 
-        typemodal = "A";
+
+       
         $('#GridProductlistModel').modal('show');
         $('#txtGridProductName').focus();
     }
@@ -849,9 +848,7 @@
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             if ($("#txtGridProductName").val() != '') {
                 var TargetLevel = $("#ddlTargetLevel").val();
-                if (TargetLevel = "Region") {
-                    GridProductlist("GETREGION");
-                }
+                GridProductlist(TargetLevel);
             }
         }
         else if (e.code == "ArrowDown") {
@@ -908,6 +905,8 @@
 
             $('#GridProductlistModel').modal('hide');
 
+            
+            $('#ddlTargetLevel').prop('disabled', true);
         }
     }
 
@@ -933,6 +932,7 @@
 
 
         if (e != undefined) {
+            e.customArgs["SALESTARGET_ID"] = hdnDetailsID;
             e.customArgs["SalesTargetLevel"] = TargetLevel;
             e.customArgs["SalesTargetNo"] = TargetNo;
             e.customArgs["SalesTargetDate"] = TargetDate;
@@ -1198,9 +1198,32 @@
         AddNewRowWithSl();
 
     }
+
+    function CHANGEDTIMEFRAME(s,e) {
+        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 3);
+        var TIMEFRAME = gridLevelEntryList.GetEditor("TIMEFRAME").GetValue();
+
+        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 4);
+        var STARTEDATE = gridLevelEntryList.GetEditor("STARTEDATE").GetValue();
+       
+        var date = new Date(STARTEDATE),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+
+        
+
+        const _date = new Date(STARTEDATE);     
+        
+        //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 5);
+        //gridLevelEntryList.GetEditor('ENDDATE').SetText(_date.getDate() + 365);
+        
+        
+    }
+
+    
 </script>
 <div class="breadCumb">
-    <span>Sales Target -Add </span>
+    <span id="HeaderLableID">Sales Target -Add </span>
     <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">   
@@ -1218,10 +1241,10 @@
                     <option value="Outlet">Outlet Level</option>
                 </select>
             </div>
-            <div class=" col-sm-2">
+            <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control", @MaxLength = "30" })
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>

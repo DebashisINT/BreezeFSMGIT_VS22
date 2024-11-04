@@ -17,13 +17,8 @@ namespace TargetVsAchievement.Models
         public string BasedOn { get; set; }
         public string selectedEmployeeBasedOnMapList { get; set; }
         public string RETURN_VALUE { get; set; }
-
-
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Fromdate { get; set; }
-
-
-
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Todate { get; set; }
 
