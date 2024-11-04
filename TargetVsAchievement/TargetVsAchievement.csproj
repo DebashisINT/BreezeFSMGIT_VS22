@@ -220,7 +220,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\TargetVsAchievement\Controllers\AddProductTargetController.cs" />
+    <Compile Include="Areas\TargetVsAchievement\Controllers\ProductTargetAddEditController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\SalesTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetSetUpController.cs" />
@@ -232,6 +232,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ProductTargetAddModel.cs" />
     <Compile Include="Models\SalesTargetModel.cs" />
     <Compile Include="Models\TargetLevelSetupModel.cs" />
     <Compile Include="Models\TargetWebService.asmx.cs">
@@ -756,6 +757,8 @@
     <Content Include="Areas\TargetVsAchievement\Views\SalesTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\SalesTarget\_PartialSalesTargetEntry.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\ProductTargetAddEdit\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\ProductTargetAddEdit\PartialProductTargetEntryGrid.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
