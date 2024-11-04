@@ -13,7 +13,7 @@ namespace TargetVsAchievement.Models
         public Int64 SALESTARGET_ID { get; set; }
         public String SalesTargetLevel { get; set; }
         public String SalesTargetNo { get; set; }
-        public String SalesTargetDate { get; set; }
+        public DateTime SalesTargetDate { get; set; }
        // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
         public DataSet SalesTargetEntryInsertUpdate(String action, DateTime? SalesTargetDate, Int64 SALESTARGET_ID, String SalesTargetLevel,String SalesTargetNo,
             DataTable dtSalesTarget,Int64 userid = 0
@@ -26,13 +26,25 @@ namespace TargetVsAchievement.Models
             proc.AddVarcharPara("@SalesTargetLevel", 100, SalesTargetLevel);
             proc.AddDateTimePara("@SalesTargetDate", Convert.ToDateTime(SalesTargetDate));
             proc.AddBigIntegerPara("@SALESTARGET_ID", SALESTARGET_ID);           
-            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);         
-           
-            if (action == "INSERTMAINPRODUCT" || action == "UPDATEMAINPRODUCT")
+            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+            proc.AddBigIntegerPara("@USER_ID", userid); 
+
+
+            if (action == "INSERTSALESTARGET" || action == "UPDATESALESTARGET")
             {
-                proc.AddPara("@UDTSalesTarget", dtSalesTarget);
+                proc.AddPara("@FSM_UDT_SALESTARGETASSIGN", dtSalesTarget);
             }           
             ds = proc.GetDataSet();
+            return ds;
+        }
+
+        public DataTable GETSALESTARGETASSIGNDETAILSBYID(String Action, Int64 DetailsID)
+        {
+            DataTable ds = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            proc.AddVarcharPara("@ACTION", 100, Action);
+            proc.AddBigIntegerPara("@SALESTARGET_ID", DetailsID);
+            ds = proc.GetTable();
             return ds;
         }
 
@@ -50,7 +62,7 @@ namespace TargetVsAchievement.Models
 
         public string TARGETLEVEL { get; set; }
 
-        //public string INTERNALID { get; set; }
+        public string INTERNALID { get; set; }
 
 
         public string TIMEFRAME { get; set; }
@@ -78,16 +90,9 @@ namespace TargetVsAchievement.Models
     {
         public string SlNO { get; set; }
         public Int64 SALESTARGETDETAILS_ID { get; set; }
-
-
-
         public Int64 TARGETLEVELID { get; set; }
-
-
-
+        public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
-
-
         public string TIMEFRAME { get; set; }
 
         public DateTime STARTEDATE { get; set; }

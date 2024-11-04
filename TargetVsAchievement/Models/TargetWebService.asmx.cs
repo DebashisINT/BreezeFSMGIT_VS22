@@ -38,27 +38,24 @@ namespace TargetVsAchievement.Models
         public object GetTargetLevelDetailsList(string SearchKey, string Type)
         {
             
-            List<SalesTargetLevelDetails> list = new List<SalesTargetLevelDetails>();
-           
-            if (HttpContext.Current.Session["userid"] != null)
-            {
+                List<SalesTargetLevelDetails> list = new List<SalesTargetLevelDetails>();         
+                
+                string USERID = Convert.ToString(Session["userid"]);
                 SearchKey = SearchKey.Replace("'", "''");
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConnectionString);
                 string Query = "";
-                Query = @"   EXEC PRC_FSMSALESTARGET '" + Type + "','" + SearchKey + "' ";
-
+                Query = @"   EXEC PRC_FSMTARGETASSIGN @Action='" + Type + "',@SearchKey='" + SearchKey + "',@USERID='" + USERID + "' ";
 
                 DataTable dt = oDBEngine.GetDataTable(Query);
-
                 if (!String.IsNullOrEmpty(Type))
                 {
-
                     list = (from DataRow dr in dt.Rows
                             select new SalesTargetLevelDetails()
                             {
                                 Level_ID = Convert.ToString(dr["ID"]),
-                                Level_Code = Convert.ToString(dr["CODE"]),
                                 Level_Name = Convert.ToString(dr["NAME"]),
+                                Level_Code = Convert.ToString(dr["CODE"]),
+                                
 
                             }).ToList();
                 }
@@ -68,13 +65,12 @@ namespace TargetVsAchievement.Models
                             select new SalesTargetLevelDetails()
                             {
                                 Level_ID = Convert.ToString(dr["ID"]),
-                                Level_Code = Convert.ToString(dr["CODE"]),
                                 Level_Name = Convert.ToString(dr["NAME"]),
+                                Level_Code = Convert.ToString(dr["CODE"]),
+                                
                                
                             }).ToList();
-                }
-
-            }
+                }         
 
             return list;
         }

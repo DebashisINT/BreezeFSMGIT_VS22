@@ -18,24 +18,25 @@ using System.Globalization;
 using System.IO;
 using System.Web.Services;
 using UtilityLayer;
+using Antlr.Runtime.Misc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
     public class SalesTargetController : Controller
     {
-        SalesTargetModel objdata = null;
-        //SalesTargetProduct objdata = null;
-        // GET: TargetVsAchievement/SalesTarget
+        SalesTargetModel objdata = null;      
         Int32 DetailsID = 0;
         string SalesTargetNo = string.Empty;
         public SalesTargetController()
         {
-            objdata = new SalesTargetModel();
-           // objdata = new SalesTargetProduct();
+            objdata = new SalesTargetModel();         
         }
         public ActionResult Index()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
+
+           
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -45,7 +46,48 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData["Count"] = 1;
             TempData.Keep();
 
-            return View();
+            TempData["DetailsID"] = null;
+            TempData.Keep();
+
+            return View(objdata);
+        }
+
+
+        public ActionResult EDITINDEX()
+        {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
+
+            if (TempData["DetailsID"] != null)
+            {
+                objdata.SALESTARGET_ID = Convert.ToInt64(TempData["DetailsID"]);
+                TempData.Keep();
+
+                if (Convert.ToInt64(objdata.SALESTARGET_ID) > 0)
+                {
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETHEADERSALESTARGET", objdata.SALESTARGET_ID);
+                    if (objData != null && objData.Rows.Count > 0)
+                    {
+                        DataTable dt = objData;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
+                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLEVEL"]);
+                            objdata.SalesTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            objdata.SalesTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
+                        }
+                    }
+                }
+            }
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+            TempData["Count"] = 1;
+            TempData.Keep();
+            return PartialView("~/Areas/TargetVsAchievement/Views/SalesTarget/Index.cshtml", objdata);
+           
         }
         public ActionResult GetProductEntryList()
         {
@@ -54,72 +96,45 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Int64 DetailsID = 0;
             try
             {
-
-                //if (TempData["DetailsID"] != null)
-                //{
-                //    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
-                //    TempData.Keep();
-                //}
-
-                //if (DetailsID > 0)
-                //{
-                //    //rev Pratik
-                //    //DataTable objData = objdata.GetBOMProductEntryListByID("GetBOMEntryProductsData", DetailsID);
-                //    DataTable objData = objdata.GetBOMProductEntryListByID("GETBOMENTRYPRODUCTSDATA_NEW", DetailsID);
-
-                //    TempData["MultiUom"] = objdata.GetBOMProductEntryListByID("BOMMultiUOMDetails", DetailsID);
-
-                //    //End of rev Pratik
-
-                //    if (objData != null && objData.Rows.Count > 0)
-                //    {
-                //        DataTable dt = objData;
+                if (TempData["DetailsID"] != null)
+                {
+                    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
+                    TempData.Keep();
+                }
+                if (DetailsID > 0)
+                {
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
+                    if (objData != null && objData.Rows.Count > 0)
+                    {
+                        DataTable dt = objData;
 
 
-                //        foreach (DataRow row in dt.Rows)
-                //        {
-                //            bomproductdataobj = new BOMProduct();
-                //            bomproductdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                //            bomproductdataobj.ProductName = Convert.ToString(row["sProducts_Code"]);
-                //            bomproductdataobj.ProductId = Convert.ToString(row["ProductID"]);
-                //            bomproductdataobj.ProductDescription = Convert.ToString(row["sProducts_Name"]);
-                //            bomproductdataobj.DesignNo = Convert.ToString(row["DesignNo"]);
-                //            bomproductdataobj.ItemRevisionNo = Convert.ToString(row["ItemRevisionNo"]);
-                //            bomproductdataobj.ProductQty = Convert.ToString(row["StkQty"]);
-                //            bomproductdataobj.ProductUOM = Convert.ToString(row["StkUOM"]);
-                //            bomproductdataobj.Warehouse = Convert.ToString(row["WarehouseName"]);
-                //            bomproductdataobj.Price = Convert.ToString(row["Price"]);
-                //            bomproductdataobj.Amount = Convert.ToString(row["Amount"]);
-                //            bomproductdataobj.BOMNo = Convert.ToString(row["BOMNo"]);
-                //            bomproductdataobj.RevNo = Convert.ToString(row["RevNo"]);
-                //            if (!String.IsNullOrEmpty(Convert.ToString(row["RevDate"])))
-                //            {
-                //                bomproductdataobj.RevDate = Convert.ToDateTime(row["RevDate"]).ToString("dd-MM-yyyy");
-                //            }
-                //            else
-                //            {
-                //                bomproductdataobj.RevDate = " ";
-                //            }
-                //            bomproductdataobj.Remarks = Convert.ToString(row["Remarks"]);
-                //            bomproductdataobj.ProductsWarehouseID = Convert.ToString(row["WarehouseID"]);
-                //            bomproductdataobj.Tag_Details_ID = Convert.ToString(row["Tag_Details_ID"]);
-                //            bomproductdataobj.Tag_Production_ID = Convert.ToString(row["Tag_Production_ID"]);
-                //            bomproductdataobj.RevNo = Convert.ToString(row["RevNo"]);
-                //            //Rev Pratik
-                //            bomproductdataobj.AltQuantity = Convert.ToString(row["AltQuantity"]);
-                //            bomproductdataobj.AltUom = Convert.ToString(row["AltUom"]);
-                //            bomproductdataobj.MultiUOMSelectionForManufacturing = cSOrder.GetSystemSettingsResult("MultiUOMSelectionForManufacturing");
-                //            //End of rev Pratik
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            productdataobj = new SalesTargetProduct();
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            productdataobj.ActualSL = Convert.ToString(row["SALESTARGETDETAILS_ID"]);
+                            productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
+                            productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
+                            productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
 
-                //            //Rev 1.0
-                //            bomproductdataobj.ActualSL = Convert.ToString(row["SlNO"]);
-                //            //Rev 1.0 End
-                //            bomproductdata.Add(bomproductdataobj);
+                            productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
+                            productdataobj.STARTEDATE = Convert.ToDateTime(row["STARTEDATE"]);
+                            productdataobj.ENDDATE = Convert.ToDateTime(row["ENDDATE"]);
+                            productdataobj.NEWVISIT = Convert.ToInt64(row["NEWVISIT"]);
 
-                //        }
-                //        ViewData["BOMEntryProductsTotalAm"] = bomproductdata.Sum(x => Convert.ToDecimal(x.Amount)).ToString();
-                //    }
-                //}
+                            productdataobj.REVISIT = Convert.ToInt64(row["REVISIT"]);
+                            productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["ORDERAMOUNT"]);
+                            productdataobj.COLLECTION = Convert.ToDecimal(row["COLLECTION"]);
+                            productdataobj.ORDERQTY = Convert.ToDecimal(row["ORDERQTY"]);
+
+                            productdata.Add(productdataobj);
+
+                        }
+                        
+                    }
+                }
 
             }
             catch { }
@@ -154,6 +169,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {                            
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL; 
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -174,6 +191,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             {
                                 udtSalesTarget obj1 = new udtSalesTarget();
                                 obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                                obj1.TARGETLEVEL = item.TARGETLEVEL;
+                                obj1.INTERNALID = item.INTERNALID;
                                 obj1.TIMEFRAME = item.TIMEFRAME;
                                 obj1.STARTEDATE = item.STARTEDATE;
                                 obj1.ENDDATE = item.ENDDATE;
@@ -201,6 +220,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -209,7 +230,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = item.ActualSL;
+                            obj.SlNO = item.ActualSL;
                             udtlist.Add(obj);
                         }
                     }
@@ -220,6 +241,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
@@ -228,7 +251,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = "0";
+                            obj.SlNO = "0";
                             udtlist.Add(obj);
                         }
                     }
@@ -257,6 +280,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             udtSalesTarget obj1 = new udtSalesTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                            obj1.TARGETLEVEL = item.TARGETLEVEL;
+                            obj1.INTERNALID = item.INTERNALID;
                             obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
@@ -275,7 +300,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                 TempData["Count"] = 1;
                 TempData.Keep();
-                
+                TempData["DetailsID"] = null;
+                TempData.Keep();
                 ViewData["DetailsID"] = DetailsID;               
                 ViewData["SalesTargetNo"] = options.SalesTargetNo;
                 ViewData["Success"] = IsProcess;
@@ -307,12 +333,12 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                
                 if (Convert.ToInt64(obj2.SALESTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
                 {
-                    dt = objdata.SalesTargetEntryInsertUpdate("UPDATEMAINPRODUCT",Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                    dt = objdata.SalesTargetEntryInsertUpdate("UPDATESALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
                            , dtSalesTarget, Convert.ToInt64(Session["userid"]));                    
                 }   
                 else
                 { 
-                    dt = objdata.SalesTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                    dt = objdata.SalesTargetEntryInsertUpdate("INSERTSALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
                            , dtSalesTarget, Convert.ToInt64(Session["userid"]));
                    
                 }
@@ -329,9 +355,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             catch { }
             return Success;
         }
-
-
-
         public DataTable ToDataTable<T>(List<T> items)
         {
 
@@ -372,6 +395,42 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             return dataTable;
 
+        }
+
+        public JsonResult SetDataByID(Int64 detailsid = 0, Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["DetailsID"] = detailsid;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success);
+        }
+
+        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string SalesTargetNo)
+        {
+            
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_SALESTARGETASSIGN"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
+                    proc.AddIntegerPara("@ReturnValue", 0,QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);                  
+
+                    int i = proc.RunActionQuery();
+                    retData =Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+                    
+                }
+            }
+            catch { }
+            return Json(retData);
         }
     }
 }

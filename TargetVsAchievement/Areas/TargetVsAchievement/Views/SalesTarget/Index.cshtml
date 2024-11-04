@@ -14,15 +14,33 @@
 <script src="~/Scripts/SearchPopupDatatable.js"></script>
 @*<script src="~/Scripts/SearchPopup.js"></script>*@
 <link href="~/assests/css/SearchPopup.css" rel="stylesheet" />
+<style>
+    #grid .dxgvHSDC > div, #grid .dxgvCSD {
+        width: 100% !important;
+    }
+    .hide {
+        display: none;
+    }
+    .full-grid, #grid {
+        width: 100% !important;
+    }       
+    #gridLevelEntryList, #gridLevelEntryList > tbody > tr > td > div.dxgvHSDC > div {
+        width: 100% !important;
+    }   
 
+    .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
+        background: white !important;
+    }
+</style>
 <style>
     .dxgvControl_PlasticBlue td.dxgvBatchEditModifiedCell_PlasticBlue {
         background: #fff;
     }
-    .dxgvStatusBar_PlasticBlue
-    {
-        display:none;
+
+    .dxgvStatusBar_PlasticBlue {
+        display: none;
     }
+
     .modal-header {
         padding: 8px;
         background: #094e8c;
@@ -223,7 +241,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
 
     .btnPadding .btn {
@@ -641,7 +659,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
+        /*overflow: visible;*/
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -690,7 +708,8 @@
     }
 </style>
 <script>
-
+    var DetailsID = 0;
+    var GBOMNo = "";
     var globalrowindex = 0;
     var rowtime = 0;
     var savemode = "";
@@ -698,8 +717,48 @@
     $(document).ready(function () {
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
-       
+        var d = new Date();
+        SalesTargetDate.SetValue(d);
+        var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
+        var hdnDetailsID = $('#hdnDetailsID').val();
+        if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
+            $('#ddlTargetLevel').val(hdnSalesTargetLevel);
+            $('#HeaderLableID').text("Sales Target -Modify");
+            
+        }
+
+        $('#SalesTargetNo').blur(function () {
+            var value = $(this).val();
+            //alert(value);
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "SalesTarget")",
+                data: JSON.stringify({ SalesTargetNo: value }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    CheckUniqueCode = msg;
+                    if (CheckUniqueCode == 1) {
+                        jAlert('Please enter unique No.');
+                        $('#SalesTargetNo').val("");                       
+                        $('#SalesTargetNo').Focus();
+                    }
+
+                }
+
+            });
+        });
     });
+
+    function CancelAdd() {
+        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+    }
+
+
+    function SalesTargetAdd() {
+        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+    }
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
     }
@@ -731,18 +790,18 @@
     }
     function grid_CustomButtonClick(s) {
 
-            var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
-            if (noofvisiblerows != 1) {
-                gridLevelEntryList.batchEditApi.StartEdit(s);
-                gridLevelEntryList.DeleteRow(s);
-                if ($('#hdnDetailsID').val() == 0) {
-                    resuffleSerial();
-                }
-                else {
-                    DeleteRowProductGrid(s);
-                }
-                //BOMGridSetTotalAmount();
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex);
+            gridLevelEntryList.DeleteRow(globalrowindex);
+            if ($('#hdnDetailsID').val() == 0) {
+                resuffleSerial();
             }
+            else {
+                DeleteRowProductGrid(s);
+            }
+            //BOMGridSetTotalAmount();
+        }
 
     }
     function grid_CustomButtonAddClick(s) {
@@ -776,27 +835,24 @@
         }
     }
 
-    function OpenProductList(s, e) {
+    function OpenLevelList(s, e) {
         if (gridLevelEntryList.GetDataRow(globalrowindex) != null) {
             slno = gridLevelEntryList.GetDataRow(globalrowindex).children[0].innerHTML.trim();
         }
         var TargetLevel = $("#ddlTargetLevel").val();
-        if (TargetLevel = "Region") {
-            GridProductlist("GETREGION");
-        }
+        GridLevellist(TargetLevel);
 
-        typemodal = "A";
-        $('#GridProductlistModel').modal('show');
-        $('#txtGridProductName').focus();
+
+       
+        $('#GridLevellistModel').modal('show');
+        $('#txtGridLevelName').focus();
     }
     function GridProductListkeydown(e) {
 
         if (e.code == "Enter" || e.code == "NumpadEnter") {
-            if ($("#txtGridProductName").val() != '') {
+            if ($("#txtGridLevelName").val() != '') {
                 var TargetLevel = $("#ddlTargetLevel").val();
-                if (TargetLevel = "Region") {
-                    GridProductlist("GETREGION");
-                }
+                GridLevellist(TargetLevel);
             }
         }
         else if (e.code == "ArrowDown") {
@@ -810,60 +866,58 @@
             }
         }
     }
-    function GridProductlist(Action) {
-        var SearchKey=$("#txtGridProductName").val()
+    function GridLevellist(Action) {
+        var SearchKey = $("#txtGridLevelName").val()
         //gridproductlist = 1;
         var OtherDetails = {}
         OtherDetails.SearchKey = SearchKey;
         OtherDetails.Type = Action;
 
         var HeaderCaption = [];
-        HeaderCaption.push("Code");
         HeaderCaption.push("Name");
+        HeaderCaption.push("Code");
 
-        callonServer("../../../Models/TargetWebService.asmx/GetTargetLevelDetailsList", OtherDetails, "GridTargetTable", HeaderCaption, "GridTargetIndex", "SetGridProduct");
+
+        callonServer("../../../Models/TargetWebService.asmx/GetTargetLevelDetailsList", OtherDetails, "GridTargetTable", HeaderCaption, "GridTargetIndex", "SetGridLevel");
 
         setTimeout(function () {
-            $('#txtGridProductName').focus();
+            $('#txtGridLevelName').focus();
         }, 600);
 
     }
-    function SetGridProduct(Id, Name, e) {
-    //alert(Id)
-   // gridproductlist = 0;
+    function SetGridLevel(Id, Name, e) {
+      
         var TargetLevelID = Id;
         var TargetLevelName = Name;
 
         if (TargetLevelID != "") {
 
-            var data = TargetLevelID.split('|');
+            var data = TargetLevelID.split("|");
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 12);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
             gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
+            gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
+            gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
             
 
+            $('#GridLevellistModel').modal('hide');
 
-
-        $('#GridProductlistModel').modal('hide');
-
-
-
+            
+            $('#ddlTargetLevel').prop('disabled', true);
         }
-
     }
 
-    function ProductKeyDown(s, e) {
+    function LevelKeyDown(s, e) {
         console.log(e.htmlEvent.key);
         if (e.htmlEvent.key == "Enter") {
             s.OnButtonClick(0);
         }
-
         else if (e.code == "ArrowDown") {
             if ($("input[GridTargetIndex=0]"))
                 $("input[GridTargetIndex=0]").focus();
@@ -881,110 +935,171 @@
 
 
         if (e != undefined) {
+            e.customArgs["SALESTARGET_ID"] = hdnDetailsID;
             e.customArgs["SalesTargetLevel"] = TargetLevel;
             e.customArgs["SalesTargetNo"] = TargetNo;
             e.customArgs["SalesTargetDate"] = TargetDate;
         }
     }
     function EntrySave(mode) {
+        savemode = mode;
+        hasmsg = 0;
+        var TargetNo = $('#SalesTargetNo').val();
+        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
 
 
-     savemode = mode;
-     hasmsg = 0;
-     var TargetNo = $('#SalesTargetNo').val();
-      var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
-      var TargetLevel = $('#ddlTargetLevel option:selected').val();
-     var oneproduct = "";
-         var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-     if (visiablerow > 0) {
-         for (var i = 100; i > -500; i--) {
-             if (gridLevelEntryList.GetRow(i)) {
-                 if (oneproduct == "" || oneproduct == null) {
-                     oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
-                 }
-             }
-         }
-     }
-
-     //if (visiablerow > 0) {
-     //    for (i = -1; i > -1000; i--) {
-     //        if (gridLevelEntryList.GetRow(i)) {
-     //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-     //            //var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
-
-     //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-     //                //if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-     //                //    jAlert("Product qty should be greater than zero!");
-     //                //    return false;
-     //                //}
-     //                //if ($("#hdnIsBOMRateRequired").val() == 1) {
-     //                //    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-     //                //        jAlert("Product Price should be greater than zero!");
-     //                //        return false;
-     //                //    }
-     //                //}
-
-
-     //                //if (WhareHouseMandatory == "Yes") {
-     //                //    if (IsInventory == "Yes") {
-     //                //        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-     //                //            jAlert("Please select the warehouse");
-     //                //            return false;
-     //                //        }
-     //                //    }
-
-     //                //}
-
-     //            }
-     //        }
-     //    }
-
-     //    for (var i = 0; i < 500; i++) {
-     //        if (gridLevelEntryList.GetRow(i)) {
-     //            var Product = gridLevelEntryList.GetEditor("ProductName").GetValue();
-     //            var IsInventory = gridLevelEntryList.GetEditor("IsInventory").GetValue();
-     //            if (Product != "" && Product != null) {
-     //                if (parseFloat(gridLevelEntryList.GetEditor("ProductQty").GetValue()) == 0) {
-     //                    jAlert("Product qty should be greater than zero!");
-     //                    return false;
-     //                }
-     //                if ($("#hdnIsBOMRateRequired").val() == 1) {
-     //                    if (parseFloat(gridLevelEntryList.GetEditor("Price").GetValue()) == 0) {
-     //                        jAlert("Product Price should be greater than zero!");
-     //                        return false;
-     //                    }
-     //                }
-
-     //                if (WhareHouseMandatory == "Yes") {
-     //                    if (IsInventory == "Yes") {
-     //                        if ((gridLevelEntryList.GetEditor("Warehouse").GetValue() == "") && (gridLevelEntryList.GetEditor("Warehouse").GetValue() == null)) {
-     //                            jAlert("Please select the warehouse");
-     //                            return false;
-     //                        }
-     //                    }
-     //                }
-     //            }
-     //        }
-     //    }
-     //}
+        if (TargetLevel.trim() == "Select" || TargetLevel.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Level to proceed.'
+            });
+            return false;
+        }
+        else if ($("#SalesTargetNo").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Sales Target No to proceed.'
+            });
+            return false;
+        } else if (TargetDate.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Date to proceed.'
+            });
+            return false;
+        }
 
 
 
-     //if (hdnDetailsID == "") {
-     //    RevisionNo = " ";
-     //    RevisionDate = GetServerDateFormat(new Date);
-     //}
-     if (oneproduct != "" && oneproduct != null) {
-         addNewRowToEditgrid();
-         SuffleRows();         
-         gridLevelEntryList.UpdateEdit();
-         gridLevelEntryList.UpdateEdit();
-     }
-     else {
+
+        var oneproduct = "";
+        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (visiablerow > 0) {
+            for (var i = 100; i > -500; i--) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    if (oneproduct == "" || oneproduct == null) {
+                        oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
+                    }
+                }
+            }
+        }
+
+        if (visiablerow > 0) {
+            for (i = -1; i > -1000; i--) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();                   
+
+                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() ==null) {
+                            jAlert("Select Timeframe.");
+                            return false;
+                        }
+                        
+                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                            jAlert("Select Start Date.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                            jAlert("Select End Date.");
+                            return false;
+                        }                      
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+                            jAlert("Order Amount should be greater than zero!");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                            jAlert("Order Qty should be greater than zero!");
+                            return false;
+                        }                       
+
+                    }
+                }
+            }
+
+            for (var i = 0; i < 500; i++) {
+                if (gridLevelEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+                   
+                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
+                            jAlert("Select Timeframe.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                            jAlert("Select Start Date.");
+                            return false;
+                        }
+
+                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                            jAlert("Select End Date.");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+                            jAlert("Order Amount should be greater than zero!");
+                            return false;
+                        }
+
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                            jAlert("Order Qty should be greater than zero!");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
        
-         jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
-         return false;
-     }
+        if (oneproduct != "" && oneproduct != null) {
+            addNewRowToEditgrid();
+            SuffleRows();
+            gridLevelEntryList.UpdateEdit();
+            gridLevelEntryList.UpdateEdit();
+        }
+        else {
+
+            jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
+            return false;
+        }
     }
     function addNewRowToEditgrid() {
         gridLevelEntryList.batchEditApi.EndEdit();
@@ -1010,7 +1125,7 @@
         for (var i = 0; i < 1000; i++) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 11);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1019,7 +1134,7 @@
         for (i = -1; i > -1000; i--) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 11);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1047,74 +1162,80 @@
     }
 
     function OnEndCallback(s, e) {
-       
-        //DetailsID = s.cpDetailsID;
-        //ProductionID = s.cpProductionID;
-        //GBOMNo = s.cpBOMNo;
-        //Message = s.cpMessage;
-        //$('#hdnDetailsID').val(DetailsID);
-        //if (s.cpBatchUpdate == "1") {
 
-        //    s.cpBatchUpdate = "0";
+        DetailsID = s.cpDetailsID;
+        SalesTargetNo = s.cpSalesTargetNo;
+        Message = s.cpMessage;
+        $('#hdnDetailsID').val(DetailsID);
+        if (s.cpBatchUpdate == "1") {
+            s.cpBatchUpdate = "0";
 
+            var newDetailsID = DetailsID;
+            if (DetailsID > 0 && SalesTargetNo != "") {
+                ProductionID = 0;
+                DetailsID = 0;
+                jAlert('Sales Target Number : ' + SalesTargetNo + ' saved successfully.', 'Alert!', function (r) {
+                    if (r) {
+                       
+                        if (savemode == "Exit") {
+                            setTimeout(function () {
+                                var url = $('#hdnListPage').val();
+                                window.location.href = url;
+                            }, 500);
+                        }
+                    }
+                });
+               
+            }
+            else {
 
-        //    if (gridBOMResourcesList.batchEditApi.HasChanges()) {
-        //        gridBOMResourcesList.UpdateEdit();
+                DetailsID = 0;
+                savemode = "";
+                jAlert('Please try again later.');
+                return false;
+            }
+            Message = "";
+          
+        }
 
-        //        setTimeout(function () {
-        //            OnResourcesEndCallback();
-        //        }, 1500);
-
-        //    }
-        //    else {
-        //        var newDetailsID = DetailsID;
-        //        if (DetailsID > 0 && ProductionID > 0 && GBOMNo != "") {
-        //            ProductionID = 0;
-        //            DetailsID = 0;
-        //            jAlert('BOM Number : ' + GBOMNo + ' saved successfully.', 'Alert!', function (r) {
-        //                if (r) {
-        //                    afterSave(savemode, newDetailsID);
-        //                    if (savemode == "Exit") {
-        //                        setTimeout(function () {
-        //                            var url = $('#hdnBOMListPage').val();
-        //                            window.location.href = url;
-        //                        }, 500);
-        //                    }
-        //                }
-        //            });
-        //            // jAlert('BOM Number : ' + GBOMNo + ' Successfully saved.');
-        //        }
-        //        else {
-        //            ProductionID = 0;
-        //            DetailsID = 0;
-        //            savemode = "";
-        //            jAlert('Please try again later.');
-        //            return false;
-        //        }
-        //        Message = "";
-        //    }
-
-        //}
-       
         AddNewRowWithSl();
-        //$('#txtGridProductEntryTotalAmount').val(parseFloat(0).toFixed(2));
-        //if (Message == "duplicate" && hasmsg == 0) {
-        //    jAlert('This BOM no already present!');
-        //    hasmsg = 1;
-        //    return false;
-        //}
-      
+
     }
+
+    function CHANGEDTIMEFRAME(s,e) {
+        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 3);
+        var TIMEFRAME = gridLevelEntryList.GetEditor("TIMEFRAME").GetValue();
+
+        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 4);
+        var STARTEDATE = gridLevelEntryList.GetEditor("STARTEDATE").GetValue();
+       
+        var date = new Date(STARTEDATE),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+
+        
+
+        const _date = new Date(STARTEDATE);     
+        
+        //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 5);
+        //gridLevelEntryList.GetEditor('ENDDATE').SetText(_date.getDate() + 365);
+        
+        
+    }
+
+    
 </script>
 <div class="breadCumb">
-    <span>Sales Target -Add </span>
+    <span id="HeaderLableID">Sales Target -Add </span>
+    <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
-<div class="container">
+<div class="container">   
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class="col-sm-2">
                 <label>Target Level <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
+                    <option value="Select">Select</option>
                     <option value="Region">Region level</option>
                     <option value="ASM">ASM level</option>
                     <option value="SalesOfficer">Sales Officer level</option>
@@ -1123,14 +1244,12 @@
                     <option value="Outlet">Outlet Level</option>
                 </select>
             </div>
-
-            <div class=" col-sm-2">
+            <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control", @MaxLength = "30" })
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
-
             </div>
             <div class=" col-sm-2">
                 <label>Date <span style="color:red">*</span></label>
@@ -1143,7 +1262,7 @@
                                      settings.Properties.EditFormatString = "dd-MM-yyyy";
                                      settings.Width = Unit.Percentage(100);
                                      //settings.Properties.ClientSideEvents.DateChanged = "datevalidateTo";
-                                     //settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
+                                     settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
                                      settings.Properties.UseMaskBehavior = true;
 
                                  }
@@ -1151,49 +1270,49 @@
                     <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
-
         </div>
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
                 @{
                     Html.RenderAction("GetProductEntryList", "SalesTarget");
-
                 }
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="">
             <div class=" mt-4">
-                @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                {*@
-                @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
-                <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
-                @*}*@
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
+                @if (Convert.ToInt16(ViewBag.IsView) == 0)
+                {
+                    <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and Exit</span></button>
+                }
 
             </div>
 
         </div>
     </div>
 </div>
-<input type="hidden" value="0" id="hdnDetailsID" />
+<input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
+<input type="hidden" value="@Model.SALESTARGET_ID" id="hdnDetailsID" />
+<input type="hidden" value="@Model.SalesTargetLevel" id="hdnSalesTargetLevel" />
 <!-- Grid Product List -->
-<div class="modal fade" id="GridProductlistModel" role="dialog">
+<div class="modal fade" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select Product</h4>
+                <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridProductName" autofocus width="100%" placeholder="Search By Product Name or Short Name" />
+                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
                 <div id="GridTargetTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
-                            <th> Code</th>
                             <th> Name</th>
-                           
+                            <th> Code</th>
                         </tr>
                     </table>
                 </div>
