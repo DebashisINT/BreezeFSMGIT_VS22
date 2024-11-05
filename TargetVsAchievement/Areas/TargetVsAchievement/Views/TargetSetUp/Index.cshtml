@@ -712,6 +712,13 @@
         window.location.href = url;
     }
 
+    
+    function AddBrandVolumeValueTarget() {
+        var url = '/TargetVsAchievement/BrandVolumeValueTarget/Index?key=Add';
+        window.location.href = url;
+    }
+
+
     function DateValidateFrom() {
         if (dtTo.GetDate()) {
             if (dtTo.GetDate() < dtFrom.GetDate()) {
@@ -918,7 +925,14 @@
 
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="add-show-btns">
+                        <button type="button" class="btn add-btn w-100" onclick="AddBrandVolumeValueTarget();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
+                        </button>
 
+                    </div>
+                </div>
             </div>
             <div class="clearfix"></div>
             <div class="scrooler">
@@ -931,7 +945,7 @@
         </div>
 </div>
 <input type="hidden" value="@Url.Action("EDITINDEX", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
-
+<input type="hidden" value="@Url.Action("EDITINDEX", "BrandVolumeValueTarget")" id="hdnAddUpdateBrandValueTarget" />
 
 
 

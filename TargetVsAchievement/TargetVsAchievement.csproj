@@ -764,6 +764,7 @@
     <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\_PartialBrandVolumeValueTargetEntry.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
@@ -1089,7 +1090,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61711</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44320/</IISUrl>
+          <IISUrl>https://localhost:44321/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
