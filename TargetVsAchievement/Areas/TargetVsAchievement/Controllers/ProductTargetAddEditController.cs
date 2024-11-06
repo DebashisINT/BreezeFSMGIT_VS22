@@ -138,11 +138,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new ProductTargetAddModel();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
-                            obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.PRODUCTID = item.PRODUCTID;
+                            obj.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj.ORDERQTY = item.ORDERQTY;
                             obj.SlNO = item.SlNO;
                             udtlist.Add(obj);
@@ -156,11 +158,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             udtProductAddTarget obj1 = new udtProductAddTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                            obj1.TARGETLEVEL = item.TARGETLEVEL;
+                            obj1.INTERNALID = item.INTERNALID;
                             obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
-                            obj1.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj1.PRODUCTID = item.PRODUCTID;
+                            obj1.ORDERAMOUNT = item.ORDERAMOUNT;
                             obj1.ORDERQTY = item.ORDERQTY;
                             obj1.SlNO = item.SlNO;
                             udt.Add(obj1);
@@ -181,7 +185,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new ProductTargetAddModel();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
                             obj.TIMEFRAME = item.TIMEFRAME;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
@@ -198,7 +204,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             obj = new ProductTargetAddModel();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
+                            obj.TARGETLEVEL = item.TARGETLEVEL;
                             obj.TIMEFRAME = item.TIMEFRAME;
+                            obj.INTERNALID = item.INTERNALID;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
@@ -233,7 +241,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         {
                             udtProductAddTarget obj1 = new udtProductAddTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
+                            obj1.TARGETLEVEL = item.TARGETLEVEL;
                             obj1.TIMEFRAME = item.TIMEFRAME;
+                            obj1.INTERNALID = item.INTERNALID;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
                             obj1.ORDERAMOUNT = item.ORDERAMOUNT;
@@ -271,9 +281,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 {
                     dtProductTarget.Columns.Remove("UpdateEdit");
                 }
-                if (dtC.Contains("ProductTARGETDETAILS_ID"))
+                if (dtC.Contains("PRODUCTADDTARGETDETAILS_ID"))
                 {
-                    dtProductTarget.Columns.Remove("ProductTARGETDETAILS_ID");
+                    dtProductTarget.Columns.Remove("PRODUCTADDTARGETDETAILS_ID");
                 }
 
 
