@@ -74,6 +74,48 @@ namespace TargetVsAchievement.Models
 
             return list;
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetTargetProductDetailsList(string SearchKey, string Type)
+        {
+
+            List<SalesTargetLevelDetails> list = new List<SalesTargetLevelDetails>();
+
+            string USERID = Convert.ToString(Session["userid"]);
+            SearchKey = SearchKey.Replace("'", "''");
+            BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConnectionString);
+            string Query = "";
+            Query = @"   EXEC PRC_FSMTARGETASSIGN @Action='GETPRODUCTLIST',@SearchKey='" + SearchKey + "',@USERID='" + USERID + "' ";
+
+            DataTable dt = oDBEngine.GetDataTable(Query);
+            if (!String.IsNullOrEmpty(Type))
+            {
+                list = (from DataRow dr in dt.Rows
+                        select new SalesTargetLevelDetails()
+                        {
+                            Level_ID = Convert.ToString(dr["ID"]),
+                            Level_Name = Convert.ToString(dr["NAME"]),
+                            Level_Code = Convert.ToString(dr["CODE"]),
+
+
+                        }).ToList();
+            }
+            else
+            {
+                list = (from DataRow dr in dt.Rows
+                        select new SalesTargetLevelDetails()
+                        {
+                            Level_ID = Convert.ToString(dr["ID"]),
+                            Level_Name = Convert.ToString(dr["NAME"]),
+                            Level_Code = Convert.ToString(dr["CODE"]),
+
+
+                        }).ToList();
+            }
+
+            return list;
+        }
     }
 
     public class SalesTargetLevelDetails
