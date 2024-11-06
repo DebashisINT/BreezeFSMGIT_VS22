@@ -20,11 +20,11 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
         }
         public PartialViewResult _PartialTargetSetUpListing(TargetLevelSetupModel dd)
         {
-            string ACTION = "";
-            if (dd.TargetType== "SalesTarget")
-            {
-                ACTION = "SALESTARGETASSIGN";
-            }
+            //string ACTION = "";
+            //if (dd.TargetType== "SalesTarget")
+            //{
+            //    ACTION = "SALESTARGETASSIGN";
+            //}
             
 
             DataTable dt = new DataTable();
@@ -33,7 +33,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             SqlConnection sqlcon = new SqlConnection(con);
             sqlcon.Open();
             sqlcmd = new SqlCommand("FSM_TARGETASSIGN_LISTING", sqlcon);
-            sqlcmd.Parameters.Add("@ACTION", ACTION);
+            sqlcmd.Parameters.Add("@ACTION", dd.TargetType);
             sqlcmd.Parameters.Add("@USERID", Convert.ToString(Session["userid"]));
             sqlcmd.Parameters.Add("@fromdate", dd.Fromdate);
             sqlcmd.Parameters.Add("@todate", dd.Todate);

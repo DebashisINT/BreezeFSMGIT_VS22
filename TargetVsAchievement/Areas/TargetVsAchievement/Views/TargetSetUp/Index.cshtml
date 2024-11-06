@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    .mt-22
-    {
-        margin-top:22px;
+    .mt-22 {
+        margin-top: 22px;
     }
-    .w-100
-    {
-        width:100%;
+
+    .w-100 {
+        width: 100%;
     }
+
     .eqpadtbl > tbody > tr > td:not(:last-child) {
         padding-right: 20px;
     }
@@ -217,7 +217,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-       /* font-weight: 500;*/
+        /* font-weight: 500;*/
     }
 
     .btnPadding .btn {
@@ -633,7 +633,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-     /*   overflow: visible;*/
+        /*   overflow: visible;*/
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -683,7 +683,7 @@
 </style>
 <script>
 
-    var fromdate; 
+    var fromdate;
     var todate;
     var TargetType = "";
 
@@ -701,7 +701,7 @@
 
     });
 
-  
+
 
     function AddSalesTarget() {
         var url = '/TargetVsAchievement/SalesTarget/Index?key=Add';
@@ -712,12 +712,16 @@
         window.location.href = url;
     }
 
-    
+
     function AddBrandVolumeValueTarget() {
         var url = '/TargetVsAchievement/BrandVolumeValueTarget/Index?key=Add';
         window.location.href = url;
     }
 
+    function AddWODTarget() {
+        var url = '/TargetVsAchievement/WODTarget/Index?key=Add';
+        window.location.href = url;
+    }
 
     function DateValidateFrom() {
         if (dtTo.GetDate()) {
@@ -745,34 +749,69 @@
     }
     function OnStartCallback(s, e) {
         e.customArgs["Fromdate"] = dtFrom.GetText().split("-").reverse().join("-")  ;
-        e.customArgs["Todate"] = dtTo.GetText().split("-").reverse().join("-") ;  
+        e.customArgs["Todate"] = dtTo.GetText().split("-").reverse().join("-") ;
         e.customArgs["TargetType"] = TargetType;
     }
     function EditClick(detailsid) {
         if (parseInt(detailsid) > 0) {
 
             var TargetType = $('#ddlTargetType').val();
-                if (TargetType =="SalesTarget") {
-                        $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("SetDataByID", "SalesTarget")",
-                        data: { detailsid: detailsid, IsView: 0 },
-                        success: function (response) {
-                            if (response != null && response == true) {
-                                var url = $('#hdnAddUpdateSalesTarget').val();
-                                window.location.href = url;
-                            }
-                            else {
-                                jAlert('Please try again later.');
-                                return false;
-                            }
+            if (TargetType == "SalesTarget") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SetDataByID", "SalesTarget")",
+                    data: { detailsid: detailsid, IsView: 0 },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            var url = $('#hdnAddUpdateSalesTarget').val();
+                            window.location.href = url;
                         }
-                    });
-                }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+                });
+            }
+            else if (TargetType == "ProductTarget") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SetDataByID", "ProductTargetAddEdit")",
+                    data: { detailsid: detailsid, IsView: 0 },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            var url = $('#hdnAddUpdateProductTarget').val();
+                            window.location.href = url;
+                        }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+                });
+            }
+            else if (TargetType == "BrandTarget") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SetDataByID", "BrandVolumeValueTarget")",
+                    data: { detailsid: detailsid, IsView: 0 },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            var url = $('#hdnAddUpdateBrandValueTarget').val();
+                            window.location.href = url;
+                        }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+                });
+            }
         }
+    }
 
 
-        }
+
 
  function DeleteClick(ID) {
      $("#hdnID").val(ID);
@@ -896,56 +935,65 @@
                     <div class="add-show-btns">
                         <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
                         @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
-                        <option value="0">Export to</option>
-                        <option value="1">PDF</option>
-                        <option value="2">XLSX</option>
-                        <option value="3">XLS</option>
-                        <option value="4">RTF</option>
-                        <option value="5">CSV</option>
-                    </select>*@
+                                <option value="0">Export to</option>
+                                <option value="1">PDF</option>
+                                <option value="2">XLSX</option>
+                                <option value="3">XLS</option>
+                                <option value="4">RTF</option>
+                                <option value="5">CSV</option>
+                            </select>*@
                     </div>
                 </div>
             </div>
         </div>
-           
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="add-show-btns">
-                        <button type="button" class="btn add-btn w-100" onclick="AddSalesTarget();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
-                        </button>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="add-show-btns">
-                        <button type="button" class="btn add-btn w-100" onclick="AddProductTarget();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
-                        </button>
 
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="add-show-btns">
-                        <button type="button" class="btn add-btn w-100" onclick="AddBrandVolumeValueTarget();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
-                        </button>
-
-                    </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn w-100" onclick="AddSalesTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
+                    </button>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="scrooler">
-                <div id="refreshgrid">
-                    @{
-                        @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
-                    }
+            <div class="col-md-2">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn w-100" onclick="AddProductTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
+                    </button>
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn w-100" onclick="AddBrandVolumeValueTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
+                    </button>
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn w-100" onclick="AddWODTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>WOD Target
+                    </button>
+
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
+        <div class="scrooler">
+            <div id="refreshgrid">
+                @{
+                    @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
+                }
+            </div>
+        </div>
+    </div>
 </div>
 <input type="hidden" value="@Url.Action("EDITINDEX", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 <input type="hidden" value="@Url.Action("EDITINDEX", "BrandVolumeValueTarget")" id="hdnAddUpdateBrandValueTarget" />
+<input type="hidden" value="@Url.Action("EDITINDEX", "ProductTargetAddEdit")" id="hdnAddUpdateProductTarget" />
 
 
 

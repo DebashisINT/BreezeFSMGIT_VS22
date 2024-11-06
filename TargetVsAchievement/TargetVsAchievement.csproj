@@ -225,6 +225,7 @@
     <Compile Include="Areas\TargetVsAchievement\Controllers\SalesTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Areas\TargetVsAchievement\Controllers\TargetSetUpController.cs" />
+    <Compile Include="Areas\TargetVsAchievement\Controllers\WODTargetController.cs" />
     <Compile Include="Areas\TargetVsAchievement\TargetVsAchievementAreaRegistration.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -241,6 +242,7 @@
       <DependentUpon>TargetWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Models\WODModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -764,6 +766,8 @@
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\_PartialBrandVolumeValueTargetEntry.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\WODTarget\Index.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\WODTarget\_PartialWODTargetEntry.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />
