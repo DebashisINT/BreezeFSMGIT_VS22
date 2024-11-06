@@ -761,7 +761,6 @@
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\ProductTargetAddEdit\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\ProductTargetAddEdit\PartialProductTargetEntryGrid.cshtml" />
-    <Content Include="Areas\TargetVsAchievement\Views\AddProductTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\_PartialBrandVolumeValueTargetEntry.cshtml" />

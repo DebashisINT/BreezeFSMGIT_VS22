@@ -33,22 +33,23 @@ namespace TargetVsAchievement.Models
         public string INTERNALID { get; set; }
         public string PRODUCTID { get; set; }
 
-        public DataSet ProductTargetEntryInsertUpdate(String action, DateTime? SalesTargetDate, Int64 SALESTARGET_ID, String SalesTargetLevel, String SalesTargetNo,
-            DataTable dtSalesTarget, Int64 userid = 0
+        public DataSet ProductTargetEntryInsertUpdate(String action, DateTime? ProductTargetDate, Int64 PRODCTTARGET_ID, String ProductTargetLevel, String ProductTargetNo,
+            DataTable dtProductTarget, Int64 userid = 0
             )
         {
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("PRC_PRODUCTTARGETASSIGN");
 
             proc.AddVarcharPara("@ACTION", 150, action);
-            proc.AddVarcharPara("@SalesTargetLevel", 100, SalesTargetLevel);
-            proc.AddDateTimePara("@SalesTargetDate",  Convert.ToDateTime(SalesTargetDate));
-            proc.AddBigIntegerPara("@SALESTARGET_ID", SALESTARGET_ID);
-            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+            proc.AddVarcharPara("@ProductTargetLevel", 100, ProductTargetLevel);
+            proc.AddDateTimePara("@ProductTargetDate",  Convert.ToDateTime(ProductTargetDate));
+            proc.AddBigIntegerPara("@PRODUCTTARGET_ID", PRODUCTTARGET_ID);
+            proc.AddVarcharPara("@ProductTargetNo", 100, ProductTargetNo);
+            proc.AddBigIntegerPara("@USER_ID", userid);
 
             if (action == "INSERTMAINPRODUCT" || action == "UPDATEMAINPRODUCT")
             {
-                proc.AddPara("@UDTSalesTarget", dtSalesTarget);
+                proc.AddPara("@UDTProductTarget", dtProductTarget);
             }
             ds = proc.GetDataSet();
             return ds;
@@ -62,6 +63,7 @@ namespace TargetVsAchievement.Models
         public string SlNO { get; set; }
         public Int64 PRODUCTADDTARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
+        public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
         public string TIMEFRAME { get; set; }
         public DateTime STARTEDATE { get; set; }
