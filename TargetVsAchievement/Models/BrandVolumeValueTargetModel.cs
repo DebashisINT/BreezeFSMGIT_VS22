@@ -9,40 +9,40 @@ namespace TargetVsAchievement.Models
 {
     public class BrandVolumeValueTargetModel
     {
-        public Int64 SALESTARGET_ID { get; set; }
-        public String SalesTargetLevel { get; set; }
-        public String SalesTargetNo { get; set; }
-        public DateTime SalesTargetDate { get; set; }
+        public Int64 TARGET_ID { get; set; }
+        public String TargetType { get; set; }
+        public String TargetNo { get; set; }
+        public DateTime TargetDate { get; set; }
         // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
-        public DataSet SalesTargetEntryInsertUpdate(String action, DateTime? SalesTargetDate, Int64 SALESTARGET_ID, String SalesTargetLevel, String SalesTargetNo,
-            DataTable dtSalesTarget, Int64 userid = 0
+        public DataSet TargetEntryInsertUpdate(String action, DateTime? TargetDate, Int64 TARGET_ID, String TargetType, String TargetNo,
+            DataTable dtTarget, Int64 userid = 0
             )
         {
             DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            ProcedureExecute proc = new ProcedureExecute("PRC_BRANDVOLUMEVALUETARGETASSIGN");
 
             proc.AddVarcharPara("@ACTION", 150, action);
-            proc.AddVarcharPara("@SalesTargetLevel", 100, SalesTargetLevel);
-            proc.AddDateTimePara("@SalesTargetDate", Convert.ToDateTime(SalesTargetDate));
-            proc.AddBigIntegerPara("@SALESTARGET_ID", SALESTARGET_ID);
-            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+            proc.AddVarcharPara("@TargetType", 100, TargetType);
+            proc.AddDateTimePara("@TargetDate", Convert.ToDateTime(TargetDate));
+            proc.AddBigIntegerPara("@TARGET_ID", TARGET_ID);
+            proc.AddVarcharPara("@TargetNo", 100, TargetNo);
             proc.AddBigIntegerPara("@USER_ID", userid);
 
 
-            if (action == "INSERTSALESTARGET" || action == "UPDATESALESTARGET")
+            if (action == "INSERTBRANDTARGET" || action == "UPDATEBRANDTARGET")
             {
-                proc.AddPara("@FSM_UDT_SALESTARGETASSIGN", dtSalesTarget);
+                proc.AddPara("@FSM_UDT_BRANDTARGETASSIGN", dtTarget);
             }
             ds = proc.GetDataSet();
             return ds;
         }
 
-        public DataTable GETSALESTARGETASSIGNDETAILSBYID(String Action, Int64 DetailsID)
+        public DataTable GETTARGETASSIGNDETAILSBYID(String Action, Int64 DetailsID)
         {
             DataTable ds = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            ProcedureExecute proc = new ProcedureExecute("PRC_BRANDVOLUMEVALUETARGETASSIGN");
             proc.AddVarcharPara("@ACTION", 100, Action);
-            proc.AddBigIntegerPara("@SALESTARGET_ID", DetailsID);
+            proc.AddBigIntegerPara("@TARGET_ID", DetailsID);
             ds = proc.GetTable();
             return ds;
         }
@@ -68,13 +68,11 @@ namespace TargetVsAchievement.Models
 
         public DateTime ENDDATE { get; set; }
 
-        public Int64 NEWVISIT { get; set; }
-
-        public Int64 REVISIT { get; set; }
+       
 
         public decimal ORDERAMOUNT { get; set; }
 
-        public decimal COLLECTION { get; set; }
+      
 
         public decimal ORDERQTY { get; set; }
 
@@ -82,14 +80,14 @@ namespace TargetVsAchievement.Models
 
         public string BrandName { get; set; }
 
-        public string BrandId { get; set; }
+        public Int64 BRANDID { get; set; }
 
     }
 
     public class UDTBRANDVOLUMEVALUETARGET
     {
         public string SlNO { get; set; }
-        public Int64 SALESTARGETDETAILS_ID { get; set; }
+        public Int64 TARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
@@ -99,13 +97,8 @@ namespace TargetVsAchievement.Models
 
         public DateTime ENDDATE { get; set; }
 
-        public Int64 NEWVISIT { get; set; }
-
-        public Int64 REVISIT { get; set; }
-
-        public decimal ORDERAMOUNT { get; set; }
-
-        public decimal COLLECTION { get; set; }
+       
+        public decimal ORDERAMOUNT { get; set; }      
 
         public decimal ORDERQTY { get; set; }
 
@@ -113,7 +106,7 @@ namespace TargetVsAchievement.Models
 
         public string BrandName { get; set; }
 
-        public Int64 BrandId { get; set; }
+        public Int64 BRANDID { get; set; }
 
     }
 

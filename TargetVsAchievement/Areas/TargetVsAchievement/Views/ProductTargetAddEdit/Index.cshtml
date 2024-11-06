@@ -3,7 +3,7 @@
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
 
-@model TargetVsAchievement.Models.SalesTargetModel
+@model TargetVsAchievement.Models.ProductTargetAddModel
 @{
     ViewBag.Title = "Product Target - Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -224,7 +224,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
 
     .btnPadding .btn {
@@ -674,7 +674,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
+        /* overflow: visible;*/
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -736,7 +736,38 @@
     $(document).ready(function () {
 
         setTimeout(function () { AddNewRowWithP(); }, 200);
+             var d = new Date();
+             ProductTargetDate.SetValue(d);
+             var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
+             var hdnDetailsID = $('#hdnDetailsID').val();
+             if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
+                 $('#ddlTargetLevel').val(hdnSalesTargetLevel);
+                 $('#HeaderLableID').text("Product Target -Modify");
 
+             }
+
+             $('#ProductTargetNo').blur(function () {
+                 var value = $(this).val();
+                 //alert(value);
+
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "ProductTargetAddEdit")",
+                     data: JSON.stringify({ ProductTargetNo: value }),
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (msg) {
+                         CheckUniqueCode = msg;
+                         if (CheckUniqueCode == 1) {
+                             jAlert('Please enter unique No.');
+                             $('#ProductTargetNo').val("");
+                             $('#ProductTargetNo').Focus();
+                         }
+
+                     }
+
+                 });
+             });
     });
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
@@ -888,11 +919,11 @@
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 11);
+            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 12);
             gridProductTargetEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
             gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridProductTargetEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
-            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 13);
+            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 14);
             gridProductTargetEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
 
 
@@ -953,12 +984,12 @@
         var SearchKey = $("#txtGridProductName").val()
         //GridRegionlist = 1;
         var OtherDetails = {}
-        OtherDetails.SearchKey = SearchKey;
-        OtherDetails.Type = "GETPRODUCTLIST";
+        OtherDetails.SearchKey = SearchKey;        
 
         var HeaderCaption = [];
-        HeaderCaption.push("Code");
         HeaderCaption.push("Name");
+        HeaderCaption.push("Code");
+        
 
         callonServer("../../../Models/TargetWebService.asmx/GetTargetProductDetailsList", OtherDetails, "GridProductTable", HeaderCaption, "GridTargetIndex", "SetGridProduct");
 
@@ -983,7 +1014,7 @@
             gridProductTargetEntryList.GetEditor('TARGETPRODUCTCODE').SetText(TargetProductCode);
             gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 7);
             gridProductTargetEntryList.GetEditor('TARGETPRODUCTNAME').SetText(TargetProductName);
-            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 14);
+            gridProductTargetEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridProductTargetEntryList.GetEditor('PRODUCTID').SetText(TargetProductID);
 
 
@@ -1009,8 +1040,8 @@
 
     function OnStartCallback(s, e) {
 
-        var TargetNo = $('#SalesTargetNo').val();
-        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
+        var TargetNo = $('#ProductTargetNo').val();
+        var TargetDate = GetServerDateFormat(ProductTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
         var hdnDetailsID = $('#hdnDetailsID').val();
         //if (hdnDetailsID > 0) {
@@ -1029,8 +1060,8 @@
 
         savemode = mode;
         hasmsg = 0;
-        var TargetNo = $('#SalesTargetNo').val();
-        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
+        var TargetNo = $('#ProductTargetNo').val();
+        var TargetDate = GetServerDateFormat(ProductTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
 
         if (TargetLevel.trim() == "Select" || TargetLevel.trim() == "") {
@@ -1042,7 +1073,7 @@
             });
             return false;
         }
-        else if ($("#SalesTargetNo").val().trim() == "") {
+        else if ($("#ProductTargetNo").val().trim() == "") {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
@@ -1074,37 +1105,37 @@
 
         if (visiablerow > 0) {
             for (i = -1; i > -1000; i--) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+                if (gridProductTargetEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridProductTargetEntryList.GetEditor("TARGETLEVEL").GetValue();
 
                     if (TARGETLEVEL != "" && TARGETLEVEL != null) {
 
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
                             jAlert("Select Timeframe.");
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("STARTEDATE").GetValue() == null) {
                             jAlert("Select Start Date.");
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("ENDDATE").GetValue() == null) {
                             jAlert("Select End Date.");
                             return false;
                         }
 
-                        if (parseFloat(gridLevelEntryList.GetEditor("TARGETPRODUCTCODE").GetValue()) == 0) {
+                        if (parseFloat(gridProductTargetEntryList.GetEditor("TARGETPRODUCTCODE").GetValue()) == 0) {
                             jAlert("Select Product Code!");
                             return false;
                         }
-                        
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+
+                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
                             jAlert("Order Amount should be greater than zero!");
                             return false;
                         }
 
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
                             jAlert("Order Qty should be greater than zero!");
                             return false;
                         }
@@ -1114,41 +1145,38 @@
             }
 
             for (var i = 0; i < 500; i++) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+                if (gridProductTargetEntryList.GetRow(i)) {
+                    var TARGETLEVEL = gridProductTargetEntryList.GetEditor("TARGETLEVEL").GetValue();
 
                     if (TARGETLEVEL != "" && TARGETLEVEL != null) {
 
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
                             jAlert("Select Timeframe.");
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("STARTEDATE").GetValue() == null) {
                             jAlert("Select Start Date.");
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+                        if (gridProductTargetEntryList.GetEditor("ENDDATE").GetValue() == null) {
                             jAlert("Select End Date.");
                             return false;
                         }
 
-                        if (parseFloat(gridLevelEntryList.GetEditor("TARGETPRODUCTCODE").GetValue()) == 0) {
+                        if (gridProductTargetEntryList.GetEditor("TARGETPRODUCTCODE").GetValue() == null) {
                             jAlert("Select Product Code!");
                             return false;
                         }
-                        
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
+
+                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
                             jAlert("Order Amount should be greater than zero!");
                             return false;
                         }
 
-                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
-                            jAlert("Collection should be greater than zero!");
-                            return false;
-                        }
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
+                       
+                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
                             jAlert("Order Qty should be greater than zero!");
                             return false;
                         }
@@ -1240,10 +1268,10 @@
             s.cpBatchUpdate = "0";
 
             var newDetailsID = DetailsID;
-            if (DetailsID > 0 && SalesTargetNo != "") {
+            if (DetailsID > 0 && ProductTargetNo != "") {
                 ProductionID = 0;
                 DetailsID = 0;
-                jAlert('Product Target Number : ' + SalesTargetNo + ' saved successfully.', 'Alert!', function (r) {
+                jAlert('Product Target Number : ' + ProductTargetNo + ' saved successfully.', 'Alert!', function (r) {
                     if (r) {
 
                         if (savemode == "Exit") {
@@ -1268,10 +1296,11 @@
         }
 
         AddNewRowWithP();
-        
+
 
     }
 </script>
+
 <div class="breadCumb">
     <span>Product Target -Add </span>
     <div id="ApprovalCross" onclick="CancelProductTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
@@ -1294,7 +1323,7 @@
             <div class=" col-sm-2">
                 <label>Document No. <span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ProductTargetNo, new { @class = "form-control" })
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
 
@@ -1305,12 +1334,12 @@
                     @Html.DevExpress().DateEdit(
                                  settings =>
                                  {
-                                     settings.Name = "SalesTargetDate";
+                                     settings.Name = "ProductTargetDate";
                                      settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                      settings.Properties.EditFormatString = "dd-MM-yyyy";
                                      settings.Width = Unit.Percentage(100);
                                      //settings.Properties.ClientSideEvents.DateChanged = "datevalidateTo";
-                                     //settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
+                                     settings.Date = Convert.ToDateTime(@Model.ProductTargetDate);
                                      settings.Properties.UseMaskBehavior = true;
 
                                  }
@@ -1345,7 +1374,9 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="0" id="hdnDetailsID" />
+<input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
+<input type="hidden" value="@Model.PRODUCTTARGET_ID" id="hdnDetailsID" />
+<input type="hidden" value="@Model.ProductTargetLevel" id="hdnSalesTargetLevel" />
 <!-- Grid Level List -->
 <div class="modal fade pmsModal w70" id="GridRegionlistModel" role="dialog">
     <div class="modal-dialog">
@@ -1374,7 +1405,6 @@
     </div>
 </div>
 <!-- Grid Level List-->
-
 <!-- Grid Product List -->
 <div class="modal fade pmsModal w70" id="GridProductlistModel" role="dialog">
     <div class="modal-dialog">
@@ -1389,8 +1419,9 @@
                     <table border='1' width="100%" class="dynamicPopupTblProduct">
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
-                            <th> Code</th>
                             <th> Name</th>
+                            <th> Code</th>
+
 
                         </tr>
                     </table>

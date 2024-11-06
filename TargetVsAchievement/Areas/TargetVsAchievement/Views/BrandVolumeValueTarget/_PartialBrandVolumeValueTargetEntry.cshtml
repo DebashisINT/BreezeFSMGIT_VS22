@@ -1,13 +1,11 @@
 ﻿
-
-
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridLevelEntryList";
     settings.CallbackRouteValues = new { Action = "GetBrandVolumeValueTargetEntryList", Controller = "BrandVolumeValueTarget" };
     settings.KeyFieldName = "ActualSL";
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "BrandVolumeValueTarget", Action = "BatchEditingUpdateSalesTargetEntry" };
+    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "BrandVolumeValueTarget", Action = "BatchEditingUpdateTargetEntry" };
     settings.Settings.VerticalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
     settings.Settings.VerticalScrollableHeight = 200;
     settings.Height = System.Web.UI.WebControls.Unit.Pixel(500);
@@ -34,7 +32,7 @@
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.ReadOnly = true;
-        //  x.Index = 1;
+
     });
 
     settings.HtmlDataCellPrepared += (s, e) =>
@@ -69,6 +67,7 @@
         ButtonEditProperties.Buttons.Add("...");
         ButtonEditProperties.ClientSideEvents.ButtonClick = "OpenLevelList";
         ButtonEditProperties.ClientSideEvents.KeyDown = "LevelKeyDown";
+       // x.Index = 2;
     });
     settings.Columns.Add(x =>
     {
@@ -83,7 +82,7 @@
         comboBoxProperties.Items.Add("Monthly");
         comboBoxProperties.Items.Add("Yearly");
         comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
-
+        // x.Index = 3;
     });
     settings.Columns.Add(x =>
     {
@@ -98,7 +97,7 @@
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
         DevExpress.Web.DateEditProperties dateEditProperties = x.PropertiesEdit as DevExpress.Web.DateEditProperties;
         dateEditProperties.ClientSideEvents.LostFocus = "function(s, e) { CHANGEDTIMEFRAME(s,e); }";
-
+        // x.Index = 4;
     });
 
     settings.Columns.Add(x =>
@@ -112,6 +111,7 @@
         (x.PropertiesEdit as DevExpress.Web.DateEditProperties).EditFormatString = "dd-MM-yyyy";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
+        // x.Index = 5;
     });
 
     settings.Columns.Add(x =>
@@ -126,6 +126,7 @@
         ButtonEditProperties.Buttons.Add("...");
         ButtonEditProperties.ClientSideEvents.ButtonClick = "OpenBrandName";
         ButtonEditProperties.ClientSideEvents.KeyDown = "BrandNameKeyDown";
+        // x.Index = 6;
     });
 
     settings.Columns.Add(x =>
@@ -136,14 +137,12 @@
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
         DevExpress.Web.TextBoxProperties txtEditProperties = x.PropertiesEdit as DevExpress.Web.TextBoxProperties;
-        //txtEditProperties.ClientSideEvents.LostFocus = "function(s, e) { BOMGridSetAmount(s,e); }";
-        // txtEditProperties.ClientSideEvents.KeyDown = "function(s, e) { PriceKeyDown(s,e); }";
         (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).MaskSettings.Mask = "<0..999999999>.<00..99>";
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         x.EditCellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).Style.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-        // x.Index = 8;
+        // x.Index = 7;
     });
 
     settings.Columns.Add(x =>
@@ -155,13 +154,11 @@
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
         (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).MaskSettings.Mask = "<0..999999999>.<00..99>";
         DevExpress.Web.TextBoxProperties txtEditProperties = x.PropertiesEdit as DevExpress.Web.TextBoxProperties;
-        // txtEditProperties.ClientSideEvents.LostFocus = "BOMGridSetTotalAmount";
-        // txtEditProperties.ClientSideEvents.GotFocus = "BOMGridSetAmount";
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         x.EditCellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
         (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).Style.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-        // x.Index = 10;
+        // x.Index = 8;
 
     });
 
@@ -174,7 +171,7 @@
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.ReadOnly = true;
-        //x.Index = 11;
+        //x.Index = 9;
     });
 
 
@@ -201,7 +198,7 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-
+        // x.Index = 10;
     });
 
 
@@ -212,7 +209,7 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-
+        // x.Index = 11;
 
     });
     settings.Columns.Add(x =>
@@ -221,7 +218,7 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
+        // x.Index = 12;
     });
 
     settings.Columns.Add(x =>
@@ -230,23 +227,16 @@
         x.Caption = "";
         x.CellStyle.CssClass = "hide";
         x.HeaderStyle.CssClass = "hide";
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
+        // x.Index = 13;
     });
     settings.Columns.Add(x =>
-{
-    x.FieldName = "BRANDID";
-    x.Caption = "";
-    x.CellStyle.CssClass = "hide";
-    x.HeaderStyle.CssClass = "hide";
-    //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
-});
-
-
-
-
-
-
-
+    {
+        x.FieldName = "BRANDID";
+        x.Caption = "";
+        x.CellStyle.CssClass = "hide";
+        x.HeaderStyle.CssClass = "hide";
+        // x.Index = 14;
+    });
 
 
     settings.CustomJSProperties = (s, e) =>
@@ -274,5 +264,5 @@
 }).Bind(Model).GetHtml()
 
 
-@*<input type="hidden" value="@ViewData["BOMEntryProductsTotalAm"]" id="hdnBOMEntryProductsTo-talAm" />*@
+
 

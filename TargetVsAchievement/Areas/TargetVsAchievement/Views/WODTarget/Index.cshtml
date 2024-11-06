@@ -3,15 +3,16 @@
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
 
-@model TargetVsAchievement.Models.BrandVolumeValueTargetModel
+@model TargetVsAchievement.Models.SalesTargetModel
 @{
-    ViewBag.Title = "Brand Volume/Value Target";
+    ViewBag.Title = "WOD Target";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
 <script src="~/Scripts/SearchPopupDatatable.js"></script>
+@*<script src="~/Scripts/SearchPopup.js"></script>*@
 <link href="~/assests/css/SearchPopup.css" rel="stylesheet" />
 <style>
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
@@ -720,7 +721,7 @@
 
         setTimeout(function () { AddNewRowWithSl(); }, 200);
         var d = new Date();
-        BrandTargetDate.SetValue(d);
+        SalesTargetDate.SetValue(d);
         var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
         var hdnDetailsID = $('#hdnDetailsID').val();
         if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
@@ -735,7 +736,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "BrandVolumeValueTarget")",
+                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "SalesTarget")",
                 data: JSON.stringify({ SalesTargetNo: value }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -743,8 +744,8 @@
                     CheckUniqueCode = msg;
                     if (CheckUniqueCode == 1) {
                         jAlert('Please enter unique No.');
-                        $('#TargetNo').val("");
-                        $('#TargetNo').Focus();
+                        $('#SalesTargetNo').val("");
+                        $('#SalesTargetNo').Focus();
                     }
 
                 }
@@ -758,7 +759,7 @@
     }
 
 
-    function TargetAdd() {
+    function SalesTargetAdd() {
         window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
     }
     function gridclick(s, e) {
@@ -849,7 +850,7 @@
         $('#GridLevellistModel').modal('show');
         $('#txtGridLevelName').focus();
     }
-    function GridLevelListkeydown(e) {
+    function GridProductListkeydown(e) {
 
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             if ($("#txtGridLevelName").val() != '') {
@@ -898,13 +899,13 @@
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 11);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
             gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
             gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
             gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
             gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
             gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
+            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 15);
             gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
 
 
@@ -914,6 +915,7 @@
             $('#ddlTargetLevel').prop('disabled', true);
         }
     }
+
     function LevelKeyDown(s, e) {
         console.log(e.htmlEvent.key);
         if (e.htmlEvent.key == "Enter") {
@@ -924,12 +926,10 @@
                 $("input[GridTargetIndex=0]").focus();
         }
     }
-
-
     function OnStartCallback(s, e) {
 
-        var TargetNo = $('#TargetNo').val();
-        var TargetDate = GetServerDateFormat(BrandTargetDate.GetValue());
+        var TargetNo = $('#SalesTargetNo').val();
+        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
         var hdnDetailsID = $('#hdnDetailsID').val();
         //if (hdnDetailsID > 0) {
@@ -938,17 +938,17 @@
 
 
         if (e != undefined) {
-            e.customArgs["TARGET_ID"] = hdnDetailsID;
-            e.customArgs["TargetType"] = TargetLevel;
-            e.customArgs["TargetNo"] = TargetNo;
-            e.customArgs["TargetDate"] = TargetDate;
+            e.customArgs["SALESTARGET_ID"] = hdnDetailsID;
+            e.customArgs["SalesTargetLevel"] = TargetLevel;
+            e.customArgs["SalesTargetNo"] = TargetNo;
+            e.customArgs["SalesTargetDate"] = TargetDate;
         }
     }
     function EntrySave(mode) {
         savemode = mode;
         hasmsg = 0;
-        var TargetNo = $('#TargetNo').val();
-        var TargetDate = GetServerDateFormat(BrandTargetDate.GetValue());
+        var TargetNo = $('#SalesTargetNo').val();
+        var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
 
 
@@ -957,16 +957,16 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Brand Target Level to proceed.'
+                text: 'Select Target Level to proceed.'
             });
             return false;
         }
-        else if ($("#TargetNo").val().trim() == "") {
+        else if ($("#SalesTargetNo").val().trim() == "") {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter Brand Target No to proceed.'
+                text: 'Enter Sales Target No to proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
@@ -1016,17 +1016,23 @@
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("BrandName").GetValue() == null) {
-                            jAlert("Select Brand");
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
                             return false;
                         }
-                       
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
+                            return false;
+                        }
                         if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
                             jAlert("Order Amount should be greater than zero!");
                             return false;
                         }
 
-                        
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
                         if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
                             jAlert("Order Qty should be greater than zero!");
                             return false;
@@ -1057,8 +1063,12 @@
                             return false;
                         }
 
-                        if (gridLevelEntryList.GetEditor("BrandName").GetValue() == null) {
-                            jAlert("Select Brand");
+                        if (parseFloat(gridLevelEntryList.GetEditor("NEWVISIT").GetValue()) == 0) {
+                            jAlert("New Visit should be greater than zero!");
+                            return false;
+                        }
+                        if (parseFloat(gridLevelEntryList.GetEditor("REVISIT").GetValue()) == 0) {
+                            jAlert("Re Visit should be greater than zero!");
                             return false;
                         }
                         if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
@@ -1066,7 +1076,10 @@
                             return false;
                         }
 
-                        
+                        if (parseFloat(gridLevelEntryList.GetEditor("COLLECTION").GetValue()) == 0) {
+                            jAlert("Collection should be greater than zero!");
+                            return false;
+                        }
                         if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
                             jAlert("Order Qty should be greater than zero!");
                             return false;
@@ -1087,7 +1100,7 @@
         }
         else {
 
-            jAlert('Cannot Save. You must enter atleast one Level to save this entry.');
+            jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
             return false;
         }
     }
@@ -1115,7 +1128,7 @@
         for (var i = 0; i < 1000; i++) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1124,7 +1137,7 @@
         for (i = -1; i > -1000; i--) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 12);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1150,6 +1163,7 @@
 
         return today;
     }
+
     function OnEndCallback(s, e) {
 
         DetailsID = s.cpDetailsID;
@@ -1190,6 +1204,7 @@
         AddNewRowWithSl();
 
     }
+
     function CHANGEDTIMEFRAME(s,e) {
         gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 3);
         var TIMEFRAME = gridLevelEntryList.GetEditor("TIMEFRAME").GetValue();
@@ -1213,68 +1228,9 @@
 
 
 </script>
-
-<script>
-    function OpenBrandName(s, e) {
-       
-        GridBrandlist();
-        $('#GridBrandlistModel').modal('show');
-        $('#txtGridBrandName').focus();
-    }
-    function GridBrandListkeydown(e) {
-
-        if (e.code == "Enter" || e.code == "NumpadEnter") {
-            if ($("#txtGridBrandName").val() != '') {
-                GridBrandlist();
-            }
-        }
-        else if (e.code == "ArrowDown") {
-            if ($("input[GridBrandIndex=" + 0 + "]")) {
-                $("input[GridBrandIndex=" + 0 + "]").focus();
-                iindexprod++;
-            }           
-        }
-    }
-    function GridBrandlist() {
-        var SearchKey = $("#txtGridBrandName").val();        
-        var OtherDetails = {}
-        OtherDetails.SearchKey = SearchKey;      
-
-        var HeaderCaption = [];
-        HeaderCaption.push("Brand Name");
-        callonServer("../../../Models/TargetWebService.asmx/GetTargetBrandDetailsList", OtherDetails, "GridBrandTable", HeaderCaption, "GridBrandIndex", "SetGridBrand");
-
-        setTimeout(function () {
-            $('#txtGridBrandName').focus();
-        }, 600);
-
-    }
-    function SetGridBrand(Id, Name, e) {      
-
-        if (Id != "") {          
-
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 6);
-            gridLevelEntryList.GetEditor('BrandName').SetText(Name);           
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
-            gridLevelEntryList.GetEditor('BRANDID').SetText(Id);           
-            $('#GridBrandlistModel').modal('hide');
-            
-        }
-    }
-    function BrandNameKeyDown(s, e) {
-    
-        if (e.htmlEvent.key == "Enter") {
-            s.OnButtonClick(0);
-        }
-        else if (e.code == "ArrowDown") {
-            if ($("input[GridBrandIndex=0]"))
-                $("input[GridBrandIndex=0]").focus();
-        }
-    }
-</script>
 <div class="breadCumb">
-    <span id="HeaderLableID">Brand Volume/Value Target -Add </span>
-    <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <span id="HeaderLableID">WOD Target -Add </span>
+    <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
@@ -1294,7 +1250,7 @@
             <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.TargetNo, new { @class = "form-control", @MaxLength = "30" })
+                    @Html.TextBoxFor(m => m.SalesTargetNo, new { @class = "form-control", @MaxLength = "30" })
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
@@ -1304,11 +1260,12 @@
                     @Html.DevExpress().DateEdit(
                                  settings =>
                                  {
-                                     settings.Name = "BrandTargetDate";
+                                     settings.Name = "SalesTargetDate";
                                      settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                      settings.Properties.EditFormatString = "dd-MM-yyyy";
-                                     settings.Width = Unit.Percentage(100);                                  
-                                     settings.Date = Convert.ToDateTime(@Model.TargetDate);
+                                     settings.Width = Unit.Percentage(100);
+                                     //settings.Properties.ClientSideEvents.DateChanged = "datevalidateTo";
+                                     settings.Date = Convert.ToDateTime(@Model.SalesTargetDate);
                                      settings.Properties.UseMaskBehavior = true;
 
                                  }
@@ -1321,7 +1278,7 @@
         <div class="scrooler">
             <div id="refreshgrid">
                 @{
-                    Html.RenderAction("GetBrandVolumeValueTargetEntryList", "BrandVolumeValueTarget");
+                    Html.RenderAction("GetWODEntryList", "WODTarget");
                 }
             </div>
         </div>
@@ -1341,9 +1298,9 @@
     </div>
 </div>
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
-<input type="hidden" value="@Model.TARGET_ID" id="hdnDetailsID" />
-<input type="hidden" value="@Model.TargetType" id="hdnSalesTargetLevel" />
-<!-- Grid Level List -->
+<input type="hidden" value="@Model.SALESTARGET_ID" id="hdnDetailsID" />
+<input type="hidden" value="@Model.SalesTargetLevel" id="hdnSalesTargetLevel" />
+<!-- Grid Product List -->
 <div class="modal fade" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1352,7 +1309,7 @@
                 <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="GridLevelListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
+                <input type="text" onkeydown="GridProductListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
                 <div id="GridTargetTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -1369,30 +1326,4 @@
         </div>
     </div>
 </div>
-<!-- Grid Level List-->
-<!-- Grid Brand List -->
-<div class="modal fade" id="GridBrandlistModel" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select Brand</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" onkeydown="GridBrandListkeydown(event)" id="txtGridBrandName" autofocus width="100%" placeholder="Search By  Brand" />
-                <div id="GridBrandTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th> Name</th>                            
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="SetFocusDesc()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Grid Brand List-->
+<!-- Grid Product List-->

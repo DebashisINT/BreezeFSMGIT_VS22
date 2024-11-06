@@ -77,26 +77,26 @@ namespace TargetVsAchievement.Models
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public object GetTargetProductDetailsList(string SearchKey, string Type)
+        public object GetTargetProductDetailsList(string SearchKey)
         {
 
-            List<SalesTargetLevelDetails> list = new List<SalesTargetLevelDetails>();
+            List<ProductDetails> list = new List<ProductDetails>();
 
-            string USERID = Convert.ToString(Session["userid"]);
+           
             SearchKey = SearchKey.Replace("'", "''");
             BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConnectionString);
             string Query = "";
-            Query = @"   EXEC PRC_FSMTARGETASSIGN @Action='GETPRODUCTLIST',@SearchKey='" + SearchKey + "',@USERID='" + USERID + "' ";
+            Query = @"   EXEC PRC_FSMTARGETASSIGN @Action='GETPRODUCTLIST',@SearchKey='" + SearchKey + "' ";
 
             DataTable dt = oDBEngine.GetDataTable(Query);
-            if (!String.IsNullOrEmpty(Type))
+            if (dt.Rows.Count > 0 && dt != null)
             {
                 list = (from DataRow dr in dt.Rows
-                        select new SalesTargetLevelDetails()
+                        select new ProductDetails()
                         {
-                            Level_ID = Convert.ToString(dr["ID"]),
-                            Level_Name = Convert.ToString(dr["NAME"]),
-                            Level_Code = Convert.ToString(dr["CODE"]),
+                            ID = Convert.ToString(dr["ID"]),
+                            Name = Convert.ToString(dr["NAME"]),
+                            Code = Convert.ToString(dr["CODE"]),
 
 
                         }).ToList();
@@ -104,11 +104,11 @@ namespace TargetVsAchievement.Models
             else
             {
                 list = (from DataRow dr in dt.Rows
-                        select new SalesTargetLevelDetails()
+                        select new ProductDetails()
                         {
-                            Level_ID = Convert.ToString(dr["ID"]),
-                            Level_Name = Convert.ToString(dr["NAME"]),
-                            Level_Code = Convert.ToString(dr["CODE"]),
+                            ID = Convert.ToString(dr["ID"]),
+                            Name = Convert.ToString(dr["NAME"]),
+                            Code = Convert.ToString(dr["CODE"]),
 
 
                         }).ToList();
@@ -116,12 +116,62 @@ namespace TargetVsAchievement.Models
 
             return list;
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetTargetBrandDetailsList(string SearchKey)        {
+
+            List<BrandDetails> list = new List<BrandDetails>();           
+            SearchKey = SearchKey.Replace("'", "''");
+            BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConnectionString);
+            string Query = "";
+            Query = @"   EXEC PRC_FSMTARGETASSIGN @Action='GETBRANDLIST',@SearchKey='" + SearchKey + "'";
+
+            DataTable dt = oDBEngine.GetDataTable(Query);
+            if (dt.Rows.Count>0 && dt!=null)
+            {
+                list = (from DataRow dr in dt.Rows
+                        select new BrandDetails()
+                        {
+                            Brand_ID = Convert.ToString(dr["ID"]),
+                            Brand_Name = Convert.ToString(dr["NAME"]),                         
+
+                        }).ToList();
+            }
+            else
+            {
+                list = (from DataRow dr in dt.Rows
+                        select new BrandDetails()
+                        {
+                            Brand_ID = Convert.ToString(dr["ID"]),
+                            Brand_Name = Convert.ToString(dr["NAME"]),
+                        }).ToList();
+            }
+
+            return list;
+        }
+
     }
 
     public class SalesTargetLevelDetails
     {
         public string Level_ID { get; set; }
+        public string Level_Name { get; set; }
         public string Level_Code { get; set; }
-        public string Level_Name { get; set;}
+        
+    }
+
+    public class ProductDetails
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        
+    }
+
+    public class BrandDetails
+    {
+        public string Brand_ID { get; set; }       
+        public string Brand_Name { get; set; }
     }
 }

@@ -10,20 +10,15 @@ using TargetVsAchievement.Models;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
-    public class ProductTargetAddEditController : Controller
+    public class WODTargetController : Controller
     {
-        ProductTargetAddModel objdata = null;
-
-        // GET: TargetVsAchievement/ProductTargetAddEdit
+        WODModel objdata = null;
         Int32 DetailsID = 0;
-        string ProductTargetNo = string.Empty;
-        public ProductTargetAddEditController()
+        string SalesTargetNo = string.Empty;
+        public WODTargetController()
         {
-            objdata = new ProductTargetAddModel();
-            // objdata = new ProductTargetProduct();
+            objdata = new WODModel();
         }
-
-
         public ActionResult Index()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
@@ -34,6 +29,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
+
             TempData["Count"] = 1;
             TempData.Keep();
 
@@ -41,29 +37,30 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData.Keep();
 
             return View(objdata);
-            
         }
+
+
         public ActionResult EDITINDEX()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
 
             if (TempData["DetailsID"] != null)
             {
-                objdata.PRODUCTTARGET_ID = Convert.ToInt64(TempData["DetailsID"]);
+                objdata.SALESTARGET_ID = Convert.ToInt64(TempData["DetailsID"]);
                 TempData.Keep();
 
-                if (Convert.ToInt64(objdata.PRODUCTTARGET_ID) > 0)
+                if (Convert.ToInt64(objdata.SALESTARGET_ID) > 0)
                 {
-                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETHEADERPRODUCTTARGET", objdata.PRODUCTTARGET_ID);
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETHEADERSALESTARGET", objdata.SALESTARGET_ID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
                         DataTable dt = objData;
                         foreach (DataRow row in dt.Rows)
                         {
-                            objdata.PRODUCTTARGET_ID = Convert.ToInt64(row["PRODUCTTARGET_ID"]);
-                            objdata.ProductTargetLevel = Convert.ToString(row["TARGETLEVEL"]);
-                            objdata.ProductTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
-                            objdata.ProductTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
+                            objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
+                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLEVEL"]);
+                            objdata.SalesTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            objdata.SalesTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
                         }
                     }
                 }
@@ -76,13 +73,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             TempData["Count"] = 1;
             TempData.Keep();
-            return PartialView("~/Areas/TargetVsAchievement/Views/ProductTargetAddEdit/Index.cshtml", objdata);
+            return PartialView("~/Areas/TargetVsAchievement/Views/WODTarget/Index.cshtml", objdata);
 
         }
-        public ActionResult GetProductTargetEntryList()
+        public ActionResult GetWODEntryList()
         {
-            ProductTargetDetails productdataobj = new ProductTargetDetails();
-            List<ProductTargetDetails> productdata = new List<ProductTargetDetails>();
+            SalesTargetProduct productdataobj = new SalesTargetProduct();
+            List<SalesTargetProduct> productdata = new List<SalesTargetProduct>();
             Int64 DetailsID = 0;
             try
             {
@@ -93,7 +90,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 }
                 if (DetailsID > 0)
                 {
-                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETDETAILSPRODUCTTARGET", DetailsID);
+                    DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
                         DataTable dt = objData;
@@ -101,9 +98,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            productdataobj = new ProductTargetDetails();
+                            productdataobj = new SalesTargetProduct();
                             productdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                            productdataobj.ActualSL = Convert.ToString(row["PRODUCTTARGETDETAILS_ID"]);
+                            productdataobj.ActualSL = Convert.ToString(row["SALESTARGETDETAILS_ID"]);
                             productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
                             productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
                             productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
@@ -112,11 +109,11 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
                             productdataobj.STARTEDATE = Convert.ToDateTime(row["STARTEDATE"]);
                             productdataobj.ENDDATE = Convert.ToDateTime(row["ENDDATE"]);
-                            productdataobj.TARGETPRODUCTCODE = Convert.ToString(row["TARGETPRODUCTCODE"]);
+                            productdataobj.NEWVISIT = Convert.ToInt64(row["NEWVISIT"]);
 
-                            productdataobj.TARGETPRODUCTNAME = Convert.ToString(row["TARGETPRODUCTNAME"]);
+                            productdataobj.REVISIT = Convert.ToInt64(row["REVISIT"]);
                             productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["ORDERAMOUNT"]);
-                            productdataobj.PRODUCTID = Convert.ToString(row["PRODUCTID"]);
+                            productdataobj.COLLECTION = Convert.ToDecimal(row["COLLECTION"]);
                             productdataobj.ORDERQTY = Convert.ToDecimal(row["ORDERQTY"]);
 
                             productdata.Add(productdataobj);
@@ -128,12 +125,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             }
             catch { }
-            return PartialView("~/Areas/TargetVsAchievement/Views/ProductTargetAddEdit/PartialProductTargetEntryGrid.cshtml", productdata);
+            return PartialView("~/Areas/TargetVsAchievement/Views/WODTarget/_PartialWODTargetEntry.cshtml", productdata);
 
         }
 
+
         [HttpPost, ValidateInput(false)]
-        public ActionResult BatchEditingUpdateProductTargetEntry(DevExpress.Web.Mvc.MVCxGridViewBatchUpdateValues<ProductTargetDetails, int> updateValues, ProductTargetAddModel options)
+        public ActionResult BatchEditingUpdateSalesTargetEntry(DevExpress.Web.Mvc.MVCxGridViewBatchUpdateValues<SalesTargetProduct, int> updateValues, SalesTargetModel options)
         {
             TempData["Count"] = (int)TempData["Count"] + 1;
             TempData.Keep();
@@ -141,30 +139,32 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             String Message = "";
             Int64 SaveDataArea = 0;
 
-            List<udtProductAddTarget> udt = new List<udtProductAddTarget>();
+            List<udtSalesTarget> udt = new List<udtSalesTarget>();
 
             if ((int)TempData["Count"] != 2)
             {
                 Boolean IsProcess = false;
 
-                if (updateValues.Insert.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) < 1)
+                if (updateValues.Insert.Count > 0 && Convert.ToInt64(options.SALESTARGET_ID) < 1)
                 {
-                    List<ProductTargetDetails> udtlist = new List<ProductTargetDetails>();
-                    ProductTargetDetails obj = null;
+                    List<SalesTargetProduct> udtlist = new List<SalesTargetProduct>();
+                    SalesTargetProduct obj = null;
 
                     foreach (var item in updateValues.Insert)
                     {
                         if (Convert.ToInt64(item.TARGETLEVELID) > 0)
                         {
-                            obj = new ProductTargetDetails();
+                            obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
                             obj.TARGETLEVEL = item.TARGETLEVEL;
                             obj.INTERNALID = item.INTERNALID;
                             obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
-                            obj.PRODUCTID = item.PRODUCTID;
+                            obj.NEWVISIT = item.NEWVISIT;
+                            obj.REVISIT = item.REVISIT;
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
+                            obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
                             obj.SlNO = item.SlNO;
                             udtlist.Add(obj);
@@ -176,44 +176,48 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                         foreach (var item in udtlist)
                         {
-                            udtProductAddTarget obj1 = new udtProductAddTarget();
+                            udtSalesTarget obj1 = new udtSalesTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
                             obj1.TARGETLEVEL = item.TARGETLEVEL;
                             obj1.INTERNALID = item.INTERNALID;
                             obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
-                            obj1.PRODUCTID = item.PRODUCTID;
+                            obj1.NEWVISIT = item.NEWVISIT;
+                            obj1.REVISIT = item.REVISIT;
                             obj1.ORDERAMOUNT = item.ORDERAMOUNT;
+                            obj1.COLLECTION = item.COLLECTION;
                             obj1.ORDERQTY = item.ORDERQTY;
                             obj1.SlNO = item.SlNO;
                             udt.Add(obj1);
                         }
-                        IsProcess = ProductTargetInsertUpdate(udt, options);
+                        IsProcess = SalesTargetInsertUpdate(udt, options);
 
 
                     }
 
                 }
-                if (((updateValues.Update.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) > 0) || (updateValues.Insert.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) < 1)) && SaveDataArea == 0)
+                if (((updateValues.Update.Count > 0 && Convert.ToInt64(options.SALESTARGET_ID) > 0) || (updateValues.Insert.Count > 0 && Convert.ToInt64(options.SALESTARGET_ID) < 1)) && SaveDataArea == 0)
                 {
-                    List<ProductTargetDetails> udtlist = new List<ProductTargetDetails>();
-                    ProductTargetDetails obj = null;
+                    List<SalesTargetProduct> udtlist = new List<SalesTargetProduct>();
+                    SalesTargetProduct obj = null;
                     foreach (var item in updateValues.Update)
                     {
                         if (Convert.ToInt64(item.TARGETLEVELID) > 0)
                         {
-                            obj = new ProductTargetDetails();
+                            obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
                             obj.TARGETLEVEL = item.TARGETLEVEL;
-                            obj.TIMEFRAME = item.TIMEFRAME;
                             obj.INTERNALID = item.INTERNALID;
+                            obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
+                            obj.NEWVISIT = item.NEWVISIT;
+                            obj.REVISIT = item.REVISIT;
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj.PRODUCTID = item.PRODUCTID;
+                            obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = item.ActualSL;
+                            obj.SlNO = item.ActualSL;
                             udtlist.Add(obj);
                         }
                     }
@@ -222,17 +226,19 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     {
                         if (Convert.ToInt64(item.TARGETLEVELID) > 0)
                         {
-                            obj = new ProductTargetDetails();
+                            obj = new SalesTargetProduct();
                             obj.TARGETLEVELID = item.TARGETLEVELID;
                             obj.TARGETLEVEL = item.TARGETLEVEL;
-                            obj.TIMEFRAME = item.TIMEFRAME;
                             obj.INTERNALID = item.INTERNALID;
+                            obj.TIMEFRAME = item.TIMEFRAME;
                             obj.STARTEDATE = item.STARTEDATE;
                             obj.ENDDATE = item.ENDDATE;
+                            obj.NEWVISIT = item.NEWVISIT;
+                            obj.REVISIT = item.REVISIT;
                             obj.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj.PRODUCTID = item.PRODUCTID;
+                            obj.COLLECTION = item.COLLECTION;
                             obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = "0";
+                            obj.SlNO = "0";
                             udtlist.Add(obj);
                         }
                     }
@@ -259,65 +265,68 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                         foreach (var item in udtlist)
                         {
-                            udtProductAddTarget obj1 = new udtProductAddTarget();
+                            udtSalesTarget obj1 = new udtSalesTarget();
                             obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
                             obj1.TARGETLEVEL = item.TARGETLEVEL;
-                            obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.INTERNALID = item.INTERNALID;
+                            obj1.TIMEFRAME = item.TIMEFRAME;
                             obj1.STARTEDATE = item.STARTEDATE;
                             obj1.ENDDATE = item.ENDDATE;
+                            obj1.NEWVISIT = item.NEWVISIT;
+                            obj1.REVISIT = item.REVISIT;
                             obj1.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj1.PRODUCTID = item.PRODUCTID;
+                            obj1.COLLECTION = item.COLLECTION;
                             obj1.ORDERQTY = item.ORDERQTY;
                             obj1.SlNO = item.SlNO;
                             udt.Add(obj1);
                         }
 
-                        IsProcess = ProductTargetInsertUpdate(udt, options);
+                        IsProcess = SalesTargetInsertUpdate(udt, options);
                     }
                 }
 
                 TempData["Count"] = 1;
                 TempData.Keep();
-
+                TempData["DetailsID"] = null;
+                TempData.Keep();
                 ViewData["DetailsID"] = DetailsID;
-                ViewData["ProductTargetNo"] = options.ProductTargetNo;
+                ViewData["SalesTargetNo"] = options.SalesTargetNo;
                 ViewData["Success"] = IsProcess;
                 ViewData["Message"] = Message;
             }
 
-            return PartialView("~/Areas/TargetVsAchievement/Views/ProductTargetAddEdit/PartialProductTargetEntryGrid.cshtml", updateValues.Update);
+            return PartialView("~/Areas/TargetVsAchievement/Views/WODTarget/_PartialWODTargetEntry.cshtml", updateValues.Update);
         }
 
-        public Boolean ProductTargetInsertUpdate(List<udtProductAddTarget> obj, ProductTargetAddModel obj2)
+        public Boolean SalesTargetInsertUpdate(List<udtSalesTarget> obj, SalesTargetModel obj2)
         {
             Boolean Success = false;
             try
             {
-                DataTable dtProductTarget = new DataTable();
-                dtProductTarget = ToDataTable(obj);
-                DataColumnCollection dtC = dtProductTarget.Columns;
+                DataTable dtSalesTarget = new DataTable();
+                dtSalesTarget = ToDataTable(obj);
+                DataColumnCollection dtC = dtSalesTarget.Columns;
                 if (dtC.Contains("UpdateEdit"))
                 {
-                    dtProductTarget.Columns.Remove("UpdateEdit");
+                    dtSalesTarget.Columns.Remove("UpdateEdit");
                 }
-                if (dtC.Contains("PRODUCTADDTARGETDETAILS_ID"))
+                if (dtC.Contains("SALESTARGETDETAILS_ID"))
                 {
-                    dtProductTarget.Columns.Remove("PRODUCTADDTARGETDETAILS_ID");
+                    dtSalesTarget.Columns.Remove("SALESTARGETDETAILS_ID");
                 }
 
 
                 DataSet dt = new DataSet();
 
-                if (Convert.ToInt64(obj2.PRODUCTTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
+                if (Convert.ToInt64(obj2.SALESTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
                 {
-                    dt = objdata.ProductTargetEntryInsertUpdate("UPDATEMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
-                           , dtProductTarget, Convert.ToInt64(Session["userid"]));
+                    dt = objdata.SalesTargetEntryInsertUpdate("UPDATESALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                           , dtSalesTarget, Convert.ToInt64(Session["userid"]));
                 }
                 else
                 {
-                    dt = objdata.ProductTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
-                           , dtProductTarget, Convert.ToInt64(Session["userid"]));
+                    dt = objdata.SalesTargetEntryInsertUpdate("INSERTSALESTARGET", Convert.ToDateTime(obj2.SalesTargetDate), Convert.ToInt64(obj2.SALESTARGET_ID), obj2.SalesTargetLevel, obj2.SalesTargetNo
+                           , dtSalesTarget, Convert.ToInt64(Session["userid"]));
 
                 }
                 if (dt != null && dt.Tables[0].Rows.Count > 0)
@@ -326,14 +335,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     {
                         Success = Convert.ToBoolean(row["Success"]);
                         DetailsID = Convert.ToInt32(row["DetailsID"]);
-                        ProductTargetNo = Convert.ToString(obj2.ProductTargetNo);
+                        SalesTargetNo = Convert.ToString(obj2.SalesTargetNo);
                     }
                 }
             }
             catch { }
             return Success;
         }
-
         public DataTable ToDataTable<T>(List<T> items)
         {
 
@@ -397,7 +405,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             try
             {
                 ProcedureExecute proc;
-                using (proc = new ProcedureExecute("PRC_PRODUCTTARGETASSIGN"))
+                using (proc = new ProcedureExecute("PRC_SALESTARGETASSIGN"))
                 {
                     proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
                     proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
