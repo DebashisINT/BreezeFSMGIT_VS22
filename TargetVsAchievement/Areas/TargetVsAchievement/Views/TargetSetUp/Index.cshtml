@@ -807,6 +807,24 @@
                     }
                 });
             }
+            else if (TargetType == "WODTarget") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SetDataByID", "WODTarget")",
+                    data: { detailsid: detailsid, IsView: 0 },
+                    success: function (response) {
+                        if (response != null && response == true) {
+                            var url = $('#hdnAddUpdateWODTarget').val();
+                            window.location.href = url;
+                        }
+                        else {
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                    }
+                });
+            }
+
         }
     }
 
@@ -994,6 +1012,8 @@
 <input type="hidden" value="@Url.Action("EDITINDEX", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 <input type="hidden" value="@Url.Action("EDITINDEX", "BrandVolumeValueTarget")" id="hdnAddUpdateBrandValueTarget" />
 <input type="hidden" value="@Url.Action("EDITINDEX", "ProductTargetAddEdit")" id="hdnAddUpdateProductTarget" />
+<input type="hidden" value="@Url.Action("EDITINDEX", "WODTarget")" id="hdnAddUpdateWODTarget" />
+
 
 
 
