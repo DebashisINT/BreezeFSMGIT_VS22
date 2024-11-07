@@ -1092,7 +1092,7 @@
         for (var i = 0; i < 1000; i++) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 8);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
@@ -1101,7 +1101,7 @@
         for (i = -1; i > -1000; i--) {
             if (gridLevelEntryList.GetRow(i)) {
                 if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
+                    gridLevelEntryList.batchEditApi.StartEdit(i, 8);
                     gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
                 }
             }
