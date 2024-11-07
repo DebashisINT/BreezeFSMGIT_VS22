@@ -411,7 +411,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             return Json(Success);
         }
 
-        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string SalesTargetNo)
+        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string SalesTargetNo, string TargetID)
         {
             
             var retData = 0;
@@ -422,8 +422,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 {
                     proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
                     proc.AddIntegerPara("@ReturnValue", 0,QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);                  
-
+                    proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+                    proc.AddVarcharPara("@TARGET_ID", 100, TargetID);
                     int i = proc.RunActionQuery();
                     retData =Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
                     

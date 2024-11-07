@@ -23,10 +23,10 @@ namespace TargetVsAchievement.Models
             ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
             
             proc.AddVarcharPara("@ACTION", 150, action);
-            proc.AddVarcharPara("@SalesTargetLevel", 100, SalesTargetLevel);
-            proc.AddDateTimePara("@SalesTargetDate", Convert.ToDateTime(SalesTargetDate));
-            proc.AddBigIntegerPara("@SALESTARGET_ID", SALESTARGET_ID);           
-            proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+            proc.AddVarcharPara("@TargetType", 100, SalesTargetLevel);
+            proc.AddDateTimePara("@TargetDate", Convert.ToDateTime(SalesTargetDate));
+            proc.AddBigIntegerPara("@TARGET_ID", SALESTARGET_ID);           
+            proc.AddVarcharPara("@TargetNo", 100, SalesTargetNo);
             proc.AddBigIntegerPara("@USER_ID", userid); 
 
 

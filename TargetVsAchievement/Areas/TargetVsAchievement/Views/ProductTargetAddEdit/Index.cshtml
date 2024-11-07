@@ -749,11 +749,11 @@
              $('#ProductTargetNo').blur(function () {
                  var value = $(this).val();
                  //alert(value);
-
+                 var hdnDetailsID = $("#hdnDetailsID").val();
                  $.ajax({
                      type: "POST",
                      url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "ProductTargetAddEdit")",
-                     data: JSON.stringify({ ProductTargetNo: value }),
+                     data: JSON.stringify({ ProductTargetNo: value, TargetID: hdnDetailsID }),
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
                      success: function (msg) {
