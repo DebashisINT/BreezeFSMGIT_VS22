@@ -153,8 +153,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 8px;
-            right: -2px;
+            top: 33px;
+            right: 13px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -662,7 +662,7 @@
         /*overflow: visible;*/
     }
 
-    #btnSave .btn-icon, .cancel-catg .btn-icon {
+    .save-btn .btn-icon, .cancel-catg .btn-icon {
         border-radius: 50px;
         width: 21px;
         height: 21px;
@@ -672,12 +672,14 @@
         margin-right: 5px;
     }
 
-        #btnSave .btn-icon img {
+        .save-btn .btn-icon img {
             color: #238945;
             width: 14px;
         }
 
-    .cancel-catg, #btnSave {
+
+
+    .cancel-catg, .save-btn {
         transition: all .3s ease-in-out;
     }
 
@@ -690,7 +692,7 @@
             transform: scale(1.1);
         }
 
-        #btnSave:hover {
+        .save-btn:hover {
             transform: scale(1.1);
         }
 
@@ -705,6 +707,38 @@
 
     .close:hover, .close:focus {
         color: #111 !important;
+    }
+
+
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        padding: 3px 6px 3px !important;
+    }
+
+    .dxgvControl_PlasticBlue td.dxgvBatchEditCell_PlasticBlue {
+        padding: 0 !important;
+    }
+
+    .dxgvControl_PlasticBlue .dxeButtonEdit_PlasticBlue
+    {
+        border-radius: 0;
+    }
+
+    .form-control:focus, .dxeFocused_PlasticBlue {
+        border: 1px solid #0374c0;
+    }
+
+    table.dxeFocused_PlasticBlue textarea {
+        border: none !important;
+    }
+
+    .dxeErrorCell_PlasticBlue
+    {
+        display: none;
+    }
+
+    .crossBtnN {
+        color: #fff;
     }
 </style>
 <script>
@@ -1232,7 +1266,7 @@
 <div class="container">   
     <div class="form_main backBox p-3">
         <div class="row mb-4">
-            <div class="col-sm-2">
+            <div class="col-sm-2  h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
@@ -1286,7 +1320,7 @@
 
                 @if (Convert.ToInt16(ViewBag.IsView) == 0)
                 {
-                    <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and Exit</span></button>
+                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
 
             </div>
