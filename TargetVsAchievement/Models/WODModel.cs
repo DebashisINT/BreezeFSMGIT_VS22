@@ -9,11 +9,20 @@ namespace TargetVsAchievement.Models
 {
     public class WODModel
     {
+        public string TARGETLEVELID { get; set; }
+        public string TARGETLEVEL { get; set; }
+        public string INTERNALID { get; set; }
         public Int64 TARGET_ID { get; set; }
         public String TargetType { get; set; }
         public String TargetNo { get; set; }
         public DateTime TargetDate { get; set; }
-       
+
+        public String WODCount { get; set; }
+        public DateTime STARTEDATE { get; set; }
+        public DateTime ENDDATE { get; set; }
+
+        
+
         public DataSet TargetEntryInsertUpdate(String action, DateTime? TargetDate, Int64 TARGET_ID, String TargetType, String TargetNo,
             DataTable dtTarget, Int64 userid = 0
             )
@@ -51,24 +60,26 @@ namespace TargetVsAchievement.Models
 
     public class WODTARGETGRIDLIST
     {
-        public String ActualSL { get; set; }
+        //public String ActualSL { get; set; }
         public string SlNO { get; set; }
         public string TARGETDOCNUMBER { get; set; }
         public string TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
         public string TIMEFRAME { get; set; }
-        public DateTime STARTEDATE { get; set; }
-        public DateTime ENDDATE { get; set; }
-        public Int64 WODCOUNT { get; set; }
-        public string UpdateEdit { get; set; }      
+        public string STARTEDATE { get; set; }
+        public string ENDDATE { get; set; }
+        public string WODCOUNT { get; set; }
+        //public string UpdateEdit { get; set; }
+
+        public String Guids { get; set; }
 
     }
 
     public class UDTWODTARGET
     {
         public string SlNO { get; set; }
-        public Int64 TARGETDETAILS_ID { get; set; }
+        //public Int64 TARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
@@ -76,7 +87,7 @@ namespace TargetVsAchievement.Models
         public DateTime STARTEDATE { get; set; }
         public DateTime ENDDATE { get; set; }
         public Int64 WODCOUNT { get; set; }
-        public Int64 UpdateEdit { get; set; }     
+        //public Int64 UpdateEdit { get; set; }     
 
     }
 }
