@@ -1597,6 +1597,73 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
 
 
 
+
+
+.dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+    padding: 3px 6px 3px !important;
+}
+
+.dxgvControl_PlasticBlue td.dxgvBatchEditCell_PlasticBlue {
+    padding: 0 !important;
+}
+
+.dxgvControl_PlasticBlue .dxeButtonEdit_PlasticBlue {
+    border-radius: 0;
+}
+
+.form-control:focus, .dxeFocused_PlasticBlue {
+    border: 1px solid #0374c0 !important;
+}
+
+table.dxeFocused_PlasticBlue textarea {
+    border: none !important;
+}
+
+.dxeErrorCell_PlasticBlue {
+    display: none;
+}
+
+.crossBtnN {
+    color: #fff;
+}
+
+
+.save-btn .btn-icon, .cancel-catg .btn-icon {
+    border-radius: 50px;
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: #fff;
+    line-height: 20px;
+    margin-right: 5px;
+}
+
+    .save-btn .btn-icon img {
+        color: #238945;
+        width: 14px;
+    }
+
+
+
+.cancel-catg, .save-btn {
+    transition: all .3s ease-in-out;
+}
+
+    .cancel-catg .btn-icon img {
+        color: #DC0505;
+        width: 16px;
+    }
+
+    .cancel-catg:hover {
+        transform: scale(1.1);
+    }
+
+    .save-btn:hover {
+        transform: scale(1.1);
+    }
+
+
+
 @media only screen and (min-width: 768px) and (max-width: 1299px)
 {
     .mainDashBoxes .flex-itm {
