@@ -718,7 +718,7 @@
     var hasmsg = 0;
     $(document).ready(function () {
 
-        setTimeout(function () { AddNewRowWithSl(); }, 200);
+       // setTimeout(function () { AddNewRowWithSl(); }, 200);
         var d = new Date();
         WODTargetDate.SetValue(d);
         var hdnTargetLevel = $('#hdnTargetLevel').val();
@@ -898,14 +898,20 @@
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 9);
-            gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
-            gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
-            gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
-            gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 11);
-            gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
+
+            btnTARGETLEVEL.SetText(TargetLevelName);
+            $("#hdnTARGETLEVELID").val(TargetLevelID);
+            $("#hdnINTERNALID").val(INTERNALID);
+
+
+            //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 9);
+            //gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
+            //gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
+            //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
+            //gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
+            //gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
+            //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 11);
+            //gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
 
 
             $('#GridLevellistModel').modal('hide');
@@ -979,94 +985,156 @@
             return false;
         }
 
+        var TargetNo = $('#TargetNo').val();
+        var TargetDate = GetServerDateFormat(WODTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
+        var hdnDetailsID = $('#hdnDetailsID').val();
+
+        var data = {
+            TARGET_ID:hdnDetailsID,
+            TargetType:TargetLevel,
+            TargetNo:TargetNo,
+            TargetDate:TargetDate
+        }        
 
 
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveWOD", "WODTarget")",           
+            data: "{Details:" + JSON.stringify(data) + "}",
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];
+                    var TargetNo = response.split('~')[2];
+                    var Message = response.split('~')[3];
+                    
+                   
+                    $('#hdnDetailsID').val(DetailsID);
+                    //if (s.cpBatchUpdate == "1") {
+                       // s.cpBatchUpdate = "0";
 
-        var oneproduct = "";
-        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-        if (visiablerow > 0) {
-            for (var i = 100; i > -500; i--) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    if (oneproduct == "" || oneproduct == null) {
-                        oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
-                    }
+                        var newDetailsID = DetailsID;
+                        if (DetailsID > 0 && TargetNo != "") {
+                            ProductionID = 0;
+                            DetailsID = 0;
+                            jAlert('WOD Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
+                                if (r) {
+
+                                    if (savemode == "Exit") {
+                                        setTimeout(function () {
+                                            var url = $('#hdnListPage').val();
+                                            window.location.href = url;
+                                        }, 500);
+                                    }
+                                }
+                            });
+
+                        }
+                        else {
+
+                            DetailsID = 0;
+                            savemode = "";
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                        Message = "";
+
+                   // }
+
                 }
             }
-        }
-
-        if (visiablerow > 0) {
-            for (i = -1; i > -1000; i--) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() ==null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }                       
-
-                        if (parseFloat(gridLevelEntryList.GetEditor("WODCOUNT").GetValue()) == 0) {
-                            jAlert("WOD Count should be greater than zero!");
-                            return false;
-                        }                        
-                    }
-                }
-            }
-
-            for (var i = 0; i < 500; i++) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }
-
-                        if (parseFloat(gridLevelEntryList.GetEditor("WODCOUNT").GetValue()) == 0) {
-                            jAlert("WOD Count should be greater than zero!");
-                            return false;
-                        } 
-                    }
-                }
-            }
-        }
+        });
 
 
+        //var oneproduct = "";
+        //var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
+        //if (visiablerow > 0) {
+        //    for (var i = 100; i > -500; i--) {
+        //        if (gridLevelEntryList.GetRow(i)) {
+        //            if (oneproduct == "" || oneproduct == null) {
+        //                oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
+        //            }
+        //        }
+        //    }
+        //}
+
+        //if (visiablerow > 0) {
+        //    for (i = -1; i > -1000; i--) {
+        //        if (gridLevelEntryList.GetRow(i)) {
+        //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+
+        //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+        //                if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() ==null) {
+        //                    jAlert("Select Timeframe.");
+        //                    return false;
+        //                }
+
+        //                if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+        //                    jAlert("Select Start Date.");
+        //                    return false;
+        //                }
+        //                if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+        //                    jAlert("Select End Date.");
+        //                    return false;
+        //                }
+
+        //                if (parseFloat(gridLevelEntryList.GetEditor("WODCOUNT").GetValue()) == 0) {
+        //                    jAlert("WOD Count should be greater than zero!");
+        //                    return false;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    for (var i = 0; i < 500; i++) {
+        //        if (gridLevelEntryList.GetRow(i)) {
+        //            var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
+
+        //            if (TARGETLEVEL != "" && TARGETLEVEL != null) {
+
+        //                if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
+        //                    jAlert("Select Timeframe.");
+        //                    return false;
+        //                }
+
+        //                if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
+        //                    jAlert("Select Start Date.");
+        //                    return false;
+        //                }
+
+        //                if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
+        //                    jAlert("Select End Date.");
+        //                    return false;
+        //                }
+
+        //                if (parseFloat(gridLevelEntryList.GetEditor("WODCOUNT").GetValue()) == 0) {
+        //                    jAlert("WOD Count should be greater than zero!");
+        //                    return false;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
-        if (oneproduct != "" && oneproduct != null) {
-            addNewRowToEditgrid();
-            SuffleRows();
-            gridLevelEntryList.UpdateEdit();
-            gridLevelEntryList.UpdateEdit();
-        }
-        else {
 
-            jAlert('Cannot Save. You must enter atleast one Level to save this entry.');
-            return false;
-        }
+
+        //if (oneproduct != "" && oneproduct != null) {
+        //    addNewRowToEditgrid();
+        //    SuffleRows();
+        //    gridLevelEntryList.UpdateEdit();
+        //    gridLevelEntryList.UpdateEdit();
+        //}
+        //else {
+
+        //    jAlert('Cannot Save. You must enter atleast one Level to save this entry.');
+        //    return false;
+        //}
     }
     function addNewRowToEditgrid() {
         gridLevelEntryList.batchEditApi.EndEdit();
@@ -1190,7 +1258,86 @@
 
 
 </script>
+<script>
+    function btnAdd_ProductClick() {
 
+
+        var _TimeFrame = $("#ddlTimeFrame").val();
+        var _STARTEDATE = GetServerDateFormat(STARTEDATE.GetValue());
+        var _ENDDATE = GetServerDateFormat(ENDDATE.GetValue());
+        var _WODCount = cWODCount.GetText();
+
+        if ($("#ddlTimeFrame").val().trim()== "Select") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Time Frame to proceed.'
+            });
+            return false;
+        } else if (_STARTEDATE.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Start Date to proceed.'
+            });
+            return false;
+        }
+        else if (_ENDDATE.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select End Date to proceed.'
+            });
+            return false;
+        }
+        else if (parseFloat(_WODCount) ==0) {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Time Frame to proceed.'
+            });
+            return false;
+        }
+
+        var data = {
+             TARGETLEVELID: $("#hdnTARGETLEVELID").val(), 
+             TARGETLEVEL: btnTARGETLEVEL.GetValue(),
+             INTERNALID: $("#hdnINTERNALID").val(),
+             TimeFrame: _TimeFrame,
+             STARTEDATE: _STARTEDATE,
+             ENDDATE: _ENDDATE,
+             WODCount: _WODCount,
+
+
+         }
+         $.ajax({
+             type: "POST",
+             url: "@Url.Action("AddLevelDetails", "WODTarget")",
+            
+             data: "{prod:" + JSON.stringify(data) + "}",
+             async: true,
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 if (response != null) {
+                     gridLevelEntryList.Refresh();
+                     gridLevelEntryList.Refresh();
+
+                         btnTARGETLEVEL.SetValue(''),
+                         $("#hdnTARGETLEVELID").val(''),
+                         $("#hdnINTERNALID").val(''),                     
+                         cWODCount.SetValue("0");
+                         $("#ddlTimeFrame").val("Select");
+                 }
+             }
+         });
+     }
+ 
+</script>
 
 <div class="breadCumb">
     <span id="HeaderLableID">WOD -Add </span>
@@ -1237,6 +1384,89 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-4">
+            <div class=" col-sm-2">
+                <label>Level<span style="color:red">*</span></label>
+                @Html.DevExpress().ButtonEdit(
+                settings =>
+                {
+                    settings.Name = "btnTARGETLEVEL";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Text = @Model.TARGETLEVEL;
+                    settings.ReadOnly = true;
+                    settings.Properties.Buttons.Add("...");
+                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OpenLevelList(s,e);}";
+                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){LevelKeyDown(s,e);}";
+
+                }).GetHtml()
+            </div>
+            <div class="col-sm-2">
+                <label>Time Frame<span style="color:red">*</span></label>
+                <select id="ddlTimeFrame" class="form-control">
+                    <option value="Select">Select</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label>Start Date<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().DateEdit(
+                                 settings =>
+                                 {
+                                     settings.Name = "STARTEDATE";
+                                     settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     settings.Properties.EditFormatString = "dd-MM-yyyy";
+                                     settings.Width = Unit.Percentage(100);
+                                     settings.Date = Convert.ToDateTime(@Model.STARTEDATE);
+                                     settings.Properties.UseMaskBehavior = true;
+
+                                 }
+                        ).GetHtml()
+                    <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-2">
+                <label>End Date<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().DateEdit(
+                                 settings =>
+                                 {
+                                     settings.Name = "ENDDATE";
+                                     settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     settings.Properties.EditFormatString = "dd-MM-yyyy";
+                                     settings.Width = Unit.Percentage(100);
+                                     settings.Date = Convert.ToDateTime(@Model.ENDDATE);
+                                     settings.Properties.UseMaskBehavior = true;
+
+                                 }
+                        ).GetHtml()
+                    <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-4">
+                <label>WOD Count<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().TextBoxFor(m => m.WODCount,
+                     settings =>
+                     {
+                         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                         settings.Properties.ClientInstanceName = "cWODCount";
+                         settings.Properties.MaskSettings.Mask = "<0..999999999>";
+                         settings.ControlStyle.CssClass = "form-control";
+                         // settings.Properties.ClientSideEvents.LostFocus = "function(s,e){EstimateGridSetAmount(s,e);}";
+                     }).GetHtml()
+                    <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-1">
+                <label class="">&nbsp; </label>
+                <div class="relative" style="padding-top: 10px">
+                    <button type="button" id="btnAdd" onclick="btnAdd_ProductClick()" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </div>
+
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
@@ -1263,6 +1493,10 @@
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
 <input type="hidden" value="@Model.TARGET_ID" id="hdnDetailsID" />
 <input type="hidden" value="@Model.TargetType" id="hdnTargetLevel" />
+
+<input type="hidden" value="" id="hdnTARGETLEVELID" />
+<input type="hidden" value="" id="hdnINTERNALID" />
+
 <!-- Grid Level List -->
 <div class="modal fade" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
@@ -1290,4 +1524,3 @@
     </div>
 </div>
 <!-- Grid Level List-->
-
