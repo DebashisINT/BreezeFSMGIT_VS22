@@ -96,10 +96,11 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     if (objData != null && objData.Rows.Count > 0)
                     {
                          dt = objData;
-
+                        String Gid = "";
 
                         foreach (DataRow row in dt.Rows)
                         {
+                            Gid = Guid.NewGuid().ToString();
                             productdataobj = new WODTARGETGRIDLIST();
                             productdataobj.SlNO = Convert.ToString(row["SlNO"]);
                             //productdataobj.ActualSL = Convert.ToString(row["WODTARGETDETAILS_ID"]);
@@ -112,7 +113,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
                             productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
                             productdataobj.WODCOUNT = Convert.ToString(row["WODCOUNT"]);
-                            productdataobj.Guids = Convert.ToString(row["HIddenID"]);
+                            productdataobj.Guids = Gid;
                             productdata.Add(productdataobj);
 
                         }
