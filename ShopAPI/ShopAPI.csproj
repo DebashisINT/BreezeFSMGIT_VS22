@@ -335,6 +335,7 @@
     <Compile Include="Controllers\SubTypeController.cs" />
     <Compile Include="Controllers\SurveyQAImageController.cs" />
     <Compile Include="Controllers\SurveyQuestionAnswerController.cs" />
+    <Compile Include="Controllers\TAInfoDetailsController.cs" />
     <Compile Include="Controllers\TAListController.cs" />
     <Compile Include="Controllers\TAManagementController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
@@ -465,6 +466,7 @@
     <Compile Include="Models\StockModel.cs" />
     <Compile Include="Models\SubType.cs" />
     <Compile Include="Models\SurveyQuestionAnswerModel.cs" />
+    <Compile Include="Models\TAInfoDetailsModel.cs" />
     <Compile Include="Models\TAModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\TimeSheet.cs" />
