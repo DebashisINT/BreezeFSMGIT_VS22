@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer;
+using DevExpress.XtraTreeList.Handler;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,11 +31,13 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
-            TempData["ProductsDetails"] = null;
+            
             TempData["Count"] = 1;
             TempData.Keep();
 
             TempData["DetailsID"] = null;
+            TempData["LevelDetails"] = null;
+
             TempData.Keep();
 
             return View(objdata);
@@ -95,9 +98,24 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                     DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETDETAILSWODTARGET", DetailsID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
-                         dt = objData;
-                        String Gid = "";
+                        dt = objData;
 
+                        DataTable dtable = new DataTable();
+
+                        dtable.Clear();
+                        dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                        dtable.Columns.Add("SlNO", typeof(System.String));
+                        dtable.Columns.Add("TARGETLEVEL", typeof(System.String));
+                        dtable.Columns.Add("TIMEFRAME", typeof(System.String));
+                        dtable.Columns.Add("STARTEDATE", typeof(System.String));
+                        dtable.Columns.Add("ENDDATE", typeof(System.String));
+                        dtable.Columns.Add("WODCOUNT", typeof(System.String));
+                        dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
+                        dtable.Columns.Add("INTERNALID", typeof(System.String));
+
+
+                        String Gid = "";
+                        
                         foreach (DataRow row in dt.Rows)
                         {
                             Gid = Guid.NewGuid().ToString();
@@ -116,8 +134,17 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.Guids = Gid;
                             productdata.Add(productdataobj);
 
+
+                            object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
+                                        Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]), Convert.ToString(row["WODCOUNT"]),
+                                        Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]) };
+                            dtable.Rows.Add(trow);
+
+                           
+
                         }
 
+                        dt = dtable;
                     }
                 }
                 else
@@ -172,7 +199,10 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 dtable.Columns.Add("INTERNALID", typeof(System.String));
 
 
-                object[] trow = { Guid.NewGuid(), 1, prod.TARGETLEVEL, prod.TIMEFRAME, prod.STARTEDATE, prod.ENDDATE, prod.WODCOUNT, prod.TARGETLEVELID, prod.INTERNALID };
+                object[] trow = { Guid.NewGuid(), 1, prod.TARGETLEVEL, prod.TIMEFRAME,
+                        DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"), 
+                    prod.WODCOUNT, prod.TARGETLEVELID, prod.INTERNALID };
                 dtable.Rows.Add(trow);
                 TempData["LevelDetails"] = dtable;
                 TempData.Keep();
@@ -181,7 +211,10 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             {
                 if (string.IsNullOrEmpty(prod.Guids))
                 {
-                    object[] trow = { Guid.NewGuid(), Convert.ToInt32(dt.Rows.Count) + 1, prod.TARGETLEVEL, prod.TIMEFRAME, prod.STARTEDATE, prod.ENDDATE, prod.WODCOUNT, prod.TARGETLEVELID, prod.INTERNALID };
+                    object[] trow = { Guid.NewGuid(), Convert.ToInt32(dt.Rows.Count) + 1, prod.TARGETLEVEL, prod.TIMEFRAME,
+                        DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"), 
+                        prod.WODCOUNT, prod.TARGETLEVELID, prod.INTERNALID };
 
 
                     dt.Rows.Add(trow);
@@ -199,8 +232,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                                 // item["SlNO"] = prod.SlNO;
                                 item["TARGETLEVEL"] = prod.TARGETLEVEL;
                                 item["TIMEFRAME"] = prod.TIMEFRAME;
-                                item["STARTEDATE"] = prod.STARTEDATE;
-                                item["ENDDATE"] = prod.ENDDATE;
+                                item["STARTEDATE"] = DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy");
+                                item["ENDDATE"] = DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy");
                                 item["WODCOUNT"] = prod.WODCOUNT;
                                 item["TARGETLEVELID"] = prod.TARGETLEVELID;
                                 item["INTERNALID"] = prod.INTERNALID;
@@ -248,8 +281,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 obj1.TARGETLEVEL = Convert.ToString(item["TARGETLEVEL"]);
                 obj1.INTERNALID = Convert.ToString(item["INTERNALID"]);               
                 obj1.TIMEFRAME = Convert.ToString(item["TIMEFRAME"]);
-                obj1.STARTEDATE = Convert.ToDateTime(item["STARTEDATE"]);
-                obj1.ENDDATE = Convert.ToDateTime(item["ENDDATE"]);
+                obj1.STARTEDATE = DateTime.ParseExact(Convert.ToString(item["STARTEDATE"]), "dd-MM-yyyy", null); 
+                obj1.ENDDATE = DateTime.ParseExact(Convert.ToString(item["ENDDATE"]), "dd-MM-yyyy", null);
                 obj1.WODCOUNT = Convert.ToInt64(item["WODCOUNT"]);
                 obj1.SlNO = Convert.ToString(item["SlNO"]);
                 
@@ -535,6 +568,8 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Boolean Success = false;
             try
             {
+                TempData["LevelDetails"] = null;
+
                 TempData["DetailsID"] = detailsid;
                 TempData["IsView"] = IsView;
                 TempData.Keep();
@@ -564,6 +599,39 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             catch { }
             return Json(retData);
+        }
+
+        [WebMethod]
+        public JsonResult EditTargetData(String HiddenID)
+        {
+            WODTARGETGRIDLIST ret = new WODTARGETGRIDLIST();
+
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        ret.SlNO = item["SlNO"].ToString();
+                        ret.TARGETLEVEL = item["TARGETLEVEL"].ToString();
+                        ret.TIMEFRAME = item["TIMEFRAME"].ToString();
+                        ret.Guids = item["HIddenID"].ToString();
+                        ret.STARTEDATE = item["STARTEDATE"].ToString();
+                        ret.ENDDATE = item["ENDDATE"].ToString();
+                        ret.WODCOUNT = item["WODCOUNT"].ToString();
+                        //ret.Warehouse = item["Warehouse"].ToString();
+                        ret.TARGETLEVELID = item["TARGETLEVELID"].ToString();
+                        ret.INTERNALID = item["INTERNALID"].ToString();
+                        
+                        break;
+                    }
+                }
+            }
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json(ret);
         }
     }
 }

@@ -91,7 +91,7 @@
         //x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
         //x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         //x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        //x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         //(x.PropertiesEdit as DevExpress.Web.DateEditProperties).EditFormatString = "dd-MM-yyyy";
         x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         //x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
@@ -108,7 +108,7 @@
         //x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
         //x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         //x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        //x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         //(x.PropertiesEdit as DevExpress.Web.DateEditProperties).EditFormatString = "dd-MM-yyyy";
         x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         //x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
@@ -133,6 +133,26 @@
         DevExpress.Web.TextBoxProperties txtEditProperties = x.PropertiesEdit as DevExpress.Web.TextBoxProperties;
 
         //x.Index = 6;
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.Caption = "Action";
+        //x.VisibleIndex = 16;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+        x.SetDataItemTemplateContent(c =>
+        {
+            string EnqRights = "";
+
+            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><i class='fa fa-pencil-square-o assig' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Edit'></i></span><span class='hidden-xs'></span> </a>";
+
+            EnqRights = EnqRights + "&nbsp;&nbsp;<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><i class='fa fa-trash' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Delete'></i></span><span class='hidden-xs'></span></a>";
+
+            ViewContext.Writer.Write(EnqRights);
+        });
     });
 
 
