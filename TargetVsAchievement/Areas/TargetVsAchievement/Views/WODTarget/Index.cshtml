@@ -995,12 +995,12 @@
             TargetType:TargetLevel,
             TargetNo:TargetNo,
             TargetDate:TargetDate
-        }        
+        }
 
 
         $.ajax({
             type: "POST",
-            url: "@Url.Action("SaveWOD", "WODTarget")",           
+            url: "@Url.Action("SaveWOD", "WODTarget")",
             data: "{Details:" + JSON.stringify(data) + "}",
             async: true,
             contentType: "application/json; charset=utf-8",
@@ -1011,8 +1011,8 @@
                     var DetailsID = response.split('~')[1];
                     var TargetNo = response.split('~')[2];
                     var Message = response.split('~')[3];
-                    
-                   
+
+
                     $('#hdnDetailsID').val(DetailsID);
                     //if (s.cpBatchUpdate == "1") {
                        // s.cpBatchUpdate = "0";
@@ -1256,6 +1256,54 @@
 
     }
 
+    function EditLevelData(values)
+    {
+        $.ajax({
+            type: "POST",
+            //url: "@Url.Action("EditTargetData", "WODTarget")",
+            url: "../WODTarget/EditTargetData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
+
+                    //$('#ddlTargetLevel').val(response.TARGETLEVEL);
+                    //$('#TargetNo').val("");
+                    //WODTargetDate.SetValue(d);
+
+                    $("#hdnTARGETLEVELID").val(response.TARGETLEVELID),
+                    $("#hdnINTERNALID").val(response.INTERNALID),   
+
+                    btnTARGETLEVEL.SetValue(response.TARGETLEVEL);
+                    $("#ddlTimeFrame").val(response.TIMEFRAME);
+                    $("#hdnLevelGuiIDS").val(response.Guids);
+
+                    // START DATE
+                    var partsST = response.STARTEDATE.split("-");
+                    var dayST = parseInt(partsST[0], 10);
+                    var monthST = parseInt(partsST[1], 10) - 1; // Month is 0-based
+                    var yearST = parseInt(partsST[2], 10);
+
+                    var dateS = new Date(yearST, monthST, dayST); // Month is 0-based, so 10 represents November
+                    STARTEDATE.SetDate(dateS);
+                    //
+
+
+                    // END DATE
+                    var partsED = response.ENDDATE.split("-");
+                    var dayED = parseInt(partsED[0], 10);
+                    var monthED = parseInt(partsED[1], 10) - 1; // Month is 0-based
+                    var yearED = parseInt(partsED[2], 10);
+
+                    var dateE = new Date(yearED, monthED, dayED); // Month is 0-based, so 10 represents November
+                    ENDDATE.SetDate(dateE);
+                    //
+
+                    cWODCount.SetText(response.WODCOUNT);
+
+                }
+            }
+        });
+    }
 
 </script>
 <script>
@@ -1298,7 +1346,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Select Time Frame to proceed.'
+                text: 'Select WOD Count to proceed.'
             });
             return false;
         }
@@ -1311,7 +1359,7 @@
              STARTEDATE: _STARTEDATE,
              ENDDATE: _ENDDATE,
              WODCount: _WODCount,
-
+            Guids: $("#hdnLevelGuiIDS").val(),
 
          }
          $.ajax({
@@ -1496,6 +1544,7 @@
 
 <input type="hidden" value="" id="hdnTARGETLEVELID" />
 <input type="hidden" value="" id="hdnINTERNALID" />
+<input type="hidden" value="" id="hdnLevelGuiIDS" />
 
 <!-- Grid Level List -->
 <div class="modal fade" id="GridLevellistModel" role="dialog">
