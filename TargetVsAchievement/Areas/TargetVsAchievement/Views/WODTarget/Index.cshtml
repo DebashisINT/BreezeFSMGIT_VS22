@@ -963,7 +963,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'WOD Target Level to proceed.'
+                text: 'Select WOD Target Level to proceed.'
             });
             return false;
         }
@@ -1375,11 +1375,12 @@
                      gridLevelEntryList.Refresh();
                      gridLevelEntryList.Refresh();
 
-                         btnTARGETLEVEL.SetValue(''),
-                         $("#hdnTARGETLEVELID").val(''),
-                         $("#hdnINTERNALID").val(''),                     
+                     btnTARGETLEVEL.SetValue('');
+                     $("#hdnTARGETLEVELID").val('');
+                     $("#hdnINTERNALID").val('');                     
                          cWODCount.SetValue("0");
-                         $("#ddlTimeFrame").val("Select");
+                     $("#ddlTimeFrame").val("Select");
+                     $("#hdnLevelGuiIDS").val('');
                  }
              }
          });

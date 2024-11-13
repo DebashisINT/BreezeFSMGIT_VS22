@@ -718,7 +718,7 @@
     var hasmsg = 0;
     $(document).ready(function () {
 
-        setTimeout(function () { AddNewRowWithSl(); }, 200);
+        //setTimeout(function () { AddNewRowWithSl(); }, 200);
         var d = new Date();
         BrandTargetDate.SetValue(d);
         var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
@@ -763,78 +763,6 @@
     }
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
-    }
-    function AddNewRowWithSl() {
-        gridLevelEntryList.batchEditApi.EndEdit();
-        gridLevelEntryList.AddNewRow();
-        index = globalrowindex;
-        resuffleSerial();
-        setTimeout(function () {
-            gridLevelEntryList.batchEditApi.EndEdit();
-            gridLevelEntryList.batchEditApi.StartEdit(index, 1);
-        }, 200);
-    }
-    function resuffleSerial() {
-        var sl = 1;
-        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-        if (visiablerow > 0 && rowtime == 0) {
-            sl = visiablerow;
-            rowtime++;
-        }
-        for (var i = -1; i > -500; i--) {
-            if (gridLevelEntryList.GetRow(i)) {
-                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                sl = sl + 1;
-            }
-        }
-    }
-    function grid_CustomButtonClick(s) {
-
-        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
-        if (noofvisiblerows != 1) {
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex);
-            gridLevelEntryList.DeleteRow(globalrowindex);
-            if ($('#hdnDetailsID').val() == 0) {
-                resuffleSerial();
-            }
-            else {
-                DeleteRowProductGrid(s);
-            }
-            //BOMGridSetTotalAmount();
-        }
-
-    }
-    function grid_CustomButtonAddClick(s) {
-        AddNewRowWithSl();
-    }
-
-    function DeleteRowProductGrid(edit) {
-        var sl = 1;
-        gridLevelEntryList.batchEditApi.EndEdit();
-        for (var i = 0; i < 500; i++) {
-            if (gridLevelEntryList.GetRow(i)) {
-                var tr = gridLevelEntryList.GetRow(i);
-                if (tr.style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                    gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                    sl = sl + 1;
-                }
-            }
-        }
-        for (var i = -1; i > -500; i--) {
-            if (gridLevelEntryList.GetRow(i)) {
-                var tr = gridLevelEntryList.GetRow(i);
-                if (tr.style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                    gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-                    sl = sl + 1;
-                }
-            }
-        }
     }
 
     function OpenLevelList(s, e) {
@@ -898,18 +826,12 @@
             TargetLevelID = data[0];
             var INTERNALID = data[1];
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 11);
-            gridLevelEntryList.GetEditor('TARGETLEVELID').SetText(TargetLevelID);
-            gridLevelEntryList.GetEditor('TARGETLEVELID').visible = false;
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
-            gridLevelEntryList.GetEditor('TARGETLEVEL').SetText(TargetLevelName);
-            gridLevelEntryList.GetEditor('TARGETLEVEL').visible = false;
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 13);
-            gridLevelEntryList.GetEditor('INTERNALID').SetText(INTERNALID);
+            btnTARGETLEVEL.SetText(TargetLevelName);
+            $("#hdnTARGETLEVELID").val(TargetLevelID);
+            $("#hdnINTERNALID").val(INTERNALID);
 
 
             $('#GridLevellistModel').modal('hide');
-
 
             $('#ddlTargetLevel').prop('disabled', true);
         }
@@ -979,156 +901,70 @@
             return false;
         }
 
+        var TargetNo = $('#TargetNo').val();
+        var TargetDate = GetServerDateFormat(BrandTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
+        var hdnDetailsID = $('#hdnDetailsID').val();
+
+        var data = {
+            TARGET_ID:hdnDetailsID,
+            TargetType:TargetLevel,
+            TargetNo:TargetNo,
+            TargetDate:TargetDate
+        }
 
 
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveBrandTarget", "BrandVolumeValueTarget")",
+            data: "{Details:" + JSON.stringify(data) + "}",
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];
+                    var TargetNo = response.split('~')[2];
+                    var Message = response.split('~')[3];
 
-        var oneproduct = "";
-        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-        if (visiablerow > 0) {
-            for (var i = 100; i > -500; i--) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    if (oneproduct == "" || oneproduct == null) {
-                        oneproduct = gridLevelEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
-                    }
+
+                    $('#hdnDetailsID').val(DetailsID);
+                    //if (s.cpBatchUpdate == "1") {
+                       // s.cpBatchUpdate = "0";
+
+                        var newDetailsID = DetailsID;
+                        if (DetailsID > 0 && TargetNo != "") {
+                            ProductionID = 0;
+                            DetailsID = 0;
+                            jAlert('Brand Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
+                                if (r) {
+
+                                    if (savemode == "Exit") {
+                                        setTimeout(function () {
+                                            var url = $('#hdnListPage').val();
+                                            window.location.href = url;
+                                        }, 500);
+                                    }
+                                }
+                            });
+
+                        }
+                        else {
+
+                            DetailsID = 0;
+                            savemode = "";
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                        Message = "";
+
+                   // }
+
                 }
             }
-        }
+        });
 
-        if (visiablerow > 0) {
-            for (i = -1; i > -1000; i--) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() ==null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("BrandName").GetValue() == null) {
-                            jAlert("Select Brand");
-                            return false;
-                        }
-                       
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
-                            jAlert("Order Amount should be greater than zero!");
-                            return false;
-                        }
-
-                        
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
-                            jAlert("Order Qty should be greater than zero!");
-                            return false;
-                        }
-
-                    }
-                }
-            }
-
-            for (var i = 0; i < 500; i++) {
-                if (gridLevelEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridLevelEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridLevelEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }
-
-                        if (gridLevelEntryList.GetEditor("BrandName").GetValue() == null) {
-                            jAlert("Select Brand");
-                            return false;
-                        }
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
-                            jAlert("Order Amount should be greater than zero!");
-                            return false;
-                        }
-
-                        
-                        if (parseFloat(gridLevelEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
-                            jAlert("Order Qty should be greater than zero!");
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-
-        if (oneproduct != "" && oneproduct != null) {
-            addNewRowToEditgrid();
-            SuffleRows();
-            gridLevelEntryList.UpdateEdit();
-            gridLevelEntryList.UpdateEdit();
-        }
-        else {
-
-            jAlert('Cannot Save. You must enter atleast one Level to save this entry.');
-            return false;
-        }
-    }
-    function addNewRowToEditgrid() {
-        gridLevelEntryList.batchEditApi.EndEdit();
-        gridLevelEntryList.AddNewRow();
-
-        var sl = 1;
-        var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-        if (visiablerow > 0) {
-            sl = visiablerow;
-        }
-        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 1);
-        gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-
-
-        setTimeout(function () {
-            gridLevelEntryList.batchEditApi.EndEdit();
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
-        }, 200);
-
-
-    }
-    function SuffleRows() {
-        for (var i = 0; i < 1000; i++) {
-            if (gridLevelEntryList.GetRow(i)) {
-                if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
-                    gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
-                }
-            }
-        }
-
-        for (i = -1; i > -1000; i--) {
-            if (gridLevelEntryList.GetRow(i)) {
-                if (gridLevelEntryList.GetRow(i).style.display != "none") {
-                    gridLevelEntryList.batchEditApi.StartEdit(i, 10);
-                    gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
-                }
-            }
-        }
     }
     function GetServerDateFormat(today) {
         if (today != "" && today != null) {
@@ -1216,7 +1052,7 @@
 
 <script>
     function OpenBrandName(s, e) {
-       
+
         GridBrandlist();
         $('#GridBrandlistModel').modal('show');
         $('#txtGridBrandName').focus();
@@ -1232,13 +1068,13 @@
             if ($("input[GridBrandIndex=" + 0 + "]")) {
                 $("input[GridBrandIndex=" + 0 + "]").focus();
                 iindexprod++;
-            }           
+            }
         }
     }
     function GridBrandlist() {
-        var SearchKey = $("#txtGridBrandName").val();        
+        var SearchKey = $("#txtGridBrandName").val();
         var OtherDetails = {}
-        OtherDetails.SearchKey = SearchKey;      
+        OtherDetails.SearchKey = SearchKey;
 
         var HeaderCaption = [];
         HeaderCaption.push("Brand Name");
@@ -1249,20 +1085,28 @@
         }, 600);
 
     }
-    function SetGridBrand(Id, Name, e) {      
+    function SetGridBrand(Id, Name, e) {
 
-        if (Id != "") {          
+        var BrandID = Id;
+        var BrandName = Name;
 
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 6);
-            gridLevelEntryList.GetEditor('BrandName').SetText(Name);           
-            gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
-            gridLevelEntryList.GetEditor('BRANDID').SetText(Id);           
+        if (Id != "") {
+
+            btnBRAND.SetText(BrandName);
+            $("#hdnBRANDID").val(BrandID);
+
+            //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 6);
+            //gridLevelEntryList.GetEditor('BrandName').SetText(Name);
+            //gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 14);
+            //gridLevelEntryList.GetEditor('BRANDID').SetText(Id);
+
+
             $('#GridBrandlistModel').modal('hide');
-            
+
         }
     }
     function BrandNameKeyDown(s, e) {
-    
+
         if (e.htmlEvent.key == "Enter") {
             s.OnButtonClick(0);
         }
@@ -1271,6 +1115,163 @@
                 $("input[GridBrandIndex=0]").focus();
         }
     }
+
+    function btnAdd_ProductClick() {
+        var _TimeFrame = $("#ddlTimeFrame").val();
+        var _STARTEDATE = GetServerDateFormat(STARTEDATE.GetValue());
+        var _ENDDATE = GetServerDateFormat(ENDDATE.GetValue());
+
+        var _BRANDNAME = btnBRAND.GetValue();
+        var _ORDERAMOUNT = cORDERAMOUNT.GetText();
+        var _ORDERQTY = cORDERQTY.GetText();
+
+        if ($("#ddlTimeFrame").val().trim()== "Select") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Time Frame to proceed.'
+            });
+            return false;
+        } else if (_STARTEDATE.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Start Date to proceed.'
+            });
+            return false;
+        }
+        else if (_ENDDATE.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select End Date to proceed.'
+            });
+            return false;
+        }
+
+        else if (_BRANDNAME.trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Product Brand to proceed.'
+            });
+            return false;
+        }
+        else if (parseFloat(_ORDERAMOUNT) == 0) {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Order Amount to proceed.'
+            });
+            return false;
+        }
+        else if (parseFloat(_ORDERQTY) == 0) {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Order Quantity to proceed.'
+            });
+            return false;
+        }
+
+        var data = {
+            TARGETLEVELID: $("#hdnTARGETLEVELID").val(),
+            TARGETLEVEL: btnTARGETLEVEL.GetValue(),
+            INTERNALID: $("#hdnINTERNALID").val(),
+            TimeFrame: _TimeFrame,
+            STARTEDATE: _STARTEDATE,
+            ENDDATE: _ENDDATE,
+            BRANDNAME: _BRANDNAME,
+            BRANDID: $("#hdnBRANDID").val(),
+            ORDERAMOUNT: _ORDERAMOUNT,
+            ORDERQTY: _ORDERQTY,
+            Guids: $("#hdnLevelGuiIDS").val(),
+
+         }
+         $.ajax({
+             type: "POST",
+             url: "@Url.Action("AddLevelDetails", "BrandVolumeValueTarget")",
+
+             data: "{prod:" + JSON.stringify(data) + "}",
+             async: true,
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 if (response != null) {
+                    gridLevelEntryList.Refresh();
+                    gridLevelEntryList.Refresh();
+
+                     btnTARGETLEVEL.SetValue('');
+                     $("#hdnTARGETLEVELID").val('');
+                     $("#hdnINTERNALID").val('');
+                    $("#ddlTimeFrame").val("Select");
+                     btnBRAND.SetValue('');
+                     $("#hdnBRANDID").val('');
+                    cORDERAMOUNT.SetValue("0");
+                     cORDERQTY.SetValue("0");
+                     $("#hdnLevelGuiIDS").val('');
+                 }
+             }
+         });
+    }
+
+    function EditLevelData(values) {
+        $.ajax({
+            type: "POST",
+            url: "../BrandVolumeValueTarget/EditTargetData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
+
+                    //$('#ddlTargetLevel').val(response.TARGETLEVEL);
+                    //$('#TargetNo').val("");
+                    //WODTargetDate.SetValue(d);
+
+                    $("#hdnTARGETLEVELID").val(response.TARGETLEVELID),
+                    $("#hdnINTERNALID").val(response.INTERNALID),
+
+                    btnTARGETLEVEL.SetValue(response.TARGETLEVEL);
+                    $("#ddlTimeFrame").val(response.TIMEFRAME);
+                    $("#hdnLevelGuiIDS").val(response.Guids);
+
+                    // START DATE
+                    var partsST = response.STARTEDATE.split("-");
+                    var dayST = parseInt(partsST[0], 10);
+                    var monthST = parseInt(partsST[1], 10) - 1; // Month is 0-based
+                    var yearST = parseInt(partsST[2], 10);
+
+                    var dateS = new Date(yearST, monthST, dayST); // Month is 0-based, so 10 represents November
+                    STARTEDATE.SetDate(dateS);
+                    //
+
+
+                    // END DATE
+                    var partsED = response.ENDDATE.split("-");
+                    var dayED = parseInt(partsED[0], 10);
+                    var monthED = parseInt(partsED[1], 10) - 1; // Month is 0-based
+                    var yearED = parseInt(partsED[2], 10);
+
+                    var dateE = new Date(yearED, monthED, dayED); // Month is 0-based, so 10 represents November
+                    ENDDATE.SetDate(dateE);
+                    //
+
+                    $("#hdnBRANDID").val(response.BRANDID),
+                    btnBRAND.SetValue(response.BRANDNAME);
+
+                    cORDERAMOUNT.SetText(response.ORDERAMOUNT);
+                    cORDERQTY.SetText(response.ORDERQTY);
+
+                }
+            }
+        });
+    }
+
 </script>
 <div class="breadCumb">
     <span id="HeaderLableID">Brand Volume/Value Target -Add </span>
@@ -1307,7 +1308,7 @@
                                      settings.Name = "BrandTargetDate";
                                      settings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                      settings.Properties.EditFormatString = "dd-MM-yyyy";
-                                     settings.Width = Unit.Percentage(100);                                  
+                                     settings.Width = Unit.Percentage(100);
                                      settings.Date = Convert.ToDateTime(@Model.TargetDate);
                                      settings.Properties.UseMaskBehavior = true;
 
@@ -1317,6 +1318,119 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-4">
+            <div class=" col-sm-2">
+                <label>Level<span style="color:red">*</span></label>
+                @Html.DevExpress().ButtonEdit(
+                settings =>
+                {
+                    settings.Name = "btnTARGETLEVEL";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Text = @Model.TARGETLEVEL;
+                    settings.ReadOnly = true;
+                    settings.Properties.Buttons.Add("...");
+                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OpenLevelList(s,e);}";
+                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){LevelKeyDown(s,e);}";
+
+                }).GetHtml()
+            </div>
+            <div class="col-sm-2">
+                <label>Time Frame<span style="color:red">*</span></label>
+                <select id="ddlTimeFrame" class="form-control">
+                    <option value="Select">Select</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label>Start Date<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().DateEdit(
+                                 settings =>
+                                 {
+                                     settings.Name = "STARTEDATE";
+                                     settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     settings.Properties.EditFormatString = "dd-MM-yyyy";
+                                     settings.Width = Unit.Percentage(100);
+                                     settings.Date = Convert.ToDateTime(@Model.STARTEDATE);
+                                     settings.Properties.UseMaskBehavior = true;
+
+                                 }
+                        ).GetHtml()
+                    <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-2">
+                <label>End Date<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().DateEdit(
+                                 settings =>
+                                 {
+                                     settings.Name = "ENDDATE";
+                                     settings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     settings.Properties.EditFormatString = "dd-MM-yyyy";
+                                     settings.Width = Unit.Percentage(100);
+                                     settings.Date = Convert.ToDateTime(@Model.ENDDATE);
+                                     settings.Properties.UseMaskBehavior = true;
+
+                                 }
+                        ).GetHtml()
+                    <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-2">
+                <label>Brand Name<span style="color:red">*</span></label>
+                @Html.DevExpress().ButtonEdit(
+                settings =>
+                {
+                    settings.Name = "btnBRAND";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Text = @Model.BRANDNAME;
+                    settings.ReadOnly = true;
+                    settings.Properties.Buttons.Add("...");
+                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OpenBrandName(s,e);}";
+                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){BrandNameKeyDown(s,e);}";
+
+                }).GetHtml()
+            </div>
+            <div class=" col-sm-4">
+                <label>Order Amount<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().TextBoxFor(m => m.ORDERAMOUNT,
+                     settings =>
+                     {
+                         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                         settings.Properties.ClientInstanceName = "cORDERAMOUNT";
+                         settings.Properties.MaskSettings.Mask = "<0..999999999>.<00..99>";
+                         settings.ControlStyle.CssClass = "form-control";
+                         // settings.Properties.ClientSideEvents.LostFocus = "function(s,e){EstimateGridSetAmount(s,e);}";
+                     }).GetHtml()
+                    <span id="EBOMNo" spnORDERAMOUNT="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-4">
+                <label>Order Quantity<span style="color:red">*</span></label>
+                <div class="relative">
+                    @Html.DevExpress().TextBoxFor(m => m.ORDERQTY,
+                     settings =>
+                     {
+                         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                         settings.Properties.ClientInstanceName = "cORDERQTY";
+                         settings.Properties.MaskSettings.Mask = "<0..999999999>.<00..99>";
+                         settings.ControlStyle.CssClass = "form-control";
+                         // settings.Properties.ClientSideEvents.LostFocus = "function(s,e){EstimateGridSetAmount(s,e);}";
+                     }).GetHtml()
+                    <span id="spnORDERQTY" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+            <div class=" col-sm-1">
+                <label class="">&nbsp; </label>
+                <div class="relative" style="padding-top: 10px">
+                    <button type="button" id="btnAdd" onclick="btnAdd_ProductClick()" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </div>
+
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
@@ -1343,6 +1457,12 @@
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
 <input type="hidden" value="@Model.TARGET_ID" id="hdnDetailsID" />
 <input type="hidden" value="@Model.TargetType" id="hdnSalesTargetLevel" />
+<input type="hidden" value="@Model.BRANDID" id="hdnBRANDID" />
+
+<input type="hidden" value="" id="hdnTARGETLEVELID" />
+<input type="hidden" value="" id="hdnINTERNALID" />
+<input type="hidden" value="" id="hdnLevelGuiIDS" />
+
 <!-- Grid Level List -->
 <div class="modal fade" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
@@ -1384,7 +1504,7 @@
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
-                            <th> Name</th>                            
+                            <th> Name</th>
                         </tr>
                     </table>
                 </div>

@@ -13,6 +13,17 @@ namespace TargetVsAchievement.Models
         public String TargetType { get; set; }
         public String TargetNo { get; set; }
         public DateTime TargetDate { get; set; }
+
+        public string TARGETLEVEL { get; set; }
+        public DateTime STARTEDATE { get; set; }
+        public DateTime ENDDATE { get; set; }
+        public String ORDERAMOUNT { get; set; }
+        public String ORDERQTY { get; set; }
+        public string BRANDNAME { get; set; }
+
+        public string BRANDID { get; set; }
+
+
         // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
         public DataSet TargetEntryInsertUpdate(String action, DateTime? TargetDate, Int64 TARGET_ID, String TargetType, String TargetNo,
             DataTable dtTarget, Int64 userid = 0
@@ -50,44 +61,26 @@ namespace TargetVsAchievement.Models
 
     public class BRANDVOLUMEVALUETARGETGRIDLIST
     {
-        public String ActualSL { get; set; }
+        //public String ActualSL { get; set; }
         public string SlNO { get; set; }      
-
         public string TARGETDOCNUMBER { get; set; }
-
         public string TARGETLEVELID { get; set; }
-
         public string TARGETLEVEL { get; set; }
-
         public string INTERNALID { get; set; }
-
-
         public string TIMEFRAME { get; set; }
-
-        public DateTime STARTEDATE { get; set; }
-
-        public DateTime ENDDATE { get; set; }
-
-       
-
-        public decimal ORDERAMOUNT { get; set; }
-
-      
-
-        public decimal ORDERQTY { get; set; }
-
-        public string UpdateEdit { get; set; }
-
-        public string BrandName { get; set; }
-
-        public Int64 BRANDID { get; set; }
-
+        public string STARTEDATE { get; set; }
+        public string ENDDATE { get; set; }
+        public string ORDERAMOUNT { get; set; }
+        public string ORDERQTY { get; set; }
+        public string BRANDNAME { get; set; }
+        public string BRANDID { get; set; }
+        public string Guids {  get; set; }
     }
 
     public class UDTBRANDVOLUMEVALUETARGET
     {
         public string SlNO { get; set; }
-        public Int64 TARGETDETAILS_ID { get; set; }
+       // public Int64 TARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
@@ -102,12 +95,13 @@ namespace TargetVsAchievement.Models
 
         public decimal ORDERQTY { get; set; }
 
-        public Int64 UpdateEdit { get; set; }
+      //  public Int64 UpdateEdit { get; set; }
 
-        public string BrandName { get; set; }
+        public string BRANDNAME { get; set; }
 
         public Int64 BRANDID { get; set; }
 
+      
     }
 
 }
