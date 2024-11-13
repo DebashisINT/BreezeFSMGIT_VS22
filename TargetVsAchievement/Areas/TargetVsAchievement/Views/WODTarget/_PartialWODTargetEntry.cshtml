@@ -32,7 +32,7 @@
         x.Caption = "Select Level";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        
+
     });
     settings.Columns.Add(x =>
     {
@@ -49,7 +49,7 @@
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-        
+
     });
 
     settings.Columns.Add(x =>
@@ -59,7 +59,7 @@
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-        
+
     });
 
 
@@ -86,7 +86,7 @@
     {
         x.Caption = "Action";
         //x.VisibleIndex = 16;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
 
@@ -108,18 +108,18 @@
 
         x.FieldName = "TARGETLEVELID";
         x.Caption = "";
-        x.CellStyle.CssClass = "hide";
-        x.HeaderStyle.CssClass = "hide";
+        //x.CellStyle.CssClass = "hide";
+        //x.HeaderStyle.CssClass = "hide";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
 
     });
-    
+
     settings.Columns.Add(x =>
     {
         x.FieldName = "INTERNALID";
         x.Caption = "";
-        x.CellStyle.CssClass = "hide";
-        x.HeaderStyle.CssClass = "hide";
+        //x.CellStyle.CssClass = "hide";
+        //x.HeaderStyle.CssClass = "hide";
         x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
     });
 
