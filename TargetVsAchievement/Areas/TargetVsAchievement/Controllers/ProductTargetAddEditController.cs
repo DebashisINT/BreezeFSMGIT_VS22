@@ -115,8 +115,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         dtable.Columns.Add("ENDDATE", typeof(System.String));
                         dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
                         dtable.Columns.Add("INTERNALID", typeof(System.String));
-                        dtable.Columns.Add("BRANDID", typeof(System.String));
-                        dtable.Columns.Add("BRANDNAME", typeof(System.String));
+                        dtable.Columns.Add("PRODUCTID", typeof(System.String));
+                        dtable.Columns.Add("PRODUCTCODE", typeof(System.String));
+                        dtable.Columns.Add("PRODUCTNAME", typeof(System.String));
                         dtable.Columns.Add("ORDERAMOUNT", typeof(System.String));
                         dtable.Columns.Add("ORDERQTY", typeof(System.String));
 
@@ -137,9 +138,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
                             productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
 
-                            productdataobj.PRODUCTID = Convert.ToString(row["PRODUCTID"]);
-                            productdataobj.PRODUCTCODE = Convert.ToString(row["PRODUCTCODE"]);
-                            productdataobj.PRODUCTNAME = Convert.ToString(row["PRODUCTNAME"]);
+                            productdataobj.PRODUCTID = Convert.ToString(row["TARGETPRODID"]);
+                            productdataobj.PRODUCTCODE = Convert.ToString(row["TARGETPRODCODE"]);
+                            productdataobj.PRODUCTNAME = Convert.ToString(row["TARGETPRODNAME"]);
                             productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
                             productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
 
@@ -150,7 +151,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
                                     Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]),
                                     Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]),
-                                    Convert.ToString(row["PRODUCTID"]), Convert.ToString(row["PRODUCTCODE"]), Convert.ToString(row["PRODUCTNAME"]),  
+                                    Convert.ToString(row["TARGETPRODID"]), Convert.ToString(row["TARGETPRODCODE"]), Convert.ToString(row["TARGETPRODNAME"]),  
                                     Convert.ToString(row["ORDERAMOUNT"]),Convert.ToString(row["ORDERQTY"]) };
 
                             dtable.Rows.Add(trow);
@@ -203,50 +204,50 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
         }
 
-        public Boolean ProductTargetInsertUpdate(List<udtProductAddTarget> obj, ProductTargetAddModel obj2)
-        {
-            Boolean Success = false;
-            try
-            {
-                DataTable dtProductTarget = new DataTable();
-                dtProductTarget = ToDataTable(obj);
-                DataColumnCollection dtC = dtProductTarget.Columns;
-                if (dtC.Contains("UpdateEdit"))
-                {
-                    dtProductTarget.Columns.Remove("UpdateEdit");
-                }
-                if (dtC.Contains("PRODUCTADDTARGETDETAILS_ID"))
-                {
-                    dtProductTarget.Columns.Remove("PRODUCTADDTARGETDETAILS_ID");
-                }
+        //public Boolean ProductTargetInsertUpdate(List<udtProductAddTarget> obj, ProductTargetAddModel obj2)
+        //{
+        //    Boolean Success = false;
+        //    try
+        //    {
+        //        DataTable dtProductTarget = new DataTable();
+        //        dtProductTarget = ToDataTable(obj);
+        //        DataColumnCollection dtC = dtProductTarget.Columns;
+        //        if (dtC.Contains("UpdateEdit"))
+        //        {
+        //            dtProductTarget.Columns.Remove("UpdateEdit");
+        //        }
+        //        if (dtC.Contains("PRODUCTADDTARGETDETAILS_ID"))
+        //        {
+        //            dtProductTarget.Columns.Remove("PRODUCTADDTARGETDETAILS_ID");
+        //        }
 
 
-                DataSet dt = new DataSet();
+        //        DataSet dt = new DataSet();
 
-                if (Convert.ToInt64(obj2.PRODUCTTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
-                {
-                    dt = objdata.ProductTargetEntryInsertUpdate("UPDATEMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
-                           , dtProductTarget, Convert.ToInt64(Session["userid"]));
-                }
-                else
-                {
-                    dt = objdata.ProductTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
-                           , dtProductTarget, Convert.ToInt64(Session["userid"]));
+        //        if (Convert.ToInt64(obj2.PRODUCTTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
+        //        {
+        //            dt = objdata.ProductTargetEntryInsertUpdate("UPDATEMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
+        //                   , dtProductTarget, Convert.ToInt64(Session["userid"]));
+        //        }
+        //        else
+        //        {
+        //            dt = objdata.ProductTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(obj2.ProductTargetDate), Convert.ToInt64(obj2.PRODUCTTARGET_ID), obj2.ProductTargetLevel, obj2.ProductTargetNo
+        //                   , dtProductTarget, Convert.ToInt64(Session["userid"]));
 
-                }
-                if (dt != null && dt.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in dt.Tables[0].Rows)
-                    {
-                        Success = Convert.ToBoolean(row["Success"]);
-                        DetailsID = Convert.ToInt32(row["DetailsID"]);
-                        ProductTargetNo = Convert.ToString(obj2.ProductTargetNo);
-                    }
-                }
-            }
-            catch { }
-            return Success;
-        }
+        //        }
+        //        if (dt != null && dt.Tables[0].Rows.Count > 0)
+        //        {
+        //            foreach (DataRow row in dt.Tables[0].Rows)
+        //            {
+        //                Success = Convert.ToBoolean(row["Success"]);
+        //                DetailsID = Convert.ToInt32(row["DetailsID"]);
+        //                ProductTargetNo = Convert.ToString(obj2.ProductTargetNo);
+        //            }
+        //        }
+        //    }
+        //    catch { }
+        //    return Success;
+        //}
 
         public DataTable ToDataTable<T>(List<T> items)
         {
@@ -405,6 +406,134 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 TempData.Keep();
             }
             return Json("");
+        }
+
+        [WebMethod]
+        public JsonResult SaveProductTarget(ProductTargetAddModel Details)
+        {
+            String Message = "";
+            Boolean Success = false;
+            DataSet dt = new DataSet();
+            DataTable dt_Details = (DataTable)TempData["LevelDetails"];
+
+            List<udtProductAddTarget> udt = new List<udtProductAddTarget>();
+
+            foreach (DataRow item in dt_Details.Rows)
+            {
+                udtProductAddTarget obj1 = new udtProductAddTarget();
+                obj1.TARGETLEVELID = Convert.ToInt64(item["TARGETLEVELID"]);
+                obj1.TARGETLEVEL = Convert.ToString(item["TARGETLEVEL"]);
+                obj1.INTERNALID = Convert.ToString(item["INTERNALID"]);
+                obj1.TIMEFRAME = Convert.ToString(item["TIMEFRAME"]);
+                obj1.STARTEDATE = DateTime.ParseExact(Convert.ToString(item["STARTEDATE"]), "dd-MM-yyyy", null);
+                obj1.ENDDATE = DateTime.ParseExact(Convert.ToString(item["ENDDATE"]), "dd-MM-yyyy", null);
+                obj1.SlNO = Convert.ToString(item["SlNO"]);
+                obj1.PRODUCTID = Convert.ToInt64(item["PRODUCTID"]);
+                obj1.PRODUCTCODE = Convert.ToString(item["PRODUCTCODE"]);
+                obj1.PRODUCTNAME = Convert.ToString(item["PRODUCTNAME"]);
+                obj1.ORDERAMOUNT = Convert.ToDecimal(item["ORDERAMOUNT"]);
+                obj1.ORDERQTY = Convert.ToDecimal(item["ORDERQTY"]);
+
+                udt.Add(obj1);
+            }
+
+            DataTable dtProductTarget = new DataTable();
+            dtProductTarget = ToDataTable(udt);
+
+
+            if (Convert.ToInt64(Details.PRODUCTTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
+            {
+                dt = objdata.ProductTargetEntryInsertUpdate("UPDATEMAINPRODUCT", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
+                       , dtProductTarget, Convert.ToInt64(Session["userid"]));
+            }
+            else
+            {
+                dt = objdata.ProductTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
+                       , dtProductTarget, Convert.ToInt64(Session["userid"]));
+
+            }
+            if (dt != null && dt.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Tables[0].Rows)
+                {
+                    Success = Convert.ToBoolean(row["Success"]);
+                    DetailsID = Convert.ToInt32(row["DetailsID"]);
+                    ProductTargetNo = Convert.ToString(Details.ProductTargetNo);
+                }
+            }
+
+
+
+            String retuenMsg = Success + "~" + DetailsID + "~" + Details.ProductTargetNo + "~" + Message;
+            return Json(retuenMsg);
+
+        }
+
+        [WebMethod]
+        public JsonResult EditTargetData(String HiddenID)
+        {
+            ProductTargetDetails ret = new ProductTargetDetails();
+
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        ret.SlNO = item["SlNO"].ToString();
+                        ret.TARGETLEVEL = item["TARGETLEVEL"].ToString();
+                        ret.TIMEFRAME = item["TIMEFRAME"].ToString();
+                        ret.Guids = item["HIddenID"].ToString();
+                        ret.STARTEDATE = item["STARTEDATE"].ToString();
+                        ret.ENDDATE = item["ENDDATE"].ToString();
+                        ret.TARGETLEVELID = item["TARGETLEVELID"].ToString();
+                        ret.INTERNALID = item["INTERNALID"].ToString();
+                        ret.PRODUCTID = item["PRODUCTID"].ToString();
+                        ret.PRODUCTCODE = item["PRODUCTCODE"].ToString();
+                        ret.PRODUCTNAME = item["PRODUCTNAME"].ToString();
+                        ret.ORDERAMOUNT = item["ORDERAMOUNT"].ToString();
+                        ret.ORDERQTY = item["ORDERQTY"].ToString();
+
+                        break;
+                    }
+                }
+            }
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json(ret);
+        }
+
+        [WebMethod]
+        public JsonResult DeleteLevelData(string HiddenID)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        dt.Rows.Remove(item);
+                        break;
+                    }
+                }
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int conut = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr["SlNO"] = conut;
+                    conut++;
+                }
+            }
+
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json("Level Removed Successfully.");
         }
     }
 }

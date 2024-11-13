@@ -39,7 +39,7 @@ namespace TargetVsAchievement.Models
             proc.AddVarcharPara("@ACTION", 150, action);
             proc.AddVarcharPara("@ProductTargetLevel", 100, ProductTargetLevel);
             proc.AddDateTimePara("@ProductTargetDate",  Convert.ToDateTime(ProductTargetDate));
-            proc.AddBigIntegerPara("@PRODUCTTARGET_ID", PRODUCTTARGET_ID);
+            proc.AddBigIntegerPara("@PRODUCTTARGET_ID", PRODCTTARGET_ID);
             proc.AddVarcharPara("@ProductTargetNo", 100, ProductTargetNo);
             proc.AddBigIntegerPara("@USER_ID", userid);
 
@@ -89,17 +89,19 @@ namespace TargetVsAchievement.Models
         public string Guids { get; set; }
     }
 
-        public class udtProductAddTarget
+    public class udtProductAddTarget
     {
         public string SlNO { get; set; }
-        public Int64 PRODUCTADDTARGETDETAILS_ID { get; set; }
+        //public Int64 PRODUCTADDTARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
         public string TIMEFRAME { get; set; }
         public DateTime STARTEDATE { get; set; }
         public DateTime ENDDATE { get; set; }
-        public string PRODUCTID { get; set; }
+        public Int64 PRODUCTID { get; set; }
+        public string PRODUCTCODE { get; set; }
+        public string PRODUCTNAME { get; set; }
         public decimal ORDERAMOUNT { get; set; }
         public decimal ORDERQTY { get; set; }
         

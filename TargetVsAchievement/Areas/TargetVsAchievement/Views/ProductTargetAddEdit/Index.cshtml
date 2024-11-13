@@ -735,7 +735,7 @@
 
     $(document).ready(function () {
 
-        setTimeout(function () { AddNewRowWithP(); }, 200);
+        //setTimeout(function () { AddNewRowWithP(); }, 200);
              var d = new Date();
              ProductTargetDate.SetValue(d);
              var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
@@ -1009,112 +1009,66 @@
             return false;
         }
 
-        var oneproduct = "";
-        var visiablerow = gridProductTargetEntryList.GetVisibleRowsOnPage();
-        if (visiablerow > 0) {
-            for (var i = 100; i > -500; i--) {
-                if (gridProductTargetEntryList.GetRow(i)) {
-                    if (oneproduct == "" || oneproduct == null) {
-                        oneproduct = gridProductTargetEntryList.batchEditApi.GetCellValue(i, 'TARGETLEVEL');
-                    }
+        var hdnDetailsID = $('#hdnDetailsID').val();
+
+        var data = {
+            PRODUCTTARGET_ID:hdnDetailsID,
+            ProductTargetLevel:TargetLevel,
+            ProductTargetNo:TargetNo,
+            ProductTargetDate:TargetDate
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveProductTarget", "ProductTargetAddEdit")",
+            data: "{Details:" + JSON.stringify(data) + "}",
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];
+                    var TargetNo = response.split('~')[2];
+                    var Message = response.split('~')[3];
+
+
+                    $('#hdnDetailsID').val(DetailsID);
+                    //if (s.cpBatchUpdate == "1") {
+                       // s.cpBatchUpdate = "0";
+
+                        var newDetailsID = DetailsID;
+                        if (DetailsID > 0 && TargetNo != "") {
+                            ProductionID = 0;
+                            DetailsID = 0;
+                            jAlert('Brand Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
+                                if (r) {
+
+                                    if (savemode == "Exit") {
+                                        setTimeout(function () {
+                                            var url = $('#hdnListPage').val();
+                                            window.location.href = url;
+                                        }, 500);
+                                    }
+                                }
+                            });
+
+                        }
+                        else {
+
+                            DetailsID = 0;
+                            savemode = "";
+                            jAlert('Please try again later.');
+                            return false;
+                        }
+                        Message = "";
+
+                   // }
+
                 }
             }
-        }
-
-        if (visiablerow > 0) {
-            for (i = -1; i > -1000; i--) {
-                if (gridProductTargetEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridProductTargetEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridProductTargetEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridProductTargetEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-
-                        if (gridProductTargetEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }
-
-                        if (parseFloat(gridProductTargetEntryList.GetEditor("TARGETPRODUCTCODE").GetValue()) == 0) {
-                            jAlert("Select Product Code!");
-                            return false;
-                        }
-
-                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
-                            jAlert("Order Amount should be greater than zero!");
-                            return false;
-                        }
-
-                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
-                            jAlert("Order Qty should be greater than zero!");
-                            return false;
-                        }
-
-                    }
-                }
-            }
-
-            for (var i = 0; i < 500; i++) {
-                if (gridProductTargetEntryList.GetRow(i)) {
-                    var TARGETLEVEL = gridProductTargetEntryList.GetEditor("TARGETLEVEL").GetValue();
-
-                    if (TARGETLEVEL != "" && TARGETLEVEL != null) {
-
-                        if (gridProductTargetEntryList.GetEditor("TIMEFRAME").GetValue() == null) {
-                            jAlert("Select Timeframe.");
-                            return false;
-                        }
-
-                        if (gridProductTargetEntryList.GetEditor("STARTEDATE").GetValue() == null) {
-                            jAlert("Select Start Date.");
-                            return false;
-                        }
-
-                        if (gridProductTargetEntryList.GetEditor("ENDDATE").GetValue() == null) {
-                            jAlert("Select End Date.");
-                            return false;
-                        }
-
-                        if (gridProductTargetEntryList.GetEditor("TARGETPRODUCTCODE").GetValue() == null) {
-                            jAlert("Select Product Code!");
-                            return false;
-                        }
-
-                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERAMOUNT").GetValue()) == 0) {
-                            jAlert("Order Amount should be greater than zero!");
-                            return false;
-                        }
-
-
-                        if (parseFloat(gridProductTargetEntryList.GetEditor("ORDERQTY").GetValue()) == 0) {
-                            jAlert("Order Qty should be greater than zero!");
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-
-
-        if (oneproduct != "" && oneproduct != null) {
-            addNewRowToEditgrid();
-            SuffleRows();
-            gridProductTargetEntryList.UpdateEdit();
-            gridProductTargetEntryList.UpdateEdit();
-        }
-        else {
-
-            jAlert('Cannot Save. You must enter atleast one Product to save this entry.');
-            return false;
-        }
+        });
     }
 
     function GetServerDateFormat(today) {
@@ -1270,16 +1224,16 @@
              dataType: "json",
              success: function (response) {
                  if (response != null) {
-                    gridLevelEntryList.Refresh();
-                    gridLevelEntryList.Refresh();
+                     gridProductTargetEntryList.Refresh();
+                     gridProductTargetEntryList.Refresh();
 
                      btnTARGETLEVEL.SetValue('');
                      $("#hdnTARGETLEVELID").val('');
                      $("#hdnINTERNALID").val('');
                      $("#ddlTimeFrame").val("Select");
                      $("#hdnPRODUCTID").val('');
-                     btnPRODUCTCODE.val('');
-                     cPRODUCTNAME.val('');
+                     btnPRODUCTCODE.SetValue('');
+                     cPRODUCTNAME.SetValue('');
                      cORDERAMOUNT.SetValue("0");
                      cORDERQTY.SetValue("0");
                      $("#hdnLevelGuiIDS").val('');
@@ -1287,6 +1241,72 @@
              }
          });
     }
+
+    function EditLevelData(values) {
+        $.ajax({
+            type: "POST",
+            url: "../ProductTargetAddEdit/EditTargetData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
+
+                    //$('#ddlTargetLevel').val(response.TARGETLEVEL);
+                    //$('#TargetNo').val("");
+                    //WODTargetDate.SetValue(d);
+
+                    $("#hdnTARGETLEVELID").val(response.TARGETLEVELID),
+                    $("#hdnINTERNALID").val(response.INTERNALID),
+
+                    btnTARGETLEVEL.SetValue(response.TARGETLEVEL);
+                    $("#ddlTimeFrame").val(response.TIMEFRAME);
+                    $("#hdnLevelGuiIDS").val(response.Guids);
+
+                    // START DATE
+                    var partsST = response.STARTEDATE.split("-");
+                    var dayST = parseInt(partsST[0], 10);
+                    var monthST = parseInt(partsST[1], 10) - 1; // Month is 0-based
+                    var yearST = parseInt(partsST[2], 10);
+
+                    var dateS = new Date(yearST, monthST, dayST); // Month is 0-based, so 10 represents November
+                    STARTEDATE.SetDate(dateS);
+                    //
+
+
+                    // END DATE
+                    var partsED = response.ENDDATE.split("-");
+                    var dayED = parseInt(partsED[0], 10);
+                    var monthED = parseInt(partsED[1], 10) - 1; // Month is 0-based
+                    var yearED = parseInt(partsED[2], 10);
+
+                    var dateE = new Date(yearED, monthED, dayED); // Month is 0-based, so 10 represents November
+                    ENDDATE.SetDate(dateE);
+                    //
+
+                    $("#hdnPRODUCTID").val(response.PRODUCTID),
+                    btnPRODUCTCODE.SetValue(response.PRODUCTCODE);
+                    cPRODUCTNAME.SetText(response.PRODUCTNAME);
+
+                    cORDERAMOUNT.SetText(response.ORDERAMOUNT);
+                    cORDERQTY.SetText(response.ORDERQTY);
+
+                }
+            }
+        });
+    }
+
+    function DeleteLevelData(values) {
+        $.ajax({
+            type: "POST",
+            url: "../ProductTargetAddEdit/DeleteLevelData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
+                    gridProductTargetEntryList.Refresh();
+                }
+            }
+        });
+    }
+
 </script>
 
 <div class="breadCumb">
