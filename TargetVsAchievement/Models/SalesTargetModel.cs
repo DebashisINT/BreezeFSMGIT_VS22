@@ -10,11 +10,27 @@ namespace TargetVsAchievement.Models
 {
     public class SalesTargetModel
     {
+       
         public Int64 SALESTARGET_ID { get; set; }
         public String SalesTargetLevel { get; set; }
         public String SalesTargetNo { get; set; }
         public DateTime SalesTargetDate { get; set; }
-       // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
+
+
+        public string TARGETLEVEL { get; set; }
+        public String TargetType { get; set; }
+        public DateTime STARTEDATE { get; set; }
+        public DateTime ENDDATE { get; set; }
+        public String NEWVISIT { get; set; }
+        public String REVISIT { get; set; }
+        public String ORDERAMOUNT { get; set; }
+        public String COLLECTION { get; set; }
+        public String ORDERQTY { get; set; }
+
+
+
+
+        // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
         public DataSet SalesTargetEntryInsertUpdate(String action, DateTime? SalesTargetDate, Int64 SALESTARGET_ID, String SalesTargetLevel,String SalesTargetNo,
             DataTable dtSalesTarget,Int64 userid = 0
             )
@@ -43,7 +59,7 @@ namespace TargetVsAchievement.Models
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
             proc.AddVarcharPara("@ACTION", 100, Action);
-            proc.AddBigIntegerPara("@SALESTARGET_ID", DetailsID);
+            proc.AddBigIntegerPara("@TARGET_ID", DetailsID);
             ds = proc.GetTable();
             return ds;
         }
@@ -51,7 +67,7 @@ namespace TargetVsAchievement.Models
     }
     public class SalesTargetProduct
     {
-        public String ActualSL { get; set; }
+        //public String ActualSL { get; set; }
         public string SlNO { get; set; }
         //public Int64 SALESTARGETDETAILS_ID { get; set; }
         
@@ -67,29 +83,28 @@ namespace TargetVsAchievement.Models
 
         public string TIMEFRAME { get; set; }
 
-        public DateTime STARTEDATE { get; set; }
+        public string STARTEDATE { get; set; }
+        public string ENDDATE { get; set; }
 
-        public DateTime ENDDATE { get; set; }
+        public string NEWVISIT { get; set; }
 
-        public Int64 NEWVISIT { get; set; }
+        public string REVISIT { get; set; }
 
-        public Int64 REVISIT { get; set; }
+        public string ORDERAMOUNT { get; set; }
 
-        public decimal ORDERAMOUNT { get; set; }
+        public string COLLECTION { get; set; }
 
-        public decimal COLLECTION { get; set; }
+        public string ORDERQTY { get; set; }
 
-        public decimal ORDERQTY { get; set; }
-
-        public string UpdateEdit { get; set; }
-        
+        //public string UpdateEdit { get; set; }
+        public string Guids { get; set; }
 
     }
 
     public class udtSalesTarget
     {
         public string SlNO { get; set; }
-        public Int64 SALESTARGETDETAILS_ID { get; set; }
+        //public Int64 SALESTARGETDETAILS_ID { get; set; }
         public Int64 TARGETLEVELID { get; set; }
         public string TARGETLEVEL { get; set; }
         public string INTERNALID { get; set; }
@@ -109,7 +124,7 @@ namespace TargetVsAchievement.Models
 
         public decimal ORDERQTY { get; set; }
 
-        public Int64 UpdateEdit { get; set; }
+        //public Int64 UpdateEdit { get; set; }
     }
 
 

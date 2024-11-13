@@ -15,8 +15,19 @@ namespace TargetVsAchievement.Models
         public DateTime ProductTargetDate { get; set; }
 
 
-        
-        
+        public string TARGETLEVEL { get; set; }
+        public String TargetType { get; set; }
+        public DateTime STARTEDATE { get; set; }
+        public DateTime ENDDATE { get; set; }
+        public String NEWVISIT { get; set; }
+        public String REVISIT { get; set; }
+        public String ORDERAMOUNT { get; set; }
+        public String COLLECTION { get; set; }
+        public String ORDERQTY { get; set; }
+        public string PRODUCTCODE { get; set; }
+        public string PRODUCTNAME { get; set; }
+        public string PRODUCTID { get; set; }
+
 
         public DataSet ProductTargetEntryInsertUpdate(String action, DateTime? ProductTargetDate, Int64 PRODCTTARGET_ID, String ProductTargetLevel, String ProductTargetNo,
             DataTable dtProductTarget, Int64 userid = 0
@@ -62,17 +73,20 @@ namespace TargetVsAchievement.Models
         public string TARGETDOCNUMBER { get; set; }
         public string TARGETLEVEL { get; set; }
         public string TIMEFRAME { get; set; }
-        public DateTime STARTEDATE { get; set; }
-        public DateTime ENDDATE { get; set; }
-        public string TARGETPRODUCTCODE { get; set; }
-        public string TARGETPRODUCTNAME { get; set; }
-        public decimal ORDERAMOUNT { get; set; }
-        public decimal ORDERQTY { get; set; }
-        public string UpdateEdit { get; set; }
-        public string TARGETLEVELID { get; set; }
-        public String ActualSL { get; set; }
-        public string INTERNALID { get; set; }
+        public string STARTEDATE { get; set; }
+        public string ENDDATE { get; set; }
+        public string PRODUCTCODE { get; set; }
+        public string PRODUCTNAME { get; set; }
         public string PRODUCTID { get; set; }
+
+        public string ORDERAMOUNT { get; set; }
+        public string ORDERQTY { get; set; }
+       // public string UpdateEdit { get; set; }
+        public string TARGETLEVELID { get; set; }
+       // public String ActualSL { get; set; }
+        public string INTERNALID { get; set; }
+        
+        public string Guids { get; set; }
     }
 
         public class udtProductAddTarget
@@ -88,7 +102,7 @@ namespace TargetVsAchievement.Models
         public string PRODUCTID { get; set; }
         public decimal ORDERAMOUNT { get; set; }
         public decimal ORDERQTY { get; set; }
-        public Int64 UpdateEdit { get; set; }
+        
     }
 
 }
