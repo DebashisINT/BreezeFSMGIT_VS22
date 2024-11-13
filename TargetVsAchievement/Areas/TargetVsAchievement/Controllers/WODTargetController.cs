@@ -262,66 +262,72 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Boolean Success = false;
             DataSet dt = new DataSet();
             DataTable dt_Details = (DataTable)TempData["LevelDetails"];
-           // List<UDTWODTARGET> udt = new List<UDTWODTARGET>();
 
-            //foreach (DataRow item in dt_Details.Rows)
-            //{
-            //    UDTWODTARGET obj1 = new UDTWODTARGET();
-            //    obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
-            //    obj1.TARGETLEVEL = item.TARGETLEVEL;
-            //    obj1.INTERNALID = item.INTERNALID;
-            //    obj1.TIMEFRAME = item.TIMEFRAME;
-            //    obj1.STARTEDATE = Convert.ToDateTime(item.STARTEDATE);
-            //    obj1.ENDDATE = Convert.ToDateTime(item.ENDDATE);
-            //    obj1.WODCOUNT = Convert.ToInt64(item.WODCOUNT);
-            //    obj1.SlNO = item.SlNO;
-            //    udt.Add(obj1);
-               
-            //}
-            List<UDTWODTARGET> udt = new List<UDTWODTARGET>();
+            DataView dvData = new DataView(dt_Details);           
+            DataTable dt_temp = dvData.ToTable();
 
-            foreach (DataRow item in dt_Details.Rows)
+            var duplicateRecords = dt_temp.AsEnumerable()
+           .GroupBy(r => (r["TARGETLEVEL"], r["TIMEFRAME"], r["STARTEDATE"], r["ENDDATE"], r["TARGETLEVELID"], r["INTERNALID"]))
+           .Where(gr => gr.Count() > 1)
+            .Select(g => g.Key);
+
+            string validate = "";
+            foreach (var d in duplicateRecords)
             {
-                UDTWODTARGET obj1 = new UDTWODTARGET();
-                obj1.TARGETLEVELID = Convert.ToInt64(item["TARGETLEVELID"]);
-                obj1.TARGETLEVEL = Convert.ToString(item["TARGETLEVEL"]);
-                obj1.INTERNALID = Convert.ToString(item["INTERNALID"]);               
-                obj1.TIMEFRAME = Convert.ToString(item["TIMEFRAME"]);
-                obj1.STARTEDATE = DateTime.ParseExact(Convert.ToString(item["STARTEDATE"]), "dd-MM-yyyy", null); 
-                obj1.ENDDATE = DateTime.ParseExact(Convert.ToString(item["ENDDATE"]), "dd-MM-yyyy", null);
-                obj1.WODCOUNT = Convert.ToInt64(item["WODCOUNT"]);
-                obj1.SlNO = Convert.ToString(item["SlNO"]);
-                
-                udt.Add(obj1);
+                validate = "duplicateLevel";
             }
 
-
-
-            DataTable dtTarget = new DataTable();
-            dtTarget = ToDataTable(udt);
-
-            if (Convert.ToInt64(Details.TARGET_ID) > 0 )
+            if (validate == "duplicateLevel")
             {
-                dt = objdata.TargetEntryInsertUpdate("UPDATEWODTARGET", Convert.ToDateTime(Details.TargetDate), Convert.ToInt64(Details.TARGET_ID), Details.TargetType, Details.TargetNo
-                       , dtTarget, Convert.ToInt64(Session["userid"]));
+                Message = "duplicateLevel";
             }
             else
             {
-                dt = objdata.TargetEntryInsertUpdate("INSERTWODTARGET", Convert.ToDateTime(Details.TargetDate), Convert.ToInt64(Details.TARGET_ID), Details.TargetType, Details.TargetNo
-                       , dtTarget, Convert.ToInt64(Session["userid"]));
 
-            }
-            if (dt != null && dt.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow row in dt.Tables[0].Rows)
+                List<UDTWODTARGET> udt = new List<UDTWODTARGET>();
+
+                foreach (DataRow item in dt_Details.Rows)
                 {
-                    Success = Convert.ToBoolean(row["Success"]);
-                    DetailsID = Convert.ToInt32(row["DetailsID"]);
-                    TargetNo = Convert.ToString(Details.TargetNo);
-                }
-            }
+                    UDTWODTARGET obj1 = new UDTWODTARGET();
+                    obj1.TARGETLEVELID = Convert.ToInt64(item["TARGETLEVELID"]);
+                    obj1.TARGETLEVEL = Convert.ToString(item["TARGETLEVEL"]);
+                    obj1.INTERNALID = Convert.ToString(item["INTERNALID"]);
+                    obj1.TIMEFRAME = Convert.ToString(item["TIMEFRAME"]);
+                    obj1.STARTEDATE = DateTime.ParseExact(Convert.ToString(item["STARTEDATE"]), "dd-MM-yyyy", null);
+                    obj1.ENDDATE = DateTime.ParseExact(Convert.ToString(item["ENDDATE"]), "dd-MM-yyyy", null);
+                    obj1.WODCOUNT = Convert.ToInt64(item["WODCOUNT"]);
+                    obj1.SlNO = Convert.ToString(item["SlNO"]);
 
-           
+                    udt.Add(obj1);
+                }
+
+
+
+                DataTable dtTarget = new DataTable();
+                dtTarget = ToDataTable(udt);
+
+                if (Convert.ToInt64(Details.TARGET_ID) > 0)
+                {
+                    dt = objdata.TargetEntryInsertUpdate("UPDATEWODTARGET", Convert.ToDateTime(Details.TargetDate), Convert.ToInt64(Details.TARGET_ID), Details.TargetType, Details.TargetNo
+                           , dtTarget, Convert.ToInt64(Session["userid"]));
+                }
+                else
+                {
+                    dt = objdata.TargetEntryInsertUpdate("INSERTWODTARGET", Convert.ToDateTime(Details.TargetDate), Convert.ToInt64(Details.TARGET_ID), Details.TargetType, Details.TargetNo
+                           , dtTarget, Convert.ToInt64(Session["userid"]));
+
+                }
+                if (dt != null && dt.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Tables[0].Rows)
+                    {
+                        Success = Convert.ToBoolean(row["Success"]);
+                        DetailsID = Convert.ToInt32(row["DetailsID"]);
+                        TargetNo = Convert.ToString(Details.TargetNo);
+                    }
+                }
+
+            }
             //TempData["DetailsID"] = null;
             //TempData.Keep();
             //ViewData["DetailsID"] = DetailsID;
@@ -606,6 +612,34 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             catch { }
             return Json(retData);
         }
+
+        public JsonResult CHECKUNIQUETARGETDETAILS(string TargetType, string TARGETLEVELID, string TARGETLEVEL, string INTERNALID, string TimeFrame,string STARTEDATE, string ENDDATE)
+        {          
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_WODTARGETASSIGN"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDETAILS");
+                    proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@TargetType", 100, TargetType);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVEL", 100, TARGETLEVEL);
+                    proc.AddVarcharPara("@UNIQUEINTERNALID", 100, INTERNALID);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVELID", 100, TARGETLEVELID);
+                    proc.AddVarcharPara("@UNIQUETIMEFRAME", 100, TimeFrame);
+                    proc.AddVarcharPara("@UNIQUESTARTEDATE", 100, STARTEDATE);
+                    proc.AddVarcharPara("@UNIQUEENDDATE", 100, ENDDATE);                    
+                    int i = proc.RunActionQuery();
+                    retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+
+                }
+            }
+            catch { }
+            return Json(retData);
+        }
+
+
 
         [WebMethod]
         public JsonResult EditTargetData(String HiddenID)

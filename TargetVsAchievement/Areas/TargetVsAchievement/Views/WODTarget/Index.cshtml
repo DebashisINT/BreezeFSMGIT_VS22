@@ -721,6 +721,10 @@
        // setTimeout(function () { AddNewRowWithSl(); }, 200);
         var d = new Date();
         WODTargetDate.SetValue(d);
+        STARTEDATE.SetValue(d);
+        ENDDATE.SetValue(d);
+
+
         var hdnTargetLevel = $('#hdnTargetLevel').val();
         var hdnDetailsID = $('#hdnDetailsID').val();
         if (hdnTargetLevel != '' && hdnDetailsID > 0) {
@@ -917,7 +921,7 @@
             $('#GridLevellistModel').modal('hide');
 
 
-            $('#ddlTargetLevel').prop('disabled', true);
+            //$('#ddlTargetLevel').prop('disabled', true);
         }
     }
     function LevelKeyDown(s, e) {
@@ -1038,7 +1042,13 @@
 
                             DetailsID = 0;
                             savemode = "";
-                            jAlert('Please try again later.');
+                            if (Message == "duplicateLevel") {
+                                jAlert('Duplicate record entry.');
+                            }
+                            else {
+                                jAlert('Please try again later.');
+                            }
+                           
                             return false;
                         }
                         Message = "";
@@ -1307,15 +1317,54 @@
 
 </script>
 <script>
-    function btnAdd_ProductClick() {
+    function btnAdd_Click() {
 
 
         var _TimeFrame = $("#ddlTimeFrame").val();
         var _STARTEDATE = GetServerDateFormat(STARTEDATE.GetValue());
         var _ENDDATE = GetServerDateFormat(ENDDATE.GetValue());
         var _WODCount = cWODCount.GetText();
+        var TargetNo = $('#TargetNo').val();
+        var TargetDate = GetServerDateFormat(WODTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
+        var _TargetLevel = btnTARGETLEVEL.GetValue();
 
-        if ($("#ddlTimeFrame").val().trim()== "Select") {
+        if (TargetLevel.trim() == "Select" || TargetLevel.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select WOD Target Type to proceed.'
+            });
+            return false;
+        }
+        else if ($("#TargetNo").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter WOD Target No to proceed.'
+            });
+            return false;
+        } else if (TargetDate.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Date to proceed.'
+            });
+            return false;
+        }
+        else if (_TargetLevel ==null) {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Level to proceed.'
+            });
+            return false;
+        }
+        else if ($("#ddlTimeFrame").val().trim()== "Select") {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
@@ -1351,41 +1400,77 @@
             return false;
         }
 
-        var data = {
-             TARGETLEVELID: $("#hdnTARGETLEVELID").val(), 
-             TARGETLEVEL: btnTARGETLEVEL.GetValue(),
-             INTERNALID: $("#hdnINTERNALID").val(),
-             TimeFrame: _TimeFrame,
-             STARTEDATE: _STARTEDATE,
-             ENDDATE: _ENDDATE,
-             WODCount: _WODCount,
-            Guids: $("#hdnLevelGuiIDS").val(),
 
-         }
+
+        var TARGETLEVELID = $("#hdnTARGETLEVELID").val();
+        var TARGET_LEVEL = btnTARGETLEVEL.GetValue();
+        var INTERNALID = $("#hdnINTERNALID").val();
+
+
+
+
          $.ajax({
-             type: "POST",
-             url: "@Url.Action("AddLevelDetails", "WODTarget")",
-            
-             data: "{prod:" + JSON.stringify(data) + "}",
-             async: true,
-             contentType: "application/json; charset=utf-8",
-             dataType: "json",
-             success: function (response) {
-                 if (response != null) {
-                     gridLevelEntryList.Refresh();
-                     gridLevelEntryList.Refresh();
+                type: "POST",
+                url: "@Url.Action("CHECKUNIQUETARGETDETAILS", "WODTarget")",
+                data: JSON.stringify({ TargetType: TargetLevel, TARGETLEVELID: TARGETLEVELID, TARGETLEVEL: TARGET_LEVEL, INTERNALID: INTERNALID, TimeFrame: _TimeFrame, STARTEDATE: _STARTEDATE, ENDDATE: _ENDDATE }),
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    CheckUniqueCode = msg;
+                    if (CheckUniqueCode == 1) {
+                        jAlert('Please enter unique data');
 
-                     btnTARGETLEVEL.SetValue('');
-                     $("#hdnTARGETLEVELID").val('');
-                     $("#hdnINTERNALID").val('');                     
-                         cWODCount.SetValue("0");
-                     $("#ddlTimeFrame").val("Select");
-                     $("#hdnLevelGuiIDS").val('');
-                 }
-             }
+                    }
+                    else {
+                             var data = {
+                                 TARGETLEVELID: $("#hdnTARGETLEVELID").val(),
+                                 TARGETLEVEL: btnTARGETLEVEL.GetValue(),
+                                 INTERNALID: $("#hdnINTERNALID").val(),
+                                 TimeFrame: _TimeFrame,
+                                 STARTEDATE: _STARTEDATE,
+                                 ENDDATE: _ENDDATE,
+                                 WODCount: _WODCount,
+                                 Guids: $("#hdnLevelGuiIDS").val(),
+
+                             }
+
+                             $.ajax({
+                      type: "POST",
+                      url: "@Url.Action("AddLevelDetails", "WODTarget")",
+
+                      data: "{prod:" + JSON.stringify(data) + "}",
+                      async: true,
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      success: function (response) {
+                                  if (response != null) {
+                                      gridLevelEntryList.Refresh();
+                                      gridLevelEntryList.Refresh();
+
+
+                                     // $("#ddlTargetLevel").val("Select");
+                                      //$('#TargetNo').val("");
+                                      $('#ddlTargetLevel').prop('disabled', true);
+
+                                      btnTARGETLEVEL.SetValue('');
+                                      $("#hdnTARGETLEVELID").val('');
+                                      $("#hdnINTERNALID").val('');
+                                          cWODCount.SetValue("0");
+                                      $("#ddlTimeFrame").val("Select");
+                                      $("#hdnLevelGuiIDS").val('');
+                                  }
+                              }
+                          });
+                         }
+
+                    }
+
          });
+
+
      }
- 
+
 </script>
 
 <div class="breadCumb">
@@ -1396,7 +1481,7 @@
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class="col-sm-2">
-                <label>Target Level <span style="color:red">*</span></label>
+                <label>Target Type <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
                     <option value="Region">Region level</option>
@@ -1493,7 +1578,7 @@
                     <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
-            <div class=" col-sm-4">
+            <div class=" col-sm-2">
                 <label>WOD Count<span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.WODCount,
@@ -1511,7 +1596,7 @@
             <div class=" col-sm-1">
                 <label class="">&nbsp; </label>
                 <div class="relative" style="padding-top: 10px">
-                    <button type="button" id="btnAdd" onclick="btnAdd_ProductClick()" class="btn btn-success">Add</button>
+                    <button type="button" id="btnAdd" onclick="btnAdd_Click()" class="btn btn-success">Add</button>
                 </div>
             </div>
         </div>
