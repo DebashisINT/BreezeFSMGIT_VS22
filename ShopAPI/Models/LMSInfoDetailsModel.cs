@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974,975,988 & 989
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974,975,988,989 & 995
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -458,6 +458,28 @@ namespace ShopAPI.Models
         public bool isCorrect { get; set; }
     }
     public class TopicContentWiseAnswerUpdateOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+
+    public class UserWiseAPPCrashDetailsSaveInput
+    {
+        public long user_id { get; set; }
+        public List<Userappcrashinfolists> crash_report_save_list { get; set; }
+    }
+
+    public class Userappcrashinfolists
+    {
+        public string errorMessage { get; set; }
+        public string stackTrace { get; set; }
+        public string date_time { get; set; }
+        public string device { get; set; }
+        public string os_version { get; set; }
+        public string app_version { get; set; }
+        public string user_remarks { get; set; }
+    }
+    public class UserWiseAPPCrashDetailsSaveOutput
     {
         public string status { get; set; }
         public string message { get; set; }

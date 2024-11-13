@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 02/07/2024
-//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974,975,988 & 989
+//Purpose: LMS Info Details.Row: 945,947,948,949,950,952,953,955,956,971,972,973,974,975,988,989 & 995
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
@@ -1008,6 +1008,75 @@ namespace ShopAPI.Controllers
                     {
                         omodel.status = "200";
                         omodel.message = "Saved Successfully.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage UserWiseAPPCrashDetails(UserWiseAPPCrashDetailsSaveInput model)
+        {
+            UserWiseAPPCrashDetailsSaveOutput omodel = new UserWiseAPPCrashDetailsSaveOutput();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<Userappcrashinfolists> omodel2 = new List<Userappcrashinfolists>();
+                    foreach (var s2 in model.crash_report_save_list)
+                    {
+                        omodel2.Add(new Userappcrashinfolists()
+                        {
+                            errorMessage = s2.errorMessage,
+                            stackTrace = s2.stackTrace,
+                            date_time = s2.date_time,
+                            device = s2.device,
+                            os_version = s2.os_version,
+                            app_version = s2.app_version,
+                            user_remarks = s2.user_remarks
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omodel2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_FSMLMSINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "APPCRASHDETAILS");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0 && Convert.ToInt64(dt.Rows[0][0]) == model.user_id)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Crash report submitted successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Failed to submit crash report. Please try again later.";
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
