@@ -36,8 +36,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData.Keep();
 
             TempData["DetailsID"] = null;
-            TempData["LevelDetails"] = null;
+            TempData.Keep();
 
+            TempData["LevelDetails"] = null;
             TempData.Keep();
 
             return View(objdata);
@@ -150,24 +151,29 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 else
                 {
                     dt = (DataTable)TempData["LevelDetails"];
-                    foreach (DataRow row in dt.Rows)
+
+                    if (dt != null && dt.Rows.Count > 0)
                     {
-                        productdataobj = new WODTARGETGRIDLIST();
-                        productdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                        //productdataobj.ActualSL = Convert.ToString(row["WODTARGETDETAILS_ID"]);
-                        //productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
-                        productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
-                        productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
-                        productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            productdataobj = new WODTARGETGRIDLIST();
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            //productdataobj.ActualSL = Convert.ToString(row["WODTARGETDETAILS_ID"]);
+                            //productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
+                            productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
+                            productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
 
-                        productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
-                        productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
-                        productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
-                        productdataobj.WODCOUNT = Convert.ToString(row["WODCOUNT"]);
-                        productdataobj.Guids = Convert.ToString(row["HIddenID"]);
-                        productdata.Add(productdataobj);
+                            productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
+                            productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
+                            productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
+                            productdataobj.WODCOUNT = Convert.ToString(row["WODCOUNT"]);
+                            productdataobj.Guids = Convert.ToString(row["HIddenID"]);
+                            productdata.Add(productdataobj);
 
+                        }
                     }
+                    
                 }
                 TempData["LevelDetails"] = dt;
                 TempData.Keep();

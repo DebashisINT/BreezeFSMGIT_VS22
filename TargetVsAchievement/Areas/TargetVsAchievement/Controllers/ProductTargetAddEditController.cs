@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using TargetVsAchievement.Models;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
@@ -38,6 +39,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData.Keep();
 
             TempData["DetailsID"] = null;
+            TempData.Keep();
+
+            TempData["LevelDetails"] = null;
             TempData.Keep();
 
             return View(objdata);
@@ -86,207 +90,117 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Int64 DetailsID = 0;
             try
             {
+                DataTable dt = new DataTable();
+
                 if (TempData["DetailsID"] != null)
                 {
                     DetailsID = Convert.ToInt64(TempData["DetailsID"]);
                     TempData.Keep();
                 }
-                if (DetailsID > 0)
+                if (DetailsID > 0 && TempData["LevelDetails"] == null)
                 {
                     DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETDETAILSPRODUCTTARGET", DetailsID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
-                        DataTable dt = objData;
+                        dt = objData;
 
+                        DataTable dtable = new DataTable();
+
+                        dtable.Clear();
+                        dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                        dtable.Columns.Add("SlNO", typeof(System.String));
+                        dtable.Columns.Add("TARGETLEVEL", typeof(System.String));
+                        dtable.Columns.Add("TIMEFRAME", typeof(System.String));
+                        dtable.Columns.Add("STARTEDATE", typeof(System.String));
+                        dtable.Columns.Add("ENDDATE", typeof(System.String));
+                        dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
+                        dtable.Columns.Add("INTERNALID", typeof(System.String));
+                        dtable.Columns.Add("BRANDID", typeof(System.String));
+                        dtable.Columns.Add("BRANDNAME", typeof(System.String));
+                        dtable.Columns.Add("ORDERAMOUNT", typeof(System.String));
+                        dtable.Columns.Add("ORDERQTY", typeof(System.String));
+
+                        String Gid = "";
 
                         foreach (DataRow row in dt.Rows)
                         {
+                            Gid = Guid.NewGuid().ToString();
                             productdataobj = new ProductTargetDetails();
                             productdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                            productdataobj.ActualSL = Convert.ToString(row["PRODUCTTARGETDETAILS_ID"]);
+                            //productdataobj.ActualSL = Convert.ToString(row["PRODUCTTARGETDETAILS_ID"]);
                             productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
                             productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
                             productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
                             productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
 
                             productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
-                            productdataobj.STARTEDATE = Convert.ToDateTime(row["STARTEDATE"]);
-                            productdataobj.ENDDATE = Convert.ToDateTime(row["ENDDATE"]);
-                            productdataobj.TARGETPRODUCTCODE = Convert.ToString(row["TARGETPRODUCTCODE"]);
+                            productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
+                            productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
 
-                            productdataobj.TARGETPRODUCTNAME = Convert.ToString(row["TARGETPRODUCTNAME"]);
-                            productdataobj.ORDERAMOUNT = Convert.ToDecimal(row["ORDERAMOUNT"]);
                             productdataobj.PRODUCTID = Convert.ToString(row["PRODUCTID"]);
-                            productdataobj.ORDERQTY = Convert.ToDecimal(row["ORDERQTY"]);
+                            productdataobj.PRODUCTCODE = Convert.ToString(row["PRODUCTCODE"]);
+                            productdataobj.PRODUCTNAME = Convert.ToString(row["PRODUCTNAME"]);
+                            productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
+                            productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
+
+                            productdataobj.Guids = Gid;
 
                             productdata.Add(productdataobj);
 
+                            object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
+                                    Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]),
+                                    Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]),
+                                    Convert.ToString(row["PRODUCTID"]), Convert.ToString(row["PRODUCTCODE"]), Convert.ToString(row["PRODUCTNAME"]),  
+                                    Convert.ToString(row["ORDERAMOUNT"]),Convert.ToString(row["ORDERQTY"]) };
+
+                            dtable.Rows.Add(trow);
+
                         }
 
+                        dt = dtable;
                     }
                 }
+                else
+                {
+                    dt = (DataTable)TempData["LevelDetails"];
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            productdataobj = new ProductTargetDetails();
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            //productdataobj.ActualSL = Convert.ToString(row["WODTARGETDETAILS_ID"]);
+                            //productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
+                            productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
+                            productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
+                            productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
+
+                            productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
+                            productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
+                            productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
+
+                            productdataobj.PRODUCTID = Convert.ToString(row["PRODUCTID"]);
+                            productdataobj.PRODUCTCODE = Convert.ToString(row["PRODUCTCODE"]);
+                            productdataobj.PRODUCTNAME = Convert.ToString(row["PRODUCTNAME"]);
+                            productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
+                            productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
+
+                            productdataobj.Guids = Convert.ToString(row["HIddenID"]);
+                            productdata.Add(productdataobj);
+
+                        }
+                    }
+
+
+                }
+                TempData["LevelDetails"] = dt;
+                TempData.Keep();
 
             }
             catch { }
             return PartialView("~/Areas/TargetVsAchievement/Views/ProductTargetAddEdit/PartialProductTargetEntryGrid.cshtml", productdata);
 
-        }
-
-        [HttpPost, ValidateInput(false)]
-        public ActionResult BatchEditingUpdateProductTargetEntry(DevExpress.Web.Mvc.MVCxGridViewBatchUpdateValues<ProductTargetDetails, int> updateValues, ProductTargetAddModel options)
-        {
-            TempData["Count"] = (int)TempData["Count"] + 1;
-            TempData.Keep();
-
-            String Message = "";
-            Int64 SaveDataArea = 0;
-
-            List<udtProductAddTarget> udt = new List<udtProductAddTarget>();
-
-            if ((int)TempData["Count"] != 2)
-            {
-                Boolean IsProcess = false;
-
-                if (updateValues.Insert.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) < 1)
-                {
-                    List<ProductTargetDetails> udtlist = new List<ProductTargetDetails>();
-                    ProductTargetDetails obj = null;
-
-                    foreach (var item in updateValues.Insert)
-                    {
-                        if (Convert.ToInt64(item.TARGETLEVELID) > 0)
-                        {
-                            obj = new ProductTargetDetails();
-                            obj.TARGETLEVELID = item.TARGETLEVELID;
-                            obj.TARGETLEVEL = item.TARGETLEVEL;
-                            obj.INTERNALID = item.INTERNALID;
-                            obj.TIMEFRAME = item.TIMEFRAME;
-                            obj.STARTEDATE = item.STARTEDATE;
-                            obj.ENDDATE = item.ENDDATE;
-                            obj.PRODUCTID = item.PRODUCTID;
-                            obj.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj.ORDERQTY = item.ORDERQTY;
-                            obj.SlNO = item.SlNO;
-                            udtlist.Add(obj);
-                        }
-                    }
-                    if (udtlist.Count > 0)
-                    {
-                        SaveDataArea = 1;
-
-                        foreach (var item in udtlist)
-                        {
-                            udtProductAddTarget obj1 = new udtProductAddTarget();
-                            obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
-                            obj1.TARGETLEVEL = item.TARGETLEVEL;
-                            obj1.INTERNALID = item.INTERNALID;
-                            obj1.TIMEFRAME = item.TIMEFRAME;
-                            obj1.STARTEDATE = item.STARTEDATE;
-                            obj1.ENDDATE = item.ENDDATE;
-                            obj1.PRODUCTID = item.PRODUCTID;
-                            obj1.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj1.ORDERQTY = item.ORDERQTY;
-                            obj1.SlNO = item.SlNO;
-                            udt.Add(obj1);
-                        }
-                        IsProcess = ProductTargetInsertUpdate(udt, options);
-
-
-                    }
-
-                }
-                if (((updateValues.Update.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) > 0) || (updateValues.Insert.Count > 0 && Convert.ToInt64(options.PRODUCTTARGET_ID) < 1)) && SaveDataArea == 0)
-                {
-                    List<ProductTargetDetails> udtlist = new List<ProductTargetDetails>();
-                    ProductTargetDetails obj = null;
-                    foreach (var item in updateValues.Update)
-                    {
-                        if (Convert.ToInt64(item.TARGETLEVELID) > 0)
-                        {
-                            obj = new ProductTargetDetails();
-                            obj.TARGETLEVELID = item.TARGETLEVELID;
-                            obj.TARGETLEVEL = item.TARGETLEVEL;
-                            obj.TIMEFRAME = item.TIMEFRAME;
-                            obj.INTERNALID = item.INTERNALID;
-                            obj.STARTEDATE = item.STARTEDATE;
-                            obj.ENDDATE = item.ENDDATE;
-                            obj.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj.PRODUCTID = item.PRODUCTID;
-                            obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = item.ActualSL;
-                            udtlist.Add(obj);
-                        }
-                    }
-
-                    foreach (var item in updateValues.Insert)
-                    {
-                        if (Convert.ToInt64(item.TARGETLEVELID) > 0)
-                        {
-                            obj = new ProductTargetDetails();
-                            obj.TARGETLEVELID = item.TARGETLEVELID;
-                            obj.TARGETLEVEL = item.TARGETLEVEL;
-                            obj.TIMEFRAME = item.TIMEFRAME;
-                            obj.INTERNALID = item.INTERNALID;
-                            obj.STARTEDATE = item.STARTEDATE;
-                            obj.ENDDATE = item.ENDDATE;
-                            obj.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj.PRODUCTID = item.PRODUCTID;
-                            obj.ORDERQTY = item.ORDERQTY;
-                            obj.ActualSL = "0";
-                            udtlist.Add(obj);
-                        }
-                    }
-
-                    foreach (var item in updateValues.DeleteKeys)
-                    {
-                        Int32 delId = Convert.ToInt32(item);
-
-                        foreach (var item1 in udtlist.ToList())
-                        {
-                            Int32 delId1 = Convert.ToInt32(item1.ActualSL);
-
-                            if (delId1 == delId)
-                            {
-                                udtlist.Remove(item1);
-                            }
-                        }
-                    }
-
-
-                    if (udtlist.Count > 0)
-                    {
-                        SaveDataArea = 1;
-
-                        foreach (var item in udtlist)
-                        {
-                            udtProductAddTarget obj1 = new udtProductAddTarget();
-                            obj1.TARGETLEVELID = Convert.ToInt64(item.TARGETLEVELID);
-                            obj1.TARGETLEVEL = item.TARGETLEVEL;
-                            obj1.TIMEFRAME = item.TIMEFRAME;
-                            obj1.INTERNALID = item.INTERNALID;
-                            obj1.STARTEDATE = item.STARTEDATE;
-                            obj1.ENDDATE = item.ENDDATE;
-                            obj1.ORDERAMOUNT = item.ORDERAMOUNT;
-                            obj1.PRODUCTID = item.PRODUCTID;
-                            obj1.ORDERQTY = item.ORDERQTY;
-                            obj1.SlNO = item.SlNO;
-                            udt.Add(obj1);
-                        }
-
-                        IsProcess = ProductTargetInsertUpdate(udt, options);
-                    }
-                }
-
-                TempData["Count"] = 1;
-                TempData.Keep();
-
-                ViewData["DetailsID"] = DetailsID;
-                ViewData["ProductTargetNo"] = options.ProductTargetNo;
-                ViewData["Success"] = IsProcess;
-                ViewData["Message"] = Message;
-            }
-
-            return PartialView("~/Areas/TargetVsAchievement/Views/ProductTargetAddEdit/PartialProductTargetEntryGrid.cshtml", updateValues.Update);
         }
 
         public Boolean ProductTargetInsertUpdate(List<udtProductAddTarget> obj, ProductTargetAddModel obj2)
@@ -381,6 +295,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             Boolean Success = false;
             try
             {
+                TempData["LevelDetails"] = null;
                 TempData["DetailsID"] = detailsid;
                 TempData["IsView"] = IsView;
                 TempData.Keep();
@@ -410,6 +325,86 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             catch { }
             return Json(retData);
+        }
+
+        [WebMethod]
+        public JsonResult AddLevelDetails(ProductTargetDetails prod)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            DataTable dt2 = new DataTable();
+
+            if (dt == null)
+            {
+                DataTable dtable = new DataTable();
+
+                dtable.Clear();
+                dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                dtable.Columns.Add("SlNO", typeof(System.String));
+                dtable.Columns.Add("TARGETLEVEL", typeof(System.String));
+                dtable.Columns.Add("TIMEFRAME", typeof(System.String));
+                dtable.Columns.Add("STARTEDATE", typeof(System.String));
+                dtable.Columns.Add("ENDDATE", typeof(System.String));
+                dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
+                dtable.Columns.Add("INTERNALID", typeof(System.String));
+                dtable.Columns.Add("PRODUCTID", typeof(System.String));
+                dtable.Columns.Add("PRODUCTNAME", typeof(System.String));
+                dtable.Columns.Add("PRODUCTCODE", typeof(System.String));
+                dtable.Columns.Add("ORDERAMOUNT", typeof(System.String));
+                dtable.Columns.Add("ORDERQTY", typeof(System.String));
+
+
+                object[] trow = { Guid.NewGuid(), 1, prod.TARGETLEVEL, prod.TIMEFRAME,
+                        DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        prod.TARGETLEVELID, prod.INTERNALID,
+                        prod.PRODUCTID, prod.PRODUCTNAME, prod.PRODUCTCODE, prod.ORDERAMOUNT, prod.ORDERQTY };
+                dtable.Rows.Add(trow);
+                TempData["LevelDetails"] = dtable;
+                TempData.Keep();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(prod.Guids))
+                {
+                    object[] trow = { Guid.NewGuid(), Convert.ToInt32(dt.Rows.Count) + 1, prod.TARGETLEVEL, prod.TIMEFRAME,
+                        DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy"),
+                        prod.TARGETLEVELID, prod.INTERNALID,
+                        prod.PRODUCTID, prod.PRODUCTNAME, prod.PRODUCTCODE, prod.ORDERAMOUNT, prod.ORDERQTY};
+
+
+                    dt.Rows.Add(trow);
+                    TempData["LevelDetails"] = dt;
+                    TempData.Keep();
+                }
+                else
+                {
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            if (prod.Guids.ToString() == item["HIddenID"].ToString())
+                            {
+                                // item["SlNO"] = prod.SlNO;
+                                item["TARGETLEVEL"] = prod.TARGETLEVEL;
+                                item["TIMEFRAME"] = prod.TIMEFRAME;
+                                item["STARTEDATE"] = DateTime.ParseExact(prod.STARTEDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy");
+                                item["ENDDATE"] = DateTime.ParseExact(prod.ENDDATE, "yyyy-MM-dd", null).ToString("dd-MM-yyyy");
+                                item["TARGETLEVELID"] = prod.TARGETLEVELID;
+                                item["INTERNALID"] = prod.INTERNALID;
+                                item["PRODUCTID"] = prod.PRODUCTID;
+                                item["PRODUCTNAME"] = prod.PRODUCTNAME;
+                                item["PRODUCTCODE"] = prod.PRODUCTCODE;
+                                item["ORDERAMOUNT"] = prod.ORDERAMOUNT;
+                                item["ORDERQTY"] = prod.ORDERQTY;
+                            }
+                        }
+                    }
+                }
+                TempData["LevelDetails"] = dt;
+                TempData.Keep();
+            }
+            return Json("");
         }
     }
 }
