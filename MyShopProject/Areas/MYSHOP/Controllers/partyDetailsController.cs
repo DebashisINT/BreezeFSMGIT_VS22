@@ -13,6 +13,7 @@ using DataAccessLayer;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
+using DevExpress.XtraCharts.Design;
 using DevExpress.XtraSpreadsheet.Forms;
 //using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
@@ -143,6 +144,35 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     // End of Rev 1.0
 
                 }
+
+
+                //REV PRITI
+                DataSet dsLoanDetails = obj.GetLoanDetails();
+                if (dsLoanDetails != null)
+                {
+                    List<LOANTypes> RiskDetailsList = new List<LOANTypes>();
+                    RiskDetailsList = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[0]);
+                    Dtls.RiskList = RiskDetailsList;
+
+
+                    List<WORKABLEVALUE> WORKABLEDetailsList = new List<WORKABLEVALUE>();
+                    WORKABLEDetailsList = APIHelperMethods.ToModelList<WORKABLEVALUE>(dsLoanDetails.Tables[1]);
+                    Dtls.WORKABLELIST = WORKABLEDetailsList;
+                    
+
+                    List<LOANTypes> DISPOSITIONCODEDETAILSLIST = new List<LOANTypes>();
+                    DISPOSITIONCODEDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[2]);
+                    Dtls.DISPOSITIONCODELIST = DISPOSITIONCODEDETAILSLIST;
+
+                    List<LOANTypes> FINALSTATUSLISTDETAILSLIST = new List<LOANTypes>();
+                    FINALSTATUSLISTDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[3]);
+                    Dtls.FINALSTATUSLIST = FINALSTATUSLISTDETAILSLIST;
+                }
+                //REV PRITI END
+
+
+
+
                 // Mantis Issue 24603
                 string IsAutoCodificationRequired = "0";
                 DBEngine obj1 = new DBEngine();
@@ -551,6 +581,28 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     ret.dobstr = dt.Rows[0]["dob"].ToString();
                     ret.date_aniversarystr = dt.Rows[0]["date_aniversary"].ToString();
                     //Rev work close 01.08.2022 0025120: Owner dob,owner aniversery date not fetch in edit mode in party master
+
+
+                    //REV Priti
+                    ret.BKT = dt.Rows[0]["BKT"].ToString();
+                    ret.TOTALOUTSTANDING = Convert.ToDecimal(dt.Rows[0]["TOTALOUTSTANDING"]);
+                    ret.POS = Convert.ToDecimal(dt.Rows[0]["POS"]);
+                    ret.EMIAMOUNT = Convert.ToDecimal(dt.Rows[0]["EMIAMOUNT"]);
+                    ret.ALLCHARGES = Convert.ToDecimal(dt.Rows[0]["ALLCHARGES"]);
+                    
+                    ret.TOTALCOLLECTABLE = Convert.ToDecimal(dt.Rows[0]["TOTALCOLLECTABLE"]);
+                    ret.RISK = dt.Rows[0]["RISK"].ToString();
+                    ret.WORKABLE = dt.Rows[0]["WORKABLE"].ToString();
+                    ret.DISPOSITIONCODE = dt.Rows[0]["DISPOSITIONCODE"].ToString();
+                    ret.PTPDATE = (dt.Rows[0]["PTPDATE"]).ToString();
+
+                    ret.PTPAMOUNT = Convert.ToDecimal(dt.Rows[0]["PTPAMOUNT"]);
+                    ret.COLLECTIONDATE = (dt.Rows[0]["COLLECTIONDATE"]).ToString();
+                    ret.COLLECTIONAMOUNT = Convert.ToDecimal(dt.Rows[0]["COLLECTIONAMOUNT"]);
+                    ret.FINALSTATUS = dt.Rows[0]["FINALSTATUS"].ToString();
+                    //REV Priti END
+
+
                 }
                 return Json(ret, JsonRequestBehavior.AllowGet);
             }
@@ -2359,6 +2411,19 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     Anniversary = data.date_aniversary.Split('-')[2] + '-' + data.date_aniversary.Split('-')[1] + '-' + data.date_aniversary.Split('-')[0];
                 }
 
+                string _PTPDATE = null;
+                string _COLLECTIONDATE = null;
+                if (data.PTPDATE != null && data.PTPDATE != "01-01-0100")
+                {
+                    _PTPDATE = data.PTPDATE.Split('-')[2] + '-' + data.PTPDATE.Split('-')[1] + '-' + data.PTPDATE.Split('-')[0];
+                }
+
+                if (data.COLLECTIONDATE != null && data.COLLECTIONDATE != "01-01-0100")
+                {
+                    _COLLECTIONDATE = data.COLLECTIONDATE.Split('-')[2] + '-' + data.COLLECTIONDATE.Split('-')[1] + '-' + data.COLLECTIONDATE.Split('-')[0];
+                }
+
+
                 // Mantis Issue 24450,24451
                 string rtrnvalue = "";
                 // End of Mantis Issue 24450,24451
@@ -2424,6 +2489,27 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc.AddPara("@Alt_MobileNo1", data.Alt_MobileNo1);
                 proc.AddPara("@Shop_Owner_Email2", data.Shop_Owner_Email2);
                 //End of Mantis Issue 24571
+
+
+                //REV PRITI
+                proc.AddPara("@BKT", data.BKT);
+                proc.AddPara("@TOTALOUTSTANDING", data.TOTALOUTSTANDING);
+                proc.AddPara("@POS", data.POS);
+                proc.AddPara("@EMIAMOUNT", data.EMIAMOUNT);
+                proc.AddPara("@ALLCHARGES", data.ALLCHARGES);
+                proc.AddPara("@TOTALCOLLECTABLE", data.TOTALCOLLECTABLE);
+                proc.AddPara("@RISK", data.RiskId);
+                proc.AddPara("@WORKABLE", data.WORKABLE);
+                proc.AddPara("@DISPOSITIONCODE", data.DISPOSITIONID);
+
+                proc.AddPara("@PTPDATE", _PTPDATE);
+                proc.AddPara("@PTPAMOUNT", data.PTPAMOUNT);
+                proc.AddPara("@COLLECTIONDATE", _COLLECTIONDATE);
+                proc.AddPara("@COLLECTIONAMOUNT", data.COLLECTIONAMOUNT);
+                proc.AddPara("@FINALSTATUS", data.FINALSTATUSID);
+
+                //REV PRITI END
+
                 // Mantis Issue 24450,24451
                 proc.AddVarcharPara("@RETURN_VALUE", 50, "", QueryParameterDirection.Output);
                 // End of Mantis Issue 24450,24451
