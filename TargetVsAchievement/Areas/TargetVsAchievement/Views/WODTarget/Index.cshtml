@@ -155,8 +155,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 8px;
-            right: -2px;
+            top: 33px;
+            right: 13px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -371,6 +371,14 @@
         border-bottom: 1px solid #d5d5d5;
     }
 
+    .pmsModal .modal-body {
+        padding: 10px 20px;
+    }
+
+    .pmsModal .modal-footer {
+        padding: 10px 20px;
+    }
+
     .close {
         font-size: 34px;
         opacity: .8;
@@ -541,7 +549,7 @@
 
     .btn {
         border-radius: 8px;
-        height: 38px;
+        height: 34px;
         padding-left: 12px;
         padding-right: 12px;
         color: #fff;
@@ -708,6 +716,15 @@
     .close:hover, .close:focus {
         color: #111 !important;
     }
+
+    #WODCount {
+        padding: 0;
+    }
+
+        #WODCount input {
+            height: 100%;
+            padding: 0 5px;
+        }
 </style>
 <script>
     var DetailsID = 0;
@@ -1504,9 +1521,9 @@
     <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
-    <div class="form_main backBox p-3">
+    <div class="form_main backBox p-3 mb-3">
         <div class="row mb-4">
-            <div class="col-sm-2">
+            <div class="col-sm-4 h-branch-select">
                 <label>Target Type <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
@@ -1525,7 +1542,7 @@
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
-            <div class=" col-sm-2">
+            <div class=" col-sm-4">
                 <label>Date <span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.DevExpress().DateEdit(
@@ -1544,6 +1561,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class=" col-sm-2">
                 <label>Level<span style="color:red">*</span></label>
@@ -1560,9 +1580,9 @@
 
                 }).GetHtml()
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 h-branch-select">
                 <label>Time Frame<span style="color:red">*</span></label>
-                <select id="ddlTimeFrame" class="form-control" >
+                <select id="ddlTimeFrame" class="form-control">
                     <option value="Select">Select</option>
                     <option value="Monthly">Monthly</option>
                     <option value="Yearly">Yearly</option>
@@ -1620,10 +1640,10 @@
                     <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
                 </div>
             </div>
-            <div class=" col-sm-1">
+            <div class=" col-sm-2">
                 <label class="">&nbsp; </label>
-                <div class="relative" style="padding-top: 10px">
-                    <button type="button" id="btnAdd" onclick="btnAdd_Click()" class="btn btn-success">Add</button>
+                <div class="relative" style="">
+                    <button type="button" id="btnAdd" onclick="btnAdd_Click()" class="btn btn-success add-btn"><span class="btn-icon"><i class="fa fa-plus"></i></span> Add</button>
                 </div>
             </div>
         </div>
@@ -1643,7 +1663,7 @@
 
                 @if (Convert.ToInt16(ViewBag.IsView) == 0)
                 {
-                    <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and Exit</span></button>
+                    <button type="button" class="btn btn-success" id="btnSave" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
 
             </div>
@@ -1660,7 +1680,7 @@
 <input type="hidden" value="" id="hdnLevelGuiIDS" />
 
 <!-- Grid Level List -->
-<div class="modal fade" id="GridLevellistModel" role="dialog">
+<div class="modal fade pmsModal" id="GridLevellistModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1668,7 +1688,7 @@
                 <h4 class="modal-title">Select Level</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="GridLevelListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
+                <input type="text" class="form-control mb-3" onkeydown="GridLevelListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
                 <div id="GridTargetTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
@@ -1680,7 +1700,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="SetFocusDesc()">Close</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" onclick="SetFocusDesc()">Close</button>
             </div>
         </div>
     </div>
