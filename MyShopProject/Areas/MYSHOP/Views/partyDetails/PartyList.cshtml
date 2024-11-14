@@ -2942,7 +2942,7 @@
     .calendar-icon {
         position: absolute;
         bottom: 7px;
-        right: 19px;
+        right: 12px;
         z-index: 0;
         cursor: pointer;
     }
@@ -2966,6 +2966,7 @@
     .for-cust-icon {
         position: relative;
         z-index: 1;
+        width: 160px;
     }
 
     .pmsModal .modal-content {
@@ -3243,6 +3244,27 @@
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
         overflow: visible;
+    }
+
+    .party-list-buttons .btn {
+        border-radius: 50px;
+        margin-right: 8px;
+        transition: .3s;
+    }
+
+    .party-list-buttons .btn:hover
+    {
+        transform: scale(1.1);
+    }
+
+    .plr-5
+    {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .btn-warning {
+        background-color: #db8711;
     }
 </style>
 
@@ -3660,15 +3682,15 @@
         <div class="col-md-12">
             <div class="backBox mt-5 px-4">
                 <div class="row">
-                    <div class="col-md-12" style="padding-top: 15px;margin-bottom: 10px;">
+                    <div class="col-md-12 party-list-buttons" style="padding-top: 15px;margin-bottom: 10px;">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
                             Add Party
                         </button>
-                        <button type="button" class="btn btn-info mr-1" onclick="DownloadFormat();">
+                        <button type="button" class="btn btn-info" onclick="DownloadFormat();">
                             Download Format
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="ImportPartyPopOpen();">
+                        <button type="button" class="btn btn-warning" onclick="ImportPartyPopOpen();">
                             Import File
                         </button>
                         <button type="button" class="btn btn-success" onclick="ReAssignUserPopOpen();">
@@ -3681,11 +3703,11 @@
                         @*Mantis Issue 25133*@
                         @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
                         @*<button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
-            Re-assigned Beat/Group
-        </button>
-        <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
-            Re-assigned Beat/Group Log
-        </button>*@
+                Re-assigned Beat/Group
+            </button>
+            <button type="button" class="btn btn-primary" onclick="ReAssignBeatGroupLogPopOpen();">
+                Re-assigned Beat/Group Log
+            </button>*@
                         @if (ViewBag.CanReassignedBeatParty)
                         {
                             <button type="button" class="btn btn-success" onclick="ReAssignBeatGroupPopOpen();">
@@ -3732,20 +3754,20 @@
                         @*Rev 10.0*@
                         @*Rev 12.0*@
                         @*@if (ViewBag.CanDelete)
-                        {
-                            <button type="button" class="btn btn-danger" onclick="MassDeleteShopPopOpen();">
-                                Mass Delete
-                            </button>
-                            <button type="button" class="btn btn-info" onclick="DownloadMassDeleteFormat();">
-                                Download Mass Delete Format
-                            </button>
-                            <button type="button" class="btn btn-danger" onclick="MassDeleteImportShopPopOpen();">
-                                Mass Delete Import
-                            </button>
-                            <button type="button" class="btn btn-mass-dlt-imp-log" onclick="MassDeleteShopLogPopOpen();">
-                                View Mass Delete Import Log
-                            </button>
-                        }*@
+            {
+                <button type="button" class="btn btn-danger" onclick="MassDeleteShopPopOpen();">
+                    Mass Delete
+                </button>
+                <button type="button" class="btn btn-info" onclick="DownloadMassDeleteFormat();">
+                    Download Mass Delete Format
+                </button>
+                <button type="button" class="btn btn-danger" onclick="MassDeleteImportShopPopOpen();">
+                    Mass Delete Import
+                </button>
+                <button type="button" class="btn btn-mass-dlt-imp-log" onclick="MassDeleteShopLogPopOpen();">
+                    View Mass Delete Import Log
+                </button>
+            }*@
 
                         @if (ViewBag.CanMassDelete)
                         {
@@ -3769,13 +3791,13 @@
                         @*End of Rev 10.0*@
                     </div>
                     <div class="clear"></div>
-                    <div class="col-md-2" style="margin-bottom: 16px;">
+                    <div class="col-md-2 plr-5" style="margin-bottom: 16px; padding-left: 15px;">
                         <span>State</span>
                         <div>
                             @Html.Action("GetStateList", "MasterPopulate")
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 plr-5">
                         <span>Employee</span>
                         <div>
                             @*@Html.Action("GetEmpList", "MasterPopulate")*@
@@ -3796,7 +3818,7 @@
 
                     @*Rev 5.0*@
                     @*<div class="col-md-2">*@
-                    <div class="col-md-2 for-cust-icon">
+                    <div class="col-md-2 for-cust-icon plr-5">
                         @*Rev end 5.0*@
                         <span>From Date</span>
                         <div>
@@ -3818,7 +3840,7 @@
                     </div>
                     @*Rev 5.0*@
                     @*<div class="col-md-2">*@
-                    <div class="col-md-2 for-cust-icon">
+                    <div class="col-md-2 for-cust-icon plr-5">
                         @*Rev end 5.0*@
                         <span>To Date</span>
                         <div>
@@ -3840,15 +3862,13 @@
                     </div>
                     @*Rev 2.0*@
                     @*<div class="col-md-2" style="padding-top: 13px;">*@
-                    <div class="col-md-4" style="padding-top: 20px;">
+                    <div class="col-md-2 plr-5" style="padding-top: 20px;">
                         @*Rev end 2.0*@
                         <span>&nbsp;</span>
                         <input type="checkbox" id="chkIsAssignDate" /> Re-assigned Date
                     </div>
-                    <div class="clear"></div>
-                    @*Rev 2.0*@
-                    @*<div class="col-md-2" style="padding-top: 13px;">*@
-                    <div class="col-md-12" style="padding-top: 13px;">
+
+                    <div class="col-md-2 plr-5" style="padding-top: 13px;">
                         @*Rev end 2.0*@
                         <span></span>
                         <div>
@@ -3859,6 +3879,10 @@
                             </select>
                         </div>
                     </div>
+                    <div class="clear"></div>
+                    @*Rev 2.0*@
+                    @*<div class="col-md-2" style="padding-top: 13px;">*@
+
                 </div>
                 <div class="clearfix"></div>
 
