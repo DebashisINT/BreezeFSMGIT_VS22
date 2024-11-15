@@ -733,6 +733,7 @@
     var rowtime = 0;
     var savemode = "";
     var hasmsg = 0;
+
     $(document).ready(function () {
 
        // setTimeout(function () { AddNewRowWithSl(); }, 200);
@@ -747,7 +748,18 @@
         if (hdnTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnTargetLevel);
             $('#HeaderLableID').text("Sales Target -Modify");
+            $('#ddlTargetLevel').prop('disabled', true);
+            $('#TargetNo').prop('disabled', true);
 
+            WODTargetDate.SetEnabled(false);
+
+            var partsDT = $('#hdnWODTargetDate').val().split("/");
+            var dayDT = parseInt(partsDT[1], 10);
+            var monthDT = parseInt(partsDT[0], 10) - 1; // Month is 0-based
+            var yearDT = parseInt(partsDT[2], 10);
+
+            var dateD = new Date(yearDT, monthDT, dayDT); // Month is 0-based, so 10 represents November
+            WODTargetDate.SetDate(dateD);
         }
 
         $('#TargetNo').blur(function () {
@@ -1514,6 +1526,19 @@
             }
         }
     }
+    function DeleteLevelData(values) {
+        $.ajax({
+            type: "POST",
+            url: "../WODTarget/DeleteLevelData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
+                    gridLevelEntryList.Refresh();
+                    gridLevelEntryList.Refresh();
+                }
+            }
+        });
+    }
 </script>
 
 <div class="breadCumb">
@@ -1674,6 +1699,7 @@
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
 <input type="hidden" value="@Model.TARGET_ID" id="hdnDetailsID" />
 <input type="hidden" value="@Model.TargetType" id="hdnTargetLevel" />
+<input type="hidden" value="@Model.TargetDate" id="hdnWODTargetDate" />
 
 <input type="hidden" value="" id="hdnTARGETLEVELID" />
 <input type="hidden" value="" id="hdnINTERNALID" />
