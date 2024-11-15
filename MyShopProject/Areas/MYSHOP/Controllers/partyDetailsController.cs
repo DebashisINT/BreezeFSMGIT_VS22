@@ -47,6 +47,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 {
     public class partyDetailsController : Controller
     {
+        CommonBL objSystemSettings = new CommonBL();
         AddPartyDetailsBL obj = new AddPartyDetailsBL();
         public ActionResult Index()
         {
@@ -145,30 +146,35 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 }
 
+                string WillShowLoanDetailsInParty = objSystemSettings.GetSystemSettingsResult("WillShowLoanDetailsInParty");
 
-                //REV PRITI
-                DataSet dsLoanDetails = obj.GetLoanDetails();
-                if (dsLoanDetails != null)
+                if (WillShowLoanDetailsInParty=="1")
                 {
-                    List<LOANTypes> RiskDetailsList = new List<LOANTypes>();
-                    RiskDetailsList = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[0]);
-                    Dtls.RiskList = RiskDetailsList;
+                    //REV PRITI
+                    DataSet dsLoanDetails = obj.GetLoanDetails();
+                    if (dsLoanDetails != null)
+                    {
+                        List<LOANTypes> RiskDetailsList = new List<LOANTypes>();
+                        RiskDetailsList = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[0]);
+                        Dtls.RiskList = RiskDetailsList;
 
 
-                    List<WORKABLEVALUE> WORKABLEDetailsList = new List<WORKABLEVALUE>();
-                    WORKABLEDetailsList = APIHelperMethods.ToModelList<WORKABLEVALUE>(dsLoanDetails.Tables[1]);
-                    Dtls.WORKABLELIST = WORKABLEDetailsList;
-                    
+                        List<WORKABLEVALUE> WORKABLEDetailsList = new List<WORKABLEVALUE>();
+                        WORKABLEDetailsList = APIHelperMethods.ToModelList<WORKABLEVALUE>(dsLoanDetails.Tables[1]);
+                        Dtls.WORKABLELIST = WORKABLEDetailsList;
 
-                    List<LOANTypes> DISPOSITIONCODEDETAILSLIST = new List<LOANTypes>();
-                    DISPOSITIONCODEDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[2]);
-                    Dtls.DISPOSITIONCODELIST = DISPOSITIONCODEDETAILSLIST;
 
-                    List<LOANTypes> FINALSTATUSLISTDETAILSLIST = new List<LOANTypes>();
-                    FINALSTATUSLISTDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[3]);
-                    Dtls.FINALSTATUSLIST = FINALSTATUSLISTDETAILSLIST;
+                        List<LOANTypes> DISPOSITIONCODEDETAILSLIST = new List<LOANTypes>();
+                        DISPOSITIONCODEDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[2]);
+                        Dtls.DISPOSITIONCODELIST = DISPOSITIONCODEDETAILSLIST;
+
+                        List<LOANTypes> FINALSTATUSLISTDETAILSLIST = new List<LOANTypes>();
+                        FINALSTATUSLISTDETAILSLIST = APIHelperMethods.ToModelList<LOANTypes>(dsLoanDetails.Tables[3]);
+                        Dtls.FINALSTATUSLIST = FINALSTATUSLISTDETAILSLIST;
+                    }
+                    //REV PRITI END
                 }
-                //REV PRITI END
+
 
 
 
@@ -201,6 +207,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewBag.ShopDeleteWithAllTransactions = cbl.GetSystemSettingsResult("ShopDeleteWithAllTransactions");
                 ViewBag.CanDelete = rights.CanDelete;
                 // End of Rev 3.0
+
+                //REV PRITI
+                ViewBag.WillShowLoanDetailsInParty = WillShowLoanDetailsInParty;
+                //REV PRITI END
+
+
 
                 return View(Dtls);
             }

@@ -40,10 +40,10 @@
         $("#ddlDISPOSITION").val(0);
         $("#ddlWORKABLE").val('Yes');
         $("#ddlRISK").val(0);
-        
-        
-        
-        
+
+
+
+
 
         /*REV PRITI*/
         $("#ddlStatus").val(1);
@@ -181,7 +181,15 @@
         });
 
     });
-
+    function limitDecimalPlaces(input, decimalPlaces) {
+        let value = input.value;
+        if (value.includes('.')) {
+            let [integerPart, decimalPart] = value.split('.');
+            if (decimalPart.length > decimalPlaces) {
+                input.value = integerPart + '.' + decimalPart.slice(0, decimalPlaces);
+            }
+        }
+    }
     function ExportLogGrid() {
         var url = '@Url.Action("ExportPartyLogList", "partyDetails", new { type = "_type_" })'
         window.location.href = url.replace("_type_", 3);
@@ -642,16 +650,20 @@
 
 
             var date_txtPTPDATE = null;
-            if (txtPTPDATE.GetText() != null && txtPTPDATE.GetText() != "01-01-0100") {
-                date_txtPTPDATE = txtPTPDATE.GetText();
-            }
-
             var date_txtCOLLECTIONDATE = null;
-            if (txtCOLLECTIONDATE.GetText() != null && txtCOLLECTIONDATE.GetText() != "01-01-0100") {
-                date_txtCOLLECTIONDATE = txtCOLLECTIONDATE.GetText();
-            }
+             if ('@ViewBag.WillShowLoanDetailsInParty' == "1")
+                {
+                    if (txtPTPDATE.GetText() != null && txtPTPDATE.GetText() != "01-01-0100") {
+                        date_txtPTPDATE = txtPTPDATE.GetText();
+                 }
+                 if (txtCOLLECTIONDATE.GetText() != null && txtCOLLECTIONDATE.GetText() != "01-01-0100") {
+                     date_txtCOLLECTIONDATE = txtCOLLECTIONDATE.GetText();
+                 }
+               }
 
-            var data = {
+
+
+                         var data = {
                 session_token: "zksjfhjsdjkskjdh",
                 //user_id: $("#ddlNewCreateUser").val(),
                 user_id: $("#hdnUserID").val(),
@@ -713,12 +725,12 @@
                 TOTALCOLLECTABLE: $("#txtTotalCollectable").val(),
                 RiskId: $("#ddlRISK").val(),
                 WORKABLE: $("#ddlWORKABLE").val(),
-                DISPOSITIONID: $("#ddlDISPOSITION").val(),                
+                DISPOSITIONID: $("#ddlDISPOSITION").val(),
                 //PTPDATE: GetServerDateFormat(txtPTPDATE.GetValue()),
                 PTPDATE: date_txtPTPDATE,
                 PTPAMOUNT: $("#txtPTPAMOUNT").val(),
                 /*COLLECTIONDATE: GetServerDateFormat(txtCOLLECTIONDATE.GetValue()), */
-                COLLECTIONDATE: date_txtCOLLECTIONDATE, 
+                COLLECTIONDATE: date_txtCOLLECTIONDATE,
                 COLLECTIONAMOUNT: $("#txtCOLLECTIONAMOUNT").val(),
                 FINALSTATUSID: $("#ddlFINALSTATUS").val(),
                 //REV PRITI END
@@ -739,13 +751,13 @@
                 else {
                     add_photo_url = "@Url.Action("RegisterShop", "partyDetails")";
                 }
-                var model = new FormData();
-                var i = 0;//selected file index
-                model.append("shop_image", files[0]);
-                model.append("data", JSON.stringify(data));
+             var model = new FormData();
+             var i = 0;//selected file index
+             model.append("shop_image", files[0]);
+             model.append("data", JSON.stringify(data));
                 $.ajax({
-                    // and other parameter is set here
-                    url: add_photo_url,
+             // and other parameter is set here
+             url: add_photo_url,
                     type: "POST",
                     data: model,
                     dataType: "json",
@@ -753,61 +765,61 @@
                     contentType: false,
                     processData: false
                 }).always(function (result) {
-                    if (result == 'OK') {
-                        jAlert("Party submitted successfully.");
+                 if (result == 'OK') {
+                     jAlert("Party submitted successfully.");
 
-                        ClearData();
-                        if (values == "Exit") {
+                     ClearData();
+                     if (values == "Exit") {
                             $('#myModal').modal('hide');
-                        }
-                        GridShow();
-                    }
+                     }
+                     GridShow();
+                 }
 
-                    //gridPartyDetails.Refresh();
-                    //gridPartyDetails.Refresh();
-                });
+                 //gridPartyDetails.Refresh();
+                 //gridPartyDetails.Refresh();
+             });
             }
             else {
                 $.ajax({
-                    url: "@Url.Action("AddParty", "partyDetails")",
+                 url: "@Url.Action("AddParty", "partyDetails")",
                     async: false,
                     data: { data: data },
                     type: 'POST',
                     success: function (returnValue
                         ) {
-                        // Mantis Issue 24603 (Return value "returnValue" added )
-                        if (returnValue == "204") {
-                            jAlert("Auto Party Code Not generated. Party not addded.");
-                        }
-                        else if (returnValue == "205") {
-                            jAlert("Invalid Last Number. Party not addded.");
-                        }
-                        else if (returnValue == "206") {
-                            jAlert("Invalid Shop Type. Party not addded.");
-                        }
-                        else if (returnValue == "207") {
-                            jAlert("Invalid State Code. Party not addded.");
-                        }
-                        else {
-                            jAlert("Party submitted successfully. Auto Party Code " + returnValue + " generated.");
-                        }
-                        // End of Mantis Issue 24603
-                        ClearData();
-                        if (values == "Exit") {
+                         // Mantis Issue 24603 (Return value "returnValue" added )
+                         if (returnValue == "204") {
+                             jAlert("Auto Party Code Not generated. Party not addded.");
+                         }
+                         else if (returnValue == "205") {
+                             jAlert("Invalid Last Number. Party not addded.");
+                         }
+                         else if (returnValue == "206") {
+                             jAlert("Invalid Shop Type. Party not addded.");
+                         }
+                         else if (returnValue == "207") {
+                             jAlert("Invalid State Code. Party not addded.");
+                         }
+                         else {
+                             jAlert("Party submitted successfully. Auto Party Code " + returnValue + " generated.");
+                         }
+                         // End of Mantis Issue 24603
+                         ClearData();
+                         if (values == "Exit") {
                             $('#myModal').modal('hide');
-                        }
-                        GridShow();
-                        //gridPartyDetails.Refresh();
-                        //gridPartyDetails.Refresh();
-                    },
+                         }
+                         GridShow();
+                         //gridPartyDetails.Refresh();
+                         //gridPartyDetails.Refresh();
+                     },
                     error: function () {
-                    },
+                     },
                 });
-            }
+             }
         }
         else {
-            jAlert("Please try again later!");
-        }
+                 jAlert("Please try again later!");
+             }
     }
     //REV PRITI
     function GetServerDateFormat(today) {
@@ -1025,29 +1037,33 @@
                 $("#ddlRISK").val(data.RISK);
                 $("#ddlWORKABLE").val(data.WORKABLE);
                 $("#ddlDISPOSITION").val(data.DISPOSITIONCODE);
-                if (data.PTPDATE != "") {
-                    var dateSPTPDATE = new Date(data.PTPDATE);
-                    txtPTPDATE.SetDate(dateSPTPDATE);
+
+                if ('@ViewBag.WillShowLoanDetailsInParty' == "1") {
+                    if (data.PTPDATE != "") {
+                        var dateSPTPDATE = new Date(data.PTPDATE);
+                        txtPTPDATE.SetDate(dateSPTPDATE);
+                    }
+                    else {
+                        txtPTPDATE.Clear();
+                    }
+
+                    if (data.COLLECTIONDATE != "") {
+                        var dateCOLLECTIONDATE = new Date(data.COLLECTIONDATE);
+                        txtCOLLECTIONDATE.SetDate(dateCOLLECTIONDATE);
+                    }
+                    else {
+                        txtCOLLECTIONDATE.Clear();
+                    }
                 }
-                else {
-                    txtPTPDATE.Clear();
-                }
-                        
                 $("#txtPTPAMOUNT").val(data.PTPAMOUNT);
 
-                if (data.COLLECTIONDATE != "") {
-                    var dateCOLLECTIONDATE = new Date(data.COLLECTIONDATE);
-                    txtCOLLECTIONDATE.SetDate(dateCOLLECTIONDATE);
-                }
-                else {
-                    txtCOLLECTIONDATE.Clear();
-                }
+                
 
-               
+
                 $("#txtCOLLECTIONAMOUNT").val(data.COLLECTIONAMOUNT);
                 $("#ddlFINALSTATUS").val(data.FINALSTATUS);
                 //REV PRITI
-                  
+
                 $('#myModal').modal('show');
             },
             error: function () {
@@ -1976,7 +1992,7 @@
 
         $("#MassDeleteShopModal").modal('show');
     }
-    
+
     function MassDeleteImportShopPopOpen() {
         //document.getElementById('MassDeleteShopTable').innerHTML = '';
         //MassDeleteShopTxt.SetText('');
@@ -1985,7 +2001,7 @@
 
         $("#MassDeleteImportShopModal").modal('show');
     }
-    
+
     function MassDeletePartyImport() {
         todate = null;
         fromdate = null;
@@ -4445,232 +4461,234 @@
 
 
                         @*REV PRITI*@
-                    <div class="Loan-info">
-                        <h3 class="add-party-popup-section-title col-md-12">Loan Info</h3>
-                        <div class="col-md-3">
-                            <label>BKT</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.BKT, new { @class = "form-control", @id = "txtBKT", @MaxLength = "200" })
-                            </div>
-                        </div>
+                        @if (ViewBag.WillShowLoanDetailsInParty == "1")
+                        {
+                            <div class="Loan-info">
+                                <h3 class="add-party-popup-section-title col-md-12">Loan Info</h3>
+                                <div class="col-md-3">
+                                    <label>BKT</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.BKT, new { @class = "form-control", @id = "txtBKT", @MaxLength = "200" })
+                                    </div>
+                                </div>
 
-                        <div class="col-md-3">
-                            <label>Total Outstanding</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.TOTALOUTSTANDING, new { @class = "form-control allow_decimal numbersOnly", @id = "txtTotalOutstanding" })
+                                <div class="col-md-3">
+                                    <label>Total Outstanding</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.TOTALOUTSTANDING, new { @class = "form-control allow_decimal numbersOnly", @id = "txtTotalOutstanding", @oninput = "limitDecimalPlaces(this, 2)" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>POS</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.POS, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPOS", @oninput = "limitDecimalPlaces(this, 2)" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>EMI amount</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.EMIAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtEMIamount", @oninput = "limitDecimalPlaces(this, 2)" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>All Charges</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.ALLCHARGES, new { @class = "form-control allow_decimal numbersOnly", @id = "txtAllCharges", @oninput = "limitDecimalPlaces(this, 2)" })
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="col-md-3">
+                                    <label>Total Collectable</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.TOTALCOLLECTABLE, new { @class = "form-control allow_decimal numbersOnly", @id = "txtTotalCollectable", @oninput = "limitDecimalPlaces(this, 2)" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Risk</label>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.RISK, new SelectList(Model.RiskList, "ID", "Name", Model.RiskId), new { @id = "ddlRISK", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Workable</label>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.WORKABLE, new SelectList(Model.WORKABLELIST, "ID", "NAME", Model.WORKABLEID), new { @id = "ddlWORKABLE", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Disposition Code</label>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.DISPOSITIONCODE, new SelectList(Model.DISPOSITIONCODELIST, "ID", "NAME", Model.DISPOSITIONID), new { @id = "ddlDISPOSITION", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>PTP Date</label>
+                                    <div>
+                                        @Html.DevExpress().DateEditFor(x => x.PTPDATE,
+                                 deSettings =>
+                                 {
+                                     deSettings.Name = "txtPTPDATE";
+                                     deSettings.Date = DateTime.Now;
+                                     deSettings.Properties.UseMaskBehavior = true;
+                                     deSettings.Properties.EditFormat = EditFormat.Custom;
+                                     deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                 }).GetHtml()
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>PTP Amount</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.PTPAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPTPAMOUNT" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Collection Date</label>
+                                    <div>
+                                        @Html.DevExpress().DateEditFor(x => x.COLLECTIONDATE,
+                                 deSettings =>
+                                 {
+                                     deSettings.Name = "txtCOLLECTIONDATE";
+                                     deSettings.Date = DateTime.Now;
+                                     deSettings.Properties.UseMaskBehavior = true;
+                                     deSettings.Properties.EditFormat = EditFormat.Custom;
+                                     deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                 }).GetHtml()
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Collection Amount</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.COLLECTIONAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtCOLLECTIONAMOUNT" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Final Status</label>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.FINALSTATUS, new SelectList(Model.FINALSTATUSLIST, "ID", "NAME", Model.FINALSTATUSID), new { @id = "ddlFINALSTATUS", @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>POS</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.POS, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPOS" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>EMI amount</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.EMIAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtEMIamount" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>All Charges</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.ALLCHARGES, new { @class = "form-control allow_decimal numbersOnly", @id = "txtAllCharges" })
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="col-md-3">
-                            <label>Total Collectable</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.TOTALCOLLECTABLE, new { @class = "form-control allow_decimal numbersOnly", @id = "txtTotalCollectable" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Risk</label>
-                            <div>
-                                @Html.DropDownListFor(m => m.RISK, new SelectList(Model.RiskList, "ID", "Name", Model.RiskId), new { @id = "ddlRISK", @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Workable</label>
-                            <div>
-                                @Html.DropDownListFor(m => m.WORKABLE, new SelectList(Model.WORKABLELIST, "ID", "NAME", Model.WORKABLEID), new { @id = "ddlWORKABLE", @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Disposition Code</label>
-                            <div>
-                                @Html.DropDownListFor(m => m.DISPOSITIONCODE, new SelectList(Model.DISPOSITIONCODELIST, "ID", "NAME", Model.DISPOSITIONID), new { @id = "ddlDISPOSITION", @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>PTP Date</label>
-                            <div>
-                                @Html.DevExpress().DateEditFor(x => x.PTPDATE,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "txtPTPDATE";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>PTP Amount</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.PTPAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPTPAMOUNT" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Collection Date</label>
-                            <div>
-                                @Html.DevExpress().DateEditFor(x => x.COLLECTIONDATE,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "txtCOLLECTIONDATE";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Collection Amount</label>
-                            <div>
-                                @Html.TextBoxFor(m => m.COLLECTIONAMOUNT, new { @class = "form-control allow_decimal numbersOnly", @id = "txtCOLLECTIONAMOUNT" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Final Status</label>
-                            <div>
-                                @Html.DropDownListFor(m => m.FINALSTATUS, new SelectList(Model.FINALSTATUSLIST, "ID", "NAME", Model.FINALSTATUSID), new { @id = "ddlFINALSTATUS", @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>
-
-                        @*END REV PRITI*@
-
-
-
-                        <!--<div class="col-md-3">
-    <label>Status <span class="red">*</span></label>
-    <div>
-        <select class="form-control" id="ddlStatus">
-            <option value="Select">Select</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
-        </select>-->
-                        @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
-                        <!--</div>
-    </div>-->
-                        <div class="clear"></div>
-
-                        <!--<div class="col-md-3">
-    <label>Entity Category </label>
-    <div>-->
-                        @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
-                        <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
-        </div>
-    </div>-->
-                        @*Mantis Issue 24571*@
-                        <!--<div class="col-md-3">
-    <label>GSTIN </label>
-    <div>-->
-                        @*<input type="text" class="form-control" />*@
-                        <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
-        </div>
-    </div>-->
-
-                        <div class="clear"></div>
-
-                        @*End of Mantis Issue 24571*@
+                        }
+                            @*END REV PRITI*@
 
 
 
+                            <!--<div class="col-md-3">
+        <label>Status <span class="red">*</span></label>
+        <div>
+            <select class="form-control" id="ddlStatus">
+                <option value="Select">Select</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+            </select>-->
+                            @*@Html.DropDownListFor(m => m.type, new SelectList(Model.shptypes, "ID", "Name", Model.Shoptype), new { @id = "ddlStatus", @class = "form-control" })*@
+                            <!--</div>
+        </div>-->
+                            <div class="clear"></div>
 
-                        <!--<div class="col-md-3">
-    <label>Assign to User <span class="red">*</span></label>
-    <div>-->
-                        @*<select class="form-control">
-            <option>Select</option>
-        </select>*@
-                        @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
-                        @*@Html.DevExpress().ButtonEdit(
-        settings =>
-        {
-            settings.Name = "UserTxt";
-            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-            settings.Text = Model.AssignedTo;
-            settings.ReadOnly = true;
-            settings.Properties.Buttons.Add("...");
-            settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-            settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
-
-        }).GetHtml()*@
-
-                        @*<input type="hidden" id="txtContact_hidden">*@
-                        <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-        </div>
-    </div>-->
-                        <!--<div class="col-md-3">
-    <label>Party Location Lat </label>
-    <div>-->
-                        @*<input type="text" class="form-control" />*@
-                        <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
-        </div>
-    </div>
-    <div class="col-md-3">
-        <label>Party Location Long</label>
+                            <!--<div class="col-md-3">
+        <label>Entity Category </label>
         <div>-->
-                        @*<input type="text" class="form-control" />*@
-                        <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+                            @*<select class="form-control">
+                <option>Select</option>
+            </select>*@
+                            <!--@Html.DropDownListFor(m => m.EntyType, new SelectList(Model.EntityTypeList, "TypeID", "TypeName", Model.EntityType), new { @id = "ddlEntityType", @class = "form-control" })
+            </div>
+        </div>-->
+                            @*Mantis Issue 24571*@
+                            <!--<div class="col-md-3">
+        <label>GSTIN </label>
+        <div>-->
+                            @*<input type="text" class="form-control" />*@
+                            <!--@Html.TextBoxFor(m => m.GSTN_NUMBER, new { @class = "form-control", @id = "txtgstn" })
+            </div>
+        </div>-->
+
+                            <div class="clear"></div>
+
+                            @*End of Mantis Issue 24571*@
+
+
+
+
+                            <!--<div class="col-md-3">
+        <label>Assign to User <span class="red">*</span></label>
+        <div>-->
+                            @*<select class="form-control">
+                <option>Select</option>
+            </select>*@
+                            @*@Html.DropDownListFor(m => m.NewUser, new SelectList(Model.NewUseridList, "UserID", "username", Model.NewUserid), new { @id = "ddlNewCreateUser", @class = "form-control" })*@
+                            @*@Html.DevExpress().ButtonEdit(
+            settings =>
+            {
+                settings.Name = "UserTxt";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Text = Model.AssignedTo;
+                settings.ReadOnly = true;
+                settings.Properties.Buttons.Add("...");
+                settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+            }).GetHtml()*@
+
+                            @*<input type="hidden" id="txtContact_hidden">*@
+                            <!--<input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+            </div>
+        </div>-->
+                            <!--<div class="col-md-3">
+        <label>Party Location Lat </label>
+        <div>-->
+                            @*<input type="text" class="form-control" />*@
+                            <!--@Html.TextBoxFor(m => m.shop_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLat" })
+            </div>
         </div>
-    </div>-->
-                        <div class="clear"></div>
+        <div class="col-md-3">
+            <label>Party Location Long</label>
+            <div>-->
+                            @*<input type="text" class="form-control" />*@
+                            <!--@Html.TextBoxFor(m => m.shop_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtPartyLocationLang" })
+            </div>
+        </div>-->
+                            <div class="clear"></div>
 
 
 
-                        <!--<div class="col-md-3">
-    <label>Party Status </label>
-    <div id="Citydiv">-->
-                        @*<select class="form-control">
-        <option>Select</option>
-        </select>*@
-                        <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
-        </div>
-    </div>-->
-                        <!--<div class="col-md-3">
-    <label>Group/Beat </label>
-    <div id="Citydiv">-->
-                        @*<select class="form-control">
-        <option>Select</option>
-        </select>*@
-                        <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
-        </div>
-    </div>-->
+                            <!--<div class="col-md-3">
+        <label>Party Status </label>
+        <div id="Citydiv">-->
+                            @*<select class="form-control">
+            <option>Select</option>
+            </select>*@
+                            <!--@Html.DropDownListFor(m => m.PartyStatus, new SelectList(Model.PartyStatusList, "id", "name", Model.PartyStatusId), new { @id = "ddlPartyStatus", @class = "form-control" })
+            </div>
+        </div>-->
+                            <!--<div class="col-md-3">
+        <label>Group/Beat </label>
+        <div id="Citydiv">-->
+                            @*<select class="form-control">
+            <option>Select</option>
+            </select>*@
+                            <!--@Html.DropDownListFor(m => m.GroupBeat, new SelectList(Model.GroupBeatList, "id", "name", Model.GroupBeatId), new { @id = "ddlGroupBeat", @class = "form-control" })
+            </div>
+        </div>-->
 
-                        <div class="clear"></div>
+                            <div class="clear"></div>
 
 
 
-                        <!--<div class="col-md-4">
-    <label>Add Photo</label>
-    <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-    <span class="red">
-        Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-    </span>-->
-                        @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
-                        <!--</div>-->
-                    </div>
+                            <!--<div class="col-md-4">
+        <label>Add Photo</label>
+        <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+        <span class="red">
+            Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+        </span>-->
+                            @*<span class="buttonphoto"><i class="fa fa-plus-circle"></i> Add Photo</span>*@
+                            <!--</div>-->
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" onclick="AddShop('Exit');">Save & Exit</button>
