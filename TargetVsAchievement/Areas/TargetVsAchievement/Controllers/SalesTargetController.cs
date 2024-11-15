@@ -343,7 +343,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 {
                     proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
                     proc.AddIntegerPara("@ReturnValue", 0,QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@SalesTargetNo", 100, SalesTargetNo);
+                    proc.AddVarcharPara("@TargetNo", 100, SalesTargetNo);
                     proc.AddVarcharPara("@TARGET_ID", 100, TargetID);
                     int i = proc.RunActionQuery();
                     retData =Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
@@ -434,6 +434,34 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             return Json("");
         }
 
+        public JsonResult CHECKUNIQUETARGETDETAILS(string TargetNo, string TargetType, string TARGETLEVELID, string TARGETLEVEL, string INTERNALID, string TimeFrame, string STARTEDATE, string ENDDATE)
+        {
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_SALESTARGETASSIGN"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDETAILS");
+                    proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@TargetType", 100, TargetType);
+                    proc.AddVarcharPara("@TargetNo", 100, TargetNo);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVEL", 100, TARGETLEVEL);
+                    proc.AddVarcharPara("@UNIQUEINTERNALID", 100, INTERNALID);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVELID", 100, TARGETLEVELID);
+                    proc.AddVarcharPara("@UNIQUETIMEFRAME", 100, TimeFrame);
+                    proc.AddVarcharPara("@UNIQUESTARTEDATE", 100, STARTEDATE);
+                    proc.AddVarcharPara("@UNIQUEENDDATE", 100, ENDDATE);
+                    int i = proc.RunActionQuery();
+                    retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+
+                }
+            }
+            catch { }
+            return Json(retData);
+        }
+
+
         [WebMethod]
         public JsonResult EditTargetData(String HiddenID)
         {
@@ -468,6 +496,35 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData["LevelDetails"] = dt;
             TempData.Keep();
             return Json(ret);
+        }
+        public JsonResult DeleteLevelData(string HiddenID)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        dt.Rows.Remove(item);
+                        break;
+                    }
+                }
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int conut = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr["SlNO"] = conut;
+                    conut++;
+                }
+            }
+
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json("Level Removed Successfully.");
         }
     }
 }

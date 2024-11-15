@@ -138,9 +138,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
                             productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
 
-                            productdataobj.PRODUCTID = Convert.ToString(row["TARGETPRODID"]);
-                            productdataobj.PRODUCTCODE = Convert.ToString(row["TARGETPRODCODE"]);
-                            productdataobj.PRODUCTNAME = Convert.ToString(row["TARGETPRODNAME"]);
+                            productdataobj.PRODUCTID = Convert.ToString(row["PRODUCTID"]);
+                            productdataobj.PRODUCTCODE = Convert.ToString(row["PRODUCTCODE"]);
+                            productdataobj.PRODUCTNAME = Convert.ToString(row["PRODUCTNAME"]);
                             productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
                             productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
 
@@ -151,7 +151,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
                                     Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]),
                                     Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]),
-                                    Convert.ToString(row["TARGETPRODID"]), Convert.ToString(row["TARGETPRODCODE"]), Convert.ToString(row["TARGETPRODNAME"]),  
+                                    Convert.ToString(row["PRODUCTID"]), Convert.ToString(row["PRODUCTCODE"]), Convert.ToString(row["PRODUCTNAME"]),  
                                     Convert.ToString(row["ORDERAMOUNT"]),Convert.ToString(row["ORDERQTY"]) };
 
                             dtable.Rows.Add(trow);
@@ -306,7 +306,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             return Json(Success);
         }
 
-        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string SalesTargetNo, string TargetID)
+        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string ProductTargetNo, string TargetID)
         {
 
             var retData = 0;
@@ -317,7 +317,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 {
                     proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
                     proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
-                    proc.AddVarcharPara("@ProductTargetNo", 100, SalesTargetNo);
+                    proc.AddVarcharPara("@ProductTargetNo", 100, ProductTargetNo);
                     proc.AddVarcharPara("@PRODUCTTARGET_ID", 100, TargetID);
                     int i = proc.RunActionQuery();
                     retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
@@ -443,12 +443,12 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             if (Convert.ToInt64(Details.PRODUCTTARGET_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
             {
-                dt = objdata.ProductTargetEntryInsertUpdate("UPDATEMAINPRODUCT", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
+                dt = objdata.ProductTargetEntryInsertUpdate("UPDATEPRODUCTTARGET", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
                        , dtProductTarget, Convert.ToInt64(Session["userid"]));
             }
             else
             {
-                dt = objdata.ProductTargetEntryInsertUpdate("INSERTMAINPRODUCT", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
+                dt = objdata.ProductTargetEntryInsertUpdate("INSERTPRODUCTTARGET", Convert.ToDateTime(Details.ProductTargetDate), Convert.ToInt64(Details.PRODUCTTARGET_ID), Details.ProductTargetLevel, Details.ProductTargetNo
                        , dtProductTarget, Convert.ToInt64(Session["userid"]));
 
             }
@@ -534,6 +534,36 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData["LevelDetails"] = dt;
             TempData.Keep();
             return Json("Level Removed Successfully.");
+        }
+
+       
+        public JsonResult CHECKUNIQUETARGETDETAILS(string TargetNo, string TargetType, string TARGETLEVELID, string TARGETLEVEL, string INTERNALID, string TimeFrame,
+               string STARTEDATE, string ENDDATE, string PRODUCTID)
+        {
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_PRODUCTTARGETASSIGN"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDETAILS");
+                    proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@ProductTargetNo", 100, TargetNo);
+                    proc.AddVarcharPara("@ProductTargetLevel", 100, TargetType);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVEL", 100, TARGETLEVEL);
+                    proc.AddVarcharPara("@UNIQUEINTERNALID", 100, INTERNALID);
+                    proc.AddVarcharPara("@UNIQUETARGETLEVELID", 100, TARGETLEVELID);
+                    proc.AddVarcharPara("@UNIQUETIMEFRAME", 100, TimeFrame);
+                    proc.AddVarcharPara("@UNIQUESTARTEDATE", 100, STARTEDATE);
+                    proc.AddVarcharPara("@UNIQUEENDDATE", 100, ENDDATE);
+                    proc.AddVarcharPara("@UNIQUEPRODUCTID", 100, PRODUCTID);
+                    int i = proc.RunActionQuery();
+                    retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+
+                }
+            }
+            catch { }
+            return Json(retData);
         }
     }
 }

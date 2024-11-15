@@ -673,5 +673,34 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             TempData.Keep();
             return Json(ret);
         }
+        public JsonResult DeleteLevelData(string HiddenID)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        dt.Rows.Remove(item);
+                        break;
+                    }
+                }
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int conut = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr["SlNO"] = conut;
+                    conut++;
+                }
+            }
+
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json("Level Removed Successfully.");
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace TargetVsAchievement.Models
             proc.AddVarcharPara("@ProductTargetNo", 100, ProductTargetNo);
             proc.AddBigIntegerPara("@USER_ID", userid);
 
-            if (action == "INSERTMAINPRODUCT" || action == "UPDATEMAINPRODUCT")
+            if (action == "INSERTPRODUCTTARGET" || action == "UPDATEPRODUCTTARGET")
             {
                 proc.AddPara("@UDTProductTarget", dtProductTarget);
             }
