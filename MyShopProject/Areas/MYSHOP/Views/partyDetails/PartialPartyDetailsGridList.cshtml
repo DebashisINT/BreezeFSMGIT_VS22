@@ -2,6 +2,8 @@
 @*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
 @*1.0                03-05-2024        V2 .0.47         Priti               0027407: "Party Status" - needs to add in the following reports. *@
 @*2.0                29/05/2024        V2.0.47          Sanchita            0027405: Colum Chooser Option needs to add for the following Modules*@
+@*3.0                15-11-2024        V2.0.49          Priti               0027799: A new Global settings required as WillShowLoanDetailsInParty.*@
+
 @*====================================================== Revision History ===========================================================*@
 @Html.DevExpress().GridView(settings =>
 {
@@ -1113,7 +1115,7 @@
         }
         // End of Rev 2.0
     });
-    //REV PRITI
+    //REV 3.0
 
     if (ViewBag.WillShowLoanDetailsInParty == "1")
     {
@@ -1146,9 +1148,10 @@
         settings.Columns.Add(x =>
         {
             x.FieldName = "TOTALOUTSTANDING";
-            x.Caption = "TOTALOUT STANDING";
+            x.Caption = "TOTAL OUTSTANDING";
             x.VisibleIndex = 40;
             x.Width = 100;
+            x.PropertiesEdit.DisplayFormatString = "0.00";
 
             // Rev 2.0
             if (ViewBag.RetentionColumn != null)
@@ -1201,7 +1204,7 @@
         settings.Columns.Add(x =>
         {
             x.FieldName = "ALLCHARGES";
-            x.Caption = "ALLCHARGES";
+            x.Caption = "ALL CHARGES";
             x.VisibleIndex = 42;
             x.Width = 100;
 
@@ -1502,7 +1505,7 @@
 
     }
 
-    //REV PRITI END
+    //REV 3.0 END
 
 
 
