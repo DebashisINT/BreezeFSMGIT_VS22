@@ -23,7 +23,7 @@
     {
         x.FieldName = "SlNO";
         x.Caption = "Sl#";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(7);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(5);
         x.ReadOnly = true;
         // x.Index = 1;
     });
@@ -32,7 +32,7 @@
     {
         x.FieldName = "TARGETLEVEL";
         x.Caption = "Select Level";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
 
     });
@@ -68,7 +68,7 @@
     {
         x.FieldName = "PRODUCTCODE";
         x.Caption = "Product Code";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.ButtonEdit;
@@ -94,7 +94,7 @@
     {
         x.FieldName = "ORDERAMOUNT";
         x.Caption = "Order Amount";
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(12);
         x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
         DevExpress.Web.TextBoxProperties txtEditProperties = x.PropertiesEdit as DevExpress.Web.TextBoxProperties;
@@ -136,9 +136,9 @@
         {
             string EnqRights = "";
 
-            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><i class='fa fa-pencil-square-o assig' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Edit'></i></span><span class='hidden-xs'></span> </a>";
+            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><img src=\"../../../assests/images/Edit.png\" /></span><span class='hidden-xs'></span> </a>";
 
-            EnqRights = EnqRights + "&nbsp;&nbsp;<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><i class='fa fa-trash' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Delete'></i></span><span class='hidden-xs'></span></a>";
+            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><img src=\"../../../assests/images/Delete.png\" /></span><span class='hidden-xs'></span></a>";
 
             ViewContext.Writer.Write(EnqRights);
         });

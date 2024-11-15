@@ -6,7 +6,7 @@
 }
 <style>
     .mt-22 {
-        margin-top: 22px;
+        margin-top: 25px;
     }
 
     .w-100 {
@@ -129,8 +129,8 @@
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 8px;
-            right: -2px;
+            top: 33px;
+            right: 13px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -513,7 +513,7 @@
 
     .btn {
         border-radius: 8px;
-        height: 38px;
+        height: 34px;
         padding-left: 12px;
         padding-right: 12px;
         color: #fff;
@@ -543,7 +543,7 @@
     .show-btn {
         background: #054682;
         transition: all .4s;
-        margin-right: 5px;
+        /*margin-right: 5px;*/
     }
 
         .show-btn:hover {
@@ -680,6 +680,87 @@
     .close:hover, .close:focus {
         color: #111 !important;
     }
+
+    .add-target-buttons
+    {
+        padding: 0 15px;
+    }
+
+    .add-target-buttons .col-md-2, .add-target-buttons .col-md-3 {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .sales-target {
+        background: #920FB9;
+        transition: all .3s;
+    }
+
+        .sales-target:hover {
+            background: #6a0d85;
+            transform: scale(1.1);
+        }
+
+        .sales-target .btn-icon i {
+            color: #920FB9;
+        }
+
+    .product-target {
+        background: #055f77;
+        transition: all .3s;
+
+    }
+
+        .product-target:hover {
+            background: #033f4f;
+            transform: scale(1.1);
+        }
+
+        .product-target .btn-icon i {
+            color: #087C6D;
+        }
+
+    .brand-value-target {
+        background: #8d6609;
+        transition: all .3s;
+    }
+
+        .brand-value-target:hover {
+            background: #644704;
+            transform: scale(1.1);
+        }
+
+        .brand-value-target .btn-icon i {
+            color: #977B07;
+        }
+
+    .wod-target:hover {
+        /*background: #977B07;*/
+        transform: scale(1.1);
+    }
+
+    .add-target-buttons
+    {
+        display: flex;
+        align-items: center;
+
+    }
+
+        .add-target-buttons .btn {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+    .btn-warning {
+        background-color: #bf982a;
+        /*border-color: #bf982a;*/
+    }
+
+    .btn-info {
+        background-color: #0ca1a5;
+        /*border-color: #46b8da;*/
+    }
+
 </style>
 <script>
 
@@ -885,6 +966,43 @@
     <span>Target Set Up</span>
 </div>
 <div class="container">
+    <div class="form_main backBox p-3 mb-3">
+        <div class="row">
+            <div class="col-md-12 add-target-buttons">
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn sales-target" onclick="AddSalesTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
+                    </button>
+                </div>
+            @*</div>
+            <div class="col-md-2">*@
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn product-target" onclick="AddProductTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
+                    </button>
+
+                </div>
+            @*</div>
+            <div class="col-md-3">*@
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn brand-value-target" onclick="AddBrandVolumeValueTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
+                    </button>
+
+                </div>
+            @*</div>
+            <div class="col-md-2">*@
+                <div class="add-show-btns">
+                    <button type="button" class="btn add-btn wod-target" onclick="AddWODTarget();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>WOD Target
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="form_main backBox p-3">
         <div class="row">
             <div class="col-md-2 mb-3">
@@ -936,7 +1054,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-2 mb-3">
+            <div class="col-md-2 mb-3  h-branch-select">
                 <label>Target Type </label>
                 <div>
                     <select name="ddlStatus" id="ddlTargetType">
@@ -948,7 +1066,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2 mt-22">
+            <div class="col-md-4 mt-22">
                 <div class="">
                     <div class="add-show-btns">
                         <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
@@ -960,45 +1078,16 @@
                                 <option value="4">RTF</option>
                                 <option value="5">CSV</option>
                             </select>*@
+                        <button type="button" class="btn btn-warning" onclick=""> Download Format</button>
+                        <button type="button" class="btn btn-info" onclick=""> Import File</button>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn w-100" onclick="AddSalesTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn w-100" onclick="AddProductTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
-                    </button>
-
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn w-100" onclick="AddBrandVolumeValueTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
-                    </button>
-
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="add-show-btns">
-                    <button type="button" class="btn add-btn w-100" onclick="AddWODTarget();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span>WOD Target
-                    </button>
 
                 </div>
             </div>
         </div>
+
+
+
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
