@@ -736,38 +736,50 @@
     $(document).ready(function () {
 
         //setTimeout(function () { AddNewRowWithP(); }, 200);
-             var d = new Date();
-             ProductTargetDate.SetValue(d);
-             var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
-             var hdnDetailsID = $('#hdnDetailsID').val();
-             if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
-                 $('#ddlTargetLevel').val(hdnSalesTargetLevel);
-                 $('#HeaderLableID').text("Product Target -Modify");
+        var d = new Date();
+        ProductTargetDate.SetValue(d);
+        var hdnSalesTargetLevel = $('#hdnSalesTargetLevel').val();
+        var hdnDetailsID = $('#hdnDetailsID').val();
 
-             }
+        if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
+            $('#ddlTargetLevel').val(hdnSalesTargetLevel);
+            $('#HeaderLableID').text("Product Target -Modify");
+            $('#ddlTargetLevel').prop('disabled', true);
+            $('#ProductTargetNo').prop('disabled', true);
 
-             $('#ProductTargetNo').blur(function () {
-                 var value = $(this).val();
-                 //alert(value);
-                 var hdnDetailsID = $("#hdnDetailsID").val();
-                 $.ajax({
-                     type: "POST",
-                     url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "ProductTargetAddEdit")",
-                     data: JSON.stringify({ ProductTargetNo: value, TargetID: hdnDetailsID }),
-                     contentType: "application/json; charset=utf-8",
-                     dataType: "json",
-                     success: function (msg) {
-                         CheckUniqueCode = msg;
-                         if (CheckUniqueCode == 1) {
-                             jAlert('Please enter unique No.');
-                             $('#ProductTargetNo').val("");
-                             $('#ProductTargetNo').Focus();
-                         }
+            ProductTargetDate.SetEnabled(false);
 
-                     }
+            var partsDT = $('#hdnProductTargetDate').val().split("/");
+            var dayDT = parseInt(partsDT[1], 10);
+            var monthDT = parseInt(partsDT[0], 10) - 1; // Month is 0-based
+            var yearDT = parseInt(partsDT[2], 10);
 
-                 });
-             });
+            var dateD = new Date(yearDT, monthDT, dayDT); // Month is 0-based, so 10 represents November
+            ProductTargetDate.SetDate(dateD);
+        }
+
+        $('#ProductTargetNo').blur(function () {
+            var value = $(this).val();
+            //alert(value);
+            var hdnDetailsID = $("#hdnDetailsID").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "ProductTargetAddEdit")",
+                data: JSON.stringify({ ProductTargetNo: value, TargetID: hdnDetailsID }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    CheckUniqueCode = msg;
+                    if (CheckUniqueCode == 1) {
+                        jAlert('Please enter unique No.');
+                        $('#ProductTargetNo').val("");
+                        $('#ProductTargetNo').Focus();
+                    }
+
+                }
+
+            });
+        });
     });
 
 
@@ -1134,17 +1146,57 @@
 
     }
 
-    function btnAdd_ProductClick() {
+    function btnAdd_Click() {
         var _TimeFrame = $("#ddlTimeFrame").val();
         var _STARTEDATE = GetServerDateFormat(STARTEDATE.GetValue());
         var _ENDDATE = GetServerDateFormat(ENDDATE.GetValue());
+        var TargetNo = $('#ProductTargetNo').val();
+        var TargetDate = GetServerDateFormat(ProductTargetDate.GetValue());
+        var TargetLevel = $('#ddlTargetLevel option:selected').val();
+        var _TargetLevel = btnTARGETLEVEL.GetValue();
 
         var _PRODUCTCODE = btnPRODUCTCODE.GetValue();
         var _PRODUCTNAME = cPRODUCTNAME.GetText();
         var _ORDERAMOUNT = cORDERAMOUNT.GetText();
         var _ORDERQTY = cORDERQTY.GetText();
 
-        if ($("#ddlTimeFrame").val().trim()== "Select") {
+        if (TargetLevel.trim() == "Select" || TargetLevel.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Product Target Type to proceed.'
+            });
+            return false;
+        }
+        else if ($("#ProductTargetNo").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Product Target No to proceed.'
+            });
+            return false;
+        }
+        else if (TargetDate.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Date to proceed.'
+            });
+            return false;
+        }
+        else if (_TargetLevel == null) {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Level to proceed.'
+            });
+            return false;
+        }
+        else if ($("#ddlTimeFrame").val().trim()== "Select") {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
@@ -1199,47 +1251,79 @@
             return false;
         }
 
-        var data = {
-            TARGETLEVELID: $("#hdnTARGETLEVELID").val(),
-            TARGETLEVEL: btnTARGETLEVEL.GetValue(),
-            INTERNALID: $("#hdnINTERNALID").val(),
-            TimeFrame: _TimeFrame,
-            STARTEDATE: _STARTEDATE,
-            ENDDATE: _ENDDATE,
-            PRODUCTCODE: _PRODUCTCODE,
-            PRODUCTNAME: _PRODUCTNAME,
-            PRODUCTID: $("#hdnPRODUCTID").val(),
-            ORDERAMOUNT: _ORDERAMOUNT,
-            ORDERQTY: _ORDERQTY,
-            Guids: $("#hdnLevelGuiIDS").val(),
+        //*************************************************
 
-         }
-         $.ajax({
-             type: "POST",
-             url: "@Url.Action("AddLevelDetails", "ProductTargetAddEdit")",
+        var TARGETLEVELID = $("#hdnTARGETLEVELID").val();
+        var TARGET_LEVEL = btnTARGETLEVEL.GetValue();
+        var INTERNALID = $("#hdnINTERNALID").val();
 
-             data: "{prod:" + JSON.stringify(data) + "}",
-             async: true,
-             contentType: "application/json; charset=utf-8",
-             dataType: "json",
-             success: function (response) {
-                 if (response != null) {
-                     gridProductTargetEntryList.Refresh();
-                     gridProductTargetEntryList.Refresh();
 
-                     btnTARGETLEVEL.SetValue('');
-                     $("#hdnTARGETLEVELID").val('');
-                     $("#hdnINTERNALID").val('');
-                     $("#ddlTimeFrame").val("Select");
-                     $("#hdnPRODUCTID").val('');
-                     btnPRODUCTCODE.SetValue('');
-                     cPRODUCTNAME.SetValue('');
-                     cORDERAMOUNT.SetValue("0");
-                     cORDERQTY.SetValue("0");
-                     $("#hdnLevelGuiIDS").val('');
-                 }
-             }
-         });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CHECKUNIQUETARGETDETAILS", "ProductTargetAddEdit")",
+            data: JSON.stringify({ TargetNo: TargetNo, TargetType: TargetLevel, TARGETLEVELID: TARGETLEVELID, TARGETLEVEL: TARGET_LEVEL, INTERNALID: INTERNALID, TimeFrame: _TimeFrame, STARTEDATE: _STARTEDATE, ENDDATE: _ENDDATE, PRODUCTID: $("#hdnPRODUCTID").val() }),
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                CheckUniqueCode = msg;
+                if (CheckUniqueCode == 1) {
+                    jAlert('Please enter unique data');
+
+                }
+                else {
+
+                    var data = {
+                        TARGETLEVELID: $("#hdnTARGETLEVELID").val(),
+                        TARGETLEVEL: btnTARGETLEVEL.GetValue(),
+                        INTERNALID: $("#hdnINTERNALID").val(),
+                        TimeFrame: _TimeFrame,
+                        STARTEDATE: _STARTEDATE,
+                        ENDDATE: _ENDDATE,
+                        PRODUCTCODE: _PRODUCTCODE,
+                        PRODUCTNAME: _PRODUCTNAME,
+                        PRODUCTID: $("#hdnPRODUCTID").val(),
+                        ORDERAMOUNT: _ORDERAMOUNT,
+                        ORDERQTY: _ORDERQTY,
+                        Guids: $("#hdnLevelGuiIDS").val(),
+
+                     }
+                     $.ajax({
+                         type: "POST",
+                         url: "@Url.Action("AddLevelDetails", "ProductTargetAddEdit")",
+
+                         data: "{prod:" + JSON.stringify(data) + "}",
+                         async: true,
+                         contentType: "application/json; charset=utf-8",
+                         dataType: "json",
+                         success: function (response) {
+                             if (response != null) {
+                                 gridProductTargetEntryList.Refresh();
+                                 gridProductTargetEntryList.Refresh();
+
+                                 btnTARGETLEVEL.SetValue('');
+                                 $("#hdnTARGETLEVELID").val('');
+                                 $("#hdnINTERNALID").val('');
+                                 $("#ddlTimeFrame").val("Select");
+                                 $("#hdnPRODUCTID").val('');
+                                 btnPRODUCTCODE.SetValue('');
+                                 cPRODUCTNAME.SetValue('');
+                                 cORDERAMOUNT.SetValue("0");
+                                 cORDERQTY.SetValue("0");
+                                 $("#hdnLevelGuiIDS").val('');
+                             }
+                         }
+                     });
+
+                }
+
+
+            }
+
+        });
+
+
     }
 
     function EditLevelData(values) {
@@ -1302,11 +1386,55 @@
             success: function (response) {
                 if (response != null) {
                     gridProductTargetEntryList.Refresh();
+                    gridProductTargetEntryList.Refresh();
                 }
             }
         });
     }
 
+    function TimeFrameChange() {
+        var _STARTEDATE = STARTEDATE.GetValue();
+        var _ENDDATE = ENDDATE.GetValue();
+        var _TimeFrame = $("#ddlTimeFrame").val();
+
+        //document.getElementById("startDate").addEventListener("change", updateEndDate);
+        //document.getElementById("frequency").addEventListener("change", updateEndDate);
+
+        //const startDateInput = document.getElementById("startDate").value;
+        //const frequency = document.getElementById("frequency").value;
+        //const endDateInput = document.getElementById("endDate");
+
+        if (_STARTEDATE && _TimeFrame != "Select") {
+            const startDate = new Date(_STARTEDATE);
+            let endDate;
+
+            if (_TimeFrame === "Monthly") {
+                endDate = new Date(startDate.setMonth(startDate.getMonth() + 1));
+            } else if (_TimeFrame === "Yearly") {
+                endDate = new Date(startDate.setFullYear(startDate.getFullYear() + 1));
+            }
+
+
+            var dateE = new Date(endDate.toISOString().split("T")[0]); // Month is 0-based, so 10 represents November
+            ENDDATE.SetDate(dateE);
+
+        } else {
+            if (ENDDATE.GetDate()) {
+                if (ENDDATE.GetDate() < STARTEDATE.GetDate()) {
+                    ENDDATE.SetValue(STARTEDATE.GetDate());
+                }
+            }
+        }
+
+
+    }
+    function DateValidateTo() {
+        if (STARTEDATE.GetDate()) {
+            if (ENDDATE.GetDate() < STARTEDATE.GetDate()) {
+                ENDDATE.SetValue(STARTEDATE.GetDate());
+            }
+        }
+    }
 </script>
 
 <div class="breadCumb">
@@ -1317,8 +1445,9 @@
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class="col-sm-2">
-                <label>Target Level <span style="color:red">*</span></label>
+                <label>Target Type <span style="color:red">*</span></label>
                 <select id="ddlTargetLevel" class="form-control">
+                    <option value="Select">Select</option>
                     <option value="Region">Region level</option>
                     <option value="ASM">ASM level</option>
                     <option value="SalesOfficer">Sales Officer level</option>
@@ -1394,7 +1523,7 @@
                                      settings.Width = Unit.Percentage(100);
                                      settings.Date = Convert.ToDateTime(@Model.STARTEDATE);
                                      settings.Properties.UseMaskBehavior = true;
-
+                                     settings.Properties.ClientSideEvents.DateChanged = "TimeFrameChange";
                                  }
                         ).GetHtml()
                     <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
@@ -1412,7 +1541,7 @@
                                      settings.Width = Unit.Percentage(100);
                                      settings.Date = Convert.ToDateTime(@Model.ENDDATE);
                                      settings.Properties.UseMaskBehavior = true;
-
+                                     settings.Properties.ClientSideEvents.DateChanged = "DateValidateTo";
                                  }
                         ).GetHtml()
                     <span id="EBOMDate_dt" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
@@ -1481,7 +1610,7 @@
             <div class=" col-sm-1">
                 <label class="">&nbsp; </label>
                 <div class="relative" style="padding-top: 10px">
-                    <button type="button" id="btnAdd" onclick="btnAdd_ProductClick()" class="btn btn-success">Add</button>
+                    <button type="button" id="btnAdd" onclick="btnAdd_Click()" class="btn btn-success">Add</button>
                 </div>
             </div>
         </div>
@@ -1499,14 +1628,12 @@
         <div class="clearfix"></div>
         <div class="">
             <div class=" mt-4">
-                @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                    {*@
-                @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
-                <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
-                @*}*@
-
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelProductTargetAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
-
+                @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
+                {*@
+                @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
+                    <button type="button" class="btn btn-success" onclick="EntrySave('Exit');"><span>Save and E<u>x</u>it</span></button>
+                @*}*@
             </div>
 
         </div>
@@ -1515,6 +1642,7 @@
 <input type="hidden" value="@Url.Action("Index", "TargetSetUp")" id="hdnListPage" />
 <input type="hidden" value="@Model.PRODUCTTARGET_ID" id="hdnDetailsID" />
 <input type="hidden" value="@Model.ProductTargetLevel" id="hdnSalesTargetLevel" />
+<input type="hidden" value="@Model.ProductTargetDate" id="hdnProductTargetDate" />
 
 <input type="hidden" value="" id="hdnTARGETLEVELID" />
 <input type="hidden" value="" id="hdnINTERNALID" />
