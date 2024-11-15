@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using TargetVsAchievement.Models;
+using UtilityLayer;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
@@ -35,6 +36,20 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
+
+            // SELECT TARGET TYPE DROPDOWN //
+            DataTable dt = new DataTable();
+            dt = GetListData();
+
+            if (dt != null)
+            {
+                List<LevelList> LevelList = new List<LevelList>();
+                LevelList = APIHelperMethods.ToModelList<LevelList>(dt);
+                objdata.LevelList = LevelList;
+            }
+            // SELECT TARGET TYPE DROPDOWN //
+
+
             TempData["Count"] = 1;
             TempData.Keep();
 
@@ -50,6 +65,18 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
         public ActionResult EDITINDEX()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/TargetSetUp/Index");
+
+            // SELECT TARGET TYPE DROPDOWN //
+            DataTable dt1 = new DataTable();
+            dt1 = GetListData();
+
+            if (dt1 != null)
+            {
+                List<LevelList> LevelList = new List<LevelList>();
+                LevelList = APIHelperMethods.ToModelList<LevelList>(dt1);
+                objdata.LevelList = LevelList;
+            }
+            // SELECT TARGET TYPE DROPDOWN //
 
             if (TempData["DetailsID"] != null)
             {
@@ -565,5 +592,17 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             catch { }
             return Json(retData);
         }
+
+        // SELECT TARGET TYPE DROPDOWN //
+        public DataTable GetListData()
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_SALESTARGETASSIGN");
+            proc.AddPara("@ACTION", "GETDROPDOWNBINDDATA");
+            dt = proc.GetTable();
+            return dt;
+        }
+        // SELECT TARGET TYPE DROPDOWN //
     }
 }

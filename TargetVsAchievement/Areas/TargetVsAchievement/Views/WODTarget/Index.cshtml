@@ -1554,8 +1554,10 @@
     <div class="form_main backBox p-3 mb-3">
         <div class="row mb-4">
             <div class="col-sm-4 h-branch-select">
-                <label>Target Type <span style="color:red">*</span></label>
-                <select id="ddlTargetLevel" class="form-control">
+                <label>Target Level <span style="color:red">*</span></label>
+                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "LEVEL_NAME", "LEVEL_DESCRIPTION", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+
+                @*<select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
                     <option value="Region">Region level</option>
                     <option value="ASM">ASM level</option>
@@ -1563,7 +1565,7 @@
                     <option value="Salesman">Salesman Level</option>
                     <option value="Beat">Beat level</option>
                     <option value="Outlet">Outlet Level</option>
-                </select>
+                </select>*@
             </div>
             <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
@@ -1616,6 +1618,7 @@
                     <option value="Select">Select</option>
                     <option value="Monthly">Monthly</option>
                     <option value="Yearly">Yearly</option>
+                    <option value="Custom">Custom</option>
                 </select>
             </div>
             <div class="col-sm-2">

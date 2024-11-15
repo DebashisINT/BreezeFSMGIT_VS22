@@ -28,6 +28,10 @@ namespace TargetVsAchievement.Models
         public String ORDERQTY { get; set; }
 
 
+        // SELECT TARGET TYPE DROPDOWN //
+        public List<LevelList> LevelList { get; set; }
+
+        // SELECT TARGET TYPE DROPDOWN //
 
 
         // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
@@ -127,7 +131,13 @@ namespace TargetVsAchievement.Models
         //public Int64 UpdateEdit { get; set; }
     }
 
+    // SELECT TARGET TYPE DROPDOWN //
+    public class LevelList
+    {
+        public String LEVEL_NAME { get; set; }
+        public String LEVEL_DESCRIPTION { get; set; }
+    }
+    // SELECT TARGET TYPE DROPDOWN //
 
 
-   
 }

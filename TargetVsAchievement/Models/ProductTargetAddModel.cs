@@ -28,6 +28,10 @@ namespace TargetVsAchievement.Models
         public string PRODUCTNAME { get; set; }
         public string PRODUCTID { get; set; }
 
+        // SELECT TARGET TYPE DROPDOWN //
+        public List<LevelList> LevelList { get; set; }
+
+        // SELECT TARGET TYPE DROPDOWN //
 
         public DataSet ProductTargetEntryInsertUpdate(String action, DateTime? ProductTargetDate, Int64 PRODCTTARGET_ID, String ProductTargetLevel, String ProductTargetNo,
             DataTable dtProductTarget, Int64 userid = 0
