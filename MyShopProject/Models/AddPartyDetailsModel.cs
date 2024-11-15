@@ -1,5 +1,7 @@
 ﻿/*************************************************************************************************************
 Rev 1.0     Sanchita   V2.0.28    27/01/2023      Bulk modification feature is required in Parties menu. Refer: 25609
+Rev 2.0     Priti      V2.0.49    15-11-2024      0027799: A new Global settings required as WillShowLoanDetailsInParty.
+
 *****************************************************************************************************************/
 using DevExpress.Web.ASPxTreeList.Internal;
 using DevExpress.XtraCharts.Native;
@@ -156,7 +158,7 @@ namespace MyShop.Models
         // End of Rev 1.0
 
 
-        //REV PRITI
+        //REV 2.0
         public string BKT { get; set; }
         public Decimal TOTALOUTSTANDING { get; set; }
         public Decimal POS { get; set; }
@@ -184,9 +186,9 @@ namespace MyShop.Models
 
         public Int64 FINALSTATUSID { get; set; }
         public List<LOANTypes> FINALSTATUSLIST { get; set; }
-        
 
-        //REV PRITI END
+
+        //REV 2.0 END
 
 
     }
@@ -371,7 +373,7 @@ namespace MyShop.Models
         //End of Mantis Issue 24571
 
 
-        //REV PRITI
+        //REV 2.0
         public string BKT { get; set; }
         public Decimal TOTALOUTSTANDING { get; set; }
         public Decimal POS { get; set; }
@@ -390,10 +392,10 @@ namespace MyShop.Models
         public string WORKABLEID { get; set; }    
         public Int64 DISPOSITIONID { get; set; }      
         public Int64 FINALSTATUSID { get; set; }
-        
 
 
-        //REV PRITI END
+
+        //REV 2.0 END
 
 
     }
