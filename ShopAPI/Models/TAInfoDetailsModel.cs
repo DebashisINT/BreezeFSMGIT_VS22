@@ -42,4 +42,20 @@ namespace ShopAPI.Models
         public long id { get; set; }
         public string name { get; set; }
     }
+
+    public class TargetTimeFrameListInput
+    {
+        public long user_id { get; set; }
+    }
+    public class TargetTimeFrameListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<TTFlistOutput> target_time_list { get; set; }
+    }
+    public class TTFlistOutput
+    {
+        public long id { get; set; }
+        public string name { get; set; }
+    }
 }

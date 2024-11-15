@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 11/11/2024
-//Purpose: Target Vs Achievement Info Details.Refer: Row: 992 & 993
+//Purpose: Target Vs Achievement Info Details.Refer: Row: 992,993,994
 #endregion===================================End of Revision History==================================================
 
 using Newtonsoft.Json;
@@ -56,6 +56,11 @@ namespace ShopAPI.Controllers
                         Tview = APIHelperMethods.ToModelList<TAlistOutput>(ds.Tables[0]);
                         omodel.target_type_list = Tview;
                     }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No data found.";
+                    }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
                 }
@@ -104,6 +109,65 @@ namespace ShopAPI.Controllers
                         omodel.message = "Successfully Get List.";
                         Tview = APIHelperMethods.ToModelList<TLlistOutput>(ds.Tables[0]);
                         omodel.target_level_list = Tview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No data found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage TargetTimeFrameLists(TargetTimeFrameListInput model)
+        {
+            TargetTimeFrameListOutput omodel = new TargetTimeFrameListOutput();
+            List<TTFlistOutput> Tview = new List<TTFlistOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_FSMTARGETACHIEVEINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "TARGETTIMEFRAMELIST");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        Tview = APIHelperMethods.ToModelList<TTFlistOutput>(ds.Tables[0]);
+                        omodel.target_time_list = Tview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No data found.";
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
