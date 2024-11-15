@@ -234,7 +234,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
             // Rev 3.0
             ViewBag.CanDelete = rights.CanDelete;
             // End of Rev 3.0
-
+            string WillShowLoanDetailsInParty = objSystemSettings.GetSystemSettingsResult("WillShowLoanDetailsInParty");
+            ViewBag.WillShowLoanDetailsInParty = WillShowLoanDetailsInParty;
             return PartialView(GetDataDetails(Is_PageLoad));
         }
 
