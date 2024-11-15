@@ -94,9 +94,11 @@
         {
             string EnqRights = "";
 
-            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><i class='fa fa-pencil-square-o assig' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Edit'></i></span><span class='hidden-xs'></span> </a>";
+            //EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><i class='fa fa-pencil-square-o assig' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Edit'></i></span><span class='hidden-xs'></span> </a>";
+            EnqRights = EnqRights + "<a style='cursor:pointer;' onclick=\"EditLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico editColor' ><img src=\"../../../assests/images/Edit.png\" /></span><span class='hidden-xs'></span> </a>";
 
-            EnqRights = EnqRights + "&nbsp;&nbsp;<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><i class='fa fa-trash' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Delete'></i></span><span class='hidden-xs'></span></a>";
+            //EnqRights = EnqRights + "&nbsp;&nbsp;<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><i class='fa fa-trash' aria-hidden='true' data-toggle='tooltip' data-placement='left' title='Delete'></i></span><span class='hidden-xs'></span></a>";
+            EnqRights = EnqRights + "&nbsp;&nbsp;<a style='cursor:pointer;' onclick=\"DeleteLevelData('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Guids")) + "')\"><span class='ico deleteColor'><img src=\"../../../assests/images/Delete.png\" /></span><span class='hidden-xs'></span></a>";
 
             ViewContext.Writer.Write(EnqRights);
         });
