@@ -23,6 +23,10 @@ namespace TargetVsAchievement.Models
 
         public string BRANDID { get; set; }
 
+        // SELECT TARGET TYPE DROPDOWN //
+        public List<LevelList> LevelList { get; set; }
+
+        // SELECT TARGET TYPE DROPDOWN //
 
         // public List<SalesTargetProduct> ListSalesTargetProduct { get; set; }
         public DataSet TargetEntryInsertUpdate(String action, DateTime? TargetDate, Int64 TARGET_ID, String TargetType, String TargetNo,

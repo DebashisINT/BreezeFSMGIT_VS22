@@ -21,7 +21,10 @@ namespace TargetVsAchievement.Models
         public DateTime STARTEDATE { get; set; }
         public DateTime ENDDATE { get; set; }
 
-        
+        // SELECT TARGET TYPE DROPDOWN //
+        public List<LevelList> LevelList { get; set; }
+
+        // SELECT TARGET TYPE DROPDOWN //
 
         public DataSet TargetEntryInsertUpdate(String action, DateTime? TargetDate, Int64 TARGET_ID, String TargetType, String TargetNo,
             DataTable dtTarget, Int64 userid = 0
