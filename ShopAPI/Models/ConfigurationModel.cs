@@ -31,6 +31,7 @@
 //30.0  V2.0.49     Debashis    01/10/2024      Some new parameters have been added.Row: 983
 //31.0  V2.0.49     Debashis    09/10/2024      Some new parameters have been added.Row: 985
 //32.0  V2.0.49     Debashis    23/10/2024      A new parameter has been added.Row: 987
+//33.0  V2.0.49     Debashis    15/11/2024      A new parameter has been added.Row: 1005
 #endregion===================================End of Revision History==============================================================
 
 using System;
@@ -334,6 +335,9 @@ namespace ShopAPI.Models
         //Rev 32.0 Row: 987
         public bool ShowRetryIncorrectQuiz { get; set; }
         //End of Rev 32.0 Row: 987
+        //Rev 33.0 Row: 1005
+        public bool WillShowLoanDetailsInParty { get; set; }
+        //End of Rev 33.0 Row: 1005
     }
 
     public class ConfigurationModelInput
