@@ -186,6 +186,7 @@ namespace ShopAPI.Controllers
         public HttpResponseMessage LoanDetailFetch(LoanDetailFetchInput model)
         {
             LoanDetailFetchOutput omodel = new LoanDetailFetchOutput();
+            List<LoanlistOutput> LDview = new List<LoanlistOutput>();
 
             try
             {
@@ -205,7 +206,6 @@ namespace ShopAPI.Controllers
                     sqlcmd = new SqlCommand("PRC_FSMLOANINFODETAILS", sqlcon);
                     sqlcmd.Parameters.AddWithValue("@ACTION", "LOANDETAILFETCH");
                     sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
-                    sqlcmd.Parameters.AddWithValue("@SHOP_ID", model.shop_id);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -215,24 +215,8 @@ namespace ShopAPI.Controllers
                     {
                         omodel.status = "200";
                         omodel.message = "Successfully Get List.";
-                        omodel.shop_id = Convert.ToString(ds.Tables[0].Rows[0]["shop_id"]);
-                        omodel.bkt = Convert.ToString(ds.Tables[0].Rows[0]["bkt"]);
-                        omodel.total_outstanding = Convert.ToDecimal(ds.Tables[0].Rows[0]["total_outstanding"]);
-                        omodel.pos = Convert.ToDecimal(ds.Tables[0].Rows[0]["pos"]);
-                        omodel.emi_amt = Convert.ToDecimal(ds.Tables[0].Rows[0]["emi_amt"]);
-                        omodel.all_charges = Convert.ToDecimal(ds.Tables[0].Rows[0]["all_charges"]);
-                        omodel.total_Collectable = Convert.ToDecimal(ds.Tables[0].Rows[0]["total_Collectable"]);
-                        omodel.risk_id = Convert.ToInt64(ds.Tables[0].Rows[0]["risk_id"]);
-                        omodel.risk_name = Convert.ToString(ds.Tables[0].Rows[0]["risk_name"]);
-                        omodel.workable = Convert.ToString(ds.Tables[0].Rows[0]["workable"]);
-                        omodel.disposition_code_id = Convert.ToInt64(ds.Tables[0].Rows[0]["disposition_code_id"]);
-                        omodel.disposition_code_name = Convert.ToString(ds.Tables[0].Rows[0]["disposition_code_name"]);
-                        omodel.ptp_Date = Convert.ToString(ds.Tables[0].Rows[0]["ptp_Date"]);
-                        omodel.ptp_amt = Convert.ToDecimal(ds.Tables[0].Rows[0]["ptp_amt"]);
-                        omodel.collection_date = Convert.ToString(ds.Tables[0].Rows[0]["collection_date"]);
-                        omodel.collection_amount = Convert.ToDecimal(ds.Tables[0].Rows[0]["collection_amount"]);
-                        omodel.final_status_id = Convert.ToInt64(ds.Tables[0].Rows[0]["final_status_id"]);
-                        omodel.final_status_name = Convert.ToString(ds.Tables[0].Rows[0]["final_status_name"]);
+                        LDview = APIHelperMethods.ToModelList<LoanlistOutput>(ds.Tables[0]);
+                        omodel.data_list = LDview;
                     }
                     else
                     {

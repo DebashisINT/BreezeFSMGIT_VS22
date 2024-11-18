@@ -68,6 +68,11 @@ namespace ShopAPI.Models
     {
         public string status { get; set; }
         public string message { get; set; }
+        public List<LoanlistOutput> data_list { get; set; }        
+    }
+
+    public class LoanlistOutput
+    {
         public string shop_id { get; set; }
         public string bkt { get; set; }
         public decimal total_outstanding { get; set; }
