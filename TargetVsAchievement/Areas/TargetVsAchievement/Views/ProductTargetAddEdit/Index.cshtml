@@ -1490,7 +1490,7 @@ background-image: none !important;*/
         <div class="row mb-3">
             <div class="col-sm-4 h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "LEVEL_NAME", "LEVEL_DESCRIPTION", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
 
                 @*<select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
