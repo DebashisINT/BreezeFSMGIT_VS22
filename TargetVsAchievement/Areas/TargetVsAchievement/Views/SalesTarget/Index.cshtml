@@ -665,7 +665,7 @@
         /*overflow: visible;*/
     }
 
-    .save-btn .btn-icon, .cancel-catg .btn-icon {
+    .save-btn .btn-icon, .cancel-catg .btn-icon, .saveicon {
         border-radius: 50px;
         width: 21px;
         height: 21px;
@@ -675,7 +675,7 @@
         margin-right: 5px;
     }
 
-        .save-btn .btn-icon img {
+        .save-btn .btn-icon img, .saveicon img {
             color: #238945;
             width: 14px;
         }
@@ -761,6 +761,44 @@
         margin-left: 5px;
         margin-right: 5px;
     }
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        padding: 4px 8px;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 10px;
+    }
+
+    .crossBtnN {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        font-size: 12px;
+    }
+
+    #GridLevellistModel .modal-dialog {
+        width: 45%;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        outline: none;
+        border: none;
+    }
+
+    .dynamicPopupTbl > tbody > tr > td input {
+        width: 100%;
+        white-space: break-spaces;
+    }
+
+
 </style>
 <script>
     var DetailsID = 0;
@@ -1412,7 +1450,8 @@
                                 cORDERQTY.SetValue("0");
                                 $("#hdnLevelGuiIDS").val('');
 
-                                $("#btnAdd").text("Add");
+                                /*$("#btnAdd").text("Add");*/
+                                $("#btnAdd").html('<span class="btn-icon"><i class="fa fa-plus"></i></span> Add');
                             }
                         }
                    });
@@ -1473,7 +1512,8 @@
                     cORDERQTY.SetText(response.ORDERQTY);
 
 
-                    $("#btnAdd").text("Save");
+                   /* $("#btnAdd").text("Save");*/
+                    $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
                     
 
                 }
@@ -1605,7 +1645,7 @@
 
                 }).GetHtml()
             </div>
-            <div class="col-sm-3 mb-3">
+            <div class="col-sm-3 mb-3  h-branch-select">
                 <label>Time Frame<span style="color:red">*</span></label>
                 <select id="ddlTimeFrame" class="form-control">
                     <option value="Select">Select</option>
