@@ -664,7 +664,7 @@
         /*overflow: visible;*/
     }
 
-    #btnSave .btn-icon, .cancel-catg .btn-icon {
+    #btnSave .btn-icon, .cancel-catg .btn-icon, .saveicon {
         border-radius: 50px;
         width: 21px;
         height: 21px;
@@ -674,7 +674,8 @@
         margin-right: 5px;
     }
 
-        #btnSave .btn-icon img {
+
+        #btnSave .btn-icon img, .saveicon img {
             color: #238945;
             width: 14px;
         }
@@ -762,6 +763,43 @@
     .dxgvControl_PlasticBlue a {
         margin: 5px 3px;
         display: inline-block;
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        padding: 4px 8px;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 10px;
+    }
+
+    .crossBtnN {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        font-size: 12px;
+    }
+
+    #GridLevellistModel .modal-dialog {
+        width: 45%;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        outline: none;
+        border: none;
+    }
+
+    .dynamicPopupTbl > tbody > tr > td input {
+        width: 100%;
+        white-space: break-spaces;
     }
 </style>
 <script>
@@ -1346,7 +1384,8 @@
                                  cORDERQTY.SetValue("0");
                                  $("#hdnLevelGuiIDS").val('');
 
-                                 $("#btnAdd").text("Add");
+                                 /*$("#btnAdd").text("Add");*/
+                                 $("#btnAdd").html('<span class="btn-icon"><i class="fa fa-plus"></i></span> Add');
                              }
                          }
                      });
@@ -1408,7 +1447,8 @@
 
                     cORDERAMOUNT.SetText(response.ORDERAMOUNT);
                     cORDERQTY.SetText(response.ORDERQTY);
-                    $("#btnAdd").text("Save");
+                    /*$("#btnAdd").text("Save");*/
+                    $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
                 }
             }
         });

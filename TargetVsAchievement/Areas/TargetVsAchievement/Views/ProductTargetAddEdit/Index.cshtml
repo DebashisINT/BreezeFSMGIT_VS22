@@ -667,7 +667,7 @@ background-image: none !important;*/
         /* overflow: visible;*/
     }
 
-    #btnSave .btn-icon, .cancel-catg .btn-icon {
+    #btnSave .btn-icon, .cancel-catg .btn-icon, .saveicon {
         border-radius: 50px;
         width: 21px;
         height: 21px;
@@ -677,7 +677,7 @@ background-image: none !important;*/
         margin-right: 5px;
     }
 
-        #btnSave .btn-icon img {
+        #btnSave .btn-icon img, .saveicon img {
             color: #238945;
             width: 14px;
         }
@@ -764,6 +764,39 @@ background-image: none !important;*/
 
     #GridProductlistModel .modal-dialog {
         width: 45%;
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        padding: 4px 8px;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 10px;
+    }
+
+    .crossBtnN {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        font-size: 12px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        outline: none;
+        border: none;
+    }
+
+    .dynamicPopupTbl > tbody > tr > td input {
+        width: 100%;
+        white-space: break-spaces;
     }
 </style>
 <script>
@@ -1356,6 +1389,8 @@ background-image: none !important;*/
                                  cORDERAMOUNT.SetValue("0");
                                  cORDERQTY.SetValue("0");
                                  $("#hdnLevelGuiIDS").val('');
+
+                                 $("#btnAdd").html('<span class="btn-icon"><i class="fa fa-plus"></i></span> Add');
                              }
                          }
                      });
@@ -1416,6 +1451,8 @@ background-image: none !important;*/
 
                     cORDERAMOUNT.SetText(response.ORDERAMOUNT);
                     cORDERQTY.SetText(response.ORDERQTY);
+
+                    $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
 
                 }
             }
@@ -1677,12 +1714,14 @@ background-image: none !important;*/
         <div class="clearfix"></div>
         <div class="">
             <div class=" mt-4">
-                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelProductTargetAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
                 @*@if (Convert.ToInt16(ViewBag.IsView) == 0)
-                    {*@
+        {*@
                 @*<button type="button" class="inline-block addResourceBtn themeColor mRight5" id="btnSaveandNew" onclick="BOMEntrySave('New');"><div class="addEdcircleBtn" id=""><i class="fa fa-floppy-o"></i></div><span><u>S</u>ave and New</span></button>*@
-            <button type="button" class="btn btn-success"  id="btnSave" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                <button type="button" class="btn btn-success" id="btnSave" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 @*}*@
+
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelProductTargetAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
             </div>
 
         </div>
