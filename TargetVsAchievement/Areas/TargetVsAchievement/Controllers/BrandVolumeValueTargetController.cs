@@ -80,7 +80,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                 if (Convert.ToInt64(objdata.TARGET_ID) > 0)
                 {
-                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETHEADERSALESTARGET", objdata.TARGET_ID);
+                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETHEADERBRANDTARGET", objdata.TARGET_ID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
                         DataTable dt = objData;
@@ -121,7 +121,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 }
                 if (DetailsID > 0 && TempData["LevelDetails"] == null)
                 {
-                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
+                    DataTable objData = objdata.GETTARGETASSIGNDETAILSBYID("GETDETAILSBRANDTARGET", DetailsID);
                     if (objData != null && objData.Rows.Count > 0)
                     {
                         dt = objData;

@@ -134,8 +134,9 @@ namespace TargetVsAchievement.Models
     // SELECT TARGET TYPE DROPDOWN //
     public class LevelList
     {
+        public Int64 ID { get; set; }
         public String LEVEL_NAME { get; set; }
-        public String LEVEL_DESCRIPTION { get; set; }
+
     }
     // SELECT TARGET TYPE DROPDOWN //
 
