@@ -98,7 +98,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         foreach (DataRow row in dt.Rows)
                         {
                             objdata.SALESTARGET_ID = Convert.ToInt64(row["SALESTARGET_ID"]);
-                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLEVEL"]);
+                            objdata.SalesTargetLevel = Convert.ToString(row["TARGETLEVELID"]);
                             objdata.SalesTargetNo = Convert.ToString(row["TARGETDOCNUMBER"]);
                             objdata.SalesTargetDate = Convert.ToDateTime(row["TARGETDATE"]);
                         }

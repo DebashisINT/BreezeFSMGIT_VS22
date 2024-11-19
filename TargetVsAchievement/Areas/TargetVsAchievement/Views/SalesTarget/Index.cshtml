@@ -1411,6 +1411,8 @@
                                 cCOLLECTION.SetValue("0");
                                 cORDERQTY.SetValue("0");
                                 $("#hdnLevelGuiIDS").val('');
+
+                                $("#btnAdd").text("Add");
                             }
                         }
                    });
@@ -1469,6 +1471,10 @@
                     cORDERAMOUNT.SetText(response.ORDERAMOUNT);
                     cCOLLECTION.SetText(response.COLLECTION);
                     cORDERQTY.SetText(response.ORDERQTY);
+
+
+                    $("#btnAdd").text("Save");
+                    
 
                 }
             }
@@ -1541,7 +1547,7 @@
         <div class="row mb-3">
             <div class="col-sm-4  h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.SalesTargetLevel, new SelectList(Model.LevelList, "LEVEL_NAME", "LEVEL_DESCRIPTION", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+                @Html.DropDownListFor(m => m.SalesTargetLevel, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
 
                 @*<select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>
@@ -1585,7 +1591,7 @@
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class=" col-sm-3 mb-3">
-                <label>Level<span style="color:red">*</span></label>
+                <label>Assign Level <span style="color:red">*</span></label>
                 @Html.DevExpress().ButtonEdit(
                 settings =>
                 {
@@ -1738,12 +1744,12 @@
         <div class="clearfix"></div>
         <div class="">
             <div class=" mt-4">
-                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                 @if (Convert.ToInt16(ViewBag.IsView) == 0)
                 {
                     <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
             </div>
 
