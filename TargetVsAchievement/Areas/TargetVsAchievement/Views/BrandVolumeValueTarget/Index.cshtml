@@ -1343,7 +1343,7 @@
             success: function (msg) {
                 CheckUniqueCode = msg;
                 if (CheckUniqueCode == 1) {
-                    jAlert('Please enter unique data');
+                    jAlert('Please enter unique Assignee Name,Time Frame,Start Date,End Date,Brand Name.');
 
                 }
                 else {
@@ -1564,7 +1564,7 @@
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class=" col-sm-3 mb-3">
-                <label>Assign Level<span style="color:red">*</span></label>
+                <label>Assignee Name<span style="color:red">*</span></label>
                 @Html.DevExpress().ButtonEdit(
                 settings =>
                 {

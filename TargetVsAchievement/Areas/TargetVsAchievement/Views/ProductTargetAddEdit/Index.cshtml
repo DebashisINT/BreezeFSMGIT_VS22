@@ -1346,7 +1346,7 @@ background-image: none !important;*/
             success: function (msg) {
                 CheckUniqueCode = msg;
                 if (CheckUniqueCode == 1) {
-                    jAlert('Please enter unique data');
+                    jAlert('Please enter unique Assignee Name,Time Frame,Start Date,End Date,Product Code.');
 
                 }
                 else {
@@ -1574,7 +1574,7 @@ background-image: none !important;*/
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class=" col-sm-3 mb-3">
-                <label>Level<span style="color:red">*</span></label>
+                <label>Assignee Name<span style="color:red">*</span></label>
                 @Html.DevExpress().ButtonEdit(
                 settings =>
                 {
@@ -1744,7 +1744,7 @@ background-image: none !important;*/
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select </h4>
+                <h4 class="modal-title">Assignee Name </h4>
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control mb-3" onkeydown="GridRegionlistkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By Name or Code" />
