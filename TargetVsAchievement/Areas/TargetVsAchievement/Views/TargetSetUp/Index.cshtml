@@ -1048,8 +1048,8 @@
         }
     }
     function GetData() {
-        var TargetType = $('#ddlTargetType').val();
-        if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+        
+        if ($('#ddlTargetType').val().trim() == "Select" || $('#ddlTargetType').val().trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
