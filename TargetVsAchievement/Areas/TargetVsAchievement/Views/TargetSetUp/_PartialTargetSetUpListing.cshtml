@@ -42,14 +42,15 @@
                 {
                     if (column.ColumnName == "ID")
                     {
-                        //x.CellStyle.CssClass = "hide";
-                        //x.HeaderStyle.CssClass = "hide";
+                        x.CellStyle.CssClass = "hide";
+                        x.HeaderStyle.CssClass = "hide";
                         x.FieldName = column.ColumnName;
                         x.Caption = column.ColumnName;
                         x.VisibleIndex = visibleindex;
                         x.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
                         visibleindex = visibleindex + 1;
-                        x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
+                        //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
+                        //x.Width = 0;
                     }
                     else
                     {
@@ -58,7 +59,8 @@
                         x.VisibleIndex = visibleindex;
                         x.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
                         visibleindex = visibleindex + 1;
-                        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                        x.Width = 200;
                     }
 
                     if (column.DataType.FullName == "System.Decimal")
