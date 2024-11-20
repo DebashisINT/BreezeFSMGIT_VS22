@@ -48,4 +48,35 @@ namespace TargetVsAchievement.Models
 
 
     }
+
+
+    public class ImportLogModel
+    {
+        
+        public string IMPORT_TARGET_ID { get; set; }
+        public string DocumentNo { get; set; }
+        public string DocumentDate { get; set; }
+        public string EmployeeGroup { get; set; }
+        public string TargetFor { get; set; }
+        public string TARGETLEVELNAME { get; set; }
+        public string TARGETLEVELCODE { get; set; }
+        public string TIMEFRAME { get; set; }
+        public string STARTDATE { get; set; }
+        public string ENDDATE { get; set; }
+        public string NEWVISIT { get; set; }
+        public string REVISIT { get; set; }
+        public string ORDERAMOUNT { get; set; }
+        public string COLLECTION { get; set; }
+        public string BRANDID { get; set; }
+        public string BRANDNAME { get; set; }
+        public string ORDERQTY { get; set; }
+        public string ImportStatus { get; set; }
+        public string ImportMsg { get; set; }
+        public string WODCOUNT { get; set; }
+        public string PRODUCTID { get; set; }
+        public string PRODUCTCODE { get; set; }
+        public string PRODUCTNAME { get; set; }
+        public string CREATEDBY { get; set; }
+        public string CREATEDON { get; set; }
+    }
 }

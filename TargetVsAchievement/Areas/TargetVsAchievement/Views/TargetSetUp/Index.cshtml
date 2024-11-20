@@ -1,4 +1,5 @@
 ﻿
+@using TargetVsAchievement.Models;
 @model TargetVsAchievement.Models.TargetLevelSetupModel
 @{
     ViewBag.Title = "Target Set Up";
@@ -633,7 +634,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        /*   overflow: visible;*/
+           overflow: visible;
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -681,15 +682,14 @@
         color: #111 !important;
     }
 
-    .add-target-buttons
-    {
+    .add-target-buttons {
         padding: 0 15px;
     }
 
-    .add-target-buttons .col-md-2, .add-target-buttons .col-md-3 {
-        padding-right: 8px;
-        padding-left: 8px;
-    }
+        .add-target-buttons .col-md-2, .add-target-buttons .col-md-3 {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
 
     .sales-target {
         background: #920FB9;
@@ -708,7 +708,6 @@
     .product-target {
         background: #055f77;
         transition: all .3s;
-
     }
 
         .product-target:hover {
@@ -739,11 +738,9 @@
         transform: scale(1.1);
     }
 
-    .add-target-buttons
-    {
+    .add-target-buttons {
         display: flex;
         align-items: center;
-
     }
 
         .add-target-buttons .btn {
@@ -760,22 +757,43 @@
         background-color: #0ca1a5;
         /*border-color: #46b8da;*/
     }
-
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
-    }
-
 </style>
 <script>
 
     var fromdate;
     var todate;
     var TargetType = "";
+    function theFunction() {
+        var TargetType = $('#ddlTargetType').val();
+        if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Type to proceed.'
+            });
+            return false;
+        }
+    }
+    function CloseLog() {
+        location.reload();
+    }
 
     $(function () {
-    var d = new Date();
-    dtFrom.SetValue(d);
-    dtTo.SetValue(d);
+        document.getElementById('ddlTargetType').addEventListener('change', function () {
+            const selectedValue = this.value;
+            const downloadLink = document.getElementById('downloadLink');
+            // Update href dynamically
+            if (selectedValue !== "Select") {
+                downloadLink.href = `/TargetSetUp/DownloadFormat?TargetType=${selectedValue}`;
+            } else {
+                downloadLink.href = "#";
+            }
+        });
+
+        var d = new Date();
+        dtFrom.SetValue(d);
+        dtTo.SetValue(d);
 
         fromdate = dtFrom.GetDate();
         todate = dtTo.GetDate();
@@ -786,8 +804,214 @@
 
     });
 
+    function ImportPopOpen() {
+        var TargetType = $('#ddlTargetType').val();
+        if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Type to proceed.'
+            });
+            return false;
+        }
+        else {
+            $("#myImportModal").modal('show');
+        }
+
+    }
+
+  function ClickToImport() {
+      todate = null;
+      fromdate = null;
+      var isprocess = false;
+      var TargetLevel = $('#ddlTargetType').val();
+
+      var filename = $("#fileprod").val();
+      if ($('#fileprod').get(0).files.length === 0) {
+          jAlert("No files selected.");
+          //Swal.fire({
+          //    icon: 'warning',
+          //    title: 'Warning',
+          //    text: 'No files selected.'
+          //});
+
+          return false;
+      }
+      else {
+          var extension = filename.replace(/^.*\./, '');
+          switch (extension.toLowerCase()) {
+              case 'xls':
+                  isprocess = true;
+              case 'xlsx':
+                  isprocess = true;
+              default:
+                  // Cancel the form submission
+                  if (!isprocess) {
+                      jAlert('Only excel file require.');
+                      //Swal.fire({
+                      //    icon: 'warning',
+                      //    title: 'Warning',
+                      //    text: 'Only excel file require.'
+                      //});
+
+                      return false;
+                  }
+          }
+      }
+
+      if (isprocess == true) {
+          var fileUpload = $("#fileprod").get(0);
+          var files = fileUpload.files;
+
+          // Create FormData object
+          var fileData = new FormData();
+
+          // Looping over all files and add it to FormData object
+          for (var i = 0; i < files.length; i++) {
+              fileData.append(files[i].name, files[i]);
+          }
+
+          if (TargetLevel == "SalesTarget") {
+              $.ajax({
+                    url: "@Url.Action("ImportExcelSalesTarget", "TargetSetUp")",
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+
+                    success: function (result) {
+                        jAlert(result, 'Alert', function () {
+                            $("#fileprod").val('');
+                            $("#myImportModal").modal('hide');
 
 
+                            $.ajax({
+                                type: "POST",
+                                url: "@Url.Action("ImportLog", "TargetSetUp")",
+                                success: function (response) {
+                                    if (response) {
+                                        pcModalBeatImportLogMode.Show();
+                                        gridImportLog.Refresh();
+                                        gridImportLog.Refresh();
+                                    }
+                                }
+                            });
+                        });
+
+                    },
+                    error: function (err) {
+                        jAlert(err.statusText);
+                    }
+                });
+          }
+
+          if (TargetLevel == "ProductTarget") {
+                $.ajax({
+          url: "@Url.Action("ImportExcelProductTarget", "TargetSetUp")",
+          type: "POST",
+          contentType: false,
+          processData: false,
+          data: fileData,
+
+          success: function (result) {
+              jAlert(result, 'Alert', function () {
+                  $("#fileprod").val('');
+                  $("#myImportModal").modal('hide');
+
+
+                  $.ajax({
+                      type: "POST",
+                      url: "@Url.Action("ImportLog", "TargetSetUp")",
+                      success: function (response) {
+                          if (response) {
+                              pcModalBeatImportLogMode.Show();
+                              gridImportLog.Refresh();
+                              gridImportLog.Refresh();
+                          }
+                      }
+                  });
+              });
+
+          },
+          error: function (err) {
+              jAlert(err.statusText);
+          }
+      });
+          }
+
+
+          if (TargetLevel == "BrandTarget") {
+                 $.ajax({
+                  url: "@Url.Action("ImportExcelBrandTarget", "TargetSetUp")",
+                  type: "POST",
+                  contentType: false,
+                  processData: false,
+                  data: fileData,
+
+                  success: function (result) {
+                      jAlert(result, 'Alert', function () {
+                          $("#fileprod").val('');
+                          $("#myImportModal").modal('hide');
+
+
+                          $.ajax({
+                              type: "POST",
+                              url: "@Url.Action("ImportLog", "TargetSetUp")",
+                              success: function (response) {
+                                  if (response) {
+                                      pcModalBeatImportLogMode.Show();
+                                      gridImportLog.Refresh();
+                                      gridImportLog.Refresh();
+                                  }
+                              }
+                          });
+                      });
+
+                  },
+                  error: function (err) {
+                      jAlert(err.statusText);
+                  }
+              });
+          }
+
+
+          if (TargetLevel == "WODTarget") {
+            $.ajax({
+                  url: "@Url.Action("ImportExcelWODTarget", "TargetSetUp")",
+                  type: "POST",
+                  contentType: false,
+                  processData: false,
+                  data: fileData,
+
+                  success: function (result) {
+                      jAlert(result, 'Alert', function () {
+                          $("#fileprod").val('');
+                          $("#myImportModal").modal('hide');
+
+
+                          $.ajax({
+                              type: "POST",
+                              url: "@Url.Action("ImportLog", "TargetSetUp")",
+                              success: function (response) {
+                                  if (response) {
+                                      pcModalBeatImportLogMode.Show();
+                                      gridImportLog.Refresh();
+                                      gridImportLog.Refresh();
+                                  }
+                              }
+                          });
+                      });
+
+                  },
+                  error: function (err) {
+                      jAlert(err.statusText);
+                  }
+              });
+          }
+
+      }
+  }
     function AddSalesTarget() {
         var url = '/TargetVsAchievement/SalesTarget/Index?key=Add';
         window.location.href = url;
@@ -824,7 +1048,16 @@
         }
     }
     function GetData() {
-
+        var TargetType = $('#ddlTargetType').val();
+        if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Type to proceed.'
+            });
+            return false;
+        }
         fromdate = dtFrom.GetDate();
         todate = dtTo.GetDate();
         TargetType = $('#ddlTargetType').val();
@@ -836,6 +1069,37 @@
         e.customArgs["Fromdate"] = dtFrom.GetText().split("-").reverse().join("-")  ;
         e.customArgs["Todate"] = dtTo.GetText().split("-").reverse().join("-") ;
         e.customArgs["TargetType"] = TargetType;
+    }
+    function DownloadFormat()
+    {
+        var TargetType = $('#ddlTargetType').val();
+        if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Target Type to proceed.'
+            });
+            return false;
+        }
+        //if (TargetType == "SalesTarget") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DownloadFormat", "TargetSetUp")",
+                data: { TargetType: TargetType },
+                success: function (response) {
+                    @*if (response != null && response == true) {
+                       var url = '@Url.Action("DownloadFormat", "Beat")'
+                        window.location.href = url;
+                    }
+                    else {
+                        jAlert('Please try again later.');
+                        return false;
+                    }*@
+                }
+            });
+       // }
+
     }
     function EditClick(detailsid) {
         if (parseInt(detailsid) > 0) {
@@ -913,10 +1177,7 @@
         }
     }
 
-
-
-
- function DeleteClick(ID) {
+    function DeleteClick(ID) {
      $("#hdnID").val(ID);
      var TargetType = $('#ddlTargetType').val();
 
@@ -965,6 +1226,54 @@
  });
  }
 
+    function ImportLogPopOpen() {
+        var d = new Date();
+
+        dtLogFrom_Import.SetValue(d);
+        dtLogTo_Import.SetValue(d);
+
+        pcModalImportViewMode.Show();
+    }
+    function ImportUserLog() {
+        var url = '/TargetSetUp/ImportManualLog/';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify({ 'Fromdt': dtLogFrom_Import.GetText(), 'ToDate': dtLogTo_Import.GetText() }),
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            if (response == "True") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ImportLog", "TargetSetUp")",
+                    success: function (response) {
+                        if (response) {
+                            pcModalImportViewMode.Hide();
+                            pcModalBeatImportLogMode.Show();
+                            gridImportLog.Refresh();
+                            gridImportLog.Refresh();
+                        }
+                    }
+                });
+            }
+            else {
+               jAlert(response);
+               //Swal.fire({
+               //    icon: 'error',
+               //    title: 'Sorry!',
+               //    text: response
+               // });
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
 </script>
 <div class="breadCumb">
     <span>Target Set Up</span>
@@ -978,24 +1287,24 @@
                         <span class="btn-icon"><i class="fa fa-plus"></i></span> Sales Target
                     </button>
                 </div>
-            @*</div>
-            <div class="col-md-2">*@
+                @*</div>
+                    <div class="col-md-2">*@
                 <div class="add-show-btns">
                     <button type="button" class="btn add-btn product-target" onclick="AddProductTarget();">
                         <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
                     </button>
 
                 </div>
-            @*</div>
-            <div class="col-md-3">*@
+                @*</div>
+                    <div class="col-md-3">*@
                 <div class="add-show-btns">
                     <button type="button" class="btn add-btn brand-value-target" onclick="AddBrandVolumeValueTarget();">
                         <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
                     </button>
 
                 </div>
-            @*</div>
-            <div class="col-md-2">*@
+                @*</div>
+                    <div class="col-md-2">*@
                 <div class="add-show-btns">
                     <button type="button" class="btn add-btn wod-target" onclick="AddWODTarget();">
                         <span class="btn-icon"><i class="fa fa-plus"></i></span>WOD Target
@@ -1070,7 +1379,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4 mt-22">
+            <div class="col-md-4 mt-24">
                 <div class="">
                     <div class="add-show-btns">
                         <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
@@ -1082,8 +1391,12 @@
                                 <option value="4">RTF</option>
                                 <option value="5">CSV</option>
                             </select>*@
-                        <button type="button" class="btn btn-warning" onclick=""> Download Format</button>
-                        <button type="button" class="btn btn-info" onclick=""> Import File</button>
+                        @*<button type="button" class="btn btn-warning" onclick="DownloadFormat();"> Download Format</button>*@
+                        <a id="downloadLink" href="" class="btn btn-warning" onclick="return theFunction();">
+                            Download Format
+                        </a>
+                        <button type="button" class="btn btn-info" onclick="ImportPopOpen();"> Import File</button>
+                        <button type="button" class="btn btn-warning " onclick="ImportLogPopOpen();">View Log</button>
                     </div>
 
                 </div>
@@ -1107,6 +1420,83 @@
 <input type="hidden" value="@Url.Action("EDITINDEX", "ProductTargetAddEdit")" id="hdnAddUpdateProductTarget" />
 <input type="hidden" value="@Url.Action("EDITINDEX", "WODTarget")" id="hdnAddUpdateWODTarget" />
 
+<div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ClickToImport();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalBeatImportLogMode";
+        settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Import Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.ClientSideEvents.CloseButtonClick = "function(s, e) {CloseLog(); }";
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("ImportLog", new List<ImportLogModel>());
+            // ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportImportLogGrid();'>Export</button>");
+        });
+
+        //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+    }).GetHtml()
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalImportViewMode";
+            settings.Width = 300;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Import  Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("ImportLogManual");
+            });
+
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+        }).GetHtml()
 
