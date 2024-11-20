@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -137,11 +138,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ERP.UI\bin\DevExpress.XtraTreeList.v15.1.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MyShopProject\bin\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\EntityLayer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -210,6 +220,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -768,6 +779,8 @@
     <Content Include="Areas\TargetVsAchievement\Views\BrandVolumeValueTarget\_PartialBrandVolumeValueTargetEntry.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\WODTarget\Index.cshtml" />
     <Content Include="Areas\TargetVsAchievement\Views\WODTarget\_PartialWODTargetEntry.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\ImportLogManual.cshtml" />
+    <Content Include="Areas\TargetVsAchievement\Views\TargetSetUp\ImportLog.cshtml" />
     <None Include="assests\js\jquery-1.10.2.intellisense.js" />
     <Content Include="assests\js\jquery-1.10.2.js" />
     <Content Include="assests\js\jquery-1.10.2.min.js" />

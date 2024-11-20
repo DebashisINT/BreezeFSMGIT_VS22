@@ -1684,57 +1684,142 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return Json("No files selected.");
             }
         }
-
-        public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        public Boolean Import_To_Grid(string FilePath, string Extension, HttpPostedFile file)
         {
             Boolean Success = false;
-            Int32 HasLog = 0;
-
+            Boolean HasLog = false;
+            int loopcounter = 1;
             if (file.FileName.Trim() != "")
             {
                 if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
                 {
-                    DataTable dt = new DataTable();
-                    
-                    string conString = string.Empty;
-                    conString = ConfigurationManager.AppSettings["ExcelConString"];
-                    conString = string.Format(conString, FilePath);
-                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    DataSet ds = new DataSet();
+                    using (SpreadsheetDocument doc = SpreadsheetDocument.Open(FilePath, false))
                     {
-                        excel_con.Open();
-                        string sheet1 = "List$"; //ī;
+                        Sheet sheet = doc.WorkbookPart.Workbook.Sheets.GetFirstChild<Sheet>();
+                        IEnumerable<Sheet> sheets = doc.WorkbookPart.Workbook.GetFirstChild<Sheets>().Elements<Sheet>();
 
-                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                        foreach (var item in sheets)
                         {
-                            oda.Fill(dt);
-                        }
-                        excel_con.Close();
-                    }
+                            DataTable dt = new DataTable();
+                            Worksheet worksheet = (doc.WorkbookPart.GetPartById(item.Id.Value) as WorksheetPart).Worksheet;
+                            IEnumerable<Row> rows = worksheet.GetFirstChild<SheetData>().Descendants<Row>();
+                            foreach (Row row in rows)
+                            {
+                                if (row.RowIndex.Value == 1)
+                                {
+                                    foreach (Cell cell in row.Descendants<Cell>())
+                                    {
+                                        if (cell.CellValue != null)
+                                        {
+                                            dt.Columns.Add(GetValue(doc, cell));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    dt.Rows.Add();
+                                    int i = 0;
+                                    foreach (Cell cell in row.Descendants<Cell>())
+                                    {
+                                        if (cell.CellValue != null)
+                                        {
+                                            dt.Rows[dt.Rows.Count - 1][i] = GetValue(doc, cell);
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }
 
-                    // }
-                    if (dt != null && dt.Rows.Count > 0)
+                            ds.Tables.Add(dt);
+                        }
+
+
+                    }
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
                     {
+                        string EmployeeCode = string.Empty;
+
+                        //foreach (DataRow row in ds.Tables[0].Rows)
+                        //{
+                        //    loopcounter++;
+                        // EmployeeCode = Convert.ToString(row["Emp. Code*"]);
                         try
                         {
-                            TempData["PartyImportLog"] = dt;
-                            TempData.Keep();
-
+                            string File_Name = Session["FileName"].ToString();
                             DataTable dtCmb = new DataTable();
-                            ProcedureExecute proc = new ProcedureExecute("PRC_FTSImportNewParty");
-                            proc.AddPara("@IMPORT_TABLE", dt);
+                            ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeUserInsertFromExcel");
+                            proc.AddPara("@ImportEmployee", ds.Tables[0]);
+                            //Rev 3.0
+                            //proc.AddPara("@ImportUser", ds.Tables[1]);
+                            proc.AddPara("@FileName", File_Name);
+                            //Rev 3.0 END
                             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
-
+                            HasLog = true;
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            HasLog = false;
+                            int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, "", "", Session["FileName"].ToString(), ex.Message.ToString(), "Failed");
 
                         }
+                        //}
                     }
                 }
             }
             return HasLog;
         }
+        //public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        //{
+        //    Boolean Success = false;
+        //    Int32 HasLog = 0;
+
+        //    if (file.FileName.Trim() != "")
+        //    {
+        //        if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
+        //        {
+        //            DataTable dt = new DataTable();
+
+        //            string conString = string.Empty;
+        //            conString = ConfigurationManager.AppSettings["ExcelConString"];
+        //            conString = string.Format(conString, FilePath);
+        //            using (OleDbConnection excel_con = new OleDbConnection(conString))
+        //            {
+        //                excel_con.Open();
+        //                string sheet1 = "List$"; //ī;
+
+        //                using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+        //                {
+        //                    oda.Fill(dt);
+        //                }
+        //                excel_con.Close();
+        //            }
+
+        //            // }
+        //            if (dt != null && dt.Rows.Count > 0)
+        //            {
+        //                try
+        //                {
+        //                    TempData["PartyImportLog"] = dt;
+        //                    TempData.Keep();
+
+        //                    DataTable dtCmb = new DataTable();
+        //                    ProcedureExecute proc = new ProcedureExecute("PRC_FTSImportNewParty");
+        //                    proc.AddPara("@IMPORT_TABLE", dt);
+        //                    proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
+        //                    dtCmb = proc.GetTable();
+
+        //                }
+        //                catch (Exception)
+        //                {
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return HasLog;
+        //}
 
         private string GetValue(SpreadsheetDocument doc, Cell cell)
         {
