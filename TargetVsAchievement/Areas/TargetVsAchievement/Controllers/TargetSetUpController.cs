@@ -318,7 +318,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_TARGET_IMPORT");
                             proc.AddPara("@IMPORT_TABLE", ds.Tables[0]);
-                            proc.AddPara("@ACTION", "INSERTSALESTARGET");
+                            proc.AddPara("@ACTION", "INSERTPRODUCTTARGET");
                             proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
                             HasLog = true;
@@ -435,7 +435,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_TARGET_IMPORT");
                             proc.AddPara("@IMPORT_TABLE", ds.Tables[0]);
-                            proc.AddPara("@ACTION", "INSERTSALESTARGET");
+                            proc.AddPara("@ACTION", "INSERTBRANDTARGET");
                             proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
                             HasLog = true;
@@ -553,7 +553,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                             DataTable dtCmb = new DataTable();
                             ProcedureExecute proc = new ProcedureExecute("PRC_TARGET_IMPORT");
                             proc.AddPara("@IMPORT_TABLE", ds.Tables[0]);
-                            proc.AddPara("@ACTION", "INSERTSALESTARGET");
+                            proc.AddPara("@ACTION", "INSERTWODTARGET");
                             proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
                             HasLog = true;
