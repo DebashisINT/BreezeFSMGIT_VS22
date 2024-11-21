@@ -42,10 +42,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
 {
     public class TaskManagementController : Controller
     {
-       
+
         NotificationBL notificationbl = new NotificationBL();
         DBEngine odbengine = new DBEngine();
-       
+
         public ActionResult Index()
         {
             TaskManagementModel Dtls = new TaskManagementModel();
@@ -58,9 +58,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
-            ViewBag.CanReassign = rights.CanReassign;            
+            ViewBag.CanReassign = rights.CanReassign;
             ViewBag.CanAssign = rights.CanAssign;
-           
+
             DataTable dtSals = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_TASKMANAGEMENT");
             proc.AddPara("@ACTION_TYPE", "GetSalesmanlist");
@@ -70,7 +70,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             SalesManTMList = APIHelperMethods.ToModelList<SalesmanUserAssignTM>(dtSals);
             Dtls.SalesmanUserList = SalesManTMList;
             Dtls.SalesmanUserId = "";
-            
+
 
             return View(Dtls);
         }
@@ -123,9 +123,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
-                ViewBag.CanReassign = rights.CanReassign;               
+                ViewBag.CanReassign = rights.CanReassign;
                 ViewBag.CanAssign = rights.CanAssign;
-                
+
                 string TaskPriority = "";
                 int i = 1;
 
@@ -154,9 +154,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 string datfrmat = model.Fromdate.Split('-')[2] + '-' + model.Fromdate.Split('-')[1] + '-' + model.Fromdate.Split('-')[0];
                 string dattoat = model.Todate.Split('-')[2] + '-' + model.Todate.Split('-')[1] + '-' + model.Todate.Split('-')[0];
 
-                
 
-               
+
+
 
                 GetTaskManagementListing(TaskPriority, datfrmat, dattoat, Is_PageLoad);
 
@@ -165,15 +165,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return PartialView("PartialTaskManagementGridList", GetCRMEnquiriesDetails(Is_PageLoad));
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
 
             }
-           
+
         }
-        
-        public void GetTaskManagementListing(string TaskPriority, string FromDate, string ToDate,string Is_PageLoad)
+
+        public void GetTaskManagementListing(string TaskPriority, string FromDate, string ToDate, string Is_PageLoad)
         {
             string user_id = Convert.ToString(Session["userid"]);
             //string FROMDATE = dtFrom.ToString("yyyy-MM-dd");
@@ -182,7 +182,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             string action = string.Empty;
             DataTable formula_dtls = new DataTable();
             DataSet dsInst = new DataSet();
-            if(Is_PageLoad== "is_pageload")
+            if (Is_PageLoad == "is_pageload")
             {
                 Is_PageLoad = "1";
             }
@@ -238,14 +238,14 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return q;
             }
 
-            
+
         }
 
         public ActionResult ShowTaskDetails(String TASK_ID)
         {
             try
-            {               
-                TaskManagementModel _apply = new TaskManagementModel();                
+            {
+                TaskManagementModel _apply = new TaskManagementModel();
                 try
                 {
                     ExecProcedure execProc = new ExecProcedure();
@@ -256,7 +256,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     proc1.AddPara("@ACTION_TYPE", "Edit");
                     _getenq = proc1.GetTable();
 
-                   
+
                     if (_getenq.Rows.Count > 0)
                     {
                         _apply.TASK_ID = TASK_ID;
@@ -264,8 +264,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
                         _apply._DueDate = _getenq.Rows[0]["TASK_DUEDATE"].ToString();
                         _apply.Task_Name = _getenq.Rows[0]["TASK_NAME"].ToString();
                         _apply.Task_Details = _getenq.Rows[0]["Task_Details"].ToString();
-                        _apply.Priority = _getenq.Rows[0]["TASK_PRIORITY"].ToString();                     
-                     
+                        _apply.Priority = _getenq.Rows[0]["TASK_PRIORITY"].ToString();
+
                     }
 
                 }
@@ -285,10 +285,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         public void getIndiaMartAPIData(string FromDate, string ToDate)
         {
-         
+
             List<IndiamartModelClass> omodel = new List<IndiamartModelClass>();
             List<IndiamartModelErrorClass> indmdlerror = new List<IndiamartModelErrorClass>();
-            
+
 
             DataTable dt = new DataTable();
             SqlCommand sqlcmd = new SqlCommand();
@@ -360,7 +360,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                                 // Mantis Issue 24890
                                 //  List<IndiamartModelClass> indiamartlist = ser.Deserialize<List<IndiamartModelClass>>(json);
-                               
+
                                 //if (indiamartlist.Count > 1)
                                 //{
                                 //    Action = "Success";
@@ -545,7 +545,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 else
                 {
-                   // return Json("Duplicate", JsonRequestBehavior.AllowGet);
+                    // return Json("Duplicate", JsonRequestBehavior.AllowGet);
                     //  string URL = "http://mapi.indiamart.com/wservce/enquiry/listing/GLUSR_MOBILE/7042445112/GLUSR_MOBILE_KEY/NzA0MjQ0NTExMiMxMDM1OTU4MA==/";
                 }
 
@@ -564,7 +564,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 // End of Mantis Issue 24936
                 proc2.AddPara("@Errortext", ex.ToString());
                 dtError = proc2.GetTable();
-                
+
                 //DataTable dt = new DataTable();
                 ////SqlCommand sqlcmd = new SqlCommand();
                 ////SqlConnection sqlcon = new SqlConnection(con);
@@ -582,7 +582,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //da.Fill(dt);
                 //sqlcon.Close();
 
-               // return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                // return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -629,22 +629,22 @@ namespace MyShop.Areas.MYSHOP.Controllers
             string _ContentType = "application/json";
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ContentType));
-           //client.DefaultRequestHeaders.Add("token-auth", "");
-           //client.DefaultRequestHeaders.Add("USER", "");
-           //client.DefaultRequestHeaders.Add("PASSWORD", "");
+            //client.DefaultRequestHeaders.Add("token-auth", "");
+            //client.DefaultRequestHeaders.Add("USER", "");
+            //client.DefaultRequestHeaders.Add("PASSWORD", "");
 
             var data = new Dictionary<string, string>
                 {
                     {"user" , "eurobond"} ,  {"key","eyJhbGciOiJIHHUM"}
                 };
-               
+
 
             var content = new FormUrlEncodedContent(data);
             // Mantis Issue 24907
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             // End of Mantis Issue 24907
             var response = client.PostAsync(url, content).Result;
-            
+
             var content1 = response.Content.ReadAsStringAsync().Result;
             MacoyModelClassKey dataset1 = JsonConvert.DeserializeObject<MacoyModelClassKey>(content1);
 
@@ -658,7 +658,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 string _ContentType2 = "application/json";
                 var client2 = new HttpClient();
                 client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ContentType2));
-               // client2.DefaultRequestHeaders.Add("Authorization", strToken.ToString());
+                // client2.DefaultRequestHeaders.Add("Authorization", strToken.ToString());
                 client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken.ToString());
                 //client.DefaultRequestHeaders.Add("USER", "");
                 //client.DefaultRequestHeaders.Add("PASSWORD", "");
@@ -676,20 +676,20 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
                 if (dataset2.message == "success")
                 {
-                //if (content12.Contains("no data"))
-                //{
-                //    // Loop
-                //}
-                //else
-                //{
+                    //if (content12.Contains("no data"))
+                    //{
+                    //    // Loop
+                    //}
+                    //else
+                    //{
                     if (dataset2.data.Count > 0)
                     {
-                        for(int i=0 ; i<dataset2.data.Count; i++)
+                        for (int i = 0; i < dataset2.data.Count; i++)
                         {
                             // The format of dataset2.data[0].date returned from API is "2019-02-03T13:20:41.000Z"
-                            dataset2.data[0].date = dataset2.data[i].date.Replace("T"," ");
+                            dataset2.data[0].date = dataset2.data[i].date.Replace("T", " ");
                             dataset2.data[0].date = dataset2.data[i].date.Replace("Z", "");
-                            
+
 
                             DataRow drOutput = dtOutPut.NewRow();
                             drOutput["lead_id"] = dataset2.data[i].lead_id;
@@ -726,7 +726,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             }
 
-            
+
 
 
         }
@@ -907,7 +907,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 DataTable dtError = new DataTable();
                 ProcedureExecute proc2 = new ProcedureExecute("FSM_Proc_Import_IndiaMart");
-                 proc2.AddPara("@MobileNo", "");
+                proc2.AddPara("@MobileNo", "");
                 proc2.AddPara("@Action", "Error");
                 proc2.AddPara("@Vendor_Name", "IndiaMart (ARCHER)");
                 proc2.AddPara("@Errortext", ex.ToString());
@@ -1005,7 +1005,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc1.AddPara("@DUETDATE", apply.DueDate);
                 proc1.AddPara("@Task_Name", apply.Task_Name);
                 proc1.AddPara("@Priority", apply.Priority);
-                proc1.AddPara("@Task_Details", apply.Task_Details);                
+                proc1.AddPara("@Task_Details", apply.Task_Details);
                 if (!String.IsNullOrEmpty(uniqueid))
                 {
                     proc1.AddPara("@TASK_ID", (uniqueid));
@@ -1342,25 +1342,25 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
         private GridViewSettings GetDoctorBatchGridViewSettings()
         {
-           
+
             //DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "Task Management");
             //if (dtColmn != null && dtColmn.Rows.Count > 0)
             //{
             //    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
             //}
-           
+
             var settings = new GridViewSettings();
             settings.Name = "gridTaskManagement";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
             settings.SettingsExport.FileName = "TaskManagement";
 
-            
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "SEQ";
                 x.Caption = "Sr. No";
                 x.VisibleIndex = 1;
-                x.Width = 80;               
+                x.Width = 80;
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SEQ'");
@@ -1379,7 +1379,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    x.Visible = true;
                 //    //x.Width = 100;
                 //}
-               
+
             });
             settings.Columns.Add(x =>
             {
@@ -1390,7 +1390,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-              
+
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='STARTDATE'");
@@ -1409,7 +1409,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    x.Visible = true;
                 //    //x.Width = 100;
                 //}
-               
+
             });
             settings.Columns.Add(x =>
             {
@@ -1419,7 +1419,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Width = 120;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
-                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";               
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='DUETDATE'");
@@ -1430,15 +1430,15 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    else
                 //    {
                 //        x.Visible = true;
-                        
+
                 //    }
                 //}
                 //else
                 //{
                 //    x.Visible = true;
-                   
+
                 //}
-                
+
             });
             settings.Columns.Add(x =>
             {
@@ -1446,7 +1446,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Task Name";
                 x.VisibleIndex = 4;
                 x.Width = 110;
-              
+
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='Task_Name'");
@@ -1465,7 +1465,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    x.Visible = true;
                 //    //x.Width = 100;
                 //}
-                
+
             });
             settings.Columns.Add(x =>
             {
@@ -1473,7 +1473,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Priority";
                 x.VisibleIndex = 5;
                 x.Width = 80;
-                
+
             });
             settings.Columns.Add(x =>
             {
@@ -1481,7 +1481,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Task Details";
                 x.VisibleIndex = 6;
                 x.Width = 100;
-               
+
             });
             settings.Columns.Add(x =>
             {
@@ -1489,9 +1489,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Assign to Name";
                 x.VisibleIndex = 7;
                 x.Width = 100;
-                
-            });         
-        
+
+            });
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "SalesmanAssign_date";
@@ -1501,7 +1501,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-                
+
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='SalesmanAssign_date'");
@@ -1520,7 +1520,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //    x.Visible = true;
                 //    //x.Width = 100;
                 //}
-               
+
             });
             settings.Columns.Add(x =>
             {
@@ -1528,7 +1528,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Assign To ID";
                 x.VisibleIndex = 9;
                 x.Width = 100;
-              
+
                 //if (ViewBag.RetentionColumn != null)
                 //{
                 //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ASSIGNED_TOID'");
@@ -1545,9 +1545,9 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 //else
                 //{
                 //    x.Visible = true;
-                    //x.Width = 100;
-               // }
-               
+                //x.Width = 100;
+                // }
+
             });
             settings.Columns.Add(x =>
             {
@@ -1555,7 +1555,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Task Status";
                 x.VisibleIndex = 10;
                 x.Width = 140;
-                
+
             });
 
             settings.Columns.Add(x =>
@@ -1567,26 +1567,26 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-               
-                    //if (ViewBag.RetentionColumn != null)
-                    //{
-                    //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='CREATED_DATE'");
-                    //    if (row != null && row.Length > 0)  /// Check now
-                    //    {
-                    //        x.Visible = false;
-                    //    }
-                    //    else
-                    //    {
-                    //        x.Visible = true;
-                    //        //x.Width = 100;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    x.Visible = true;
-                    //    //x.Width = 100;
-                    //}
-               
+
+                //if (ViewBag.RetentionColumn != null)
+                //{
+                //    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='CREATED_DATE'");
+                //    if (row != null && row.Length > 0)  /// Check now
+                //    {
+                //        x.Visible = false;
+                //    }
+                //    else
+                //    {
+                //        x.Visible = true;
+                //        //x.Width = 100;
+                //    }
+                //}
+                //else
+                //{
+                //    x.Visible = true;
+                //    //x.Width = 100;
+                //}
+
             });
             settings.Columns.Add(x =>
             {
@@ -1594,10 +1594,10 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Created By";
                 x.VisibleIndex = 12;
                 x.Width = 140;
-                
+
             });
 
-        
+
 
             settings.Columns.Add(x =>
             {
@@ -1608,7 +1608,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-                
+
             });
 
             settings.Columns.Add(x =>
@@ -1617,7 +1617,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 x.Caption = "Updated By";
                 x.VisibleIndex = 14;
                 x.Width = 140;
-               
+
             });
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
@@ -1629,7 +1629,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return settings;
         }
 
-        
+
         public ActionResult DownloadFormat()
         {
             string FileName = "CRMEnquiries.xlsx";
@@ -1684,142 +1684,57 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 return Json("No files selected.");
             }
         }
-        public Boolean Import_To_Grid(string FilePath, string Extension, HttpPostedFile file)
+
+        public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
         {
             Boolean Success = false;
-            Boolean HasLog = false;
-            int loopcounter = 1;
+            Int32 HasLog = 0;
+
             if (file.FileName.Trim() != "")
             {
                 if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
                 {
-                    DataSet ds = new DataSet();
-                    using (SpreadsheetDocument doc = SpreadsheetDocument.Open(FilePath, false))
-                    {
-                        Sheet sheet = doc.WorkbookPart.Workbook.Sheets.GetFirstChild<Sheet>();
-                        IEnumerable<Sheet> sheets = doc.WorkbookPart.Workbook.GetFirstChild<Sheets>().Elements<Sheet>();
+                    DataTable dt = new DataTable();
 
-                        foreach (var item in sheets)
+                    string conString = string.Empty;
+                    conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    conString = string.Format(conString, FilePath);
+                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    {
+                        excel_con.Open();
+                        string sheet1 = "List$"; //ī;
+
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
                         {
-                            DataTable dt = new DataTable();
-                            Worksheet worksheet = (doc.WorkbookPart.GetPartById(item.Id.Value) as WorksheetPart).Worksheet;
-                            IEnumerable<Row> rows = worksheet.GetFirstChild<SheetData>().Descendants<Row>();
-                            foreach (Row row in rows)
-                            {
-                                if (row.RowIndex.Value == 1)
-                                {
-                                    foreach (Cell cell in row.Descendants<Cell>())
-                                    {
-                                        if (cell.CellValue != null)
-                                        {
-                                            dt.Columns.Add(GetValue(doc, cell));
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    dt.Rows.Add();
-                                    int i = 0;
-                                    foreach (Cell cell in row.Descendants<Cell>())
-                                    {
-                                        if (cell.CellValue != null)
-                                        {
-                                            dt.Rows[dt.Rows.Count - 1][i] = GetValue(doc, cell);
-                                        }
-                                        i++;
-                                    }
-                                }
-                            }
-
-                            ds.Tables.Add(dt);
+                            oda.Fill(dt);
                         }
-
-
+                        excel_con.Close();
                     }
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                        string EmployeeCode = string.Empty;
 
-                        //foreach (DataRow row in ds.Tables[0].Rows)
-                        //{
-                        //    loopcounter++;
-                        // EmployeeCode = Convert.ToString(row["Emp. Code*"]);
+                    // }
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
                         try
                         {
-                            string File_Name = Session["FileName"].ToString();
+                            TempData["PartyImportLog"] = dt;
+                            TempData.Keep();
+
                             DataTable dtCmb = new DataTable();
-                            ProcedureExecute proc = new ProcedureExecute("PRC_EmployeeUserInsertFromExcel");
-                            proc.AddPara("@ImportEmployee", ds.Tables[0]);
-                            //Rev 3.0
-                            //proc.AddPara("@ImportUser", ds.Tables[1]);
-                            proc.AddPara("@FileName", File_Name);
-                            //Rev 3.0 END
+                            ProcedureExecute proc = new ProcedureExecute("PRC_FTSImportNewParty");
+                            proc.AddPara("@IMPORT_TABLE", dt);
                             proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
                             dtCmb = proc.GetTable();
-                            HasLog = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            HasLog = false;
-                            int loginsert = objEmploye.InsertEmployeeImportLOg(EmployeeCode, loopcounter, "", "", Session["FileName"].ToString(), ex.Message.ToString(), "Failed");
 
                         }
-                        //}
+                        catch (Exception)
+                        {
+
+                        }
                     }
                 }
             }
             return HasLog;
         }
-        //public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
-        //{
-        //    Boolean Success = false;
-        //    Int32 HasLog = 0;
-
-        //    if (file.FileName.Trim() != "")
-        //    {
-        //        if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
-        //        {
-        //            DataTable dt = new DataTable();
-
-        //            string conString = string.Empty;
-        //            conString = ConfigurationManager.AppSettings["ExcelConString"];
-        //            conString = string.Format(conString, FilePath);
-        //            using (OleDbConnection excel_con = new OleDbConnection(conString))
-        //            {
-        //                excel_con.Open();
-        //                string sheet1 = "List$"; //ī;
-
-        //                using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
-        //                {
-        //                    oda.Fill(dt);
-        //                }
-        //                excel_con.Close();
-        //            }
-
-        //            // }
-        //            if (dt != null && dt.Rows.Count > 0)
-        //            {
-        //                try
-        //                {
-        //                    TempData["PartyImportLog"] = dt;
-        //                    TempData.Keep();
-
-        //                    DataTable dtCmb = new DataTable();
-        //                    ProcedureExecute proc = new ProcedureExecute("PRC_FTSImportNewParty");
-        //                    proc.AddPara("@IMPORT_TABLE", dt);
-        //                    proc.AddPara("@CreateUser_Id", Convert.ToInt32(Session["userid"]));
-        //                    dtCmb = proc.GetTable();
-
-        //                }
-        //                catch (Exception)
-        //                {
-
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return HasLog;
-        //}
 
         private string GetValue(SpreadsheetDocument doc, Cell cell)
         {
@@ -1831,7 +1746,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return value;
         }
 
-     
+
         public JsonResult TaskDelete(string uniqueCode)
         {
             string output_msg = string.Empty;
@@ -1847,7 +1762,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 dt = proc1.GetTable();
 
                 output_msg = Convert.ToString(proc1.GetParaValue("@RETURNMESSAGE"));
-                
+
             }
             catch (Exception ex)
             {
@@ -1897,7 +1812,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 ReportsDataContext DC = new ReportsDataContext(connectionString);
                 var q = from d in DC.ENQUIRIES_LISTING1s
-                        where d.USERID == Convert.ToInt32(Userid) && d.STATUS=="Pending"
+                        where d.USERID == Convert.ToInt32(Userid) && d.STATUS == "Pending"
                         orderby d.SEQ
                         select d;
                 return q;
@@ -1921,7 +1836,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             string output_msg = string.Empty;
             string ReturnCode = "";
             Msg _msg = new Msg();
-          
+
             try
             {
                 DataTable dtAssign = new DataTable();
@@ -1941,7 +1856,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 {
                     _msg.response_code = "Success";
                     _msg.response_msg = "Success";
-                   
+
                     string Mssg = "";
                     string SalesMan_Nm = "";
                     string SalesMan_Phn = "";
@@ -1949,7 +1864,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                     DataTable dt_SalesMan = odbengine.GetDataTable("select user_loginId,user_name from tbl_master_user  where user_id=" + SalesmanId + "");
                     if (dt_SalesMan.Rows.Count > 0)
                     {
-                        SalesMan_Nm = dt_SalesMan.Rows[0]["user_name"].ToString();                        
+                        SalesMan_Nm = dt_SalesMan.Rows[0]["user_name"].ToString();
                         SalesMan_Phn = dt_SalesMan.Rows[0]["user_loginId"].ToString();
                         if (dt_CRM_IDS.Rows.Count > 0)
                         {
@@ -1960,7 +1875,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                             }
                         }
                     }
-                   
+
                 }
                 else
                 if (output_msg != "Success" && ReturnCode == "-1")
@@ -1985,7 +1900,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
             return Json(_msg, JsonRequestBehavior.AllowGet);
         }
 
-       
+
         public JsonResult CheckAssignSalesman(string Task_ID)
         {
 
@@ -1999,7 +1914,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 ProcedureExecute proc1 = new ProcedureExecute("PRC_TASKMANAGEMENT");
                 proc1.AddPara("@ACTION_TYPE", "CHECKASSIGNSALESMAN");
                 proc1.AddPara("@TASK_ID", Task_ID);
-               
+
                 proc1.AddVarcharPara("@RETURNMESSAGE", 50, "", QueryParameterDirection.Output);
                 proc1.AddVarcharPara("@RETURNCODE", 50, "", QueryParameterDirection.Output);
                 dtAssign = proc1.GetTable();
@@ -2040,7 +1955,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 proc1.AddPara("@ACTION_TYPE", "OldAssignedSalesMan");
                 proc1.AddPara("@TASK_ID", TASK_ID);
                 dtAssign = proc1.GetTable();
-                
+
                 objSalesManList = APIHelperMethods.ToModelList<SalesManTMList>(dtAssign);
             }
 
@@ -2074,8 +1989,8 @@ namespace MyShop.Areas.MYSHOP.Controllers
             {
                 ReportsDataContext DC = new ReportsDataContext(connectionString);
                 var q = from d in DC.ENQUIRIES_LISTING1s
-                        //Mantis Issue 24810
-                        //where d.USERID == Convert.ToInt32(Userid) && d.STATUS == "Assigned"
+                            //Mantis Issue 24810
+                            //where d.USERID == Convert.ToInt32(Userid) && d.STATUS == "Assigned"
                         where d.USERID == Convert.ToInt32(Userid) && d.STATUS == "Assigned" || d.STATUS == "Re Assigned"
                         //End of Mantis Issue 24810
                         orderby d.SEQ
@@ -2094,12 +2009,12 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             }
         }
-        
+
         #endregion
         //Mantis Issue 0024759
         public JsonResult SendNotification(string Mobiles, string messagetext)
         {
-            
+
             string status = string.Empty;
             try
             {

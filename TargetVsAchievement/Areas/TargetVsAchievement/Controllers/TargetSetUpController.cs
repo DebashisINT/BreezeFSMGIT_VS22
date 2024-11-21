@@ -13,6 +13,9 @@ using System.Data.OleDb;
 using System.IO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 {
@@ -23,6 +26,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
         {
             TempData["FromManualLog"] = null;
             TempData["ImportLog"] = null;
+            TempData["TARGETASSIGNGRIDVIEW"] = null;
             return View();
         }
         public PartialViewResult _PartialTargetSetUpListing(TargetLevelSetupModel dd)
@@ -40,10 +44,12 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             sqlcmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
             da.Fill(dt);
-            sqlcon.Close();           
+            sqlcon.Close();
+
+            TempData["TARGETASSIGNGRIDVIEW"] = dt;
+            TempData.Keep();
             return PartialView(dt);
         }
-
         public JsonResult Delete(string ID,string TargetType)
         {           
             int i;
@@ -59,8 +65,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
             return Json(rtrnvalue, JsonRequestBehavior.AllowGet);
         }
-
-
         public ActionResult DownloadFormat(string TargetType)
         {
             string strFileName = "";
@@ -188,12 +192,9 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
 
                             ds.Tables.Add(dt);
                         }
-
-
                     }
                     if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                                 
+                    {                                 
                         try
                         {                            
                             DataTable dtCmb = new DataTable();
@@ -214,10 +215,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             return HasLog;
         }
-
-
-
-
         public ActionResult ImportExcelProductTarget()
         {
             // Checking no of files injected in Request object  
@@ -451,8 +448,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             return HasLog;
         }
 
-
-
         public ActionResult ImportExcelWODTarget()
         {
             // Checking no of files injected in Request object  
@@ -568,23 +563,14 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             return HasLog;
         }
-
-
-
-
-
-
-
-
         public ActionResult ImportLog()
         {
             List<ImportLogModel> list = new List<ImportLogModel>();
             DataTable dt = new DataTable();
             try
             {
-                if (TempData["ImportLog"] != null)
-                {
-                    if (TempData["FromManualLog"] != null && Convert.ToString(TempData["FromManualLog"]) == "1")
+               
+                    if (TempData["ImportLog"] != null && TempData["FromManualLog"] != null && Convert.ToString(TempData["FromManualLog"]) == "1")
                     {
                         dt = (DataTable)TempData["ImportLog"];
                     }
@@ -637,7 +623,7 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                         }
                     }
                     //TempData["EnquiriesImportLog"] = dt;
-                }
+                
 
             }
             catch (Exception ex)
@@ -656,8 +642,6 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
             }
             return value;
         }
-
-
         [HttpPost]
         public JsonResult ImportManualLog(string Fromdt, String ToDate)
         {
@@ -691,6 +675,91 @@ namespace TargetVsAchievement.Areas.TargetVsAchievement.Controllers
                 output_msg = "Please try again later";
             }
             return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ExporSummaryList(int type, String Name)
+        {
+            
+            DataTable dbDashboardData = new DataTable();
+            
+
+            if (TempData["TARGETASSIGNGRIDVIEW"] != null)
+            {
+
+                switch (type)
+                {
+                    case 1:
+                        return GridViewExtension.ExportToPdf(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    
+                    case 2:
+                        return GridViewExtension.ExportToXlsx(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                   
+                    case 3:
+                        return GridViewExtension.ExportToXls(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    
+                    case 4:
+                        return GridViewExtension.ExportToRtf(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    
+                    case 5:
+                        return GridViewExtension.ExportToCsv(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    default:
+                        break;
+                }
+            }
+            return null;
+        }
+
+        private GridViewSettings GetGridView(object datatable, String Name)
+        {
+            var settings = new GridViewSettings();
+            
+            settings.Name = Name;
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            
+            settings.SettingsExport.FileName = Name;
+           
+            DataTable dt = (DataTable)datatable;
+
+            foreach (System.Data.DataColumn datacolumn in dt.Columns)
+            {
+                
+                settings.Columns.Add(column =>
+                {
+
+                    if (datacolumn.ColumnName == "Action")
+                    {
+                        column.CellStyle.CssClass = "hide";
+                        column.HeaderStyle.CssClass = "hide";
+                    }
+                    else if (datacolumn.ColumnName == "ID")
+                    {
+                        column.CellStyle.CssClass = "hide";
+                        column.HeaderStyle.CssClass = "hide";
+                    }
+                    else
+                    {
+                        column.Caption = datacolumn.ColumnName;
+                        column.FieldName = datacolumn.ColumnName;
+                    }
+
+                    
+                    //if (datacolumn.DataType.FullName == "System.Decimal" || datacolumn.DataType.FullName == "System.Int32" || datacolumn.DataType.FullName == "System.Int64")
+                    //{
+                        
+                    //}
+                });
+               
+
+            }
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
         }
 
     }
