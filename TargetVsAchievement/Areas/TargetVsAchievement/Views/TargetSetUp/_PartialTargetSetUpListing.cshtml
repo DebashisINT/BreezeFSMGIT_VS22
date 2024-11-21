@@ -26,6 +26,8 @@
     settings.Settings.ShowFilterRowMenu = true;
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
 
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+
     int visibleindex = 1;
 
     if (Model != null)
@@ -118,7 +120,7 @@
     }
 
 
-
+    settings.ClientSideEvents.RowClick = "gridRowclick";
 
 }).Bind(Model).GetHtml()
 
