@@ -25,7 +25,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "DocumentNo";
-        x.Caption = "DocumentNo";
+        x.Caption = "Document No";
         x.VisibleIndex = 1;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(120);
     });
@@ -33,7 +33,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "DocumentDate";
-        x.Caption = "DocumentDate";
+        x.Caption = "Document Date";
         x.VisibleIndex = 2;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
@@ -46,7 +46,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "EmployeeGroup";
-        x.Caption = "EmployeeGroup";
+        x.Caption = "Target Type";
         x.VisibleIndex = 3;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -54,7 +54,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "TargetFor";
-        x.Caption = "TargetFor";
+        x.Caption = "Employee Group";
         x.VisibleIndex = 4;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -62,7 +62,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "TARGETLEVELNAME";
-        x.Caption = "TARGETLEVELNAME";
+        x.Caption = "Target For Name";
         x.VisibleIndex = 5;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -70,7 +70,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "TARGETLEVELCODE";
-        x.Caption = "TARGETLEVELCODE";
+        x.Caption = "Target For Code";
         x.VisibleIndex = 6;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -79,7 +79,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "TIMEFRAME";
-        x.Caption = "TIMEFRAME";
+        x.Caption = "Time Frame";
         x.VisibleIndex = 7;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -87,7 +87,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "STARTDATE";
-        x.Caption = "STARTDATE";
+        x.Caption = "Start Date";
         x.VisibleIndex = 8;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
@@ -101,7 +101,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "ENDDATE";
-        x.Caption = "ENDDATE";
+        x.Caption = "End Date";
         x.VisibleIndex = 9;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
@@ -114,7 +114,7 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "NEWVISIT";
-        x.Caption = "NEWVISIT";
+        x.Caption = "New Visit";
         x.VisibleIndex = 10;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
     });
@@ -123,17 +123,72 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "REVISIT";
-        x.Caption = "REVISIT";
-        x.VisibleIndex = 10;
+        x.Caption = "Re Visit";
+        x.VisibleIndex = 11;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
 
     });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ORDERAMOUNT";
+        x.Caption = "Order Amount";
+        x.VisibleIndex = 12;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
 
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "COLLECTION";
+        x.Caption = "Collection Amount";
+        x.VisibleIndex = 13;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ORDERQTY";
+        x.Caption = "Order Quantity";
+        x.VisibleIndex = 14;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "BRANDNAME";
+        x.Caption = "Brand Name";
+        x.VisibleIndex = 15;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "WODCOUNT";
+        x.Caption = "WOD Count";
+        x.VisibleIndex = 16;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PRODUCTNAME";
+        x.Caption = "Product Name";
+        x.VisibleIndex = 17;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "PRODUCTCODE";
+        x.Caption = "Product Code";
+        x.VisibleIndex = 18;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
     settings.Columns.Add(x =>
     {
         x.FieldName = "ImportStatus";
         x.Caption = "Import Status";
-        x.VisibleIndex = 11;
+        x.VisibleIndex = 19;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
     });
 
@@ -141,7 +196,7 @@
     {
         x.FieldName = "ImportMsg";
         x.Caption = "Import Msg";
-        x.VisibleIndex = 12;
+        x.VisibleIndex = 20;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
     });
 }).Bind(Model).GetHtml()
