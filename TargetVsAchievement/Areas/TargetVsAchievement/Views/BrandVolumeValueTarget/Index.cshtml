@@ -820,7 +820,7 @@
 
         if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnSalesTargetLevel);
-            $('#HeaderLableID').text("Brand Target -Modify");
+           // $('#HeaderLableID').text("Brand Target -Modify");
             $('#ddlTargetLevel').prop('disabled', true);
             $('#TargetNo').prop('disabled', true);
 
@@ -1006,7 +1006,15 @@
             });
             return false;
         }
-
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Add One Target For to proceed.'
+            });
+            return false;
+        }
         var TargetNo = $('#TargetNo').val();
         var TargetDate = GetServerDateFormat(BrandTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
@@ -1504,21 +1512,24 @@
     }
 
     function DeleteLevelData(values) {
-        $.ajax({
-            type: "POST",
-            url: "../BrandVolumeValueTarget/DeleteLevelData",
-            data: { HiddenID: values },
-            success: function (response) {
-                if (response != null) {
-                    gridLevelEntryList.Refresh();
-                    gridLevelEntryList.Refresh();
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            $.ajax({
+                type: "POST",
+                url: "../BrandVolumeValueTarget/DeleteLevelData",
+                data: { HiddenID: values },
+                success: function (response) {
+                    if (response != null) {
+                        gridLevelEntryList.Refresh();
+                        gridLevelEntryList.Refresh();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 </script>
 <div class="breadCumb">
-    <span id="HeaderLableID">Brand Volume/Value Target -Add </span>
+    <span id="HeaderLableID">Brand Volume/Value Target</span>
     <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">

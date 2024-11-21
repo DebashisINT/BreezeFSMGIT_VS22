@@ -811,7 +811,7 @@
         var hdnDetailsID = $('#hdnDetailsID').val();
         if (hdnTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnTargetLevel);
-            $('#HeaderLableID').text("Sales Target -Modify");
+            //$('#HeaderLableID').text("Sales Target -Modify");
             $('#ddlTargetLevel').prop('disabled', true);
             $('#TargetNo').prop('disabled', true);
 
@@ -1081,7 +1081,15 @@
             });
             return false;
         }
-
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Add One Target For to proceed.'
+            });
+            return false;
+        }
         var TargetNo = $('#TargetNo').val();
         var TargetDate = GetServerDateFormat(WODTargetDate.GetValue());
         var TargetLevel = $('#ddlTargetLevel option:selected').val();
@@ -1613,22 +1621,25 @@
         }
     }
     function DeleteLevelData(values) {
-        $.ajax({
-            type: "POST",
-            url: "../WODTarget/DeleteLevelData",
-            data: { HiddenID: values },
-            success: function (response) {
-                if (response != null) {
-                    gridLevelEntryList.Refresh();
-                    gridLevelEntryList.Refresh();
+        var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            $.ajax({
+                type: "POST",
+                url: "../WODTarget/DeleteLevelData",
+                data: { HiddenID: values },
+                success: function (response) {
+                    if (response != null) {
+                        gridLevelEntryList.Refresh();
+                        gridLevelEntryList.Refresh();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 </script>
 
 <div class="breadCumb">
-    <span id="HeaderLableID">WOD -Add </span>
+    <span id="HeaderLableID">WOD</span>
     <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
