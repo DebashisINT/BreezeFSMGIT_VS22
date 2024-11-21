@@ -802,6 +802,32 @@
         gridList.Refresh();
         gridList.Refresh();
 
+
+        $('#ddlAppIds').on('change', function () {
+            var TargetType = $('#ddlTargetType').val();
+            if (TargetType.trim() == "Select" || TargetType.trim() == "") {
+                // SweetAlert for empty category description
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Select Target Type to proceed.'
+                });
+                return false;
+            }
+
+        if ($("#ddlAppIds option:selected").index() > 0) {
+            var selectedValue = $(this).val();
+           
+            $('#ddlAppIds').prop("selectedIndex", 0);
+            var url = '@Url.Action("ExporSummaryList", "TargetSetUp", new { type = "_type_" })'
+           
+            url = url.replace("_type_", selectedValue);
+            url = url + "&Name=" + TargetType;
+            window.location.href = url;
+           // window.location.href = url.replace("_type_", selectedValue);
+            }
+        });
+
     });
 
     function ImportPopOpen() {
@@ -1048,7 +1074,7 @@
         }
     }
     function GetData() {
-        
+
         if ($('#ddlTargetType').val().trim() == "Select" || $('#ddlTargetType').val().trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
@@ -1383,14 +1409,14 @@
                 <div class="">
                     <div class="add-show-btns">
                         <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
-                        @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+                        <select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
                                 <option value="0">Export to</option>
                                 <option value="1">PDF</option>
                                 <option value="2">XLSX</option>
                                 <option value="3">XLS</option>
                                 <option value="4">RTF</option>
                                 <option value="5">CSV</option>
-                            </select>*@
+                            </select>
                         @*<button type="button" class="btn btn-warning" onclick="DownloadFormat();"> Download Format</button>*@
                         <a id="downloadLink" href="" class="btn btn-warning" onclick="return theFunction();">
                             Download Format
