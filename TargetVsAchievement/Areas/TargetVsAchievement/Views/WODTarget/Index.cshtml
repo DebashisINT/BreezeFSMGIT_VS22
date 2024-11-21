@@ -1059,8 +1059,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select WOD Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Select WOD Target Level to Proceed.'
             });
             return false;
         }
@@ -1068,16 +1068,16 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter WOD Target No to proceed.'
+                title: 'Sorry!',
+                text: 'Enter WOD Target Document No. to Proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Date to proceed.'
+                title: 'Sorry!',
+                text: 'Select Target Date to Proceed.'
             });
             return false;
         }
@@ -1098,7 +1098,7 @@
         $.ajax({
             type: "POST",
             url: "@Url.Action("SaveWOD", "WODTarget")",
-            data: "{Details:" + JSON.stringify(data) + "}",
+            data: JSON.stringify({ Details: data }), // Correct JSON formatting
             async: true,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -1109,48 +1109,56 @@
                     var TargetNo = response.split('~')[2];
                     var Message = response.split('~')[3];
 
-
                     $('#hdnDetailsID').val(DetailsID);
-                    //if (s.cpBatchUpdate == "1") {
-                       // s.cpBatchUpdate = "0";
 
-                        var newDetailsID = DetailsID;
-                        if (DetailsID > 0 && TargetNo != "") {
-                            ProductionID = 0;
-                            DetailsID = 0;
-                            jAlert('WOD Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
-                                if (r) {
+                    var newDetailsID = DetailsID;
+                    if (DetailsID > 0 && TargetNo != "") {
+                        ProductionID = 0;
+                        DetailsID = 0;
 
-                                    if (savemode == "Exit") {
-                                        setTimeout(function () {
-                                            var url = $('#hdnListPage').val();
-                                            window.location.href = url;
-                                        }, 500);
-                                    }
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'WOD Target Number: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (savemode === "Exit") {
+                                    setTimeout(function () {
+                                        var url = $('#hdnListPage').val();
+                                        window.location.href = url;
+                                    }, 500);
                                 }
+                            }
+                        });
+
+                    } else {
+                        DetailsID = 0;
+                        savemode = "";
+
+                        if (Message === "duplicateLevel") {
+                            Swal.fire({
+                                title: 'Duplicate Entry',
+                                text: 'Duplicate record entry.',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
                             });
-
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Please try again later.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
                         }
-                        else {
 
-                            DetailsID = 0;
-                            savemode = "";
-                            if (Message == "duplicateLevel") {
-                                jAlert('Duplicate record entry.');
-                            }
-                            else {
-                                jAlert('Please try again later.');
-                            }
-                           
-                            return false;
-                        }
-                        Message = "";
-
-                   // }
-
+                        return false;
+                    }
+                    Message = "";
                 }
             }
         });
+
 
 
         //var oneproduct = "";
@@ -1299,11 +1307,12 @@
         return today;
     }
     function OnEndCallback(s, e) {
-
         DetailsID = s.cpDetailsID;
         TargetNo = s.cpTargetNo;
         Message = s.cpMessage;
+
         $('#hdnDetailsID').val(DetailsID);
+
         if (s.cpBatchUpdate == "1") {
             s.cpBatchUpdate = "0";
 
@@ -1311,10 +1320,15 @@
             if (DetailsID > 0 && TargetNo != "") {
                 ProductionID = 0;
                 DetailsID = 0;
-                jAlert('WOD Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
-                    if (r) {
 
-                        if (savemode == "Exit") {
+                Swal.fire({
+                    title: 'Success!',
+                    html: 'WOD Target Number: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (savemode === "Exit") {
                             setTimeout(function () {
                                 var url = $('#hdnListPage').val();
                                 window.location.href = url;
@@ -1323,23 +1337,27 @@
                     }
                 });
 
-            }
-            else {
-
+            } else {
                 DetailsID = 0;
                 savemode = "";
-                jAlert('Please try again later.');
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+
                 return false;
             }
             Message = "";
-
         }
 
         AddNewRowWithSl();
-
     }
 
-   
+
+
 
     function EditLevelData(values)
     {
@@ -1356,7 +1374,7 @@
                     //WODTargetDate.SetValue(d);
 
                     $("#hdnTARGETLEVELID").val(response.TARGETLEVELID),
-                    $("#hdnINTERNALID").val(response.INTERNALID),   
+                    $("#hdnINTERNALID").val(response.INTERNALID),
 
                     btnTARGETLEVEL.SetValue(response.TARGETLEVEL);
                     $("#ddlTimeFrame").val(response.TIMEFRAME);
@@ -1409,8 +1427,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select WOD Target Type to proceed.'
+                title: 'Sorry!',
+                text: 'Select WOD Target Level to Proceed.'
             });
             return false;
         }
@@ -1418,16 +1436,16 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter WOD Target No to proceed.'
+                title: 'Sorry!',
+                text: 'Enter WOD Document No. to Proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Date to proceed.'
+                title: 'Sorry!',
+                text: 'Select Target Date to Proceed.'
             });
             return false;
         }
@@ -1435,8 +1453,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Select Target Assignee Name to Proceed.'
             });
             return false;
         }
@@ -1444,16 +1462,16 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Time Frame to proceed.'
+                title: 'Sorry!',
+                text: 'Select Time Frame to Proceed.'
             });
             return false;
         } else if (_STARTEDATE.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Start Date to proceed.'
+                title: 'Sorry!',
+                text: 'Select Start Date to Proceed.'
             });
             return false;
         }
@@ -1461,8 +1479,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select End Date to proceed.'
+                title: 'Sorry!',
+                text: 'Select End Date to Proceed.'
             });
             return false;
         }
@@ -1470,8 +1488,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select WOD Count to proceed.'
+                title: 'Sorry!',
+                text: 'Select WOD Count to Proceed.'
             });
             return false;
         }
@@ -1618,7 +1636,7 @@
         <div class="row mb-4">
             <div class="col-sm-4 h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "Select", new { @id = "ddlTargetLevel", @class = "form-control" })
 
                 @*<select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>

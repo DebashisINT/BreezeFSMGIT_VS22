@@ -1111,7 +1111,7 @@ background-image: none !important;*/
         $.ajax({
             type: "POST",
             url: "@Url.Action("SaveProductTarget", "ProductTargetAddEdit")",
-            data: "{Details:" + JSON.stringify(data) + "}",
+            data: JSON.stringify({ Details: data }), // Fixed JSON formatting
             async: true,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -1122,42 +1122,47 @@ background-image: none !important;*/
                     var TargetNo = response.split('~')[2];
                     var Message = response.split('~')[3];
 
-
                     $('#hdnDetailsID').val(DetailsID);
-                    //if (s.cpBatchUpdate == "1") {
-                       // s.cpBatchUpdate = "0";
 
-                        var newDetailsID = DetailsID;
-                        if (DetailsID > 0 && TargetNo != "") {
-                            ProductionID = 0;
-                            DetailsID = 0;
-                            jAlert('Brand Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
-                                if (r) {
+                    var newDetailsID = DetailsID;
+                    if (DetailsID > 0 && TargetNo != "") {
+                        ProductionID = 0;
+                        DetailsID = 0;
 
-                                    if (savemode == "Exit") {
-                                        setTimeout(function () {
-                                            var url = $('#hdnListPage').val();
-                                            window.location.href = url;
-                                        }, 500);
-                                    }
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'Product Target Number: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (savemode === "Exit") {
+                                    setTimeout(function () {
+                                        var url = $('#hdnListPage').val();
+                                        window.location.href = url;
+                                    }, 500);
                                 }
-                            });
+                            }
+                        });
 
-                        }
-                        else {
+                    } else {
+                        DetailsID = 0;
+                        savemode = "";
 
-                            DetailsID = 0;
-                            savemode = "";
-                            jAlert('Please try again later.');
-                            return false;
-                        }
-                        Message = "";
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
 
-                   // }
-
+                        return false;
+                    }
+                    Message = "";
                 }
             }
         });
+
     }
 
     function GetServerDateFormat(today) {
@@ -1182,11 +1187,11 @@ background-image: none !important;*/
     }
 
     function OnEndCallback(s, e) {
-
         DetailsID = s.cpDetailsID;
         ProductTargetNo = s.cpSalesTargetNo;
         Message = s.cpMessage;
         $('#hdnDetailsID').val(DetailsID);
+
         if (s.cpBatchUpdate == "1") {
             s.cpBatchUpdate = "0";
 
@@ -1194,9 +1199,14 @@ background-image: none !important;*/
             if (DetailsID > 0 && ProductTargetNo != "") {
                 ProductionID = 0;
                 DetailsID = 0;
-                jAlert('Product Target Number : ' + ProductTargetNo + ' saved successfully.', 'Alert!', function (r) {
-                    if (r) {
 
+                Swal.fire({
+                    title: 'Success!',
+                    html: 'Product Target Number: <strong style="color: #007bff;">' + ProductTargetNo + '</strong> saved successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         if (savemode == "Exit") {
                             setTimeout(function () {
                                 var url = $('#hdnListPage').val();
@@ -1205,23 +1215,25 @@ background-image: none !important;*/
                         }
                     }
                 });
-
-            }
-            else {
-
+            } else {
                 DetailsID = 0;
                 savemode = "";
-                jAlert('Please try again later.');
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+
                 return false;
             }
             Message = "";
-
         }
 
         AddNewRowWithP();
-
-
     }
+
 
     function btnAdd_Click() {
         var _TimeFrame = $("#ddlTimeFrame").val();
@@ -1241,8 +1253,8 @@ background-image: none !important;*/
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Product Target Type to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Product Target Level to Proceed.'
             });
             return false;
         }
@@ -1250,8 +1262,8 @@ background-image: none !important;*/
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Product Target No to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Product Target Document No. to Proceed.'
             });
             return false;
         }
@@ -1259,8 +1271,8 @@ background-image: none !important;*/
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Target Date to Proceed.'
             });
             return false;
         }
@@ -1268,8 +1280,8 @@ background-image: none !important;*/
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Assignee Name to Proceed.'
             });
             return false;
         }
@@ -1277,16 +1289,16 @@ background-image: none !important;*/
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Time Frame to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Time Frame to Proceed.'
             });
             return false;
         } else if (_STARTEDATE.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Start Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Start Date to Proceed.'
             });
             return false;
         }
@@ -1294,8 +1306,8 @@ background-image: none !important;*/
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select End Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select End Date to Proceed.'
             });
             return false;
         }
@@ -1304,8 +1316,8 @@ background-image: none !important;*/
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Product to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Product to Proceed.'
             });
             return false;
         }
@@ -1313,8 +1325,8 @@ background-image: none !important;*/
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Order Amount to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Order Amount to Proceed.'
             });
             return false;
         }
@@ -1322,8 +1334,8 @@ background-image: none !important;*/
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Order Quantity to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Order Quantity to Proceed.'
             });
             return false;
         }
@@ -1527,7 +1539,10 @@ background-image: none !important;*/
         <div class="row mb-3">
             <div class="col-sm-4 h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+                @Html.DropDownListFor(
+                    m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "Select", 
+                    new { @id = "ddlTargetLevel", @class = "form-control" }
+                )
 
                 @*<select id="ddlTargetLevel" class="form-control">
                     <option value="Select">Select</option>

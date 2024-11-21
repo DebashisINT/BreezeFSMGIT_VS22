@@ -1055,8 +1055,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Target Level to proceed.'
             });
             return false;
         }
@@ -1064,16 +1064,16 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Sales Target No to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Document No. to proceed'
             });
             return false;
         } else if (TargetDate.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Target Date to proceed.'
             });
             return false;
         }
@@ -1091,7 +1091,7 @@
         }
 
 
-        $.ajax({
+        @*$.ajax({
             type: "POST",
             url: "@Url.Action("SaveSalesTarget", "SalesTarget")",
             data: "{Details:" + JSON.stringify(data) + "}",
@@ -1107,8 +1107,6 @@
 
 
                     $('#hdnDetailsID').val(DetailsID);
-                    //if (s.cpBatchUpdate == "1") {
-                       // s.cpBatchUpdate = "0";
 
                         var newDetailsID = DetailsID;
                         if (DetailsID > 0 && TargetNo != "") {
@@ -1140,7 +1138,64 @@
 
                 }
             }
+        });*@
+
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveSalesTarget", "SalesTarget")",
+            data: JSON.stringify({ Details: data }), // Fixed JSON formatting
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];
+                    var TargetNo = response.split('~')[2];
+                    var Message = response.split('~')[3];
+
+                    $('#hdnDetailsID').val(DetailsID);
+
+                    if (DetailsID > 0 && TargetNo != "") {
+                        ProductionID = 0;
+                        DetailsID = 0;
+
+                        Swal.fire({
+                            title: 'Success!',
+                            /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
+                            html: 'Sales Target Number: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (savemode === "Exit") {
+                                    setTimeout(function () {
+                                        var url = $('#hdnListPage').val();
+                                        window.location.href = url;
+                                    }, 500);
+                                }
+                            }
+                        });
+
+                    } else {
+                        DetailsID = 0;
+                        savemode = "";
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+
+                        return false;
+                    }
+                    Message = "";
+                }
+            }
         });
+
 
     }
 
@@ -1286,8 +1341,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Sales Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Sales Target Level to Proceed.'
             });
             return false;
         }
@@ -1295,8 +1350,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Sales Target No to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Document No. to Proceed'
             });
             return false;
         }
@@ -1304,8 +1359,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Target Date to Proceed.'
             });
             return false;
         }
@@ -1313,8 +1368,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Target Level to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Assignee Name to Proceed.'
             });
             return false;
         }
@@ -1322,16 +1377,16 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Time Frame to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Time Frame to Proceed.'
             });
             return false;
         } else if (_STARTEDATE.trim() == "") {
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select Start Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select Start Date to Proceed.'
             });
             return false;
         }
@@ -1339,8 +1394,8 @@
             // SweetAlert for empty category description
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Select End Date to proceed.'
+                title: 'Sorry!',
+                text: 'Please Select End Date to Proceed.'
             });
             return false;
         }
@@ -1349,8 +1404,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter New Visit to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter New Visit to Proceed.'
             });
             return false;
         }
@@ -1358,8 +1413,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Revisit to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Revisit to Proceed.'
             });
             return false;
         }
@@ -1367,8 +1422,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Order Amount to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Order Amount to Proceed.'
             });
             return false;
         }
@@ -1376,8 +1431,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Collection to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Collection to Proceed.'
             });
             return false;
         }
@@ -1385,8 +1440,8 @@
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning',
-                text: 'Enter Order Quantity to proceed.'
+                title: 'Sorry!',
+                text: 'Please Enter Order Quantity to Proceed.'
             });
             return false;
         }
@@ -1514,7 +1569,7 @@
 
                    /* $("#btnAdd").text("Save");*/
                     $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
-                    
+
 
                 }
             }
@@ -1587,17 +1642,23 @@
         <div class="row mb-3">
             <div class="col-sm-4  h-branch-select">
                 <label>Target Level <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.SalesTargetLevel, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })
+                @*@Html.DropDownListFor(m => m.SalesTargetLevel, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "", new { @id = "ddlTargetLevel", @class = "form-control" })*@
+                @Html.DropDownListFor(
+                    m => m.SalesTargetLevel,
+                    new SelectList(Model.LevelList, "ID", "LEVEL_NAME"),
+                    "Select", 
+                    new { @id = "ddlTargetLevel", @class = "form-control" }
+                )
 
                 @*<select id="ddlTargetLevel" class="form-control">
-                    <option value="Select">Select</option>
-                    <option value="Region">Region level</option>
-                    <option value="ASM">ASM level</option>
-                    <option value="SalesOfficer">Sales Officer level</option>
-                    <option value="Salesman">Salesman Level</option>
-                    <option value="Beat">Beat level</option>
-                    <option value="Outlet">Outlet Level</option>
-                </select>*@
+            <option value="Select">Select</option>
+            <option value="Region">Region level</option>
+            <option value="ASM">ASM level</option>
+            <option value="SalesOfficer">Sales Officer level</option>
+            <option value="Salesman">Salesman Level</option>
+            <option value="Beat">Beat level</option>
+            <option value="Outlet">Outlet Level</option>
+        </select>*@
             </div>
             <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
