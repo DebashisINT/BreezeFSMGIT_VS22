@@ -820,7 +820,7 @@ background-image: none !important;*/
 
         if (hdnSalesTargetLevel != '' && hdnDetailsID > 0) {
             $('#ddlTargetLevel').val(hdnSalesTargetLevel);
-            $('#HeaderLableID').text("Product Target -Modify");
+            //$('#HeaderLableID').text("Product Target -Modify");
             $('#ddlTargetLevel').prop('disabled', true);
             $('#ProductTargetNo').prop('disabled', true);
 
@@ -1097,7 +1097,15 @@ background-image: none !important;*/
             });
             return false;
         }
-
+        var noofvisiblerows = gridProductTargetEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Add One Target For to proceed.'
+            });
+            return false;
+        }
         var hdnDetailsID = $('#hdnDetailsID').val();
 
         var data = {
@@ -1472,17 +1480,20 @@ background-image: none !important;*/
     }
 
     function DeleteLevelData(values) {
-        $.ajax({
-            type: "POST",
-            url: "../ProductTargetAddEdit/DeleteLevelData",
-            data: { HiddenID: values },
-            success: function (response) {
-                if (response != null) {
-                    gridProductTargetEntryList.Refresh();
-                    gridProductTargetEntryList.Refresh();
+        var noofvisiblerows = gridProductTargetEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            $.ajax({
+                type: "POST",
+                url: "../ProductTargetAddEdit/DeleteLevelData",
+                data: { HiddenID: values },
+                success: function (response) {
+                    if (response != null) {
+                        gridProductTargetEntryList.Refresh();
+                        gridProductTargetEntryList.Refresh();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     function TimeFrameChange() {
@@ -1531,7 +1542,7 @@ background-image: none !important;*/
 </script>
 
 <div class="breadCumb">
-    <span>Product Target -Add </span>
+    <span>Product Target</span>
     <div id="ApprovalCross" onclick="CancelProductTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
