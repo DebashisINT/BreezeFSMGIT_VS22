@@ -1635,7 +1635,7 @@
     <div class="form_main backBox p-3 mb-3">
         <div class="row mb-4">
             <div class="col-sm-4 h-branch-select">
-                <label>Target Level <span style="color:red">*</span></label>
+                <label>Employee Group <span style="color:red">*</span></label>
                 @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "Select", new { @id = "ddlTargetLevel", @class = "form-control" })
 
                 @*<select id="ddlTargetLevel" class="form-control">
@@ -1679,7 +1679,7 @@
     <div class="form_main backBox p-3">
         <div class="row mb-4">
             <div class=" col-sm-2">
-                <label>Assignee Name<span style="color:red">*</span></label>
+                <label>Target For<span style="color:red">*</span></label>
                 @Html.DevExpress().ButtonEdit(
                 settings =>
                 {
