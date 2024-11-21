@@ -848,7 +848,12 @@ background-image: none !important;*/
                 success: function (msg) {
                     CheckUniqueCode = msg;
                     if (CheckUniqueCode == 1) {
-                        jAlert('Please enter unique No.');
+                        // jAlert('Please enter unique No.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please enter unique Document No to proceed.'
+                        });
                         $('#ProductTargetNo').val("");
                         $('#ProductTargetNo').Focus();
                     }
