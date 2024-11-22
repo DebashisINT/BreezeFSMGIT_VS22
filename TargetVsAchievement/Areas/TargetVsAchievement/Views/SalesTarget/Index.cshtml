@@ -5,7 +5,7 @@
 
 @model TargetVsAchievement.Models.SalesTargetModel
 @{
-    ViewBag.Title = "Sales Target -Add";
+    ViewBag.Title = "Sales Target";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -1465,51 +1465,55 @@
             return false;
         }
 
-        else if (parseFloat(_NEWVISIT) == 0) {
+        else if (parseFloat(_NEWVISIT) == 0 && parseFloat(_REVISIT) == 0 && parseFloat(_ORDERAMOUNT) == 0 && parseFloat(_COLLECTION) == 0 && parseFloat(_ORDERQTY) == 0) {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Please Enter New Visit to Proceed.'
+                text: 'Please Enter at least one value Out of New Visit, Revisit, Order Amount, Collection Amount, Order Quantity to Proceed.'
             });
             return false;
         }
-        else if (parseFloat(_REVISIT) == 0) {
-            // SweetAlert for empty category name
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please Enter Revisit to Proceed.'
-            });
-            return false;
-        }
-        else if (parseFloat(_ORDERAMOUNT) == 0) {
-            // SweetAlert for empty category name
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please Enter Order Amount to Proceed.'
-            });
-            return false;
-        }
-        else if (parseFloat(_COLLECTION) == 0) {
-            // SweetAlert for empty category name
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please Enter Collection to Proceed.'
-            });
-            return false;
-        }
-        else if (parseFloat(_ORDERQTY) == 0) {
-            // SweetAlert for empty category name
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please Enter Order Quantity to Proceed.'
-            });
-            return false;
-        }
+        //else if (parseFloat(_REVISIT) == 0) {
+        //    // SweetAlert for empty category name
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Sorry!',
+        //        text: 'Please Enter Revisit to Proceed.'
+        //    });
+        //    return false;
+        //}
+        //else if (parseFloat(_ORDERAMOUNT) == 0) {
+        //    // SweetAlert for empty category name
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Sorry!',
+        //        text: 'Please Enter Order Amount to Proceed.'
+        //    });
+        //    return false;
+        //}
+        //else if (parseFloat(_COLLECTION) == 0) {
+        //    // SweetAlert for empty category name
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Sorry!',
+        //        text: 'Please Enter Collection to Proceed.'
+        //    });
+        //    return false;
+        //}
+        //else if (parseFloat(_ORDERQTY) == 0) {
+        //    // SweetAlert for empty category name
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Sorry!',
+        //        text: 'Please Enter Order Quantity to Proceed.'
+        //    });
+        //    return false;
+        //}
+
+
+
+
 
         var TARGETLEVELID = $("#hdnTARGETLEVELID").val();
         var TARGET_LEVEL = btnTARGETLEVEL.GetValue();

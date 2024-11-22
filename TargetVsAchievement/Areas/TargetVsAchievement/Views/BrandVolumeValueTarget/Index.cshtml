@@ -1325,24 +1325,24 @@
             });
             return false;
         }
-        else if (parseFloat(_ORDERAMOUNT) == 0) {
+        else if (parseFloat(_ORDERAMOUNT) == 0 && parseFloat(_ORDERQTY) == 0) {
             // SweetAlert for empty category name
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Please Enter Order Amount to Proceed.'
+                text: 'Please Enter at least one value Out Order Amount,Order Quantity to Proceed.'
             });
             return false;
         }
-        else if (parseFloat(_ORDERQTY) == 0) {
-            // SweetAlert for empty category name
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please Enter Order Quantity to Proceed.'
-            });
-            return false;
-        }
+        //else if (parseFloat(_ORDERQTY) == 0) {
+        //    // SweetAlert for empty category name
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Sorry!',
+        //        text: 'Please Enter Order Quantity to Proceed.'
+        //    });
+        //    return false;
+        //}
 
         //*************************************************
 
