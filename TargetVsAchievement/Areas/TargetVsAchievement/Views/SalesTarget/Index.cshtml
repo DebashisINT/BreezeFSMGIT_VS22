@@ -1657,7 +1657,7 @@
         //const frequency = document.getElementById("frequency").value;
         //const endDateInput = document.getElementById("endDate");
 
-        if (_STARTEDATE && _TimeFrame != "Select") {
+        if (_STARTEDATE !="" &&  _TimeFrame != "Select" ){
             const startDate = new Date(_STARTEDATE);
             let endDate;
 
@@ -1666,15 +1666,18 @@
             } else if (_TimeFrame === "Yearly") {
                 endDate = new Date(startDate.setFullYear(startDate.getFullYear() + 1));
             }
-
-
-            var dateE = new Date(endDate.toISOString().split("T")[0]); // Month is 0-based, so 10 represents November
-            ENDDATE.SetDate(dateE);
+            else {
+                if (ENDDATE.GetDate()) {
+                    if (STARTEDATE.GetDate() > ENDDATE.GetDate()) {
+                        STARTEDATE.SetValue(ENDDATE.GetDate());
+                    }
+                }
+            }
 
         } else {
             if (ENDDATE.GetDate()) {
-                if (ENDDATE.GetDate() < STARTEDATE.GetDate()) {
-                    ENDDATE.SetValue(STARTEDATE.GetDate());
+                if (STARTEDATE.GetDate() > ENDDATE.GetDate()) {
+                    STARTEDATE.SetValue(ENDDATE.GetDate());
                 }
             }
         }
@@ -1824,7 +1827,7 @@
                 </div>
             </div>
             <div class=" col-sm-2 mb-3">
-                <label>New Visit<span style="color:red">*</span></label>
+                <label>New Visit</label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.NEWVISIT,
                      settings =>
@@ -1839,7 +1842,7 @@
                 </div>
             </div>
             <div class=" col-sm-2 mb-3">
-                <label>Revisit<span style="color:red">*</span></label>
+                <label>Revisit</label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.REVISIT,
                      settings =>
@@ -1854,7 +1857,7 @@
                 </div>
             </div>
             <div class=" col-sm-2 mb-3">
-                <label>Order Amount<span style="color:red">*</span></label>
+                <label>Order Amount</label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.ORDERAMOUNT,
                      settings =>
@@ -1869,7 +1872,7 @@
                 </div>
             </div>
             <div class=" col-sm-2 mb-3">
-                <label>Collection Amount<span style="color:red">*</span></label>
+                <label>Collection Amount</label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.COLLECTION,
                      settings =>
@@ -1884,7 +1887,7 @@
                 </div>
             </div>
             <div class=" col-sm-2 mb-3">
-                <label>Order Quantity<span style="color:red">*</span></label>
+                <label>Order Quantity</label>
                 <div class="relative">
                     @Html.DevExpress().TextBoxFor(m => m.ORDERQTY,
                      settings =>

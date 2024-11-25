@@ -1587,14 +1587,9 @@
         var _ENDDATE = ENDDATE.GetValue();
         var _TimeFrame = $("#ddlTimeFrame").val();
 
-        //document.getElementById("startDate").addEventListener("change", updateEndDate);
-        //document.getElementById("frequency").addEventListener("change", updateEndDate);
+        
 
-        //const startDateInput = document.getElementById("startDate").value;
-        //const frequency = document.getElementById("frequency").value;
-        //const endDateInput = document.getElementById("endDate");
-
-        if (_STARTEDATE && _TimeFrame!="Select") {
+        if (_STARTEDATE != "" && _TimeFrame!="Select") {
             const startDate = new Date(_STARTEDATE);
             let endDate;
 
@@ -1603,15 +1598,18 @@
             } else if (_TimeFrame === "Yearly") {
                 endDate = new Date(startDate.setFullYear(startDate.getFullYear() + 1));
             }
-
-
-            var dateE = new Date(endDate.toISOString().split("T")[0]); // Month is 0-based, so 10 represents November
-            ENDDATE.SetDate(dateE);
+            else {
+                if (ENDDATE.GetDate()) {
+                    if (STARTEDATE.GetDate() > ENDDATE.GetDate()) {
+                        STARTEDATE.SetValue(ENDDATE.GetDate());
+                    }
+                }
+            }
 
         } else {
             if (ENDDATE.GetDate()) {
-                if (ENDDATE.GetDate() < STARTEDATE.GetDate()) {
-                    ENDDATE.SetValue(STARTEDATE.GetDate());
+                if (STARTEDATE.GetDate() > ENDDATE.GetDate()) {
+                    STARTEDATE.SetValue(ENDDATE.GetDate());
                 }
             }
         }
