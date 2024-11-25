@@ -1512,8 +1512,12 @@ background-image: none !important;*/
 
             if (_TimeFrame === "Monthly") {
                 endDate = new Date(startDate.setMonth(startDate.getMonth() + 1));
+                  var dateE = new Date(endDate.toISOString().split("T")[0]); // Month is 0-based, so 10 represents November
+            ENDDATE.SetDate(dateE);
             } else if (_TimeFrame === "Yearly") {
                 endDate = new Date(startDate.setFullYear(startDate.getFullYear() + 1));
+                  var dateE = new Date(endDate.toISOString().split("T")[0]); // Month is 0-based, so 10 represents November
+            ENDDATE.SetDate(dateE);
             }
             else {
                 if (ENDDATE.GetDate()) {
