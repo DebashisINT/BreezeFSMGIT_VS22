@@ -11,7 +11,7 @@
     settings.CallbackRouteValues = new { Action = "_PartialTargetSetUpListing", Controller = "TargetSetUp" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
-    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+   // settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
     settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
     settings.SettingsSearchPanel.Visible = true;
     settings.Settings.ShowFilterRow = true;
@@ -62,10 +62,10 @@
                         x.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
                         visibleindex = visibleindex + 1;
                         //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-                        x.Width = 200;
+                        x.Width = 150;
                     }
-
-                    if (column.DataType.FullName == "System.Decimal")
+                    
+                    if (column.DataType.FullName == "System.Decimal" || column.DataType.FullName == "System.Int32" || column.DataType.FullName == "System.Int64")
                     {
                         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
                         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
