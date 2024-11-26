@@ -30,7 +30,7 @@
  * 18.0               03-09-2024       V2.0.48           Priti            0027684: Create a new user setting as ShowClearQuiz
  * 19.0               24-09-2024       V2.0.49           Sanchita         0027705: A new Global and user wise settings required as IsAllowProductCurrentStockUpdateFromApp    
  * 20.0               27-09-2024       V2.0.49           Priti            0027714: Default value of the below user settings shall be changed as false .
-
+ * 21.0               26-11-2024       v2.0.49           Sanchita         27793: A new user settings required as ShowTargetOnApp     
  *********************************************************************************************************************************/
 using System;
 using System.Data;
@@ -2600,6 +2600,16 @@ namespace ERP.OMS.Management.Master
                     chkIsAllowProductCurrentStockUpdateFromApp.Checked = false;
                 }
                 // End of Rev 19.0
+                // Rev 21.0
+                if (Convert.ToBoolean(dsUserDetail.Tables[0].Rows[0]["ShowTargetOnApp"]) == true)
+                {
+                    chkShowTargetOnApp.Checked = true;
+                }
+                else
+                {
+                    chkShowTargetOnApp.Checked = false;
+                }
+                // End of Rev 21.0
 
                 hdnPartyType.Value = dsUserDetail.Tables[1].Rows[0]["Shop_TypeId"].ToString();
 
@@ -3054,6 +3064,9 @@ namespace ERP.OMS.Management.Master
                 // Rev 19.0
                 int IsAllowProductCurrentStockUpdateFromApp = 0;
                 // End of Rev 19.0
+                // Rev 21.0
+                int ShowTargetOnApp = 0;
+                // End of Rev 21.0
 
 
                 if (chkIsActive.Checked == true)
@@ -4606,6 +4619,12 @@ namespace ERP.OMS.Management.Master
                 else
                     IsAllowProductCurrentStockUpdateFromApp = 0;
                 // End of Rev 19.0
+                // Rev 21.0
+                if (chkShowTargetOnApp.Checked == true)
+                    ShowTargetOnApp = 1;
+                else
+                    ShowTargetOnApp = 0;
+                // End of Rev 21.0
 
                 String PartyType = hdnPartyType.Value.ToString();
                 //Rev work start 26.04.2022 Mantise ID:0024856: Copy feature add in User master
@@ -4999,6 +5018,9 @@ namespace ERP.OMS.Management.Master
                             // Rev 19.0
                             proc.AddPara("@IsAllowProductCurrentStockUpdateFromApp", IsAllowProductCurrentStockUpdateFromApp);
                             // End of Rev 19.0
+                            // Rev 21.0
+                            proc.AddPara("@ShowTargetOnApp", ShowTargetOnApp);
+                            // End of Rev 21.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5470,6 +5492,9 @@ namespace ERP.OMS.Management.Master
                             // Rev 19.0
                             proc.AddPara("@IsAllowProductCurrentStockUpdateFromApp", IsAllowProductCurrentStockUpdateFromApp);
                             // End of Rev 19.0
+                            // Rev 21.0
+                            proc.AddPara("@ShowTargetOnApp", ShowTargetOnApp);
+                            // End of Rev 21.0
 
                             DataTable dt = proc.GetTable();
 
@@ -5936,6 +5961,9 @@ namespace ERP.OMS.Management.Master
                             // Rev 19.0
                             proc.AddPara("@IsAllowProductCurrentStockUpdateFromApp", IsAllowProductCurrentStockUpdateFromApp);
                             // End of Rev 19.0
+                            // Rev 21.0
+                            proc.AddPara("@ShowTargetOnApp", ShowTargetOnApp);
+                            // End of Rev 21.0
 
                             DataTable dt = proc.GetTable();
 
@@ -8171,7 +8199,7 @@ namespace ERP.OMS.Management.Master
                         }
                     }
                     // End of Rev 19.0
-
+                    
 
                 }
             }

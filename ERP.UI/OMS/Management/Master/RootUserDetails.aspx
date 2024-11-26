@@ -33,7 +33,8 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
 20.0                29-08-2024      V2.0.48            Sanchita           27648: Global and User wise settings isRecordAudioEnableForVisitRevisit shall be available 
                                                                           in both System settings page and in User master. 
 21.0                03-09-2024      V2.0.48            Priti              	0027684: Create a new user setting as ShowClearQuiz
-22.0                24-09-2024      V2.0.49            Sanchita           0027705: A new Global and user wise settings required as IsAllowProductCurrentStockUpdateFromApp   
+22.0                24-09-2024      V2.0.49            Sanchita           0027705: A new Global and user wise settings required as IsAllowProductCurrentStockUpdateFromApp  
+23.0                26-11-2024      V2.0.49            Sanchita           0027793: A new user settings required as ShowTargetOnApp
 ====================================================== Revision History ================================================================--%>
 
 <%@ Page Title="Users" Language="C#" AutoEventWireup="true" MasterPageFile="~/OMS/MasterPage/ERP.Master" EnableEventValidation="false"
@@ -4392,6 +4393,19 @@ Rev Number         DATE              VERSION          DEVELOPER           CHANGE
                                             </table>
                                         </td>
                                         <%--End of Rev 22.0--%>
+                                        <%-- Rev 23.0--%>
+                                        <td id="divShowTargetOnApp" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <dxe:ASPxCheckBox ID="chkShowTargetOnApp" runat="server" Text="">
+                                                        </dxe:ASPxCheckBox>
+                                                    </td>
+                                                    <td>Show Target On App ?</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <%--End of Rev 23.0--%>
                                     </tr>
                                 </table>
                             </div>
