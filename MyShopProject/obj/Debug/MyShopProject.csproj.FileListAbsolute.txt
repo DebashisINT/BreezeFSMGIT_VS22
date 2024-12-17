@@ -532,5 +532,4 @@ D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.xml
-D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Newtonsoft.Json.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.xml
