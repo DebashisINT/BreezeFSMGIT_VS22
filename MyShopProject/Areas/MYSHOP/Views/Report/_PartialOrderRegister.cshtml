@@ -182,7 +182,7 @@
         // Rev 3.0
         if (ViewBag.RetentionColumn != null)
         {
-            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='ADDRESS'");
+            System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='STATENAME'");
             if (row != null && row.Length > 0)  /// Check now
             {
                 x.Visible = false;

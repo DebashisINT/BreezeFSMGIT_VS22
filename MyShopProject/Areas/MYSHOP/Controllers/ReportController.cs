@@ -3,6 +3,8 @@
 //2.0  04-04-2024   V2 .0.46   Sanchita  0027345: Two checkbox required in parameter for Order register report.
 //3.0  08-07-2024   V2 .0.48   Priti     0027407: "Party Status" - needs to add in the following reports.
 //4.0  29/05/2024   V2.0.47    Sanchita  0027405: Colum Chooser Option needs to add for the following Modules
+//5.0  23/12/2024   V2.0.50    Priti     0027721: Some column needs to insert in Sales Order Register*@
+
 //====================================================== Revision History ==========================================================
 using System;
 using System.Collections.Generic;
@@ -494,7 +496,31 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 // End of Rev 4.0
             });
-
+            //REV 5.0 
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "STATENAME";
+                x.Caption = "State";
+               
+                x.Width = 300;                
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='STATENAME'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                }              
+            });
+            //REV 5.0 END
             settings.Columns.Add(column =>
             {
                 column.Caption = "Address";
@@ -595,6 +621,32 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 // End of Rev 4.0
             });
             //REV 3.0 End
+            //Rev 5.0
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "PPCODE";
+                x.Caption = "PP Code";
+                
+                x.Width = 100;               
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='PPCODE'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                }               
+            });
+            //Rev 5.0 End
+
             settings.Columns.Add(column =>
             {
                 column.Caption = "PP Name";
@@ -619,7 +671,32 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 // End of Rev 4.0
             });
-
+            //Rev 5.0
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "DDCODE";
+                x.Caption = "DD Code";
+                
+                x.Width = 100;               
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='DDCODE'");
+                    if (row != null && row.Length > 0)  /// Check now
+                    {
+                        x.Visible = false;
+                    }
+                    else
+                    {
+                        x.Visible = true;
+                    }
+                }
+                else
+                {
+                    x.Visible = true;
+                }
+               
+            });
+            //Rev 5.0 End
             settings.Columns.Add(column =>
             {
                 column.Caption = "DD Name";
