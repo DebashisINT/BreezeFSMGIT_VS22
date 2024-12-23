@@ -533,3 +533,14 @@ D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.pdb
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.xml
 D:\GIT\GitHub\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.dll
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Auth.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.pdb
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\Google.Apis.Core.xml
+D:\PROJECTS\BreezeFSMGIT_VS22\MyShopProject\bin\System.CodeDom.xml

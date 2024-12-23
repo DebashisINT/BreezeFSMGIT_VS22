@@ -3,8 +3,9 @@
 //2.0  04-04-2024   V2 .0.46   Sanchita  0027345: Two checkbox required in parameter for Order register report.
 //3.0  08-07-2024   V2 .0.48   Priti     0027407: "Party Status" - needs to add in the following reports.
 //4.0  29/05/2024   V2.0.47    Sanchita  0027405: Colum Chooser Option needs to add for the following Modules
-//5.0  23/12/2024   V2.0.50    Priti     0027721: Some column needs to insert in Sales Order Register*@
-
+//5.0  23/12/2024   V2.0.50    Priti     0027721: Some column needs to insert in Sales Order Register
+//6.0  23/12/2024   V2.0.50    Debashis  0027850: A new column is required "Beat Name" against the Party where Beat name shall be
+//                                       showing as per party is mapped with the Beat.
 //====================================================== Revision History ==========================================================
 using System;
 using System.Collections.Generic;
@@ -595,6 +596,30 @@ namespace MyShop.Areas.MYSHOP.Controllers
                 }
                 // End of Rev 4.0
             });
+            //Rev 6.0
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Group/Beat Name";
+                column.FieldName = "GROUPBEATNAME";
+
+                if (ViewBag.RetentionColumn != null)
+                {
+                    System.Data.DataRow[] row = ViewBag.RetentionColumn.Select("ColumnName='GROUPBEATNAME'");
+                    if (row != null && row.Length > 0)
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+                else
+                {
+                    column.Visible = true;
+                }
+            });
+            //End of Rev 6.0
             //REV 3.0
             settings.Columns.Add(column =>
             {
