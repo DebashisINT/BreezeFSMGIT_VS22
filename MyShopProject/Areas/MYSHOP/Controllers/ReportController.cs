@@ -774,7 +774,7 @@ namespace MyShop.Areas.MYSHOP.Controllers
 
             settings.Columns.Add(column =>
             {
-                column.Caption = "Order No";
+                column.Caption = "Order Number";
                 column.FieldName = "ORDRNO";
 
                 // Rev 4.0
